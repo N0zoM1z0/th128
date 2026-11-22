@@ -122,7 +122,11 @@ def validate() -> dict[str, int]:
         address = int(row["address"], 0)
         function = functions_by_address[address]
         archive_exact = address in archive_exact_addresses and function["status"] == "exact"
-        if not archive_exact and (row["disposition"] == "exclude") != (function["status"] == "excluded"):
+        # Origin and codegen are independent facts: a non-authored owner (for
+        # example a compiler-generated deleting destructor) may still be exact.
+        excluded_exact = (function["status"] == "exact" and row["disposition"] == "exclude"
+                          and row["origin"] in {"compiler", "compiler_generated", "library", "third_party"})
+        if not (archive_exact or excluded_exact) and (row["disposition"] == "exclude") != (function["status"] == "excluded"):
             raise ValueError(f"exclusion state differs from function inventory at {row['address']}")
         if row["disposition"] == "indeterminate":
             if (row["origin"] != "unknown" or row["confidence"] != "unknown"

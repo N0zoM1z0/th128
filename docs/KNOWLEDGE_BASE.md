@@ -54,6 +54,30 @@ Facts here are TH128-local unless marked as a hypothesis.
   PE link with MAP and PDB, Capstone-decoded linked extent) passes on Wine 9.0
   with the TH11 Oracle scripts ported to VC10.
 
+## Origin review
+
+All 1,378 candidates left after the archive scan were reviewed from TH128
+bytes, call graph, globals, strings and vtables (`.analysis/origin-review/`
+holds the private evidence). Results:
+
+| Evidence id | Rows | Reading |
+| --- | ---: | --- |
+| `game-band-origin-sweep` | 1,177 | Authored game code. High with game callers/callees, globals, strings or a game vtable slot; medium for unreferenced copies |
+| `crt-tail-archive-multihit` | 63 | CRT code whose masked bytes match several archive placements or have too few fixed bytes for the strict scan |
+| `vc10-eh-funclet-review` | 57 | Unwind funclets after the CRT |
+| `vc10-stl-header-instantiation` | 16 | `std::string` and allocator code from VC10 headers (`library`) |
+| `vc10-special-member-review` | 14 | Scalar deleting destructors (`compiler_generated`) |
+| `vc10-math-wrapper-review` | 12 | Out-of-line float `math.h` wrappers (`cosf`, `sinf`, `sqrtf`, ...) |
+| `crt-tail-archive-extent-review` | 3 | Archive matches whose Ghidra extent overruns (`_floor`, `__CIatan2`, inside `__cos_default`) |
+| `vc10-import-thunk-review`, `vc10-dynamic-init-tail-review` | 2 | `RtlUnwind` stub; one atexit-registering initializer |
+| `d3dx-header-candidate-review` | 21 | **Open:** bodies identical to `d3dx9math.inl` vector helpers; a game vector type would compile the same |
+| `ltcg-entry-adapter-review` | 13 | **Open:** 10-byte `PUSH r; MOV r, ECX; CALL body; RET` callback entries; authored static callbacks or linker-made adapters |
+
+Six tiny game vtable slots (`0x004144A0`, `0x004144B0`, `0x004144D0`,
+`0x00414680`, `0x00429A00`, `0x00450FD0`) also match tiny library bodies by
+chance and stay authored. The two open groups can be settled by cold VC10
+compiles (the D3DX one needs the DirectX SDK headers).
+
 ## Ported infrastructure
 
 The Oracle, receipt, LTCG-link and Ghidra scripts come from the TH11

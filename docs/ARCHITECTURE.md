@@ -12,13 +12,21 @@ inventory. Subsystem names are provisional until their owners are reviewed.
 | `.data` | `0x004B0000..0x004DCD87` | 183,688 bytes virtual, 31,744 bytes raw |
 | `.rsrc` | `0x004DD000..0x004DE53F` | 5,440 bytes |
 
-The game code occupies `.text` from `0x00401000` to about `0x004725A3`
-(1,255 inventory candidates, about 408 KB). The first function matched to the
-VC10 static CRT archives is at `0x004725A4`; 841 candidates from there to
-`0x004991F0` are pinned `libcmt.lib`/`libcpmt.lib` code. The 125 unclassified
-candidates in that tail are expected to be CRT variants, compiler helpers and
-library stubs that the archive scan could not place uniquely; they need
-individual review.
+The game code occupies `.text` from `0x00401000` to about `0x004708BB`.
+After it come the `DirectInput8Create` import stub (`0x004708BC`), about
+6.7 KB of DirectInput data-format tables (`0x004708D0..0x0047230F`, most
+likely the four VC9 SP1 objects in the Rich header, from `dinput8.lib`) and
+110 import stubs (`0x00472310..0x004725A3`). The static CRT starts at
+`0x004725A4`. The end of `.text` holds 57 exception-unwind funclets
+(`0x00499040..0x00499940`), static initializers (`0x004999B0..0x00499B30`)
+and atexit destructors (`0x00499B40..0x00499C14`).
+
+A `std::string` instantiation cluster from the VC10 headers sits at
+`0x00452D50..0x004534EA` inside the game band.
+
+The initial inventory is far from complete in the game band: 977
+uninventoried code spans (29.3 KB) remain, for example `0x00401000`,
+`0x004010A0`, `0x00402B30`, `0x004091A0` and `0x00407320`.
 
 ## Runtime dependencies
 
