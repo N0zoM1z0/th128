@@ -91,7 +91,21 @@ entries the origin review left open: `0x0044F5E0` is a `thiscall`
 destructor whose whole body is a call to the archive `Close` (`0x0044F730`,
 private `ESI` receiver), with its address passed to an array destructor
 iterator. These look like authored one-line wrappers around private-
-convention bodies rather than linker artifacts.
+convention bodies rather than linker artifacts; `~Archive` reproduces
+exactly that way.
+
+`Archive::Close` (`0x0044F730`) is exact with two source facts worth reusing:
+
+- **Include `<new>`.** Without a declaration of `operator delete[]`, VC10
+  lowers `delete[]` to scalar `operator delete` (`??3`); the original calls
+  `??_V` (`0x00473A61`). The same applies to `new[]` (`??_U`, `0x004725A4`).
+- **The release logger is not LTCG.** `DebugPrint` (`0x0044FD30`) is an empty
+  varargs function; under `/GL` the compiler drops the constant format
+  argument at call sites, while the original still pushes it. Building the
+  logger as normal COFF reproduces the calls.
+- Null stores follow the original statement order: `name` is cleared both
+  inside and after its free, `entries = NULL` after the `delete[]` block, and
+  `file = NULL; count = 0;` last.
 
 ## Ported infrastructure
 

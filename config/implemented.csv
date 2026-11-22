@@ -4,6 +4,9 @@ AnmVmSetScale2
 AnmVmSetScaleX
 AnmVmSetScaleY
 AnmVmSetUvScroll
+DebugPrint
+Pbg::Archive::Close
+Pbg::Archive::~Archive
 Pbg::ArchiveEntry::~ArchiveEntry
 Pbg::File::Close
 Pbg::File::GetSize

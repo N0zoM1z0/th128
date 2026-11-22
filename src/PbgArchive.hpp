@@ -1,5 +1,7 @@
 #pragma once
 
+#include "PbgFile.hpp"
+
 namespace Pbg
 {
 // One 16-byte archive directory entry. The directory is allocated with
@@ -13,5 +15,18 @@ struct ArchiveEntry
 
     ArchiveEntry();
     ~ArchiveEntry();
+};
+
+// A THA1 archive opened from disk: directory, entry count, archive name and
+// the underlying stream.
+struct Archive
+{
+    ArchiveEntry *entries;
+    int count;
+    char *name;
+    IFile *file;
+
+    ~Archive();
+    void Close();
 };
 }

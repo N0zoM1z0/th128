@@ -509,8 +509,9 @@ linkages = [
 [units.pbg-archive-entry-destructor]
 artifact_kind = "linked-pe"
 source = "src/PbgArchive.cpp"
-inputs = ["src/PbgArchive.hpp"]
-support_sources = ["probes/pbg-archive-context.cpp"]
+inputs = ["src/PbgArchive.hpp", "src/PbgFile.hpp", "src/DebugLog.hpp"]
+support_sources = ["probes/pbg-archive-context.cpp", "src/DebugLog.cpp"]
+normal_support_sources = ["src/DebugLog.cpp"]
 output_dir = "build/match-linked/PbgArchive"
 profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/EHsc", "/GL"]
 entry = "PbgArchiveProbe@12"
@@ -521,3 +522,54 @@ size = 26
 linkages = [
   { offset = 11, type = "REL32", symbol = "_free", target = 0x0047290C },
 ]
+
+[units.pbg-archive-close]
+artifact_kind = "linked-pe"
+source = "src/PbgArchive.cpp"
+inputs = ["src/PbgArchive.hpp", "src/PbgFile.hpp", "src/DebugLog.hpp"]
+support_sources = ["probes/pbg-archive-context.cpp", "src/DebugLog.cpp"]
+normal_support_sources = ["src/DebugLog.cpp"]
+output_dir = "build/match-linked/PbgArchive"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/EHsc", "/GL"]
+entry = "PbgArchiveProbe@12"
+functions = ["Pbg::Archive::Close"]
+symbol = "?Close@Archive@Pbg@@QAEXXZ"
+target_address = 0x0044F730
+size = 109
+linkages = [
+  { offset = 12, type = "DIR32", symbol = "??_C@_0BK@EBAFFKPC@info?5?3?5?$CFs?5close?5arcfile?$AN?6?$AA@", target = 0x004A4750 },
+  { offset = 17, type = "REL32", symbol = "?DebugPrint@@YAXPBDZZ", target = 0x0044FD30 },
+  { offset = 33, type = "REL32", symbol = "_free", target = 0x0047290C },
+  { offset = 60, type = "DIR32", symbol = "??1ArchiveEntry@Pbg@@QAE@XZ", target = 0x0044FCB0 },
+  { offset = 69, type = "REL32", symbol = "??_M@YGXPAXIHP6EX0@Z@Z", target = 0x00472ECD },
+  { offset = 75, type = "REL32", symbol = "??_V@YAXPAX@Z", target = 0x00473A61 },
+]
+
+[units.pbg-archive-destructor]
+artifact_kind = "linked-pe"
+source = "src/PbgArchive.cpp"
+inputs = ["src/PbgArchive.hpp", "src/PbgFile.hpp", "src/DebugLog.hpp"]
+support_sources = ["probes/pbg-archive-context.cpp", "src/DebugLog.cpp"]
+normal_support_sources = ["src/DebugLog.cpp"]
+output_dir = "build/match-linked/PbgArchive"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/EHsc", "/GL"]
+entry = "PbgArchiveProbe@12"
+functions = ["Pbg::Archive::~Archive"]
+symbol = "??1Archive@Pbg@@QAE@XZ"
+target_address = 0x0044F5E0
+size = 10
+linkages = [
+  { offset = 4, type = "REL32", symbol = "?Close@Archive@Pbg@@QAEXXZ", target = 0x0044F730 },
+]
+
+[units.debug-print]
+artifact_kind = "coff"
+source = "src/DebugLog.cpp"
+inputs = ["src/DebugLog.hpp"]
+object = "build/match/DebugLog.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["DebugPrint"]
+symbol = "?DebugPrint@@YAXPBDZZ"
+target_address = 0x0044FD30
+size = 1
+relocations = []
