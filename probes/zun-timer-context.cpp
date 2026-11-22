@@ -1,8 +1,14 @@
 // Non-runnable compiler context. Independent calls keep the inputs unknown
-// while VC10 chooses its private interprocedural calling convention.
+// while VC10 chooses its private interprocedural calling conventions.
 #include "../src/ZunTimer.hpp"
+
+static int CompareAll(const ZunTimer *a, int x, const ZunTimer *b, int y)
+{
+    return (*a < x) + (*b < y) + (*a <= x) + (*b <= y) + (*a >= x) + (*b >= y)
+        + (*a == x) + (*b == y) + (*a > x) + (*b > y);
+}
 
 extern "C" int __stdcall ZunTimerProbe(ZunTimer *a, int x, ZunTimer *b, int y)
 {
-    return ZunTimerModulo(a, x) + ZunTimerModulo(b, y);
+    return ZunTimerModulo(a, x) + ZunTimerModulo(b, y) + CompareAll(a, x, b, y);
 }

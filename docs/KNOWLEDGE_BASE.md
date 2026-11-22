@@ -84,8 +84,11 @@ link moves the first pointer argument into `EAX` and keeps callee cleanup,
 reproducing the target exactly. The probe in `probes/zun-timer-context.cpp`
 calls it twice with independent inputs so the convention is not anchored to
 one caller. Expect the same `__stdcall` reading for the many small
-`EAX`-receiver `RET n` leaves. Leaves with an `ECX` receiver (for example
-`0x00402C40`, `0x00407130`) look like ordinary `__thiscall` members.
+`EAX`-receiver `RET n` leaves. The five `ECX`-receiver timer comparisons (`<` `0x00402C40`, `<=`
+`0x00407130`, `>=` `0x004073B0`, `==` `0x00407E70`, `>` `0x00410CD0`) are
+ordinary out-of-line `bool` `__thiscall` members: VC10 keeps `ECX`, emits
+`XOR EAX, EAX; CMP; SETcc AL` and `RET 4`. They are separate functions rather
+than one folded body, consistent with distinct operators.
 
 The ZunTimer field names beyond +4 come from adjacent games and remain a
 hypothesis.

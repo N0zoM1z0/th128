@@ -1,2 +1,7 @@
 SetTimeScale
+ZunTimer::operator<
+ZunTimer::operator<=
+ZunTimer::operator==
+ZunTimer::operator>
+ZunTimer::operator>=
 ZunTimerModulo

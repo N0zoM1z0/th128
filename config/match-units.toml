@@ -33,3 +33,73 @@ symbol = "?ZunTimerModulo@@YGHPAUZunTimer@@H@Z"
 target_address = 0x00402B20
 size = 16
 linkages = []
+
+[units.zun-timer-less]
+artifact_kind = "linked-pe"
+source = "src/ZunTimer.cpp"
+inputs = ["src/ZunTimer.hpp"]
+support_sources = ["probes/zun-timer-context.cpp"]
+output_dir = "build/match-linked/ZunTimer"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ZunTimerProbe@16"
+functions = ["ZunTimer::operator<"]
+symbol = "??MZunTimer@@QBE_NH@Z"
+target_address = 0x00402C40
+size = 18
+linkages = []
+
+[units.zun-timer-less-equal]
+artifact_kind = "linked-pe"
+source = "src/ZunTimer.cpp"
+inputs = ["src/ZunTimer.hpp"]
+support_sources = ["probes/zun-timer-context.cpp"]
+output_dir = "build/match-linked/ZunTimer"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ZunTimerProbe@16"
+functions = ["ZunTimer::operator<="]
+symbol = "??NZunTimer@@QBE_NH@Z"
+target_address = 0x00407130
+size = 18
+linkages = []
+
+[units.zun-timer-greater-equal]
+artifact_kind = "linked-pe"
+source = "src/ZunTimer.cpp"
+inputs = ["src/ZunTimer.hpp"]
+support_sources = ["probes/zun-timer-context.cpp"]
+output_dir = "build/match-linked/ZunTimer"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ZunTimerProbe@16"
+functions = ["ZunTimer::operator>="]
+symbol = "??PZunTimer@@QBE_NH@Z"
+target_address = 0x004073B0
+size = 18
+linkages = []
+
+[units.zun-timer-equal]
+artifact_kind = "linked-pe"
+source = "src/ZunTimer.cpp"
+inputs = ["src/ZunTimer.hpp"]
+support_sources = ["probes/zun-timer-context.cpp"]
+output_dir = "build/match-linked/ZunTimer"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ZunTimerProbe@16"
+functions = ["ZunTimer::operator=="]
+symbol = "??8ZunTimer@@QBE_NH@Z"
+target_address = 0x00407E70
+size = 18
+linkages = []
+
+[units.zun-timer-greater]
+artifact_kind = "linked-pe"
+source = "src/ZunTimer.cpp"
+inputs = ["src/ZunTimer.hpp"]
+support_sources = ["probes/zun-timer-context.cpp"]
+output_dir = "build/match-linked/ZunTimer"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ZunTimerProbe@16"
+functions = ["ZunTimer::operator>"]
+symbol = "??OZunTimer@@QBE_NH@Z"
+target_address = 0x00410CD0
+size = 18
+linkages = []

@@ -1,3 +1,8 @@
 name,address,type
-SetTimeScale,0x00407310,function
 ZunTimerModulo,0x00402B20,function
+ZunTimer::operator<,0x00402C40,function
+ZunTimer::operator<=,0x00407130,function
+SetTimeScale,0x00407310,function
+ZunTimer::operator>=,0x004073B0,function
+ZunTimer::operator==,0x00407E70,function
+ZunTimer::operator>,0x00410CD0,function

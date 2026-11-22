@@ -9,6 +9,12 @@ struct ZunTimer
     float currentF;
     float *gameSpeed;
     int control;
+
+    bool operator<(int value) const;
+    bool operator<=(int value) const;
+    bool operator>=(int value) const;
+    bool operator==(int value) const;
+    bool operator>(int value) const;
 };
 
 int __stdcall ZunTimerModulo(ZunTimer *timer, int divisor);

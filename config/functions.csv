@@ -22,7 +22,7 @@ address,size,span_end,current_name,proposed_name,module,status,match_percent,cal
 0x00402B90,98,0x00402BF1,FUN_00402b90,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
 0x00402C00,26,0x00402C19,FUN_00402c00,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
 0x00402C20,26,0x00402C39,FUN_00402c20,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
-0x00402C40,18,0x00402C51,FUN_00402c40,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
+0x00402C40,18,0x00402C51,FUN_00402c40,ZunTimer::operator<,ZunTimer,exact,100.00,thiscall ECX timer; stack value; bool in AL; RET 4,bool ZunTimer::operator<(int value) const,false,src/ZunTimer.cpp,"Direct hash-attested target extent, neighbor and reference review. Cold pinned VC10 /GL /Ob1 /Oy- complete 18-byte public primary-TU PDB contribution behind the shared ZunTimer probe context; current receipts; no fields; zero byte differences.",,Compares the current count at +4 with the argument. Canonical unit zun-timer-less.
 0x00402C60,62,0x00402C9D,FUN_00402c60,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
 0x00402CE0,25,0x00402CF8,FUN_00402ce0,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
 0x00402D70,107,0x00402DDA,FUN_00402d70,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
@@ -71,7 +71,7 @@ address,size,span_end,current_name,proposed_name,module,status,match_percent,cal
 0x00407080,20,0x00407093,FUN_00407080,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
 0x004070B0,44,0x004070DB,FUN_004070b0,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
 0x004070E0,38,0x00407105,FUN_004070e0,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
-0x00407130,18,0x00407141,FUN_00407130,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
+0x00407130,18,0x00407141,FUN_00407130,ZunTimer::operator<=,ZunTimer,exact,100.00,thiscall ECX timer; stack value; bool in AL; RET 4,bool ZunTimer::operator<=(int value) const,false,src/ZunTimer.cpp,"Direct hash-attested target extent, neighbor and reference review. Cold pinned VC10 /GL /Ob1 /Oy- complete 18-byte public primary-TU PDB contribution behind the shared ZunTimer probe context; current receipts; no fields; zero byte differences.",,Compares the current count at +4 with the argument. Canonical unit zun-timer-less-equal.
 0x00407150,19,0x00407162,FUN_00407150,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
 0x00407170,25,0x00407188,FUN_00407170,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
 0x00407230,42,0x00407259,FUN_00407230,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
@@ -81,7 +81,7 @@ address,size,span_end,current_name,proposed_name,module,status,match_percent,cal
 0x004072F0,31,0x0040730E,FUN_004072f0,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
 0x00407310,16,0x0040731F,FUN_00407310,SetTimeScale,TimeScale,exact,100.00,stdcall float; frame pointer; RET 4,void __stdcall SetTimeScale(float scale),false,src/TimeScale.cpp,"Direct hash-attested local Ghidra extent, neighbor and reference review; docs/KNOWLEDGE_BASE.md first linked unit. Cold pinned VC10 /GL /Oy- complete 16-byte public primary-TU PDB contribution; current source/header/tool/producer/PE/MAP/PDB receipts; the one reviewed DIR32 binding replays with zero byte differences.",,Stores its float argument in the global at 0x004B6F58 (provisional name g_TimeScale; about 40 readers). No direct code reference found; the caller is unknown. Canonical unit set-time-scale.
 0x00407350,24,0x00407367,FUN_00407350,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
-0x004073B0,18,0x004073C1,FUN_004073b0,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
+0x004073B0,18,0x004073C1,FUN_004073b0,ZunTimer::operator>=,ZunTimer,exact,100.00,thiscall ECX timer; stack value; bool in AL; RET 4,bool ZunTimer::operator>=(int value) const,false,src/ZunTimer.cpp,"Direct hash-attested target extent, neighbor and reference review. Cold pinned VC10 /GL /Ob1 /Oy- complete 18-byte public primary-TU PDB contribution behind the shared ZunTimer probe context; current receipts; no fields; zero byte differences.",,Compares the current count at +4 with the argument. Canonical unit zun-timer-greater-equal.
 0x00407400,34,0x00407421,FUN_00407400,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
 0x00407490,180,0x00407543,FUN_00407490,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
 0x00407550,417,0x004076F0,FUN_00407550,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
@@ -92,7 +92,7 @@ address,size,span_end,current_name,proposed_name,module,status,match_percent,cal
 0x00407980,95,0x004079DE,FUN_00407980,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
 0x00407A70,478,0x00407C4D,FUN_00407a70,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
 0x00407C50,471,0x00407E26,FUN_00407c50,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
-0x00407E70,18,0x00407E81,FUN_00407e70,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
+0x00407E70,18,0x00407E81,FUN_00407e70,ZunTimer::operator==,ZunTimer,exact,100.00,thiscall ECX timer; stack value; bool in AL; RET 4,bool ZunTimer::operator==(int value) const,false,src/ZunTimer.cpp,"Direct hash-attested target extent, neighbor and reference review. Cold pinned VC10 /GL /Ob1 /Oy- complete 18-byte public primary-TU PDB contribution behind the shared ZunTimer probe context; current receipts; no fields; zero byte differences.",,Compares the current count at +4 with the argument. Canonical unit zun-timer-equal.
 0x00407E90,26,0x00407EA9,FUN_00407e90,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
 0x00407EC0,228,0x00407FA3,FUN_00407ec0,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
 0x00407FB0,165,0x00408054,FUN_00407fb0,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
@@ -194,7 +194,7 @@ address,size,span_end,current_name,proposed_name,module,status,match_percent,cal
 0x00410A60,237,0x00410B4C,FUN_00410a60,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
 0x00410C60,59,0x00410C9A,FUN_00410c60,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
 0x00410CB0,22,0x00410CC5,FUN_00410cb0,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
-0x00410CD0,18,0x00410CE1,FUN_00410cd0,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
+0x00410CD0,18,0x00410CE1,FUN_00410cd0,ZunTimer::operator>,ZunTimer,exact,100.00,thiscall ECX timer; stack value; bool in AL; RET 4,bool ZunTimer::operator>(int value) const,false,src/ZunTimer.cpp,"Direct hash-attested target extent, neighbor and reference review. Cold pinned VC10 /GL /Ob1 /Oy- complete 18-byte public primary-TU PDB contribution behind the shared ZunTimer probe context; current receipts; no fields; zero byte differences.",,Compares the current count at +4 with the argument. Canonical unit zun-timer-greater.
 0x00410D00,66,0x00410D41,FUN_00410d00,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
 0x00410D50,32,0x00410D6F,FUN_00410d50,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
 0x00410D80,32,0x00410D9F,FUN_00410d80,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
