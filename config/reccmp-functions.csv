@@ -41,6 +41,7 @@ LaserLineInf::Slot00,0x00429BF0,function
 LaserCurveInf::Slot00,0x00429C90,function
 LaserInfiniteInf::Slot00,0x00429CE0,function
 LaserBeamInf::Slot00,0x00429D20,function
+LaserInfiniteInf::Slot01,0x0042EEB0,function
 ZunTimer::SetCurrentF,0x00432C40,function
 ZunVec3::SetPolarXY,0x00432E20,function
 Pbg::Archive::~Archive,0x0044F5E0,function

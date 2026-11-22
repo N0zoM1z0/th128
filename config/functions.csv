@@ -1071,7 +1071,7 @@ address,size,span_end,current_name,proposed_name,module,status,match_percent,cal
 0x0042E670,1414,0x0042EBF5,FUN_0042e670,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary reviewed from target bytes,,
 0x0042EC00,386,0x0042ED81,FUN_0042ec00,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary reviewed from target bytes,,
 0x0042ED90,278,0x0042EEA5,FUN_0042ed90,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary reviewed from target bytes,,
-0x0042EEB0,170,0x0042EF59,FUN_0042eeb0,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary reviewed from target bytes,,
+0x0042EEB0,170,0x0042EF59,FUN_0042eeb0,LaserInfiniteInf::Slot01,LaserInfinite,unclassified,0.00,virtual thiscall ECX; RET,void LaserInfiniteInf::Slot01(),false,src/LaserInfinite.cpp,"Direct hash-attested target extent, neighbor and reference review.",,"Frontier: runs due timed commands (0x80 sets +0x5B4, 0x400 sets state 3, 0x100000 sets the 3-bit mode at +0xDE8 bit 5) from the 18-entry table at +0x61C. Canonical unit laser-infinite-commands."
 0x0042EF60,409,0x0042F0F8,FUN_0042ef60,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary reviewed from target bytes,,
 0x0042F100,1570,0x0042F721,FUN_0042f100,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary reviewed from target bytes,,
 0x0042F730,89,0x0042F788,FUN_0042f730,,,unclassified,0.00,,,false,,Boundary review new function (bnew-unreferenced-delimited); not in the Ghidra inventory.,,"found by padded-aligned; start padding; refs none; descent body 0x0042F730..0x0042F788 (89 bytes) ends with ret; then padding-then-start 0x0042F790; WEAK: no call, jump, pointer or vtable reference found"

@@ -19,6 +19,7 @@ class LaserInfiniteInf : public LaserDataInf
 {
 public:
     void Slot00(float distance, float *point);
+    void Slot01();
 };
 
 class LaserBeamInf : public LaserDataInf

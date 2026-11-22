@@ -79,6 +79,15 @@ methods then match except the x addition, where the original loads the
 point first; operator, component, reference and `/fp:fast` variants all
 load the position first.
 
+`LaserInfiniteInf::Slot01` (`0x0042EEB0`) runs the laser's timed commands:
+an 18-entry table of 0x2C-byte records at +0x61C indexed by +0x594 (type
++0x20, value +0x10, an `immediate` word +0x24 that bypasses the busy flag at
++0x598). The source reproduces every operation and the layout, but VC10
+keeps the index in `ESI` across the mode-bitfield store, while the original
+re-reads it (`INC [ecx+0x594]` in the bitfield arms, loop test from memory).
+Per-case increments and `continue` arms compile to the same code as one
+increment after the switch.
+
 ## Window procedure
 
 `WindowProc` (`0x00454420`, 420 bytes) is exact as normal COFF. Fixed

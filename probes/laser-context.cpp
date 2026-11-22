@@ -13,4 +13,5 @@ extern "C" void __stdcall LaserProbe(LaserDataInf *laser, float distance, float 
     curve.Slot00(distance, point);
     infinite.Slot00(distance, point);
     beam.Slot00(distance, point);
+    infinite.Slot01();
 }

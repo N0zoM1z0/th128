@@ -1122,3 +1122,18 @@ symbol = "?SetPolarXY@ZunVec3@@QAEXMM@Z"
 target_address = 0x00432E20
 size = 32
 linkages = []
+
+[units.laser-infinite-commands]
+frontier = true # same logic and layout; the original reloads commandIndex after the mode bitfield store (in-memory INC, loop test from memory)
+artifact_kind = "linked-pe"
+source = "src/LaserInfinite.cpp"
+inputs = ["src/Laser.hpp", "src/LaserData.hpp", "src/ZunMath.hpp"]
+support_sources = ["probes/laser-context.cpp", "src/LaserData.cpp", "src/LaserPoint.cpp"]
+output_dir = "build/match-linked/LaserInfinite"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LaserProbe@12"
+functions = ["LaserInfiniteInf::Slot01"]
+symbol = "?Slot01@LaserInfiniteInf@@UAEXXZ"
+target_address = 0x0042EEB0
+size = 170
+linkages = []

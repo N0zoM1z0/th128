@@ -1071,7 +1071,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x0042E670,0x0042EBF5,reviewed,high,bdesc-exact,start padding; refs datax1; descent body 0x0042E670..0x0042EBF5 (1414 bytes) ends with jmp; then padding-then-start 0x0042EC00
 0x0042EC00,0x0042ED81,reviewed,high,bdesc-exact,start padding; refs datax1; descent body 0x0042EC00..0x0042ED81 (386 bytes) ends with ret; then padding-then-start 0x0042ED90
 0x0042ED90,0x0042EEA5,reviewed,high,bdesc-exact,start padding; refs datax1; descent body 0x0042ED90..0x0042EEA5 (278 bytes) ends with ret; then padding-then-start 0x0042EEB0
-0x0042EEB0,0x0042EF59,reviewed,high,bdesc-exact,start padding; refs datax1; descent body 0x0042EEB0..0x0042EF59 (170 bytes) ends with ret; then padding-then-start 0x0042EF60
+0x0042EEB0,0x0042EF59,reviewed,high,laser-infinite-commands-boundary,Complete 170-byte body between padding; slot 1 of the LaserInfiniteInf vtable.
 0x0042EF60,0x0042F0F8,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x0042EF60..0x0042F0F8 (409 bytes) ends with ret; then padding-then-start 0x0042F100; WEAK: no call, jump, pointer or vtable reference found"
 0x0042F100,0x0042F721,reviewed,high,bdesc-exact,start padding; refs datax1; descent body 0x0042F100..0x0042F721 (1570 bytes) ends with ret; then padding-then-start 0x0042F730
 0x0042F730,0x0042F788,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x0042F730..0x0042F788 (89 bytes) ends with ret; then padding-then-start 0x0042F790; WEAK: no call, jump, pointer or vtable reference found"
