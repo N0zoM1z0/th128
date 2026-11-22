@@ -14,6 +14,7 @@ ZunTimer::operator>=,0x004073B0,function
 ZunTimer::operator==,0x00407E70,function
 ZunTimer::operator>,0x00410CD0,function
 ZunTimer::SetCurrentF,0x00432C40,function
+Pbg::ArchiveEntry::~ArchiveEntry,0x0044FCB0,function
 Pbg::File::`scalar deleting destructor',0x0044FD80,function
 Pbg::File::~File,0x0044FDD0,function
 Pbg::File::Open,0x0044FE00,function

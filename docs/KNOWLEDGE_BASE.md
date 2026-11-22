@@ -78,6 +78,21 @@ Six tiny game vtable slots (`0x004144A0`, `0x004144B0`, `0x004144D0`,
 chance and stay authored. The two open groups can be settled by cold VC10
 compiles (the D3DX one needs the DirectX SDK headers).
 
+## Pbg archive directory
+
+The THA1 directory is a `new[]` array of 16-byte entries (name, offset,
+size, reserved). A cold `/GL` probe with `new Entry[n]`/`delete[]`
+reproduces the out-of-line entry constructor (`mov eax, ecx; mov [eax], 0;
+ret`, uninventoried at `0x0044FD20`) and destructor (`0x0044FCB0`, exact)
+byte for byte, because the vector iterators take their addresses.
+
+The same probe explains the 10-byte `PUSH r; MOV r, ECX; CALL body; RET`
+entries the origin review left open: `0x0044F5E0` is a `thiscall`
+destructor whose whole body is a call to the archive `Close` (`0x0044F730`,
+private `ESI` receiver), with its address passed to an array destructor
+iterator. These look like authored one-line wrappers around private-
+convention bodies rather than linker artifacts.
+
 ## Ported infrastructure
 
 The Oracle, receipt, LTCG-link and Ghidra scripts come from the TH11

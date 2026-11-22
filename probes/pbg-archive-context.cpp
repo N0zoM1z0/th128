@@ -1,0 +1,11 @@
+// Non-runnable compiler context: the directory's new[]/delete[] take the
+// entry constructor and destructor addresses, as in the original.
+#include "../src/PbgArchive.hpp"
+
+extern "C" void __stdcall PbgArchiveProbe(Pbg::ArchiveEntry **a, Pbg::ArchiveEntry **b, int count)
+{
+    *a = new Pbg::ArchiveEntry[count];
+    *b = new Pbg::ArchiveEntry[count + 1];
+    delete[] *a;
+    delete[] *b;
+}

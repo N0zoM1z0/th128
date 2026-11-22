@@ -46,3 +46,4 @@ mode dialog (fullscreen 640×480, window 640×480, 960×720, 1280×960).
 | `src/PbgFile.cpp` | `Pbg::File` Open `0x0044FE00`, Close/Read/Write/Tell/GetSize/Seek `0x0044FFB0..0x004500D5`, ReadWhole `0x004500E0`, `~File` `0x0044FDD0`, scalar deleting destructors of `File` `0x0044FD80` and `IFile` `0x00450210` | exact (normal COFF) |
 | `src/PbgMemFile.cpp` | `Pbg::MemFile` Close/Read/Write/Tell/GetSize, `~MemFile` `0x00450EC0`, scalar deleting destructor `0x00450E70` | exact (normal COFF); `Seek` `0x00450FE0` frontier |
 | `src/AnmVm.cpp` | `AnmVm::AnmVm` `0x004031A0` | exact (normal COFF) |
+| `src/PbgArchive.cpp` | `Pbg::ArchiveEntry::~ArchiveEntry` `0x0044FCB0` | exact (linked PE) |
