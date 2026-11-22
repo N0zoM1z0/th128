@@ -90,6 +90,11 @@ ordinary out-of-line `bool` `__thiscall` members: VC10 keeps `ECX`, emits
 `XOR EAX, EAX; CMP; SETcc AL` and `RET 4`. They are separate functions rather
 than one folded body, consistent with distinct operators.
 
+The AnmVm float-pair setters (`0x00402B60`, `0x00402C00`, `0x00402C20`,
+`0x00407020`, `0x00407040`) follow the same `__stdcall` + `EAX` rule. Source
+order `flags |= 8` before the stores reproduces VC10's schedule, which loads
+the first float, ORs the dirty bit at +0x4B0, then stores.
+
 The ZunTimer field names beyond +4 come from adjacent games and remain a
 hypothesis.
 

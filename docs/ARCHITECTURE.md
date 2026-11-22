@@ -34,3 +34,4 @@ mode dialog (fullscreen 640×480, window 640×480, 960×720, 1280×960).
 | --- | --- | --- |
 | `src/TimeScale.cpp` | `SetTimeScale` `0x00407310` | exact (linked PE) |
 | `src/ZunTimer.cpp` | `ZunTimerModulo` `0x00402B20`; comparison operators `<` `0x00402C40`, `<=` `0x00407130`, `>=` `0x004073B0`, `==` `0x00407E70`, `>` `0x00410CD0` | exact (linked PE) |
+| `src/AnmVmSetters.cpp` | `AnmVmSetScale` `0x00402C20`, `SetScaleX` `0x00407040`, `SetScaleY` `0x00407020`, `SetScale2` `0x00402C00`, `SetUvScroll` `0x00402B60` | exact (linked PE) |

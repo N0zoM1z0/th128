@@ -103,3 +103,73 @@ symbol = "??OZunTimer@@QBE_NH@Z"
 target_address = 0x00410CD0
 size = 18
 linkages = []
+
+[units.anm-vm-set-scale]
+artifact_kind = "linked-pe"
+source = "src/AnmVmSetters.cpp"
+inputs = ["src/AnmVm.hpp"]
+support_sources = ["probes/anm-vm-setters-context.cpp"]
+output_dir = "build/match-linked/AnmVmSetters"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmVmSettersProbe@16"
+functions = ["AnmVmSetScale"]
+symbol = "?AnmVmSetScale@@YGXPAUAnmVm@@MM@Z"
+target_address = 0x00402C20
+size = 26
+linkages = []
+
+[units.anm-vm-set-scale-x]
+artifact_kind = "linked-pe"
+source = "src/AnmVmSetters.cpp"
+inputs = ["src/AnmVm.hpp"]
+support_sources = ["probes/anm-vm-setters-context.cpp"]
+output_dir = "build/match-linked/AnmVmSetters"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmVmSettersProbe@16"
+functions = ["AnmVmSetScaleX"]
+symbol = "?AnmVmSetScaleX@@YGXPAUAnmVm@@M@Z"
+target_address = 0x00407040
+size = 20
+linkages = []
+
+[units.anm-vm-set-scale-y]
+artifact_kind = "linked-pe"
+source = "src/AnmVmSetters.cpp"
+inputs = ["src/AnmVm.hpp"]
+support_sources = ["probes/anm-vm-setters-context.cpp"]
+output_dir = "build/match-linked/AnmVmSetters"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmVmSettersProbe@16"
+functions = ["AnmVmSetScaleY"]
+symbol = "?AnmVmSetScaleY@@YGXPAUAnmVm@@M@Z"
+target_address = 0x00407020
+size = 20
+linkages = []
+
+[units.anm-vm-set-scale2]
+artifact_kind = "linked-pe"
+source = "src/AnmVmSetters.cpp"
+inputs = ["src/AnmVm.hpp"]
+support_sources = ["probes/anm-vm-setters-context.cpp"]
+output_dir = "build/match-linked/AnmVmSetters"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmVmSettersProbe@16"
+functions = ["AnmVmSetScale2"]
+symbol = "?AnmVmSetScale2@@YGXPAUAnmVm@@MM@Z"
+target_address = 0x00402C00
+size = 26
+linkages = []
+
+[units.anm-vm-set-uv-scroll]
+artifact_kind = "linked-pe"
+source = "src/AnmVmSetters.cpp"
+inputs = ["src/AnmVm.hpp"]
+support_sources = ["probes/anm-vm-setters-context.cpp"]
+output_dir = "build/match-linked/AnmVmSetters"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmVmSettersProbe@16"
+functions = ["AnmVmSetUvScroll"]
+symbol = "?AnmVmSetUvScroll@@YGXPAUAnmVm@@MM@Z"
+target_address = 0x00402B60
+size = 26
+linkages = []

@@ -1,6 +1,11 @@
 name,address,type
 ZunTimerModulo,0x00402B20,function
+AnmVmSetUvScroll,0x00402B60,function
+AnmVmSetScale2,0x00402C00,function
+AnmVmSetScale,0x00402C20,function
 ZunTimer::operator<,0x00402C40,function
+AnmVmSetScaleY,0x00407020,function
+AnmVmSetScaleX,0x00407040,function
 ZunTimer::operator<=,0x00407130,function
 SetTimeScale,0x00407310,function
 ZunTimer::operator>=,0x004073B0,function
