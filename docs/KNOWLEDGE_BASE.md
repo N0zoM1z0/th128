@@ -107,6 +107,13 @@ inline timer initialization in the Ascii append routine (`0x004015F0`) sets
 `previous = -1`. This confirms the `ZunTimer` layout (+0 previous, +4 current,
 +8 currentF, +0xC gameSpeed, +0x10 flags) and the `SetTimeScale` reading.
 
+Out-of-line `ZunTimer::SetCurrent(int)` (`0x00403240`) and
+`SetCurrentF(float)` (`0x00432C40`) are ordinary members: VC10 `/GL` moves
+`this` to `EAX` and `ESI` respectively by itself. The lazy initializer must
+store the init bit last, and `SetCurrentF` converts before storing
+`currentF`. Byte-identical copies at `0x00403280` and `0x00432C80` were not
+folded, so they are distinct functions (other names or types).
+
 ## AsciiInf strings
 
 `AsciiInf` (0x1C8A8 bytes) keeps 0x164-byte strings from +0x9E4: text at +0,

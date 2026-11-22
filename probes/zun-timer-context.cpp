@@ -10,5 +10,9 @@ static int CompareAll(const ZunTimer *a, int x, const ZunTimer *b, int y)
 
 extern "C" int __stdcall ZunTimerProbe(ZunTimer *a, int x, ZunTimer *b, int y)
 {
+    a->SetCurrent(x);
+    b->SetCurrent(y);
+    a->SetCurrentF((float)y);
+    b->SetCurrentF((float)x);
     return ZunTimerModulo(a, x) + ZunTimerModulo(b, y) + CompareAll(a, x, b, y);
 }

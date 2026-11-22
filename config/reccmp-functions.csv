@@ -5,6 +5,7 @@ AnmVmSetScale2,0x00402C00,function
 AnmVmSetScale,0x00402C20,function
 ZunTimer::operator<,0x00402C40,function
 AnmVm::AnmVm,0x004031A0,function
+ZunTimer::SetCurrent,0x00403240,function
 AnmVmSetScaleY,0x00407020,function
 AnmVmSetScaleX,0x00407040,function
 ZunTimer::operator<=,0x00407130,function
@@ -12,6 +13,7 @@ SetTimeScale,0x00407310,function
 ZunTimer::operator>=,0x004073B0,function
 ZunTimer::operator==,0x00407E70,function
 ZunTimer::operator>,0x00410CD0,function
+ZunTimer::SetCurrentF,0x00432C40,function
 Pbg::File::`scalar deleting destructor',0x0044FD80,function
 Pbg::File::~File,0x0044FDD0,function
 Pbg::File::Open,0x0044FE00,function

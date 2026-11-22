@@ -13,11 +13,17 @@ struct ZunTimer
 
     ZunTimer() { initialized = 0; }
 
+    void Initialize();
+    void SetCurrent(int value);
+    void SetCurrentF(float value);
+
     bool operator<(int value) const;
     bool operator<=(int value) const;
     bool operator>=(int value) const;
     bool operator==(int value) const;
     bool operator>(int value) const;
 };
+
+extern float g_TimeScale;
 
 int __stdcall ZunTimerModulo(ZunTimer *timer, int divisor);

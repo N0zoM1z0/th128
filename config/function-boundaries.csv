@@ -31,7 +31,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x00403090,0x004030B1,needs_review,low,ghidra-12.1.4-initial-inventory,"Auto-analysis bounding span only; reconcile sparse bodies, references, tables and adjacent bytes before acceptance."
 0x00403160,0x0040317F,needs_review,low,ghidra-12.1.4-initial-inventory,"Auto-analysis bounding span only; reconcile sparse bodies, references, tables and adjacent bytes before acceptance."
 0x004031A0,0x00403213,reviewed,high,anm-vm-constructor-boundary,Complete 116-byte body between CC padding; no interior references.
-0x00403240,0x0040327C,needs_review,low,ghidra-12.1.4-initial-inventory,"Auto-analysis bounding span only; reconcile sparse bodies, references, tables and adjacent bytes before acceptance."
+0x00403240,0x0040327C,reviewed,high,zun-timer-set-current-boundary,Complete 61-byte body between CC padding; no interior references.
 0x00403280,0x004032BC,needs_review,low,ghidra-12.1.4-initial-inventory,"Auto-analysis bounding span only; reconcile sparse bodies, references, tables and adjacent bytes before acceptance."
 0x004032C0,0x004033BB,needs_review,low,ghidra-12.1.4-initial-inventory,"Auto-analysis bounding span only; reconcile sparse bodies, references, tables and adjacent bytes before acceptance."
 0x004033D0,0x00403488,needs_review,low,ghidra-12.1.4-initial-inventory,"Auto-analysis bounding span only; reconcile sparse bodies, references, tables and adjacent bytes before acceptance."
@@ -559,7 +559,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x00432BB0,0x00432BCE,needs_review,low,ghidra-12.1.4-initial-inventory,"Auto-analysis bounding span only; reconcile sparse bodies, references, tables and adjacent bytes before acceptance."
 0x00432BE0,0x00432C07,needs_review,low,ghidra-12.1.4-initial-inventory,"Auto-analysis bounding span only; reconcile sparse bodies, references, tables and adjacent bytes before acceptance."
 0x00432C10,0x00432C3E,needs_review,low,ghidra-12.1.4-initial-inventory,"Auto-analysis bounding span only; reconcile sparse bodies, references, tables and adjacent bytes before acceptance."
-0x00432C40,0x00432C7F,needs_review,low,ghidra-12.1.4-initial-inventory,"Auto-analysis bounding span only; reconcile sparse bodies, references, tables and adjacent bytes before acceptance."
+0x00432C40,0x00432C7F,reviewed,high,zun-timer-set-current-f-boundary,Complete 64-byte body between CC padding; no interior references.
 0x00432C80,0x00432CBF,needs_review,low,ghidra-12.1.4-initial-inventory,"Auto-analysis bounding span only; reconcile sparse bodies, references, tables and adjacent bytes before acceptance."
 0x00432CC0,0x00432D22,needs_review,low,ghidra-12.1.4-initial-inventory,"Auto-analysis bounding span only; reconcile sparse bodies, references, tables and adjacent bytes before acceptance."
 0x00432D30,0x00432D4F,needs_review,low,ghidra-12.1.4-initial-inventory,"Auto-analysis bounding span only; reconcile sparse bodies, references, tables and adjacent bytes before acceptance."

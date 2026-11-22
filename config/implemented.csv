@@ -24,6 +24,8 @@ Pbg::MemFile::Write
 Pbg::MemFile::`scalar deleting destructor'
 Pbg::MemFile::~MemFile
 SetTimeScale
+ZunTimer::SetCurrent
+ZunTimer::SetCurrentF
 ZunTimer::operator<
 ZunTimer::operator<=
 ZunTimer::operator==
