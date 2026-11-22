@@ -26,12 +26,12 @@ Counts are generated in [PROGRESS](PROGRESS.md); the source map is in
 | Area | Lane and profile | State |
 | --- | --- | --- |
 | `TimeScale`, `ZunTimer`, `AnmVmSetters` | linked PE, `/O2 /Ob1 /Oy- /GL` behind probe contexts | 14 exact |
-| `PbgArchive` (`_ArcMngr.cpp`) | linked PE, `/O2 /Ob1 /Oy- /EHsc /GL`; `DebugLog.cpp` as normal support | 4 exact |
-| `PbgFile`, `PbgMemFile`, `AnmVm` constructor, `DebugPrint` | normal COFF, `/O2 /Oy-` | 20 exact; `MemFile::Seek` frontier |
+| `PbgArchive` (`_ArcMngr.cpp`), `BlockCipher`, `Lzss` | one linked archive context, `/O2 /Ob1 /Oy- /EHsc /GL`; `DebugLog.cpp` as normal support | 6 exact; `ReadHeader`, `ReadEntry`, `DecryptBlocks`, `DecompressLzss` frontiers |
+| `PbgFile`, `PbgMemFile`, `AnmVm` constructor, `DebugPrint`, `WindowProc` | normal COFF, `/O2 /Oy-` | 21 exact; `MemFile::Seek`, `CreateGameWindow` frontiers |
 
-Origin review is applied for every candidate (34 rows stay open pending
-VC10 compiles); boundary review and inventory gap recovery are running as a
-separate pass that writes `.analysis/boundary-review/` for merging.
+Boundary and origin review are applied for the whole image: 3,516
+candidates, every game-band byte accounted for, 50 origin rows open (34 need
+VC10/D3DX compiles, 16 CRT-band rows).
 
 Two profiles are in use and both are hypotheses about the original TU split:
 small game leaves with private `EAX` receivers need `/GL`; the virtual Pbg
@@ -48,11 +48,15 @@ architecture export (`ghidra.py architecture`).
 
 ## Next useful work
 
-1. **Pbg archive reader chain.** `ReadHeader`, `ReadEntry`,
-   `DecryptBlocks` and `DecompressLzss` are real frontiers in one archive
-   context; every call convention now matches and the remaining differences
-   are register priority and stack-slot assignment (see the knowledge base).
-   Replay `src/PbgArchive.cpp` after any change to these sources.
+Prefer large owners whose callees are library, import or already exact code
+(their conventions are fixed); `WindowProc` came from that filter. The
+candidate list is reproducible from `.analysis/architecture/call-edges.csv`
+plus the ledgers (see the knowledge base, "Window procedure").
+
+1. **Frontiers that are one step away.** `CreateGameWindow` (frame size and
+   an EBX/EDI swap), `MemFile::Seek` (ESI shrink-wrap), the archive chain
+   (register priority and stack slots), each documented in the knowledge
+   base with the variants already tried.
 2. **AsciiInf** (`0x00401010..0x00402A55`, vtable `0x004A1F3C`): `/GL` owner
    with an `ESI` receiver. Resolve the 0x141-iteration timer loop before
    writing the constructor (see the knowledge base). The init function
