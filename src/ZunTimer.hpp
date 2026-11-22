@@ -16,6 +16,7 @@ struct ZunTimer
     void Initialize();
     void SetCurrent(int value);
     void SetCurrentF(float value);
+    void Add(float value);
 
     bool operator<(int value) const;
     bool operator<=(int value) const;

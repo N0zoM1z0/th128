@@ -82,3 +82,6 @@ Pbg::MemFile::Seek,0x00450FE0,function
 WindowProc,0x00454420,function
 CreateGameWindow,0x00455320,function
 DecryptBlocks,0x00469A00,function
+AddAngles,0x0046A660,function
+NormalizeAngle,0x0046A700,function
+ZunTimer::Add,0x0046AA20,function

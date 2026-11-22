@@ -288,6 +288,20 @@ the first float, ORs the dirty bit at +0x4B0, then stores.
 The ZunTimer field names beyond +4 come from adjacent games and remain a
 hypothesis.
 
+## Angle helpers
+
+`NormalizeAngle` (`0x0046A700`, 133 call sites) and `AddAngles`
+(`0x0046A660`) are exact as normal COFF `__stdcall` functions with TH11's
+source shape: float-rounded pi and two pi stored as doubles (`0x004A6580`,
+`0x004A6578`), `-pi` folded to `0x004A65B8`, and one 33-correction budget
+shared by both loops.
+
+`ZunTimer::Add` (`0x0046AA20`) is a close frontier: the game speed is
+ignored inside `(0.99, 1.01)` (a double `0.99` and a float `1.01f`
+compare), otherwise the step is scaled. VC10 keeps the sum in the argument
+slot and converts from `ST0`, where the original stores `currentF`, reloads
+it and converts; each branch carries its own conversion.
+
 ## Timer game speed
 
 `0x004B6F58` is the game-speed float that every `ZunTimer` points at. The

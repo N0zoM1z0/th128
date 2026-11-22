@@ -1,3 +1,4 @@
+AddAngles
 AnmVm::AnmVm
 AnmVmSetScale
 AnmVmSetScale2
@@ -36,6 +37,7 @@ LaserDataInf::Unlink
 LaserInfiniteInf::Slot00
 LaserInfiniteInf::Slot01
 LaserLineInf::Slot00
+NormalizeAngle
 Pbg::Archive::Close
 Pbg::Archive::Open
 Pbg::Archive::ReadEntry
@@ -72,6 +74,7 @@ SptInf::Slot03
 SptInf::Slot04
 SptInf::`scalar deleting destructor'
 WindowProc
+ZunTimer::Add
 ZunTimer::SetCurrent
 ZunTimer::SetCurrentF
 ZunTimer::operator<

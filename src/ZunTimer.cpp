@@ -57,3 +57,21 @@ void ZunTimer::SetCurrentF(float value)
     currentF = value;
     previous = current - 1;
 }
+
+// Advances by `value` scaled by the game speed; the speed is ignored when it
+// is within (0.99, 1.01).
+void ZunTimer::Add(float value)
+{
+    previous = current;
+    if (*gameSpeed > 0.99 && *gameSpeed < 1.01f)
+    {
+        currentF += value;
+        current = (int)currentF;
+    }
+    else
+    {
+        value *= *gameSpeed;
+        currentF += value;
+        current = (int)currentF;
+    }
+}
