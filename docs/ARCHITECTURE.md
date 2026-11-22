@@ -52,3 +52,4 @@ mode dialog (fullscreen 640×480, window 640×480, 960×720, 1280×960).
 | `src/BlockCipher.cpp`, `src/Lzss.cpp` | `DecryptBlocks` `0x00469A00`, `DecompressLzss` `0x00450860` | frontiers (linked PE, archive context) |
 | `src/WindowProc.cpp` | `WindowProc` `0x00454420` | exact (normal COFF) |
 | `src/GameWindow.cpp` | `CreateGameWindow` `0x00455320` | frontier (normal COFF) |
+| `src/LaserData.cpp` | `LaserDataInf` 24 virtual defaults `0x004299D0..0x00429B52` | exact (normal COFF) |

@@ -13,6 +13,30 @@ address,name,size,status,match_percent,unit,evidence
 0x004073B0,ZunTimer::operator>=,18,exact,100.00,zun-timer-greater-equal,Cold pinned VC10 /GL /Ob1 /Oy- complete 18-byte public primary-TU PDB contribution behind the shared ZunTimer probe context; current receipts; no fields; zero byte differences.
 0x00407E70,ZunTimer::operator==,18,exact,100.00,zun-timer-equal,Cold pinned VC10 /GL /Ob1 /Oy- complete 18-byte public primary-TU PDB contribution behind the shared ZunTimer probe context; current receipts; no fields; zero byte differences.
 0x00410CD0,ZunTimer::operator>,18,exact,100.00,zun-timer-greater,Cold pinned VC10 /GL /Ob1 /Oy- complete 18-byte public primary-TU PDB contribution behind the shared ZunTimer probe context; current receipts; no fields; zero byte differences.
+0x004299D0,LaserDataInf::Slot00,3,exact,100.00,laser-data-slot00,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
+0x004299E0,LaserDataInf::Slot01,1,exact,100.00,laser-data-slot01,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
+0x004299F0,LaserDataInf::Slot02,3,exact,100.00,laser-data-slot02,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
+0x00429A00,LaserDataInf::Slot03,5,exact,100.00,laser-data-slot03,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
+0x00429A10,LaserDataInf::Slot04,3,exact,100.00,laser-data-slot04,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
+0x00429A20,LaserDataInf::Slot05,3,exact,100.00,laser-data-slot05,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
+0x00429A30,LaserDataInf::Unlink,25,exact,100.00,laser-data-unlink,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
+0x00429A50,LaserDataInf::Slot09,5,exact,100.00,laser-data-slot09,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
+0x00429A60,LaserDataInf::Slot10,5,exact,100.00,laser-data-slot10,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
+0x00429A70,LaserDataInf::Slot08,5,exact,100.00,laser-data-slot08,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
+0x00429A80,LaserDataInf::Slot11,5,exact,100.00,laser-data-slot11,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
+0x00429A90,LaserDataInf::Slot07,5,exact,100.00,laser-data-slot07,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
+0x00429AA0,LaserDataInf::Slot12,5,exact,100.00,laser-data-slot12,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
+0x00429AB0,LaserDataInf::Slot13,3,exact,100.00,laser-data-slot13,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
+0x00429AC0,LaserDataInf::Slot14,3,exact,100.00,laser-data-slot14,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
+0x00429AD0,LaserDataInf::Slot15,3,exact,100.00,laser-data-slot15,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
+0x00429AE0,LaserDataInf::Slot16,3,exact,100.00,laser-data-slot16,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
+0x00429AF0,LaserDataInf::Slot17,3,exact,100.00,laser-data-slot17,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
+0x00429B00,LaserDataInf::Slot18,3,exact,100.00,laser-data-slot18,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
+0x00429B10,LaserDataInf::Slot19,3,exact,100.00,laser-data-slot19,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
+0x00429B20,LaserDataInf::Slot20,3,exact,100.00,laser-data-slot20,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
+0x00429B30,LaserDataInf::Slot21,3,exact,100.00,laser-data-slot21,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
+0x00429B40,LaserDataInf::Slot22,3,exact,100.00,laser-data-slot22,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
+0x00429B50,LaserDataInf::Slot23,3,exact,100.00,laser-data-slot23,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
 0x00432C40,ZunTimer::SetCurrentF,64,exact,100.00,zun-timer-set-current-f,Cold pinned VC10 /GL /Ob1 /Oy- complete public primary-TU PDB contribution behind the shared ZunTimer probe context; current receipts; reviewed game-speed and _ftol2_sse fields replay with zero byte differences.
 0x0044F5E0,Pbg::Archive::~Archive,10,exact,100.00,pbg-archive-destructor,Cold pinned VC10 /GL /Ob1 /Oy- /EHsc complete public primary-TU PDB contribution behind the archive probe (logger as normal COFF); current receipts; every reviewed field replays with zero byte differences.
 0x0044F5F0,Pbg::Archive::Open,172,exact,100.00,pbg-archive-open,"Cold pinned VC10 /GL /Ob1 /Oy- /EHsc complete public primary-TU PDB contribution behind the archive probe, whose placeholder header reader only supplies a defined private-ESI callee; current receipts; all eleven reviewed fields replay with zero byte differences."

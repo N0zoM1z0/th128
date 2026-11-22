@@ -986,30 +986,30 @@ address,span_end,state,confidence,evidence_id,notes
 0x00429990,0x004299A2,reviewed,medium,bnew-unreferenced-delimited,"found by after-terminator-aligned; start after-terminator; refs none; descent body 0x00429990..0x004299A2 (19 bytes) ends with ret; then padding-then-start 0x004299B0; WEAK: no call, jump, pointer or vtable reference found"
 0x004299B0,0x004299B0,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x004299B0..0x004299B0 (1 bytes) ends with ret; then padding-then-start 0x004299C0; WEAK: no call, jump, pointer or vtable reference found"
 0x004299C0,0x004299C6,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x004299C0..0x004299C6 (7 bytes) ends with ret; then padding-then-start 0x004299D0; WEAK: no call, jump, pointer or vtable reference found"
-0x004299D0,0x004299D2,reviewed,high,bdesc-exact,start padding; refs datax1; descent body 0x004299D0..0x004299D2 (3 bytes) ends with ret; then padding-then-start 0x004299E0
-0x004299E0,0x004299E0,reviewed,high,bdesc-exact,start padding; refs datax1; descent body 0x004299E0..0x004299E0 (1 bytes) ends with ret; then padding-then-start 0x004299F0
-0x004299F0,0x004299F2,reviewed,high,bdesc-exact,start padding; refs datax4; descent body 0x004299F0..0x004299F2 (3 bytes) ends with ret; then padding-then-start 0x00429A00
-0x00429A00,0x00429A04,reviewed,high,bdesc-exact,start padding; refs datax1; descent body 0x00429A00..0x00429A04 (5 bytes) ends with ret; then padding-then-start 0x00429A10
-0x00429A10,0x00429A12,reviewed,high,bdesc-exact,start padding; refs datax1; descent body 0x00429A10..0x00429A12 (3 bytes) ends with ret; then padding-then-start 0x00429A20
-0x00429A20,0x00429A22,reviewed,high,bdesc-exact,start padding; refs datax1; descent body 0x00429A20..0x00429A22 (3 bytes) ends with ret; then padding-then-start 0x00429A30
-0x00429A30,0x00429A48,reviewed,high,bdesc-exact,start padding; refs datax1; descent body 0x00429A30..0x00429A48 (25 bytes) ends with ret; then padding-then-start 0x00429A50
-0x00429A50,0x00429A54,reviewed,high,bdesc-exact,start padding; refs datax1; descent body 0x00429A50..0x00429A54 (5 bytes) ends with ret; then padding-then-start 0x00429A60
-0x00429A60,0x00429A64,reviewed,high,bdesc-exact,start padding; refs datax1; descent body 0x00429A60..0x00429A64 (5 bytes) ends with ret; then padding-then-start 0x00429A70
-0x00429A70,0x00429A74,reviewed,high,bdesc-exact,start padding; refs datax1; descent body 0x00429A70..0x00429A74 (5 bytes) ends with ret; then padding-then-start 0x00429A80
-0x00429A80,0x00429A84,reviewed,high,bdesc-exact,start padding; refs datax5; descent body 0x00429A80..0x00429A84 (5 bytes) ends with ret; then padding-then-start 0x00429A90
-0x00429A90,0x00429A94,reviewed,high,bdesc-exact,start padding; refs datax1; descent body 0x00429A90..0x00429A94 (5 bytes) ends with ret; then padding-then-start 0x00429AA0
-0x00429AA0,0x00429AA4,reviewed,high,bdesc-exact,start padding; refs datax1; descent body 0x00429AA0..0x00429AA4 (5 bytes) ends with ret; then padding-then-start 0x00429AB0
-0x00429AB0,0x00429AB2,reviewed,high,bdesc-exact,start padding; refs datax5; descent body 0x00429AB0..0x00429AB2 (3 bytes) ends with ret; then padding-then-start 0x00429AC0
-0x00429AC0,0x00429AC2,reviewed,high,bdesc-exact,start padding; refs datax3; descent body 0x00429AC0..0x00429AC2 (3 bytes) ends with ret; then padding-then-start 0x00429AD0
-0x00429AD0,0x00429AD2,reviewed,high,bdesc-exact,start padding; refs datax4; descent body 0x00429AD0..0x00429AD2 (3 bytes) ends with ret; then padding-then-start 0x00429AE0
-0x00429AE0,0x00429AE2,reviewed,high,bdesc-exact,start padding; refs datax3; descent body 0x00429AE0..0x00429AE2 (3 bytes) ends with ret; then padding-then-start 0x00429AF0
-0x00429AF0,0x00429AF2,reviewed,high,bdesc-exact,start padding; refs datax5; descent body 0x00429AF0..0x00429AF2 (3 bytes) ends with ret; then padding-then-start 0x00429B00
-0x00429B00,0x00429B02,reviewed,high,bdesc-exact,start padding; refs datax5; descent body 0x00429B00..0x00429B02 (3 bytes) ends with ret; then padding-then-start 0x00429B10
-0x00429B10,0x00429B12,reviewed,high,bdesc-exact,start padding; refs datax4; descent body 0x00429B10..0x00429B12 (3 bytes) ends with ret; then padding-then-start 0x00429B20
-0x00429B20,0x00429B22,reviewed,high,bdesc-exact,start padding; refs datax5; descent body 0x00429B20..0x00429B22 (3 bytes) ends with ret; then padding-then-start 0x00429B30
-0x00429B30,0x00429B32,reviewed,high,bdesc-exact,start padding; refs datax5; descent body 0x00429B30..0x00429B32 (3 bytes) ends with ret; then padding-then-start 0x00429B40
-0x00429B40,0x00429B42,reviewed,high,bdesc-exact,start padding; refs datax5; descent body 0x00429B40..0x00429B42 (3 bytes) ends with ret; then padding-then-start 0x00429B50
-0x00429B50,0x00429B52,reviewed,high,bdesc-exact,start padding; refs datax4; descent body 0x00429B50..0x00429B52 (3 bytes) ends with ret; then padding-then-start 0x00429B60
+0x004299D0,0x004299D2,reviewed,high,laser-data-slot00-boundary,Complete body between padding; referenced from the LaserDataInf vtable and inherited slots of derived laser vtables.
+0x004299E0,0x004299E0,reviewed,high,laser-data-slot01-boundary,Complete body between padding; referenced from the LaserDataInf vtable and inherited slots of derived laser vtables.
+0x004299F0,0x004299F2,reviewed,high,laser-data-slot02-boundary,Complete body between padding; referenced from the LaserDataInf vtable and inherited slots of derived laser vtables.
+0x00429A00,0x00429A04,reviewed,high,laser-data-slot03-boundary,Complete body between padding; referenced from the LaserDataInf vtable and inherited slots of derived laser vtables.
+0x00429A10,0x00429A12,reviewed,high,laser-data-slot04-boundary,Complete body between padding; referenced from the LaserDataInf vtable and inherited slots of derived laser vtables.
+0x00429A20,0x00429A22,reviewed,high,laser-data-slot05-boundary,Complete body between padding; referenced from the LaserDataInf vtable and inherited slots of derived laser vtables.
+0x00429A30,0x00429A48,reviewed,high,laser-data-unlink-boundary,Complete body between padding; referenced from the LaserDataInf vtable and inherited slots of derived laser vtables.
+0x00429A50,0x00429A54,reviewed,high,laser-data-slot09-boundary,Complete body between padding; referenced from the LaserDataInf vtable and inherited slots of derived laser vtables.
+0x00429A60,0x00429A64,reviewed,high,laser-data-slot10-boundary,Complete body between padding; referenced from the LaserDataInf vtable and inherited slots of derived laser vtables.
+0x00429A70,0x00429A74,reviewed,high,laser-data-slot08-boundary,Complete body between padding; referenced from the LaserDataInf vtable and inherited slots of derived laser vtables.
+0x00429A80,0x00429A84,reviewed,high,laser-data-slot11-boundary,Complete body between padding; referenced from the LaserDataInf vtable and inherited slots of derived laser vtables.
+0x00429A90,0x00429A94,reviewed,high,laser-data-slot07-boundary,Complete body between padding; referenced from the LaserDataInf vtable and inherited slots of derived laser vtables.
+0x00429AA0,0x00429AA4,reviewed,high,laser-data-slot12-boundary,Complete body between padding; referenced from the LaserDataInf vtable and inherited slots of derived laser vtables.
+0x00429AB0,0x00429AB2,reviewed,high,laser-data-slot13-boundary,Complete body between padding; referenced from the LaserDataInf vtable and inherited slots of derived laser vtables.
+0x00429AC0,0x00429AC2,reviewed,high,laser-data-slot14-boundary,Complete body between padding; referenced from the LaserDataInf vtable and inherited slots of derived laser vtables.
+0x00429AD0,0x00429AD2,reviewed,high,laser-data-slot15-boundary,Complete body between padding; referenced from the LaserDataInf vtable and inherited slots of derived laser vtables.
+0x00429AE0,0x00429AE2,reviewed,high,laser-data-slot16-boundary,Complete body between padding; referenced from the LaserDataInf vtable and inherited slots of derived laser vtables.
+0x00429AF0,0x00429AF2,reviewed,high,laser-data-slot17-boundary,Complete body between padding; referenced from the LaserDataInf vtable and inherited slots of derived laser vtables.
+0x00429B00,0x00429B02,reviewed,high,laser-data-slot18-boundary,Complete body between padding; referenced from the LaserDataInf vtable and inherited slots of derived laser vtables.
+0x00429B10,0x00429B12,reviewed,high,laser-data-slot19-boundary,Complete body between padding; referenced from the LaserDataInf vtable and inherited slots of derived laser vtables.
+0x00429B20,0x00429B22,reviewed,high,laser-data-slot20-boundary,Complete body between padding; referenced from the LaserDataInf vtable and inherited slots of derived laser vtables.
+0x00429B30,0x00429B32,reviewed,high,laser-data-slot21-boundary,Complete body between padding; referenced from the LaserDataInf vtable and inherited slots of derived laser vtables.
+0x00429B40,0x00429B42,reviewed,high,laser-data-slot22-boundary,Complete body between padding; referenced from the LaserDataInf vtable and inherited slots of derived laser vtables.
+0x00429B50,0x00429B52,reviewed,high,laser-data-slot23-boundary,Complete body between padding; referenced from the LaserDataInf vtable and inherited slots of derived laser vtables.
 0x00429B60,0x00429BD8,reviewed,high,bdesc-exact,start padding; refs callx6; descent body 0x00429B60..0x00429BD8 (121 bytes) ends with ret; then padding-then-start 0x00429BE0
 0x00429BE0,0x00429BEF,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00429BE0..0x00429BEF (16 bytes) ends with ret; then adjacent-start 0x00429BF0; WEAK: no call, jump, pointer or vtable reference found"
 0x00429BF0,0x00429C29,reviewed,high,bdesc-exact,start after-terminator; refs datax1; descent body 0x00429BF0..0x00429C29 (58 bytes) ends with ret; then padding-then-start 0x00429C30

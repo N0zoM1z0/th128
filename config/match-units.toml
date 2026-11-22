@@ -749,3 +749,293 @@ symbol = "?CreateGameWindow@@YGHPAUHINSTANCE__@@@Z"
 target_address = 0x00455320
 size = 566
 relocations = []
+
+# LaserDataInf base-class virtual defaults: normal-COFF codegen context.
+
+[units.laser-data-slot00]
+artifact_kind = "coff"
+source = "src/LaserData.cpp"
+inputs = ["src/LaserData.hpp"]
+object = "build/match/LaserData.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["LaserDataInf::Slot00"]
+symbol = "?Slot00@LaserDataInf@@UAEXMPAM@Z"
+target_address = 0x004299D0
+size = 3
+relocations = []
+
+[units.laser-data-slot01]
+artifact_kind = "coff"
+source = "src/LaserData.cpp"
+inputs = ["src/LaserData.hpp"]
+object = "build/match/LaserData.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["LaserDataInf::Slot01"]
+symbol = "?Slot01@LaserDataInf@@UAEXXZ"
+target_address = 0x004299E0
+size = 1
+relocations = []
+
+[units.laser-data-slot02]
+artifact_kind = "coff"
+source = "src/LaserData.cpp"
+inputs = ["src/LaserData.hpp"]
+object = "build/match/LaserData.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["LaserDataInf::Slot02"]
+symbol = "?Slot02@LaserDataInf@@UAEXH@Z"
+target_address = 0x004299F0
+size = 3
+relocations = []
+
+[units.laser-data-slot03]
+artifact_kind = "coff"
+source = "src/LaserData.cpp"
+inputs = ["src/LaserData.hpp"]
+object = "build/match/LaserData.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["LaserDataInf::Slot03"]
+symbol = "?Slot03@LaserDataInf@@UAEHH@Z"
+target_address = 0x00429A00
+size = 5
+relocations = []
+
+[units.laser-data-slot04]
+artifact_kind = "coff"
+source = "src/LaserData.cpp"
+inputs = ["src/LaserData.hpp"]
+object = "build/match/LaserData.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["LaserDataInf::Slot04"]
+symbol = "?Slot04@LaserDataInf@@UAEHXZ"
+target_address = 0x00429A10
+size = 3
+relocations = []
+
+[units.laser-data-slot05]
+artifact_kind = "coff"
+source = "src/LaserData.cpp"
+inputs = ["src/LaserData.hpp"]
+object = "build/match/LaserData.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["LaserDataInf::Slot05"]
+symbol = "?Slot05@LaserDataInf@@UAEHXZ"
+target_address = 0x00429A20
+size = 3
+relocations = []
+
+[units.laser-data-unlink]
+artifact_kind = "coff"
+source = "src/LaserData.cpp"
+inputs = ["src/LaserData.hpp"]
+object = "build/match/LaserData.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["LaserDataInf::Unlink"]
+symbol = "?Unlink@LaserDataInf@@UAEHXZ"
+target_address = 0x00429A30
+size = 25
+relocations = []
+
+[units.laser-data-slot07]
+artifact_kind = "coff"
+source = "src/LaserData.cpp"
+inputs = ["src/LaserData.hpp"]
+object = "build/match/LaserData.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["LaserDataInf::Slot07"]
+symbol = "?Slot07@LaserDataInf@@UAEHHH@Z"
+target_address = 0x00429A90
+size = 5
+relocations = []
+
+[units.laser-data-slot08]
+artifact_kind = "coff"
+source = "src/LaserData.cpp"
+inputs = ["src/LaserData.hpp"]
+object = "build/match/LaserData.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["LaserDataInf::Slot08"]
+symbol = "?Slot08@LaserDataInf@@UAEHHHHHH@Z"
+target_address = 0x00429A70
+size = 5
+relocations = []
+
+[units.laser-data-slot09]
+artifact_kind = "coff"
+source = "src/LaserData.cpp"
+inputs = ["src/LaserData.hpp"]
+object = "build/match/LaserData.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["LaserDataInf::Slot09"]
+symbol = "?Slot09@LaserDataInf@@UAEHHHHH@Z"
+target_address = 0x00429A50
+size = 5
+relocations = []
+
+[units.laser-data-slot10]
+artifact_kind = "coff"
+source = "src/LaserData.cpp"
+inputs = ["src/LaserData.hpp"]
+object = "build/match/LaserData.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["LaserDataInf::Slot10"]
+symbol = "?Slot10@LaserDataInf@@UAEHHHHHHH@Z"
+target_address = 0x00429A60
+size = 5
+relocations = []
+
+[units.laser-data-slot11]
+artifact_kind = "coff"
+source = "src/LaserData.cpp"
+inputs = ["src/LaserData.hpp"]
+object = "build/match/LaserData.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["LaserDataInf::Slot11"]
+symbol = "?Slot11@LaserDataInf@@UAEHHHHH@Z"
+target_address = 0x00429A80
+size = 5
+relocations = []
+
+[units.laser-data-slot12]
+artifact_kind = "coff"
+source = "src/LaserData.cpp"
+inputs = ["src/LaserData.hpp"]
+object = "build/match/LaserData.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["LaserDataInf::Slot12"]
+symbol = "?Slot12@LaserDataInf@@UAEHHH@Z"
+target_address = 0x00429AA0
+size = 5
+relocations = []
+
+[units.laser-data-slot13]
+artifact_kind = "coff"
+source = "src/LaserData.cpp"
+inputs = ["src/LaserData.hpp"]
+object = "build/match/LaserData.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["LaserDataInf::Slot13"]
+symbol = "?Slot13@LaserDataInf@@UAEHXZ"
+target_address = 0x00429AB0
+size = 3
+relocations = []
+
+[units.laser-data-slot14]
+artifact_kind = "coff"
+source = "src/LaserData.cpp"
+inputs = ["src/LaserData.hpp"]
+object = "build/match/LaserData.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["LaserDataInf::Slot14"]
+symbol = "?Slot14@LaserDataInf@@UAEHXZ"
+target_address = 0x00429AC0
+size = 3
+relocations = []
+
+[units.laser-data-slot15]
+artifact_kind = "coff"
+source = "src/LaserData.cpp"
+inputs = ["src/LaserData.hpp"]
+object = "build/match/LaserData.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["LaserDataInf::Slot15"]
+symbol = "?Slot15@LaserDataInf@@UAEHXZ"
+target_address = 0x00429AD0
+size = 3
+relocations = []
+
+[units.laser-data-slot16]
+artifact_kind = "coff"
+source = "src/LaserData.cpp"
+inputs = ["src/LaserData.hpp"]
+object = "build/match/LaserData.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["LaserDataInf::Slot16"]
+symbol = "?Slot16@LaserDataInf@@UAEHXZ"
+target_address = 0x00429AE0
+size = 3
+relocations = []
+
+[units.laser-data-slot17]
+artifact_kind = "coff"
+source = "src/LaserData.cpp"
+inputs = ["src/LaserData.hpp"]
+object = "build/match/LaserData.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["LaserDataInf::Slot17"]
+symbol = "?Slot17@LaserDataInf@@UAEHXZ"
+target_address = 0x00429AF0
+size = 3
+relocations = []
+
+[units.laser-data-slot18]
+artifact_kind = "coff"
+source = "src/LaserData.cpp"
+inputs = ["src/LaserData.hpp"]
+object = "build/match/LaserData.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["LaserDataInf::Slot18"]
+symbol = "?Slot18@LaserDataInf@@UAEHXZ"
+target_address = 0x00429B00
+size = 3
+relocations = []
+
+[units.laser-data-slot19]
+artifact_kind = "coff"
+source = "src/LaserData.cpp"
+inputs = ["src/LaserData.hpp"]
+object = "build/match/LaserData.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["LaserDataInf::Slot19"]
+symbol = "?Slot19@LaserDataInf@@UAEHXZ"
+target_address = 0x00429B10
+size = 3
+relocations = []
+
+[units.laser-data-slot20]
+artifact_kind = "coff"
+source = "src/LaserData.cpp"
+inputs = ["src/LaserData.hpp"]
+object = "build/match/LaserData.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["LaserDataInf::Slot20"]
+symbol = "?Slot20@LaserDataInf@@UAEHXZ"
+target_address = 0x00429B20
+size = 3
+relocations = []
+
+[units.laser-data-slot21]
+artifact_kind = "coff"
+source = "src/LaserData.cpp"
+inputs = ["src/LaserData.hpp"]
+object = "build/match/LaserData.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["LaserDataInf::Slot21"]
+symbol = "?Slot21@LaserDataInf@@UAEHXZ"
+target_address = 0x00429B30
+size = 3
+relocations = []
+
+[units.laser-data-slot22]
+artifact_kind = "coff"
+source = "src/LaserData.cpp"
+inputs = ["src/LaserData.hpp"]
+object = "build/match/LaserData.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["LaserDataInf::Slot22"]
+symbol = "?Slot22@LaserDataInf@@UAEHXZ"
+target_address = 0x00429B40
+size = 3
+relocations = []
+
+[units.laser-data-slot23]
+artifact_kind = "coff"
+source = "src/LaserData.cpp"
+inputs = ["src/LaserData.hpp"]
+object = "build/match/LaserData.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["LaserDataInf::Slot23"]
+symbol = "?Slot23@LaserDataInf@@UAEHXZ"
+target_address = 0x00429B50
+size = 3
+relocations = []

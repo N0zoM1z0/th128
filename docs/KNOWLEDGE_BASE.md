@@ -54,6 +54,22 @@ Facts here are TH128-local unless marked as a hypothesis.
   PE link with MAP and PDB, Capstone-decoded linked extent) passes on Wine 9.0
   with the TH11 Oracle scripts ported to VC10.
 
+## Laser classes
+
+`LaserDataInf` (vtable `0x004A2BB4`) is the base of `LaserLineInf`
+(`0x004A2C1C`), `LaserCurveInf` (`0x004A2C84`), `LaserInfiniteInf`
+(`0x004A2CEC`) and `LaserBeamInf` (`0x004A2D54`). It has 24 virtual slots
+and no virtual destructor. Its defaults are exact as normal COFF; their
+`RET n` sizes fix every slot's stack argument count (slot 8 takes five
+arguments, slot 9 four, slot 10 six, slot 11 four). Slot 6 unlinks the laser
+from a doubly linked list (prev +4, next +8). The defaults are laid out in a
+different order from the slots (9, 10, 8, 11, 7 after slot 6), so the
+original defines them in another order. Derived kinds override most slots
+with 60–2,400-byte methods; slot 0 of each kind computes a point along the
+laser through a polar helper (for example `0x00432E20`) that contains
+`FSINCOS`, which VC10 never emits from C, so those helpers use inline
+assembly in the original.
+
 ## Window procedure
 
 `WindowProc` (`0x00454420`, 420 bytes) is exact as normal COFF. Fixed
