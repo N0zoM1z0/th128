@@ -54,6 +54,17 @@ Facts here are TH128-local unless marked as a hypothesis.
   PE link with MAP and PDB, Capstone-decoded linked extent) passes on Wine 9.0
   with the TH11 Oracle scripts ported to VC10.
 
+## Window procedure
+
+`WindowProc` (`0x00454420`, 420 bytes) is exact as normal COFF. Fixed
+Windows callbacks are good large targets because LTCG cannot change their
+convention. Two source shapes mattered: `WM_SIZE` tests `wParam` with a
+nested `switch` (`MOV EAX, EDI; SUB EAX, 2; JNE`), not `==`, and the
+`WM_SETCURSOR` branch tests `!g_CursorAlwaysVisible` first. Globals touched:
+`0x004D33F8` (game flags: bit 7 quit), `0x004D59A8` (window flags),
+`0x004D397C`/`0x004D3980` (activation), `0x004D2F7C` (cursor always shown);
+names are provisional.
+
 ## Archive reader chain
 
 `ReadHeader` (`0x0044F9A0`), `ReadEntry` (`0x0044F7D0`) and `DecryptBlocks`

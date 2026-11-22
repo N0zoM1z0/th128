@@ -39,3 +39,4 @@ address,name,size,status,match_percent,unit,evidence
 0x00450F60,Pbg::MemFile::Read,91,exact,100.00,pbg-memfile-read,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; every relocation replayed against reviewed vtable or CRT targets; zero byte differences.
 0x00450FC0,Pbg::MemFile::Tell,7,exact,100.00,pbg-memfile-tell,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; every relocation replayed against reviewed vtable or CRT targets; zero byte differences.
 0x00450FD0,Pbg::MemFile::GetSize,4,exact,100.00,pbg-memfile-get-size,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; every relocation replayed against reviewed vtable or CRT targets; zero byte differences.
+0x00454420,WindowProc,420,exact,100.00,window-proc,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; every relocation replayed against reviewed user32 import slots and five game globals; zero byte differences.

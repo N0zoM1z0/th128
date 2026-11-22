@@ -50,3 +50,4 @@ mode dialog (fullscreen 640×480, window 640×480, 960×720, 1280×960).
 | `src/PbgArchive.cpp` | `Pbg::ArchiveEntry` constructor `0x0044FD20` and destructor `0x0044FCB0`, `Pbg::Archive::Open` `0x0044F5F0`, `Close` `0x0044F730`, `~Archive` `0x0044F5E0`, `ParseArchiveDirectory` `0x0044FB20` | exact (linked PE) |
 | `src/DebugLog.cpp` | `DebugPrint` `0x0044FD30` | exact (normal COFF) |
 | `src/BlockCipher.cpp`, `src/Lzss.cpp` | `DecryptBlocks` `0x00469A00`, `DecompressLzss` `0x00450860` | frontiers (linked PE, archive context) |
+| `src/WindowProc.cpp` | `WindowProc` `0x00454420` | exact (normal COFF) |

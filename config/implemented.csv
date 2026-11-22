@@ -35,6 +35,7 @@ Pbg::MemFile::`scalar deleting destructor'
 Pbg::MemFile::~MemFile
 Pbg::ParseArchiveDirectory
 SetTimeScale
+WindowProc
 ZunTimer::SetCurrent
 ZunTimer::SetCurrentF
 ZunTimer::operator<
