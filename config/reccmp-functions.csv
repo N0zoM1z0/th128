@@ -22,3 +22,11 @@ Pbg::File::GetSize,0x00450090,function
 Pbg::File::Seek,0x004500B0,function
 Pbg::File::ReadWhole,0x004500E0,function
 Pbg::IFile::`scalar deleting destructor',0x00450210,function
+Pbg::MemFile::Write,0x00450E40,function
+Pbg::MemFile::`scalar deleting destructor',0x00450E70,function
+Pbg::MemFile::~MemFile,0x00450EC0,function
+Pbg::MemFile::Close,0x00450F30,function
+Pbg::MemFile::Read,0x00450F60,function
+Pbg::MemFile::Tell,0x00450FC0,function
+Pbg::MemFile::GetSize,0x00450FD0,function
+Pbg::MemFile::Seek,0x00450FE0,function

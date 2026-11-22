@@ -14,6 +14,14 @@ Pbg::File::Write
 Pbg::File::`scalar deleting destructor'
 Pbg::File::~File
 Pbg::IFile::`scalar deleting destructor'
+Pbg::MemFile::Close
+Pbg::MemFile::GetSize
+Pbg::MemFile::Read
+Pbg::MemFile::Seek
+Pbg::MemFile::Tell
+Pbg::MemFile::Write
+Pbg::MemFile::`scalar deleting destructor'
+Pbg::MemFile::~MemFile
 SetTimeScale
 ZunTimer::operator<
 ZunTimer::operator<=

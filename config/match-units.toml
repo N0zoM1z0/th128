@@ -345,3 +345,116 @@ relocations = [
   { offset = 43, type = "REL32", symbol = "_malloc", target = 0x00472F6F },
   { offset = 112, type = "REL32", symbol = "_free", target = 0x0047290C },
 ]
+
+# Pbg in-memory stream: normal-COFF codegen context; original /GL ownership is unknown.
+
+[units.pbg-memfile-close]
+artifact_kind = "coff"
+source = "src/PbgMemFile.cpp"
+inputs = ["src/PbgFile.hpp"]
+object = "build/match/PbgMemFile.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["Pbg::MemFile::Close"]
+symbol = "?Close@MemFile@Pbg@@UAEXXZ"
+target_address = 0x00450F30
+size = 37
+relocations = [
+  { offset = 15, type = "REL32", symbol = "_free", target = 0x0047290C },
+]
+
+[units.pbg-memfile-read]
+artifact_kind = "coff"
+source = "src/PbgMemFile.cpp"
+inputs = ["src/PbgFile.hpp"]
+object = "build/match/PbgMemFile.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["Pbg::MemFile::Read"]
+symbol = "?Read@MemFile@Pbg@@UAEIPAXI@Z"
+target_address = 0x00450F60
+size = 91
+relocations = [
+  { offset = 33, type = "REL32", symbol = "_memcpy", target = 0x00486FA0 },
+  { offset = 63, type = "REL32", symbol = "_memcpy", target = 0x00486FA0 },
+]
+
+[units.pbg-memfile-write]
+artifact_kind = "coff"
+source = "src/PbgMemFile.cpp"
+inputs = ["src/PbgFile.hpp"]
+object = "build/match/PbgMemFile.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["Pbg::MemFile::Write"]
+symbol = "?Write@MemFile@Pbg@@UAEEPBXI@Z"
+target_address = 0x00450E40
+size = 5
+relocations = []
+
+[units.pbg-memfile-tell]
+artifact_kind = "coff"
+source = "src/PbgMemFile.cpp"
+inputs = ["src/PbgFile.hpp"]
+object = "build/match/PbgMemFile.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["Pbg::MemFile::Tell"]
+symbol = "?Tell@MemFile@Pbg@@UAEIXZ"
+target_address = 0x00450FC0
+size = 7
+relocations = []
+
+[units.pbg-memfile-get-size]
+artifact_kind = "coff"
+source = "src/PbgMemFile.cpp"
+inputs = ["src/PbgFile.hpp"]
+object = "build/match/PbgMemFile.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["Pbg::MemFile::GetSize"]
+symbol = "?GetSize@MemFile@Pbg@@UAEIXZ"
+target_address = 0x00450FD0
+size = 4
+relocations = []
+
+[units.pbg-memfile-destructor]
+artifact_kind = "coff"
+source = "src/PbgMemFile.cpp"
+inputs = ["src/PbgFile.hpp"]
+object = "build/match/PbgMemFile.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["Pbg::MemFile::~MemFile"]
+symbol = "??1MemFile@Pbg@@UAE@XZ"
+target_address = 0x00450EC0
+size = 49
+relocations = [
+  { offset = 11, type = "DIR32", symbol = "??_7MemFile@Pbg@@6B@", target = 0x004A491C },
+  { offset = 21, type = "REL32", symbol = "_free", target = 0x0047290C },
+  { offset = 43, type = "DIR32", symbol = "??_7IFile@Pbg@@6B@", target = 0x004A4850 },
+]
+
+[units.pbg-memfile-deleting-destructor]
+artifact_kind = "coff"
+source = "src/PbgMemFile.cpp"
+inputs = ["src/PbgFile.hpp"]
+object = "build/match/PbgMemFile.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["Pbg::MemFile::`scalar deleting destructor'"]
+symbol = "??_GMemFile@Pbg@@UAEPAXI@Z"
+target_address = 0x00450E70
+size = 72
+relocations = [
+  { offset = 14, type = "DIR32", symbol = "??_7MemFile@Pbg@@6B@", target = 0x004A491C },
+  { offset = 24, type = "REL32", symbol = "_free", target = 0x0047290C },
+  { offset = 49, type = "DIR32", symbol = "??_7IFile@Pbg@@6B@", target = 0x004A4850 },
+  { offset = 57, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+]
+
+[units.pbg-memfile-seek]
+frontier = true # same instructions except the FILE_BEGIN path: VC10 shrink-wraps ESI there, the original saves it up front
+artifact_kind = "coff"
+source = "src/PbgMemFile.cpp"
+inputs = ["src/PbgFile.hpp"]
+object = "build/match/PbgMemFile.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["Pbg::MemFile::Seek"]
+symbol = "?Seek@MemFile@Pbg@@UAEEJI@Z"
+target_address = 0x00450FE0
+size = 107
+relocations = []

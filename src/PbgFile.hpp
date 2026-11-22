@@ -37,4 +37,23 @@ public:
     HANDLE handle;
     DWORD access;
 };
+
+// In-memory stream over a malloc buffer; vtable at 0x004A491C. It does not
+// override Open, so its first slot stays _purecall.
+class MemFile : public IFile
+{
+public:
+    ~MemFile();
+
+    void Close();
+    unsigned int Read(void *destination, unsigned int length);
+    unsigned char Write(const void *source, unsigned int length);
+    unsigned int Tell();
+    unsigned int GetSize();
+    unsigned char Seek(long offset, unsigned int origin);
+
+    unsigned int size;
+    unsigned char *cursor;
+    unsigned char *data;
+};
 }

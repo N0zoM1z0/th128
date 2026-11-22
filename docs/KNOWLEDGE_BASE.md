@@ -121,7 +121,17 @@ including the compiler-generated scalar deleting destructors.
   separate path resolver, so the shape changed between the games.
 - `ReadWhole` (`0x004500E0`) seeks to the current position with
   `FILE_BEGIN` before and after reading.
-- The `MemFile` vtable `0x004A491C` is next.
+- `Pbg::MemFile` (vtable `0x004A491C`) keeps `_purecall` in the Open slot
+  and adds a slot-8 virtual (`0x00450F00`) that loads its buffer through
+  `0x00450380`/`0x00450450`. Layout: size +4, cursor +8, data +0xC. Seven
+  owners are exact.
+- `MemFile::Seek` (`0x00450FE0`) is a frontier. Computing a base pointer in
+  the CURRENT and END cases and storing `cursor = base + offset` after the
+  switch reproduces the original's shared tail and every instruction except
+  one: the original pushes ESI before the dispatch, while VC10 shrink-wraps
+  it past the FILE_BEGIN branch. Tried without success: per-case returns,
+  `abs`/ternary/in-place negation, if/else chain, success-only returns with a
+  shared `return 0`.
 
 ## Open questions
 
