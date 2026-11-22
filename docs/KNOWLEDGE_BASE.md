@@ -103,6 +103,15 @@ exactly that way.
   varargs function; under `/GL` the compiler drops the constant format
   argument at call sites, while the original still pushes it. Building the
   logger as normal COFF reproduces the calls.
+- `Archive::Open` (`0x0044F5F0`) is exact with `this` in `EAX` and the name
+  in `EBX`, chosen by LTCG. Its callee `ReadHeader` (`0x0044F9A0`) is not
+  reconstructed yet; the probe defines a placeholder whose shape (several
+  virtual stream calls and a local buffer) makes VC10 give it the original's
+  private `ESI` receiver and stack filename. Simpler placeholders changed
+  the call to `EDX`/stack-`this` and even Open's own convention, so keep the
+  placeholder until the real reader replaces it.
+- The original source file is `src\\pack\\_ArcMngr.cpp` (a trace string at
+  `0x004A472C` names line 113, `ResFile`).
 - Null stores follow the original statement order: `name` is cleared both
   inside and after its free, `entries = NULL` after the `delete[]` block, and
   `file = NULL; count = 0;` last.

@@ -6,6 +6,7 @@ AnmVmSetScaleY
 AnmVmSetUvScroll
 DebugPrint
 Pbg::Archive::Close
+Pbg::Archive::Open
 Pbg::Archive::~Archive
 Pbg::ArchiveEntry::~ArchiveEntry
 Pbg::File::Close

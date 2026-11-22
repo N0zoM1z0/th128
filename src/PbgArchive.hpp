@@ -17,7 +17,7 @@ struct ArchiveEntry
     ~ArchiveEntry();
 };
 
-// A THA1 archive opened from disk: directory, entry count, archive name and
+// A THA1 archive (the original source is src\\pack\\_ArcMngr.cpp) opened from disk: directory, entry count, archive name and
 // the underlying stream.
 struct Archive
 {
@@ -27,6 +27,8 @@ struct Archive
     IFile *file;
 
     ~Archive();
+    bool Open(const char *filename);
     void Close();
+    bool ReadHeader(const char *filename);
 };
 }
