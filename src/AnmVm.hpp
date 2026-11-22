@@ -7,7 +7,8 @@
 // timers are the ones the constructor's member initialization touches.
 struct AnmVm
 {
-    unsigned char unknown000[0x40 - 0x0];
+    unsigned int id;                        // +0x000
+    unsigned char unknown004[0x40 - 0x4];
     float scaleX;                           // +0x040
     float scaleY;                           // +0x044
     float scale2X;                          // +0x048

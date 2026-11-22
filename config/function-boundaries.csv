@@ -2047,7 +2047,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x004670B0,0x0046721B,reviewed,high,bdesc-exact,start padding; refs callx129; descent body 0x004670B0..0x0046721B (364 bytes) ends with ret; then padding-then-start 0x00467220
 0x00467220,0x00467329,reviewed,high,bdesc-exact,start padding; refs callx5; descent body 0x00467220..0x00467329 (266 bytes) ends with ret; then padding-then-start 0x00467330
 0x00467330,0x00467415,reviewed,high,bdesc-exact,start padding; refs callx2; descent body 0x00467330..0x00467415 (230 bytes) ends with ret; then padding-then-start 0x00467420
-0x00467420,0x00467478,reviewed,high,bdesc-exact,start padding; refs callx298; descent body 0x00467420..0x00467478 (89 bytes) ends with ret; then padding-then-start 0x00467480; 1 filler hole(s)
+0x00467420,0x00467478,reviewed,high,anm-manager-get-vm-by-id-boundary,Complete 89-byte body with four returns between padding.
 0x00467480,0x004674E6,reviewed,high,bdesc-exact,start padding; refs callx215; descent body 0x00467480..0x004674E6 (103 bytes) ends with ret; then padding-then-start 0x004674F0
 0x004674F0,0x0046756F,reviewed,high,bdesc-exact,start padding; refs callx33; descent body 0x004674F0..0x0046756F (128 bytes) ends with ret; then adjacent-start 0x00467570
 0x00467570,0x004675B2,reviewed,medium,bdesc-exact-weak,"start after-terminator; refs none; descent body 0x00467570..0x004675B2 (67 bytes) ends with ret; then padding-then-start 0x004675C0; WEAK: no call, jump, pointer or vtable reference found"

@@ -82,6 +82,7 @@ Pbg::MemFile::GetSize,0x00450FD0,function
 Pbg::MemFile::Seek,0x00450FE0,function
 WindowProc,0x00454420,function
 CreateGameWindow,0x00455320,function
+AnmManager::GetVmById,0x00467420,function
 DecryptBlocks,0x00469A00,function
 Rng::GetU16,0x0046A3F0,function
 Rng::GetU32,0x0046A460,function

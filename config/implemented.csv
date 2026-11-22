@@ -1,4 +1,5 @@
 AddAngles
+AnmManager::GetVmById
 AnmVm::AnmVm
 AnmVmSetScale
 AnmVmSetScale2

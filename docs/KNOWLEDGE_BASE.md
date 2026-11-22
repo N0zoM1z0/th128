@@ -335,6 +335,14 @@ flags (`0x004D33F8`) is set (lock `0x004D3768`, depth byte `0x004D37A2`).
   constant), then scale by double constants (`2^-32`, `2^-31` then `- 1.0`,
   `/ 683565248.0` then `- pi`).
 
+`AnmManager::GetVmById` (`0x00467420`, 277 call sites) searches two VM
+lists (`+0x8B9704`, `+0x8B970C`, nodes `{vm, next}`) for `vm->id` (AnmVm
++0). It is a frontier on convention alone. With only global-pointer callers
+LTCG folds `this` into a load of `g_AnmManager` inside the callee; one call
+through another manager pointer restores the original `EDX` receiver, but
+VC10 then also passes the id in `ECX` while the original pushes it. Calls
+with field-loaded ids did not change that.
+
 ## Timer game speed
 
 `0x004B6F58` is the game-speed float that every `ZunTimer` points at. The

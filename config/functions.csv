@@ -2047,7 +2047,7 @@ address,size,span_end,current_name,proposed_name,module,status,match_percent,cal
 0x004670B0,364,0x0046721B,FUN_004670b0,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary reviewed from target bytes,,
 0x00467220,266,0x00467329,FUN_00467220,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary reviewed from target bytes,,
 0x00467330,230,0x00467415,FUN_00467330,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary reviewed from target bytes,,
-0x00467420,89,0x00467478,FUN_00467420,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary reviewed from target bytes,,
+0x00467420,89,0x00467478,FUN_00467420,AnmManager::GetVmById,AnmManager,unclassified,0.00,LTCG private EDX manager; stack id; RET 4,AnmVm *AnmManager::GetVmById(unsigned int id),false,src/AnmManager.cpp,"Direct hash-attested target extent, neighbor and reference review.",,Frontier: id 0 gives NULL; searches the world list (+0x8B9704) then the UI list (+0x8B970C) for vm->id; 277 call sites. Canonical unit anm-manager-get-vm-by-id.
 0x00467480,103,0x004674E6,FUN_00467480,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary reviewed from target bytes,,
 0x004674F0,128,0x0046756F,FUN_004674f0,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary reviewed from target bytes,,
 0x00467570,67,0x004675B2,FUN_00467570,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary reviewed from target bytes,,

@@ -1399,3 +1399,18 @@ linkages = [
   { offset = 27, type = "DIR32", symbol = "__real@41c45f3060000000", target = 0x004A6780 },
   { offset = 33, type = "DIR32", symbol = "__real@400921fb60000000", target = 0x004A6580 },
 ]
+
+[units.anm-manager-get-vm-by-id]
+frontier = true # this in EDX like the original; VC10 also passes the id in ECX, the original keeps it on the stack
+artifact_kind = "linked-pe"
+source = "src/AnmManager.cpp"
+inputs = ["src/AnmManager.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp"]
+support_sources = ["probes/anm-manager-context.cpp"]
+output_dir = "build/match-linked/AnmManager"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmManagerProbe@12"
+functions = ["AnmManager::GetVmById"]
+symbol = "?GetVmById@AnmManager@@QAEPAUAnmVm@@I@Z"
+target_address = 0x00467420
+size = 89
+linkages = []
