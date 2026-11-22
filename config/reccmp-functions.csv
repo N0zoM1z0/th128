@@ -21,6 +21,7 @@ Pbg::Archive::ReadEntry,0x0044F7D0,function
 Pbg::Archive::ReadHeader,0x0044F9A0,function
 Pbg::ParseArchiveDirectory,0x0044FB20,function
 Pbg::ArchiveEntry::~ArchiveEntry,0x0044FCB0,function
+Pbg::ArchiveEntry::ArchiveEntry,0x0044FD20,function
 DebugPrint,0x0044FD30,function
 Pbg::File::`scalar deleting destructor',0x0044FD80,function
 Pbg::File::~File,0x0044FDD0,function

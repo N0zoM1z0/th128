@@ -671,3 +671,18 @@ symbol = "?ReadEntry@Archive@Pbg@@QAEPAXPBDPAX@Z"
 target_address = 0x0044F7D0
 size = 328
 linkages = []
+
+[units.pbg-archive-entry-constructor]
+artifact_kind = "linked-pe"
+source = "src/PbgArchive.cpp"
+inputs = ["src/PbgArchive.hpp", "src/PbgFile.hpp", "src/DebugLog.hpp", "src/BlockCipher.hpp"]
+support_sources = ["probes/pbg-archive-context.cpp", "src/DebugLog.cpp", "src/BlockCipher.cpp"]
+normal_support_sources = ["src/DebugLog.cpp"]
+output_dir = "build/match-linked/PbgArchive"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/EHsc", "/GL"]
+entry = "PbgArchiveProbe@12"
+functions = ["Pbg::ArchiveEntry::ArchiveEntry"]
+symbol = "??0ArchiveEntry@Pbg@@QAE@XZ"
+target_address = 0x0044FD20
+size = 9
+linkages = []
