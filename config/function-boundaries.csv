@@ -17,7 +17,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x00402A50,0x00402A55,needs_review,low,ghidra-12.1.4-initial-inventory,"Auto-analysis bounding span only; reconcile sparse bodies, references, tables and adjacent bytes before acceptance."
 0x00402A70,0x00402ABD,needs_review,low,ghidra-12.1.4-initial-inventory,"Auto-analysis bounding span only; reconcile sparse bodies, references, tables and adjacent bytes before acceptance."
 0x00402AC0,0x00402B17,needs_review,low,ghidra-12.1.4-initial-inventory,"Auto-analysis bounding span only; reconcile sparse bodies, references, tables and adjacent bytes before acceptance."
-0x00402B20,0x00402B2F,needs_review,low,ghidra-12.1.4-initial-inventory,"Auto-analysis bounding span only; reconcile sparse bodies, references, tables and adjacent bytes before acceptance."
+0x00402B20,0x00402B2F,reviewed,high,zun-timer-modulo-boundary,"Complete 16-byte body: CC padding before 0x00402B20, PUSH EBP prologue, RET 4 ends at 0x00402B2F; the next bytes begin a separate uninventoried routine at 0x00402B30."
 0x00402B60,0x00402B79,needs_review,low,ghidra-12.1.4-initial-inventory,"Auto-analysis bounding span only; reconcile sparse bodies, references, tables and adjacent bytes before acceptance."
 0x00402B90,0x00402BF1,needs_review,low,ghidra-12.1.4-initial-inventory,"Auto-analysis bounding span only; reconcile sparse bodies, references, tables and adjacent bytes before acceptance."
 0x00402C00,0x00402C19,needs_review,low,ghidra-12.1.4-initial-inventory,"Auto-analysis bounding span only; reconcile sparse bodies, references, tables and adjacent bytes before acceptance."

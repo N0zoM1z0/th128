@@ -13,7 +13,7 @@ owner contexts.
 scripts/repo-python scripts/verify-target.py
 scripts/repo-python scripts/validate-tracking.py --require-target
 scripts/repo-python scripts/verify-toolchain.py --check
-scripts/repo-python scripts/replay-exact-units.py --unit set-time-scale
+scripts/repo-python scripts/replay-exact-units.py --source src/ZunTimer.cpp
 ```
 
 ## Current state
@@ -33,7 +33,9 @@ target:
   archive-equal extents and reviewed boundaries.
 - **Oracles**: synthetic suites pass (8 normal-COFF, 27 linked-PE). The first
   real linked unit, `SetTimeScale` at `0x00407310` (16 bytes), is exact with
-  `/TP /O2 /Oy- /Gy /MT /GL`; removing `/Oy-` is rejected.
+  `/TP /O2 /Oy- /Gy /MT /GL`; removing `/Oy-` is rejected. The second,
+  `ZunTimerModulo` at `0x00402B20`, reproduces an LTCG private `EAX`
+  convention from a `__stdcall` declaration (see the knowledge base).
 
 Counts are in [PROGRESS](PROGRESS.md); findings in
 [KNOWLEDGE_BASE](KNOWLEDGE_BASE.md).

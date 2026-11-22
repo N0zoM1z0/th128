@@ -74,6 +74,22 @@ the contribution no longer has the target size, so the Oracle rejects it.
 Most small game leaves near it keep the frame pointer too, which makes `/Oy-`
 the working default hypothesis for game code.
 
+## LTCG private conventions
+
+`ZunTimerModulo` (`0x00402B20`, 16 bytes) returns the count at +4 modulo a
+stack divisor, with the object in `EAX` and `RET 4`. Declared plain
+(`__cdecl`), VC10 `/GL` already moved the object into `EAX` but left the
+divisor caller-popped (`RET`, `ADD ESP, 8`). Declared `__stdcall`, the same
+link moves the first pointer argument into `EAX` and keeps callee cleanup,
+reproducing the target exactly. The probe in `probes/zun-timer-context.cpp`
+calls it twice with independent inputs so the convention is not anchored to
+one caller. Expect the same `__stdcall` reading for the many small
+`EAX`-receiver `RET n` leaves. Leaves with an `ECX` receiver (for example
+`0x00402C40`, `0x00407130`) look like ordinary `__thiscall` members.
+
+The ZunTimer field names beyond +4 come from adjacent games and remain a
+hypothesis.
+
 ## Open questions
 
 - Compiler flags per unit, the TU partition, which objects are `/GL`, the

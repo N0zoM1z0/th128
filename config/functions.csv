@@ -17,7 +17,7 @@ address,size,span_end,current_name,proposed_name,module,status,match_percent,cal
 0x00402A50,6,0x00402A55,FUN_00402a50,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
 0x00402A70,78,0x00402ABD,FUN_00402a70,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
 0x00402AC0,88,0x00402B17,FUN_00402ac0,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
-0x00402B20,16,0x00402B2F,FUN_00402b20,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
+0x00402B20,16,0x00402B2F,FUN_00402b20,ZunTimerModulo,ZunTimer,exact,100.00,LTCG private EAX timer; stack divisor; RET 4,"int __stdcall ZunTimerModulo(ZunTimer *timer, int divisor)",false,src/ZunTimer.cpp,Direct hash-attested local Ghidra extent and neighbor review. Cold pinned VC10 /GL /Ob1 /Oy- complete 16-byte public primary-TU PDB contribution behind an independent two-call probe context; current receipts; no fields; zero byte differences.,,Returns the current count at +4 modulo the divisor. ZunTimer layout beyond +4 is an adjacent-game hypothesis. Canonical unit zun-timer-modulo.
 0x00402B60,26,0x00402B79,FUN_00402b60,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
 0x00402B90,98,0x00402BF1,FUN_00402b90,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
 0x00402C00,26,0x00402C19,FUN_00402c00,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,

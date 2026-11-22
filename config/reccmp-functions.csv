@@ -1,2 +1,3 @@
 name,address,type
 SetTimeScale,0x00407310,function
+ZunTimerModulo,0x00402B20,function
