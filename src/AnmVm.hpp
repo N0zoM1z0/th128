@@ -1,5 +1,6 @@
 #pragma once
 
+#include "ZunMath.hpp"
 #include "ZunTimer.hpp"
 
 // Animation VM, 0x4E8 bytes. Offsets are TH128 target observations; field
@@ -8,7 +9,9 @@
 struct AnmVm
 {
     unsigned int id;                        // +0x000
-    unsigned char unknown004[0x40 - 0x4];
+    unsigned char unknown004[0x20 - 0x4];
+    int scriptState;                        // +0x020
+    unsigned char unknown024[0x40 - 0x24];
     float scaleX;                           // +0x040
     float scaleY;                           // +0x044
     float scale2X;                          // +0x048
@@ -44,7 +47,10 @@ struct AnmVm
     ZunTimer timer3FC;                      // +0x3FC
     unsigned char unknown410[0x418 - 0x410];
     short anmFileIndex;                     // +0x418, -1 when unbound
-    unsigned char unknown41A[0x4B0 - 0x41A];
+    unsigned char unknown41A[0x464 - 0x41A];
+    ZunVec3 position;                       // +0x464
+    unsigned char unknown470[0x4AC - 0x470];
+    void *extraData;                        // +0x4AC, freed by the destructor
     unsigned int flags;                     // +0x4B0, bit 3 marks the transform dirty
     unsigned char unknown4B4[0x4E8 - 0x4B4];
 

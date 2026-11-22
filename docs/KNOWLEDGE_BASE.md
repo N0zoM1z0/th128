@@ -54,6 +54,18 @@ Facts here are TH128-local unless marked as a hypothesis.
   PE link with MAP and PDB, Capstone-decoded linked extent) passes on Wine 9.0
   with the TH11 Oracle scripts ported to VC10.
 
+## AnmVm effect callbacks
+
+A function table in `.data` around `0x004B1E9C` holds AnmVm effect start
+and update callbacks with fixed `__fastcall (AnmVm *vm, const float *position)`
+signatures, so LTCG cannot change them. `StartAnmVmEffect06` (`0x00412C80`)
+is exact as normal COFF. It allocates 0x2C bytes into `vm->extraData`
+(+0x4AC, which `~AnmVm` frees) and copies the screen position into
+`vm->position` (+0x464) by **vector struct assignment**: per-component float
+copies compile to `FLD`/`FSTP`, the original's integer `MOV`s need a struct
+copy. `ZunTimer::Initialize` and an inline `Reset()` now live in the header
+for such inline timer resets.
+
 ## Laser classes
 
 `LaserDataInf` (vtable `0x004A2BB4`) is the base of `LaserLineInf`

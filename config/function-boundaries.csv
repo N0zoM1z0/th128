@@ -493,7 +493,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x00412B30,0x00412B32,reviewed,high,bnew-referenced,found by padded-aligned; start padding; refs datax2; descent body 0x00412B30..0x00412B32 (3 bytes) ends with ret; then padding-then-start 0x00412B40
 0x00412B40,0x00412B42,reviewed,high,bnew-referenced,found by padded-aligned; start padding; refs datax2; descent body 0x00412B40..0x00412B42 (3 bytes) ends with ret; then padding-then-start 0x00412B50
 0x00412B50,0x00412C7F,reviewed,high,bdesc-exact,start padding; refs datax1; descent body 0x00412B50..0x00412C7F (304 bytes) ends with ret; then adjacent-start 0x00412C80
-0x00412C80,0x00412D3A,reviewed,high,bdesc-exact,start after-terminator; refs datax1; descent body 0x00412C80..0x00412D3A (187 bytes) ends with ret; then padding-then-start 0x00412D40
+0x00412C80,0x00412D3A,reviewed,high,start-anm-vm-effect-06-boundary,Complete 187-byte body between padding; referenced from the effect table at 0x004B1EB4.
 0x00412D40,0x00412D97,reviewed,high,bdesc-exact,start padding; refs datax1; descent body 0x00412D40..0x00412D97 (88 bytes) ends with ret; then padding-then-start 0x00412DA0
 0x00412DA0,0x00412DE8,reviewed,high,bnew-referenced,found by padded-aligned; start padding; refs datax1; descent body 0x00412DA0..0x00412DE8 (73 bytes) ends with ret; then padding-then-start 0x00412DF0
 0x00412DF0,0x00412DF2,reviewed,high,bnew-referenced,found by padded-aligned; start padding; refs datax1; descent body 0x00412DF0..0x00412DF2 (3 bytes) ends with ret; then padding-then-start 0x00412E00

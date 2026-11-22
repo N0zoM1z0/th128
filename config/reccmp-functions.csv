@@ -14,6 +14,7 @@ SetTimeScale,0x00407310,function
 ZunTimer::operator>=,0x004073B0,function
 ZunTimer::operator==,0x00407E70,function
 ZunTimer::operator>,0x00410CD0,function
+StartAnmVmEffect06,0x00412C80,function
 SptInf::Slot00,0x00414360,function
 SptInf::Slot01,0x004144A0,function
 SptInf::Slot02,0x004144B0,function

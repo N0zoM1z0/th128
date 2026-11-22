@@ -30,18 +30,6 @@ bool ZunTimer::operator>(int value) const
     return current > value;
 }
 
-inline void ZunTimer::Initialize()
-{
-    if (!initialized)
-    {
-        currentF = 0.0f;
-        current = 0;
-        previous = -999999;
-        gameSpeed = &g_TimeScale;
-        initialized = 1;
-    }
-}
-
 void ZunTimer::SetCurrent(int value)
 {
     Initialize();

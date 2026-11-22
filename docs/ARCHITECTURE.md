@@ -59,3 +59,4 @@ mode dialog (fullscreen 640×480, window 640×480, 960×720, 1280×960).
 | `src/MenuCursor.cpp` | `MenuCursor::Move` `0x0046A970` | exact (linked PE) |
 | `src/Rng.cpp` | `Rng::GetU16` `0x0046A3F0`, `GetU32` `0x0046A460`, `GetFloat`/`GetFloatSigned`/`GetAngle` `0x0046A5D0..0x0046A65E` | exact (linked PE) |
 | `src/EclResource.cpp` | `SptResourceInf::LoadIncludes` `0x00414680` (exact), `Load` `0x004703F0` (frontier) | normal COFF |
+| `src/AnmVmEffects.cpp` | `StartAnmVmEffect06` `0x00412C80` | exact (normal COFF) |

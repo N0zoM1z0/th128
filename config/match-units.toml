@@ -107,7 +107,7 @@ linkages = []
 [units.anm-vm-set-scale]
 artifact_kind = "linked-pe"
 source = "src/AnmVmSetters.cpp"
-inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp"]
+inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
 support_sources = ["probes/anm-vm-setters-context.cpp"]
 output_dir = "build/match-linked/AnmVmSetters"
 profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
@@ -121,7 +121,7 @@ linkages = []
 [units.anm-vm-set-scale-x]
 artifact_kind = "linked-pe"
 source = "src/AnmVmSetters.cpp"
-inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp"]
+inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
 support_sources = ["probes/anm-vm-setters-context.cpp"]
 output_dir = "build/match-linked/AnmVmSetters"
 profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
@@ -135,7 +135,7 @@ linkages = []
 [units.anm-vm-set-scale-y]
 artifact_kind = "linked-pe"
 source = "src/AnmVmSetters.cpp"
-inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp"]
+inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
 support_sources = ["probes/anm-vm-setters-context.cpp"]
 output_dir = "build/match-linked/AnmVmSetters"
 profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
@@ -149,7 +149,7 @@ linkages = []
 [units.anm-vm-set-scale2]
 artifact_kind = "linked-pe"
 source = "src/AnmVmSetters.cpp"
-inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp"]
+inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
 support_sources = ["probes/anm-vm-setters-context.cpp"]
 output_dir = "build/match-linked/AnmVmSetters"
 profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
@@ -163,7 +163,7 @@ linkages = []
 [units.anm-vm-set-uv-scroll]
 artifact_kind = "linked-pe"
 source = "src/AnmVmSetters.cpp"
-inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp"]
+inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
 support_sources = ["probes/anm-vm-setters-context.cpp"]
 output_dir = "build/match-linked/AnmVmSetters"
 profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
@@ -462,7 +462,7 @@ relocations = []
 [units.anm-vm-constructor]
 artifact_kind = "coff"
 source = "src/AnmVm.cpp"
-inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp"]
+inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
 object = "build/match/AnmVm.obj"
 profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
 functions = ["AnmVm::AnmVm"]
@@ -1440,3 +1440,23 @@ symbol = "?Load@SptResourceInf@@UAEHPAX@Z"
 target_address = 0x004703F0
 size = 538
 relocations = []
+
+[units.start-anm-vm-effect-06]
+artifact_kind = "coff"
+source = "src/AnmVmEffects.cpp"
+inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
+object = "build/match/AnmVmEffects.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["StartAnmVmEffect06"]
+symbol = "?StartAnmVmEffect06@@YIHPAUAnmVm@@PBM@Z"
+target_address = 0x00412C80
+size = 187
+relocations = [
+  { offset = 10, type = "REL32", symbol = "_malloc", target = 0x00472F6F },
+  { offset = 28, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+  { offset = 36, type = "DIR32", symbol = "__real@4060000000000000", target = 0x004A65F8 },
+  { offset = 45, type = "DIR32", symbol = "__real@4068000000000000", target = 0x004A65D8 },
+  { offset = 56, type = "DIR32", symbol = "__real@4030000000000000", target = 0x004A6610 },
+  { offset = 101, type = "DIR32", symbol = "?g_TimeScale@@3MA", target = 0x004B6F58 },
+  { offset = 120, type = "DIR32", symbol = "__real@43000000", target = 0x004A66A0 },
+]
