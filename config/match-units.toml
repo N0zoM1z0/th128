@@ -736,3 +736,16 @@ relocations = [
   { offset = 396, type = "DIR32", symbol = "__imp__SetCursor@4", target = 0x0049A224 },
   { offset = 404, type = "DIR32", symbol = "__imp__ShowCursor@4", target = 0x0049A234 },
 ]
+
+[units.create-game-window]
+frontier = true # same 566 bytes and instructions; the original frame is 8 bytes larger (WNDCLASSA at ebp-0x2C) and swaps EBX/EDI
+artifact_kind = "coff"
+source = "src/GameWindow.cpp"
+inputs = []
+object = "build/match/GameWindow.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["CreateGameWindow"]
+symbol = "?CreateGameWindow@@YGHPAUHINSTANCE__@@@Z"
+target_address = 0x00455320
+size = 566
+relocations = []

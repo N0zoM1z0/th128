@@ -65,6 +65,16 @@ nested `switch` (`MOV EAX, EDI; SUB EAX, 2; JNE`), not `==`, and the
 `0x004D397C`/`0x004D3980` (activation), `0x004D2F7C` (cursor always shown);
 names are provisional.
 
+`CreateGameWindow` (`0x00455320`, 566 bytes) reproduces every instruction
+when `WNDCLASSA` is cleared with `memset` (a `{0}` initializer schedules
+`XOR ESI, ESI` before `PUSH 4`). Two differences remain: the original frame
+is `0x30` with the class at `[ebp-0x2C]` (ours `0x28`/`[ebp-0x28]`, so two
+4-byte slots are unaccounted for) and `EBX`/`EDI` hold the instance and the
+frame-size constants the other way round. Declaring `width`/`height`/
+`window` at the top in any order did not change either. The window mode is
+a 2-bit field at bits 2–3 of `0x004D59A8`; mode 0 is the 640×480
+`WS_POPUP` fullscreen window, modes 1–3 are framed 640/960/1280 windows.
+
 ## Archive reader chain
 
 `ReadHeader` (`0x0044F9A0`), `ReadEntry` (`0x0044F7D0`) and `DecryptBlocks`

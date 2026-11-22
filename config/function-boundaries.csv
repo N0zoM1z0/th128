@@ -1747,7 +1747,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x00455160,0x00455269,reviewed,high,bdesc-exact,start padding; refs callx27; descent body 0x00455160..0x00455269 (266 bytes) ends with ret; then padding-then-start 0x00455270
 0x00455270,0x004552EC,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x00455270..0x004552EC (125 bytes) ends with ret; then padding-then-start 0x004552F0; WEAK: no call, jump, pointer or vtable reference found"
 0x004552F0,0x0045531D,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x004552F0..0x0045531D (46 bytes) ends with ret; then padding-then-start 0x00455320; WEAK: no call, jump, pointer or vtable reference found"
-0x00455320,0x00455555,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00455320..0x00455555 (566 bytes) ends with ret; then padding-then-start 0x00455560
+0x00455320,0x00455555,reviewed,high,create-game-window-boundary,Complete 566-byte body with two returns between CC padding; called once from the application setup at 0x004539D0.
 0x00455560,0x00455A63,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00455560..0x00455A63 (1284 bytes) ends with ret; then padding-then-start 0x00455A70
 0x00455A70,0x00455D91,reviewed,high,bdesc-exact,start padding; refs callx5; descent body 0x00455A70..0x00455D91 (802 bytes) ends with ret; then padding-then-start 0x00455DA0
 0x00455DA0,0x00455DC3,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00455DA0..0x00455DC3 (36 bytes) ends with ret; then padding-then-start 0x00455DD0; WEAK: no call, jump, pointer or vtable reference found"

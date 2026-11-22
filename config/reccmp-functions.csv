@@ -44,4 +44,5 @@ Pbg::MemFile::Tell,0x00450FC0,function
 Pbg::MemFile::GetSize,0x00450FD0,function
 Pbg::MemFile::Seek,0x00450FE0,function
 WindowProc,0x00454420,function
+CreateGameWindow,0x00455320,function
 DecryptBlocks,0x00469A00,function

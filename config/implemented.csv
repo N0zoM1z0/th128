@@ -4,6 +4,7 @@ AnmVmSetScale2
 AnmVmSetScaleX
 AnmVmSetScaleY
 AnmVmSetUvScroll
+CreateGameWindow
 DebugPrint
 DecryptBlocks
 Pbg::Archive::Close
