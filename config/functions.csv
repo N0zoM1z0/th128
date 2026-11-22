@@ -30,7 +30,7 @@ address,size,span_end,current_name,proposed_name,module,status,match_percent,cal
 0x00403000,34,0x00403021,FUN_00403000,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
 0x00403090,34,0x004030B1,FUN_00403090,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
 0x00403160,32,0x0040317F,FUN_00403160,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
-0x004031A0,116,0x00403213,FUN_004031a0,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
+0x004031A0,116,0x00403213,FUN_004031a0,AnmVm::AnmVm,AnmVm,exact,100.00,thiscall ECX vm; returns this; RET,AnmVm::AnmVm(),false,src/AnmVm.cpp,"Direct hash-attested target extent, neighbor and reference review. Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; the memset relocation replayed against the library-confirmed _memset; zero byte differences.",,"Member construction clears bit 0 at +0x10 of thirteen embedded ZunTimers, then memset clears all 0x4E8 bytes and anmFileIndex (+0x418) becomes -1. Twelve callers include AsciiInf construction. Canonical unit anm-vm-constructor."
 0x00403240,61,0x0040327C,FUN_00403240,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
 0x00403280,61,0x004032BC,FUN_00403280,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
 0x004032C0,252,0x004033BB,FUN_004032c0,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,

@@ -98,6 +98,17 @@ the first float, ORs the dirty bit at +0x4B0, then stores.
 The ZunTimer field names beyond +4 come from adjacent games and remain a
 hypothesis.
 
+## AnmVm construction
+
+`AnmVm` is 0x4E8 bytes. Its constructor (`0x004031A0`) is the plain C++
+shape `memset(this, 0, sizeof(AnmVm)); anmFileIndex = -1;` after member
+construction: thirteen embedded `ZunTimer`s at +0x70, +0xD4, +0x120, +0x14C,
++0x198, +0x1C4, +0x200, +0x23C, +0x288, +0x2B4, +0x2E0, +0x30C and +0x3FC
+each clear bit 0 of their +0x10 flag word (`ZunTimer() { initialized = 0; }`),
+which VC10 emits as thirteen `AND [ESI+off], EAX` with `EAX = ~1`. The
+timers sit inside interpolator members whose layout is still open.
+`AsciiInf` embeds two AnmVms at +0x14 and +0x4FC.
+
 ## Pbg file streams
 
 `Pbg::IFile` (vtable `0x004A4850`: seven `_purecall` slots, then the virtual

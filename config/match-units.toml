@@ -107,7 +107,7 @@ linkages = []
 [units.anm-vm-set-scale]
 artifact_kind = "linked-pe"
 source = "src/AnmVmSetters.cpp"
-inputs = ["src/AnmVm.hpp"]
+inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp"]
 support_sources = ["probes/anm-vm-setters-context.cpp"]
 output_dir = "build/match-linked/AnmVmSetters"
 profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
@@ -121,7 +121,7 @@ linkages = []
 [units.anm-vm-set-scale-x]
 artifact_kind = "linked-pe"
 source = "src/AnmVmSetters.cpp"
-inputs = ["src/AnmVm.hpp"]
+inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp"]
 support_sources = ["probes/anm-vm-setters-context.cpp"]
 output_dir = "build/match-linked/AnmVmSetters"
 profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
@@ -135,7 +135,7 @@ linkages = []
 [units.anm-vm-set-scale-y]
 artifact_kind = "linked-pe"
 source = "src/AnmVmSetters.cpp"
-inputs = ["src/AnmVm.hpp"]
+inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp"]
 support_sources = ["probes/anm-vm-setters-context.cpp"]
 output_dir = "build/match-linked/AnmVmSetters"
 profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
@@ -149,7 +149,7 @@ linkages = []
 [units.anm-vm-set-scale2]
 artifact_kind = "linked-pe"
 source = "src/AnmVmSetters.cpp"
-inputs = ["src/AnmVm.hpp"]
+inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp"]
 support_sources = ["probes/anm-vm-setters-context.cpp"]
 output_dir = "build/match-linked/AnmVmSetters"
 profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
@@ -163,7 +163,7 @@ linkages = []
 [units.anm-vm-set-uv-scroll]
 artifact_kind = "linked-pe"
 source = "src/AnmVmSetters.cpp"
-inputs = ["src/AnmVm.hpp"]
+inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp"]
 support_sources = ["probes/anm-vm-setters-context.cpp"]
 output_dir = "build/match-linked/AnmVmSetters"
 profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
@@ -458,3 +458,17 @@ symbol = "?Seek@MemFile@Pbg@@UAEEJI@Z"
 target_address = 0x00450FE0
 size = 107
 relocations = []
+
+[units.anm-vm-constructor]
+artifact_kind = "coff"
+source = "src/AnmVm.cpp"
+inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp"]
+object = "build/match/AnmVm.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["AnmVm::AnmVm"]
+symbol = "??0AnmVm@@QAE@XZ"
+target_address = 0x004031A0
+size = 116
+relocations = [
+  { offset = 95, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+]
