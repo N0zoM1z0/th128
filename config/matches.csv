@@ -13,6 +13,12 @@ address,name,size,status,match_percent,unit,evidence
 0x004073B0,ZunTimer::operator>=,18,exact,100.00,zun-timer-greater-equal,Cold pinned VC10 /GL /Ob1 /Oy- complete 18-byte public primary-TU PDB contribution behind the shared ZunTimer probe context; current receipts; no fields; zero byte differences.
 0x00407E70,ZunTimer::operator==,18,exact,100.00,zun-timer-equal,Cold pinned VC10 /GL /Ob1 /Oy- complete 18-byte public primary-TU PDB contribution behind the shared ZunTimer probe context; current receipts; no fields; zero byte differences.
 0x00410CD0,ZunTimer::operator>,18,exact,100.00,zun-timer-greater,Cold pinned VC10 /GL /Ob1 /Oy- complete 18-byte public primary-TU PDB contribution behind the shared ZunTimer probe context; current receipts; no fields; zero byte differences.
+0x00414360,SptInf::Slot00,3,exact,100.00,spt-slot00,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
+0x004144A0,SptInf::Slot01,5,exact,100.00,spt-slot01,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
+0x004144B0,SptInf::Slot02,5,exact,100.00,spt-slot02,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
+0x004144C0,SptInf::Slot03,5,exact,100.00,spt-slot03,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
+0x004144D0,SptInf::Slot04,5,exact,100.00,spt-slot04,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
+0x00414630,SptInf::`scalar deleting destructor',74,exact,100.00,spt-deleting-destructor,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; vtable and three operator delete relocations replayed; zero byte differences.
 0x004299D0,LaserDataInf::Slot00,3,exact,100.00,laser-data-slot00,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
 0x004299E0,LaserDataInf::Slot01,1,exact,100.00,laser-data-slot01,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
 0x004299F0,LaserDataInf::Slot02,3,exact,100.00,laser-data-slot02,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.

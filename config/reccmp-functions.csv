@@ -13,6 +13,12 @@ SetTimeScale,0x00407310,function
 ZunTimer::operator>=,0x004073B0,function
 ZunTimer::operator==,0x00407E70,function
 ZunTimer::operator>,0x00410CD0,function
+SptInf::Slot00,0x00414360,function
+SptInf::Slot01,0x004144A0,function
+SptInf::Slot02,0x004144B0,function
+SptInf::Slot03,0x004144C0,function
+SptInf::Slot04,0x004144D0,function
+SptInf::`scalar deleting destructor',0x00414630,function
 LaserDataInf::Slot00,0x004299D0,function
 LaserDataInf::Slot01,0x004299E0,function
 LaserDataInf::Slot02,0x004299F0,function

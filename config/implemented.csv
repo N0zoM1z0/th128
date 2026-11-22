@@ -65,6 +65,12 @@ Pbg::MemFile::`scalar deleting destructor'
 Pbg::MemFile::~MemFile
 Pbg::ParseArchiveDirectory
 SetTimeScale
+SptInf::Slot00
+SptInf::Slot01
+SptInf::Slot02
+SptInf::Slot03
+SptInf::Slot04
+SptInf::`scalar deleting destructor'
 WindowProc
 ZunTimer::SetCurrent
 ZunTimer::SetCurrentF
