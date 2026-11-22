@@ -98,6 +98,24 @@ the first float, ORs the dirty bit at +0x4B0, then stores.
 The ZunTimer field names beyond +4 come from adjacent games and remain a
 hypothesis.
 
+## Timer game speed
+
+`0x004B6F58` is the game-speed float that every `ZunTimer` points at. The
+inline timer initialization in the Ascii append routine (`0x004015F0`) sets
+`previous = -999999` (`0xFFF0BDC1`), `current = 0`, `currentF = 0.0`,
+`gameSpeed = &g_TimeScale` and the init bit, then resets to
+`previous = -1`. This confirms the `ZunTimer` layout (+0 previous, +4 current,
++8 currentF, +0xC gameSpeed, +0x10 flags) and the `SetTimeScale` reading.
+
+## AsciiInf strings
+
+`AsciiInf` (0x1C8A8 bytes) keeps 0x164-byte strings from +0x9E4: text at +0,
+an id at +0x100, position +0x104, colors +0x110..+0x118, scale +0x11C/+0x120,
+a `ZunTimer` at +0x150. The append routine refuses a new string when the
+count at +0x1C848 reaches 0x140, but the constructor's timer loop runs 0x141
+times (last bit at +0x1C884), which no single 0x140-element array explains.
+The per-call settings it copies live at +0x1C84C..+0x1C884.
+
 ## AnmVm construction
 
 `AnmVm` is 0x4E8 bytes. Its constructor (`0x004031A0`) is the plain C++
