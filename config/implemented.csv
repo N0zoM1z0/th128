@@ -67,6 +67,11 @@ Pbg::MemFile::Write
 Pbg::MemFile::`scalar deleting destructor'
 Pbg::MemFile::~MemFile
 Pbg::ParseArchiveDirectory
+Rng::GetAngle
+Rng::GetFloat
+Rng::GetFloatSigned
+Rng::GetU16
+Rng::GetU32
 SetTimeScale
 SptInf::Slot00
 SptInf::Slot01

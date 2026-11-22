@@ -312,6 +312,25 @@ try as a plain member: LTCG gives it the original's `EAX` receiver from a
 three-call probe. The retry when a disabled entry is hit is a `goto` back to
 the `value += delta` step, which reproduces the original loop shape.
 
+## Random number generator and global aliasing
+
+`Rng` (`src/Rng.cpp`) is exact for `GetU16` (`0x0046A3F0`), `GetU32`
+(`0x0046A460`, 44 call sites) and the three float forms `GetFloat` [0, 1),
+`GetFloatSigned` [-1, 1) and `GetAngle` [-pi, pi) (`0x0046A5D0..0x0046A65E`).
+Every method takes an optional critical section when bit 15 of the game
+flags (`0x004D33F8`) is set (lock `0x004D3768`, depth byte `0x004D37A2`).
+
+- **Escaping globals change LTCG scheduling.** In a small probe VC10 LTCG
+  proves that `g_GameFlags` is never address-taken, so it moves the flag
+  reload ahead of the seed store and the counter update ahead of the seed
+  read. The original whole program does take that address. Adding
+  `unsigned int *g_ProbeFlagsAddress = &g_GameFlags;` to the probe restores
+  the original order and both methods become exact. Expect the same effect
+  wherever a frontier differs only by a store/load order or a reload.
+- The float forms convert with `(float)GetU32()` first (float `2^32` bias
+  constant), then scale by double constants (`2^-32`, `2^-31` then `- 1.0`,
+  `/ 683565248.0` then `- pi`).
+
 ## Timer game speed
 
 `0x004B6F58` is the game-speed float that every `ZunTimer` points at. The
