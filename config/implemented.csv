@@ -28,6 +28,7 @@ Pbg::MemFile::Tell
 Pbg::MemFile::Write
 Pbg::MemFile::`scalar deleting destructor'
 Pbg::MemFile::~MemFile
+Pbg::ParseArchiveDirectory
 SetTimeScale
 ZunTimer::SetCurrent
 ZunTimer::SetCurrentF

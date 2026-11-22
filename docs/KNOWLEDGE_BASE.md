@@ -110,6 +110,11 @@ exactly that way.
   private `ESI` receiver and stack filename. Simpler placeholders changed
   the call to `EDX`/stack-`this` and even Open's own convention, so keep the
   placeholder until the real reader replaces it.
+- `ParseArchiveDirectory` (`0x0044FB20`) is a `__stdcall` free function with
+  a C++ EH frame (`/EHsc`). Its `__ehhandler$` DIR32 binds through the MAP
+  `Static symbols` section with `eh_static = true`; the target handler is
+  `0x0049910B` and its unwind funclet `0x00499100` frees the half-built
+  array with `operator delete[]`.
 - The original source file is `src\\pack\\_ArcMngr.cpp` (a trace string at
   `0x004A472C` names line 113, `ResFile`).
 - Null stores follow the original statement order: `name` is cleared both

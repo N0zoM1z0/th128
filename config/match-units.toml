@@ -600,3 +600,26 @@ linkages = [
   { offset = 156, type = "REL32", symbol = "?DebugPrint@@YAXPBDZZ", target = 0x0044FD30 },
   { offset = 164, type = "REL32", symbol = "?Close@Archive@Pbg@@QAEXXZ", target = 0x0044F730 },
 ]
+
+[units.pbg-archive-parse-directory]
+artifact_kind = "linked-pe"
+source = "src/PbgArchive.cpp"
+inputs = ["src/PbgArchive.hpp", "src/PbgFile.hpp", "src/DebugLog.hpp"]
+support_sources = ["probes/pbg-archive-context.cpp", "src/DebugLog.cpp"]
+normal_support_sources = ["src/DebugLog.cpp"]
+output_dir = "build/match-linked/PbgArchive"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/EHsc", "/GL"]
+entry = "PbgArchiveProbe@12"
+functions = ["Pbg::ParseArchiveDirectory"]
+symbol = "?ParseArchiveDirectory@Pbg@@YGPAUArchiveEntry@1@PBDHI@Z"
+target_address = 0x0044FB20
+size = 339
+linkages = [
+  { offset = 6, type = "DIR32", symbol = "__ehhandler$?ParseArchiveDirectory@Pbg@@YGPAUArchiveEntry@1@PBDHI@Z", target = 0x0049910B, eh_static = true },
+  { offset = 24, type = "DIR32", symbol = "___security_cookie", target = 0x004B01F4 },
+  { offset = 78, type = "REL32", symbol = "??_U@YAPAXI@Z", target = 0x004725A4 },
+  { offset = 100, type = "DIR32", symbol = "??1ArchiveEntry@Pbg@@QAE@XZ", target = 0x0044FCB0 },
+  { offset = 105, type = "DIR32", symbol = "??0ArchiveEntry@Pbg@@QAE@XZ", target = 0x0044FD20 },
+  { offset = 122, type = "REL32", symbol = "??_L@YGXPAXIHP6EX0@Z1@Z", target = 0x00472DF8 },
+  { offset = 193, type = "REL32", symbol = "_malloc", target = 0x00472F6F },
+]

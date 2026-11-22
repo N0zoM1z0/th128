@@ -29,6 +29,10 @@ extern "C" void __stdcall PbgArchiveProbe(Pbg::ArchiveEntry **a, Pbg::ArchiveEnt
     archives[0].Close();
     archives[count - 1].Close();
     delete[] archives;
+    *a = Pbg::ParseArchiveDirectory((const char *)b, count, 16);
+    *b = Pbg::ParseArchiveDirectory((const char *)a, count + 2, 32);
+    delete[] *a;
+    delete[] *b;
     *a = new Pbg::ArchiveEntry[count];
     *b = new Pbg::ArchiveEntry[count + 1];
     delete[] *a;

@@ -813,7 +813,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x0044F730,0x0044F79C,reviewed,high,pbg-archive-close-boundary,Complete 109-byte body between CC padding; no interior references.
 0x0044F7D0,0x0044F917,needs_review,low,ghidra-12.1.4-initial-inventory,"Auto-analysis bounding span only; reconcile sparse bodies, references, tables and adjacent bytes before acceptance."
 0x0044F9A0,0x0044FB1F,needs_review,low,ghidra-12.1.4-initial-inventory,"Auto-analysis bounding span only; reconcile sparse bodies, references, tables and adjacent bytes before acceptance."
-0x0044FB20,0x0044FC72,needs_review,low,ghidra-12.1.4-initial-inventory,"Auto-analysis bounding span only; reconcile sparse bodies, references, tables and adjacent bytes before acceptance."
+0x0044FB20,0x0044FC72,reviewed,high,pbg-archive-parse-directory-boundary,Complete 339-byte body with two returns between CC padding; called once from the header reader at 0x0044FAAE.
 0x0044FCB0,0x0044FCC9,reviewed,high,pbg-archive-entry-destructor-boundary,Complete 26-byte body between CC padding; referenced by address from the vector iterator calls.
 0x0044FD30,0x0044FD30,reviewed,high,debug-print-boundary,"Single RET between padding; called from the archive open, close and read paths."
 0x0044FD80,0x0044FDC4,reviewed,high,pbg-file-deleting-destructor-boundary,Complete body ending in RET between CC padding; no interior references.

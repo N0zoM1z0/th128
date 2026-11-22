@@ -31,4 +31,9 @@ struct Archive
     void Close();
     bool ReadHeader(const char *filename);
 };
+
+// Builds the directory from the decoded THA1 listing: per entry a
+// NUL-terminated name padded to four bytes, then offset, size and a reserved
+// word. The extra final entry records the archive size as an end offset.
+ArchiveEntry *__stdcall ParseArchiveDirectory(const char *listing, int count, unsigned int archiveSize);
 }

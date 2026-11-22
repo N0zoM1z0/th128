@@ -77,4 +77,37 @@ void Archive::Close()
     file = NULL;
     count = 0;
 }
+
+ArchiveEntry *__stdcall ParseArchiveDirectory(const char *listing, int count, unsigned int archiveSize)
+{
+    ArchiveEntry *entries = new ArchiveEntry[count + 1];
+    if (entries == NULL)
+    {
+        return NULL;
+    }
+    const char *cursor = listing;
+    for (int i = 0; i < count; ++i)
+    {
+        char *copy = (char *)malloc(strlen(cursor) + 1);
+        if (copy != NULL)
+        {
+            strcpy(copy, cursor);
+        }
+        entries[i].name = copy;
+        int length = strlen(cursor) + 1;
+        if (length % 4 != 0)
+        {
+            length += 4 - length % 4;
+        }
+        cursor += length;
+        const unsigned int *fields = (const unsigned int *)cursor;
+        entries[i].offset = fields[0];
+        entries[i].size = fields[1];
+        entries[i].reserved = fields[2];
+        cursor += 12;
+    }
+    entries[count].offset = archiveSize;
+    entries[count].size = 0;
+    return entries;
+}
 }
