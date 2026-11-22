@@ -1283,3 +1283,17 @@ linkages = [
   { offset = 48, type = "DIR32", symbol = "__real@3ff0000000000000", target = 0x004A6588 },
   { offset = 77, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
 ]
+
+[units.menu-cursor-move]
+artifact_kind = "linked-pe"
+source = "src/MenuCursor.cpp"
+inputs = ["src/MenuCursor.hpp"]
+support_sources = ["probes/menu-cursor-context.cpp"]
+output_dir = "build/match-linked/MenuCursor"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "MenuCursorProbe@12"
+functions = ["MenuCursor::Move"]
+symbol = "?Move@MenuCursor@@QAEHH@Z"
+target_address = 0x0046A970
+size = 121
+linkages = []

@@ -56,3 +56,4 @@ mode dialog (fullscreen 640×480, window 640×480, 960×720, 1280×960).
 | `src/LaserPoint.cpp` | `ZunVec3::SetPolarXY` `0x00432E20` (exact); the four laser slot-0 point methods `0x00429BF0..0x00429D59` | linked PE; slot 0 frontiers |
 | `src/Spt.cpp` | `SptInf` five defaults and the scalar deleting destructor `0x00414630` | exact (normal COFF) |
 | `src/AngleMath.cpp` | `NormalizeAngle` `0x0046A700`, `AddAngles` `0x0046A660` | exact (normal COFF) |
+| `src/MenuCursor.cpp` | `MenuCursor::Move` `0x0046A970` | exact (linked PE) |

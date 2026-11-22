@@ -307,6 +307,11 @@ compare), otherwise the step is scaled. VC10 keeps the sum in the argument
 slot and converts from `ST0`, where the original stores `currentF`, reloads
 it and converts; each branch carries its own conversion.
 
+`MenuCursor::Move` (`0x0046A970`, 99 call sites) is exact on the first
+try as a plain member: LTCG gives it the original's `EAX` receiver from a
+three-call probe. The retry when a disabled entry is hit is a `goto` back to
+the `value += delta` step, which reproduces the original loop shape.
+
 ## Timer game speed
 
 `0x004B6F58` is the game-speed float that every `ZunTimer` points at. The
