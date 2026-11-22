@@ -3,7 +3,8 @@
 This lane compares complete public code contributions from the primary
 maintained translation unit in a cold VC10 `/GL` link. It was ported from the
 TH11 VC9 linked Oracle, whose design and synthetic controls carry over
-unchanged; TH128 has no accepted linked unit yet. It does not establish the
+unchanged; the TH128 linked units are listed in `config/match-units.toml`
+(`artifact_kind = "linked-pe"`). It does not establish the
 original TU partition, original normal-COFF/LTCG ownership, complete data
 ownership or a native game build. Owner-qualified compiler-generated EH
 **address fields** have a narrow authenticated path; arbitrary static owners,

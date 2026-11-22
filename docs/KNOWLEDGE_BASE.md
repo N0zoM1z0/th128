@@ -199,9 +199,9 @@ compiles (the D3DX one needs the DirectX SDK headers).
 
 The THA1 directory is a `new[]` array of 16-byte entries (name, offset,
 size, reserved). A cold `/GL` probe with `new Entry[n]`/`delete[]`
-reproduces the out-of-line entry constructor (`mov eax, ecx; mov [eax], 0;
-ret`, uninventoried at `0x0044FD20`) and destructor (`0x0044FCB0`, exact)
-byte for byte, because the vector iterators take their addresses.
+reproduces the out-of-line entry constructor (`0x0044FD20`, `mov eax, ecx;
+mov [eax], 0; ret`) and destructor (`0x0044FCB0`) byte for byte, because the
+vector iterators take their addresses; both are exact.
 
 The same probe explains the 10-byte `PUSH r; MOV r, ECX; CALL body; RET`
 entries the origin review left open: `0x0044F5E0` is a `thiscall`
@@ -221,12 +221,10 @@ exactly that way.
   argument at call sites, while the original still pushes it. Building the
   logger as normal COFF reproduces the calls.
 - `Archive::Open` (`0x0044F5F0`) is exact with `this` in `EAX` and the name
-  in `EBX`, chosen by LTCG. Its callee `ReadHeader` (`0x0044F9A0`) is not
-  reconstructed yet; the probe defines a placeholder whose shape (several
-  virtual stream calls and a local buffer) makes VC10 give it the original's
-  private `ESI` receiver and stack filename. Simpler placeholders changed
-  the call to `EDX`/stack-`this` and even Open's own convention, so keep the
-  placeholder until the real reader replaces it.
+  in `EBX`, chosen by LTCG. It depends on its callee `ReadHeader` having the
+  original's private `ESI` receiver and stack filename, which the real
+  reader now provides; early placeholder readers moved the call to
+  `EDX`/stack-`this` and even changed Open's own convention.
 - `ParseArchiveDirectory` (`0x0044FB20`) is a `__stdcall` free function with
   a C++ EH frame (`/EHsc`). Its `__ehhandler$` DIR32 binds through the MAP
   `Static symbols` section with `eh_static = true`; the target handler is
@@ -439,7 +437,12 @@ including the compiler-generated scalar deleting destructors.
 
 ## Open questions
 
-- Compiler flags per unit, the TU partition, which objects are `/GL`, the
-  library set and link order.
-- Whether one profile covers all game code, and how to reproduce the LTCG
-  custom conventions (receiver in `EAX`/`ECX`) seen in small leaves.
+- Per-unit flags, the TU partition, which objects were `/GL`, the library set
+  and the link order. Both lanes in the handoff reproduce exact owners, so
+  the split between normal and LTCG objects is still a hypothesis per file.
+- How the original call graph made LTCG keep some arguments on the stack
+  (`AnmManager::GetVmById`, the archive cipher before `size` became
+  in-place) and keep values in memory across stores (`ZunTimer::Add`,
+  `LaserInfiniteInf::Slot01`). Address escapes in probes fixed two such
+  cases; the others may need the real callers.
+- Why the original `CreateGameWindow` frame has two extra 4-byte slots.

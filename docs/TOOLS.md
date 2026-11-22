@@ -25,6 +25,12 @@ compiler or Capstone.
 | Compare linked unit | `scripts/repo-python scripts/compare-linked-function.py --unit NAME` |
 | Cold-replay affected units | `scripts/repo-python scripts/replay-exact-units.py --source PATH` |
 | Classify CRT/STL code | `scripts/repo-python scripts/scan-library-code.py` |
+| Record a source mapping / exact claim | `python3 scripts/record-source.py UNIT --module M --convention C --signature S --notes N --boundary B [--exact EVIDENCE]` |
+| Side-by-side COFF diff (diagnostic) | `scripts/repo-python scripts/diff-coff-target.py OBJ SYMBOL ADDR SIZE` |
+| Side-by-side linked-PE diff (diagnostic) | `scripts/repo-python scripts/diff-linked-target.py BUILD_DIR SYMBOL ADDR SIZE` |
+| Name import slots | `python3 scripts/import-slots.py 0x0049A254 ...` |
+| List a linked owner's fields (for `linkages`) | `scripts/repo-python scripts/linked-fields.py BUILD_DIR SYMBOL SIZE` |
+| Callers and strings of a function | `python3 scripts/function-context.py ADDR...` (needs `ghidra.py architecture`) |
 | Capture original title screen | `scripts/capture-title-screen.sh [OUTPUT.png]` |
 | Public checks | `python3 scripts/ci.py` (`--full` adds the synthetic Oracle suites) |
 
@@ -36,9 +42,9 @@ compiler or Capstone.
 | `.tools/jdk` | Factory Temurin JDK 21.0.12.1+1 |
 | `.tools/capstone` | Factory Capstone 5.0.6 Python package root |
 | `.tools/winbind` | Factory hash-pinned Ubuntu `ntlm_auth` runtime |
-| `.tools/msvc1000` | archaic-msvc/msvc1000 at the locked commit (VC10 RTM + Windows SDK 7.0A) |
+| `.tools/msvc1000` | archaic-msvc/msvc1000 at the locked commit (VC10 RTM + Windows SDK 7.0A), trimmed: no Git objects, ATL/MFC, CRT sources, debug libraries or x64/IA64 SDK libraries |
 | `.tools/wineprefix-msvc1000` | TH128-only 32-bit compiler Wine prefix |
-| `.tools/wineprefix-runtime` | TH128-only prefix for running the original game |
+| `.tools/wineprefix-runtime` | TH128-only prefix for running the original game; recreated on demand |
 | `.tools/shared-runtimes.json`, `.tools/factory-runtime.py`, `.tools/factory-bin` | Factory shared-runtime selectors |
 
 `scripts/bootstrap-local-tools.py --shared-tools DIR` links Ghidra/JDK/Capstone
@@ -68,6 +74,11 @@ CPU, one analysis worker and a 768 MiB heap.
 
 ## Ghidra
 
+Ghidra query addresses take a `0x` prefix, and `xrefs_to`/`xrefs_from`
+take a reference limit before the addresses. `ghidra.py architecture`
+writes the call-edge, global, string and metrics CSVs under
+`.analysis/architecture/` that `function-context.py` reads.
+
 `ghidra.py import` is a one-time inventory operation and refuses an existing
 project. Later commands open `ghidra-project/TH128` read-only with no analysis,
 after verifying the disk target, Program identity, base/entry, distributed
@@ -78,8 +89,10 @@ changes are rolled back before the read-only session ends.
 
 ## Running the original
 
-`scripts/capture-title-screen.sh` runs the attested original under Xvfb with
-`resources/th128.dat` and `thbgm.dat`, answers the first-start display dialog
+`scripts/capture-title-screen.sh` runs the attested original under Xvfb. It
+needs the game data next to the target: copy `th128.dat` and `thbgm.dat`
+from your installation into `resources/` first (they are ignored and can be
+deleted afterwards). It answers the first-start display dialog
 with *window 640×480*, and crops the client area to `resources/title-screen.png`.
 It uses the separate `.tools/wineprefix-runtime` prefix and a scratch
 directory of links under `.analysis/runtime/`, so game configuration and

@@ -6,67 +6,64 @@ Run `git status --short --branch` and `git log -5 --oneline`; dirty work is
 ours to continue. Work against Japanese TH12.8 v1.00a only: private
 `resources/th128.exe`, 752,640 bytes, SHA-256
 `ba515750ece845b56640fe440592fc39ebb7bdd1ed87c541b67a19b148e767d4`.
-The code-generation target is **VC10 RTM build 30319**.
+The code-generation target is **VC10 RTM build 30319**. The remote is the
+public `N0zoM1z0/th128`; push after coherent checkpoints.
 
 ```bash
 scripts/repo-python scripts/verify-target.py
 scripts/repo-python scripts/validate-tracking.py --require-target
 scripts/repo-python scripts/verify-toolchain.py --check
-scripts/repo-python scripts/replay-exact-units.py --source src/PbgFile.cpp
+scripts/repo-python scripts/replay-exact-units.py --source src/PbgArchive.cpp
 ```
 
-The remote is the public `N0zoM1z0/th128`; push after coherent checkpoints.
+`build/` is disposable: `replay-exact-units.py` cold-rebuilds whatever it
+replays. Keep the Ghidra project, the compiler Wine prefix,
+`.analysis/architecture/` and the two review directories under `.analysis/`
+(decision CSVs, notes and their tools). The runtime prefix and game data are
+only needed for `capture-title-screen.sh` and are recreated on demand.
 
 ## Current state
 
 Counts are generated in [PROGRESS](PROGRESS.md); the source map is in
-[ARCHITECTURE](ARCHITECTURE.md) and findings in
-[KNOWLEDGE_BASE](KNOWLEDGE_BASE.md).
+[ARCHITECTURE](ARCHITECTURE.md), findings and tried variants in
+[KNOWLEDGE_BASE](KNOWLEDGE_BASE.md). Boundary and origin review cover the
+whole image (3,516 candidates; 50 origin rows open: 34 need VC10/D3DX
+compiles, 16 CRT-band rows).
 
-| Area | Lane and profile | State |
+Two codegen lanes are in use; both are hypotheses about the original TU
+split:
+
+| Lane | Profile | Sources |
 | --- | --- | --- |
-| `TimeScale`, `ZunTimer`, `AnmVmSetters` | linked PE, `/O2 /Ob1 /Oy- /GL` behind probe contexts | 14 exact |
-| `PbgArchive` (`_ArcMngr.cpp`), `BlockCipher`, `Lzss` | one linked archive context, `/O2 /Ob1 /Oy- /EHsc /GL`; `DebugLog.cpp` as normal support | 6 exact; `ReadHeader`, `ReadEntry`, `DecryptBlocks`, `DecompressLzss` frontiers |
-| `PbgFile`, `PbgMemFile`, `AnmVm` constructor, `DebugPrint`, `WindowProc` | normal COFF, `/O2 /Oy-` | 21 exact; `MemFile::Seek`, `CreateGameWindow` frontiers |
+| Normal COFF | `/TP /O2 /Oy- /Gy /MT` | Pbg file streams, AnmVm constructor and effect callbacks, `DebugPrint`, `WindowProc`, angle helpers, `SptInf`, `LaserDataInf`, script registry |
+| Linked PE | `/TP /O2 /Ob1 /Oy- /Gy /MT /GL` (+`/EHsc` for the archive) behind `probes/` contexts | ZunTimer, AnmVm setters, `MenuCursor`, `Rng`, Pbg archive chain, laser points |
 
-Boundary and origin review are applied for the whole image: 3,516
-candidates, every game-band byte accounted for, 50 origin rows open (34 need
-VC10/D3DX compiles, 16 CRT-band rows).
-
-Two profiles are in use and both are hypotheses about the original TU split:
-small game leaves with private `EAX` receivers need `/GL`; the virtual Pbg
-classes and the AnmVm constructor reproduce as normal COFF. Default `/O2`
-inlining is required where a destructor inlines `Close`; `/Ob1` contexts are
-fine for leaves that inline nothing.
-
-`scripts/record-source.py UNIT ... --exact EVIDENCE` updates the function,
-boundary, mapping, implemented and match ledgers from a canonical unit after
-its comparator passed. `scripts/diff-coff-target.py OBJ SYMBOL ADDR SIZE`
-prints a side-by-side diff (relocated operands differ by design);
-`scripts/function-context.py ADDR` shows callers and strings from the Ghidra
-architecture export (`ghidra.py architecture`).
+Lessons that decide most matches (details in the knowledge base): `/Oy-`;
+`__stdcall` declarations or plain members for LTCG private receivers;
+`#include <new>` for `delete[]`; the release logger as normal COFF; vector
+struct assignment for integer copies; ordinary out-of-line definitions for
+inline-assembly helpers; and letting globals and pointers escape in probes
+(`&g_GameFlags`, aliasing timer speeds) so LTCG does not reorder loads and
+stores the original keeps in order.
 
 ## Next useful work
 
-Prefer large owners whose callees are library, import or already exact code
-(their conventions are fixed); `WindowProc` came from that filter. The
-candidate list is reproducible from `.analysis/architecture/call-edges.csv`
-plus the ledgers (see the knowledge base, "Window procedure").
-
-1. **Frontiers that are one step away.** `CreateGameWindow` (frame size and
-   an EBX/EDI swap), `MemFile::Seek` (ESI shrink-wrap), the archive chain
-   (register priority and stack slots), each documented in the knowledge
-   base with the variants already tried.
-2. **AsciiInf** (`0x00401010..0x00402A55`, vtable `0x004A1F3C`): `/GL` owner
-   with an `ESI` receiver. Resolve the 0x141-iteration timer loop before
-   writing the constructor (see the knowledge base). The init function
-   `0x004010B0` registers four 0x24-byte `UpdateFunc` chain nodes
-   (`0x004681D0`, `0x00468270`).
-3. Byte-identical unfolded copies (`0x00403280`, `0x00432C80`, the timer
-   resets at `0x00406F80`/`0x0040CEA0`/`0x0041EDE0`/`0x0045DAD0`) belong to
-   other types or names; identify their owners from callers.
-4. `MemFile::Seek` frontier: only ESI shrink-wrapping on the FILE_BEGIN path.
-5. Merge the boundary review when it lands: apply `boundaries.csv`, add
-   `new-functions.csv` rows (then the archive entry constructor `0x0044FD20`
-   is ready to match from the existing probe), and keep corrections explicit.
-6. Product closure needs the August 2009 DirectX SDK (`d3dx9_42`).
+1. **Close frontiers** (each lists its tried variants in the knowledge base):
+   `CreateGameWindow` (frame and EBX/EDI), `MemFile::Seek` (ESI
+   shrink-wrap), `ZunTimer::Add` (unscaled branch merge), the archive chain
+   (`ReadHeader`, `ReadEntry`, `DecryptBlocks`, `DecompressLzss`),
+   `SptResourceInf::Load` (register assignment), `AnmManager::GetVmById`
+   (id passed in ECX), `LaserInfiniteInf::Slot01` and the laser slot-0
+   points.
+2. **Fixed-convention owners first.** Virtual methods (laser kinds,
+   `EnemyInf`, `EclResourceInf`), Windows callbacks and table callbacks
+   (the AnmVm effect table near `0x004B1E9C`) keep their conventions under
+   LTCG. The remaining effect callbacks call `0x0045E770`, `0x00462A00`,
+   `0x00462B90` and `0x00412100`, whose private conventions are needed
+   first.
+3. **High-fan-in helpers** unlock callers: `0x00467480` (197 call sites, VM
+   value broadcast through `GetVmById`), `0x004670B0` (115), `0x0045EF60`.
+4. **AsciiInf** (`0x00401010..0x00402A55`): resolve the 0x141-iteration timer
+   loop before writing the constructor.
+5. Product closure needs the August 2009 DirectX SDK (`d3dx9_42`); D3D9
+   device calls are currently out of reach for that reason.
