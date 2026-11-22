@@ -48,15 +48,12 @@ architecture export (`ghidra.py architecture`).
 
 ## Next useful work
 
-1. **Pbg archive reader chain.** `ReadHeader` (`0x0044F9A0`, 384 bytes,
-   private `ESI` receiver, stack filename, `/GS`) reads and decrypts the
-   16-byte THA1 header, then the directory: decrypt `0x00469A00` (274 bytes,
-   key in `AL`, five stack arguments: data, size, step, block, limit; key
-   table `0x004B1200`), LZSS decode `0x00450860`, directory parse
-   `0x0044FB20` (339 bytes, uses `new ArchiveEntry[n]`). Entry read is
-   `0x0044F7D0`. When `ReadHeader` becomes real, delete the placeholder in
-   `probes/pbg-archive-context.cpp` and replay `src/PbgArchive.cpp`. TH11's
-   LZSS decoder never matched (177 differences); try it last.
+1. **Pbg archive reader chain.** `ReadHeader`, `ReadEntry` and
+   `DecryptBlocks` are real frontiers in the archive context; see the
+   knowledge base for the remaining register/layout differences. Next is the
+   LZSS decoder (`0x00450860`, `__stdcall`, four stack arguments, history at
+   `0x004D0AB8`): replacing its placeholder may also shift the callers'
+   register priorities. Replay `src/PbgArchive.cpp` after each change.
 2. **AsciiInf** (`0x00401010..0x00402A55`, vtable `0x004A1F3C`): `/GL` owner
    with an `ESI` receiver. Resolve the 0x141-iteration timer loop before
    writing the constructor (see the knowledge base). The init function

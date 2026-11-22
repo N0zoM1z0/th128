@@ -3,22 +3,50 @@
 #include "../src/PbgArchive.hpp"
 #include "../src/DebugLog.hpp"
 
-// Placeholder for the not yet reconstructed header reader (0x0044F9A0): it
-// only gives Open a defined LTCG callee that takes its filename on the stack.
-bool Pbg::Archive::ReadHeader(const char *filename)
+#include <stdlib.h>
+
+Pbg::ArchiveCipherKey Pbg::g_ArchiveCipherKeys[8];
+
+// Placeholder for the not yet reconstructed LZSS decoder (0x00450860): a
+// defined LTCG callee that takes its four arguments on the stack.
+unsigned char *__stdcall Pbg::DecompressLzss(const unsigned char *packed, int packedSize,
+                                             unsigned char *destination, unsigned int size)
 {
-    unsigned int header[4];
-    if (!file->Open(filename, "r"))
+    unsigned char *out;
+    unsigned char mask = 0x80;
+    unsigned char bits = 0;
+    if (destination == NULL && (destination = (unsigned char *)malloc(size)) == NULL)
     {
-        return false;
+        return NULL;
     }
-    if (file->Read(header, sizeof(header)) == 0)
+    out = destination;
+    const unsigned char *in = packed;
+    for (;;)
     {
-        return false;
+        if (mask == 0x80)
+        {
+            bits = *in;
+            if (in - packed < packedSize)
+            {
+                ++in;
+            }
+            else
+            {
+                bits = 0;
+            }
+        }
+        if ((bits & mask) == 0 || (unsigned int)(out - destination) >= size)
+        {
+            break;
+        }
+        *out++ = *in;
+        mask >>= 1;
+        if (mask == 0)
+        {
+            mask = 0x80;
+        }
     }
-    count = header[3];
-    file->Seek(header[1], FILE_BEGIN);
-    return file->Read(header, header[2]) != 0;
+    return destination;
 }
 
 extern "C" void __stdcall PbgArchiveProbe(Pbg::ArchiveEntry **a, Pbg::ArchiveEntry **b, int count)
@@ -26,6 +54,8 @@ extern "C" void __stdcall PbgArchiveProbe(Pbg::ArchiveEntry **a, Pbg::ArchiveEnt
     Pbg::Archive *archives = new Pbg::Archive[count];
     archives[0].Open((const char *)a);
     archives[1].Open((const char *)b);
+    archives[0].ReadEntry((const char *)b, *a);
+    archives[1].ReadEntry((const char *)a, NULL);
     archives[0].Close();
     archives[count - 1].Close();
     delete[] archives;

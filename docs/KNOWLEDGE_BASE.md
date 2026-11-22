@@ -54,18 +54,34 @@ Facts here are TH128-local unless marked as a hypothesis.
   PE link with MAP and PDB, Capstone-decoded linked extent) passes on Wine 9.0
   with the TH11 Oracle scripts ported to VC10.
 
-## Block cipher frontier
+## Archive reader chain
 
-`DecryptBlocks` (`0x00469A00`, 274 bytes) is the THA1/replay cipher: the
-tail shorter than a quarter block and an odd last byte stay plain, each block
-is rebuilt back to front (odd positions, then even) as `cipher ^ key` with
-`key += step`, and decoding stops after `limit` bytes. `src/BlockCipher.cpp`
-has the same statements as the original and VC10 `/GL` puts the key in `AL`
-as the original does, but it also passes `size` in `ECX` (280 bytes) where
-the original keeps it on the stack. Probes with two generic calls and with
-calls shaped like the header (constants), directory and entry sites (table
-parameters) both kept `ECX`. The convention depends on the whole program's
-call sites, so revisit it once the four real callers are reconstructed.
+`ReadHeader` (`0x0044F9A0`), `ReadEntry` (`0x0044F7D0`) and `DecryptBlocks`
+(`0x00469A00`) are now real source in one archive link context, so their
+LTCG conventions come from real callers. Open, Close, `~Archive`, the entry
+destructor and the directory parser stay exact there, and the old
+placeholder header reader is gone. Only the LZSS decoder is still a
+placeholder (`probes/pbg-archive-context.cpp`), written to take its four
+arguments on the stack like the original.
+
+- **Cipher convention.** VC10 passes the key in `AL` like the original only
+  when `size` is modified in place (`size -= (size & 1) + tail;` and the
+  loop counts `size` down). With a separate `remaining` variable LTCG also
+  moved `size` into `ECX`; putting the key first moved `size` into `EAX`.
+  The remaining difference is stack-slot assignment: the original keeps
+  `length` in `[ebp-4]` and the tail in the `size` slot (54 differing
+  instructions, 273 vs 274 bytes).
+- **ReadHeader.** Header magic `THA1`; the three header words are unmasked
+  by `-123456789`, `-987654321` and `-135792468`. Every call site matches,
+  including both cipher calls and the LZSS call; VC10 still prefers the
+  listing offset over the packed size for `EDI`/`EBX` (396 vs 384 bytes).
+  Top-of-function C89 declarations and `int` types did not change that.
+- **ReadEntry.** `this` is passed on the stack (`RET 0xC`), as in the
+  original. The cipher parameters are `g_ArchiveCipherKeys[sum % 8]` at
+  `0x004B1200` (12-byte records: key, step, block, limit), where `sum` is the
+  byte sum of the entry name. The original lays the found block directly
+  after the search loop; `continue`/nested-`if` forms both put it after the
+  error path, and an indexed `entries[i]` loop changed the convention.
 
 ## Origin review
 

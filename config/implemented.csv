@@ -8,6 +8,8 @@ DebugPrint
 DecryptBlocks
 Pbg::Archive::Close
 Pbg::Archive::Open
+Pbg::Archive::ReadEntry
+Pbg::Archive::ReadHeader
 Pbg::Archive::~Archive
 Pbg::ArchiveEntry::~ArchiveEntry
 Pbg::File::Close

@@ -30,10 +30,25 @@ struct Archive
     bool Open(const char *filename);
     void Close();
     bool ReadHeader(const char *filename);
+    void *ReadEntry(const char *entryName, void *destination);
 };
 
 // Builds the directory from the decoded THA1 listing: per entry a
 // NUL-terminated name padded to four bytes, then offset, size and a reserved
 // word. The extra final entry records the archive size as an end offset.
 ArchiveEntry *__stdcall ParseArchiveDirectory(const char *listing, int count, unsigned int archiveSize);
+
+// Per-entry cipher parameters, selected by the byte sum of the entry name.
+struct ArchiveCipherKey
+{
+    unsigned char key;
+    unsigned char step;
+    int block;
+    int limit;
+};
+extern ArchiveCipherKey g_ArchiveCipherKeys[8];
+
+// LZSS decoder (0x00450860). A null destination allocates `size` bytes.
+unsigned char *__stdcall DecompressLzss(const unsigned char *packed, int packedSize,
+                                        unsigned char *destination, unsigned int size);
 }

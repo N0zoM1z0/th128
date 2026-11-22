@@ -509,8 +509,8 @@ linkages = [
 [units.pbg-archive-entry-destructor]
 artifact_kind = "linked-pe"
 source = "src/PbgArchive.cpp"
-inputs = ["src/PbgArchive.hpp", "src/PbgFile.hpp", "src/DebugLog.hpp"]
-support_sources = ["probes/pbg-archive-context.cpp", "src/DebugLog.cpp"]
+inputs = ["src/PbgArchive.hpp", "src/PbgFile.hpp", "src/DebugLog.hpp", "src/BlockCipher.hpp"]
+support_sources = ["probes/pbg-archive-context.cpp", "src/DebugLog.cpp", "src/BlockCipher.cpp"]
 normal_support_sources = ["src/DebugLog.cpp"]
 output_dir = "build/match-linked/PbgArchive"
 profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/EHsc", "/GL"]
@@ -526,8 +526,8 @@ linkages = [
 [units.pbg-archive-close]
 artifact_kind = "linked-pe"
 source = "src/PbgArchive.cpp"
-inputs = ["src/PbgArchive.hpp", "src/PbgFile.hpp", "src/DebugLog.hpp"]
-support_sources = ["probes/pbg-archive-context.cpp", "src/DebugLog.cpp"]
+inputs = ["src/PbgArchive.hpp", "src/PbgFile.hpp", "src/DebugLog.hpp", "src/BlockCipher.hpp"]
+support_sources = ["probes/pbg-archive-context.cpp", "src/DebugLog.cpp", "src/BlockCipher.cpp"]
 normal_support_sources = ["src/DebugLog.cpp"]
 output_dir = "build/match-linked/PbgArchive"
 profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/EHsc", "/GL"]
@@ -548,8 +548,8 @@ linkages = [
 [units.pbg-archive-destructor]
 artifact_kind = "linked-pe"
 source = "src/PbgArchive.cpp"
-inputs = ["src/PbgArchive.hpp", "src/PbgFile.hpp", "src/DebugLog.hpp"]
-support_sources = ["probes/pbg-archive-context.cpp", "src/DebugLog.cpp"]
+inputs = ["src/PbgArchive.hpp", "src/PbgFile.hpp", "src/DebugLog.hpp", "src/BlockCipher.hpp"]
+support_sources = ["probes/pbg-archive-context.cpp", "src/DebugLog.cpp", "src/BlockCipher.cpp"]
 normal_support_sources = ["src/DebugLog.cpp"]
 output_dir = "build/match-linked/PbgArchive"
 profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/EHsc", "/GL"]
@@ -577,8 +577,8 @@ relocations = []
 [units.pbg-archive-open]
 artifact_kind = "linked-pe"
 source = "src/PbgArchive.cpp"
-inputs = ["src/PbgArchive.hpp", "src/PbgFile.hpp", "src/DebugLog.hpp"]
-support_sources = ["probes/pbg-archive-context.cpp", "src/DebugLog.cpp"]
+inputs = ["src/PbgArchive.hpp", "src/PbgFile.hpp", "src/DebugLog.hpp", "src/BlockCipher.hpp"]
+support_sources = ["probes/pbg-archive-context.cpp", "src/DebugLog.cpp", "src/BlockCipher.cpp"]
 normal_support_sources = ["src/DebugLog.cpp"]
 output_dir = "build/match-linked/PbgArchive"
 profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/EHsc", "/GL"]
@@ -604,8 +604,8 @@ linkages = [
 [units.pbg-archive-parse-directory]
 artifact_kind = "linked-pe"
 source = "src/PbgArchive.cpp"
-inputs = ["src/PbgArchive.hpp", "src/PbgFile.hpp", "src/DebugLog.hpp"]
-support_sources = ["probes/pbg-archive-context.cpp", "src/DebugLog.cpp"]
+inputs = ["src/PbgArchive.hpp", "src/PbgFile.hpp", "src/DebugLog.hpp", "src/BlockCipher.hpp"]
+support_sources = ["probes/pbg-archive-context.cpp", "src/DebugLog.cpp", "src/BlockCipher.cpp"]
 normal_support_sources = ["src/DebugLog.cpp"]
 output_dir = "build/match-linked/PbgArchive"
 profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/EHsc", "/GL"]
@@ -625,16 +625,49 @@ linkages = [
 ]
 
 [units.decrypt-blocks]
-frontier = true # same logic and AL key; VC10 also moves size into ECX here, the original keeps it on the stack
+frontier = true # AL key and stack size now match in the archive context; the original keeps length in [ebp-4] and the tail in the size slot
 artifact_kind = "linked-pe"
 source = "src/BlockCipher.cpp"
-inputs = ["src/BlockCipher.hpp"]
-support_sources = ["probes/block-cipher-context.cpp"]
-output_dir = "build/match-linked/BlockCipher"
-profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
-entry = "BlockCipherProbe@24"
+inputs = ["src/BlockCipher.hpp", "src/PbgArchive.hpp", "src/PbgFile.hpp", "src/DebugLog.hpp"]
+support_sources = ["probes/pbg-archive-context.cpp", "src/PbgArchive.cpp", "src/DebugLog.cpp"]
+normal_support_sources = ["src/DebugLog.cpp"]
+output_dir = "build/match-linked/BlockCipherInArchive"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/EHsc", "/GL"]
+entry = "PbgArchiveProbe@12"
 functions = ["DecryptBlocks"]
 symbol = "?DecryptBlocks@@YGPAEPAEHEEHH@Z"
 target_address = 0x00469A00
 size = 274
+linkages = []
+
+[units.pbg-archive-read-header]
+frontier = true # every call site matches; register priority differs (original keeps packed size in EBX and the listing offset on the stack)
+artifact_kind = "linked-pe"
+source = "src/PbgArchive.cpp"
+inputs = ["src/PbgArchive.hpp", "src/PbgFile.hpp", "src/DebugLog.hpp", "src/BlockCipher.hpp"]
+support_sources = ["probes/pbg-archive-context.cpp", "src/DebugLog.cpp", "src/BlockCipher.cpp"]
+normal_support_sources = ["src/DebugLog.cpp"]
+output_dir = "build/match-linked/PbgArchive"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/EHsc", "/GL"]
+entry = "PbgArchiveProbe@12"
+functions = ["Pbg::Archive::ReadHeader"]
+symbol = "?ReadHeader@Archive@Pbg@@QAE_NPBD@Z"
+target_address = 0x0044F9A0
+size = 384
+linkages = []
+
+[units.pbg-archive-read-entry]
+frontier = true # convention matches (this on the stack, RET 0xC); the found block is laid out after the error path and ESI/EDI roles swap
+artifact_kind = "linked-pe"
+source = "src/PbgArchive.cpp"
+inputs = ["src/PbgArchive.hpp", "src/PbgFile.hpp", "src/DebugLog.hpp", "src/BlockCipher.hpp"]
+support_sources = ["probes/pbg-archive-context.cpp", "src/DebugLog.cpp", "src/BlockCipher.cpp"]
+normal_support_sources = ["src/DebugLog.cpp"]
+output_dir = "build/match-linked/PbgArchive"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/EHsc", "/GL"]
+entry = "PbgArchiveProbe@12"
+functions = ["Pbg::Archive::ReadEntry"]
+symbol = "?ReadEntry@Archive@Pbg@@QAEPAXPBDPAX@Z"
+target_address = 0x0044F7D0
+size = 328
 linkages = []

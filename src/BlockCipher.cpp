@@ -14,40 +14,39 @@ unsigned char *__stdcall DecryptBlocks(unsigned char *data, int size, unsigned c
     }
     unsigned char *out = data;
     unsigned char *temp = (unsigned char *)malloc(length);
-    if (temp == NULL)
-    {
-        return data;
-    }
     unsigned char *in = temp;
-    memcpy(temp, data, length);
-    int remaining = size - ((size & 1) + tail);
-    while (remaining > 0 && limit > 0)
+    if (temp != NULL)
     {
-        if (remaining < block)
+        size -= (size & 1) + tail;
+        memcpy(temp, data, length);
+        while (size > 0 && limit > 0)
         {
-            block = remaining;
+            if (size < block)
+            {
+                block = size;
+            }
+            unsigned char *end = out + block;
+            unsigned char *p = end - 1;
+            for (int i = (block + 1) / 2; i > 0; --i)
+            {
+                *p = *in ^ key;
+                key += step;
+                p -= 2;
+                ++in;
+            }
+            p = end - 2;
+            for (int i = block / 2; i > 0; --i)
+            {
+                *p = *in ^ key;
+                key += step;
+                p -= 2;
+                ++in;
+            }
+            limit -= block;
+            size -= block;
+            out = end;
         }
-        unsigned char *end = out + block;
-        unsigned char *p = end - 1;
-        for (int i = (block + 1) / 2; i > 0; --i)
-        {
-            *p = *in ^ key;
-            key += step;
-            p -= 2;
-            ++in;
-        }
-        p = end - 2;
-        for (int i = block / 2; i > 0; --i)
-        {
-            *p = *in ^ key;
-            key += step;
-            p -= 2;
-            ++in;
-        }
-        limit -= block;
-        remaining -= block;
-        out = end;
+        free(temp);
     }
-    free(temp);
     return data;
 }

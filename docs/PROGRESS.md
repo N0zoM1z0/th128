@@ -6,19 +6,19 @@ inventory is provisional; reviewed boundary and origin states are counted below.
 | Measure | Count |
 | --- | ---: |
 | Tracked 1.00a function candidates | 2,221 |
-| Boundary reviewed | 753 |
+| Boundary reviewed | 756 |
 | Boundary provisional | 0 |
-| Boundary needs focused review | 1,468 |
+| Boundary needs focused review | 1,465 |
 | Origin review pending | 34 |
 | Confirmed authored functions | 1,179 |
 | Confirmed authored code bytes | 405,416 |
 | Classified exclusions | 1,008 |
 | Reviewed, origin indeterminate | 0 |
-| Source-present mappings | 40 |
-| Source-present with authored origin | 36 |
+| Source-present mappings | 43 |
+| Source-present with authored origin | 39 |
 | Source-present origin review pending | 1 |
 | Source-present origin indeterminate | 0 |
-| Authored source-present exact backlog | 1 |
+| Authored source-present exact backlog | 4 |
 | Canonical exact functions | 39 |
 | Canonical exact codegen bytes | 2,371 |
 | Canonical exact functions with authored origin | 35 |
