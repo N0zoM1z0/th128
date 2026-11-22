@@ -5,7 +5,9 @@ AnmVmSetScaleY
 AnmVmSetUvScroll
 Pbg::File::Close
 Pbg::File::GetSize
+Pbg::File::Open
 Pbg::File::Read
+Pbg::File::ReadWhole
 Pbg::File::Seek
 Pbg::File::Tell
 Pbg::File::Write

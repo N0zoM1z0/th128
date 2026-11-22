@@ -113,8 +113,15 @@ including the compiler-generated scalar deleting destructors.
   frameless leaves such as `Close`, `Tell` and `GetSize` stay frameless.
 - Whether these objects were `/GL` in the original is unknown; normal COFF
   reproduces them.
-- `File::Open` (`0x0044FE00`, 419 bytes) and `ReadWhole` (`0x004500E0`, 153
-  bytes) and the `MemFile` vtable `0x004A491C` are the next owners.
+- `File::Open` (`0x0044FE00`) resolves relative names inline: `strcpy` when
+  the name contains `:`, otherwise `GetModuleFileNameA` + `strrchr('\\')` +
+  `strcat`. The original writes `slash[1]` even when `strrchr` returned NULL;
+  keeping that literal reproduces the 419 bytes. Default `/GS` is on (cookie
+  `0x004B01F4`, initial value `0xBB40E64E`). TH11's Pbg open called a
+  separate path resolver, so the shape changed between the games.
+- `ReadWhole` (`0x004500E0`) seeks to the current position with
+  `FILE_BEGIN` before and after reading.
+- The `MemFile` vtable `0x004A491C` is next.
 
 ## Open questions
 

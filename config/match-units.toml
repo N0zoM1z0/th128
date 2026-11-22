@@ -307,3 +307,41 @@ relocations = [
   { offset = 12, type = "DIR32", symbol = "??_7IFile@Pbg@@6B@", target = 0x004A4850 },
   { offset = 20, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
 ]
+
+[units.pbg-file-open]
+artifact_kind = "coff"
+source = "src/PbgFile.cpp"
+inputs = ["src/PbgFile.hpp"]
+object = "build/match/PbgFile.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["Pbg::File::Open"]
+symbol = "?Open@File@Pbg@@UAEEPBD0@Z"
+target_address = 0x0044FE00
+size = 419
+relocations = [
+  { offset = 10, type = "DIR32", symbol = "___security_cookie", target = 0x004B01F4 },
+  { offset = 93, type = "REL32", symbol = "@__security_check_cookie@4", target = 0x004728FD },
+  { offset = 125, type = "DIR32", symbol = "__imp__DeleteFileA@4", target = 0x0049A098 },
+  { offset = 184, type = "REL32", symbol = "@__security_check_cookie@4", target = 0x004728FD },
+  { offset = 198, type = "REL32", symbol = "_strchr", target = 0x00473090 },
+  { offset = 252, type = "DIR32", symbol = "__imp__GetModuleFileNameA@12", target = 0x0049A0B4 },
+  { offset = 266, type = "REL32", symbol = "_strrchr", target = 0x00473400 },
+  { offset = 360, type = "DIR32", symbol = "__imp__CreateFileA@28", target = 0x0049A09C },
+  { offset = 394, type = "DIR32", symbol = "__imp__SetFilePointer@16", target = 0x0049A0A0 },
+  { offset = 409, type = "REL32", symbol = "@__security_check_cookie@4", target = 0x004728FD },
+]
+
+[units.pbg-file-read-whole]
+artifact_kind = "coff"
+source = "src/PbgFile.cpp"
+inputs = ["src/PbgFile.hpp"]
+object = "build/match/PbgFile.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["Pbg::File::ReadWhole"]
+symbol = "?ReadWhole@File@Pbg@@UAEPAXI@Z"
+target_address = 0x004500E0
+size = 153
+relocations = [
+  { offset = 43, type = "REL32", symbol = "_malloc", target = 0x00472F6F },
+  { offset = 112, type = "REL32", symbol = "_free", target = 0x0047290C },
+]
