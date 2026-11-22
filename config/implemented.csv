@@ -5,6 +5,7 @@ AnmVmSetScaleX
 AnmVmSetScaleY
 AnmVmSetUvScroll
 DebugPrint
+DecryptBlocks
 Pbg::Archive::Close
 Pbg::Archive::Open
 Pbg::Archive::~Archive

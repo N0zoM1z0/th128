@@ -54,6 +54,19 @@ Facts here are TH128-local unless marked as a hypothesis.
   PE link with MAP and PDB, Capstone-decoded linked extent) passes on Wine 9.0
   with the TH11 Oracle scripts ported to VC10.
 
+## Block cipher frontier
+
+`DecryptBlocks` (`0x00469A00`, 274 bytes) is the THA1/replay cipher: the
+tail shorter than a quarter block and an odd last byte stay plain, each block
+is rebuilt back to front (odd positions, then even) as `cipher ^ key` with
+`key += step`, and decoding stops after `limit` bytes. `src/BlockCipher.cpp`
+has the same statements as the original and VC10 `/GL` puts the key in `AL`
+as the original does, but it also passes `size` in `ECX` (280 bytes) where
+the original keeps it on the stack. Probes with two generic calls and with
+calls shaped like the header (constants), directory and entry sites (table
+parameters) both kept `ECX`. The convention depends on the whole program's
+call sites, so revisit it once the four real callers are reconstructed.
+
 ## Origin review
 
 All 1,378 candidates left after the archive scan were reviewed from TH128

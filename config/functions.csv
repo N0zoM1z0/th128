@@ -1143,7 +1143,7 @@ address,size,span_end,current_name,proposed_name,module,status,match_percent,cal
 0x004695C0,887,0x00469936,FUN_004695c0,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
 0x00469940,101,0x004699A4,FUN_00469940,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
 0x004699B0,77,0x004699FC,FUN_004699b0,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
-0x00469A00,274,0x00469B11,FUN_00469a00,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
+0x00469A00,274,0x00469B11,FUN_00469a00,DecryptBlocks,BlockCipher,unclassified,0.00,"LTCG private AL key; stack data, size, step, block, limit; RET 0x14","unsigned char *__stdcall DecryptBlocks(unsigned char *data, int size, unsigned char key, unsigned char step, int block, int limit)",false,src/BlockCipher.cpp,"Direct hash-attested target extent, neighbor and reference review.",,"Frontier: THA1/replay block cipher, odd then even bytes written back to front; the candidate also passes size in ECX. Canonical unit decrypt-blocks."
 0x00469B20,274,0x00469C31,FUN_00469b20,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
 0x00469C40,445,0x00469DFC,FUN_00469c40,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,
 0x00469E00,145,0x00469E90,FUN_00469e00,,,unclassified,0.00,,,false,,Ghidra 12.1.4 auto-analysis candidate; boundary unreviewed,,

@@ -623,3 +623,18 @@ linkages = [
   { offset = 122, type = "REL32", symbol = "??_L@YGXPAXIHP6EX0@Z1@Z", target = 0x00472DF8 },
   { offset = 193, type = "REL32", symbol = "_malloc", target = 0x00472F6F },
 ]
+
+[units.decrypt-blocks]
+frontier = true # same logic and AL key; VC10 also moves size into ECX here, the original keeps it on the stack
+artifact_kind = "linked-pe"
+source = "src/BlockCipher.cpp"
+inputs = ["src/BlockCipher.hpp"]
+support_sources = ["probes/block-cipher-context.cpp"]
+output_dir = "build/match-linked/BlockCipher"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BlockCipherProbe@24"
+functions = ["DecryptBlocks"]
+symbol = "?DecryptBlocks@@YGPAEPAEHEEHH@Z"
+target_address = 0x00469A00
+size = 274
+linkages = []
