@@ -2,6 +2,10 @@
 // while VC10 chooses its private interprocedural calling conventions.
 #include "../src/ZunTimer.hpp"
 
+// In the game timers point their speed at more than one float, so the speed
+// may alias timer state.
+float *g_ProbeTimeScaleAddress = &g_TimeScale;
+
 static int CompareAll(const ZunTimer *a, int x, const ZunTimer *b, int y)
 {
     return (*a < x) + (*b < y) + (*a <= x) + (*b <= y) + (*a >= x) + (*b >= y)
@@ -13,6 +17,7 @@ extern "C" int __stdcall ZunTimerProbe(ZunTimer *a, int x, ZunTimer *b, int y)
     a->SetCurrent(x);
     b->SetCurrent(y);
     a->SetCurrentF((float)y);
+    b->gameSpeed = &a->currentF;
     a->Add((float)x);
     b->Add(0.5f);
     a->Increment();

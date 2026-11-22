@@ -305,7 +305,11 @@ compiles with a temporary slot and converts from `ST0`.
 ignored inside `(0.99, 1.01)` (a double `0.99` and a float `1.01f`
 compare), otherwise the step is scaled. VC10 keeps the sum in the argument
 slot and converts from `ST0`, where the original stores `currentF`, reloads
-it and converts; each branch carries its own conversion.
+it and converts; each branch carries its own conversion. With the timer
+probe letting `gameSpeed` point at another timer's `currentF` (as the game
+can), the scaled branch matches the original exactly; the unscaled branch
+is still merged into the scaled tail because VC10 canonicalizes both
+additions to the same operand order.
 
 `MenuCursor::Move` (`0x0046A970`, 99 call sites) is exact on the first
 try as a plain member: LTCG gives it the original's `EAX` receiver from a
