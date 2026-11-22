@@ -25,8 +25,13 @@ Counts are generated in [PROGRESS](PROGRESS.md); the source map is in
 
 | Area | Lane and profile | State |
 | --- | --- | --- |
-| `TimeScale`, `ZunTimer`, `AnmVmSetters` | linked PE, `/O2 /Ob1 /Oy- /GL` behind probe contexts | 12 exact |
-| `PbgFile`, `PbgMemFile`, `AnmVm` constructor | normal COFF, `/O2 /Oy-` | 19 exact; `MemFile::Seek` frontier |
+| `TimeScale`, `ZunTimer`, `AnmVmSetters` | linked PE, `/O2 /Ob1 /Oy- /GL` behind probe contexts | 14 exact |
+| `PbgArchive` (`_ArcMngr.cpp`) | linked PE, `/O2 /Ob1 /Oy- /EHsc /GL`; `DebugLog.cpp` as normal support | 4 exact |
+| `PbgFile`, `PbgMemFile`, `AnmVm` constructor, `DebugPrint` | normal COFF, `/O2 /Oy-` | 20 exact; `MemFile::Seek` frontier |
+
+Origin review is applied for every candidate (34 rows stay open pending
+VC10 compiles); boundary review and inventory gap recovery are running as a
+separate pass that writes `.analysis/boundary-review/` for merging.
 
 Two profiles are in use and both are hypotheses about the original TU split:
 small game leaves with private `EAX` receivers need `/GL`; the virtual Pbg
@@ -43,19 +48,25 @@ architecture export (`ghidra.py architecture`).
 
 ## Next useful work
 
-1. **AsciiInf** (`0x00401010..0x00402A55`, vtable `0x004A1F3C`). The
-   constructor uses an `ESI` receiver, so it is a `/GL` owner. Its
-   0x141-iteration, 0x164-stride bit-clearing loop starting at +0xB44 does not
-   fit a single array inside the 0x1C8A8-byte object; resolve that layout
-   before writing the constructor. The init function `0x004010B0` registers
-   four 0x24-byte `UpdateFunc` chain nodes (`0x004681D0`, `0x00468270`).
-2. **Pbg archive** (`0x0044F5F0..0x00450D70`): THA1 header decrypt
-   (`0x00469A00`, key table `0x004B1200`), directory parse `0x0044FB20`,
-   entry read `0x0044F7D0`, LZSS decode `0x00450860` and an LZSS encoder.
-   TH11's decoder never matched (177 differences), so start with the
-   directory and entry code.
-3. `MemFile::Seek` frontier: the only remaining difference is ESI
-   shrink-wrapping on the FILE_BEGIN path.
-4. Many 3–20 byte leaves have no direct callers (function-pointer tables);
-   find their tables before naming them.
-5. Product closure needs the August 2009 DirectX SDK (`d3dx9_42`).
+1. **Pbg archive reader chain.** `ReadHeader` (`0x0044F9A0`, 384 bytes,
+   private `ESI` receiver, stack filename, `/GS`) reads and decrypts the
+   16-byte THA1 header, then the directory: decrypt `0x00469A00` (274 bytes,
+   key in `AL`, five stack arguments: data, size, step, block, limit; key
+   table `0x004B1200`), LZSS decode `0x00450860`, directory parse
+   `0x0044FB20` (339 bytes, uses `new ArchiveEntry[n]`). Entry read is
+   `0x0044F7D0`. When `ReadHeader` becomes real, delete the placeholder in
+   `probes/pbg-archive-context.cpp` and replay `src/PbgArchive.cpp`. TH11's
+   LZSS decoder never matched (177 differences); try it last.
+2. **AsciiInf** (`0x00401010..0x00402A55`, vtable `0x004A1F3C`): `/GL` owner
+   with an `ESI` receiver. Resolve the 0x141-iteration timer loop before
+   writing the constructor (see the knowledge base). The init function
+   `0x004010B0` registers four 0x24-byte `UpdateFunc` chain nodes
+   (`0x004681D0`, `0x00468270`).
+3. Byte-identical unfolded copies (`0x00403280`, `0x00432C80`, the timer
+   resets at `0x00406F80`/`0x0040CEA0`/`0x0041EDE0`/`0x0045DAD0`) belong to
+   other types or names; identify their owners from callers.
+4. `MemFile::Seek` frontier: only ESI shrink-wrapping on the FILE_BEGIN path.
+5. Merge the boundary review when it lands: apply `boundaries.csv`, add
+   `new-functions.csv` rows (then the archive entry constructor `0x0044FD20`
+   is ready to match from the existing probe), and keep corrections explicit.
+6. Product closure needs the August 2009 DirectX SDK (`d3dx9_42`).
