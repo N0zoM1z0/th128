@@ -24,9 +24,10 @@ and atexit destructors (`0x00499B40..0x00499C14`).
 A `std::string` instantiation cluster from the VC10 headers sits at
 `0x00452D50..0x004534EA` inside the game band.
 
-The initial inventory is far from complete in the game band: 977
-uninventoried code spans (29.3 KB) remain, for example `0x00401000`,
-`0x004010A0`, `0x00402B30`, `0x004091A0` and `0x00407320`.
+The boundary review closed the game-band inventory: it now has 3,516
+candidates overall, and no game-band byte is unclassified (see the knowledge
+base). Most of the 1,038 added game functions are small callbacks and
+unreferenced dead copies.
 
 ## Runtime dependencies
 

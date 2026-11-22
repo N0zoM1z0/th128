@@ -150,6 +150,35 @@ exactly that way.
   inside and after its free, `entries = NULL` after the `delete[]` block, and
   `file = NULL; count = 0;` last.
 
+## Boundary review and inventory closure
+
+A second pass reviewed every remaining boundary and every uninventoried
+`.text` span from TH128 bytes (Capstone recursive descent plus raw scans of
+every call, jump and dword for references; private evidence in
+`.analysis/boundary-review/`). The inventory grew from 2,221 to 3,516 rows:
+
+- **Existing rows.** 1,409 reviewed as exact extents (`bdesc-exact`, or
+  `bdesc-exact-weak` when unreferenced); 116 extents corrected
+  (`bdesc-extent-correction`), mostly trailing jump/index tables, plus four
+  missing code blocks (`0x0046B190` +718 bytes, `0x00424B80` +1,057 bytes,
+  `0x004653F0`, `0x00453050`) and three CRT shrinks (`_floor` at
+  `0x0048FDF0` now ends at `0x0048FF10`); 40 rows that start inside another
+  function (switch arms, SEH blocks, catch blocks) were removed; the rest
+  stay provisional (`bdesc-open`, all CRT).
+- **New rows.** 1,335 functions: 1,038 in the game band (113 referenced,
+  mostly callbacks passed as address immediates; 925 unreferenced but cleanly
+  delimited dead copies), 182 import stubs, and CRT/EH-tail code. A raw scan
+  found only chance hits for the unreferenced ones.
+- **Origin of new rows.** The library scan placed 51 more rows in libcmt/
+  libcpmt; game-band rows are `authored_game` (medium,
+  `game-band-origin-sweep-new-rows`); 50 rows after `0x00499000` are EH
+  handler stubs, dynamic initializers and atexit destructors
+  (`compiler_generated`, `vc10-eh-tail-new-rows`); import stubs are
+  `import_thunk`. 16 CRT-band rows remain open.
+- Every game-band byte is now accounted for: the leftover gap spans are
+  switch arms, alignment fillers, jump tables, the DirectInput data block and
+  padding.
+
 ## Ported infrastructure
 
 The Oracle, receipt, LTCG-link and Ghidra scripts come from the TH11
