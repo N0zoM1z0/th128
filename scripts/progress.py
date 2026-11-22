@@ -49,6 +49,7 @@ def measures() -> dict[str, int]:
     authored_exact = [row for row in matches if disposition(row) == "authored"]
     authored_exact_bytes = sum(int(row["size"], 0) for row in authored_exact)
     authored_bytes = sum(int(row["size"], 0) for row in authored)
+    review_bytes = sum(int(row["size"], 0) for row in functions if disposition(row) == "review")
     origin_reviewed = len(authored) + len(excluded) + len(indeterminate)
     boundary_reviewed = sum(
         boundaries[parse_address(row["address"])]["state"] == "reviewed"
@@ -91,6 +92,7 @@ def measures() -> dict[str, int]:
         "boundary_pending": len(functions) - boundary_reviewed,
         "authored": len(authored),
         "authored_bytes": authored_bytes,
+        "review_bytes": review_bytes,
         "excluded": len(excluded),
         "indeterminate": len(indeterminate),
         "implemented": len(implemented),
@@ -136,9 +138,9 @@ inventory is provisional; reviewed boundary and origin states are counted below.
 The tracked-candidate denominator remains provisional because unresolved `.text`
 gaps can contain code, data, thunks, tables, and padding. While origin review,
 indeterminate attribution, or inventory closure remain pending, the authored
-exact denominator for the complete game is unknown. The SVG bar shows exact
-bytes divided by the currently classified authored bytes, with that inventory
-explicitly marked provisional. A mapped name, maintained source, successful
+exact denominator for the complete game is unknown. The SVG bar divides exact
+authored bytes by the classified authored bytes plus the bytes still awaiting
+origin review, and is marked provisional. A mapped name, maintained source, successful
 compilation, or Ghidra similarity
 does not contribute to the exact totals.
 """
@@ -159,6 +161,17 @@ def render_svg(values: dict[str, int]) -> str:
         f"{values['authored_matches']:,} / {values['authored']:,} functions · "
         f"{values['authored_exact_bytes']:,} / {values['authored_bytes']:,} bytes"
     )
+    if values["review_bytes"]:
+        # While origin review is open, authored code may still hide among the
+        # unreviewed candidates: count them in the denominator.
+        candidate_bytes = values["authored_bytes"] + values["review_bytes"]
+        exact_pct = 100 * values["authored_exact_bytes"] / candidate_bytes
+        exact_label = f"{exact_pct:.2f}% · provisional"
+        exact_width = 512 * exact_pct / 100
+        exact_detail = (
+            f"{values['authored_matches']:,} exact functions · "
+            f"{values['authored_exact_bytes']:,} / {candidate_bytes:,} authored or unreviewed bytes"
+        )
     aria_exact = f"currently classified authored bytes {exact_pct:.2f}% exact, provisional inventory"
     return f'''<svg xmlns="http://www.w3.org/2000/svg" width="560" height="176" role="img" aria-label="TH128 reconstruction progress: {aria_exact}, origin and boundary review {review_pct:.2f}%">
   <rect width="560" height="176" rx="8" fill="#1f2335"/>

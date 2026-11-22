@@ -25,6 +25,7 @@ compiler or Capstone.
 | Compare linked unit | `scripts/repo-python scripts/compare-linked-function.py --unit NAME` |
 | Cold-replay affected units | `scripts/repo-python scripts/replay-exact-units.py --source PATH` |
 | Classify CRT/STL code | `scripts/repo-python scripts/scan-library-code.py` |
+| Capture original title screen | `scripts/capture-title-screen.sh [OUTPUT.png]` |
 | Public checks | `python3 scripts/ci.py` (`--full` adds the synthetic Oracle suites) |
 
 ## Local tool selection
@@ -36,7 +37,8 @@ compiler or Capstone.
 | `.tools/capstone` | Factory Capstone 5.0.6 Python package root |
 | `.tools/winbind` | Factory hash-pinned Ubuntu `ntlm_auth` runtime |
 | `.tools/msvc1000` | archaic-msvc/msvc1000 at the locked commit (VC10 RTM + Windows SDK 7.0A) |
-| `.tools/wineprefix-msvc1000` | TH128-only 32-bit Wine prefix |
+| `.tools/wineprefix-msvc1000` | TH128-only 32-bit compiler Wine prefix |
+| `.tools/wineprefix-runtime` | TH128-only prefix for running the original game |
 | `.tools/shared-runtimes.json`, `.tools/factory-runtime.py`, `.tools/factory-bin` | Factory shared-runtime selectors |
 
 `scripts/bootstrap-local-tools.py --shared-tools DIR` links Ghidra/JDK/Capstone
@@ -73,3 +75,13 @@ mapped bytes and the complete mapped `.text`. `inventory` refuses to overwrite
 maintained source or exact rows. For ABI review the decompiler accepts
 `u32@ADDRESS`, `u32-fast1@ADDRESS` and `cookie@ADDRESS` selectors; their
 changes are rolled back before the read-only session ends.
+
+## Running the original
+
+`scripts/capture-title-screen.sh` runs the attested original under Xvfb with
+`resources/th128.dat` and `thbgm.dat`, answers the first-start display dialog
+with *window 640×480*, and crops the client area to `resources/title-screen.png`.
+It uses the separate `.tools/wineprefix-runtime` prefix and a scratch
+directory of links under `.analysis/runtime/`, so game configuration and
+scores never land in `resources/` or the compiler prefix. Wine 9.0's D3D9 and
+builtin `d3dx9_42` render the title and attract demo correctly.

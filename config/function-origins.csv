@@ -17,7 +17,7 @@ address,origin,subsystem,disposition,confidence,evidence_id
 0x00402A50,unknown,,review,unknown,ghidra-12.1.4-initial-inventory
 0x00402A70,unknown,,review,unknown,ghidra-12.1.4-initial-inventory
 0x00402AC0,unknown,,review,unknown,ghidra-12.1.4-initial-inventory
-0x00402B20,unknown,,review,unknown,ghidra-12.1.4-initial-inventory
+0x00402B20,authored_game,ZunTimer,authored,medium,first-exact-units-origin
 0x00402B60,unknown,,review,unknown,ghidra-12.1.4-initial-inventory
 0x00402B90,unknown,,review,unknown,ghidra-12.1.4-initial-inventory
 0x00402C00,unknown,,review,unknown,ghidra-12.1.4-initial-inventory
@@ -79,7 +79,7 @@ address,origin,subsystem,disposition,confidence,evidence_id
 0x004072A0,unknown,,review,unknown,ghidra-12.1.4-initial-inventory
 0x004072C0,unknown,,review,unknown,ghidra-12.1.4-initial-inventory
 0x004072F0,unknown,,review,unknown,ghidra-12.1.4-initial-inventory
-0x00407310,unknown,,review,unknown,ghidra-12.1.4-initial-inventory
+0x00407310,authored_game,TimeScale,authored,medium,first-exact-units-origin
 0x00407350,unknown,,review,unknown,ghidra-12.1.4-initial-inventory
 0x004073B0,unknown,,review,unknown,ghidra-12.1.4-initial-inventory
 0x00407400,unknown,,review,unknown,ghidra-12.1.4-initial-inventory
