@@ -1,0 +1,26 @@
+schema_version = 1
+target_sha256 = "ba515750ece845b56640fe440592fc39ebb7bdd1ed87c541b67a19b148e767d4"
+
+[product]
+format = "pe32-i386-windows-gui"
+output = "build/windows-i386/th128.exe"
+status = "skeleton"
+
+[toolchain]
+provider = "msvc100-rtm"
+compiler_version = "16.00.30319.01"
+compiler_identity_state = "observed-candidate"
+compile_profile_state = "unknown"
+link_profile_state = "unknown"
+normal_coff_and_ltcg_inputs_observed = true
+
+[graph]
+translation_unit_partition_state = "unknown"
+link_order_state = "unknown"
+sources = []
+libraries = []
+resources = []
+
+[acceptance]
+whole_build_closed = false
+windows_i386_runtime_validated = false

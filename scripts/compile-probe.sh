@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+# Resolve Wine through Factory while retaining repository-owned state.
+factory_repo_root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
+export PATH="$factory_repo_root/.tools/factory-bin:$PATH"
+set -euo pipefail
+
+repo_root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
+msvc_root=${TH128_MSVC100_ROOT:-$repo_root/.tools/msvc1000}
+wine_prefix=${TH128_WINEPREFIX:-$repo_root/.tools/wineprefix-msvc1000}
+wine_bin=${WINE:-wine}
+
+if [[ $# -lt 3 ]]; then
+  echo "usage: $0 SOURCE OUTPUT.obj MSVC_FLAG..." >&2
+  echo "flags are mandatory because TH128 contains both normal COFF and LTCG inputs" >&2
+  exit 2
+fi
+
+source_path=$1
+output_path=$2
+shift 2
+compiler="$msvc_root/VC/bin/cl.exe"
+
+if [[ ! -f "$source_path" ]]; then
+  echo "missing probe source: $source_path" >&2
+  exit 1
+fi
+if [[ ! -f "$compiler" ]]; then
+  echo "missing pinned VC10 RTM compiler; set TH128_MSVC100_ROOT" >&2
+  exit 1
+fi
+
+expected_sha256=$(python3 - "$repo_root" <<'PY'
+from pathlib import Path
+import sys
+import tomllib
+
+with (Path(sys.argv[1]) / "config" / "tools.lock.toml").open("rb") as stream:
+    print(tomllib.load(stream)["msvc100"]["components"]["compiler"]["sha256"])
+PY
+)
+actual_sha256=$(sha256sum "$compiler" | awk '{print $1}')
+if [[ "$actual_sha256" != "$expected_sha256" ]]; then
+  echo "pinned VC10 RTM compiler hash mismatch: $actual_sha256" >&2
+  exit 1
+fi
+
+mkdir -p "$(dirname -- "$output_path")"
+wine_env=(env WINEARCH=win32 WINEPREFIX="$wine_prefix" WINEDEBUG=-all WINEDLLOVERRIDES=mscoree,mshtml=)
+source_win=$("${wine_env[@]}" winepath -w "$(realpath "$source_path")" | tr -d '\r')
+output_win=$("${wine_env[@]}" winepath -w "$(realpath -m "$output_path")" | tr -d '\r')
+pdb_path="${output_path%.*}.pdb"
+pdb_win=$("${wine_env[@]}" winepath -w "$(realpath -m "$pdb_path")" | tr -d '\r')
+vc_bin_win=$("${wine_env[@]}" winepath -w "$msvc_root/VC/bin" | tr -d '\r')
+vc_include=$("${wine_env[@]}" winepath -w "$msvc_root/VC/include" | tr -d '\r')
+sdk_include=$("${wine_env[@]}" winepath -w "$msvc_root/Microsoft SDKs/Windows/v7.0A/Include" | tr -d '\r')
+vc_lib=$("${wine_env[@]}" winepath -w "$msvc_root/VC/lib" | tr -d '\r')
+sdk_lib=$("${wine_env[@]}" winepath -w "$msvc_root/Microsoft SDKs/Windows/v7.0A/Lib" | tr -d '\r')
+
+WINEPATH="$vc_bin_win${WINEPATH:+;$WINEPATH}" \
+INCLUDE="$vc_include;$sdk_include" \
+LIB="$vc_lib;$sdk_lib" \
+"$repo_root/scripts/run-headless-wine.sh" "$wine_bin" "$compiler" \
+  /nologo /c "$@" "$source_win" "/Fo$output_win" "/Fd$pdb_win"

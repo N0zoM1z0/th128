@@ -1,0 +1,21 @@
+schema_version = 1
+target_sha256 = "ba515750ece845b56640fe440592fc39ebb7bdd1ed87c541b67a19b148e767d4"
+
+# Canonical exact units. Each entry is a complete, cold-replayable VC10
+# normal-COFF or public linked-PE context; original TU partition and /GL
+# ownership remain separate unknowns.
+
+[units.set-time-scale]
+artifact_kind = "linked-pe"
+source = "src/TimeScale.cpp"
+inputs = ["src/TimeScale.hpp"]
+output_dir = "build/match-linked/TimeScale"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "?SetTimeScale@@YGXM@Z"
+functions = ["SetTimeScale"]
+symbol = "?SetTimeScale@@YGXM@Z"
+target_address = 0x00407310
+size = 16
+linkages = [
+  { offset = 8, type = "DIR32", symbol = "?g_TimeScale@@3MA", target = 0x004B6F58 },
+]

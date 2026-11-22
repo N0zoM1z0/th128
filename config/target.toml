@@ -1,0 +1,151 @@
+[target]
+title = "妖精大戦争 ～ 東方三月精 (Fairy Wars)"
+version = "1.00a"
+region = "original-japanese"
+filename = "th128.exe"
+size = 752640
+sha256 = "ba515750ece845b56640fe440592fc39ebb7bdd1ed87c541b67a19b148e767d4"
+sha1 = "1b2332ceab937b303f8312ceede24445988349b2"
+md5 = "c388671784f6a2aedd97ba9fc648c8c9"
+
+[provenance]
+classification = "original"
+version_database_url = "https://github.com/thpatch/thcrap-tsa/blob/f08b582ce57bce800955dd371fc9a68dbad5b324/base_tsa/versions.js"
+version_database_commit = "f08b582ce57bce800955dd371fc9a68dbad5b324"
+version_database_file_sha256 = "9ac6c0247b9c53129429f9522f66e035a7880d15082f8d519990ac7ed82c14e1"
+evidence = "The pinned thcrap version database classifies this SHA-256 as th128 v1.00a (original) and this size as th128 v1.00a; the English-patched and Steam executables are listed under different digests. The Chinese-patched th128_CN.exe and custom.exe from the same installation are not targets."
+
+[pe]
+machine = "i386"
+machine_id = 332
+image_base = "0x00400000"
+entry_point = "0x0047460E"
+entry_rva = "0x0007460E"
+timestamp_unix = 1280811414
+linker_version = "10.0"
+section_count = 4
+size_of_image = 913408
+headers_raw_size = 1024
+relocations_stripped = true
+timestamp_utc = "2010-08-03T04:56:54Z"
+text_start = "0x00401000"
+text_end = "0x00499C14"
+text_virtual_size = 625685
+text_raw_offset = "0x00000400"
+text_raw_size = 626176
+text_sha256 = "5cc95be82e3a29600990c2c6fd915aa3a9b6f9f010d2f992c1d986660c96e9f8"
+
+[[pe.sections]]
+name = ".text"
+rva = "0x00001000"
+virtual_size = 625685
+raw_offset = "0x00000400"
+raw_size = 626176
+
+[[pe.sections]]
+name = ".rdata"
+rva = "0x0009A000"
+virtual_size = 87854
+raw_offset = "0x00099200"
+raw_size = 88064
+
+[[pe.sections]]
+name = ".data"
+rva = "0x000B0000"
+virtual_size = 183688
+raw_offset = "0x000AEA00"
+raw_size = 31744
+
+[[pe.sections]]
+name = ".rsrc"
+rva = "0x000DD000"
+virtual_size = 5440
+raw_offset = "0x000B6600"
+raw_size = 5632
+
+[rich_header]
+checksum = "0xDF535BF7"
+clear_data_size = 128
+dominant_build = 30319
+evidence = "Directly decoded Rich record stream. Build-30319 records are VC10 RTM tools (C, C++, LTCG C++, MASM, cvtres, linker); older-build records come from linked libraries. Product semantics and the production TU partition require separate review."
+
+[[rich_header.records]]
+product_id = 152
+build = 20115
+count = 1
+
+[[rich_header.records]]
+product_id = 158
+build = 30319
+count = 43
+
+[[rich_header.records]]
+product_id = 170
+build = 30319
+count = 134
+
+[[rich_header.records]]
+product_id = 171
+build = 30319
+count = 48
+
+[[rich_header.records]]
+product_id = 131
+build = 30729
+count = 4
+
+[[rich_header.records]]
+product_id = 110
+build = 50727
+count = 1
+
+[[rich_header.records]]
+product_id = 147
+build = 30729
+count = 12
+
+[[rich_header.records]]
+product_id = 123
+build = 50727
+count = 2
+
+[[rich_header.records]]
+product_id = 1
+build = 0
+count = 181
+
+[[rich_header.records]]
+product_id = 93
+build = 4035
+count = 5
+
+[[rich_header.records]]
+product_id = 95
+build = 4035
+count = 2
+
+[[rich_header.records]]
+product_id = 175
+build = 30319
+count = 56
+
+[[rich_header.records]]
+product_id = 154
+build = 30319
+count = 1
+
+[[rich_header.records]]
+product_id = 157
+build = 30319
+count = 1
+
+[toolchain]
+family = "Microsoft Visual C++ 2010 RTM (VC10)"
+compiler_version_candidate = "16.00.30319.01"
+compiler_version_state = "observed-rich-build-and-local-banner"
+linker_version = "10.0"
+rich_build = 30319
+profile_state = "unknown"
+translation_unit_partition_state = "unknown"
+link_order_state = "unknown"
+evidence = "PE linker 10.0 and Rich build-30319 records for C (170), C++ (171), LTCG C++ (175), MASM (158), cvtres (154) and the linker (157) require a VC10 RTM candidate. 56 LTCG C++ objects indicate /GL game code. TH11 VC9 profiles are hypotheses only."

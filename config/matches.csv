@@ -1,0 +1,2 @@
+address,name,size,status,match_percent,unit,evidence
+0x00407310,SetTimeScale,16,exact,100.00,set-time-scale,Cold pinned VC10 /GL /Oy- complete 16-byte public primary-TU PDB contribution; current source/header/tool/producer/PE/MAP/PDB receipts; the one reviewed DIR32 binding replays with zero byte differences.
