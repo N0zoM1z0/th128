@@ -75,3 +75,19 @@ void ZunTimer::Add(float value)
         current = (int)currentF;
     }
 }
+
+// Advances by one frame scaled by the game speed.
+void ZunTimer::Increment()
+{
+    previous = current;
+    if (*gameSpeed > 0.99 && *gameSpeed < 1.01f)
+    {
+        current++;
+        currentF += 1.0;
+    }
+    else
+    {
+        currentF += *gameSpeed;
+        current = (int)currentF;
+    }
+}

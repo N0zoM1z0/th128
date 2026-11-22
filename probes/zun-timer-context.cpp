@@ -15,6 +15,8 @@ extern "C" int __stdcall ZunTimerProbe(ZunTimer *a, int x, ZunTimer *b, int y)
     a->SetCurrentF((float)y);
     a->Add((float)x);
     b->Add(0.5f);
+    a->Increment();
+    b->Increment();
     b->SetCurrentF((float)x);
     return ZunTimerModulo(a, x) + ZunTimerModulo(b, y) + CompareAll(a, x, b, y);
 }

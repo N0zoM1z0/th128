@@ -42,7 +42,7 @@ mode dialog (fullscreen 640×480, window 640×480, 960×720, 1280×960).
 | Source | Owners | State |
 | --- | --- | --- |
 | `src/TimeScale.cpp` | `SetTimeScale` `0x00407310` | exact (linked PE) |
-| `src/ZunTimer.cpp` | `ZunTimerModulo` `0x00402B20`; `SetCurrent` `0x00403240`, `SetCurrentF` `0x00432C40`; comparison operators `<` `0x00402C40`, `<=` `0x00407130`, `>=` `0x004073B0`, `==` `0x00407E70`, `>` `0x00410CD0` | exact (linked PE) |
+| `src/ZunTimer.cpp` | `ZunTimerModulo` `0x00402B20`; `SetCurrent` `0x00403240`, `SetCurrentF` `0x00432C40`, `Increment` `0x00402AC0`; comparison operators `<` `0x00402C40`, `<=` `0x00407130`, `>=` `0x004073B0`, `==` `0x00407E70`, `>` `0x00410CD0` | exact (linked PE) |
 | `src/AnmVmSetters.cpp` | `AnmVmSetScale` `0x00402C20`, `SetScaleX` `0x00407040`, `SetScaleY` `0x00407020`, `SetScale2` `0x00402C00`, `SetUvScroll` `0x00402B60` | exact (linked PE) |
 | `src/PbgFile.cpp` | `Pbg::File` Open `0x0044FE00`, Close/Read/Write/Tell/GetSize/Seek `0x0044FFB0..0x004500D5`, ReadWhole `0x004500E0`, `~File` `0x0044FDD0`, scalar deleting destructors of `File` `0x0044FD80` and `IFile` `0x00450210` | exact (normal COFF) |
 | `src/PbgMemFile.cpp` | `Pbg::MemFile` Close/Read/Write/Tell/GetSize, `~MemFile` `0x00450EC0`, scalar deleting destructor `0x00450E70` | exact (normal COFF); `Seek` `0x00450FE0` frontier |

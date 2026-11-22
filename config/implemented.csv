@@ -75,6 +75,7 @@ SptInf::Slot04
 SptInf::`scalar deleting destructor'
 WindowProc
 ZunTimer::Add
+ZunTimer::Increment
 ZunTimer::SetCurrent
 ZunTimer::SetCurrentF
 ZunTimer::operator<

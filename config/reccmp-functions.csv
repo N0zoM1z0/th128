@@ -1,4 +1,5 @@
 name,address,type
+ZunTimer::Increment,0x00402AC0,function
 ZunTimerModulo,0x00402B20,function
 AnmVmSetUvScroll,0x00402B60,function
 AnmVmSetScale2,0x00402C00,function

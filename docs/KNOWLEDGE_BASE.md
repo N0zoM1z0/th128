@@ -296,6 +296,11 @@ source shape: float-rounded pi and two pi stored as doubles (`0x004A6580`,
 `0x004A6578`), `-pi` folded to `0x004A65B8`, and one 33-correction budget
 shared by both loops.
 
+`ZunTimer::Increment` (`0x00402AC0`, 39 call sites) is exact: inside the
+speed window it does `current++; currentF += 1.0;` (a double constant),
+otherwise `currentF += *gameSpeed; current = (int)currentF;`, which VC10
+compiles with a temporary slot and converts from `ST0`.
+
 `ZunTimer::Add` (`0x0046AA20`) is a close frontier: the game speed is
 ignored inside `(0.99, 1.01)` (a double `0.99` and a float `1.01f`
 compare), otherwise the step is scaled. VC10 keeps the sum in the argument
