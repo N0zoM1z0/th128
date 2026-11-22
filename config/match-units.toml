@@ -1460,3 +1460,51 @@ relocations = [
   { offset = 101, type = "DIR32", symbol = "?g_TimeScale@@3MA", target = 0x004B6F58 },
   { offset = 120, type = "DIR32", symbol = "__real@43000000", target = 0x004A66A0 },
 ]
+
+[units.anm-vm-effect-noop-412b30]
+artifact_kind = "coff"
+source = "src/AnmVmEffects.cpp"
+inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
+object = "build/match/AnmVmEffects.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["AnmVmEffectNoop412B30"]
+symbol = "?AnmVmEffectNoop412B30@@YIHPAUAnmVm@@PBM@Z"
+target_address = 0x00412B30
+size = 3
+relocations = []
+
+[units.anm-vm-effect-noop-412b40]
+artifact_kind = "coff"
+source = "src/AnmVmEffects.cpp"
+inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
+object = "build/match/AnmVmEffects.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["AnmVmEffectNoop412B40"]
+symbol = "?AnmVmEffectNoop412B40@@YIHPAUAnmVm@@PBM@Z"
+target_address = 0x00412B40
+size = 3
+relocations = []
+
+[units.anm-vm-effect-noop-412df0]
+artifact_kind = "coff"
+source = "src/AnmVmEffects.cpp"
+inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
+object = "build/match/AnmVmEffects.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["AnmVmEffectNoop412DF0"]
+symbol = "?AnmVmEffectNoop412DF0@@YIHPAUAnmVm@@PBM@Z"
+target_address = 0x00412DF0
+size = 3
+relocations = []
+
+[units.anm-vm-effect-noop-412e00]
+artifact_kind = "coff"
+source = "src/AnmVmEffects.cpp"
+inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
+object = "build/match/AnmVmEffects.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["AnmVmEffectNoop412E00"]
+symbol = "?AnmVmEffectNoop412E00@@YIHPAUAnmVm@@PBM@Z"
+target_address = 0x00412E00
+size = 3
+relocations = []

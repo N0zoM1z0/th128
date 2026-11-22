@@ -14,7 +14,11 @@ address,name,size,status,match_percent,unit,evidence
 0x004073B0,ZunTimer::operator>=,18,exact,100.00,zun-timer-greater-equal,Cold pinned VC10 /GL /Ob1 /Oy- complete 18-byte public primary-TU PDB contribution behind the shared ZunTimer probe context; current receipts; no fields; zero byte differences.
 0x00407E70,ZunTimer::operator==,18,exact,100.00,zun-timer-equal,Cold pinned VC10 /GL /Ob1 /Oy- complete 18-byte public primary-TU PDB contribution behind the shared ZunTimer probe context; current receipts; no fields; zero byte differences.
 0x00410CD0,ZunTimer::operator>,18,exact,100.00,zun-timer-greater,Cold pinned VC10 /GL /Ob1 /Oy- complete 18-byte public primary-TU PDB contribution behind the shared ZunTimer probe context; current receipts; no fields; zero byte differences.
+0x00412B30,AnmVmEffectNoop412B30,3,exact,100.00,anm-vm-effect-noop-412b30,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
+0x00412B40,AnmVmEffectNoop412B40,3,exact,100.00,anm-vm-effect-noop-412b40,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
 0x00412C80,StartAnmVmEffect06,187,exact,100.00,start-anm-vm-effect-06,"Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; CRT, constant and game-speed relocations replayed; zero byte differences."
+0x00412DF0,AnmVmEffectNoop412DF0,3,exact,100.00,anm-vm-effect-noop-412df0,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
+0x00412E00,AnmVmEffectNoop412E00,3,exact,100.00,anm-vm-effect-noop-412e00,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
 0x00414360,SptInf::Slot00,3,exact,100.00,spt-slot00,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
 0x004144A0,SptInf::Slot01,5,exact,100.00,spt-slot01,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
 0x004144B0,SptInf::Slot02,5,exact,100.00,spt-slot02,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.

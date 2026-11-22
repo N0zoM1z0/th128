@@ -1,6 +1,10 @@
 AddAngles
 AnmManager::GetVmById
 AnmVm::AnmVm
+AnmVmEffectNoop412B30
+AnmVmEffectNoop412B40
+AnmVmEffectNoop412DF0
+AnmVmEffectNoop412E00
 AnmVmSetScale
 AnmVmSetScale2
 AnmVmSetScaleX

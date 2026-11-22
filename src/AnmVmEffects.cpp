@@ -31,3 +31,27 @@ int __fastcall StartAnmVmEffect06(AnmVm *vm, const float *position)
     vm->scriptState = 13;
     return 0;
 }
+
+// Empty slot of the effect table (default handler).
+int __fastcall AnmVmEffectNoop412B30(AnmVm *, const float *)
+{
+    return 0;
+}
+
+// Empty slot of the effect table (default handler).
+int __fastcall AnmVmEffectNoop412B40(AnmVm *, const float *)
+{
+    return 0;
+}
+
+// Empty slot of the effect table (default handler).
+int __fastcall AnmVmEffectNoop412DF0(AnmVm *, const float *)
+{
+    return 0;
+}
+
+// Empty slot of the effect table (default handler).
+int __fastcall AnmVmEffectNoop412E00(AnmVm *, const float *)
+{
+    return 0;
+}
