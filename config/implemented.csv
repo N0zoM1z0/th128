@@ -13,6 +13,7 @@ Pbg::Archive::ReadHeader
 Pbg::Archive::~Archive
 Pbg::ArchiveEntry::ArchiveEntry
 Pbg::ArchiveEntry::~ArchiveEntry
+Pbg::DecompressLzss
 Pbg::File::Close
 Pbg::File::GetSize
 Pbg::File::Open

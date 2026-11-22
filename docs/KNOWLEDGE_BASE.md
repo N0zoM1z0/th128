@@ -59,10 +59,20 @@ Facts here are TH128-local unless marked as a hypothesis.
 `ReadHeader` (`0x0044F9A0`), `ReadEntry` (`0x0044F7D0`) and `DecryptBlocks`
 (`0x00469A00`) are now real source in one archive link context, so their
 LTCG conventions come from real callers. Open, Close, `~Archive`, the entry
-destructor and the directory parser stay exact there, and the old
-placeholder header reader is gone. Only the LZSS decoder is still a
-placeholder (`probes/pbg-archive-context.cpp`), written to take its four
-arguments on the stack like the original.
+constructor/destructor and the directory parser stay exact there. The LZSS
+decoder (`src/Lzss.cpp`) is real too, so the probe no longer holds any
+placeholder code; it only adds caller shapes from the replay and score
+loaders and the cipher key table.
+
+- **LZSS convention.** The original decoder is a plain `__stdcall` with all
+  four arguments on the stack. In every context tried, VC10 `/GL` instead
+  moves `size` into `EAX` (`RET 0xC`, exactly TH11's observed convention)
+  unless the function's address escapes; with `g_ProbeDecoder =
+  DecompressLzss` it keeps the original convention. Whether the original
+  really takes the address somewhere is unverified. `int cached` (not
+  `unsigned char`), the `>= packedSize` fetch test and a nested allocation
+  check are required; what remains is stack-slot assignment for the history
+  position and the 13/4-bit accumulators (435 vs 443 bytes).
 
 - **Cipher convention.** VC10 passes the key in `AL` like the original only
   when `size` is modified in place (`size -= (size & 1) + tail;` and the

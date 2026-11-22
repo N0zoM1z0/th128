@@ -48,12 +48,11 @@ architecture export (`ghidra.py architecture`).
 
 ## Next useful work
 
-1. **Pbg archive reader chain.** `ReadHeader`, `ReadEntry` and
-   `DecryptBlocks` are real frontiers in the archive context; see the
-   knowledge base for the remaining register/layout differences. Next is the
-   LZSS decoder (`0x00450860`, `__stdcall`, four stack arguments, history at
-   `0x004D0AB8`): replacing its placeholder may also shift the callers'
-   register priorities. Replay `src/PbgArchive.cpp` after each change.
+1. **Pbg archive reader chain.** `ReadHeader`, `ReadEntry`,
+   `DecryptBlocks` and `DecompressLzss` are real frontiers in one archive
+   context; every call convention now matches and the remaining differences
+   are register priority and stack-slot assignment (see the knowledge base).
+   Replay `src/PbgArchive.cpp` after any change to these sources.
 2. **AsciiInf** (`0x00401010..0x00402A55`, vtable `0x004A1F3C`): `/GL` owner
    with an `ESI` receiver. Resolve the 0x141-iteration timer loop before
    writing the constructor (see the knowledge base). The init function

@@ -2,55 +2,46 @@
 // entry constructor and destructor addresses, as in the original.
 #include "../src/PbgArchive.hpp"
 #include "../src/DebugLog.hpp"
+#include "../src/BlockCipher.hpp"
 
 #include <stdlib.h>
 
 Pbg::ArchiveCipherKey Pbg::g_ArchiveCipherKeys[8];
 
-// Placeholder for the not yet reconstructed LZSS decoder (0x00450860): a
-// defined LTCG callee that takes its four arguments on the stack.
-unsigned char *__stdcall Pbg::DecompressLzss(const unsigned char *packed, int packedSize,
-                                             unsigned char *destination, unsigned int size)
+// Shapes of the other original callers (replay and score loaders), whose
+// sizes come from header fields.
+struct ProbeBlobHeader
 {
-    unsigned char *out;
-    unsigned char mask = 0x80;
-    unsigned char bits = 0;
-    if (destination == NULL && (destination = (unsigned char *)malloc(size)) == NULL)
-    {
-        return NULL;
-    }
-    out = destination;
-    const unsigned char *in = packed;
-    for (;;)
-    {
-        if (mask == 0x80)
-        {
-            bits = *in;
-            if (in - packed < packedSize)
-            {
-                ++in;
-            }
-            else
-            {
-                bits = 0;
-            }
-        }
-        if ((bits & mask) == 0 || (unsigned int)(out - destination) >= size)
-        {
-            break;
-        }
-        *out++ = *in;
-        mask >>= 1;
-        if (mask == 0)
-        {
-            mask = 0x80;
-        }
-    }
-    return destination;
+    unsigned char reserved[0x10];
+    unsigned int packedSize;
+    unsigned int size;
+    unsigned char *body;
+    unsigned int bodySize;
+    unsigned int bodyPacked;
+};
+
+static void *ProbeReplayLike(ProbeBlobHeader *header, unsigned char *data, unsigned char *buffer)
+{
+    DecryptBlocks(data, header->bodySize, 0x5E, 0xE7, 0x800, header->bodySize);
+    DecryptBlocks(data, header->bodySize, 0x7D, 0x36, 0x80, header->bodySize);
+    return Pbg::DecompressLzss(data, header->bodySize, buffer, header->bodyPacked);
 }
+
+static void *ProbeScoreLike(ProbeBlobHeader *header, unsigned char *destination)
+{
+    DecryptBlocks(header->reserved + 0x18, header->size, 0xAC, 0x35, 0x10, header->size);
+    return Pbg::DecompressLzss(header->reserved + 0x18, header->packedSize, destination, header->size);
+}
+
+// Hypothesis: the decoder's address escapes in the original, which keeps it
+// a plain __stdcall function (all four arguments on the stack).
+typedef unsigned char *(__stdcall *ProbeDecoder)(const unsigned char *, int, unsigned char *, unsigned int);
+ProbeDecoder g_ProbeDecoder = Pbg::DecompressLzss;
 
 extern "C" void __stdcall PbgArchiveProbe(Pbg::ArchiveEntry **a, Pbg::ArchiveEntry **b, int count)
 {
+    ProbeReplayLike((ProbeBlobHeader *)a, (unsigned char *)b, (unsigned char *)*a);
+    ProbeScoreLike((ProbeBlobHeader *)b, (unsigned char *)*b);
     Pbg::Archive *archives = new Pbg::Archive[count];
     archives[0].Open((const char *)a);
     archives[1].Open((const char *)b);
