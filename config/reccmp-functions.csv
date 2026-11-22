@@ -11,3 +11,12 @@ SetTimeScale,0x00407310,function
 ZunTimer::operator>=,0x004073B0,function
 ZunTimer::operator==,0x00407E70,function
 ZunTimer::operator>,0x00410CD0,function
+Pbg::File::`scalar deleting destructor',0x0044FD80,function
+Pbg::File::~File,0x0044FDD0,function
+Pbg::File::Close,0x0044FFB0,function
+Pbg::File::Read,0x0044FFE0,function
+Pbg::File::Write,0x00450020,function
+Pbg::File::Tell,0x00450070,function
+Pbg::File::GetSize,0x00450090,function
+Pbg::File::Seek,0x004500B0,function
+Pbg::IFile::`scalar deleting destructor',0x00450210,function

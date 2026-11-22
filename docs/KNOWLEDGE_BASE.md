@@ -98,6 +98,24 @@ the first float, ORs the dirty bit at +0x4B0, then stores.
 The ZunTimer field names beyond +4 come from adjacent games and remain a
 hypothesis.
 
+## Pbg file streams
+
+`Pbg::IFile` (vtable `0x004A4850`: seven `_purecall` slots, then the virtual
+destructor) and `Pbg::File` (vtable `0x004A4828`: Open, Close, Read, Write,
+Tell, GetSize, Seek, deleting destructor, ReadWhole) are real C++ classes; the
+RTTI names come from the target. A plain virtual class hierarchy compiled as
+normal COFF with `/TP /O2 /Oy- /Gy /MT` reproduces nine owners exactly,
+including the compiler-generated scalar deleting destructors.
+
+- `/Ob1` is wrong here: `~File` inlines `Close` in the target (46 bytes), so
+  the default `/O2` inlining is required.
+- `/Oy-` gives `Read`, `Write` and `Seek` their `PUSH EBP` frames, while
+  frameless leaves such as `Close`, `Tell` and `GetSize` stay frameless.
+- Whether these objects were `/GL` in the original is unknown; normal COFF
+  reproduces them.
+- `File::Open` (`0x0044FE00`, 419 bytes) and `ReadWhole` (`0x004500E0`, 153
+  bytes) and the `MemFile` vtable `0x004A491C` are the next owners.
+
 ## Open questions
 
 - Compiler flags per unit, the TU partition, which objects are `/GL`, the

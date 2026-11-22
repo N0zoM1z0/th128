@@ -3,6 +3,15 @@ AnmVmSetScale2
 AnmVmSetScaleX
 AnmVmSetScaleY
 AnmVmSetUvScroll
+Pbg::File::Close
+Pbg::File::GetSize
+Pbg::File::Read
+Pbg::File::Seek
+Pbg::File::Tell
+Pbg::File::Write
+Pbg::File::`scalar deleting destructor'
+Pbg::File::~File
+Pbg::IFile::`scalar deleting destructor'
 SetTimeScale
 ZunTimer::operator<
 ZunTimer::operator<=

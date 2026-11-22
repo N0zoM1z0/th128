@@ -816,17 +816,17 @@ address,span_end,state,confidence,evidence_id,notes
 0x0044FB20,0x0044FC72,needs_review,low,ghidra-12.1.4-initial-inventory,"Auto-analysis bounding span only; reconcile sparse bodies, references, tables and adjacent bytes before acceptance."
 0x0044FCB0,0x0044FCC9,needs_review,low,ghidra-12.1.4-initial-inventory,"Auto-analysis bounding span only; reconcile sparse bodies, references, tables and adjacent bytes before acceptance."
 0x0044FD30,0x0044FD30,needs_review,low,ghidra-12.1.4-initial-inventory,"Auto-analysis bounding span only; reconcile sparse bodies, references, tables and adjacent bytes before acceptance."
-0x0044FD80,0x0044FDC4,needs_review,low,ghidra-12.1.4-initial-inventory,"Auto-analysis bounding span only; reconcile sparse bodies, references, tables and adjacent bytes before acceptance."
-0x0044FDD0,0x0044FDFD,needs_review,low,ghidra-12.1.4-initial-inventory,"Auto-analysis bounding span only; reconcile sparse bodies, references, tables and adjacent bytes before acceptance."
+0x0044FD80,0x0044FDC4,reviewed,high,pbg-file-deleting-destructor-boundary,Complete body ending in RET between CC padding; no interior references.
+0x0044FDD0,0x0044FDFD,reviewed,high,pbg-file-destructor-boundary,Complete body ending in RET between CC padding; no interior references.
 0x0044FE00,0x0044FFA2,needs_review,low,ghidra-12.1.4-initial-inventory,"Auto-analysis bounding span only; reconcile sparse bodies, references, tables and adjacent bytes before acceptance."
-0x0044FFB0,0x0044FFD1,needs_review,low,ghidra-12.1.4-initial-inventory,"Auto-analysis bounding span only; reconcile sparse bodies, references, tables and adjacent bytes before acceptance."
-0x0044FFE0,0x0045001C,needs_review,low,ghidra-12.1.4-initial-inventory,"Auto-analysis bounding span only; reconcile sparse bodies, references, tables and adjacent bytes before acceptance."
-0x00450020,0x00450061,needs_review,low,ghidra-12.1.4-initial-inventory,"Auto-analysis bounding span only; reconcile sparse bodies, references, tables and adjacent bytes before acceptance."
-0x00450070,0x00450088,needs_review,low,ghidra-12.1.4-initial-inventory,"Auto-analysis bounding span only; reconcile sparse bodies, references, tables and adjacent bytes before acceptance."
-0x00450090,0x004500A4,needs_review,low,ghidra-12.1.4-initial-inventory,"Auto-analysis bounding span only; reconcile sparse bodies, references, tables and adjacent bytes before acceptance."
-0x004500B0,0x004500D7,needs_review,low,ghidra-12.1.4-initial-inventory,"Auto-analysis bounding span only; reconcile sparse bodies, references, tables and adjacent bytes before acceptance."
+0x0044FFB0,0x0044FFD1,reviewed,high,pbg-file-close-boundary,Complete body ending in RET between CC padding; no interior references.
+0x0044FFE0,0x0045001C,reviewed,high,pbg-file-read-boundary,Complete body ending in RET between CC padding; no interior references.
+0x00450020,0x00450061,reviewed,high,pbg-file-write-boundary,Complete body ending in RET between CC padding; no interior references.
+0x00450070,0x00450088,reviewed,high,pbg-file-tell-boundary,Complete body ending in RET between CC padding; no interior references.
+0x00450090,0x004500A4,reviewed,high,pbg-file-get-size-boundary,Complete body ending in RET between CC padding; no interior references.
+0x004500B0,0x004500D7,reviewed,high,pbg-file-seek-boundary,Complete body ending in RET between CC padding; no interior references.
 0x004500E0,0x00450178,needs_review,low,ghidra-12.1.4-initial-inventory,"Auto-analysis bounding span only; reconcile sparse bodies, references, tables and adjacent bytes before acceptance."
-0x00450210,0x00450231,needs_review,low,ghidra-12.1.4-initial-inventory,"Auto-analysis bounding span only; reconcile sparse bodies, references, tables and adjacent bytes before acceptance."
+0x00450210,0x00450231,reviewed,high,pbg-ifile-deleting-destructor-boundary,Complete body ending in RET between CC padding; no interior references.
 0x00450270,0x00450343,needs_review,low,ghidra-12.1.4-initial-inventory,"Auto-analysis bounding span only; reconcile sparse bodies, references, tables and adjacent bytes before acceptance."
 0x00450380,0x0045044F,needs_review,low,ghidra-12.1.4-initial-inventory,"Auto-analysis bounding span only; reconcile sparse bodies, references, tables and adjacent bytes before acceptance."
 0x00450450,0x0045054A,needs_review,low,ghidra-12.1.4-initial-inventory,"Auto-analysis bounding span only; reconcile sparse bodies, references, tables and adjacent bytes before acceptance."

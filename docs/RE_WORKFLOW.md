@@ -21,7 +21,8 @@ For each coherent subsystem:
    decorated symbol's complete extent and exhaustive relocation list. Add a
    canonical unit only when its complete zero-difference replay reproduces.
 5. Cold-replay affected canonical units, update ledgers and generated
-   progress, check the diff, and make a concise `gpt-web: ...` checkpoint.
+   progress, check the diff, and make a concise checkpoint prefixed with
+   the authoring agent (for example `claude-opus-5.5: ...`).
 
 Static CRT and STL code (`libcmt.lib`, `libcpmt.lib`) is classified with
 `scan-library-code.py` against the pinned VC10 archives rather than
