@@ -7,6 +7,8 @@ AnmVmSetUvScroll
 CreateGameWindow
 DebugPrint
 DecryptBlocks
+LaserBeamInf::Slot00
+LaserCurveInf::Slot00
 LaserDataInf::Slot00
 LaserDataInf::Slot01
 LaserDataInf::Slot02
@@ -31,6 +33,8 @@ LaserDataInf::Slot21
 LaserDataInf::Slot22
 LaserDataInf::Slot23
 LaserDataInf::Unlink
+LaserInfiniteInf::Slot00
+LaserLineInf::Slot00
 Pbg::Archive::Close
 Pbg::Archive::Open
 Pbg::Archive::ReadEntry
@@ -69,3 +73,4 @@ ZunTimer::operator==
 ZunTimer::operator>
 ZunTimer::operator>=
 ZunTimerModulo
+ZunVec3::SetPolarXY

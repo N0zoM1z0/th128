@@ -1012,13 +1012,13 @@ address,span_end,state,confidence,evidence_id,notes
 0x00429B50,0x00429B52,reviewed,high,laser-data-slot23-boundary,Complete body between padding; referenced from the LaserDataInf vtable and inherited slots of derived laser vtables.
 0x00429B60,0x00429BD8,reviewed,high,bdesc-exact,start padding; refs callx6; descent body 0x00429B60..0x00429BD8 (121 bytes) ends with ret; then padding-then-start 0x00429BE0
 0x00429BE0,0x00429BEF,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00429BE0..0x00429BEF (16 bytes) ends with ret; then adjacent-start 0x00429BF0; WEAK: no call, jump, pointer or vtable reference found"
-0x00429BF0,0x00429C29,reviewed,high,bdesc-exact,start after-terminator; refs datax1; descent body 0x00429BF0..0x00429C29 (58 bytes) ends with ret; then padding-then-start 0x00429C30
+0x00429BF0,0x00429C29,reviewed,high,laser-line-point-boundary,Complete 58-byte body between padding; slot 0 of the LaserLineInf vtable.
 0x00429C30,0x00429C3F,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00429C30..0x00429C3F (16 bytes) ends with ret; then adjacent-start 0x00429C40; WEAK: no call, jump, pointer or vtable reference found"
 0x00429C40,0x00429C82,reviewed,high,bdesc-exact,start after-terminator; refs callx4; descent body 0x00429C40..0x00429C82 (67 bytes) ends with ret; then padding-then-start 0x00429C90
-0x00429C90,0x00429CC9,reviewed,high,bdesc-exact,start padding; refs datax1; descent body 0x00429C90..0x00429CC9 (58 bytes) ends with ret; then padding-then-start 0x00429CD0
+0x00429C90,0x00429CC9,reviewed,high,laser-curve-point-boundary,Complete 58-byte body between padding; slot 0 of the LaserCurveInf vtable.
 0x00429CD0,0x00429CD0,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00429CD0..0x00429CD0 (1 bytes) ends with ret; then padding-then-start 0x00429CE0; WEAK: no call, jump, pointer or vtable reference found"
-0x00429CE0,0x00429D19,reviewed,high,bdesc-exact,start padding; refs datax1; descent body 0x00429CE0..0x00429D19 (58 bytes) ends with ret; then padding-then-start 0x00429D20
-0x00429D20,0x00429D59,reviewed,high,bdesc-exact,start padding; refs datax1; descent body 0x00429D20..0x00429D59 (58 bytes) ends with ret; then padding-then-start 0x00429D60
+0x00429CE0,0x00429D19,reviewed,high,laser-infinite-point-boundary,Complete 58-byte body between padding; slot 0 of the LaserInfiniteInf vtable.
+0x00429D20,0x00429D59,reviewed,high,laser-beam-point-boundary,Complete 58-byte body between padding; slot 0 of the LaserBeamInf vtable.
 0x00429D60,0x00429D78,reviewed,high,bdesc-exact,start padding; refs datax1; descent body 0x00429D60..0x00429D78 (25 bytes) ends with ret; then padding-then-start 0x00429D80
 0x00429D80,0x00429D98,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00429D80..0x00429D98 (25 bytes) ends with ret; then padding-then-start 0x00429DA0; WEAK: no call, jump, pointer or vtable reference found"
 0x00429DA0,0x00429DCF,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00429DA0..0x00429DCF (48 bytes) ends with ret; then adjacent-start 0x00429DD0; WEAK: no call, jump, pointer or vtable reference found"
@@ -1121,7 +1121,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x00432DE0,0x00432DE0,reviewed,medium,bnew-unreferenced-delimited,"found by after-terminator-aligned; start after-terminator; refs none; descent body 0x00432DE0..0x00432DE0 (1 bytes) ends with ret; then padding-then-start 0x00432DF0; WEAK: no call, jump, pointer or vtable reference found"
 0x00432DF0,0x00432E0E,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x00432DF0..0x00432E0E (31 bytes) ends with ret; then padding-then-start 0x00432E10; WEAK: no call, jump, pointer or vtable reference found"
 0x00432E10,0x00432E18,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00432E10..0x00432E18 (9 bytes) ends with ret; then padding-then-start 0x00432E20; WEAK: no call, jump, pointer or vtable reference found"
-0x00432E20,0x00432E3F,reviewed,high,bdesc-exact,start padding; refs callx58; descent body 0x00432E20..0x00432E3F (32 bytes) ends with ret; then adjacent-start 0x00432E40
+0x00432E20,0x00432E3F,reviewed,high,zun-vec3-set-polar-xy-boundary,Complete 32-byte body between padding; called by the laser point and drawing methods.
 0x00432E40,0x00432E79,reviewed,medium,bnew-unreferenced-delimited,"found by after-terminator-aligned; start after-terminator; refs none; descent body 0x00432E40..0x00432E79 (58 bytes) ends with ret; then padding-then-start 0x00432E80; WEAK: no call, jump, pointer or vtable reference found"
 0x00432E80,0x00432ED8,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00432E80..0x00432ED8 (89 bytes) ends with ret; then padding-then-start 0x00432EE0
 0x00432EE0,0x00432F42,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00432EE0..0x00432F42 (99 bytes) ends with ret; then padding-then-start 0x00432F50

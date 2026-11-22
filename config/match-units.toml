@@ -755,7 +755,7 @@ relocations = []
 [units.laser-data-slot00]
 artifact_kind = "coff"
 source = "src/LaserData.cpp"
-inputs = ["src/LaserData.hpp"]
+inputs = ["src/LaserData.hpp", "src/ZunMath.hpp"]
 object = "build/match/LaserData.obj"
 profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
 functions = ["LaserDataInf::Slot00"]
@@ -767,7 +767,7 @@ relocations = []
 [units.laser-data-slot01]
 artifact_kind = "coff"
 source = "src/LaserData.cpp"
-inputs = ["src/LaserData.hpp"]
+inputs = ["src/LaserData.hpp", "src/ZunMath.hpp"]
 object = "build/match/LaserData.obj"
 profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
 functions = ["LaserDataInf::Slot01"]
@@ -779,7 +779,7 @@ relocations = []
 [units.laser-data-slot02]
 artifact_kind = "coff"
 source = "src/LaserData.cpp"
-inputs = ["src/LaserData.hpp"]
+inputs = ["src/LaserData.hpp", "src/ZunMath.hpp"]
 object = "build/match/LaserData.obj"
 profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
 functions = ["LaserDataInf::Slot02"]
@@ -791,7 +791,7 @@ relocations = []
 [units.laser-data-slot03]
 artifact_kind = "coff"
 source = "src/LaserData.cpp"
-inputs = ["src/LaserData.hpp"]
+inputs = ["src/LaserData.hpp", "src/ZunMath.hpp"]
 object = "build/match/LaserData.obj"
 profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
 functions = ["LaserDataInf::Slot03"]
@@ -803,7 +803,7 @@ relocations = []
 [units.laser-data-slot04]
 artifact_kind = "coff"
 source = "src/LaserData.cpp"
-inputs = ["src/LaserData.hpp"]
+inputs = ["src/LaserData.hpp", "src/ZunMath.hpp"]
 object = "build/match/LaserData.obj"
 profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
 functions = ["LaserDataInf::Slot04"]
@@ -815,7 +815,7 @@ relocations = []
 [units.laser-data-slot05]
 artifact_kind = "coff"
 source = "src/LaserData.cpp"
-inputs = ["src/LaserData.hpp"]
+inputs = ["src/LaserData.hpp", "src/ZunMath.hpp"]
 object = "build/match/LaserData.obj"
 profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
 functions = ["LaserDataInf::Slot05"]
@@ -827,7 +827,7 @@ relocations = []
 [units.laser-data-unlink]
 artifact_kind = "coff"
 source = "src/LaserData.cpp"
-inputs = ["src/LaserData.hpp"]
+inputs = ["src/LaserData.hpp", "src/ZunMath.hpp"]
 object = "build/match/LaserData.obj"
 profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
 functions = ["LaserDataInf::Unlink"]
@@ -839,7 +839,7 @@ relocations = []
 [units.laser-data-slot07]
 artifact_kind = "coff"
 source = "src/LaserData.cpp"
-inputs = ["src/LaserData.hpp"]
+inputs = ["src/LaserData.hpp", "src/ZunMath.hpp"]
 object = "build/match/LaserData.obj"
 profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
 functions = ["LaserDataInf::Slot07"]
@@ -851,7 +851,7 @@ relocations = []
 [units.laser-data-slot08]
 artifact_kind = "coff"
 source = "src/LaserData.cpp"
-inputs = ["src/LaserData.hpp"]
+inputs = ["src/LaserData.hpp", "src/ZunMath.hpp"]
 object = "build/match/LaserData.obj"
 profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
 functions = ["LaserDataInf::Slot08"]
@@ -863,7 +863,7 @@ relocations = []
 [units.laser-data-slot09]
 artifact_kind = "coff"
 source = "src/LaserData.cpp"
-inputs = ["src/LaserData.hpp"]
+inputs = ["src/LaserData.hpp", "src/ZunMath.hpp"]
 object = "build/match/LaserData.obj"
 profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
 functions = ["LaserDataInf::Slot09"]
@@ -875,7 +875,7 @@ relocations = []
 [units.laser-data-slot10]
 artifact_kind = "coff"
 source = "src/LaserData.cpp"
-inputs = ["src/LaserData.hpp"]
+inputs = ["src/LaserData.hpp", "src/ZunMath.hpp"]
 object = "build/match/LaserData.obj"
 profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
 functions = ["LaserDataInf::Slot10"]
@@ -887,7 +887,7 @@ relocations = []
 [units.laser-data-slot11]
 artifact_kind = "coff"
 source = "src/LaserData.cpp"
-inputs = ["src/LaserData.hpp"]
+inputs = ["src/LaserData.hpp", "src/ZunMath.hpp"]
 object = "build/match/LaserData.obj"
 profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
 functions = ["LaserDataInf::Slot11"]
@@ -899,7 +899,7 @@ relocations = []
 [units.laser-data-slot12]
 artifact_kind = "coff"
 source = "src/LaserData.cpp"
-inputs = ["src/LaserData.hpp"]
+inputs = ["src/LaserData.hpp", "src/ZunMath.hpp"]
 object = "build/match/LaserData.obj"
 profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
 functions = ["LaserDataInf::Slot12"]
@@ -911,7 +911,7 @@ relocations = []
 [units.laser-data-slot13]
 artifact_kind = "coff"
 source = "src/LaserData.cpp"
-inputs = ["src/LaserData.hpp"]
+inputs = ["src/LaserData.hpp", "src/ZunMath.hpp"]
 object = "build/match/LaserData.obj"
 profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
 functions = ["LaserDataInf::Slot13"]
@@ -923,7 +923,7 @@ relocations = []
 [units.laser-data-slot14]
 artifact_kind = "coff"
 source = "src/LaserData.cpp"
-inputs = ["src/LaserData.hpp"]
+inputs = ["src/LaserData.hpp", "src/ZunMath.hpp"]
 object = "build/match/LaserData.obj"
 profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
 functions = ["LaserDataInf::Slot14"]
@@ -935,7 +935,7 @@ relocations = []
 [units.laser-data-slot15]
 artifact_kind = "coff"
 source = "src/LaserData.cpp"
-inputs = ["src/LaserData.hpp"]
+inputs = ["src/LaserData.hpp", "src/ZunMath.hpp"]
 object = "build/match/LaserData.obj"
 profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
 functions = ["LaserDataInf::Slot15"]
@@ -947,7 +947,7 @@ relocations = []
 [units.laser-data-slot16]
 artifact_kind = "coff"
 source = "src/LaserData.cpp"
-inputs = ["src/LaserData.hpp"]
+inputs = ["src/LaserData.hpp", "src/ZunMath.hpp"]
 object = "build/match/LaserData.obj"
 profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
 functions = ["LaserDataInf::Slot16"]
@@ -959,7 +959,7 @@ relocations = []
 [units.laser-data-slot17]
 artifact_kind = "coff"
 source = "src/LaserData.cpp"
-inputs = ["src/LaserData.hpp"]
+inputs = ["src/LaserData.hpp", "src/ZunMath.hpp"]
 object = "build/match/LaserData.obj"
 profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
 functions = ["LaserDataInf::Slot17"]
@@ -971,7 +971,7 @@ relocations = []
 [units.laser-data-slot18]
 artifact_kind = "coff"
 source = "src/LaserData.cpp"
-inputs = ["src/LaserData.hpp"]
+inputs = ["src/LaserData.hpp", "src/ZunMath.hpp"]
 object = "build/match/LaserData.obj"
 profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
 functions = ["LaserDataInf::Slot18"]
@@ -983,7 +983,7 @@ relocations = []
 [units.laser-data-slot19]
 artifact_kind = "coff"
 source = "src/LaserData.cpp"
-inputs = ["src/LaserData.hpp"]
+inputs = ["src/LaserData.hpp", "src/ZunMath.hpp"]
 object = "build/match/LaserData.obj"
 profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
 functions = ["LaserDataInf::Slot19"]
@@ -995,7 +995,7 @@ relocations = []
 [units.laser-data-slot20]
 artifact_kind = "coff"
 source = "src/LaserData.cpp"
-inputs = ["src/LaserData.hpp"]
+inputs = ["src/LaserData.hpp", "src/ZunMath.hpp"]
 object = "build/match/LaserData.obj"
 profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
 functions = ["LaserDataInf::Slot20"]
@@ -1007,7 +1007,7 @@ relocations = []
 [units.laser-data-slot21]
 artifact_kind = "coff"
 source = "src/LaserData.cpp"
-inputs = ["src/LaserData.hpp"]
+inputs = ["src/LaserData.hpp", "src/ZunMath.hpp"]
 object = "build/match/LaserData.obj"
 profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
 functions = ["LaserDataInf::Slot21"]
@@ -1019,7 +1019,7 @@ relocations = []
 [units.laser-data-slot22]
 artifact_kind = "coff"
 source = "src/LaserData.cpp"
-inputs = ["src/LaserData.hpp"]
+inputs = ["src/LaserData.hpp", "src/ZunMath.hpp"]
 object = "build/match/LaserData.obj"
 profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
 functions = ["LaserDataInf::Slot22"]
@@ -1031,7 +1031,7 @@ relocations = []
 [units.laser-data-slot23]
 artifact_kind = "coff"
 source = "src/LaserData.cpp"
-inputs = ["src/LaserData.hpp"]
+inputs = ["src/LaserData.hpp", "src/ZunMath.hpp"]
 object = "build/match/LaserData.obj"
 profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
 functions = ["LaserDataInf::Slot23"]
@@ -1039,3 +1039,86 @@ symbol = "?Slot23@LaserDataInf@@UAEHXZ"
 target_address = 0x00429B50
 size = 3
 relocations = []
+
+
+[units.laser-line-point]
+frontier = true # only the x addition differs: the original loads point.x first, VC10 loads position.x first
+artifact_kind = "linked-pe"
+source = "src/LaserPoint.cpp"
+inputs = ["src/Laser.hpp", "src/LaserData.hpp", "src/ZunMath.hpp"]
+support_sources = ["probes/laser-context.cpp", "src/LaserData.cpp"]
+output_dir = "build/match-linked/LaserPoint"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LaserProbe@12"
+functions = ["LaserLineInf::Slot00"]
+symbol = "?Slot00@LaserLineInf@@UAEXMPAM@Z"
+target_address = 0x00429BF0
+size = 58
+linkages = [
+  { offset = 25, type = "REL32", symbol = "?SetPolarXY@ZunVec3@@QAEXMM@Z", target = 0x00432E20 },
+]
+
+[units.laser-curve-point]
+frontier = true # only the x addition differs: the original loads point.x first, VC10 loads position.x first
+artifact_kind = "linked-pe"
+source = "src/LaserPoint.cpp"
+inputs = ["src/Laser.hpp", "src/LaserData.hpp", "src/ZunMath.hpp"]
+support_sources = ["probes/laser-context.cpp", "src/LaserData.cpp"]
+output_dir = "build/match-linked/LaserPoint"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LaserProbe@12"
+functions = ["LaserCurveInf::Slot00"]
+symbol = "?Slot00@LaserCurveInf@@UAEXMPAM@Z"
+target_address = 0x00429C90
+size = 58
+linkages = [
+  { offset = 25, type = "REL32", symbol = "?SetPolarXY@ZunVec3@@QAEXMM@Z", target = 0x00432E20 },
+]
+
+[units.laser-infinite-point]
+frontier = true # only the x addition differs: the original loads point.x first, VC10 loads position.x first
+artifact_kind = "linked-pe"
+source = "src/LaserPoint.cpp"
+inputs = ["src/Laser.hpp", "src/LaserData.hpp", "src/ZunMath.hpp"]
+support_sources = ["probes/laser-context.cpp", "src/LaserData.cpp"]
+output_dir = "build/match-linked/LaserPoint"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LaserProbe@12"
+functions = ["LaserInfiniteInf::Slot00"]
+symbol = "?Slot00@LaserInfiniteInf@@UAEXMPAM@Z"
+target_address = 0x00429CE0
+size = 58
+linkages = [
+  { offset = 25, type = "REL32", symbol = "?SetPolarXY@ZunVec3@@QAEXMM@Z", target = 0x00432E20 },
+]
+
+[units.laser-beam-point]
+frontier = true # only the x addition differs: the original loads point.x first, VC10 loads position.x first
+artifact_kind = "linked-pe"
+source = "src/LaserPoint.cpp"
+inputs = ["src/Laser.hpp", "src/LaserData.hpp", "src/ZunMath.hpp"]
+support_sources = ["probes/laser-context.cpp", "src/LaserData.cpp"]
+output_dir = "build/match-linked/LaserPoint"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LaserProbe@12"
+functions = ["LaserBeamInf::Slot00"]
+symbol = "?Slot00@LaserBeamInf@@UAEXMPAM@Z"
+target_address = 0x00429D20
+size = 58
+linkages = [
+  { offset = 25, type = "REL32", symbol = "?SetPolarXY@ZunVec3@@QAEXMM@Z", target = 0x00432E20 },
+]
+
+[units.zun-vec3-set-polar-xy]
+artifact_kind = "linked-pe"
+source = "src/LaserPoint.cpp"
+inputs = ["src/Laser.hpp", "src/LaserData.hpp", "src/ZunMath.hpp"]
+support_sources = ["probes/laser-context.cpp", "src/LaserData.cpp"]
+output_dir = "build/match-linked/LaserPoint"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LaserProbe@12"
+functions = ["ZunVec3::SetPolarXY"]
+symbol = "?SetPolarXY@ZunVec3@@QAEXMM@Z"
+target_address = 0x00432E20
+size = 32
+linkages = []

@@ -68,7 +68,16 @@ original defines them in another order. Derived kinds override most slots
 with 60–2,400-byte methods; slot 0 of each kind computes a point along the
 laser through a polar helper (for example `0x00432E20`) that contains
 `FSINCOS`, which VC10 never emits from C, so those helpers use inline
-assembly in the original.
+assembly in the original. `ZunVec3::SetPolarXY` reproduces `0x00432E20`
+exactly from that inline assembly (`mov eax, this; fld angle; fsincos;
+fmul radius; fstp [eax]; fmul radius; fstp [eax+4]`). It must be an
+ordinary out-of-line definition, not `inline`: only then does VC10 LTCG
+learn that it clobbers just `EAX`, so callers keep `ECX`/`EDX` live across
+the call as the original does. That also explains the byte-identical copies
+in other subsystems (separate per-file definitions). The four slot-0
+methods then match except the x addition, where the original loads the
+point first; operator, component, reference and `/fp:fast` variants all
+load the position first.
 
 ## Window procedure
 

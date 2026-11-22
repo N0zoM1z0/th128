@@ -1,5 +1,7 @@
 #pragma once
 
+#include "ZunMath.hpp"
+
 // Base class of the laser kinds (RTTI LaserDataInf, vtable 0x004A2BB4). The
 // 24 virtual slots are named by index until their meaning is reviewed; the
 // stack argument counts come from the base implementations' RET sizes.
@@ -31,6 +33,13 @@ public:
     virtual int Slot22();
     virtual int Slot23();
 
-    LaserDataInf *prev;
-    LaserDataInf *next;
+    LaserDataInf *prev;     // +0x04
+    LaserDataInf *next;     // +0x08
+    int state;              // +0x0C
+    unsigned char unknown10[0x50 - 0x10];
+    ZunVec3 position;       // +0x50
+    unsigned char unknown5C[0x68 - 0x5C];
+    float angle;            // +0x68
+    float length;           // +0x6C
+    float width;            // +0x70
 };
