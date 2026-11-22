@@ -1414,3 +1414,29 @@ symbol = "?GetVmById@AnmManager@@QAEPAUAnmVm@@I@Z"
 target_address = 0x00467420
 size = 89
 linkages = []
+
+# Script resource registry: normal-COFF codegen context.
+[units.spt-resource-load-includes]
+artifact_kind = "coff"
+source = "src/EclResource.cpp"
+inputs = ["src/EclResource.hpp"]
+object = "build/match/EclResource.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["SptResourceInf::LoadIncludes"]
+symbol = "?LoadIncludes@SptResourceInf@@UAEHPAX@Z"
+target_address = 0x00414680
+size = 5
+relocations = []
+
+[units.spt-resource-load]
+frontier = true # same 538 bytes, control flow and block layout; register assignment differs (header/slot in ECX/EAX, old table/offsets in EBX/EDI)
+artifact_kind = "coff"
+source = "src/EclResource.cpp"
+inputs = ["src/EclResource.hpp"]
+object = "build/match/EclResource.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["SptResourceInf::Load"]
+symbol = "?Load@SptResourceInf@@UAEHPAX@Z"
+target_address = 0x004703F0
+size = 538
+relocations = []

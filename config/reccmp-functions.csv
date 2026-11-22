@@ -20,6 +20,7 @@ SptInf::Slot02,0x004144B0,function
 SptInf::Slot03,0x004144C0,function
 SptInf::Slot04,0x004144D0,function
 SptInf::`scalar deleting destructor',0x00414630,function
+SptResourceInf::LoadIncludes,0x00414680,function
 LaserDataInf::Slot00,0x004299D0,function
 LaserDataInf::Slot01,0x004299E0,function
 LaserDataInf::Slot02,0x004299F0,function
@@ -93,3 +94,4 @@ AddAngles,0x0046A660,function
 NormalizeAngle,0x0046A700,function
 MenuCursor::Move,0x0046A970,function
 ZunTimer::Add,0x0046AA20,function
+SptResourceInf::Load,0x004703F0,function

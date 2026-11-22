@@ -80,6 +80,8 @@ SptInf::Slot02
 SptInf::Slot03
 SptInf::Slot04
 SptInf::`scalar deleting destructor'
+SptResourceInf::Load
+SptResourceInf::LoadIncludes
 WindowProc
 ZunTimer::Add
 ZunTimer::Increment

@@ -88,6 +88,17 @@ re-reads it (`INC [ecx+0x594]` in the bitfield arms, loop test from memory).
 Per-case increments and `continue` arms compile to the same code as one
 increment after the switch.
 
+## Script resource registry
+
+`SptResourceInf` (vtable `0x004A26DC`) is the base of `EclResourceInf`
+(`0x004A2720`): slot 0 `Load` (`0x004703F0`, 538 bytes) is shared, slot 1
+`LoadIncludes` is overridden. `Load` validates a SCPT (`0x54504353`)
+version-1 file, records it in `files[32]` (+0x0C), and merges its subs into
+a name-sorted `{name, code}` table at +0x8C (realloc by `malloc`/`memcpy`/
+`free`, insertion with inline `strcmp`). The source reproduces its size,
+flow and block layout; two separate `if` checks are needed for the failure
+block to sit inline after the magic test. Register assignment still differs.
+
 ## Window procedure
 
 `WindowProc` (`0x00454420`, 420 bytes) is exact as normal COFF. Fixed
