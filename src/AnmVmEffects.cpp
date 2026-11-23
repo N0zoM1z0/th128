@@ -276,16 +276,11 @@ void DrawAnmVmVertices(AnmVm *vm, const void *vertices, unsigned int vertexCount
 
 namespace
 {
-    float RoundAnmSpriteCoordinate(float value)
+    float SnapAnmSpriteCoordinate(float value)
     {
-        const float lower = floorf(value);
-        const float fraction = value - lower;
-        if (fraction > 0.5f ||
-            (fraction == 0.5f && fmodf(lower, 2.0f) != 0.0f))
-        {
-            return lower + 1.0f;
-        }
-        return lower;
+        // FUN_0048FDF0 is the target's floor(double) helper. E920 subtracts
+        // the D3D half-pixel offset after flooring each selected edge.
+        return floorf(value) - 0.5f;
     }
 
     unsigned int ModulateAnmSpriteColor(
@@ -382,7 +377,6 @@ static int DrawAnmVmSpriteQuad(AnmVm *vm, bool pixelSnap, bool rotate)
     {
     case 0:
         left -= width * 0.5f;
-        left = RoundAnmSpriteCoordinate(left);
         right = left + width;
         break;
     case 1:
@@ -399,7 +393,6 @@ static int DrawAnmVmSpriteQuad(AnmVm *vm, bool pixelSnap, bool rotate)
     {
     case 0:
         top -= height * 0.5f;
-        top = RoundAnmSpriteCoordinate(top);
         bottom = top + height;
         break;
     case 1:
@@ -433,18 +426,37 @@ static int DrawAnmVmSpriteQuad(AnmVm *vm, bool pixelSnap, bool rotate)
             cosine * relativeX - sine * relativeY + offsetX;
         vertices[i].y = centerY +
             sine * relativeX + cosine * relativeY + offsetY;
-        if (pixelSnap)
-        {
-            vertices[i].x =
-                RoundAnmSpriteCoordinate(vertices[i].x) - 0.5f;
-            vertices[i].y =
-                RoundAnmSpriteCoordinate(vertices[i].y) - 0.5f;
-        }
         vertices[i].z = centerZ;
         vertices[i].reciprocalW = 1.0f;
         vm->drawVertices[i].x = vertices[i].x;
         vm->drawVertices[i].y = vertices[i].y;
         vm->drawVertices[i].z = vertices[i].z;
+    }
+
+    if (pixelSnap)
+    {
+        // The target snaps the first corner on each axis, then propagates
+        // those rounded edges. Rounding all four vertices independently
+        // changes the sprite dimensions when its size is fractional.
+        vertices[0].x =
+            SnapAnmSpriteCoordinate(vertices[0].x);
+        vertices[1].x =
+            SnapAnmSpriteCoordinate(vertices[1].x);
+        vertices[0].y =
+            SnapAnmSpriteCoordinate(vertices[0].y);
+        vertices[2].y =
+            SnapAnmSpriteCoordinate(vertices[2].y);
+
+        vertices[2].x = vertices[0].x;
+        vertices[3].x = vertices[1].x;
+        vertices[1].y = vertices[0].y;
+        vertices[3].y = vertices[2].y;
+
+        for (unsigned int i = 0; i != 4; ++i)
+        {
+            vm->drawVertices[i].x = vertices[i].x;
+            vm->drawVertices[i].y = vertices[i].y;
+        }
     }
 
     const float (*rect)[4] = vm->textureRect;
