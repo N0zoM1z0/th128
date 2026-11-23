@@ -826,9 +826,11 @@ static int ProjectAnmVmSprite(
     const float deltaX = projectedReference.x - projectedCenter->x;
     const float deltaY = projectedReference.y - projectedCenter->y;
     const float deltaZ = projectedReference.z - projectedCenter->z;
+    // FUN_0045fda0 multiplies the projected reference distance by
+    // DAT_004A65A8 (0.5), then applies the VM's width/height scales.
     *projectedScale = (float)(
         sqrt((double)(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ)) *
-        6.283185307179586476925286766559);
+        0.5);
     return 0;
 }
 
