@@ -494,10 +494,13 @@ bool AnmVm::ExecuteBasicInstruction(const AnmVmInstructionHeader *instruction)
             fileIndex = anmFileResolver(this);
         }
 
-        if (fileIndex < 0 || BindAnmFile(fileIndex, resource) != 0)
+        AnmResource *fileResource = resource;
+        if (fileIndex < 0)
         {
-            return false;
+            fileIndex = 0x139;
+            fileResource = GetDefaultAnmResource();
         }
+        BindAnmFile(fileIndex, fileResource);
         lastScriptFrame = timer070.current;
         scriptDataOffsetCopy = nextInstruction;
         return true;
