@@ -31,18 +31,20 @@ int AnmVm::BindAnmFile(int fileIndex, AnmResource *resource)
     transformMatrix[2][2] = 1.0f;
     transformMatrix[3][3] = 1.0f;
 
-    memcpy(textureTransformMatrix, transformMatrix, sizeof(textureTransformMatrix));
-
     memset(spriteScaleMatrix, 0, sizeof(spriteScaleMatrix));
     spriteScaleMatrix[0][0] = 1.0f;
     spriteScaleMatrix[1][1] = 1.0f;
     spriteScaleMatrix[2][2] = 1.0f;
     spriteScaleMatrix[3][3] = 1.0f;
 
+    transformMatrix[0][0] = uvScrollX * (1.0f / 256.0f);
+    transformMatrix[1][1] = uvScrollY * (1.0f / 256.0f);
+    memcpy(textureTransformMatrix, transformMatrix, sizeof(textureTransformMatrix));
+
     spriteScaleMatrix[0][0] =
-        (uvScrollX * (1.0f / 256.0f) / entry->field020) * entry->field03C;
+        (uvScrollX / entry->field020) * entry->field03C;
     spriteScaleMatrix[1][1] =
-        (uvScrollY * (1.0f / 256.0f) / entry->field01C) * entry->field040;
+        (uvScrollY / entry->field01C) * entry->field040;
 
     return 0;
 }
