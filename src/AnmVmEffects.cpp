@@ -1462,33 +1462,6 @@ namespace
         ++manager->drawCallCount;
     }
 
-    float AdvanceAnmPrimitiveAngle(float angle, float offset)
-    {
-        const float twoPi = 6.283185482025146484375f;
-        angle += offset;
-
-        int corrections = 0;
-        while (angle > twoPi)
-        {
-            angle -= twoPi;
-            if (corrections++ > 32)
-            {
-                break;
-            }
-        }
-
-        while (angle < 0.0f)
-        {
-            angle += twoPi;
-            if (corrections++ > 32)
-            {
-                break;
-            }
-        }
-        return angle;
-    }
-
-
     void DrawAnmVmPrimitiveLine(
         AnmManager *manager,
         AnmVmRendererState *renderer,
@@ -1536,7 +1509,7 @@ namespace
             vertex->z = 0.0f;
             vertex->reciprocalW = 1.0f;
             vertex->color = color;
-            angle = AdvanceAnmPrimitiveAngle(angle, angleStep);
+            angle = AddAngles(angle, angleStep);
         }
 
         SetAnmVmPrimitiveDrawState(renderer, device);
@@ -1586,7 +1559,7 @@ namespace
             vertex->z = 0.0f;
             vertex->reciprocalW = 1.0f;
             vertex->color = edgeColor;
-            angle = AdvanceAnmPrimitiveAngle(angle, angleStep);
+            angle = AddAngles(angle, angleStep);
         }
 
         SetAnmVmPrimitiveDrawState(renderer, device);
