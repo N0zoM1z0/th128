@@ -415,15 +415,15 @@ namespace
             return;
         }
 
-        const float t = transition->timer.currentF /
-            (float)transition->duration;
+        const double t = (double)transition->timer.currentF /
+            (double)transition->duration;
         if (mode == 8)
         {
-            const float tMinusOne = t - 1.0f;
-            const float h00 = (2.0f * t + 1.0f) * tMinusOne * tMinusOne;
-            const float h01 = t * t * (3.0f - 2.0f * t);
-            const float h10 = (1.0f - t) * (1.0f - t) * t;
-            const float h11 = tMinusOne * t * t;
+            const double tMinusOne = t - 1.0;
+            const float h00 = (float)((t + t + 1.0) * tMinusOne * tMinusOne);
+            const float h01 = (float)(t * t * (3.0 - (t + t)));
+            const float h10 = (float)((1.0 - t) * (1.0 - t) * t);
+            const float h11 = (float)(tMinusOne * t * t);
             result[0] =
                 ZunRoundToInt((double)h00 * transition->values[0]) +
                 ZunRoundToInt((double)h01 * transition->values[3]) +
@@ -442,7 +442,7 @@ namespace
             return;
         }
 
-        const float eased = EaseTransition(mode, t);
+        const float eased = EaseTransition(mode, (float)t);
         const int delta0 = transition->values[3] - transition->values[0];
         const int delta1 = transition->values[4] - transition->values[1];
         const int delta2 = transition->values[5] - transition->values[2];
@@ -473,15 +473,15 @@ namespace
             return transition->values[0];
         }
 
-        const float t = transition->timer.currentF /
-            (float)transition->duration;
+        const double t = (double)transition->timer.currentF /
+            (double)transition->duration;
         if (mode == 8)
         {
-            const float tMinusOne = t - 1.0f;
-            const float h00 = (2.0f * t + 1.0f) * tMinusOne * tMinusOne;
-            const float h01 = t * t * (3.0f - 2.0f * t);
-            const float h10 = (1.0f - t) * (1.0f - t) * t;
-            const float h11 = tMinusOne * t * t;
+            const double tMinusOne = t - 1.0;
+            const float h00 = (float)((t + t + 1.0) * tMinusOne * tMinusOne);
+            const float h01 = (float)(t * t * (3.0 - (t + t)));
+            const float h10 = (float)((1.0 - t) * (1.0 - t) * t);
+            const float h11 = (float)(tMinusOne * t * t);
             const double value =
                 (double)h00 * transition->values[0] +
                 (double)h01 * transition->values[1] +
@@ -490,7 +490,7 @@ namespace
             return ZunRoundToInt(value);
         }
 
-        const float eased = EaseTransition(mode, t);
+        const float eased = EaseTransition(mode, (float)t);
         const int delta = transition->values[1] - transition->values[0];
         return ZunRoundToInt((double)delta * eased + transition->values[0]);
     }
@@ -533,15 +533,15 @@ namespace
             return;
         }
 
-        const float t = transition->timer.currentF /
-            (float)transition->duration;
+        const double t = (double)transition->timer.currentF /
+            (double)transition->duration;
         if (mode == 8)
         {
-            const float tMinusOne = t - 1.0f;
-            const float h00 = (2.0f * t + 1.0f) * tMinusOne * tMinusOne;
-            const float h01 = t * t * (3.0f - 2.0f * t);
-            const float h10 = (1.0f - t) * (1.0f - t) * t;
-            const float h11 = tMinusOne * t * t;
+            const double tMinusOne = t - 1.0;
+            const float h00 = (float)((t + t + 1.0) * tMinusOne * tMinusOne);
+            const float h01 = (float)(t * t * (3.0 - (t + t)));
+            const float h10 = (float)((1.0 - t) * (1.0 - t) * t);
+            const float h11 = (float)(tMinusOne * t * t);
             result[0] = h00 * transition->values[0] +
                 h01 * transition->values[3] +
                 h10 * transition->values[6] +
@@ -557,7 +557,7 @@ namespace
             return;
         }
 
-        const float eased = EaseTransition(mode, t);
+        const float eased = EaseTransition(mode, (float)t);
         result[0] = eased *
             (transition->values[3] - transition->values[0]) + transition->values[0];
         result[1] = eased *
@@ -600,15 +600,15 @@ namespace
             return;
         }
 
-        const float t = transition->timer.currentF /
-            (float)transition->duration;
+        const double t = (double)transition->timer.currentF /
+            (double)transition->duration;
         if (mode == 8)
         {
-            const float tMinusOne = t - 1.0f;
-            const float h00 = (2.0f * t + 1.0f) * tMinusOne * tMinusOne;
-            const float h01 = t * t * (3.0f - 2.0f * t);
-            const float h10 = (1.0f - t) * (1.0f - t) * t;
-            const float h11 = tMinusOne * t * t;
+            const double tMinusOne = t - 1.0;
+            const float h00 = (float)((t + t + 1.0) * tMinusOne * tMinusOne);
+            const float h01 = (float)(t * t * (3.0 - (t + t)));
+            const float h10 = (float)((1.0 - t) * (1.0 - t) * t);
+            const float h11 = (float)(tMinusOne * t * t);
             result[0] = h00 * transition->values[0] +
                 h01 * transition->values[2] +
                 h10 * transition->values[4] +
@@ -620,7 +620,7 @@ namespace
             return;
         }
 
-        const float eased = EaseTransition(mode, t);
+        const float eased = EaseTransition(mode, (float)t);
         result[0] = eased *
             (transition->values[2] - transition->values[0]) + transition->values[0];
         result[1] = eased *
@@ -654,26 +654,26 @@ namespace
             return transition->values[0];
         }
 
-        const float t = transition->timer.currentF /
-            (float)transition->duration;
+        const double t = (double)transition->timer.currentF /
+            (double)transition->duration;
         if (mode == 8)
         {
-            const float tMinusOne = t - 1.0f;
+            const double tMinusOne = t - 1.0;
             const float targetTerm = NormalizeAngle(
-                (t * t * (3.0f - 2.0f * t)) * transition->values[1]);
+                (float)(t * t * (3.0 - (t + t)) * transition->values[1]));
             const float startTerm = NormalizeAngle(
-                (tMinusOne * tMinusOne * (2.0f * t + 1.0f)) *
-                transition->values[0]);
+                (float)(tMinusOne * tMinusOne * (t + t + 1.0) *
+                transition->values[0]));
             float result = NormalizeAngle(startTerm + targetTerm);
             const float startTangentTerm = NormalizeAngle(
-                ((1.0f - t) * (1.0f - t) * t) * transition->values[2]);
+                (float)((1.0 - t) * (1.0 - t) * t * transition->values[2]));
             result = NormalizeAngle(startTangentTerm + result);
             const float targetTangentTerm = NormalizeAngle(
-                (tMinusOne * t * t) * transition->values[3]);
+                (float)(tMinusOne * t * t * transition->values[3]));
             return NormalizeAngle(targetTangentTerm + result);
         }
 
-        const float eased = EaseTransition(mode, t);
+        const float eased = EaseTransition(mode, (float)t);
         const float difference = ShortestAngleDifference(
             transition->values[1], transition->values[0]);
         const float normalizedDifference = NormalizeAngle(difference);
@@ -706,26 +706,26 @@ namespace
             return transition->values[0];
         }
 
-        const float t = transition->timer.currentF /
-            (float)transition->duration;
+        const double t = (double)transition->timer.currentF /
+            (double)transition->duration;
         if (mode == 8)
         {
-            const float tMinusOne = t - 1.0f;
+            const double tMinusOne = t - 1.0;
             const float targetTerm =
-                (t * t * (3.0f - 2.0f * t)) * transition->values[1];
+                (float)(t * t * (3.0 - (t + t)) * transition->values[1]);
             const float startTerm =
-                (tMinusOne * tMinusOne * (2.0f * t + 1.0f)) *
-                transition->values[0];
+                (float)(tMinusOne * tMinusOne * (t + t + 1.0) *
+                transition->values[0]);
             float result = startTerm + targetTerm;
             const float startTangentTerm =
-                ((1.0f - t) * (1.0f - t) * t) * transition->values[2];
+                (float)((1.0 - t) * (1.0 - t) * t * transition->values[2]);
             result += startTangentTerm;
             const float targetTangentTerm =
-                (tMinusOne * t * t) * transition->values[3];
+                (float)(tMinusOne * t * t * transition->values[3]);
             return result + targetTangentTerm;
         }
 
-        const float eased = EaseTransition(mode, t);
+        const float eased = EaseTransition(mode, (float)t);
         return (transition->values[1] - transition->values[0]) * eased +
             transition->values[0];
     }
