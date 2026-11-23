@@ -1439,23 +1439,6 @@ namespace
         }
     }
 
-    __forceinline double Hermite(
-        double start,
-        double target,
-        double startTangent,
-        double targetTangent,
-        double t)
-    {
-        const double t2 = t * t;
-        const double t3 = t2 * t;
-        const double h00 = (2.0 * t3) - (3.0 * t2) + 1.0;
-        const double h01 = (-2.0 * t3) + (3.0 * t2);
-        const double h10 = t3 - (2.0 * t2) + t;
-        const double h11 = t3 - t2;
-        return h00 * start + h01 * target +
-            h10 * startTangent + h11 * targetTangent;
-    }
-
     __forceinline bool AdvanceTransition(
         ZunTimer *timer,
         unsigned int *duration,
@@ -1515,12 +1498,11 @@ namespace
             (float)transition->duration;
         if (mode == 8)
         {
-            const float t2 = t * t;
-            const float t3 = t2 * t;
-            const float h00 = (2.0f * t3) - (3.0f * t2) + 1.0f;
-            const float h01 = (-2.0f * t3) + (3.0f * t2);
-            const float h10 = t3 - (2.0f * t2) + t;
-            const float h11 = t3 - t2;
+            const float tMinusOne = t - 1.0f;
+            const float h00 = (2.0f * t + 1.0f) * tMinusOne * tMinusOne;
+            const float h01 = t * t * (3.0f - 2.0f * t);
+            const float h10 = (1.0f - t) * (1.0f - t) * t;
+            const float h11 = tMinusOne * t * t;
 
             for (unsigned int i = 0; i != 3; ++i)
             {
@@ -1563,26 +1545,26 @@ namespace
             return transition->values[0];
         }
 
-        const double t = (double)transition->timer.currentF /
-            (double)transition->duration;
-        double value;
+        const float t = transition->timer.currentF /
+            (float)transition->duration;
         if (mode == 8)
         {
-            value = Hermite(
-                transition->values[0],
-                transition->values[1],
-                transition->values[2],
-                transition->values[3],
-                t);
+            const float tMinusOne = t - 1.0f;
+            const float h00 = (2.0f * t + 1.0f) * tMinusOne * tMinusOne;
+            const float h01 = t * t * (3.0f - 2.0f * t);
+            const float h10 = (1.0f - t) * (1.0f - t) * t;
+            const float h11 = tMinusOne * t * t;
+            const double value =
+                (double)h00 * transition->values[0] +
+                (double)h01 * transition->values[1] +
+                (double)h10 * transition->values[2] +
+                (double)h11 * transition->values[3];
+            return ZunRoundToInt(value);
         }
-        else
-        {
-            const float eased = EaseTransition(mode, (float)t);
-            value = (double)transition->values[0] +
-                ((double)transition->values[1] -
-                 (double)transition->values[0]) * eased;
-        }
-        return ZunRoundToInt(value);
+
+        const float eased = EaseTransition(mode, t);
+        const int delta = transition->values[1] - transition->values[0];
+        return ZunRoundToInt((double)delta * eased + transition->values[0]);
     }
 
     void InterpolateVector(AnmVmVectorTransition *transition, float result[3])
