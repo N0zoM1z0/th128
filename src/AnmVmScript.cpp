@@ -1486,7 +1486,8 @@ bool AnmVm::ExecuteBasicInstruction(const AnmVmInstructionHeader *instruction)
         return true;
 
     default:
-        return false;
+        scriptDataOffsetCopy = nextInstruction;
+        return true;
     }
 }
 
@@ -1508,6 +1509,11 @@ unsigned int AnmVm::ExecuteReadyInstructions()
         const AnmVmInstructionHeader *instruction =
             reinterpret_cast<const AnmVmInstructionHeader *>(scriptDataOffsetCopy);
 
+        if (instruction->frame > timer070.current)
+        {
+            break;
+        }
+
         if (instruction->opcode == 0xFFFFU || instruction->opcode == 1U)
         {
             flags &= ~1U;
@@ -1518,11 +1524,6 @@ unsigned int AnmVm::ExecuteReadyInstructions()
         {
             scriptDataOffsetCopy = 0;
             return executed;
-        }
-
-        if (instruction->frame > timer070.current)
-        {
-            break;
         }
         if (!ExecuteBasicInstruction(instruction))
         {
