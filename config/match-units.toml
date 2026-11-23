@@ -1892,11 +1892,64 @@ relocations = []
 frontier = true # Partial natural-C++ reconstruction; script dispatch is co-located for VC10 inlining.
 artifact_kind = "coff"
 source = "src/AnmVmScript.cpp"
-inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp", "src/AnmManager.hpp", "src/AngleMath.hpp", "src/ZunTimer.hpp", "src/AnmVmGeometry.hpp"]
+inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp", "src/AnmManager.hpp", "src/AngleMath.hpp", "src/ZunTimer.hpp", "src/AnmVmGeometry.hpp", "src/AnmVmView.hpp"]
 object = "build/match/AnmVmUpdate.obj"
 profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
 functions = ["AnmVm::Update"]
 symbol = "?Update@AnmVm@@QAEHXZ"
 target_address = 0x00459D90
 size = 13604
+relocations = []
+
+# View-rectangle geometry: the three target paths are distinct natural C++ helpers.
+[units.anm-vm-view-corners-mode0]
+frontier = true # Builds the mode-0 axis-aligned corners, including floored center anchors.
+artifact_kind = "coff"
+source = "src/AnmVmView.cpp"
+inputs = ["src/AnmVm.hpp", "src/AnmVmView.hpp"]
+object = "build/match/AnmVmView.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["BuildAnmVmViewCornersMode0"]
+symbol = "?BuildAnmVmViewCornersMode0@@YAXPBUAnmVm@@PAM@Z"
+target_address = 0x0045F110
+size = 1209
+relocations = []
+
+[units.anm-vm-view-corners-mode23]
+frontier = true # Builds the mode-2/3 axis-aligned corners without mode-0 flooring.
+artifact_kind = "coff"
+source = "src/AnmVmView.cpp"
+inputs = ["src/AnmVm.hpp", "src/AnmVmView.hpp"]
+object = "build/match/AnmVmView.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["BuildAnmVmViewCornersMode23"]
+symbol = "?BuildAnmVmViewCornersMode23@@YAXPBUAnmVm@@PAM@Z"
+target_address = 0x0045F610
+size = 1020
+relocations = []
+
+[units.anm-vm-view-corners-mode1]
+frontier = true # Builds the rotated mode-1 view rectangle with inherited parent angle and scale.
+artifact_kind = "coff"
+source = "src/AnmVmView.cpp"
+inputs = ["src/AnmVm.hpp", "src/AnmVmView.hpp"]
+object = "build/match/AnmVmView.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["BuildAnmVmViewCornersMode1"]
+symbol = "?BuildAnmVmViewCornersMode1@@YAXPBUAnmVm@@PAM@Z"
+target_address = 0x0045FAD0
+size = 623
+relocations = []
+
+[units.anm-vm-view-corners-dispatch]
+frontier = true # Dispatches view modes 0..3 to their matching corner builder.
+artifact_kind = "coff"
+source = "src/AnmVmView.cpp"
+inputs = ["src/AnmVm.hpp", "src/AnmVmView.hpp"]
+object = "build/match/AnmVmView.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["BuildAnmVmViewCorners"]
+symbol = "?BuildAnmVmViewCorners@@YAXPBUAnmVm@@PAM@Z"
+target_address = 0x00462070
+size = 104
 relocations = []

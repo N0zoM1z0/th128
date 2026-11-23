@@ -97,6 +97,7 @@ AnmVm::ResolveIntegerOperand,0x00459B50,function
 AnmVm::ResolveFloatOperandAddress,0x00459C30,function
 AnmVm::ResolveIntegerOperandAddress,0x00459CE0,function
 NormalizeAnmCoordinates,0x00459D50,function
+AnmVm::Update,0x00459D90,function
 AnmVm::SetSecondaryScaleTransition,0x0045E080,function
 AnmVm::SetScaleTransition,0x0045E190,function
 AnmVm::SetSecondaryEffectState,0x0045E240,function
@@ -105,7 +106,11 @@ AnmVm::SetColorTransition,0x0045E4D0,function
 AnmVm::SetEffectState,0x0045E6C0,function
 ApplyAnmVmRenderState,0x0045E770,function
 FlushAnmSpriteBatch,0x0045EF60,function
+BuildAnmVmViewCornersMode0,0x0045F110,function
+BuildAnmVmViewCornersMode23,0x0045F610,function
+BuildAnmVmViewCornersMode1,0x0045FAD0,function
 DrawAnmVmVertices,0x00461A00,function
+BuildAnmVmViewCorners,0x00462070,function
 AnmVm::StartEffect10,0x004631A0,function
 UpdateAnmVmEffect10,0x004634A0,function
 DrawAnmVmEffect10,0x004636E0,function
@@ -129,4 +134,3 @@ NormalizeAngle,0x0046A700,function
 MenuCursor::Move,0x0046A970,function
 ZunTimer::Add,0x0046AA20,function
 SptResourceInf::Load,0x004703F0,function
-AnmVm::Update,0x00459D90,function

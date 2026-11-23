@@ -18,11 +18,12 @@ AnmVm::ResolveIntegerOperand
 AnmVm::ResolveIntegerOperandAddress
 AnmVm::SetColorTransition
 AnmVm::SetEffectState
-AnmVm::SetSecondaryScaleTransition
 AnmVm::SetScaleTransition
 AnmVm::SetSecondaryColorTransition
 AnmVm::SetSecondaryEffectState
+AnmVm::SetSecondaryScaleTransition
 AnmVm::StartEffect10
+AnmVm::Update
 AnmVmEffect10Vertex::SetPolar
 AnmVmEffectNoop412B30
 AnmVmEffectNoop412B40
@@ -34,6 +35,10 @@ AnmVmSetScaleX
 AnmVmSetScaleY
 AnmVmSetUvScroll
 ApplyAnmVmRenderState
+BuildAnmVmViewCorners
+BuildAnmVmViewCornersMode0
+BuildAnmVmViewCornersMode1
+BuildAnmVmViewCornersMode23
 CreateGameWindow
 DebugPrint
 DecryptBlocks
@@ -128,4 +133,3 @@ ZunTimer::operator>
 ZunTimer::operator>=
 ZunTimerModulo
 ZunVec3::SetPolarXY
-AnmVm::Update

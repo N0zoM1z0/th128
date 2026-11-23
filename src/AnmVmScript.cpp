@@ -1,5 +1,6 @@
 #include "AnmVm.hpp"
 #include "AnmVmGeometry.hpp"
+#include "AnmVmView.hpp"
 #include "AnmResource.hpp"
 #include "AnmManager.hpp"
 #include "AngleMath.hpp"
@@ -93,203 +94,29 @@ namespace
         return (unsigned int)(InstructionBytes(instruction) + instruction->size);
     }
 
-    double FloorViewCoordinate(double value)
+    __forceinline void UpdateTextureRectFromViewForFrame(AnmVm *vm)
     {
-        // FUN_0045F110 routes the view's left/top edge through FUN_0048FDF0,
-        // which is the target's floor(double) helper.
-        return floor(value);
-    }
-
-    void BuildViewCorners(const AnmVm *vm, float corners[4][3])
-    {
-        const AnmVm *parent = vm->parentVm;
-        const bool inheritParent =
-            parent != 0 && (vm->stateFlags & 0x100U) == 0;
-
-        float width = vm->uvScrollX * vm->scaleX * vm->scale2X;
-        float height = vm->uvScrollY * vm->scaleY * vm->scale2Y;
-        float parentX = 0.0f;
-        float parentY = 0.0f;
-        float parentZ = 0.0f;
-
-        if (inheritParent)
-        {
-            width = parent->scale2X * parent->scaleX * width;
-            height = parent->scale2Y * parent->scaleY * height;
-            parentX = parent->position.x +
-                parent->secondaryPosition.x + parent->alternatePosition.x;
-            parentY = parent->position.y +
-                parent->secondaryPosition.y + parent->alternatePosition.y;
-            parentZ = parent->position.z +
-                parent->secondaryPosition.z + parent->alternatePosition.z;
-        }
-
-        const float centerX = vm->position.x +
-            vm->secondaryPosition.x + vm->alternatePosition.x;
-        const float centerY = vm->position.y +
-            vm->secondaryPosition.y + vm->alternatePosition.y;
-        const float centerZ = vm->position.z +
-            vm->secondaryPosition.z + vm->alternatePosition.z + parentZ;
-        const unsigned int viewMode = (vm->flags >> 24) & 0x1FU;
-        const unsigned int horizontalAnchor = (vm->flags >> 20) & 3U;
-        const unsigned int verticalAnchor = (vm->flags >> 22) & 3U;
-
-        if (viewMode == 1U)
-        {
-            float angle = vm->unknown02C;
-            if (inheritParent)
-            {
-                angle = parent->unknown02C + angle;
-            }
-
-            const float cosine = (float)cos((double)angle);
-            const float sine = (float)sin((double)angle);
-            const float originX = centerX + parentX;
-            const float originY = centerY + parentY;
-
-            float left;
-            float right;
-            float top;
-            float bottom;
-            switch (horizontalAnchor)
-            {
-            case 0:
-                left = -width * 0.5f;
-                right = width * 0.5f;
-                break;
-            case 1:
-                left = 0.0f;
-                right = width;
-                break;
-            case 2:
-                left = -width;
-                right = 0.0f;
-                break;
-            default:
-                left = right = 0.0f;
-                break;
-            }
-
-            switch (verticalAnchor)
-            {
-            case 0:
-                top = -height * 0.5f;
-                bottom = height * 0.5f;
-                break;
-            case 1:
-                top = 0.0f;
-                bottom = height;
-                break;
-            case 2:
-                top = -height;
-                bottom = 0.0f;
-                break;
-            default:
-                top = bottom = 0.0f;
-                break;
-            }
-
-            const float xOffsets[4] = {left, right, left, right};
-            const float yOffsets[4] = {top, top, bottom, bottom};
-            for (unsigned int i = 0; i != 4; ++i)
-            {
-                corners[i][0] = originX +
-                    cosine * xOffsets[i] - sine * yOffsets[i];
-                corners[i][1] = originY +
-                    cosine * yOffsets[i] + sine * xOffsets[i];
-                corners[i][2] = centerZ;
-            }
-            return;
-        }
-
-        float left;
-        float right;
-        float top;
-        float bottom;
-        switch (horizontalAnchor)
+        float corners[12];
+        switch ((vm->flags >> 24) & 0x1FU)
         {
         case 0:
-        {
-            const float centeredLeft = centerX - width * 0.5f;
-            left = viewMode == 0U
-                ? (float)FloorViewCoordinate((double)centeredLeft)
-                : centeredLeft;
-            right = left + width;
+            BuildAnmVmViewCornersMode0(vm, corners);
             break;
-        }
         case 1:
-            left = centerX;
-            right = centerX + width;
+            BuildAnmVmViewCornersMode1(vm, corners);
             break;
         case 2:
-            left = centerX - width;
-            right = centerX;
+        case 3:
+            BuildAnmVmViewCornersMode23(vm, corners);
             break;
         default:
-            left = right = 0.0f;
-            break;
-        }
-
-        switch (verticalAnchor)
-        {
-        case 0:
-        {
-            const float centeredTop = centerY - height * 0.5f;
-            top = viewMode == 0U
-                ? (float)FloorViewCoordinate((double)centeredTop)
-                : centeredTop;
-            bottom = top + height;
-            break;
-        }
-        case 1:
-            top = centerY;
-            bottom = centerY + height;
-            break;
-        case 2:
-            top = centerY - height;
-            bottom = centerY;
-            break;
-        default:
-            top = bottom = 0.0f;
-            break;
-        }
-
-        left += parentX;
-        right += parentX;
-        top += parentY;
-        bottom += parentY;
-
-        corners[0][0] = left;
-        corners[0][1] = top;
-        corners[1][0] = right;
-        corners[1][1] = top;
-        corners[2][0] = left;
-        corners[2][1] = bottom;
-        corners[3][0] = right;
-        corners[3][1] = bottom;
-        for (unsigned int i = 0; i != 4; ++i)
-        {
-            corners[i][2] = centerZ;
-        }
-    }
-
-    void UpdateTextureRectFromViewForVm(AnmVm *vm)
-    {
-        // The target's view-rectangle dispatcher handles only modes 0..3.
-        // Modes 9, 13 and 14 belong to the custom-geometry path and must not
-        // be interpreted as ordinary rectangular view layouts.
-        if (((vm->flags >> 24) & 0x1FU) > 3U)
-        {
             return;
         }
-
-        float corners[4][3];
-        BuildViewCorners(vm, corners);
 
         float *textureCoordinates = &vm->textureRect[0][0];
         for (unsigned int i = 0; i != 4; ++i)
         {
-            const float pixels[2] = {corners[i][0], corners[i][1]};
+            const float pixels[2] = {corners[i * 3], corners[i * 3 + 1]};
             float normalized[2];
             NormalizeAnmCoordinates(normalized, pixels);
             textureCoordinates[i * 2] = normalized[0];
@@ -398,7 +225,22 @@ namespace
 
 __forceinline void AnmVm::UpdateTextureRectFromView()
 {
-    UpdateTextureRectFromViewForVm(this);
+    if (((flags >> 24) & 0x1FU) > 3U)
+    {
+        return;
+    }
+
+    float corners[12];
+    BuildAnmVmViewCorners(this, corners);
+    float *textureCoordinates = &textureRect[0][0];
+    for (unsigned int i = 0; i != 4; ++i)
+    {
+        const float pixels[2] = {corners[i * 3], corners[i * 3 + 1]};
+        float normalized[2];
+        NormalizeAnmCoordinates(normalized, pixels);
+        textureCoordinates[i * 2] = normalized[0];
+        textureCoordinates[i * 2 + 1] = normalized[1];
+    }
 }
 
 __forceinline bool AnmVm::ExecuteWaitCommand(bool clearActiveFlag)
@@ -2276,7 +2118,7 @@ int AnmVm::Update()
     UpdateContinuousMotion(this, *gameSpeed);
     if ((stateFlags & 0x20U) != 0)
     {
-        UpdateTextureRectFromView();
+        UpdateTextureRectFromViewForFrame(this);
     }
 
     UpdateTransitions();
