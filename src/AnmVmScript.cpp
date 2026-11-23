@@ -2272,10 +2272,10 @@ int AnmVm::Update()
         const int callbackResult = frameCallback(this);
         if (callbackResult != 0)
         {
-            // The target branches straight to its shared epilogue without
-            // rewriting EAX, so the callback's exact nonzero result escapes.
+            // The target branches to its early epilogue, which explicitly
+            // returns one for both script completion and callback termination.
             // This edge also skips the timer increment and speed restoration.
-            return callbackResult;
+            return 1;
         }
     }
 
