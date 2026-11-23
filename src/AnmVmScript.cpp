@@ -916,7 +916,7 @@ __forceinline bool AnmVm::ExecuteBasicInstruction(const AnmVmInstructionHeader *
         positionTransition.values[10] = reference[1];
         positionTransition.values[11] = reference[2];
         positionTransition.duration =
-            (unsigned int)IntegerSource(this, instruction, 8, 1U);
+            IntegerSource(this, instruction, 8, 1U);
         positionTransition.mode =
             (unsigned int)ReadInstructionInteger(instruction, 12);
         positionTransition.timer.Reset();
@@ -1223,7 +1223,7 @@ __forceinline bool AnmVm::ExecuteBasicInstruction(const AnmVmInstructionHeader *
     case 93:
     {
         textureOffsetXTransition.duration =
-            (unsigned int)IntegerSource(this, instruction, 8, 1U);
+            IntegerSource(this, instruction, 8, 1U);
         textureOffsetXTransition.mode =
             (unsigned int)ReadInstructionInteger(instruction, 12);
         textureOffsetXTransition.values[0] = textureOffsetX;
@@ -1239,7 +1239,7 @@ __forceinline bool AnmVm::ExecuteBasicInstruction(const AnmVmInstructionHeader *
     case 94:
     {
         textureOffsetYTransition.duration =
-            (unsigned int)IntegerSource(this, instruction, 8, 1U);
+            IntegerSource(this, instruction, 8, 1U);
         textureOffsetYTransition.mode =
             (unsigned int)ReadInstructionInteger(instruction, 12);
         textureOffsetYTransition.values[0] = textureOffsetY;
@@ -1341,7 +1341,7 @@ __forceinline bool AnmVm::ExecuteBasicInstruction(const AnmVmInstructionHeader *
 
     case 113:
         viewTransition.duration =
-            (unsigned int)IntegerSource(this, instruction, 8, 1U);
+            IntegerSource(this, instruction, 8, 1U);
         viewTransition.mode =
             (unsigned int)ReadInstructionInteger(instruction, 12);
         viewTransition.values[0] = NormalizeAngle(unknown02C);
@@ -1461,21 +1461,21 @@ namespace
 
     __forceinline bool AdvanceTransition(
         ZunTimer *timer,
-        unsigned int *duration,
+        int *duration,
         unsigned int mode)
     {
-        if (*duration == 0)
+        if (*duration <= 0)
         {
             return false;
         }
 
         timer->Increment();
-        if (timer->current < (int)*duration)
+        if (timer->current < *duration)
         {
             return false;
         }
 
-        timer->SetCurrent((int)*duration);
+        timer->SetCurrent(*duration);
         *duration = 0;
         return true;
     }

@@ -8,7 +8,7 @@ void AnmVm::SetColorTransition(
     int duration,
     unsigned char mode)
 {
-    colorTransition.duration = (unsigned int)duration;
+    colorTransition.duration = duration;
     colorTransition.values[6] = 0;
     colorTransition.values[9] = 0;
     colorTransition.values[7] = 0;
@@ -31,7 +31,7 @@ void AnmVm::SetScaleTransition(
     int duration,
     unsigned char mode)
 {
-    scaleTransition.duration = (unsigned int)duration;
+    scaleTransition.duration = duration;
     scaleTransition.mode = mode;
 
     scaleTransition.values[0] = current[0];
@@ -47,7 +47,7 @@ void AnmVm::SetSecondaryScaleTransition(
     int duration,
     unsigned char mode)
 {
-    secondaryScaleTransition.duration = (unsigned int)duration;
+    secondaryScaleTransition.duration = duration;
     secondaryScaleTransition.mode = mode;
 
     secondaryScaleTransition.values[0] = current[0];
@@ -63,7 +63,7 @@ void AnmVm::SetEffectState(
     unsigned char parameter0,
     unsigned char parameter1)
 {
-    effectTransition.duration = duration;
+    effectTransition.duration = (int)duration;
     effectTransition.mode = mode;
     effectTransition.values[0] = parameter0;
     effectTransition.values[1] = parameter1;
@@ -78,7 +78,7 @@ void AnmVm::SetSecondaryEffectState(
     unsigned char parameter0,
     unsigned char parameter1)
 {
-    secondaryEffectTransition.duration = duration;
+    secondaryEffectTransition.duration = (int)duration;
     secondaryEffectTransition.mode = mode & 0xFFU;
     secondaryEffectTransition.values[0] = parameter0;
     secondaryEffectTransition.values[1] = parameter1;
@@ -92,7 +92,7 @@ void AnmVm::SetSecondaryColorTransition(
     int duration,
     unsigned char mode)
 {
-    secondaryColorTransition.duration = (unsigned int)duration;
+    secondaryColorTransition.duration = duration;
     secondaryColorTransition.values[6] = 0;
     secondaryColorTransition.values[9] = 0;
     secondaryColorTransition.values[7] = 0;

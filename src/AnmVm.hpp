@@ -30,7 +30,7 @@ struct AnmVmColorTransition
 {
     int values[12];
     ZunTimer timer;
-    unsigned int duration;
+    int duration;
     unsigned int mode;
 };
 typedef char AnmVmColorTransitionSize[(sizeof(AnmVmColorTransition) == 0x4C) ? 1 : -1];
@@ -39,7 +39,7 @@ struct AnmVmVectorTransition
 {
     float values[12];
     ZunTimer timer;
-    unsigned int duration;
+    int duration;
     unsigned int mode;
 };
 typedef char AnmVmVectorTransitionSize[(sizeof(AnmVmVectorTransition) == 0x4C) ? 1 : -1];
@@ -48,7 +48,7 @@ struct AnmVmScaleTransition
 {
     float values[8];
     ZunTimer timer;
-    unsigned int duration;
+    int duration;
     unsigned int mode;
 };
 typedef char AnmVmScaleTransitionSize[(sizeof(AnmVmScaleTransition) == 0x3C) ? 1 : -1];
@@ -57,7 +57,7 @@ struct AnmVmScalarTransition
 {
     float values[4];
     ZunTimer timer;
-    unsigned int duration;
+    int duration;
     unsigned int mode;
 };
 typedef char AnmVmScalarTransitionSize[(sizeof(AnmVmScalarTransition) == 0x2C) ? 1 : -1];
@@ -66,7 +66,7 @@ struct AnmVmIntegerTransition
 {
     int values[4];
     ZunTimer timer;
-    unsigned int duration;
+    int duration;
     unsigned int mode;
 };
 typedef char AnmVmIntegerTransitionSize[(sizeof(AnmVmIntegerTransition) == 0x2C) ? 1 : -1];
