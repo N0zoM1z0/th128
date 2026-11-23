@@ -681,6 +681,97 @@ target_address = 0x00459D50
 size = 52
 relocations = []
 
+[units.anm-vm-effect10-start]
+frontier = true # Natural C++ implementation of the effect-10 allocation and 31-particle initialization.
+artifact_kind = "coff"
+source = "src/AnmVmEffects.cpp"
+inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp"]
+object = "build/match/AnmVmEffects.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["AnmVm::StartEffect10"]
+symbol = "?StartEffect10@AnmVm@@QAEXXZ"
+target_address = 0x004631A0
+size = 764
+relocations = []
+
+[units.anm-vm-effect10-update]
+frontier = true # Updates the ring vertices, per-particle radii, color and wrapping texture coordinates.
+artifact_kind = "coff"
+source = "src/AnmVmEffects.cpp"
+inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp"]
+object = "build/match/AnmVmEffects.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["UpdateAnmVmEffect10"]
+symbol = "?UpdateAnmVmEffect10@@YIXPAUAnmVm@@@Z"
+target_address = 0x004634A0
+size = 561
+relocations = []
+
+[units.anm-vm-effect10-draw]
+frontier = true # Draws the 33-vertex triangle fan using the VM's bound texture and renderer state.
+artifact_kind = "coff"
+source = "src/AnmVmEffects.cpp"
+inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp"]
+object = "build/match/AnmVmEffects.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["DrawAnmVmEffect10"]
+symbol = "?DrawAnmVmEffect10@@YIXPAUAnmVm@@@Z"
+target_address = 0x004636E0
+size = 27
+relocations = []
+
+[units.anm-vm-effect10-set-polar]
+frontier = true # Converts the effect particle's polar angle/radius to screen-space XY.
+artifact_kind = "coff"
+source = "src/AnmVmEffects.cpp"
+inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp"]
+object = "build/match/AnmVmEffects.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["AnmVmEffect10Vertex::SetPolar"]
+symbol = "?SetPolar@AnmVmEffect10Vertex@@QAEXMM@Z"
+target_address = 0x00463700
+size = 32
+relocations = []
+
+[units.anm-renderer-flush-sprite-batch]
+frontier = true # Flushes the pending sprite triangle-strip batch to the D3D9 device.
+artifact_kind = "coff"
+source = "src/AnmVmEffects.cpp"
+inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp"]
+object = "build/match/AnmVmEffects.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["FlushAnmSpriteBatch"]
+symbol = "?FlushAnmSpriteBatch@@YAXXZ"
+target_address = 0x0045EF60
+size = 213
+relocations = []
+
+[units.anm-renderer-apply-vm-state]
+frontier = true # Applies the VM blend mode and point/linear sampler filter to the D3D9 renderer.
+artifact_kind = "coff"
+source = "src/AnmVmEffects.cpp"
+inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp"]
+object = "build/match/AnmVmEffects.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["ApplyAnmVmRenderState"]
+symbol = "?ApplyAnmVmRenderState@@YAXPAUAnmVm@@@Z"
+target_address = 0x0045E770
+size = 416
+relocations = []
+
+[units.anm-renderer-draw-vm-vertices]
+frontier = true # Binds the VM's animation texture and draws a transformed immediate-mode vertex list.
+artifact_kind = "coff"
+source = "src/AnmVmEffects.cpp"
+inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp"]
+object = "build/match/AnmVmEffects.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["DrawAnmVmVertices"]
+symbol = "?DrawAnmVmVertices@@YAXPAUAnmVm@@PBXI@Z"
+target_address = 0x00461A00
+size = 242
+relocations = []
+
 [units.zun-timer-set-current]
 artifact_kind = "linked-pe"
 source = "src/ZunTimer.cpp"

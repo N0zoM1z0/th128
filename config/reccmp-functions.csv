@@ -97,6 +97,13 @@ AnmVm::ResolveIntegerOperand,0x00459B50,function
 AnmVm::ResolveFloatOperandAddress,0x00459C30,function
 AnmVm::ResolveIntegerOperandAddress,0x00459CE0,function
 NormalizeAnmCoordinates,0x00459D50,function
+ApplyAnmVmRenderState,0x0045E770,function
+FlushAnmSpriteBatch,0x0045EF60,function
+DrawAnmVmVertices,0x00461A00,function
+AnmVm::StartEffect10,0x004631A0,function
+UpdateAnmVmEffect10,0x004634A0,function
+DrawAnmVmEffect10,0x004636E0,function
+AnmVmEffect10Vertex::SetPolar,0x00463700,function
 AnmManager::RegisterWorldVmAtTail,0x00466D60,function
 AnmManager::RegisterWorldVmAtHead,0x00466DE0,function
 AnmManager::RegisterUiVmAtTail,0x00466E60,function

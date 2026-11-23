@@ -16,6 +16,8 @@ AnmVm::ResolveFloatOperand
 AnmVm::ResolveFloatOperandAddress
 AnmVm::ResolveIntegerOperand
 AnmVm::ResolveIntegerOperandAddress
+AnmVm::StartEffect10
+AnmVmEffect10Vertex::SetPolar
 AnmVmEffectNoop412B30
 AnmVmEffectNoop412B40
 AnmVmEffectNoop412DF0
@@ -25,9 +27,13 @@ AnmVmSetScale2
 AnmVmSetScaleX
 AnmVmSetScaleY
 AnmVmSetUvScroll
+ApplyAnmVmRenderState
 CreateGameWindow
 DebugPrint
 DecryptBlocks
+DrawAnmVmEffect10
+DrawAnmVmVertices
+FlushAnmSpriteBatch
 LaserBeamInf::Slot00
 LaserCurveInf::Slot00
 LaserDataInf::Slot00
@@ -103,6 +109,7 @@ SptInf::`scalar deleting destructor'
 SptResourceInf::Load
 SptResourceInf::LoadIncludes
 StartAnmVmEffect06
+UpdateAnmVmEffect10
 WindowProc
 ZunTimer::Add
 ZunTimer::Increment

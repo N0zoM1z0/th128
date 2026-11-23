@@ -824,7 +824,11 @@ bool AnmVm::ExecuteBasicInstruction(const AnmVmInstructionHeader *instruction)
 
     case 67:
         flags = (flags & ~0x1F000000U) |
-            (((unsigned int)ReadInstructionInteger(instruction, 8) << 24) & 0x1F000000U);
+            (((unsigned int)IntegerSource(this, instruction, 8, 1U) << 24) & 0x1F000000U);
+        if ((flags & 0x1F000000U) == 0x0A000000U)
+        {
+            StartEffect10();
+        }
         scriptDataOffsetCopy = nextInstruction;
         return true;
 

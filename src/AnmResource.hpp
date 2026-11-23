@@ -7,7 +7,9 @@
 // values used by VM binding are observed directly at +0x1C..+0x40.
 struct AnmFileEntry
 {
-    unsigned char unknown000[0x1C];
+    unsigned char unknown000[8];
+    void *texture;                          // +0x08, D3D texture bound by the VM renderer
+    unsigned char unknown00C[0x1C - 0x0C];
     float field01C;                         // +0x1C
     float field020;                         // +0x20
     float field024;                         // +0x24
@@ -21,6 +23,7 @@ struct AnmFileEntry
     unsigned int unknown044;                // +0x44
 };
 typedef char AnmFileEntrySize[(sizeof(AnmFileEntry) == 0x48) ? 1 : -1];
+typedef char AnmFileEntryTextureOffset[(offsetof(AnmFileEntry, texture) == 0x08) ? 1 : -1];
 
 struct AnmResource
 {

@@ -140,7 +140,10 @@ struct AnmVm
     void *extraData;                        // +0x4AC, freed by the destructor
     unsigned int flags;                     // +0x4B0, bit 3 marks the transform dirty
     unsigned int stateFlags;                // +0x4B4, bit 6 set by reset
-    unsigned char unknown4B8[0x4C8 - 0x4B8];
+    unsigned char unknown4B8[4];
+    void (__fastcall *extraDataUpdateCallback)(AnmVm *); // +0x4BC
+    void (__fastcall *extraDataDrawCallback)(AnmVm *);   // +0x4C0
+    unsigned char unknown4C4[4];
     void (__fastcall *stopCallback)(AnmVm *, short); // +0x4C8
     unsigned char unknown4CC[0x4E0 - 0x4CC];
     int (__fastcall *anmFileResolver)(AnmVm *); // +0x4E0
@@ -150,6 +153,7 @@ struct AnmVm
     void ResetForReuse();
     int BindAnmFile(int fileIndex, AnmResource *resource);
     void SetEffectState(void *resource, unsigned char index, unsigned char parameter0, unsigned char parameter1);
+    void StartEffect10();
     void SetSecondaryEffectState(void *resource, unsigned int index, unsigned char parameter0, unsigned char parameter1);
     bool ExecuteWaitCommand(bool clearActiveFlag);
     bool ExecuteBasicInstruction(const AnmVmInstructionHeader *instruction);
@@ -178,6 +182,8 @@ typedef char AnmVmPositionOffset[(offsetof(AnmVm, position) == 0x464) ? 1 : -1];
 typedef char AnmVmIntegerVariablesOffset[(offsetof(AnmVm, integerVariables) == 0x430) ? 1 : -1];
 typedef char AnmVmFloatVariablesOffset[(offsetof(AnmVm, floatVariables) == 0x440) ? 1 : -1];
 typedef char AnmVmIntegerVariables2Offset[(offsetof(AnmVm, integerVariables2) == 0x450) ? 1 : -1];
+typedef char AnmVmExtraDataUpdateCallbackOffset[(offsetof(AnmVm, extraDataUpdateCallback) == 0x4BC) ? 1 : -1];
+typedef char AnmVmExtraDataDrawCallbackOffset[(offsetof(AnmVm, extraDataDrawCallback) == 0x4C0) ? 1 : -1];
 typedef char AnmVmStopCallbackOffset[(offsetof(AnmVm, stopCallback) == 0x4C8) ? 1 : -1];
 typedef char AnmVmFileResolverOffset[(offsetof(AnmVm, anmFileResolver) == 0x4E0) ? 1 : -1];
 typedef char AnmVmLastScriptFrameOffset[(offsetof(AnmVm, lastScriptFrame) == 0x414) ? 1 : -1];
