@@ -1439,7 +1439,7 @@ namespace
         }
     }
 
-    double Hermite(
+    __forceinline double Hermite(
         double start,
         double target,
         double startTangent,
@@ -1456,7 +1456,7 @@ namespace
             h10 * startTangent + h11 * targetTangent;
     }
 
-    bool AdvanceTransition(
+    __forceinline bool AdvanceTransition(
         ZunTimer *timer,
         unsigned int *duration,
         unsigned int mode)
@@ -1619,28 +1619,31 @@ namespace
             return;
         }
 
-        const double t = (double)transition->timer.currentF /
-            (double)transition->duration;
+        const float t = transition->timer.currentF /
+            (float)transition->duration;
+        if (mode == 8)
+        {
+            const float tMinusOne = t - 1.0f;
+            const float h00 = (2.0f * t + 1.0f) * tMinusOne * tMinusOne;
+            const float h01 = t * t * (3.0f - 2.0f * t);
+            const float h10 = (1.0f - t) * (1.0f - t) * t;
+            const float h11 = tMinusOne * t * t;
+            for (unsigned int i = 0; i != 3; ++i)
+            {
+                result[i] = h00 * transition->values[i] +
+                    h01 * transition->values[i + 3] +
+                    h10 * transition->values[i + 6] +
+                    h11 * transition->values[i + 9];
+            }
+            return;
+        }
+
+        const float eased = EaseTransition(mode, t);
         for (unsigned int i = 0; i != 3; ++i)
         {
-            double value;
-            if (mode == 8)
-            {
-                value = Hermite(
-                    transition->values[i],
-                    transition->values[i + 3],
-                    transition->values[i + 6],
-                    transition->values[i + 9],
-                    t);
-            }
-            else
-            {
-                const float eased = EaseTransition(mode, (float)t);
-                value = (double)transition->values[i] +
-                    ((double)transition->values[i + 3] -
-                     (double)transition->values[i]) * eased;
-            }
-            result[i] = (float)value;
+            result[i] = eased *
+                (transition->values[i + 3] - transition->values[i]) +
+                transition->values[i];
         }
     }
 
@@ -1676,28 +1679,31 @@ namespace
             return;
         }
 
-        const double t = (double)transition->timer.currentF /
-            (double)transition->duration;
+        const float t = transition->timer.currentF /
+            (float)transition->duration;
+        if (mode == 8)
+        {
+            const float tMinusOne = t - 1.0f;
+            const float h00 = (2.0f * t + 1.0f) * tMinusOne * tMinusOne;
+            const float h01 = t * t * (3.0f - 2.0f * t);
+            const float h10 = (1.0f - t) * (1.0f - t) * t;
+            const float h11 = tMinusOne * t * t;
+            for (unsigned int i = 0; i != 2; ++i)
+            {
+                result[i] = h00 * transition->values[i] +
+                    h01 * transition->values[i + 2] +
+                    h10 * transition->values[i + 4] +
+                    h11 * transition->values[i + 6];
+            }
+            return;
+        }
+
+        const float eased = EaseTransition(mode, t);
         for (unsigned int i = 0; i != 2; ++i)
         {
-            double value;
-            if (mode == 8)
-            {
-                value = Hermite(
-                    transition->values[i],
-                    transition->values[i + 2],
-                    transition->values[i + 4],
-                    transition->values[i + 6],
-                    t);
-            }
-            else
-            {
-                const float eased = EaseTransition(mode, (float)t);
-                value = (double)transition->values[i] +
-                    ((double)transition->values[i + 2] -
-                     (double)transition->values[i]) * eased;
-            }
-            result[i] = (float)value;
+            result[i] = eased *
+                (transition->values[i + 2] - transition->values[i]) +
+                transition->values[i];
         }
     }
 
