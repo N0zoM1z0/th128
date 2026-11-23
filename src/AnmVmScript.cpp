@@ -1995,17 +1995,54 @@ __forceinline void AnmVm::UpdateCustomGeometry()
         return;
     }
 
-    float centerX = position.x + secondaryPosition.x + alternatePosition.x;
-    float centerY = position.y + secondaryPosition.y + alternatePosition.y;
-    float centerZ = position.z + secondaryPosition.z + alternatePosition.z;
+    float centerX;
+    float centerY;
+    float centerZ;
+    if (geometryMode == 9U)
+    {
+        centerX = alternatePosition.x + secondaryPosition.x;
+        centerY = alternatePosition.y + secondaryPosition.y;
+        centerZ = alternatePosition.z + secondaryPosition.z;
+        centerX = centerX + position.x;
+        centerY = centerY + position.y;
+        centerZ = centerZ + position.z;
+    }
+    else
+    {
+        centerX = secondaryPosition.x + alternatePosition.x;
+        centerY = secondaryPosition.y + alternatePosition.y;
+        centerZ = secondaryPosition.z + alternatePosition.z;
+        centerX = position.x + centerX;
+        centerY = position.y + centerY;
+        centerZ = position.z + centerZ;
+    }
+
     if (parentVm != 0)
     {
-        centerX += parentVm->position.x +
-            parentVm->secondaryPosition.x + parentVm->alternatePosition.x;
-        centerY += parentVm->position.y +
-            parentVm->secondaryPosition.y + parentVm->alternatePosition.y;
-        centerZ += parentVm->position.z +
-            parentVm->secondaryPosition.z + parentVm->alternatePosition.z;
+        float parentCenterX =
+            parentVm->alternatePosition.x + parentVm->secondaryPosition.x;
+        float parentCenterY =
+            parentVm->alternatePosition.y + parentVm->secondaryPosition.y;
+        float parentCenterZ =
+            parentVm->alternatePosition.z + parentVm->secondaryPosition.z;
+        if (geometryMode == 9U)
+        {
+            parentCenterX = parentCenterX + parentVm->position.x;
+            parentCenterY = parentCenterY + parentVm->position.y;
+            parentCenterZ = parentCenterZ + parentVm->position.z;
+            centerX = centerX + parentCenterX;
+            centerY = centerY + parentCenterY;
+            centerZ = centerZ + parentCenterZ;
+        }
+        else
+        {
+            parentCenterX = parentVm->position.x + parentCenterX;
+            parentCenterY = parentVm->position.y + parentCenterY;
+            parentCenterZ = parentVm->position.z + parentCenterZ;
+            centerX = parentCenterX + centerX;
+            centerY = parentCenterY + centerY;
+            centerZ = parentCenterZ + centerZ;
+        }
     }
 
     const unsigned int vertexColor =
