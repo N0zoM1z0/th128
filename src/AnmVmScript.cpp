@@ -4,6 +4,7 @@
 #include "AnmResource.hpp"
 #include "AnmManager.hpp"
 #include "AngleMath.hpp"
+#include "Rng.hpp"
 
 #include <math.h>
 #include <stdlib.h>
@@ -40,6 +41,11 @@ namespace
             }
         }
     };
+
+    unsigned int NextGlobalAnmRandomValue()
+    {
+        return reinterpret_cast<Rng *>(0x004D2AE0)->GetU32();
+    }
 
     const unsigned char *InstructionBytes(const AnmVmInstructionHeader *instruction)
     {
@@ -1188,17 +1194,16 @@ __forceinline bool AnmVm::ExecuteBasicInstruction(const AnmVmInstructionHeader *
             const int firstIndex = IntegerSource(this, instruction, 8, 1U);
             const unsigned int variantCount =
                 (unsigned int)IntegerSource(this, instruction, 12, 2U);
-            const unsigned int randomValue = NextRandomValue();
-            fileIndex = firstIndex +
-                (variantCount != 0 ? (int)(randomValue % variantCount) : 0);
+            const unsigned int randomValue = NextGlobalAnmRandomValue();
+            fileIndex = firstIndex + (int)(randomValue % variantCount);
         }
         else
         {
-            // Resolve both encoded operands and consume the same random value
-            // as the built-in selector before delegating to the VM callback.
+            // The target consumes both encoded operands and one value from
+            // the shared global RNG before invoking the resolver callback.
             (void)IntegerSource(this, instruction, 8, 1U);
             (void)IntegerSource(this, instruction, 12, 2U);
-            NextRandomValue();
+            NextGlobalAnmRandomValue();
             fileIndex = anmFileResolver(this);
         }
 
@@ -1209,10 +1214,7 @@ __forceinline bool AnmVm::ExecuteBasicInstruction(const AnmVmInstructionHeader *
             fileResource = GetDefaultAnmResource();
         }
 
-        if (fileResource != 0)
-        {
-            BindAnmFile(fileIndex, fileResource);
-        }
+        BindAnmFile(fileIndex, fileResource);
         lastScriptFrame = timer070.current;
         scriptDataOffsetCopy = nextInstruction;
         return true;
