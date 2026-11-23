@@ -603,6 +603,58 @@ target_address = 0x00467480
 size = 103
 relocations = []
 
+[units.anm-vm-resolve-integer-operand]
+frontier = true # Semantic C++ reconstruction; target uses EAX/ESI/EDI register inputs and x87 return conventions.
+artifact_kind = "coff"
+source = "src/AnmVmOperands.cpp"
+inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
+object = "build/match/AnmVmOperands.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["AnmVm::ResolveIntegerOperand"]
+symbol = "?ResolveIntegerOperand@AnmVm@@QAEHH@Z"
+target_address = 0x00459B50
+size = 211
+relocations = []
+
+[units.anm-vm-resolve-float-operand]
+frontier = true # Semantic C++ reconstruction; target uses EAX/ESI/EDI register inputs and x87 return conventions.
+artifact_kind = "coff"
+source = "src/AnmVmOperands.cpp"
+inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
+object = "build/match/AnmVmOperands.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["AnmVm::ResolveFloatOperand"]
+symbol = "?ResolveFloatOperand@AnmVm@@QAEMM@Z"
+target_address = 0x00459900
+size = 588
+relocations = []
+
+[units.anm-vm-resolve-integer-operand-address]
+frontier = true # Semantic C++ reconstruction; target uses EAX/ESI/EDI register inputs and x87 return conventions.
+artifact_kind = "coff"
+source = "src/AnmVmOperands.cpp"
+inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
+object = "build/match/AnmVmOperands.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["AnmVm::ResolveIntegerOperandAddress"]
+symbol = "?ResolveIntegerOperandAddress@AnmVm@@QAEPAHPAH@Z"
+target_address = 0x00459CE0
+size = 104
+relocations = []
+
+[units.anm-vm-resolve-float-operand-address]
+frontier = true # Semantic C++ reconstruction; target uses EAX/ESI/EDI register inputs and x87 return conventions.
+artifact_kind = "coff"
+source = "src/AnmVmOperands.cpp"
+inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
+object = "build/match/AnmVmOperands.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["AnmVm::ResolveFloatOperandAddress"]
+symbol = "?ResolveFloatOperandAddress@AnmVm@@QAEPAMPAM@Z"
+target_address = 0x00459C30
+size = 162
+relocations = []
+
 [units.zun-timer-set-current]
 artifact_kind = "linked-pe"
 source = "src/ZunTimer.cpp"

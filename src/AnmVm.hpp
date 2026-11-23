@@ -26,7 +26,10 @@ struct AnmVm
     AnmVmListNode childNode;                 // +0x010
     unsigned char unknown01C[0x20 - 0x1C];
     int scriptState;                        // +0x020
-    unsigned char unknown024[0x40 - 0x24];
+    float unknown024;                       // +0x024, script-visible float variable
+    float unknown028;                       // +0x028, script-visible float variable
+    float unknown02C;                       // +0x02C, script-visible float variable
+    unsigned char unknown030[0x40 - 0x30];
     float scaleX;                           // +0x040
     float scaleY;                           // +0x044
     float scale2X;                          // +0x048
@@ -77,7 +80,9 @@ struct AnmVm
     unsigned int scriptDataOffsetCopy;      // +0x424
     unsigned int unknown428;
     AnmResource *resource;                  // +0x42C
-    unsigned char unknown430[0x458 - 0x430];
+    int integerVariables[4];                // +0x430..+0x43C
+    float floatVariables[4];                // +0x440..+0x44C
+    int integerVariables2[2];                // +0x450..+0x454
     ZunVec3 secondaryPosition;              // +0x458
     ZunVec3 position;                       // +0x464
     unsigned char unknown470[0x4AC - 0x470];
@@ -90,6 +95,11 @@ struct AnmVm
 
     AnmVm();
     void ResetForReuse();
+
+    int ResolveIntegerOperand(int operand);
+    float ResolveFloatOperand(float operand);
+    int *ResolveIntegerOperandAddress(int *operand);
+    float *ResolveFloatOperandAddress(float *operand);
 };
 typedef char AnmVmSize[(sizeof(AnmVm) == 0x4E8) ? 1 : -1];
 typedef char AnmVmManagerNodeOffset[(offsetof(AnmVm, managerNode) == 0x04) ? 1 : -1];
@@ -98,6 +108,9 @@ typedef char AnmVmScriptIndexOffset[(offsetof(AnmVm, anmScriptIndex) == 0x41E) ?
 typedef char AnmVmResourceOffset[(offsetof(AnmVm, resource) == 0x42C) ? 1 : -1];
 typedef char AnmVmSecondaryPositionOffset[(offsetof(AnmVm, secondaryPosition) == 0x458) ? 1 : -1];
 typedef char AnmVmPositionOffset[(offsetof(AnmVm, position) == 0x464) ? 1 : -1];
+typedef char AnmVmIntegerVariablesOffset[(offsetof(AnmVm, integerVariables) == 0x430) ? 1 : -1];
+typedef char AnmVmFloatVariablesOffset[(offsetof(AnmVm, floatVariables) == 0x440) ? 1 : -1];
+typedef char AnmVmIntegerVariables2Offset[(offsetof(AnmVm, integerVariables2) == 0x450) ? 1 : -1];
 typedef char AnmVmStopCallbackOffset[(offsetof(AnmVm, stopCallback) == 0x4C8) ? 1 : -1];
 
 void __stdcall AnmVmSetScale(AnmVm *vm, float x, float y);

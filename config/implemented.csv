@@ -11,6 +11,10 @@ AnmResource::BindVmScript
 AnmResource::CreateVm
 AnmVm::AnmVm
 AnmVm::ResetForReuse
+AnmVm::ResolveFloatOperand
+AnmVm::ResolveFloatOperandAddress
+AnmVm::ResolveIntegerOperand
+AnmVm::ResolveIntegerOperandAddress
 AnmVmEffectNoop412B30
 AnmVmEffectNoop412B40
 AnmVmEffectNoop412DF0
