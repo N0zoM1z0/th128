@@ -132,20 +132,6 @@ namespace
 
 
 
-    void LinkChildVm(AnmVm *parent, AnmVm *child)
-    {
-        AnmVmListNode *head = &parent->childNode;
-        AnmVmListNode *node = &child->childNode;
-        node->vm = child;
-        node->previous = head;
-        node->next = head->next;
-        if (head->next != 0)
-        {
-            head->next->previous = node;
-        }
-        head->next = node;
-    }
-
     unsigned int SpawnChildVm(
         AnmVm *parent,
         int scriptIndex,
@@ -179,7 +165,15 @@ namespace
                 : manager->RegisterWorldVmAtTail(child);
         }
 
-        LinkChildVm(parent, child);
+        AnmVmListNode *head = &parent->childNode;
+        AnmVmListNode *node = &child->childNode;
+        node->previous = head;
+        node->next = head->next;
+        if (head->next != 0)
+        {
+            head->next->previous = node;
+        }
+        head->next = node;
         return id;
     }
 
@@ -376,7 +370,10 @@ namespace
             return false;
         }
 
-        timer->SetCurrent(*duration);
+        timer->Initialize();
+        timer->previous = *duration - 1;
+        timer->current = *duration;
+        timer->currentF = (float)*duration;
         *duration = 0;
         return true;
     }
