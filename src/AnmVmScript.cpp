@@ -1601,19 +1601,20 @@ namespace
         return ZunRoundToInt((double)delta * eased + transition->values[0]);
     }
 
+    // Both view and position vectors use mode 9 for relative updates.
     void InterpolateVector(AnmVmVectorTransition *transition, float result[3])
     {
         const unsigned int mode = transition->mode;
         if (AdvanceTransition(&transition->timer, &transition->duration, mode))
         {
-            const unsigned int endpoint = (mode == 7) ? 0 : 3;
+            const unsigned int endpoint = (mode == 9) ? 0 : 3;
             result[0] = transition->values[endpoint];
             result[1] = transition->values[endpoint + 1];
             result[2] = transition->values[endpoint + 2];
             return;
         }
 
-        if (mode == 7)
+        if (mode == 9)
         {
             transition->values[0] += transition->values[3];
             transition->values[1] += transition->values[4];
