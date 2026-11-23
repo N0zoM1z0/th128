@@ -1,5 +1,14 @@
 AddAngles
+AllocateAnmVm
 AnmManager::GetVmById
+AnmManager::RegisterUiVmAtHead
+AnmManager::RegisterUiVmAtTail
+AnmManager::RegisterWorldVmAtHead
+AnmManager::RegisterWorldVmAtTail
+AnmManager::StopVmById
+AnmResource::BindVmAtPosition
+AnmResource::BindVmScript
+AnmResource::CreateVm
 AnmVm::AnmVm
 AnmVm::ResetForReuse
 AnmVmEffectNoop412B30

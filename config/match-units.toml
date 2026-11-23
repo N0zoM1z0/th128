@@ -486,6 +486,123 @@ target_address = 0x00402EA0
 size = 345
 relocations = []
 
+[units.anm-manager-register-world-tail]
+frontier = true # The target helper appends the embedded managerNode to the world list tail and assigns a nonzero VM ID. The C++ member form is a semantic frontier because the target carries the VM through EBX.
+artifact_kind = "coff"
+source = "src/AnmManager.cpp"
+inputs = ["src/AnmManager.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
+object = "build/match/AnmManagerWorldTail.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["AnmManager::RegisterWorldVmAtTail"]
+symbol = "?RegisterWorldVmAtTail@AnmManager@@QAEIPAUAnmVm@@@Z"
+target_address = 0x00466D60
+size = 124
+relocations = []
+
+[units.anm-manager-register-world-head]
+frontier = true # The target helper prepends the embedded managerNode to the world list and assigns a nonzero VM ID. The C++ member form is a semantic frontier because the target carries the VM through EBX.
+artifact_kind = "coff"
+source = "src/AnmManager.cpp"
+inputs = ["src/AnmManager.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
+object = "build/match/AnmManagerWorldHead.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["AnmManager::RegisterWorldVmAtHead"]
+symbol = "?RegisterWorldVmAtHead@AnmManager@@QAEIPAUAnmVm@@@Z"
+target_address = 0x00466DE0
+size = 119
+relocations = []
+
+[units.anm-manager-register-ui-tail]
+frontier = true # The target helper appends the embedded managerNode to the UI list tail and assigns a nonzero VM ID. The C++ member form is a semantic frontier because the target carries the VM through EBX.
+artifact_kind = "coff"
+source = "src/AnmManager.cpp"
+inputs = ["src/AnmManager.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
+object = "build/match/AnmManagerUiTail.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["AnmManager::RegisterUiVmAtTail"]
+symbol = "?RegisterUiVmAtTail@AnmManager@@QAEIPAUAnmVm@@@Z"
+target_address = 0x00466E60
+size = 124
+relocations = []
+
+[units.anm-manager-register-ui-head]
+frontier = true # The target helper prepends the embedded managerNode to the UI list and assigns a nonzero VM ID. The C++ member form is a semantic frontier because the target carries the VM through EBX.
+artifact_kind = "coff"
+source = "src/AnmManager.cpp"
+inputs = ["src/AnmManager.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
+object = "build/match/AnmManagerUiHead.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["AnmManager::RegisterUiVmAtHead"]
+symbol = "?RegisterUiVmAtHead@AnmManager@@QAEIPAUAnmVm@@@Z"
+target_address = 0x00466EE0
+size = 119
+relocations = []
+
+[units.anm-manager-allocate-vm]
+frontier = true # Reconstructs the 0x1000-entry VM pool allocator, rotating cursor, used-byte table, reuse reset, and heap fallback. The source is semantic frontier pending exact global/register call-shape recovery.
+artifact_kind = "coff"
+source = "src/AnmManager.cpp"
+inputs = ["src/AnmManager.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
+object = "build/match/AnmManagerAllocateVm.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["AllocateAnmVm"]
+symbol = "?AllocateAnmVm@@YAPAUAnmVm@@XZ"
+target_address = 0x00468010
+size = 200
+relocations = []
+
+[units.anm-resource-bind-vm-script]
+frontier = true # Restores script-table validation, VM reset, file/script identity, resource ownership, timer defaults, and the target loader handoff. Target uses private EAX/EBX/EDI inputs; source is semantic frontier.
+artifact_kind = "coff"
+source = "src/AnmResource.cpp"
+inputs = ["src/AnmResource.hpp", "src/AnmManager.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
+object = "build/match/AnmResourceBindScript.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["AnmResource::BindVmScript"]
+symbol = "?BindVmScript@AnmResource@@QAEXPAUAnmVm@@H@Z"
+target_address = 0x004593B0
+size = 262
+relocations = []
+
+[units.anm-resource-bind-vm-at-position]
+frontier = true # Restores the positioned-script initialization path, secondary position, resource ownership, timer defaults, and loader handoff. Target uses private EAX/EBX/EDI inputs; source is semantic frontier.
+artifact_kind = "coff"
+source = "src/AnmResource.cpp"
+inputs = ["src/AnmResource.hpp", "src/AnmManager.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
+object = "build/match/AnmResourceBindAtPosition.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["AnmResource::BindVmAtPosition"]
+symbol = "?BindVmAtPosition@AnmResource@@QAEXPAUAnmVm@@HPBUZunVec3@@@Z"
+target_address = 0x004594C0
+size = 295
+relocations = []
+
+[units.anm-resource-create-vm]
+frontier = true # Reconstructs the VM creation transaction: optional critical-section lock, resource refcount, pool acquisition, initial script state, position transform, resource binding, world/UI head/tail registration, and output ID. Target passes position in EAX; source is semantic frontier.
+artifact_kind = "coff"
+source = "src/AnmResource.cpp"
+inputs = ["src/AnmResource.hpp", "src/AnmManager.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
+object = "build/match/AnmResourceCreateVm.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["AnmResource::CreateVm"]
+symbol = "?CreateVm@AnmResource@@QAEPAIPBUZunVec3@@PAIHHI@Z"
+target_address = 0x004670B0
+size = 364
+relocations = []
+
+[units.anm-manager-stop-vm-by-id]
+frontier = true # source-level method; target uses a private manager/VM register convention
+artifact_kind = "coff"
+source = "src/AnmManager.cpp"
+inputs = ["src/AnmManager.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
+object = "build/match/AnmManagerStopVm.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["AnmManager::StopVmById"]
+symbol = "?StopVmById@AnmManager@@QAEXI@Z"
+target_address = 0x00467480
+size = 103
+relocations = []
+
 [units.zun-timer-set-current]
 artifact_kind = "linked-pe"
 source = "src/ZunTimer.cpp"

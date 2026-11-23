@@ -89,7 +89,16 @@ Pbg::MemFile::GetSize,0x00450FD0,function
 Pbg::MemFile::Seek,0x00450FE0,function
 WindowProc,0x00454420,function
 CreateGameWindow,0x00455320,function
+AnmResource::BindVmScript,0x004593B0,function
+AnmResource::BindVmAtPosition,0x004594C0,function
+AnmManager::RegisterWorldVmAtTail,0x00466D60,function
+AnmManager::RegisterWorldVmAtHead,0x00466DE0,function
+AnmManager::RegisterUiVmAtTail,0x00466E60,function
+AnmManager::RegisterUiVmAtHead,0x00466EE0,function
+AnmResource::CreateVm,0x004670B0,function
 AnmManager::GetVmById,0x00467420,function
+AnmManager::StopVmById,0x00467480,function
+AllocateAnmVm,0x00468010,function
 DecryptBlocks,0x00469A00,function
 Rng::GetU16,0x0046A3F0,function
 Rng::GetU32,0x0046A460,function

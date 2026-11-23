@@ -1834,8 +1834,8 @@ address,span_end,state,confidence,evidence_id,notes
 0x004591B0,0x004591CF,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x004591B0..0x004591CF (32 bytes) ends with ret; then adjacent-start 0x004591D0; WEAK: no call, jump, pointer or vtable reference found"
 0x004591D0,0x0045921F,reviewed,high,bnew-referenced,found by after-terminator-aligned; start after-terminator; refs jmpx1; descent body 0x004591D0..0x0045921F (80 bytes) ends with ret; then adjacent-start 0x00459220; 1 filler hole(s)
 0x00459220,0x004593AB,reviewed,high,bdesc-exact,"start after-terminator; refs callx55, jmpx4; descent body 0x00459220..0x004593AB (396 bytes) ends with ret; then padding-then-start 0x004593B0"
-0x004593B0,0x004594B5,reviewed,high,bdesc-exact,"start padding; refs callx47, jmpx1; descent body 0x004593B0..0x004594B5 (262 bytes) ends with ret; then padding-then-start 0x004594C0"
-0x004594C0,0x004595E6,reviewed,high,bdesc-exact,start padding; refs callx2; descent body 0x004594C0..0x004595E6 (295 bytes) ends with ret; then padding-then-start 0x004595F0
+0x004593B0,0x004594B5,reviewed,high,anm-resource-bind-vm-script-boundary,Hash-attested 262-byte body at 0x004593B0..0x004594B5; 47 direct callers; RET before 0x004594C0.
+0x004594C0,0x004595E6,reviewed,high,anm-resource-bind-vm-at-position-boundary,Hash-attested 295-byte body at 0x004594C0..0x004595E6; 2 direct callers; RET before 0x004595F0.
 0x004595F0,0x004596E5,reviewed,high,bdesc-exact,start padding; refs callx9; descent body 0x004595F0..0x004596E5 (246 bytes) ends with ret; then padding-then-start 0x004596F0
 0x004596F0,0x0045981B,reviewed,high,bdesc-exact,"start padding; refs callx1, jmpx2; descent body 0x004596F0..0x0045981B (300 bytes) ends with ret; then padding-then-start 0x00459820"
 0x00459820,0x004598F3,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x00459820..0x004598F3 (212 bytes) ends with ret; then padding-then-start 0x00459900; 1 filler hole(s); WEAK: no call, jump, pointer or vtable reference found"
@@ -2039,16 +2039,16 @@ address,span_end,state,confidence,evidence_id,notes
 0x00466AF0,0x00466BD4,reviewed,high,bdesc-exact,start padding; refs jmpx1; descent body 0x00466AF0..0x00466BD4 (229 bytes) ends with ret; then padding-then-start 0x00466BE0
 0x00466BE0,0x00466CD5,reviewed,high,bdesc-exact,start padding; refs jmpx1; descent body 0x00466BE0..0x00466CD5 (246 bytes) ends with ret; then padding-then-start 0x00466CE0
 0x00466CE0,0x00466D5D,reviewed,high,bdesc-exact,start padding; refs callx33; descent body 0x00466CE0..0x00466D5D (126 bytes) ends with ret; then padding-then-start 0x00466D60
-0x00466D60,0x00466DDB,reviewed,high,bdesc-exact,start padding; refs callx15; descent body 0x00466D60..0x00466DDB (124 bytes) ends with ret; then padding-then-start 0x00466DE0
-0x00466DE0,0x00466E56,reviewed,high,bdesc-exact,start padding; refs callx5; descent body 0x00466DE0..0x00466E56 (119 bytes) ends with ret; then padding-then-start 0x00466E60
-0x00466E60,0x00466EDB,reviewed,high,bdesc-exact,start padding; refs callx4; descent body 0x00466E60..0x00466EDB (124 bytes) ends with ret; then padding-then-start 0x00466EE0
-0x00466EE0,0x00466F56,reviewed,high,bdesc-exact,start padding; refs callx2; descent body 0x00466EE0..0x00466F56 (119 bytes) ends with ret; then padding-then-start 0x00466F60
+0x00466D60,0x00466DDB,reviewed,high,anm-manager-register-world-tail-boundary,Hash-attested 124-byte body at 0x00466D60..0x00466DDB; 15 direct callers; RET before 0x00466DE0.
+0x00466DE0,0x00466E56,reviewed,high,anm-manager-register-world-head-boundary,Hash-attested 119-byte body at 0x00466DE0..0x00466E56; 5 direct callers; RET before 0x00466E60.
+0x00466E60,0x00466EDB,reviewed,high,anm-manager-register-ui-tail-boundary,Hash-attested 124-byte body at 0x00466E60..0x00466EDB; 4 direct callers; RET before 0x00466EE0.
+0x00466EE0,0x00466F56,reviewed,high,anm-manager-register-ui-head-boundary,Hash-attested 119-byte body at 0x00466EE0..0x00466F56; 2 direct callers; RET before 0x00466F60.
 0x00466F60,0x004670A2,reviewed,high,bdesc-exact,start padding; refs callx7; descent body 0x00466F60..0x004670A2 (323 bytes) ends with ret; then padding-then-start 0x004670B0; 1 filler hole(s)
-0x004670B0,0x0046721B,reviewed,high,bdesc-exact,start padding; refs callx129; descent body 0x004670B0..0x0046721B (364 bytes) ends with ret; then padding-then-start 0x00467220
+0x004670B0,0x0046721B,reviewed,high,anm-resource-create-vm-boundary,Hash-attested 364-byte body at 0x004670B0..0x0046721B; 129 direct call references; RET before 0x00467220.
 0x00467220,0x00467329,reviewed,high,bdesc-exact,start padding; refs callx5; descent body 0x00467220..0x00467329 (266 bytes) ends with ret; then padding-then-start 0x00467330
 0x00467330,0x00467415,reviewed,high,bdesc-exact,start padding; refs callx2; descent body 0x00467330..0x00467415 (230 bytes) ends with ret; then padding-then-start 0x00467420
 0x00467420,0x00467478,reviewed,high,anm-manager-get-vm-by-id-boundary,Complete 89-byte body with four returns between padding.
-0x00467480,0x004674E6,reviewed,high,bdesc-exact,start padding; refs callx215; descent body 0x00467480..0x004674E6 (103 bytes) ends with ret; then padding-then-start 0x004674F0
+0x00467480,0x004674E6,reviewed,high,anm-manager-stop-vm-by-id-boundary,Hash-attested 103-byte body at 0x00467480..0x004674E6; 41 direct callers; RET before 0x004674F0.
 0x004674F0,0x0046756F,reviewed,high,bdesc-exact,start padding; refs callx33; descent body 0x004674F0..0x0046756F (128 bytes) ends with ret; then adjacent-start 0x00467570
 0x00467570,0x004675B2,reviewed,medium,bdesc-exact-weak,"start after-terminator; refs none; descent body 0x00467570..0x004675B2 (67 bytes) ends with ret; then padding-then-start 0x004675C0; WEAK: no call, jump, pointer or vtable reference found"
 0x004675C0,0x004675F3,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x004675C0..0x004675F3 (52 bytes) ends with ret; then padding-then-start 0x00467600; WEAK: no call, jump, pointer or vtable reference found"
@@ -2097,7 +2097,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x00467FD0,0x00467FD4,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00467FD0..0x00467FD4 (5 bytes) ends with jmp; then padding-then-start 0x00467FE0; WEAK: no call, jump, pointer or vtable reference found"
 0x00467FE0,0x00467FF3,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x00467FE0..0x00467FF3 (20 bytes) ends with ret; then padding-then-start 0x00468000; WEAK: no call, jump, pointer or vtable reference found"
 0x00468000,0x00468009,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00468000..0x00468009 (10 bytes) ends with ret; then padding-then-start 0x00468010; WEAK: no call, jump, pointer or vtable reference found"
-0x00468010,0x004680D7,reviewed,high,bdesc-exact,start padding; refs callx21; descent body 0x00468010..0x004680D7 (200 bytes) ends with ret; then padding-then-start 0x004680E0
+0x00468010,0x004680D7,reviewed,high,anm-manager-allocate-vm-boundary,Hash-attested 200-byte body at 0x00468010..0x004680D7; 21 direct callers; RET before 0x004680E0.
 0x004680E0,0x004680FC,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x004680E0..0x004680FC (29 bytes) ends with ret; then padding-then-start 0x00468100; WEAK: no call, jump, pointer or vtable reference found"
 0x00468100,0x00468107,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00468100..0x00468107 (8 bytes) ends with ret; then padding-then-start 0x00468110; WEAK: no call, jump, pointer or vtable reference found"
 0x00468110,0x00468122,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00468110..0x00468122 (19 bytes) ends with ret; then padding-then-start 0x00468130; WEAK: no call, jump, pointer or vtable reference found"

@@ -1,9 +1,11 @@
 #pragma once
 
+#include <stddef.h>
 #include "ZunMath.hpp"
 #include "ZunTimer.hpp"
 
 struct AnmVm;
+struct AnmResource;
 
 struct AnmVmListNode
 {
@@ -11,6 +13,7 @@ struct AnmVmListNode
     AnmVmListNode *next;
     AnmVmListNode *previous;
 };
+typedef char AnmVmListNodeSize[(sizeof(AnmVmListNode) == 12) ? 1 : -1];
 
 // Animation VM, 0x4E8 bytes. Offsets are TH128 target observations; field
 // names follow later games' AnmVm where possible. The two embedded links are
@@ -61,11 +64,21 @@ struct AnmVm
     float transformMatrix[4][4];            // +0x330, reset to identity
     unsigned char unknown370[0x3F0 - 0x370];
     int unknown3F0;                          // +0x3F0, reset to -1
-    unsigned char unknown3F4[8];
+    unsigned char unknown3F4[4];
+    short currentFrame;                   // +0x3F8
+    short unknown3FA;
     ZunTimer timer3FC;                      // +0x3FC
     unsigned char unknown410[0x418 - 0x410];
     short anmFileIndex;                     // +0x418, -1 when unbound
-    unsigned char unknown41A[0x464 - 0x41A];
+    short anmFileId;                        // +0x41A
+    unsigned char unknown41C[2];
+    short anmScriptIndex;                   // +0x41E
+    unsigned int scriptDataOffset;          // +0x420
+    unsigned int scriptDataOffsetCopy;      // +0x424
+    unsigned int unknown428;
+    AnmResource *resource;                  // +0x42C
+    unsigned char unknown430[0x458 - 0x430];
+    ZunVec3 secondaryPosition;              // +0x458
     ZunVec3 position;                       // +0x464
     unsigned char unknown470[0x4AC - 0x470];
     void *extraData;                        // +0x4AC, freed by the destructor
@@ -79,6 +92,13 @@ struct AnmVm
     void ResetForReuse();
 };
 typedef char AnmVmSize[(sizeof(AnmVm) == 0x4E8) ? 1 : -1];
+typedef char AnmVmManagerNodeOffset[(offsetof(AnmVm, managerNode) == 0x04) ? 1 : -1];
+typedef char AnmVmChildNodeOffset[(offsetof(AnmVm, childNode) == 0x10) ? 1 : -1];
+typedef char AnmVmScriptIndexOffset[(offsetof(AnmVm, anmScriptIndex) == 0x41E) ? 1 : -1];
+typedef char AnmVmResourceOffset[(offsetof(AnmVm, resource) == 0x42C) ? 1 : -1];
+typedef char AnmVmSecondaryPositionOffset[(offsetof(AnmVm, secondaryPosition) == 0x458) ? 1 : -1];
+typedef char AnmVmPositionOffset[(offsetof(AnmVm, position) == 0x464) ? 1 : -1];
+typedef char AnmVmStopCallbackOffset[(offsetof(AnmVm, stopCallback) == 0x4C8) ? 1 : -1];
 
 void __stdcall AnmVmSetScale(AnmVm *vm, float x, float y);
 void __stdcall AnmVmSetScaleX(AnmVm *vm, float x);
