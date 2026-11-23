@@ -682,13 +682,10 @@ bool AnmVm::ExecuteBasicInstruction(const AnmVmInstructionHeader *instruction)
 
     case 55:
     {
-        void *resource = reinterpret_cast<void *>(
-            (instruction->flags & 2U) != 0
-                ? (unsigned int)ResolveIntegerOperand(ReadInstructionInteger(instruction, 12))
-                : (unsigned int)ReadInstructionInteger(instruction, 12));
+        const unsigned int duration = (unsigned int)IntegerSource(this, instruction, 12, 2U);
         const unsigned char parameter1 = InstructionBytes(instruction)[8];
         const unsigned char alpha = reinterpret_cast<unsigned char *>(&color)[3];
-        SetEffectState(resource, 0, alpha, parameter1);
+        SetEffectState(duration, 0, alpha, parameter1);
         scriptDataOffsetCopy = nextInstruction;
         return true;
     }
@@ -755,17 +752,14 @@ bool AnmVm::ExecuteBasicInstruction(const AnmVmInstructionHeader *instruction)
 
     case 59:
     {
-        const float target[3] = {
+        const float target[2] = {
             FloatSource(this, instruction, 16, 4U),
-            FloatSource(this, instruction, 20, 8U),
-            FloatSource(this, instruction, 24, 0x10U)
+            FloatSource(this, instruction, 20, 8U)
         };
-        const float current[3] = {unknown024, unknown028, unknown02C};
-        SetPositionTransition(
-            target, current,
-            IntegerSource(this, instruction, 8, 1U),
-            (unsigned char)ReadInstructionInteger(instruction, 12));
-        flags |= 4U;
+        const float current[2] = { position.x, position.y };
+        const int duration = IntegerSource(this, instruction, 8, 1U);
+        const unsigned char mode = InstructionBytes(instruction)[12];
+        SetPositionTransition(target, current, duration, mode);
         scriptDataOffsetCopy = nextInstruction;
         return true;
     }
@@ -776,12 +770,10 @@ bool AnmVm::ExecuteBasicInstruction(const AnmVmInstructionHeader *instruction)
             FloatSource(this, instruction, 16, 4U),
             FloatSource(this, instruction, 20, 8U)
         };
-        const float current[2] = {scaleX, scaleY};
-        SetScaleTransition(
-            target, current,
-            IntegerSource(this, instruction, 8, 1U),
-            InstructionBytes(instruction)[12]);
-        flags |= 8U;
+        const float current[2] = { scaleX, scaleY };
+        const int duration = IntegerSource(this, instruction, 8, 1U);
+        const unsigned char mode = InstructionBytes(instruction)[12];
+        SetScaleTransition(target, current, duration, mode);
         scriptDataOffsetCopy = nextInstruction;
         return true;
     }
@@ -925,6 +917,7 @@ unsigned int AnmVm::ExecuteReadyInstructions()
 
     if (currentFrame != 0 && !ExecuteWaitCommand(false))
     {
+        UpdateTransitions();
         return 0;
     }
 
@@ -945,5 +938,6 @@ unsigned int AnmVm::ExecuteReadyInstructions()
         ++executed;
     }
 
+    UpdateTransitions();
     return executed;
 }
