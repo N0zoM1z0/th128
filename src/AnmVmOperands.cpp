@@ -53,13 +53,13 @@ int AnmVm::ResolveIntegerOperand(int operand)
     case 10003:
         return integerVariables[3];
     case 10004:
-        return (int)floatVariables[0];
+        return ZunRoundToInt((double)floatVariables[0]);
     case 10005:
-        return (int)floatVariables[1];
+        return ZunRoundToInt((double)floatVariables[1]);
     case 10006:
-        return (int)floatVariables[2];
+        return ZunRoundToInt((double)floatVariables[2]);
     case 10007:
-        return (int)floatVariables[3];
+        return ZunRoundToInt((double)floatVariables[3]);
     case 10008:
         return integerVariables2[0];
     case 10009:
@@ -73,7 +73,9 @@ int AnmVm::ResolveIntegerOperand(int operand)
 
 float AnmVm::ResolveFloatOperand(float operand)
 {
-    const int variable = (int)operand;
+    // The target routes float operands through its nearest-even conversion
+    // helper; a C++ cast would truncate and select the wrong script variable.
+    const int variable = ZunRoundToInt((double)operand);
     if ((unsigned int)variable - kVmOperandBase >= 0x1AU)
     {
         return operand;
@@ -161,7 +163,7 @@ int *AnmVm::ResolveIntegerOperandAddress(int *operand)
 
 float *AnmVm::ResolveFloatOperandAddress(float *operand)
 {
-    const int variable = (int)*operand;
+    const int variable = ZunRoundToInt((double)*operand);
     switch (variable)
     {
     case 10004:
