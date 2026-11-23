@@ -2004,7 +2004,7 @@ __forceinline void AnmVm::UpdateCustomGeometry()
             innerU,
             v + textureScrollY);
         v += vStep;
-        angle = AddAngles(angle, angleStep);
+        angle = NormalizeAngle(angle + angleStep);
     }
 }
 
