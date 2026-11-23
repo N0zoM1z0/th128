@@ -2276,7 +2276,6 @@ int AnmVm::Update()
 
     if (frameCallback != 0 && frameCallback(this) != 0)
     {
-        *gameSpeed = savedGameSpeed;
         return 1;
     }
 
