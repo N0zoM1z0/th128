@@ -1260,13 +1260,40 @@ bool AnmVm::ExecuteBasicInstruction(const AnmVmInstructionHeader *instruction)
         return true;
 
     case 100:
-        viewMode = IntegerSource(this, instruction, 8, 1U);
-        viewPosition.x = FloatSource(this, instruction, 16, 4U);
-        viewPosition.y = FloatSource(this, instruction, 20, 8U);
-        viewPosition.z = FloatSource(this, instruction, 24, 0x10U);
+    {
+        const float referenceAX =
+            FloatSource(this, instruction, 24, 2U);
+        const float referenceAY =
+            FloatSource(this, instruction, 32, 4U);
+        const float referenceAZ =
+            FloatSource(this, instruction, 40, 8U);
+        const float referenceBX =
+            FloatSource(this, instruction, 72, 0x80U);
+        const float referenceBY =
+            FloatSource(this, instruction, 80, 0x100U);
+        const float referenceBZ =
+            FloatSource(this, instruction, 88, 0x200U);
+        const int duration = IntegerSource(this, instruction, 8, 1U);
+
+        viewMode = duration;
+        viewReferenceA.x = referenceAX;
+        viewReferenceA.y = referenceAY;
+        viewReferenceA.z = referenceAZ;
+        viewReferenceB.x = referenceBX;
+        viewReferenceB.y = referenceBY;
+        viewReferenceB.z = referenceBZ;
+        viewFlags = 8;
+        viewPosition = (flags & 0x200U) != 0
+            ? alternatePosition
+            : secondaryPosition;
+
+        viewTarget.x = FloatSource(this, instruction, 48, 0x10U);
+        viewTarget.y = FloatSource(this, instruction, 56, 0x20U);
+        viewTarget.z = FloatSource(this, instruction, 64, 0x40U);
         timer0D4.Reset();
         scriptDataOffsetCopy = nextInstruction;
         return true;
+    }
 
     case 102:
     {
