@@ -246,13 +246,13 @@ void DrawAnmVmVertices(AnmVm *vm, const void *vertices, unsigned int vertexCount
 
     ApplyAnmVmRenderState(vm);
 
-    void **textureSlot = &vm->anmFileEntry->texture;
+    void *textureSlot = vm->anmFileEntry->texture;
     if (renderer->currentTexture != textureSlot)
     {
         renderer->currentTexture = textureSlot;
         device->SetTexture(
             0,
-            reinterpret_cast<IDirect3DBaseTexture9 *>(*textureSlot));
+            *reinterpret_cast<IDirect3DBaseTexture9 **>(textureSlot));
     }
 
     FlushAnmSpriteBatch();
@@ -328,7 +328,7 @@ static int DrawAnmVmSpriteQuad(AnmVm *vm, bool pixelSnap, bool rotate)
     IDirect3DDevice9 *device = GetAnmVmDevice();
     AnmManager *manager = GetGlobalAnmManager();
     if (renderer == 0 || device == 0 || manager == 0 || vm == 0 ||
-        vm->anmFileEntry == 0)
+        vm->anmFileEntry == 0 || vm->anmFileEntry->texture == 0)
     {
         return -1;
     }
@@ -343,26 +343,30 @@ static int DrawAnmVmSpriteQuad(AnmVm *vm, bool pixelSnap, bool rotate)
         vm->secondaryPosition.x + vm->alternatePosition.x;
     float centerY = vm->position.y +
         vm->secondaryPosition.y + vm->alternatePosition.y;
-    float centerZ = vm->position.z +
+    const float centerZ = vm->position.z +
         vm->secondaryPosition.z + vm->alternatePosition.z;
     float angle = rotate ? vm->unknown02C : 0.0f;
+    float parentOffsetX = 0.0f;
+    float parentOffsetY = 0.0f;
 
     if (inheritParent)
     {
         width *= parent->scaleX * parent->scale2X;
         height *= parent->scaleY * parent->scale2Y;
-        centerX += parent->position.x +
+        const float parentX = parent->position.x +
             parent->secondaryPosition.x + parent->alternatePosition.x;
-        centerY += parent->position.y +
+        const float parentY = parent->position.y +
             parent->secondaryPosition.y + parent->alternatePosition.y;
-        if (!rotate)
-        {
-            centerZ += parent->position.z +
-                parent->secondaryPosition.z + parent->alternatePosition.z;
-        }
         if (rotate)
         {
+            centerX += parentX;
+            centerY += parentY;
             angle += parent->unknown02C;
+        }
+        else
+        {
+            parentOffsetX = parentX;
+            parentOffsetY = parentY;
         }
     }
 
@@ -377,6 +381,7 @@ static int DrawAnmVmSpriteQuad(AnmVm *vm, bool pixelSnap, bool rotate)
     {
     case 0:
         left -= width * 0.5f;
+        left = RoundAnmSpriteCoordinate(left);
         right = left + width;
         break;
     case 1:
@@ -393,6 +398,7 @@ static int DrawAnmVmSpriteQuad(AnmVm *vm, bool pixelSnap, bool rotate)
     {
     case 0:
         top -= height * 0.5f;
+        top = RoundAnmSpriteCoordinate(top);
         bottom = top + height;
         break;
     case 1:
@@ -405,19 +411,10 @@ static int DrawAnmVmSpriteQuad(AnmVm *vm, bool pixelSnap, bool rotate)
         break;
     }
 
-    if (pixelSnap)
-    {
-        if (horizontalAlignment == 0U)
-        {
-            left = RoundAnmSpriteCoordinate(left);
-            right = left + width;
-        }
-        if (verticalAlignment == 0U)
-        {
-            top = RoundAnmSpriteCoordinate(top);
-            bottom = top + height;
-        }
-    }
+    left += parentOffsetX;
+    right += parentOffsetX;
+    top += parentOffsetY;
+    bottom += parentOffsetY;
 
     const float localX[4] = {left, right, left, right};
     const float localY[4] = {top, top, bottom, bottom};
@@ -541,14 +538,14 @@ static int DrawAnmVmSpriteQuad(AnmVm *vm, bool pixelSnap, bool rotate)
         }
     }
 
-    void **textureSlot = &vm->anmFileEntry->texture;
+    void *textureSlot = vm->anmFileEntry->texture;
     if (renderer->currentTexture != textureSlot)
     {
         FlushAnmSpriteBatch();
         renderer->currentTexture = textureSlot;
         device->SetTexture(
             0,
-            reinterpret_cast<IDirect3DBaseTexture9 *>(*textureSlot));
+            *reinterpret_cast<IDirect3DBaseTexture9 **>(textureSlot));
     }
 
     if (renderer->vertexFormatMode != 1)
@@ -699,13 +696,13 @@ int DrawAnmVmTriangleStrip(
         FlushAnmSpriteBatch();
     }
 
-    void **textureSlot = &vm->anmFileEntry->texture;
+    void *textureSlot = vm->anmFileEntry->texture;
     if (renderer->currentTexture != textureSlot)
     {
         renderer->currentTexture = textureSlot;
         device->SetTexture(
             0,
-            reinterpret_cast<IDirect3DBaseTexture9 *>(*textureSlot));
+            *reinterpret_cast<IDirect3DBaseTexture9 **>(textureSlot));
     }
 
     if (renderer->vertexFormatMode != 3)
@@ -755,11 +752,11 @@ int DrawAnmVm(AnmVm *vm)
     {
     case 0:
         return DrawAnmVmSpriteQuad(vm, true, false);
-    case 2:
-        return DrawAnmVmSpriteQuad(vm, false, false);
     case 1:
     case 3:
         return DrawAnmVmSpriteQuad(vm, false, true);
+    case 2:
+        return DrawAnmVmSpriteQuad(vm, false, false);
     case 9:
     case 12:
     case 13:

@@ -10,7 +10,7 @@ void NormalizeAnmCoordinates(float *normalized, const float *pixels);
 struct AnmFileEntry
 {
     unsigned char unknown000[8];
-    void *texture;                          // +0x08, D3D texture bound by the VM renderer
+    void **texture;                         // +0x08, address of the D3D texture slot
     unsigned char unknown00C[0x1C - 0x0C];
     float field01C;                         // +0x1C
     float field020;                         // +0x20
