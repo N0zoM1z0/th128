@@ -3,6 +3,8 @@
 #include <stddef.h>
 #include "AnmVm.hpp"
 
+void NormalizeAnmCoordinates(float *normalized, const float *pixels);
+
 // One animation-file entry occupies 0x48 bytes. The dimension/rectangle
 // values used by VM binding are observed directly at +0x1C..+0x40.
 struct AnmFileEntry

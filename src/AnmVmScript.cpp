@@ -274,19 +274,11 @@ namespace
         float *textureCoordinates = &vm->textureRect[0][0];
         for (unsigned int i = 0; i != 4; ++i)
         {
-            float u = (float)((double)corners[i][0] / 640.0);
-            float v = (float)((double)corners[i][1] / 480.0);
-            if (u < 0.0f)
-            {
-                u = 0.0f;
-            }
-            if (v < 0.0f)
-            {
-                v = 0.0f;
-            }
-
-            textureCoordinates[i * 2] = u;
-            textureCoordinates[i * 2 + 1] = v;
+            const float pixels[2] = {corners[i][0], corners[i][1]};
+            float normalized[2];
+            NormalizeAnmCoordinates(normalized, pixels);
+            textureCoordinates[i * 2] = normalized[0];
+            textureCoordinates[i * 2 + 1] = normalized[1];
         }
     }
 
