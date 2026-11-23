@@ -92,11 +92,11 @@ namespace
 // Main per-VM update entry at 0x00459D90. The script interpreter and
 // transition stages are reconstructed here; renderer-specific work remains
 // in the original large routine's still-unrecovered branches.
-void AnmVm::Update()
+int AnmVm::Update()
 {
     if (scriptDataOffsetCopy == 0 || (flags & 0x00080000U) != 0)
     {
-        return;
+        return 0;
     }
 
     float *gameSpeed = reinterpret_cast<float *>(0x004B6F58);
@@ -112,7 +112,7 @@ void AnmVm::Update()
         if (scriptDataOffsetCopy == 0)
         {
             *gameSpeed = savedGameSpeed;
-            return;
+            return 0;
         }
     }
 
@@ -125,11 +125,16 @@ void AnmVm::Update()
     UpdateTransitions();
     UpdateCustomGeometry();
 
-    if (frameCallback != 0 && frameCallback(this) != 0)
+    if (frameCallback != 0)
     {
-        return;
+        const int callbackResult = frameCallback(this);
+        if (callbackResult != 0)
+        {
+            return callbackResult;
+        }
     }
 
     timer070.Increment();
     *gameSpeed = savedGameSpeed;
+    return 0;
 }

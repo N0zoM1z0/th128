@@ -80,7 +80,7 @@ struct AnmVm
     unsigned int id;                        // +0x000
     AnmVmListNode managerNode;               // +0x004
     AnmVmListNode childNode;                 // +0x010
-    unsigned char unknown01C[0x20 - 0x1C];
+    AnmVm *drawListNext;                    // +0x01C, per-state render-list link
     int scriptState;                        // +0x020
     float unknown024;                       // +0x024, script-visible float variable
     float unknown028;                       // +0x028, script-visible float variable
@@ -149,10 +149,10 @@ struct AnmVm
     unsigned int flags;                     // +0x4B0, bit 3 marks the transform dirty
     unsigned int stateFlags;                // +0x4B4, bit 6 set by reset
     unsigned char unknown4B8[4];
-    void (__fastcall *extraDataUpdateCallback)(AnmVm *); // +0x4BC
+    int (__fastcall *extraDataUpdateCallback)(AnmVm *); // +0x4BC
     void (__fastcall *extraDataDrawCallback)(AnmVm *);   // +0x4C0
-    unsigned char unknown4C4[4];
-    void (__fastcall *stopCallback)(AnmVm *, short); // +0x4C8
+    void (__fastcall *onDestroyCallback)(AnmVm *);       // +0x4C4
+    void (__fastcall *stopCallback)(AnmVm *, short);     // +0x4C8
     unsigned char unknown4CC[0x4DC - 0x4CC];
     int (__thiscall *frameCallback)(AnmVm *); // +0x4DC, can terminate this update
     int (__fastcall *anmFileResolver)(AnmVm *); // +0x4E0
@@ -195,7 +195,7 @@ struct AnmVm
     void UpdateTransitions();
     void UpdateTextureRectFromView();
     void UpdateCustomGeometry();
-    void Update();
+    int Update();
 
     int ResolveIntegerOperand(int operand);
     float ResolveFloatOperand(float operand);
@@ -207,6 +207,7 @@ struct AnmVm
 typedef char AnmVmSize[(sizeof(AnmVm) == 0x4E8) ? 1 : -1];
 typedef char AnmVmManagerNodeOffset[(offsetof(AnmVm, managerNode) == 0x04) ? 1 : -1];
 typedef char AnmVmChildNodeOffset[(offsetof(AnmVm, childNode) == 0x10) ? 1 : -1];
+typedef char AnmVmDrawListNextOffset[(offsetof(AnmVm, drawListNext) == 0x1C) ? 1 : -1];
 typedef char AnmVmParentVmOffset[(offsetof(AnmVm, parentVm) == 0x3C) ? 1 : -1];
 typedef char AnmVmScriptIndexOffset[(offsetof(AnmVm, anmScriptIndex) == 0x41E) ? 1 : -1];
 typedef char AnmVmResourceOffset[(offsetof(AnmVm, resource) == 0x42C) ? 1 : -1];
@@ -223,6 +224,7 @@ typedef char AnmVmFloatVariablesOffset[(offsetof(AnmVm, floatVariables) == 0x440
 typedef char AnmVmIntegerVariables2Offset[(offsetof(AnmVm, integerVariables2) == 0x450) ? 1 : -1];
 typedef char AnmVmExtraDataUpdateCallbackOffset[(offsetof(AnmVm, extraDataUpdateCallback) == 0x4BC) ? 1 : -1];
 typedef char AnmVmExtraDataDrawCallbackOffset[(offsetof(AnmVm, extraDataDrawCallback) == 0x4C0) ? 1 : -1];
+typedef char AnmVmOnDestroyCallbackOffset[(offsetof(AnmVm, onDestroyCallback) == 0x4C4) ? 1 : -1];
 typedef char AnmVmStopCallbackOffset[(offsetof(AnmVm, stopCallback) == 0x4C8) ? 1 : -1];
 typedef char AnmVmFrameCallbackOffset[(offsetof(AnmVm, frameCallback) == 0x4DC) ? 1 : -1];
 typedef char AnmVmFileResolverOffset[(offsetof(AnmVm, anmFileResolver) == 0x4E0) ? 1 : -1];

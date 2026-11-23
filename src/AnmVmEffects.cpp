@@ -270,12 +270,12 @@ void DrawAnmVmVertices(AnmVm *vm, const void *vertices, unsigned int vertexCount
         sizeof(AnmVmEffect10Vertex));
 }
 
-void __fastcall UpdateAnmVmEffect10(AnmVm *vm)
+int __fastcall UpdateAnmVmEffect10(AnmVm *vm)
 {
     AnmVmEffect10Data *data = (AnmVmEffect10Data *)vm->extraData;
     if (data == 0)
     {
-        return;
+        return 0;
     }
 
     data->centerX = vm->secondaryPosition.x + vm->position.x;
@@ -324,6 +324,7 @@ void __fastcall UpdateAnmVmEffect10(AnmVm *vm)
     }
 
     data->vertices[31] = data->vertices[0];
+    return 0;
 }
 
 void __fastcall DrawAnmVmEffect10(AnmVm *vm)
