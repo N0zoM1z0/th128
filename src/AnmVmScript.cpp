@@ -1677,13 +1677,15 @@ namespace
         const unsigned int mode = transition->mode;
         if (AdvanceTransition(&transition->timer, &transition->duration, mode))
         {
-            const unsigned int endpoint = (mode == 7) ? 0 : 2;
+            // The target's two-component scale helper uses mode 9 for its
+            // relative endpoint, unlike the mode-7 color/vector helpers.
+            const unsigned int endpoint = (mode == 9) ? 0 : 2;
             result[0] = transition->values[endpoint];
             result[1] = transition->values[endpoint + 1];
             return;
         }
 
-        if (mode == 7)
+        if (mode == 9)
         {
             transition->values[0] += transition->values[2];
             transition->values[1] += transition->values[3];
