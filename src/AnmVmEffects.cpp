@@ -279,6 +279,14 @@ int DrawAnmVmVertices(
         FlushAnmSpriteBatch();
     }
 
+    if (renderer->vertexFormatMode != 3)
+    {
+        device->SetFVF(0x144);
+        renderer->vertexFormatMode = 3;
+    }
+
+    ApplyAnmVmRenderState(vm);
+
     void *textureSlot = vm->anmFileEntry->texture;
     if (renderer->currentTexture != textureSlot)
     {
@@ -288,15 +296,15 @@ int DrawAnmVmVertices(
             *reinterpret_cast<IDirect3DBaseTexture9 **>(textureSlot));
     }
 
-    if (renderer->vertexFormatMode != 3)
+    FlushAnmSpriteBatch();
+    device->SetRenderState(D3DRS_ZWRITEENABLE, 0);
+
+    if (renderer->vertexFormatMode != 1)
     {
-        device->SetFVF(0x144);
         device->SetTextureStageState(0, D3DTSS_ALPHAARG2, 0);
         device->SetTextureStageState(0, D3DTSS_COLORARG2, 0);
-        renderer->vertexFormatMode = 3;
+        renderer->vertexFormatMode = 1;
     }
-
-    ApplyAnmVmRenderState(vm);
 
     if (renderer->textureStageState != 1)
     {
