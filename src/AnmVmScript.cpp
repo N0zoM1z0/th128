@@ -1701,9 +1701,9 @@ namespace
         }
     }
 
-    // Scalar transitions are angles: every path uses target angle wrapping,
-    // including relative, Hermite and shortest-arc interpolation.
-    float InterpolateScalar(AnmVmScalarTransition *transition)
+    // The view rotation is an angular scalar: relative and eased paths wrap,
+    // and ordinary interpolation follows the shortest signed arc.
+    float InterpolateAngle(AnmVmScalarTransition *transition)
     {
         const unsigned int mode = transition->mode;
         if (AdvanceTransition(&transition->timer, &transition->duration, mode))
@@ -1753,6 +1753,54 @@ namespace
         const float scaledDifference = NormalizeAngle(
             normalizedDifference * eased);
         return NormalizeAngle(scaledDifference + transition->values[0]);
+    }
+
+    // Texture scroll offsets use the ordinary scalar helper at 0x0040CCF0.
+    // Its Hermite terms are accumulated in the target's evaluation order,
+    // without angle normalization or shortest-arc interpolation.
+    float InterpolateLinearScalar(AnmVmScalarTransition *transition)
+    {
+        const unsigned int mode = transition->mode;
+        if (AdvanceTransition(&transition->timer, &transition->duration, mode))
+        {
+            return transition->values[(mode == 7) ? 0 : 1];
+        }
+
+        if (mode == 7)
+        {
+            transition->values[0] += transition->values[1];
+            return transition->values[0];
+        }
+
+        if (mode == 17)
+        {
+            transition->values[0] += transition->values[3];
+            transition->values[3] += transition->values[1];
+            return transition->values[0];
+        }
+
+        const float t = transition->timer.currentF /
+            (float)transition->duration;
+        if (mode == 8)
+        {
+            const float tMinusOne = t - 1.0f;
+            const float targetTerm =
+                (t * t * (3.0f - 2.0f * t)) * transition->values[1];
+            const float startTerm =
+                (tMinusOne * tMinusOne * (2.0f * t + 1.0f)) *
+                transition->values[0];
+            float result = startTerm + targetTerm;
+            const float startTangentTerm =
+                ((1.0f - t) * (1.0f - t) * t) * transition->values[2];
+            result += startTangentTerm;
+            const float targetTangentTerm =
+                (tMinusOne * t * t) * transition->values[3];
+            return result + targetTangentTerm;
+        }
+
+        const float eased = EaseTransition(mode, t);
+        return (transition->values[1] - transition->values[0]) * eased +
+            transition->values[0];
     }
 
 }
@@ -1820,7 +1868,7 @@ __forceinline void AnmVm::UpdateTransitions()
 
     if (viewTransition.duration != 0)
     {
-        unknown02C = InterpolateScalar(&viewTransition);
+        unknown02C = InterpolateAngle(&viewTransition);
         flags |= 4U;
     }
 
@@ -1842,12 +1890,12 @@ __forceinline void AnmVm::UpdateTransitions()
 
     if (textureOffsetXTransition.duration != 0)
     {
-        textureOffsetX = InterpolateScalar(&textureOffsetXTransition);
+        textureOffsetX = InterpolateLinearScalar(&textureOffsetXTransition);
     }
 
     if (textureOffsetYTransition.duration != 0)
     {
-        textureOffsetY = InterpolateScalar(&textureOffsetYTransition);
+        textureOffsetY = InterpolateLinearScalar(&textureOffsetYTransition);
     }
 }
 
