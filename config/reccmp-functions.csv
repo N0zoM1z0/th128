@@ -111,6 +111,7 @@ AnmVm::SetScaleTransition,0x0045E190,function
 AnmVm::SetSecondaryEffectState,0x0045E240,function
 AnmVm::SetSecondaryColorTransition,0x0045E2C0,function
 AnmVm::SetColorTransition,0x0045E4D0,function
+ZunTimer::SetCurrent(ZunTimer),0x0045E5E0,function
 AnmVm::SetEffectState,0x0045E6C0,function
 ApplyAnmVmRenderState,0x0045E770,function
 FlushAnmSpriteBatch,0x0045EF60,function
@@ -128,6 +129,8 @@ AnmManager::RegisterWorldVmAtHead,0x00466DE0,function
 AnmManager::RegisterUiVmAtTail,0x00466E60,function
 AnmManager::RegisterUiVmAtHead,0x00466EE0,function
 AnmResource::CreateVm,0x004670B0,function
+SpawnChildVm,0x00467220,function
+SpawnChildVmAtPosition,0x00467330,function
 AnmManager::GetVmById,0x00467420,function
 AnmManager::StopVmById,0x00467480,function
 AllocateAnmVm,0x00468010,function
@@ -143,5 +146,3 @@ MenuCursor::Move,0x0046A970,function
 ZunTimer::Add,0x0046AA20,function
 EaseTransition,0x0046B190,function
 SptResourceInf::Load,0x004703F0,function
-SpawnChildVm,0x00467220,function
-SpawnChildVmAtPosition,0x00467330,function

@@ -136,6 +136,7 @@ WindowProc
 ZunTimer::Add
 ZunTimer::Increment
 ZunTimer::SetCurrent
+ZunTimer::SetCurrent(ZunTimer)
 ZunTimer::SetCurrentF
 ZunTimer::operator<
 ZunTimer::operator<=
