@@ -27,7 +27,7 @@ void AnmVm::ResetForReuse()
     unknown05C = 1.0f;
     position = savedPosition;
 
-    unknown3F0 = -1;
+    color = 0xffffffffU;
     transformMatrix[0][0] = 1.0f;
     transformMatrix[1][1] = 1.0f;
     transformMatrix[2][2] = 1.0f;

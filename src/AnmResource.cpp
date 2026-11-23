@@ -5,14 +5,9 @@
 #include <string.h>
 #include <windows.h>
 
-// This target helper dispatches the selected ANM data into the VM. It is
-// intentionally an external dependency: the large 0x00459D90 loader/draw
-// routine remains a separate reconstruction target.
-extern void __fastcall AnmVmLoadScript(
-    AnmManager *manager,
-    unsigned int scriptData,
-    AnmVm *vm);
-
+// The original dispatches into the large interpreter/draw routine at
+// 0x00459D90. Until its renderer is reconstructed, binding runs the recovered
+// command-execution subset and leaves unsupported commands pending.
 static float *AnmGameSpeed()
 {
     return reinterpret_cast<float *>(0x004B6F58);
@@ -86,7 +81,7 @@ void AnmResource::BindVmScript(AnmVm *vm, int scriptIndex)
     vm->scriptDataOffsetCopy = scriptData;
 
     InitializeVmTimer(vm);
-    AnmVmLoadScript(GetGlobalAnmManager(), scriptData, vm);
+    vm->ExecuteReadyInstructions();
     ++GetGlobalAnmManager()->activeVmCount;
 
     vm->scale2X = 1.0f;
@@ -120,10 +115,7 @@ void AnmResource::BindVmAtPosition(
     vm->scriptDataOffsetCopy = scriptData;
 
     InitializeVmTimer(vm);
-    AnmVmLoadScript(
-        GetGlobalAnmManager(),
-        reinterpret_cast<unsigned int>(scriptOffsets),
-        vm);
+    vm->ExecuteReadyInstructions();
     ++GetGlobalAnmManager()->activeVmCount;
 
     if ((vm->stateFlags & 0xC0U) == 0x80U)

@@ -1,6 +1,6 @@
 #include "AnmVm.hpp"
+#include "Rng.hpp"
 
-#include <windows.h>
 
 namespace
 {
@@ -28,48 +28,25 @@ namespace
         return integral;
     }
 
-    unsigned int NextVmRandomValue(const AnmVm *vm)
+    Rng *VmRandomGenerator(const AnmVm *vm)
     {
-        volatile unsigned int *runtimeFlags =
-            reinterpret_cast<volatile unsigned int *>(0x004D33F8);
-        volatile unsigned char *lockDepth =
-            reinterpret_cast<volatile unsigned char *>(0x004D37A2);
-        CRITICAL_SECTION *criticalSection =
-            reinterpret_cast<CRITICAL_SECTION *>(0x004D3768);
-
-        const bool useCriticalSection = ((*runtimeFlags & 0x8000U) != 0);
-        if (useCriticalSection)
-        {
-            EnterCriticalSection(criticalSection);
-            ++(*lockDepth);
-        }
-
-        volatile unsigned short *randomState =
-            reinterpret_cast<volatile unsigned short *>(
-                (vm->stateFlags & 2U) != 0 ? 0x004D2AD8 : 0x004D2AE0);
-
-        *reinterpret_cast<volatile unsigned int *>(randomState + 2) += 2;
-
-        unsigned short first = (unsigned short)((*randomState ^ 0x9630U) - 0x6553U);
-        unsigned short second = (unsigned short)(
-            (((unsigned int)(first >> 14) + (unsigned int)first * 4U) ^ 0x9630U)
-            - 0x6553U);
-
-        *randomState = (unsigned short)(
-            (unsigned int)(second >> 14) + (unsigned int)second * 4U);
-
-        if (useCriticalSection)
-        {
-            LeaveCriticalSection(criticalSection);
-            --(*lockDepth);
-        }
-
-        return ((unsigned int)first << 16) | (unsigned int)second;
+        return reinterpret_cast<Rng *>(
+            (vm->stateFlags & 2U) != 0 ? 0x004D2AD8 : 0x004D2AE0);
     }
 
-    double RandomUnit(const AnmVm *vm)
+    unsigned int NextVmRandomValue(const AnmVm *vm)
     {
-        return (double)NextVmRandomValue(vm) * (1.0 / 4294967296.0);
+        return VmRandomGenerator(vm)->GetU32();
+    }
+
+    float RandomUnitValue(const AnmVm *vm)
+    {
+        return VmRandomGenerator(vm)->GetFloat();
+    }
+
+    float RandomSignedValue(const AnmVm *vm)
+    {
+        return VmRandomGenerator(vm)->GetFloatSigned();
     }
 
     float ReadTargetFloat(unsigned int address)
@@ -145,11 +122,11 @@ float AnmVm::ResolveFloatOperand(float operand)
     case 10009:
         return (float)integerVariables2[1];
     case 10010:
-        return (float)((RandomUnit(this) * 2.0 - 1.0) * 3.1415927410125732421875);
+        return RandomSignedValue(this) * 3.1415927410125732421875f;
     case 10011:
-        return (float)RandomUnit(this);
+        return RandomUnitValue(this);
     case 10012:
-        return (float)(RandomUnit(this) * 2.0 - 1.0);
+        return RandomSignedValue(this);
     case 10013:
         return secondaryPosition.x;
     case 10014:
@@ -230,4 +207,14 @@ float *AnmVm::ResolveFloatOperandAddress(float *operand)
     default:
         return operand;
     }
+}
+
+unsigned int AnmVm::NextRandomValue()
+{
+    return NextVmRandomValue(this);
+}
+
+double AnmVm::RandomUnit()
+{
+    return (double)RandomUnitValue(this);
 }
