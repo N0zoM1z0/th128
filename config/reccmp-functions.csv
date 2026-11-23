@@ -8,12 +8,14 @@ ZunTimer::operator<,0x00402C40,function
 AnmVm::ResetForReuse,0x00402EA0,function
 AnmVm::AnmVm,0x004031A0,function
 ZunTimer::SetCurrent,0x00403240,function
+InterpolateVector,0x004065D0,function
 AnmVmSetScaleY,0x00407020,function
 AnmVmSetScaleX,0x00407040,function
 ZunTimer::operator<=,0x00407130,function
 SetTimeScale,0x00407310,function
 ZunTimer::operator>=,0x004073B0,function
 ZunTimer::operator==,0x00407E70,function
+InterpolateLinearScalar,0x0040CCF0,function
 ZunTimer::operator>,0x00410CD0,function
 AnmVmEffectNoop412B30,0x00412B30,function
 AnmVmEffectNoop412B40,0x00412B40,function
@@ -99,6 +101,10 @@ AnmVm::ResolveFloatOperandAddress,0x00459C30,function
 AnmVm::ResolveIntegerOperandAddress,0x00459CE0,function
 NormalizeAnmCoordinates,0x00459D50,function
 AnmVm::Update,0x00459D90,function
+InterpolateColorVector,0x0045D3D0,function
+InterpolateInteger,0x0045D6C0,function
+InterpolateAngle,0x0045D810,function
+InterpolateScale,0x0045DB20,function
 AnmVmEffect10Vertex::SetPolarForUpdate,0x0045E010,function
 AnmVm::SetSecondaryScaleTransition,0x0045E080,function
 AnmVm::SetScaleTransition,0x0045E190,function
@@ -135,4 +141,5 @@ AddAngles,0x0046A660,function
 NormalizeAngle,0x0046A700,function
 MenuCursor::Move,0x0046A970,function
 ZunTimer::Add,0x0046AA20,function
+EaseTransition,0x0046B190,function
 SptResourceInf::Load,0x004703F0,function

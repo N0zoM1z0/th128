@@ -45,7 +45,14 @@ DebugPrint
 DecryptBlocks
 DrawAnmVmEffect10
 DrawAnmVmVertices
+EaseTransition
 FlushAnmSpriteBatch
+InterpolateAngle
+InterpolateColorVector
+InterpolateInteger
+InterpolateLinearScalar
+InterpolateScale
+InterpolateVector
 LaserBeamInf::Slot00
 LaserCurveInf::Slot00
 LaserDataInf::Slot00
