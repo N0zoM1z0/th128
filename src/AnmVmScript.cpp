@@ -765,12 +765,6 @@ bool AnmVm::ExecuteBasicInstruction(const AnmVmInstructionHeader *instruction)
             target, current,
             IntegerSource(this, instruction, 8, 1U),
             (unsigned char)ReadInstructionInteger(instruction, 12));
-        positionTransition.values[6] = *reinterpret_cast<const float *>(0x004D2E54);
-        positionTransition.values[7] = *reinterpret_cast<const float *>(0x004D2E58);
-        positionTransition.values[8] = *reinterpret_cast<const float *>(0x004D2E5C);
-        positionTransition.values[9] = positionTransition.values[6];
-        positionTransition.values[10] = positionTransition.values[7];
-        positionTransition.values[11] = positionTransition.values[8];
         flags |= 4U;
         scriptDataOffsetCopy = nextInstruction;
         return true;
