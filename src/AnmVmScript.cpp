@@ -111,6 +111,7 @@ namespace
         float height = vm->uvScrollY * vm->scaleY * vm->scale2Y;
         float parentX = 0.0f;
         float parentY = 0.0f;
+        float parentZ = 0.0f;
 
         if (inheritParent)
         {
@@ -120,6 +121,8 @@ namespace
                 parent->secondaryPosition.x + parent->alternatePosition.x;
             parentY = parent->position.y +
                 parent->secondaryPosition.y + parent->alternatePosition.y;
+            parentZ = parent->position.z +
+                parent->secondaryPosition.z + parent->alternatePosition.z;
         }
 
         const float centerX = vm->position.x +
@@ -127,12 +130,12 @@ namespace
         const float centerY = vm->position.y +
             vm->secondaryPosition.y + vm->alternatePosition.y;
         const float centerZ = vm->position.z +
-            vm->secondaryPosition.z + vm->alternatePosition.z;
+            vm->secondaryPosition.z + vm->alternatePosition.z + parentZ;
         const unsigned int viewMode = (vm->flags >> 24) & 0x1FU;
         const unsigned int horizontalAnchor = (vm->flags >> 20) & 3U;
         const unsigned int verticalAnchor = (vm->flags >> 22) & 3U;
 
-        if (viewMode == 1U || viewMode == 3U)
+        if (viewMode == 1U)
         {
             float angle = vm->unknown02C;
             if (inheritParent)
@@ -204,54 +207,52 @@ namespace
         float right;
         float top;
         float bottom;
-        if (viewMode == 0U)
+        switch (horizontalAnchor)
         {
-            left = (float)FloorViewCoordinate(
-                (double)centerX - (double)width * 0.5);
-            top = (float)FloorViewCoordinate(
-                (double)centerY - (double)height * 0.5);
+        case 0:
+        {
+            const float centeredLeft = centerX - width * 0.5f;
+            left = viewMode == 0U
+                ? (float)FloorViewCoordinate((double)centeredLeft)
+                : centeredLeft;
             right = left + width;
-            bottom = top + height;
+            break;
         }
-        else
-        {
-            switch (horizontalAnchor)
-            {
-            case 0:
-                left = centerX - width * 0.5f;
-                right = left + width;
-                break;
-            case 1:
-                left = centerX;
-                right = centerX + width;
-                break;
-            case 2:
-                left = centerX - width;
-                right = centerX;
-                break;
-            default:
-                left = right = 0.0f;
-                break;
-            }
+        case 1:
+            left = centerX;
+            right = centerX + width;
+            break;
+        case 2:
+            left = centerX - width;
+            right = centerX;
+            break;
+        default:
+            left = right = 0.0f;
+            break;
+        }
 
-            switch (verticalAnchor)
-            {
-            case 0:
-                top = centerY - height * 0.5f;
-                bottom = top + height;
-                break;
-            case 1:
-                top = centerY;
-                bottom = centerY + height;
-                break;
-            case 2:
-                top = centerY - height;
-                bottom = centerY;
-                break;
-            default:
-                top = bottom = 0.0f;
-                break;
-            }
+        switch (verticalAnchor)
+        {
+        case 0:
+        {
+            const float centeredTop = centerY - height * 0.5f;
+            top = viewMode == 0U
+                ? (float)FloorViewCoordinate((double)centeredTop)
+                : centeredTop;
+            bottom = top + height;
+            break;
+        }
+        case 1:
+            top = centerY;
+            bottom = centerY + height;
+            break;
+        case 2:
+            top = centerY - height;
+            bottom = centerY;
+            break;
+        default:
+            top = bottom = 0.0f;
+            break;
         }
 
         left += parentX;
