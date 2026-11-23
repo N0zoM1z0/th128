@@ -94,16 +94,11 @@ namespace
         return (unsigned int)(InstructionBytes(instruction) + instruction->size);
     }
 
-    double RoundViewCoordinate(double value)
+    double FloorViewCoordinate(double value)
     {
-        const double lower = floor(value);
-        const double fraction = value - lower;
-        if (fraction > 0.5 ||
-            (fraction == 0.5 && fmod(lower, 2.0) != 0.0))
-        {
-            return lower + 1.0;
-        }
-        return lower;
+        // FUN_0045F110 routes the view's left/top edge through FUN_0048FDF0,
+        // which is the target's floor(double) helper.
+        return floor(value);
     }
 
     void BuildViewCorners(const AnmVm *vm, float corners[4][3])
@@ -211,9 +206,9 @@ namespace
         float bottom;
         if (viewMode == 0U)
         {
-            left = (float)RoundViewCoordinate(
+            left = (float)FloorViewCoordinate(
                 (double)centerX - (double)width * 0.5);
-            top = (float)RoundViewCoordinate(
+            top = (float)FloorViewCoordinate(
                 (double)centerY - (double)height * 0.5);
             right = left + width;
             bottom = top + height;
