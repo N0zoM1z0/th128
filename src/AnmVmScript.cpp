@@ -1604,20 +1604,20 @@ namespace
         return ZunRoundToInt((double)delta * eased + transition->values[0]);
     }
 
-    // Both view and position vectors use mode 9 for relative updates.
+    // The target's three-component vector helper uses mode 7 for relative updates.
     void InterpolateVector(AnmVmVectorTransition *transition, float result[3])
     {
         const unsigned int mode = transition->mode;
         if (AdvanceTransition(&transition->timer, &transition->duration, mode))
         {
-            const unsigned int endpoint = (mode == 9) ? 0 : 3;
+            const unsigned int endpoint = (mode == 7) ? 0 : 3;
             result[0] = transition->values[endpoint];
             result[1] = transition->values[endpoint + 1];
             result[2] = transition->values[endpoint + 2];
             return;
         }
 
-        if (mode == 9)
+        if (mode == 7)
         {
             transition->values[0] += transition->values[3];
             transition->values[1] += transition->values[4];
@@ -1681,15 +1681,15 @@ namespace
         const unsigned int mode = transition->mode;
         if (AdvanceTransition(&transition->timer, &transition->duration, mode))
         {
-            // The target's two-component scale helper uses mode 9 for its
-            // relative endpoint, unlike the mode-7 color/vector helpers.
-            const unsigned int endpoint = (mode == 9) ? 0 : 2;
+            // The target's two-component scale helper also uses mode 7 for
+            // its relative endpoint.
+            const unsigned int endpoint = (mode == 7) ? 0 : 2;
             result[0] = transition->values[endpoint];
             result[1] = transition->values[endpoint + 1];
             return;
         }
 
-        if (mode == 9)
+        if (mode == 7)
         {
             transition->values[0] += transition->values[2];
             transition->values[1] += transition->values[3];
@@ -1799,10 +1799,10 @@ namespace
         const unsigned int mode = transition->mode;
         if (AdvanceTransition(&transition->timer, &transition->duration, mode))
         {
-            return transition->values[(mode == 9) ? 0 : 1];
+            return transition->values[(mode == 7) ? 0 : 1];
         }
 
-        if (mode == 9)
+        if (mode == 7)
         {
             transition->values[0] += transition->values[1];
             return transition->values[0];
