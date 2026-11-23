@@ -3,9 +3,9 @@
 
 namespace
 {
-    bool IsScriptUpdateSuppressed(const AnmVm *vm)
+    bool IsScriptUpdateSuppressed(const AnmVm *vm, unsigned int updateFlags)
     {
-        if (vm->currentFrame != 0 || (vm->stateFlags & 0xC0U) != 0x40U)
+        if (vm->currentFrame != 0 || (updateFlags & 0xC0U) != 0x40U)
         {
             return false;
         }
@@ -92,32 +92,32 @@ namespace
 // Main per-VM update entry at 0x00459D90. The script interpreter and
 // transition stages are reconstructed here; renderer-specific work remains
 // in the original large routine's still-unrecovered branches.
-int AnmVm::Update()
+void AnmVm::Update(unsigned int updateFlags)
 {
     if (scriptDataOffsetCopy == 0 || (flags & 0x00080000U) != 0)
     {
-        return 0;
+        return;
     }
 
     float *gameSpeed = reinterpret_cast<float *>(0x004B6F58);
     const float savedGameSpeed = *gameSpeed;
-    if ((stateFlags & 1U) != 0)
+    if ((updateFlags & 1U) != 0)
     {
         *gameSpeed = 1.0f;
     }
 
-    if (!IsScriptUpdateSuppressed(this))
+    if (!IsScriptUpdateSuppressed(this, updateFlags))
     {
         ExecuteReadyInstructions();
         if (scriptDataOffsetCopy == 0)
         {
             *gameSpeed = savedGameSpeed;
-            return 0;
+            return;
         }
     }
 
     UpdateContinuousMotion(this, *gameSpeed);
-    if ((stateFlags & 0x20U) != 0)
+    if ((updateFlags & 0x20U) != 0)
     {
         UpdateTextureRectFromView();
     }
@@ -125,16 +125,11 @@ int AnmVm::Update()
     UpdateTransitions();
     UpdateCustomGeometry();
 
-    if (frameCallback != 0)
+    if (frameCallback != 0 && frameCallback(this) != 0)
     {
-        const int callbackResult = frameCallback(this);
-        if (callbackResult != 0)
-        {
-            return callbackResult;
-        }
+        return;
     }
 
     timer070.Increment();
     *gameSpeed = savedGameSpeed;
-    return 0;
 }

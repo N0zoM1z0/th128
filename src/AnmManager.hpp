@@ -28,6 +28,7 @@ struct AnmManager
     unsigned int RegisterWorldVmAtHead(AnmVm *vm);
     unsigned int RegisterUiVmAtTail(AnmVm *vm);
     unsigned int RegisterUiVmAtHead(AnmVm *vm);
+    void __fastcall UpdateVm(unsigned int stateFlags, AnmVm *vm);
     void StopVmById(unsigned int id);
     void CleanupVm(AnmVm *vm);
     int UpdateWorldVms();
