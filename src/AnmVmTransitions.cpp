@@ -440,7 +440,7 @@ void AnmVm::SetPositionTransition(
     const float *target,
     const float *current,
     int duration,
-    unsigned char mode)
+    unsigned int mode)
 {
     positionTransition.duration = (unsigned int)duration;
     positionTransition.mode = mode;

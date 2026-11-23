@@ -182,7 +182,7 @@ struct AnmVm
         const float *target,
         const float *current,
         int duration,
-        unsigned char mode);
+        unsigned int mode);
     void SetSecondaryColorTransition(
         const unsigned char *target,
         const unsigned char *current,

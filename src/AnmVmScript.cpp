@@ -722,14 +722,18 @@ bool AnmVm::ExecuteBasicInstruction(const AnmVmInstructionHeader *instruction)
 
     case 59:
     {
-        const float target[2] = {
+        const float target[3] = {
             FloatSource(this, instruction, 16, 4U),
-            FloatSource(this, instruction, 20, 8U)
+            FloatSource(this, instruction, 20, 8U),
+            FloatSource(this, instruction, 24, 0x10U)
         };
-        const float current[2] = { position.x, position.y };
-        const int duration = IntegerSource(this, instruction, 8, 1U);
-        const unsigned char mode = InstructionBytes(instruction)[12];
-        SetPositionTransition(target, current, duration, mode);
+        const float current[3] = {unknown024, unknown028, unknown02C};
+        SetPositionTransition(
+            target,
+            current,
+            IntegerSource(this, instruction, 8, 1U),
+            (unsigned int)ReadInstructionInteger(instruction, 12));
+        flags |= 4U;
         scriptDataOffsetCopy = nextInstruction;
         return true;
     }
@@ -873,6 +877,131 @@ bool AnmVm::ExecuteBasicInstruction(const AnmVmInstructionHeader *instruction)
         return true;
     }
 
+    case 93:
+    {
+        textureOffsetXTransition.duration =
+            (unsigned int)IntegerSource(this, instruction, 8, 1U);
+        textureOffsetXTransition.mode =
+            (unsigned int)ReadInstructionInteger(instruction, 12);
+        textureOffsetXTransition.values[0] = textureOffsetX;
+        textureOffsetXTransition.values[1] =
+            FloatSource(this, instruction, 16, 4U);
+        textureOffsetXTransition.values[2] = 0.0f;
+        textureOffsetXTransition.values[3] = 0.0f;
+        textureOffsetXTransition.timer.Reset();
+        scriptDataOffsetCopy = nextInstruction;
+        return true;
+    }
+
+    case 94:
+    {
+        textureOffsetYTransition.duration =
+            (unsigned int)IntegerSource(this, instruction, 8, 1U);
+        textureOffsetYTransition.mode =
+            (unsigned int)ReadInstructionInteger(instruction, 12);
+        textureOffsetYTransition.values[0] = textureOffsetY;
+        textureOffsetYTransition.values[1] =
+            FloatSource(this, instruction, 16, 4U);
+        textureOffsetYTransition.values[2] = 0.0f;
+        textureOffsetYTransition.values[3] = 0.0f;
+        textureOffsetYTransition.timer.Reset();
+        scriptDataOffsetCopy = nextInstruction;
+        return true;
+    }
+
+    case 103:
+        flags = (flags & 0xEFFFFFFFU) | 0x0F000000U;
+        uvScrollX = FloatSource(this, instruction, 8, 1U);
+        uvScrollY = FloatSource(this, instruction, 12, 2U);
+        scriptDataOffsetCopy = nextInstruction;
+        return true;
+
+    case 104:
+        flags = (flags & 0xF0FFFFFFU) | 0x10000000U;
+        uvScrollX = FloatSource(this, instruction, 8, 1U);
+        integerVariables[0] = IntegerSource(this, instruction, 12, 2U);
+        scriptDataOffsetCopy = nextInstruction;
+        return true;
+
+    case 105:
+        flags = (flags & 0xF1FFFFFFU) | 0x11000000U;
+        uvScrollX = FloatSource(this, instruction, 8, 1U);
+        integerVariables[0] = IntegerSource(this, instruction, 12, 2U);
+        scriptDataOffsetCopy = nextInstruction;
+        return true;
+
+    case 106:
+        unknown058 = FloatSource(this, instruction, 8, 1U);
+        unknown05C = FloatSource(this, instruction, 12, 2U);
+        flags |= 0x10U;
+        scriptDataOffsetCopy = nextInstruction;
+        return true;
+
+    case 107:
+    {
+        const float target[2] = {
+            FloatSource(this, instruction, 16, 4U),
+            FloatSource(this, instruction, 20, 8U)
+        };
+        const float current[2] = {unknown058, unknown05C};
+        SetSecondaryScaleTransition(
+            target,
+            current,
+            IntegerSource(this, instruction, 8, 1U),
+            InstructionBytes(instruction)[12]);
+        flags |= 0x10U;
+        scriptDataOffsetCopy = nextInstruction;
+        return true;
+    }
+
+    case 108:
+        flags = (flags & 0xF3FFFFFFU) | 0x13000000U;
+        uvScrollX = FloatSource(this, instruction, 8, 1U);
+        uvScrollY = FloatSource(this, instruction, 12, 2U);
+        scriptDataOffsetCopy = nextInstruction;
+        return true;
+
+    case 109:
+        flags = (flags & 0xF4FFFFFFU) | 0x14000000U;
+        uvScrollX = FloatSource(this, instruction, 8, 1U);
+        uvScrollY = FloatSource(this, instruction, 12, 2U);
+        scriptDataOffsetCopy = nextInstruction;
+        return true;
+
+    case 110:
+        flags = (flags & 0xF5FFFFFFU) | 0x15000000U;
+        uvScrollX = FloatSource(this, instruction, 8, 1U);
+        uvScrollY = FloatSource(this, instruction, 12, 2U);
+        scriptDataOffsetCopy = nextInstruction;
+        return true;
+
+    case 111:
+        stateFlags = (stateFlags & ~0xC0U) |
+            (((unsigned int)IntegerSource(this, instruction, 8, 1U) << 6) & 0xC0U);
+        scriptDataOffsetCopy = nextInstruction;
+        return true;
+
+    case 112:
+        stateFlags = (stateFlags & ~0x100U) |
+            (((unsigned int)IntegerSource(this, instruction, 8, 1U) << 8) & 0x100U);
+        scriptDataOffsetCopy = nextInstruction;
+        return true;
+
+    case 113:
+        viewTransition.duration =
+            (unsigned int)IntegerSource(this, instruction, 8, 1U);
+        viewTransition.mode =
+            (unsigned int)ReadInstructionInteger(instruction, 12);
+        viewTransition.values[0] = NormalizeAngle(unknown02C);
+        viewTransition.values[1] =
+            NormalizeAngle(FloatSource(this, instruction, 16, 4U));
+        viewTransition.values[2] = 0.0f;
+        viewTransition.values[3] = 0.0f;
+        viewTransition.timer.Reset();
+        flags |= 4U;
+        scriptDataOffsetCopy = nextInstruction;
+        return true;
+
     default:
         return false;
     }
@@ -887,7 +1016,6 @@ unsigned int AnmVm::ExecuteReadyInstructions()
 
     if (currentFrame != 0 && !ExecuteWaitCommand(false))
     {
-        UpdateTransitions();
         return 0;
     }
 
@@ -908,6 +1036,5 @@ unsigned int AnmVm::ExecuteReadyInstructions()
         ++executed;
     }
 
-    UpdateTransitions();
     return executed;
 }
