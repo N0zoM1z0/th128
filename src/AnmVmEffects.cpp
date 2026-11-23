@@ -1277,7 +1277,7 @@ static int DrawAnmVmFogEnabledWorldMatrixSprite(AnmVm *vm)
         device->SetRenderState(D3DRS_FOGENABLE, TRUE);
     }
 
-    const int result = DrawAnmVmWorldMatrixSprite(vm);
+    DrawAnmVmWorldMatrixSprite(vm);
 
     if (*fogState != 0U)
     {
@@ -1285,7 +1285,7 @@ static int DrawAnmVmFogEnabledWorldMatrixSprite(AnmVm *vm)
         *fogState = 0U;
         device->SetRenderState(D3DRS_FOGENABLE, FALSE);
     }
-    return result;
+    return 0;
 }
 
 int DrawAnmVmTriangleStrip(
