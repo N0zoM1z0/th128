@@ -1413,6 +1413,33 @@ namespace
         ++manager->drawCallCount;
     }
 
+    float AdvanceAnmPrimitiveAngle(float angle, float offset)
+    {
+        const float twoPi = 6.283185482025146484375f;
+        angle += offset;
+
+        int corrections = 0;
+        while (angle > twoPi)
+        {
+            angle -= twoPi;
+            if (corrections++ > 32)
+            {
+                break;
+            }
+        }
+
+        while (angle < 0.0f)
+        {
+            angle += twoPi;
+            if (corrections++ > 32)
+            {
+                break;
+            }
+        }
+        return angle;
+    }
+
+
     void DrawAnmVmPrimitiveLine(
         AnmManager *manager,
         AnmVmRendererState *renderer,
@@ -1425,6 +1452,23 @@ namespace
         unsigned int color)
     {
         if (manager->primitiveVertexCursor == 0 || segmentCount <= 0)
+        {
+            return;
+        }
+
+        const unsigned int cursorAddress =
+            (unsigned int)manager->primitiveVertexCursor;
+        const unsigned int limitAddress =
+            (unsigned int)&manager->primitiveVertexCursor;
+        if (cursorAddress >= limitAddress)
+        {
+            return;
+        }
+        const unsigned long long requiredBytes =
+            ((unsigned long long)(unsigned int)segmentCount + 1ULL) *
+            sizeof(AnmVmPrimitiveVertex);
+        if (requiredBytes >=
+            (unsigned long long)(limitAddress - cursorAddress))
         {
             return;
         }
@@ -1443,7 +1487,7 @@ namespace
             vertex->z = 0.0f;
             vertex->reciprocalW = 1.0f;
             vertex->color = color;
-            angle = AddAngles(angle, angleStep);
+            angle = AdvanceAnmPrimitiveAngle(angle, angleStep);
         }
 
         SetAnmVmPrimitiveDrawState(renderer, device);
@@ -1493,7 +1537,7 @@ namespace
             vertex->z = 0.0f;
             vertex->reciprocalW = 1.0f;
             vertex->color = edgeColor;
-            angle = AddAngles(angle, angleStep);
+            angle = AdvanceAnmPrimitiveAngle(angle, angleStep);
         }
 
         SetAnmVmPrimitiveDrawState(renderer, device);
