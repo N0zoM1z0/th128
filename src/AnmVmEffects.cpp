@@ -1777,14 +1777,9 @@ int DrawAnmVm(AnmVm *vm)
 int __fastcall UpdateAnmVmEffect10(AnmVm *vm)
 {
     AnmVmEffect10Data *data = (AnmVmEffect10Data *)vm->extraData;
-    if (data == 0)
-    {
-        return 0;
-    }
-
-    data->centerX = vm->secondaryPosition.x + vm->position.x;
+    data->centerX = vm->position.x + vm->secondaryPosition.x;
     data->centerY = vm->secondaryPosition.y + vm->position.y;
-    data->centerZ = vm->secondaryPosition.z + vm->position.z;
+    data->centerZ = vm->position.z + vm->secondaryPosition.z;
     data->color = vm->color;
 
     data->uvBaseU += data->uvDeltaU;
