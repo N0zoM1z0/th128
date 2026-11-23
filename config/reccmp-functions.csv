@@ -89,12 +89,14 @@ Pbg::MemFile::GetSize,0x00450FD0,function
 Pbg::MemFile::Seek,0x00450FE0,function
 WindowProc,0x00454420,function
 CreateGameWindow,0x00455320,function
+AnmVm::BindAnmFile,0x00459220,function
 AnmResource::BindVmScript,0x004593B0,function
 AnmResource::BindVmAtPosition,0x004594C0,function
 AnmVm::ResolveFloatOperand,0x00459900,function
 AnmVm::ResolveIntegerOperand,0x00459B50,function
 AnmVm::ResolveFloatOperandAddress,0x00459C30,function
 AnmVm::ResolveIntegerOperandAddress,0x00459CE0,function
+NormalizeAnmCoordinates,0x00459D50,function
 AnmManager::RegisterWorldVmAtTail,0x00466D60,function
 AnmManager::RegisterWorldVmAtHead,0x00466DE0,function
 AnmManager::RegisterUiVmAtTail,0x00466E60,function

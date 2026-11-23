@@ -6,6 +6,7 @@
 
 struct AnmVm;
 struct AnmResource;
+struct AnmFileEntry;
 
 struct AnmVmListNode
 {
@@ -41,7 +42,8 @@ struct AnmVm
     float uvScrollY;                        // +0x064
     unsigned char unknown068[0x70 - 0x68];
     ZunTimer timer070;                      // +0x070
-    unsigned char unknown084[0xD4 - 0x84];
+    float textureRect[2][4];              // +0x084, duplicate source rectangle
+    unsigned char unknown0A4[0xD4 - 0xA4];
     ZunTimer timer0D4;                      // +0x0D4
     unsigned char unknown0E8[0x120 - 0xE8];
     ZunTimer timer120;                      // +0x120
@@ -65,7 +67,8 @@ struct AnmVm
     ZunTimer timer30C;                      // +0x30C
     unsigned char unknown320[0x330 - 0x320];
     float transformMatrix[4][4];            // +0x330, reset to identity
-    unsigned char unknown370[0x3F0 - 0x370];
+    float textureTransformMatrix[4][4];    // +0x370, copied from transformMatrix
+    float spriteScaleMatrix[4][4];         // +0x3B0, sprite-to-texture scale
     int unknown3F0;                          // +0x3F0, reset to -1
     unsigned char unknown3F4[4];
     short currentFrame;                   // +0x3F8
@@ -78,7 +81,7 @@ struct AnmVm
     short anmScriptIndex;                   // +0x41E
     unsigned int scriptDataOffset;          // +0x420
     unsigned int scriptDataOffsetCopy;      // +0x424
-    unsigned int unknown428;
+    AnmFileEntry *anmFileEntry;             // +0x428
     AnmResource *resource;                  // +0x42C
     int integerVariables[4];                // +0x430..+0x43C
     float floatVariables[4];                // +0x440..+0x44C
@@ -95,6 +98,7 @@ struct AnmVm
 
     AnmVm();
     void ResetForReuse();
+    int BindAnmFile(int fileIndex, AnmResource *resource);
 
     int ResolveIntegerOperand(int operand);
     float ResolveFloatOperand(float operand);
@@ -106,6 +110,10 @@ typedef char AnmVmManagerNodeOffset[(offsetof(AnmVm, managerNode) == 0x04) ? 1 :
 typedef char AnmVmChildNodeOffset[(offsetof(AnmVm, childNode) == 0x10) ? 1 : -1];
 typedef char AnmVmScriptIndexOffset[(offsetof(AnmVm, anmScriptIndex) == 0x41E) ? 1 : -1];
 typedef char AnmVmResourceOffset[(offsetof(AnmVm, resource) == 0x42C) ? 1 : -1];
+typedef char AnmVmFileEntryOffset[(offsetof(AnmVm, anmFileEntry) == 0x428) ? 1 : -1];
+typedef char AnmVmTextureRectOffset[(offsetof(AnmVm, textureRect) == 0x84) ? 1 : -1];
+typedef char AnmVmTextureMatrixOffset[(offsetof(AnmVm, textureTransformMatrix) == 0x370) ? 1 : -1];
+typedef char AnmVmSpriteScaleMatrixOffset[(offsetof(AnmVm, spriteScaleMatrix) == 0x3B0) ? 1 : -1];
 typedef char AnmVmSecondaryPositionOffset[(offsetof(AnmVm, secondaryPosition) == 0x458) ? 1 : -1];
 typedef char AnmVmPositionOffset[(offsetof(AnmVm, position) == 0x464) ? 1 : -1];
 typedef char AnmVmIntegerVariablesOffset[(offsetof(AnmVm, integerVariables) == 0x430) ? 1 : -1];

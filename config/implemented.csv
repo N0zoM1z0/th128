@@ -10,6 +10,7 @@ AnmResource::BindVmAtPosition
 AnmResource::BindVmScript
 AnmResource::CreateVm
 AnmVm::AnmVm
+AnmVm::BindAnmFile
 AnmVm::ResetForReuse
 AnmVm::ResolveFloatOperand
 AnmVm::ResolveFloatOperandAddress
@@ -58,6 +59,7 @@ LaserInfiniteInf::Slot01
 LaserLineInf::Slot00
 MenuCursor::Move
 NormalizeAngle
+NormalizeAnmCoordinates
 Pbg::Archive::Close
 Pbg::Archive::Open
 Pbg::Archive::ReadEntry

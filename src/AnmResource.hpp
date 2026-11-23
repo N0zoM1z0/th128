@@ -3,12 +3,32 @@
 #include <stddef.h>
 #include "AnmVm.hpp"
 
-// Animation resource metadata consumed by the VM factory. The script offset
-// table and active-VM counter are directly observed at +0x11C and +0x130.
+// One animation-file entry occupies 0x48 bytes. The dimension/rectangle
+// values used by VM binding are observed directly at +0x1C..+0x40.
+struct AnmFileEntry
+{
+    unsigned char unknown000[0x1C];
+    float field01C;                         // +0x1C
+    float field020;                         // +0x20
+    float field024;                         // +0x24
+    float field028;                         // +0x28
+    float field02C;                         // +0x2C
+    float field030;                         // +0x30
+    float field034;                         // +0x34
+    float field038;                         // +0x38
+    float field03C;                         // +0x3C
+    float field040;                         // +0x40
+    unsigned int unknown044;                // +0x44
+};
+typedef char AnmFileEntrySize[(sizeof(AnmFileEntry) == 0x48) ? 1 : -1];
+
 struct AnmResource
 {
     unsigned short fileId;                  // +0x000
-    unsigned char unknown002[0x11C - 2];
+    unsigned char unknown002[0x108 - 2];
+    void *anmFileHeader;                    // +0x108, required for binding
+    unsigned char unknown10C[0x118 - 0x10C];
+    AnmFileEntry *anmFiles;                 // +0x118
     const unsigned int *scriptOffsets;      // +0x11C
     unsigned int unknown120;
     unsigned int isInvalid;                 // +0x124
@@ -24,6 +44,12 @@ struct AnmResource
         int initialState,
         unsigned int flags);
 };
+typedef char AnmResourceHeaderOffset[
+    (offsetof(AnmResource, anmFileHeader) == 0x108) ? 1 : -1
+];
+typedef char AnmResourceFilesOffset[
+    (offsetof(AnmResource, anmFiles) == 0x118) ? 1 : -1
+];
 typedef char AnmResourceScriptTableOffset[
     (offsetof(AnmResource, scriptOffsets) == 0x11C) ? 1 : -1
 ];

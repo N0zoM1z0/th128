@@ -655,6 +655,32 @@ target_address = 0x00459C30
 size = 162
 relocations = []
 
+[units.anm-vm-bind-anm-file]
+frontier = true # The target passes the VM in EAX, file index in ECX, and resource in EDX.
+artifact_kind = "coff"
+source = "src/AnmVmResource.cpp"
+inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
+object = "build/match/AnmVmResource.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["AnmVm::BindAnmFile"]
+symbol = "?BindAnmFile@AnmVm@@QAEHHPAUAnmResource@@@Z"
+target_address = 0x00459220
+size = 396
+relocations = []
+
+[units.anm-vm-normalize-coordinates]
+frontier = true # Natural C++ reconstruction; target passes input in EAX and output in ECX.
+artifact_kind = "coff"
+source = "src/AnmVmResource.cpp"
+inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
+object = "build/match/AnmVmResource.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["NormalizeAnmCoordinates"]
+symbol = "?NormalizeAnmCoordinates@@YAXPAMPBM@Z"
+target_address = 0x00459D50
+size = 52
+relocations = []
+
 [units.zun-timer-set-current]
 artifact_kind = "linked-pe"
 source = "src/ZunTimer.cpp"
