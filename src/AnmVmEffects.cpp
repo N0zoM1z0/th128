@@ -1872,12 +1872,13 @@ void AnmVm::StartEffect10()
     for (unsigned int i = 0; i != 31; ++i)
     {
         AnmVmEffect10Vertex *vertex = &data->vertices[i];
+        vertex->reciprocalW = 1.0f;
+
         AnmVmEffect10Vertex uvPosition;
         uvPosition.SetPolar(angle, 0.5f);
         vertex->u = uvPosition.x + 0.5f;
         vertex->v = uvPosition.y + 0.5f;
         vertex->z = 0.0f;
-        vertex->reciprocalW = 1.0f;
 
         data->particleRadius[i] =
             NextNegativeVmRandom() * 8.0f + 80.0f;
