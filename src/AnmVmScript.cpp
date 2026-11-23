@@ -287,12 +287,16 @@ __forceinline bool AnmVm::ExecuteWaitCommand(bool clearActiveFlag)
     {
         if (marker->opcode == 0x40U)
         {
-            if (marker->frame == currentFrame)
+            // Opcode 0x40's first dword operand selects the wait target.
+            // The header frame is a separate scheduled-frame value restored
+            // into timer070 after the marker is selected.
+            const int targetFrame = ReadInstructionInteger(marker, 8);
+            if (targetFrame == currentFrame)
             {
                 match = marker;
                 break;
             }
-            if (marker->frame == -1)
+            if (targetFrame == -1)
             {
                 fallback = marker;
             }
