@@ -617,7 +617,7 @@ size = 211
 relocations = []
 
 [units.anm-vm-resolve-float-operand]
-frontier = true # Semantic C++ reconstruction; target uses EAX/ESI/EDI register inputs and x87 return conventions.
+frontier = true # Natural C++ operand resolver; use VC10's _ftol2_sse path for target float-to-int conversion.
 artifact_kind = "coff"
 source = "src/AnmVmOperands.cpp"
 inputs = ["src/AnmVm.hpp", "src/Rng.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
