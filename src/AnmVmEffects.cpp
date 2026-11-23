@@ -724,6 +724,107 @@ void AnmVm::UpdateWorldMatrix(float matrix[4][4])
 }
 
 
+
+struct AnmVmProjectedPoint
+{
+    float x;
+    float y;
+    float z;
+};
+
+typedef AnmVmProjectedPoint *(__stdcall *AnmD3DXVec3ProjectFn)(
+    AnmVmProjectedPoint *out,
+    const AnmVmProjectedPoint *source,
+    const D3DVIEWPORT9 *viewport,
+    const D3DMATRIX *projection,
+    const D3DMATRIX *view,
+    const D3DMATRIX *world);
+
+static int DrawAnmVmProjectedSprite(AnmVm *vm)
+{
+    const unsigned char *camera =
+        *reinterpret_cast<const unsigned char *const *>(0x004D33B4);
+    // The original D3DXVec3Project import thunk is at 0x0049A2D4.
+    AnmD3DXVec3ProjectFn project =
+        *reinterpret_cast<AnmD3DXVec3ProjectFn *>(0x0049A2D4);
+    if (camera == 0 || project == 0 || vm == 0)
+    {
+        return -1;
+    }
+
+    const AnmVmProjectedPoint origin = {0.0f, 0.0f, 0.0f};
+    const AnmVmProjectedPoint reference =
+        *reinterpret_cast<const AnmVmProjectedPoint *>(camera + 0x30);
+    const AnmVmProjectedPoint worldPosition =
+    {
+        vm->position.x + vm->secondaryPosition.x + vm->alternatePosition.x,
+        vm->position.y + vm->secondaryPosition.y + vm->alternatePosition.y,
+        vm->position.z + vm->secondaryPosition.z + vm->alternatePosition.z
+    };
+
+    D3DMATRIX world;
+    memset(&world, 0, sizeof(world));
+    world._11 = 1.0f;
+    world._22 = 1.0f;
+    world._33 = 1.0f;
+    world._41 = worldPosition.x;
+    world._42 = worldPosition.y;
+    world._43 = worldPosition.z;
+    world._44 = 1.0f;
+
+    AnmVmProjectedPoint projectedCenter;
+    AnmVmProjectedPoint projectedReference;
+    const D3DVIEWPORT9 *viewport =
+        reinterpret_cast<const D3DVIEWPORT9 *>(camera + 0xCC);
+    const D3DMATRIX *view =
+        reinterpret_cast<const D3DMATRIX *>(camera + 0x4C);
+    const D3DMATRIX *projection =
+        reinterpret_cast<const D3DMATRIX *>(camera + 0x8C);
+
+    project(
+        &projectedCenter, &origin, viewport, projection, view, &world);
+    if (projectedCenter.z < 0.0f || projectedCenter.z > 1.0f)
+    {
+        return -1;
+    }
+
+    project(
+        &projectedReference, &reference,
+        viewport, projection, view, &world);
+
+    const float deltaX = projectedReference.x - projectedCenter.x;
+    const float deltaY = projectedReference.y - projectedCenter.y;
+    const float deltaZ = projectedReference.z - projectedCenter.z;
+    const float projectedScale = (float)(
+        sqrt((double)(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ)) *
+        6.283185307179586476925286766559);
+
+    AnmVm projectedVm = *vm;
+    projectedVm.parentVm = 0;
+    projectedVm.stateFlags |= 0x100U;
+    projectedVm.position.x = projectedCenter.x;
+    projectedVm.position.y = projectedCenter.y;
+    projectedVm.position.z = projectedCenter.z;
+    projectedVm.secondaryPosition.x = 0.0f;
+    projectedVm.secondaryPosition.y = 0.0f;
+    projectedVm.secondaryPosition.z = 0.0f;
+    projectedVm.alternatePosition.x = 0.0f;
+    projectedVm.alternatePosition.y = 0.0f;
+    projectedVm.alternatePosition.z = 0.0f;
+    projectedVm.scaleX = 1.0f;
+    projectedVm.scaleY = 1.0f;
+    projectedVm.scale2X = 1.0f;
+    projectedVm.scale2Y = 1.0f;
+    projectedVm.uvScrollX = vm->uvScrollX * vm->scaleX *
+        vm->scale2X * projectedScale;
+    projectedVm.uvScrollY = vm->uvScrollY * vm->scaleY *
+        vm->scale2Y * projectedScale;
+
+    const int result = DrawAnmVmSpriteQuad(&projectedVm, false, true);
+    memcpy(vm->drawVertices, projectedVm.drawVertices, sizeof(vm->drawVertices));
+    return result;
+}
+
 static int DrawAnmVmWorldMatrixSprite(AnmVm *vm)
 {
     AnmManager *manager = GetGlobalAnmManager();
@@ -1227,6 +1328,8 @@ int DrawAnmVm(AnmVm *vm)
         return DrawAnmVmSpriteQuad(vm, false, true);
     case 2:
         return DrawAnmVmSpriteQuad(vm, false, false);
+    case 4:
+        return DrawAnmVmProjectedSprite(vm);
     case 8:
         return DrawAnmVmWorldMatrixSprite(vm);
     case 9:
