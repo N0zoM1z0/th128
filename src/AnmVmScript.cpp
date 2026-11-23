@@ -319,7 +319,7 @@ __forceinline bool AnmVm::ExecuteWaitCommand(bool clearActiveFlag)
         return false;
     }
 
-    timer070.SetCurrent(timer070.current);
+    timer3FC.SetCurrent(timer070.current);
     waitScriptAddress = scriptDataOffsetCopy;
     timer070.SetCurrent(match->frame);
     flags |= 1U;
