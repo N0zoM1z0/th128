@@ -2185,13 +2185,18 @@ namespace
         vm->textureScrollX = scroll;
 
         scroll = vm->textureScrollY + vm->textureOffsetY * gameSpeed;
-        if (scroll >= 1.0f)
+        if (scroll < 1.0f)
         {
-            scroll -= 1.0f;
+            if (scroll < 0.0f)
+            {
+                scroll += 1.0f;
+            }
         }
-        else if (scroll < 0.0f)
+        else
         {
-            scroll += 1.0f;
+            // Unlike the X coordinate's ordered comparisons, the target's
+            // Y path sends unordered values through the subtract-one branch.
+            scroll -= 1.0f;
         }
         vm->textureScrollY = scroll;
 
