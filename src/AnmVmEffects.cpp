@@ -318,9 +318,16 @@ namespace
 {
     float SnapAnmSpriteCoordinate(float value)
     {
-        // FUN_0048FDF0 is the target's floor(double) helper. E920 subtracts
-        // the D3D half-pixel offset after flooring each selected edge.
-        return floorf(value) - 0.5f;
+        // E920 uses x87 FRNDINT before subtracting the D3D half-pixel
+        // offset. Match its default round-to-nearest, ties-to-even mode.
+        int lower = (int)floorf(value);
+        const float fraction = value - (float)lower;
+        if (fraction > 0.5f ||
+            (fraction == 0.5f && (lower & 1) != 0))
+        {
+            ++lower;
+        }
+        return (float)lower - 0.5f;
     }
 
     unsigned int ModulateAnmSpriteColor(
