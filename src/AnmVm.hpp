@@ -185,9 +185,7 @@ struct AnmVm
         unsigned char mode);
     void SetSecondaryEffectState(unsigned int duration, unsigned int mode, unsigned char parameter0, unsigned char parameter1);
     bool ExecuteWaitCommand(bool clearActiveFlag);
-    void UpdateTransitions();
     void UpdateTextureRectFromView();
-    void UpdateCustomGeometry();
     void UpdateWorldMatrix(float matrix[4][4], bool applyAlignment);
     int Update();
 

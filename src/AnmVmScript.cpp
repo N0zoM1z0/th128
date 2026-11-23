@@ -130,35 +130,7 @@ namespace
         return (unsigned int)(InstructionBytes(instruction) + instruction->size);
     }
 
-    __forceinline void UpdateTextureRectFromViewForFrame(AnmVm *vm)
-    {
-        float corners[12];
-        switch ((vm->flags >> 24) & 0x1FU)
-        {
-        case 0:
-            BuildAnmVmViewCornersMode0(vm, corners);
-            break;
-        case 1:
-            BuildAnmVmViewCornersMode1(vm, corners);
-            break;
-        case 2:
-        case 3:
-            BuildAnmVmViewCornersMode23(vm, corners);
-            break;
-        default:
-            return;
-        }
 
-        float *textureCoordinates = &vm->textureRect[0][0];
-        for (unsigned int i = 0; i != 4; ++i)
-        {
-            const float pixels[2] = {corners[i * 3], corners[i * 3 + 1]};
-            float normalized[2];
-            NormalizeAnmCoordinates(normalized, pixels);
-            textureCoordinates[i * 2] = normalized[0];
-            textureCoordinates[i * 2 + 1] = normalized[1];
-        }
-    }
 
     void LinkChildVm(AnmVm *parent, AnmVm *child)
     {
@@ -763,99 +735,7 @@ namespace
 
 }
 
-__forceinline void AnmVm::UpdateTransitions()
-{
-    if (viewMode != 0)
-    {
-        float result[3];
-        AnmVmVectorTransition *transition =
-            reinterpret_cast<AnmVmVectorTransition *>(&viewPosition);
-        InterpolateVector(transition, result);
 
-        ZunVec3 *viewOffset = (flags & 0x200U) != 0
-            ? &alternatePosition
-            : &secondaryPosition;
-        viewOffset->x = result[0];
-        viewOffset->y = result[1];
-        viewOffset->z = result[2];
-    }
-
-    if (colorTransition.duration != 0)
-    {
-        int result[3];
-        InterpolateColorVector(&colorTransition, result);
-        unsigned char *channels = reinterpret_cast<unsigned char *>(&color);
-        channels[0] = (unsigned char)result[0];
-        channels[1] = (unsigned char)result[1];
-        channels[2] = (unsigned char)result[2];
-    }
-
-    if (effectTransition.duration != 0)
-    {
-        unsigned char *channels = reinterpret_cast<unsigned char *>(&color);
-        channels[3] = (unsigned char)InterpolateInteger(&effectTransition);
-    }
-
-    if (scaleTransition.duration != 0)
-    {
-        float result[2];
-        InterpolateScale(&scaleTransition, result);
-        scaleX = result[0];
-        scaleY = result[1];
-        flags |= 8U;
-    }
-
-    if (secondaryScaleTransition.duration != 0)
-    {
-        float result[2];
-        InterpolateScale(&secondaryScaleTransition, result);
-        scale2X = result[0];
-        scale2Y = result[1];
-        flags |= 0x10U;
-    }
-
-    if (positionTransition.duration != 0)
-    {
-        float result[3];
-        InterpolateVector(&positionTransition, result);
-        unknown024 = result[0];
-        unknown028 = result[1];
-        unknown02C = result[2];
-        flags |= 4U;
-    }
-
-    if (viewTransition.duration != 0)
-    {
-        unknown02C = InterpolateAngle(&viewTransition);
-        flags |= 4U;
-    }
-
-    if (secondaryColorTransition.duration != 0)
-    {
-        int result[3];
-        InterpolateColorVector(&secondaryColorTransition, result);
-        unsigned char *channels = reinterpret_cast<unsigned char *>(&secondaryColor);
-        channels[0] = (unsigned char)result[0];
-        channels[1] = (unsigned char)result[1];
-        channels[2] = (unsigned char)result[2];
-    }
-
-    if (secondaryEffectTransition.duration != 0)
-    {
-        unsigned char *channels = reinterpret_cast<unsigned char *>(&secondaryColor);
-        channels[3] = (unsigned char)InterpolateInteger(&secondaryEffectTransition);
-    }
-
-    if (textureOffsetXTransition.duration != 0)
-    {
-        textureOffsetX = InterpolateLinearScalar(&textureOffsetXTransition);
-    }
-
-    if (textureOffsetYTransition.duration != 0)
-    {
-        textureOffsetY = InterpolateLinearScalar(&textureOffsetYTransition);
-    }
-}
 
 namespace
 {
@@ -863,289 +743,18 @@ namespace
     // segment count, then stores the quotient as float.
     const double kAnmVmGeometryTwoPi = 6.28318530717958647692;
 
-    __forceinline void WriteAnmVmGeometryVertexPair(
-        AnmVmEffect10Vertex *vertices,
-        float centerX,
-        float centerY,
-        float centerZ,
-        float angle,
-        float outerRadius,
-        float innerRadius,
-        unsigned int color,
-        float outerU,
-        float innerU,
-        float v)
-    {
-        vertices[0].SetPolarForUpdate(angle, outerRadius);
-        vertices[0].x += centerX;
-        vertices[0].y += centerY;
-        vertices[0].z = centerZ;
-        vertices[0].reciprocalW = 1.0f;
-        vertices[0].color = color;
-        vertices[0].u = outerU;
-        vertices[0].v = v;
 
-        vertices[1].SetPolarForUpdate(angle, innerRadius);
-        vertices[1].x += centerX;
-        vertices[1].y += centerY;
-        vertices[1].z = centerZ;
-        vertices[1].reciprocalW = 1.0f;
-        vertices[1].color = color;
-        vertices[1].u = innerU;
-        vertices[1].v = v;
-    }
 }
 
-__forceinline void AnmVm::UpdateCustomGeometry()
-{
-    const unsigned int geometryMode = (flags >> 24) & 0x1FU;
-    if ((geometryMode != 9U && geometryMode != 13U && geometryMode != 14U) ||
-        extraData == 0)
-    {
-        return;
-    }
 
-    AnmVmEffect10Vertex *vertices =
-        reinterpret_cast<AnmVmEffect10Vertex *>(extraData);
-    const unsigned int count = integerVariables[0] < 0
-        ? 0U
-        : (unsigned int)integerVariables[0];
-    if (count == 0)
-    {
-        if (geometryMode == 9U)
-        {
-            // The target still writes the seam V coordinate when the ring
-            // has no segments; its zero-initialized loop accumulator is used.
-            vertices[0].v = textureScrollY;
-            vertices[1].v = textureScrollY;
-        }
-        return;
-    }
-
-    float centerX;
-    float centerY;
-    float centerZ;
-    if (geometryMode == 9U)
-    {
-        centerX = alternatePosition.x + secondaryPosition.x;
-        centerY = alternatePosition.y + secondaryPosition.y;
-        centerZ = alternatePosition.z + secondaryPosition.z;
-        centerX = centerX + position.x;
-        centerY = centerY + position.y;
-        centerZ = centerZ + position.z;
-    }
-    else
-    {
-        centerX = secondaryPosition.x + alternatePosition.x;
-        centerY = secondaryPosition.y + alternatePosition.y;
-        centerZ = secondaryPosition.z + alternatePosition.z;
-        centerX = position.x + centerX;
-        centerY = position.y + centerY;
-        centerZ = position.z + centerZ;
-    }
-
-    if (parentVm != 0)
-    {
-        float parentCenterX =
-            parentVm->alternatePosition.x + parentVm->secondaryPosition.x;
-        float parentCenterY =
-            parentVm->alternatePosition.y + parentVm->secondaryPosition.y;
-        float parentCenterZ =
-            parentVm->alternatePosition.z + parentVm->secondaryPosition.z;
-        if (geometryMode == 9U)
-        {
-            parentCenterX = parentCenterX + parentVm->position.x;
-            parentCenterY = parentCenterY + parentVm->position.y;
-            parentCenterZ = parentCenterZ + parentVm->position.z;
-            centerX = centerX + parentCenterX;
-            centerY = centerY + parentCenterY;
-            centerZ = centerZ + parentCenterZ;
-        }
-        else
-        {
-            parentCenterX = parentVm->position.x + parentCenterX;
-            parentCenterY = parentVm->position.y + parentCenterY;
-            parentCenterZ = parentVm->position.z + parentCenterZ;
-            centerX = parentCenterX + centerX;
-            centerY = parentCenterY + centerY;
-            centerZ = parentCenterZ + centerZ;
-        }
-    }
-
-    const unsigned int vertexColor =
-        (flags & 0x00030000U) == 0 ? color : secondaryColor;
-    const float outerRadius = scaleX * 0.5f + scaleY;
-    const float innerRadius = scaleY - scaleX * 0.5f;
-    const float outerU = textureRect[0][0] + textureScrollX;
-    const float innerU = textureRect[0][2] + textureScrollX;
-
-    if (geometryMode == 9U)
-    {
-        const unsigned int segmentCount = count - 1U;
-        if (segmentCount == 0)
-        {
-            vertices[0].v = textureScrollY;
-            vertices[1].v = textureScrollY;
-            return;
-        }
-
-        const float segmentCountAsFloat = (float)segmentCount;
-        const float angleStep = (float)(
-            kAnmVmGeometryTwoPi / (double)segmentCountAsFloat);
-        const float vStep = (float)(
-            (double)integerVariables[1] / (double)segmentCountAsFloat);
-        float angle = unknown02C;
-        float v = 0.0f;
-
-        for (unsigned int i = 0; i != segmentCount; ++i)
-        {
-            WriteAnmVmGeometryVertexPair(
-                vertices + i * 2,
-                centerX,
-                centerY,
-                centerZ,
-                angle,
-                outerRadius,
-                innerRadius,
-                vertexColor,
-                outerU,
-                innerU,
-                v + textureScrollY);
-            v += vStep;
-            angle = AddAngles(angle, angleStep);
-        }
-
-        AnmVmEffect10Vertex *closingVertices = vertices + segmentCount * 2;
-        closingVertices[0] = vertices[0];
-        closingVertices[1] = vertices[1];
-        closingVertices[0].v = v + textureScrollY;
-        closingVertices[1].v = v + textureScrollY;
-        return;
-    }
-
-    const unsigned int divisor = count - 1U;
-    const float divisorAsFloat = (float)divisor;
-    const float angleStep = unknown024 / divisorAsFloat;
-    const float vStep = (float)(
-        (double)integerVariables[1] / (double)divisorAsFloat);
-    const float initialAngle = geometryMode == 13U
-        ? unknown02C - unknown024 * 0.5f
-        : unknown02C;
-    float angle = NormalizeAngle(initialAngle);
-    float v = 0.0f;
-
-    for (unsigned int i = 0; i != count; ++i)
-    {
-        WriteAnmVmGeometryVertexPair(
-            vertices + i * 2,
-            centerX,
-            centerY,
-            centerZ,
-            angle,
-            outerRadius,
-            innerRadius,
-            vertexColor,
-            outerU,
-            innerU,
-            v + textureScrollY);
-        v += vStep;
-        angle = AddAngles(angle, angleStep);
-    }
-}
 
 
 // Keep the frame owner in this translation unit with the script interpreter.
 namespace
 {
-    bool IsFrameUpdateSuppressedByStage(const AnmVm *vm)
-    {
-        if (vm->currentFrame != 0 || (vm->stateFlags & 0xC0U) != 0x40U)
-        {
-            return false;
-        }
 
-        const void *stageState =
-            *reinterpret_cast<void *const *>(0x004B8954);
-        if (stageState == 0)
-        {
-            return false;
-        }
 
-        return (*reinterpret_cast<const unsigned char *>(
-            reinterpret_cast<const unsigned char *>(stageState) + 0x60) & 2U) != 0;
-    }
 
-    __forceinline void UpdateContinuousMotion(AnmVm *vm, float gameSpeed)
-    {
-        if (vm->scriptVector.x != 0.0f)
-        {
-            vm->unknown024 = AddAngles(
-                vm->unknown024, gameSpeed * vm->scriptVector.x);
-            vm->flags |= 4U;
-        }
-
-        if (vm->scriptVector.y != 0.0f)
-        {
-            vm->unknown028 = AddAngles(
-                vm->unknown028, gameSpeed * vm->scriptVector.y);
-            vm->flags |= 4U;
-        }
-
-        if (vm->scriptVector.z != 0.0f)
-        {
-            vm->unknown02C = AddAngles(
-                vm->unknown02C, gameSpeed * vm->scriptVector.z);
-            vm->flags |= 4U;
-        }
-
-        if (vm->unknown054 != 0.0f)
-        {
-            vm->scaleY += gameSpeed * vm->unknown054;
-            vm->flags |= 8U;
-        }
-
-        if (vm->unknown050 != 0.0f)
-        {
-            vm->scaleX += vm->unknown050 * gameSpeed;
-            vm->flags |= 0x0CU;
-        }
-
-        float scroll = vm->textureScrollX + gameSpeed * vm->textureOffsetX;
-        if (scroll >= 1.0f)
-        {
-            scroll -= 1.0f;
-        }
-        else if (scroll < 0.0f)
-        {
-            scroll += 1.0f;
-        }
-        vm->textureScrollX = scroll;
-
-        scroll = vm->textureScrollY + vm->textureOffsetY * gameSpeed;
-        if (scroll < 1.0f)
-        {
-            if (scroll < 0.0f)
-            {
-                scroll += 1.0f;
-            }
-        }
-        else
-        {
-            // Unlike the X coordinate's ordered comparisons, the target's
-            // Y path sends unordered values through the subtract-one branch.
-            scroll -= 1.0f;
-        }
-        vm->textureScrollY = scroll;
-
-        if ((vm->flags & 0x4000U) != 0)
-        {
-            const float *stageOffset =
-                reinterpret_cast<const float *>(0x004D338C);
-            vm->position.x += stageOffset[0];
-            vm->position.y += stageOffset[1];
-            vm->position.z += stageOffset[2];
-        }
-    }
 }
 
 // Partial reconstruction of the 13,604-byte per-VM update owner at
@@ -1164,16 +773,24 @@ int AnmVm::Update()
 
     float *gameSpeed = reinterpret_cast<float *>(0x004B6F58);
     const float savedGameSpeed = *gameSpeed;
+    AnmVm *vm = this;
     if ((stateFlags & 1U) != 0)
     {
         *gameSpeed = 1.0f;
     }
 
-    if (IsFrameUpdateSuppressedByStage(this))
+    if (vm->currentFrame == 0 && (vm->stateFlags & 0xC0U) == 0x40U)
     {
-        // The target branches directly to 0x0045D0BA, past the game-speed
-        // restore at 0x0045D0B0. Preserve the temporary speed on this edge.
-        return 0;
+        const void *stageState =
+            *reinterpret_cast<void *const *>(0x004B8954);
+        if (stageState != 0 &&
+            (*reinterpret_cast<const unsigned char *>(
+                reinterpret_cast<const unsigned char *>(stageState) + 0x60) & 2U) != 0)
+        {
+            // The target branches directly to 0x0045D0BA, past the game-speed
+            // restore at 0x0045D0B0. Preserve the temporary speed on this edge.
+            return 0;
+        }
     }
 
     if (currentFrame == 0 || ExecuteWaitCommand(false))
@@ -2252,14 +1869,374 @@ int AnmVm::Update()
         return 1;
     }
 
-    UpdateContinuousMotion(this, *gameSpeed);
+    {
+        const float frameGameSpeed = *gameSpeed;
+        if (vm->scriptVector.x != 0.0f)
+        {
+            vm->unknown024 = AddAngles(
+                vm->unknown024, frameGameSpeed * vm->scriptVector.x);
+            vm->flags |= 4U;
+        }
+
+        if (vm->scriptVector.y != 0.0f)
+        {
+            vm->unknown028 = AddAngles(
+                vm->unknown028, frameGameSpeed * vm->scriptVector.y);
+            vm->flags |= 4U;
+        }
+
+        if (vm->scriptVector.z != 0.0f)
+        {
+            vm->unknown02C = AddAngles(
+                vm->unknown02C, frameGameSpeed * vm->scriptVector.z);
+            vm->flags |= 4U;
+        }
+
+        if (vm->unknown054 != 0.0f)
+        {
+            vm->scaleY += frameGameSpeed * vm->unknown054;
+            vm->flags |= 8U;
+        }
+
+        if (vm->unknown050 != 0.0f)
+        {
+            vm->scaleX += vm->unknown050 * frameGameSpeed;
+            vm->flags |= 0x0CU;
+        }
+
+        float scroll = vm->textureScrollX + frameGameSpeed * vm->textureOffsetX;
+        if (scroll >= 1.0f)
+        {
+            scroll -= 1.0f;
+        }
+        else if (scroll < 0.0f)
+        {
+            scroll += 1.0f;
+        }
+        vm->textureScrollX = scroll;
+
+        scroll = vm->textureScrollY + vm->textureOffsetY * frameGameSpeed;
+        if (scroll < 1.0f)
+        {
+            if (scroll < 0.0f)
+            {
+                scroll += 1.0f;
+            }
+        }
+        else
+        {
+            // Unlike the X coordinate's ordered comparisons, the target's
+            // Y path sends unordered values through the subtract-one branch.
+            scroll -= 1.0f;
+        }
+        vm->textureScrollY = scroll;
+
+        if ((vm->flags & 0x4000U) != 0)
+        {
+            const float *stageOffset =
+                reinterpret_cast<const float *>(0x004D338C);
+            vm->position.x += stageOffset[0];
+            vm->position.y += stageOffset[1];
+            vm->position.z += stageOffset[2];
+        }
+        }
     if ((stateFlags & 0x20U) != 0)
     {
-        UpdateTextureRectFromViewForFrame(this);
+
+        float corners[12];
+        bool cornersValid = true;
+        switch ((vm->flags >> 24) & 0x1FU)
+        {
+        case 0:
+            BuildAnmVmViewCornersMode0(vm, corners);
+            break;
+        case 1:
+            BuildAnmVmViewCornersMode1(vm, corners);
+            break;
+        case 2:
+        case 3:
+            BuildAnmVmViewCornersMode23(vm, corners);
+            break;
+        default:
+            cornersValid = false;
+            break;
+        }
+
+        if (cornersValid)
+        {
+        float *textureCoordinates = &vm->textureRect[0][0];
+        for (unsigned int i = 0; i != 4; ++i)
+        {
+            const float pixels[2] = {corners[i * 3], corners[i * 3 + 1]};
+            float normalized[2];
+            NormalizeAnmCoordinates(normalized, pixels);
+            textureCoordinates[i * 2] = normalized[0];
+            textureCoordinates[i * 2 + 1] = normalized[1];
+        }
+        }
+
     }
 
-    UpdateTransitions();
-    UpdateCustomGeometry();
+
+    if (viewMode != 0)
+    {
+        float result[3];
+        AnmVmVectorTransition *transition =
+            reinterpret_cast<AnmVmVectorTransition *>(&viewPosition);
+        InterpolateVector(transition, result);
+
+        ZunVec3 *viewOffset = (flags & 0x200U) != 0
+            ? &alternatePosition
+            : &secondaryPosition;
+        viewOffset->x = result[0];
+        viewOffset->y = result[1];
+        viewOffset->z = result[2];
+    }
+
+    if (colorTransition.duration != 0)
+    {
+        int result[3];
+        InterpolateColorVector(&colorTransition, result);
+        unsigned char *channels = reinterpret_cast<unsigned char *>(&color);
+        channels[0] = (unsigned char)result[0];
+        channels[1] = (unsigned char)result[1];
+        channels[2] = (unsigned char)result[2];
+    }
+
+    if (effectTransition.duration != 0)
+    {
+        unsigned char *channels = reinterpret_cast<unsigned char *>(&color);
+        channels[3] = (unsigned char)InterpolateInteger(&effectTransition);
+    }
+
+    if (scaleTransition.duration != 0)
+    {
+        float result[2];
+        InterpolateScale(&scaleTransition, result);
+        scaleX = result[0];
+        scaleY = result[1];
+        flags |= 8U;
+    }
+
+    if (secondaryScaleTransition.duration != 0)
+    {
+        float result[2];
+        InterpolateScale(&secondaryScaleTransition, result);
+        scale2X = result[0];
+        scale2Y = result[1];
+        flags |= 0x10U;
+    }
+
+    if (positionTransition.duration != 0)
+    {
+        float result[3];
+        InterpolateVector(&positionTransition, result);
+        unknown024 = result[0];
+        unknown028 = result[1];
+        unknown02C = result[2];
+        flags |= 4U;
+    }
+
+    if (viewTransition.duration != 0)
+    {
+        unknown02C = InterpolateAngle(&viewTransition);
+        flags |= 4U;
+    }
+
+    if (secondaryColorTransition.duration != 0)
+    {
+        int result[3];
+        InterpolateColorVector(&secondaryColorTransition, result);
+        unsigned char *channels = reinterpret_cast<unsigned char *>(&secondaryColor);
+        channels[0] = (unsigned char)result[0];
+        channels[1] = (unsigned char)result[1];
+        channels[2] = (unsigned char)result[2];
+    }
+
+    if (secondaryEffectTransition.duration != 0)
+    {
+        unsigned char *channels = reinterpret_cast<unsigned char *>(&secondaryColor);
+        channels[3] = (unsigned char)InterpolateInteger(&secondaryEffectTransition);
+    }
+
+    if (textureOffsetXTransition.duration != 0)
+    {
+        textureOffsetX = InterpolateLinearScalar(&textureOffsetXTransition);
+    }
+
+    if (textureOffsetYTransition.duration != 0)
+    {
+        textureOffsetY = InterpolateLinearScalar(&textureOffsetYTransition);
+    }
+
+    do
+    {
+    const unsigned int geometryMode = (flags >> 24) & 0x1FU;
+    if ((geometryMode != 9U && geometryMode != 13U && geometryMode != 14U) ||
+        extraData == 0)
+    {
+        break;
+    }
+
+    AnmVmEffect10Vertex *vertices =
+        reinterpret_cast<AnmVmEffect10Vertex *>(extraData);
+    const unsigned int count = integerVariables[0] < 0
+        ? 0U
+        : (unsigned int)integerVariables[0];
+    if (count == 0)
+    {
+        if (geometryMode == 9U)
+        {
+            // The target still writes the seam V coordinate when the ring
+            // has no segments; its zero-initialized loop accumulator is used.
+            vertices[0].v = textureScrollY;
+            vertices[1].v = textureScrollY;
+        }
+        break;
+    }
+
+    float centerX;
+    float centerY;
+    float centerZ;
+    if (geometryMode == 9U)
+    {
+        centerX = alternatePosition.x + secondaryPosition.x;
+        centerY = alternatePosition.y + secondaryPosition.y;
+        centerZ = alternatePosition.z + secondaryPosition.z;
+        centerX = centerX + position.x;
+        centerY = centerY + position.y;
+        centerZ = centerZ + position.z;
+    }
+    else
+    {
+        centerX = secondaryPosition.x + alternatePosition.x;
+        centerY = secondaryPosition.y + alternatePosition.y;
+        centerZ = secondaryPosition.z + alternatePosition.z;
+        centerX = position.x + centerX;
+        centerY = position.y + centerY;
+        centerZ = position.z + centerZ;
+    }
+
+    if (parentVm != 0)
+    {
+        float parentCenterX =
+            parentVm->alternatePosition.x + parentVm->secondaryPosition.x;
+        float parentCenterY =
+            parentVm->alternatePosition.y + parentVm->secondaryPosition.y;
+        float parentCenterZ =
+            parentVm->alternatePosition.z + parentVm->secondaryPosition.z;
+        if (geometryMode == 9U)
+        {
+            parentCenterX = parentCenterX + parentVm->position.x;
+            parentCenterY = parentCenterY + parentVm->position.y;
+            parentCenterZ = parentCenterZ + parentVm->position.z;
+            centerX = centerX + parentCenterX;
+            centerY = centerY + parentCenterY;
+            centerZ = centerZ + parentCenterZ;
+        }
+        else
+        {
+            parentCenterX = parentVm->position.x + parentCenterX;
+            parentCenterY = parentVm->position.y + parentCenterY;
+            parentCenterZ = parentVm->position.z + parentCenterZ;
+            centerX = parentCenterX + centerX;
+            centerY = parentCenterY + centerY;
+            centerZ = parentCenterZ + centerZ;
+        }
+    }
+
+    const unsigned int vertexColor =
+        (flags & 0x00030000U) == 0 ? color : secondaryColor;
+    const float outerRadius = scaleX * 0.5f + scaleY;
+    const float innerRadius = scaleY - scaleX * 0.5f;
+    const float outerU = textureRect[0][0] + textureScrollX;
+    const float innerU = textureRect[0][2] + textureScrollX;
+
+    if (geometryMode == 9U)
+    {
+        const unsigned int segmentCount = count - 1U;
+        if (segmentCount == 0)
+        {
+            vertices[0].v = textureScrollY;
+            vertices[1].v = textureScrollY;
+            break;
+        }
+
+        const float segmentCountAsFloat = (float)segmentCount;
+        const float angleStep = (float)(
+            kAnmVmGeometryTwoPi / (double)segmentCountAsFloat);
+        const float vStep = (float)(
+            (double)integerVariables[1] / (double)segmentCountAsFloat);
+        float angle = unknown02C;
+        float v = 0.0f;
+
+        for (unsigned int i = 0; i != segmentCount; ++i)
+        {
+            AnmVmEffect10Vertex *pairVertices = vertices + i * 2;
+            pairVertices[0].SetPolarForUpdate(angle, outerRadius);
+            pairVertices[0].x += centerX;
+            pairVertices[0].y += centerY;
+            pairVertices[0].z = centerZ;
+            pairVertices[0].reciprocalW = 1.0f;
+            pairVertices[0].color = vertexColor;
+            pairVertices[0].u = outerU;
+            pairVertices[0].v = v + textureScrollY;
+
+            pairVertices[1].SetPolarForUpdate(angle, innerRadius);
+            pairVertices[1].x += centerX;
+            pairVertices[1].y += centerY;
+            pairVertices[1].z = centerZ;
+            pairVertices[1].reciprocalW = 1.0f;
+            pairVertices[1].color = vertexColor;
+            pairVertices[1].u = innerU;
+            pairVertices[1].v = v + textureScrollY;
+            v += vStep;
+            angle = AddAngles(angle, angleStep);
+        }
+
+        AnmVmEffect10Vertex *closingVertices = vertices + segmentCount * 2;
+        closingVertices[0] = vertices[0];
+        closingVertices[1] = vertices[1];
+        closingVertices[0].v = v + textureScrollY;
+        closingVertices[1].v = v + textureScrollY;
+        break;
+    }
+
+    const unsigned int divisor = count - 1U;
+    const float divisorAsFloat = (float)divisor;
+    const float angleStep = unknown024 / divisorAsFloat;
+    const float vStep = (float)(
+        (double)integerVariables[1] / (double)divisorAsFloat);
+    const float initialAngle = geometryMode == 13U
+        ? unknown02C - unknown024 * 0.5f
+        : unknown02C;
+    float angle = NormalizeAngle(initialAngle);
+    float v = 0.0f;
+
+    for (unsigned int i = 0; i != count; ++i)
+    {
+        AnmVmEffect10Vertex *pairVertices = vertices + i * 2;
+        pairVertices[0].SetPolarForUpdate(angle, outerRadius);
+        pairVertices[0].x += centerX;
+        pairVertices[0].y += centerY;
+        pairVertices[0].z = centerZ;
+        pairVertices[0].reciprocalW = 1.0f;
+        pairVertices[0].color = vertexColor;
+        pairVertices[0].u = outerU;
+        pairVertices[0].v = v + textureScrollY;
+
+        pairVertices[1].SetPolarForUpdate(angle, innerRadius);
+        pairVertices[1].x += centerX;
+        pairVertices[1].y += centerY;
+        pairVertices[1].z = centerZ;
+        pairVertices[1].reciprocalW = 1.0f;
+        pairVertices[1].color = vertexColor;
+        pairVertices[1].u = innerU;
+        pairVertices[1].v = v + textureScrollY;
+        v += vStep;
+        angle = AddAngles(angle, angleStep);
+    }
+    } while (0);
 
     if (frameCallback != 0)
     {
