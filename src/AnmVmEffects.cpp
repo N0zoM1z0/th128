@@ -1791,7 +1791,7 @@ int __fastcall UpdateAnmVmEffect10(AnmVm *vm)
             WrapEffect10V(data);
         }
 
-        vertex->color = vm->color;
+        vertex->color = vm->color & 0x00FFFFFFU;
 
         data->particleRadius[i] += data->particleRadialSpeed[i];
         vertex->SetPolar(angle, data->particleRadius[i]);
