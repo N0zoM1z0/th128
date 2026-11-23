@@ -294,7 +294,7 @@ void DrawAnmVmVertices(AnmVm *vm, const void *vertices, unsigned int vertexCount
     }
 
     device->DrawPrimitiveUP(
-        D3DPT_TRIANGLELIST,
+        D3DPT_TRIANGLEFAN,
         vertexCount - 2,
         vertices,
         sizeof(AnmVmEffect10Vertex));
@@ -917,9 +917,12 @@ static int DrawAnmVmFogSprite(AnmVm *vm)
         vm->position.y + vm->secondaryPosition.y + vm->alternatePosition.y;
     const float worldZ =
         vm->position.z + vm->secondaryPosition.z + vm->alternatePosition.z;
-    const float deltaX = worldX - *reinterpret_cast<const float *>(0x004D306C);
-    const float deltaY = worldY - *reinterpret_cast<const float *>(0x004D3070);
-    const float deltaZ = worldZ - *reinterpret_cast<const float *>(0x004D3074);
+    const float deltaX =
+        worldX - *reinterpret_cast<const float *>(camera + 0x00);
+    const float deltaY =
+        worldY - *reinterpret_cast<const float *>(camera + 0x04);
+    const float deltaZ =
+        worldZ - *reinterpret_cast<const float *>(camera + 0x08);
     const float distance = (float)sqrt(
         (double)(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ));
     const float fogStart = *reinterpret_cast<const float *>(0x004D3168);
@@ -1001,9 +1004,7 @@ static int DrawAnmVmWorldMatrixSprite(AnmVm *vm)
         return -1;
     }
 
-    const unsigned int selectedColor =
-        (vm->flags & 0x00030000U) == 0 ? vm->color : vm->secondaryColor;
-    if ((selectedColor & 0xFF000000U) == 0)
+    if ((vm->color & 0xFF000000U) == 0)
     {
         return -1;
     }
@@ -1554,6 +1555,19 @@ namespace
             return 0;
 
         case 16:
+            DrawAnmVmPrimitiveFan(
+                manager, renderer, device, centerX, centerY,
+                width, angle, vm->integerVariables[0],
+                vm->color, vm->secondaryColor);
+            return 0;
+
+        case 17:
+            DrawAnmVmPrimitiveLine(
+                manager, renderer, device, centerX, centerY,
+                width, angle, vm->integerVariables[0], vm->color);
+            return 0;
+
+        case 19:
             DrawAnmVmPrimitiveQuad(
                 manager, renderer, device, centerX, centerY,
                 width, height, angle,
@@ -1561,7 +1575,7 @@ namespace
                 vm->color, vm->secondaryColor);
             return 0;
 
-        case 17:
+        case 20:
         {
             const unsigned int outline = HalfAlphaColor(vm->color);
             DrawAnmVmPrimitiveQuad(
@@ -1575,7 +1589,7 @@ namespace
             return 0;
         }
 
-        case 18:
+        case 21:
         {
             const unsigned int outlineColor0 =
                 vm->secondaryColor & 0x00FFFFFFU;
@@ -1593,19 +1607,6 @@ namespace
                 vm->secondaryColor, vm->color);
             return 0;
         }
-
-        case 19:
-            DrawAnmVmPrimitiveLine(
-                manager, renderer, device, centerX, centerY,
-                width, angle, vm->integerVariables[0], vm->color);
-            return 0;
-
-        case 20:
-            DrawAnmVmPrimitiveFan(
-                manager, renderer, device, centerX, centerY,
-                width, angle, vm->integerVariables[0],
-                vm->color, vm->secondaryColor);
-            return 0;
 
         default:
             return 0;
@@ -1647,6 +1648,13 @@ int DrawAnmVm(AnmVm *vm)
     case 7:
         return DrawAnmVmWorldFogSprite(vm);
     case 8:
+        return DrawAnmVmWorldMatrixSprite(vm);
+    case 18:
+        if ((vm->color & 0xFF000000U) == 0 &&
+            (vm->secondaryColor & 0xFF000000U) == 0)
+        {
+            return -1;
+        }
         return DrawAnmVmFogEnabledWorldMatrixSprite(vm);
     case 9:
     case 12:
@@ -1662,9 +1670,9 @@ int DrawAnmVm(AnmVm *vm)
     case 15:
     case 16:
     case 17:
-    case 18:
     case 19:
     case 20:
+    case 21:
         return DrawAnmVmPrimitiveEffect(vm, mode);
 
     default:
