@@ -10,7 +10,9 @@ struct AnmManager
 {
     unsigned char unknown000[0xA0];
     int activeVmCount;                      // +0x0A0
-    unsigned char unknown0A4[0xB8 - 0xA4];
+    unsigned char unknown0A4[0xB0 - 0xA4];
+    float viewOffsetX;                      // +0x0B0
+    float viewOffsetY;                      // +0x0B4
     int updateCount;                        // +0x0B8
     AnmVm vmPool[0x1000];                   // +0x0BC
     unsigned char vmPoolUsed[0x1000];       // +0x4E80BC
@@ -22,6 +24,8 @@ struct AnmManager
     AnmVmListNode *uiVmsTail;               // +0x8B9710
     AnmVm renderListHeads[33];               // +0x8B9714, 31 world + 2 UI groups
     unsigned int nextVmId;                  // +0x8C38FC
+    unsigned char colorModulation[4];        // +0x8C3900
+    unsigned int colorModulationEnabled;     // +0x8C3904
 
     AnmVm *GetVmById(unsigned int id);
     unsigned int RegisterWorldVmAtTail(AnmVm *vm);
@@ -36,6 +40,8 @@ struct AnmManager
     int DrawVmGroup(unsigned int group);
 };
 typedef char AnmManagerActiveCountOffset[(offsetof(AnmManager, activeVmCount) == 0xA0) ? 1 : -1];
+typedef char AnmManagerViewOffsetX[(offsetof(AnmManager, viewOffsetX) == 0xB0) ? 1 : -1];
+typedef char AnmManagerViewOffsetY[(offsetof(AnmManager, viewOffsetY) == 0xB4) ? 1 : -1];
 typedef char AnmManagerUpdateCountOffset[(offsetof(AnmManager, updateCount) == 0xB8) ? 1 : -1];
 typedef char AnmManagerPoolOffset[(offsetof(AnmManager, vmPool) == 0xBC) ? 1 : -1];
 typedef char AnmManagerUsedOffset[(offsetof(AnmManager, vmPoolUsed) == 0x4E80BC) ? 1 : -1];
@@ -43,6 +49,8 @@ typedef char AnmManagerPoolCursorOffset[(offsetof(AnmManager, nextVmPoolIndex) =
 typedef char AnmManagerWorldListOffset[(offsetof(AnmManager, worldVms) == 0x8B9704) ? 1 : -1];
 typedef char AnmManagerRenderHeadsOffset[(offsetof(AnmManager, renderListHeads) == 0x8B9714) ? 1 : -1];
 typedef char AnmManagerNextIdOffset[(offsetof(AnmManager, nextVmId) == 0x8C38FC) ? 1 : -1];
+typedef char AnmManagerColorModulationOffset[(offsetof(AnmManager, colorModulation) == 0x8C3900) ? 1 : -1];
+typedef char AnmManagerColorModulationEnabledOffset[(offsetof(AnmManager, colorModulationEnabled) == 0x8C3904) ? 1 : -1];
 
 inline AnmManager *GetGlobalAnmManager()
 {

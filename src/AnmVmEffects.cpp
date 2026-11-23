@@ -1,5 +1,6 @@
 #include "AnmVm.hpp"
 #include "AnmResource.hpp"
+#include "AnmManager.hpp"
 #include "AngleMath.hpp"
 
 #include <d3d9.h>
@@ -271,6 +272,296 @@ void DrawAnmVmVertices(AnmVm *vm, const void *vertices, unsigned int vertexCount
         sizeof(AnmVmEffect10Vertex));
 }
 
+
+namespace
+{
+    float RoundAnmSpriteCoordinate(float value)
+    {
+        const float lower = floorf(value);
+        const float fraction = value - lower;
+        if (fraction > 0.5f ||
+            (fraction == 0.5f && fmodf(lower, 2.0f) != 0.0f))
+        {
+            return lower + 1.0f;
+        }
+        return lower;
+    }
+
+    unsigned int ModulateAnmSpriteColor(
+        unsigned int color,
+        const unsigned char modulation[4])
+    {
+        unsigned int result = 0;
+        for (unsigned int channel = 0; channel != 4; ++channel)
+        {
+            unsigned int value =
+                ((color >> (channel * 8)) & 0xFFU) * modulation[channel] >> 7;
+            if (value > 0xFFU)
+            {
+                value = 0xFFU;
+            }
+            result |= value << (channel * 8);
+        }
+        return result;
+    }
+
+    void AppendAnmVmSpriteQuad(
+        AnmVmRendererState *renderer,
+        const AnmVmEffect10Vertex vertices[4])
+    {
+        AnmVmEffect10Vertex *destination =
+            reinterpret_cast<AnmVmEffect10Vertex *>(renderer->nextBatchVertex);
+        destination[0] = vertices[0];
+        destination[1] = vertices[1];
+        destination[2] = vertices[2];
+        destination[3] = vertices[1];
+        destination[4] = vertices[2];
+        destination[5] = vertices[3];
+        renderer->nextBatchVertex = destination + 6;
+        ++renderer->pendingBatchCount;
+    }
+}
+
+static int DrawAnmVmSpriteQuad(AnmVm *vm, bool pixelSnap, bool rotate)
+{
+    AnmVmRendererState *renderer = GetAnmVmRenderer();
+    IDirect3DDevice9 *device = GetAnmVmDevice();
+    AnmManager *manager = GetGlobalAnmManager();
+    if (renderer == 0 || device == 0 || manager == 0 || vm == 0 ||
+        vm->anmFileEntry == 0)
+    {
+        return -1;
+    }
+
+    AnmVm *parent = vm->parentVm;
+    const bool inheritParent =
+        parent != 0 && (vm->stateFlags & 0x100U) == 0;
+
+    float width = vm->uvScrollX * vm->scaleX * vm->scale2X;
+    float height = vm->uvScrollY * vm->scaleY * vm->scale2Y;
+    float centerX = vm->position.x +
+        vm->secondaryPosition.x + vm->alternatePosition.x;
+    float centerY = vm->position.y +
+        vm->secondaryPosition.y + vm->alternatePosition.y;
+    float centerZ = vm->position.z +
+        vm->secondaryPosition.z + vm->alternatePosition.z;
+    float angle = rotate ? vm->unknown02C : 0.0f;
+
+    if (inheritParent)
+    {
+        width *= parent->scaleX * parent->scale2X;
+        height *= parent->scaleY * parent->scale2Y;
+        centerX += parent->position.x +
+            parent->secondaryPosition.x + parent->alternatePosition.x;
+        centerY += parent->position.y +
+            parent->secondaryPosition.y + parent->alternatePosition.y;
+        if (!rotate)
+        {
+            centerZ += parent->position.z +
+                parent->secondaryPosition.z + parent->alternatePosition.z;
+        }
+        if (rotate)
+        {
+            angle += parent->unknown02C;
+        }
+    }
+
+    const unsigned int horizontalAlignment = (vm->flags >> 20) & 3U;
+    const unsigned int verticalAlignment = (vm->flags >> 22) & 3U;
+    float left = centerX;
+    float right = centerX;
+    float top = centerY;
+    float bottom = centerY;
+
+    switch (horizontalAlignment)
+    {
+    case 0:
+        left -= width * 0.5f;
+        right = left + width;
+        break;
+    case 1:
+        right += width;
+        break;
+    case 2:
+        left -= width;
+        break;
+    default:
+        break;
+    }
+
+    switch (verticalAlignment)
+    {
+    case 0:
+        top -= height * 0.5f;
+        bottom = top + height;
+        break;
+    case 1:
+        bottom += height;
+        break;
+    case 2:
+        top -= height;
+        break;
+    default:
+        break;
+    }
+
+    if (pixelSnap)
+    {
+        if (horizontalAlignment == 0U)
+        {
+            left = RoundAnmSpriteCoordinate(left);
+            right = left + width;
+        }
+        if (verticalAlignment == 0U)
+        {
+            top = RoundAnmSpriteCoordinate(top);
+            bottom = top + height;
+        }
+    }
+
+    const float localX[4] = {left, right, left, right};
+    const float localY[4] = {top, top, bottom, bottom};
+    const float cosine = rotate ? (float)cos((double)angle) : 1.0f;
+    const float sine = rotate ? (float)sin((double)angle) : 0.0f;
+    const float offsetX = manager->viewOffsetX;
+    const float offsetY = manager->viewOffsetY;
+
+    AnmVmEffect10Vertex vertices[4];
+    for (unsigned int i = 0; i != 4; ++i)
+    {
+        const float relativeX = localX[i] - centerX;
+        const float relativeY = localY[i] - centerY;
+        vertices[i].x = centerX +
+            cosine * relativeX - sine * relativeY + offsetX;
+        vertices[i].y = centerY +
+            sine * relativeX + cosine * relativeY + offsetY;
+        if (pixelSnap)
+        {
+            vertices[i].x =
+                RoundAnmSpriteCoordinate(vertices[i].x) - 0.5f;
+            vertices[i].y =
+                RoundAnmSpriteCoordinate(vertices[i].y) - 0.5f;
+        }
+        vertices[i].z = centerZ;
+        vertices[i].reciprocalW = 1.0f;
+        vm->drawVertices[i].x = vertices[i].x;
+        vm->drawVertices[i].y = vertices[i].y;
+        vm->drawVertices[i].z = vertices[i].z;
+    }
+
+    const float (*rect)[4] = vm->textureRect;
+    vertices[0].u = rect[0][0] + vm->textureScrollX;
+    vertices[0].v = rect[0][1] + vm->textureScrollY;
+    vertices[1].u = rect[0][0] +
+        (rect[0][2] - rect[0][0]) * vm->unknown058 +
+        vm->textureScrollX;
+    vertices[1].v = rect[0][3] + vm->textureScrollY;
+    vertices[2].u = rect[1][0] + vm->textureScrollX;
+    vertices[2].v = rect[0][1] +
+        (rect[1][1] - rect[0][1]) * vm->unknown05C +
+        vm->textureScrollY;
+    vertices[3].u = rect[1][0] +
+        (rect[1][2] - rect[1][0]) * vm->unknown058 +
+        vm->textureScrollX;
+    vertices[3].v = rect[0][3] +
+        (rect[1][3] - rect[0][3]) * vm->unknown05C +
+        vm->textureScrollY;
+
+    unsigned int primaryColor = vm->color;
+    unsigned int secondaryColor = vm->secondaryColor;
+    if (manager->colorModulationEnabled != 0)
+    {
+        primaryColor = ModulateAnmSpriteColor(
+            primaryColor, manager->colorModulation);
+        secondaryColor = ModulateAnmSpriteColor(
+            secondaryColor, manager->colorModulation);
+    }
+
+    const unsigned int colorMode = (vm->flags >> 16) & 3U;
+    if (colorMode == 0U)
+    {
+        for (unsigned int i = 0; i != 4; ++i)
+        {
+            vertices[i].color = primaryColor;
+        }
+    }
+    else if (colorMode == 1U)
+    {
+        for (unsigned int i = 0; i != 4; ++i)
+        {
+            vertices[i].color = secondaryColor;
+        }
+    }
+    else if (colorMode == 2U)
+    {
+        vertices[0].color = primaryColor;
+        vertices[1].color = secondaryColor;
+        vertices[2].color = primaryColor;
+        vertices[3].color = secondaryColor;
+    }
+    else
+    {
+        vertices[0].color = primaryColor;
+        vertices[1].color = primaryColor;
+        vertices[2].color = secondaryColor;
+        vertices[3].color = secondaryColor;
+    }
+
+    const unsigned char *viewport =
+        *reinterpret_cast<const unsigned char *const *>(0x004D33B4);
+    if (viewport != 0)
+    {
+        const unsigned int leftEdge =
+            (unsigned int)*reinterpret_cast<const int *>(viewport + 0xCC);
+        const unsigned int topEdge =
+            (unsigned int)*reinterpret_cast<const int *>(viewport + 0xD0);
+        const unsigned int rightEdge = leftEdge +
+            (unsigned int)*reinterpret_cast<const int *>(viewport + 0xD4);
+        const unsigned int bottomEdge = topEdge +
+            (unsigned int)*reinterpret_cast<const int *>(viewport + 0xD8);
+        const float clipLeft = (float)leftEdge;
+        const float clipTop = (float)topEdge;
+        const float clipRight = (float)rightEdge;
+        const float clipBottom = (float)bottomEdge;
+        float minX = vertices[0].x;
+        float maxX = vertices[0].x;
+        float minY = vertices[0].y;
+        float maxY = vertices[0].y;
+        for (unsigned int i = 1; i != 4; ++i)
+        {
+            if (vertices[i].x < minX) minX = vertices[i].x;
+            if (vertices[i].x > maxX) maxX = vertices[i].x;
+            if (vertices[i].y < minY) minY = vertices[i].y;
+            if (vertices[i].y > maxY) maxY = vertices[i].y;
+        }
+        if (maxX < clipLeft || maxY < clipTop ||
+            clipRight < minX || clipBottom < minY)
+        {
+            return 0;
+        }
+    }
+
+    void **textureSlot = &vm->anmFileEntry->texture;
+    if (renderer->currentTexture != textureSlot)
+    {
+        FlushAnmSpriteBatch();
+        renderer->currentTexture = textureSlot;
+        device->SetTexture(
+            0,
+            reinterpret_cast<IDirect3DBaseTexture9 *>(*textureSlot));
+    }
+
+    if (renderer->vertexFormatMode != 1)
+    {
+        FlushAnmSpriteBatch();
+        renderer->vertexFormatMode = 1;
+    }
+
+    ApplyAnmVmRenderState(vm);
+    AppendAnmVmSpriteQuad(renderer, vertices);
+    return 0;
+}
+
 int DrawAnmVmTriangleStrip(
     AnmVm *vm,
     const void *vertices,
@@ -335,9 +626,20 @@ int DrawAnmVm(AnmVm *vm)
     const unsigned int mode = (vm->flags >> 24) & 0x1FU;
     const unsigned int vertexCount =
         (unsigned int)vm->integerVariables[0] * 2U;
+    if (mode <= 8U &&
+        (vm->color & 0xFF000000U) == 0 &&
+        (vm->secondaryColor & 0xFF000000U) == 0)
+    {
+        return -1;
+    }
 
     switch (mode)
     {
+    case 0:
+        return DrawAnmVmSpriteQuad(vm, true, false);
+    case 1:
+    case 3:
+        return DrawAnmVmSpriteQuad(vm, false, true);
     case 9:
     case 12:
     case 13:

@@ -144,7 +144,7 @@ struct AnmVm
     ZunVec3 secondaryPosition;              // +0x458
     ZunVec3 position;                       // +0x464
     ZunVec3 alternatePosition;               // +0x470
-    unsigned char unknown47C[0x4AC - 0x47C];
+    ZunVec3 drawVertices[4];                // +0x47C, cached sprite quad positions
     void *extraData;                        // +0x4AC, freed by the destructor
     unsigned int flags;                     // +0x4B0, bit 3 marks the transform dirty
     unsigned int stateFlags;                // +0x4B4, bit 6 set by reset
@@ -208,6 +208,7 @@ typedef char AnmVmSize[(sizeof(AnmVm) == 0x4E8) ? 1 : -1];
 typedef char AnmVmManagerNodeOffset[(offsetof(AnmVm, managerNode) == 0x04) ? 1 : -1];
 typedef char AnmVmChildNodeOffset[(offsetof(AnmVm, childNode) == 0x10) ? 1 : -1];
 typedef char AnmVmDrawListNextOffset[(offsetof(AnmVm, drawListNext) == 0x1C) ? 1 : -1];
+typedef char AnmVmDrawVerticesOffset[(offsetof(AnmVm, drawVertices) == 0x47C) ? 1 : -1];
 typedef char AnmVmParentVmOffset[(offsetof(AnmVm, parentVm) == 0x3C) ? 1 : -1];
 typedef char AnmVmScriptIndexOffset[(offsetof(AnmVm, anmScriptIndex) == 0x41E) ? 1 : -1];
 typedef char AnmVmResourceOffset[(offsetof(AnmVm, resource) == 0x42C) ? 1 : -1];
