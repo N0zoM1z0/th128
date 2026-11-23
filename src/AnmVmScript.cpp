@@ -277,7 +277,7 @@ __forceinline bool AnmVm::ExecuteWaitCommand(bool clearActiveFlag)
     const AnmVmInstructionHeader *marker =
         reinterpret_cast<const AnmVmInstructionHeader *>(scriptDataOffset);
 
-    while (marker != 0 && marker->opcode != 0xFFFFU)
+    while (marker->opcode != 0xFFFFU)
     {
         if (marker->opcode == 0x40U)
         {
@@ -292,10 +292,6 @@ __forceinline bool AnmVm::ExecuteWaitCommand(bool clearActiveFlag)
             }
         }
 
-        if (marker->size < sizeof(AnmVmInstructionHeader))
-        {
-            break;
-        }
         marker = reinterpret_cast<const AnmVmInstructionHeader *>(
             InstructionBytes(marker) + marker->size);
     }
@@ -323,11 +319,6 @@ __forceinline bool AnmVm::ExecuteWaitCommand(bool clearActiveFlag)
 
 __forceinline bool AnmVm::ExecuteBasicInstruction(const AnmVmInstructionHeader *instruction)
 {
-    if (instruction == 0 || instruction->size < sizeof(AnmVmInstructionHeader))
-    {
-        return false;
-    }
-
     const unsigned int nextInstruction = NextInstructionAddress(instruction);
     int *integerDestination;
     float *floatDestination;
