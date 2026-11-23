@@ -21,6 +21,7 @@ struct ZunTimer
     void SetCurrentF(float value);
     void Add(float value);
     void Increment();
+    void AdvanceFrame();
 
     bool operator<(int value) const;
     bool operator<=(int value) const;

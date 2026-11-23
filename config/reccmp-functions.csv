@@ -128,3 +128,4 @@ NormalizeAngle,0x0046A700,function
 MenuCursor::Move,0x0046A970,function
 ZunTimer::Add,0x0046AA20,function
 SptResourceInf::Load,0x004703F0,function
+AnmVm::Update,0x00459D90,function

@@ -153,7 +153,8 @@ struct AnmVm
     void (__fastcall *extraDataDrawCallback)(AnmVm *);   // +0x4C0
     unsigned char unknown4C4[4];
     void (__fastcall *stopCallback)(AnmVm *, short); // +0x4C8
-    unsigned char unknown4CC[0x4E0 - 0x4CC];
+    unsigned char unknown4CC[0x4DC - 0x4CC];
+    int (__thiscall *frameCallback)(AnmVm *); // +0x4DC, can terminate this update
     int (__fastcall *anmFileResolver)(AnmVm *); // +0x4E0
     unsigned int unknown4E4;
 
@@ -168,6 +169,11 @@ struct AnmVm
         int duration,
         unsigned char mode);
     void SetScaleTransition(
+        const float *target,
+        const float *current,
+        int duration,
+        unsigned char mode);
+    void SetSecondaryScaleTransition(
         const float *target,
         const float *current,
         int duration,
@@ -187,6 +193,7 @@ struct AnmVm
     bool ExecuteBasicInstruction(const AnmVmInstructionHeader *instruction);
     unsigned int ExecuteReadyInstructions();
     void UpdateTransitions();
+    void Update();
 
     int ResolveIntegerOperand(int operand);
     float ResolveFloatOperand(float operand);
@@ -214,6 +221,7 @@ typedef char AnmVmIntegerVariables2Offset[(offsetof(AnmVm, integerVariables2) ==
 typedef char AnmVmExtraDataUpdateCallbackOffset[(offsetof(AnmVm, extraDataUpdateCallback) == 0x4BC) ? 1 : -1];
 typedef char AnmVmExtraDataDrawCallbackOffset[(offsetof(AnmVm, extraDataDrawCallback) == 0x4C0) ? 1 : -1];
 typedef char AnmVmStopCallbackOffset[(offsetof(AnmVm, stopCallback) == 0x4C8) ? 1 : -1];
+typedef char AnmVmFrameCallbackOffset[(offsetof(AnmVm, frameCallback) == 0x4DC) ? 1 : -1];
 typedef char AnmVmFileResolverOffset[(offsetof(AnmVm, anmFileResolver) == 0x4E0) ? 1 : -1];
 typedef char AnmVmLastScriptFrameOffset[(offsetof(AnmVm, lastScriptFrame) == 0x414) ? 1 : -1];
 typedef char AnmVmWaitScriptAddressOffset[(offsetof(AnmVm, waitScriptAddress) == 0x410) ? 1 : -1];

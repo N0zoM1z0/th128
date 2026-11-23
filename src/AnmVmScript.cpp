@@ -83,36 +83,6 @@ namespace
 
 }
 
-void AnmVm::SetEffectState(
-    unsigned int duration,
-    unsigned char mode,
-    unsigned char parameter0,
-    unsigned char parameter1)
-{
-    effectTransition.duration = duration;
-    effectTransition.mode = mode;
-    effectTransition.values[0] = parameter0;
-    effectTransition.values[1] = parameter1;
-    effectTransition.values[2] = 0;
-    effectTransition.values[3] = 0;
-    effectTransition.timer.Reset();
-}
-
-void AnmVm::SetSecondaryEffectState(
-    unsigned int duration,
-    unsigned int mode,
-    unsigned char parameter0,
-    unsigned char parameter1)
-{
-    secondaryEffectTransition.duration = duration;
-    secondaryEffectTransition.mode = mode & 0xFFU;
-    secondaryEffectTransition.values[0] = parameter0;
-    secondaryEffectTransition.values[1] = parameter1;
-    secondaryEffectTransition.values[2] = 0;
-    secondaryEffectTransition.values[3] = 0;
-    secondaryEffectTransition.timer.Reset();
-}
-
 bool AnmVm::ExecuteWaitCommand(bool clearActiveFlag)
 {
     if (clearActiveFlag)

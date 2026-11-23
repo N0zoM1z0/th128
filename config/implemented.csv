@@ -127,3 +127,4 @@ ZunTimer::operator>
 ZunTimer::operator>=
 ZunTimerModulo
 ZunVec3::SetPolarXY
+AnmVm::Update

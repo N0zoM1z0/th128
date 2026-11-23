@@ -798,15 +798,15 @@ target_address = 0x0045E190
 size = 140
 relocations = []
 
-[units.anm-vm-set-position-transition]
-frontier = true # Position transition setup: copies current and target XY values, stores duration/mode, and resets timer23C.
+[units.anm-vm-set-secondary-scale-transition]
+frontier = true # Secondary scale transition setup copies current and target XY values, stores duration/mode, and resets timer23C.
 artifact_kind = "coff"
 source = "src/AnmVmTransitions.cpp"
 inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp"]
 object = "build/match/AnmVmTransitions.obj"
 profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
-functions = ["AnmVm::SetPositionTransition"]
-symbol = "?SetPositionTransition@AnmVm@@QAEXPBM0HE@Z"
+functions = ["AnmVm::SetSecondaryScaleTransition"]
+symbol = "?SetSecondaryScaleTransition@AnmVm@@QAEXPBM0HE@Z"
 target_address = 0x0045E080
 size = 140
 relocations = []
@@ -824,15 +824,28 @@ target_address = 0x0045E2C0
 size = 227
 relocations = []
 
-[units.anm-vm-set-secondary-effect-transition]
-frontier = true # Secondary effect transition setup: stores the resource and low-byte effect index, records duration/mode, and resets timer2B4.
+[units.anm-vm-set-effect-state]
+frontier = true # Primary effect transition setup stores duration/mode and the current/target alpha values, then resets timer14C.
 artifact_kind = "coff"
 source = "src/AnmVmTransitions.cpp"
 inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp"]
 object = "build/match/AnmVmTransitions.obj"
 profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
-functions = ["AnmVm::SetSecondaryEffectTransition"]
-symbol = "?SetSecondaryEffectTransition@AnmVm@@QAEXPAXIIE@Z"
+functions = ["AnmVm::SetEffectState"]
+symbol = "?SetEffectState@AnmVm@@QAEXIEE@Z"
+target_address = 0x0045E6C0
+size = 120
+relocations = []
+
+[units.anm-vm-set-secondary-effect-state]
+frontier = true # Secondary effect transition setup stores the duration, low-byte mode, alpha endpoints, and resets timer2B4.
+artifact_kind = "coff"
+source = "src/AnmVmTransitions.cpp"
+inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp"]
+object = "build/match/AnmVmTransitions.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["AnmVm::SetSecondaryEffectState"]
+symbol = "?SetSecondaryEffectState@AnmVm@@QAEXIIEE@Z"
 target_address = 0x0045E240
 size = 120
 relocations = []
@@ -1871,4 +1884,18 @@ functions = ["AnmVmEffectNoop412E00"]
 symbol = "?AnmVmEffectNoop412E00@@YIHPAUAnmVm@@PBM@Z"
 target_address = 0x00412E00
 size = 3
+relocations = []
+
+
+[units.anm-vm-update-frame]
+frontier = true # Partial natural-C++ reconstruction of the VM's main per-frame update path.
+artifact_kind = "coff"
+source = "src/AnmVmUpdate.cpp"
+inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp"]
+object = "build/match/AnmVmUpdate.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["AnmVm::Update"]
+symbol = "?Update@AnmVm@@QAEXXZ"
+target_address = 0x00459D90
+size = 13604
 relocations = []
