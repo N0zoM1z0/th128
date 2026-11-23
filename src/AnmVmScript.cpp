@@ -194,9 +194,6 @@ namespace
         child->scriptState = parent->scriptState;
         child->position = parent->position;
         resource->BindVmScript(child, scriptIndex);
-        child->unknown024 = parent->unknown024;
-        child->unknown028 = parent->unknown028;
-        child->unknown02C = parent->unknown02C;
         child->alternatePosition = parent->secondaryPosition;
 
         AnmManager *manager = GetGlobalAnmManager();
