@@ -111,6 +111,7 @@ Rng::GetFloatSigned
 Rng::GetU16
 Rng::GetU32
 SetTimeScale
+ShortestAngleDifference
 SptInf::Slot00
 SptInf::Slot01
 SptInf::Slot02

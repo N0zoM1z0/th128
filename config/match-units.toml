@@ -1953,3 +1953,19 @@ symbol = "?BuildAnmVmViewCorners@@YAXPBUAnmVm@@PAM@Z"
 target_address = 0x00462070
 size = 104
 relocations = []
+
+[units.shortest-angle-difference]
+artifact_kind = "coff"
+source = "src/AngleMath.cpp"
+inputs = ["src/AngleMath.hpp"]
+object = "build/match/AngleMath.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["ShortestAngleDifference"]
+symbol = "?ShortestAngleDifference@@YGMMM@Z"
+target_address = 0x00432CC0
+size = 99
+relocations = [
+  { offset = 17, type = "DIR32", symbol = "_kPi", target = 0x004A6580 },
+  { offset = 36, type = "DIR32", symbol = "_kTwoPi", target = 0x004A6578 },
+  { offset = 69, type = "DIR32", symbol = "_kTwoPi", target = 0x004A6578 },
+]

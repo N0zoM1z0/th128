@@ -53,3 +53,18 @@ float __stdcall AddAngles(float angle, float offset)
     }
     return (float)value;
 }
+
+
+float __stdcall ShortestAngleDifference(float target, float current)
+{
+    const double difference = (double)target - (double)current;
+    if (kPi < difference)
+    {
+        return (float)((double)target - ((double)current + kTwoPi));
+    }
+    if (kPi < (double)current - (double)target)
+    {
+        return (float)((double)target - ((double)current - kTwoPi));
+    }
+    return (float)difference;
+}

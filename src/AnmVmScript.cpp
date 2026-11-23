@@ -1383,57 +1383,58 @@ __forceinline void AnmVm::ExecuteReadyInstructions()
 
 namespace
 {
-    double EaseTransition(unsigned int mode, double t)
+    // Modes 1..16 mirror the target's 16-entry easing jump table at 0x0046B428.
+    float EaseTransition(unsigned int mode, float t)
     {
-        const double inverse = 1.0 - t;
+        const float inverse = 1.0f - t;
         switch (mode)
         {
         case 1: return t * t;
         case 2: return t * t * t;
         case 3: return t * t * t * t;
-        case 4: return 1.0 - inverse * inverse;
-        case 5: return 1.0 - inverse * inverse * inverse;
-        case 6: return 1.0 - inverse * inverse * inverse * inverse;
+        case 4: return 1.0f - inverse * inverse;
+        case 5: return 1.0f - inverse * inverse * inverse;
+        case 6: return 1.0f - inverse * inverse * inverse * inverse;
         case 7:
         case 8:
             return t;
         case 9:
-            return t < 0.5
-                ? 2.0 * t * t
-                : 1.0 - 2.0 * inverse * inverse;
+            return t < 0.5f
+                ? 2.0f * t * t
+                : 1.0f - 2.0f * inverse * inverse;
         case 10:
-            return t < 0.5
-                ? 4.0 * t * t * t
-                : 1.0 - 4.0 * inverse * inverse * inverse;
+            return t < 0.5f
+                ? 4.0f * t * t * t
+                : 1.0f - 4.0f * inverse * inverse * inverse;
         case 11:
-            return t < 0.5
-                ? 8.0 * t * t * t * t
-                : 1.0 - 8.0 * inverse * inverse * inverse * inverse;
+            return t < 0.5f
+                ? 8.0f * t * t * t * t
+                : 1.0f - 8.0f * inverse * inverse * inverse * inverse;
         case 12:
         {
-            const double x = t * 2.0 - 1.0;
-            return t < 0.5
-                ? 0.5 - 0.5 * (1.0 - 2.0 * t) * (1.0 - 2.0 * t)
-                : 0.5 + 0.5 * x * x;
+            const float x = t * 2.0f - 1.0f;
+            return t < 0.5f
+                ? 0.5f - 0.5f * (1.0f - 2.0f * t) * (1.0f - 2.0f * t)
+                : 0.5f + 0.5f * x * x;
         }
         case 13:
         {
-            const double x = t * 2.0 - 1.0;
-            return t < 0.5
-                ? 0.5 - 0.5 * (1.0 - 2.0 * t) *
-                    (1.0 - 2.0 * t) * (1.0 - 2.0 * t)
-                : 0.5 + 0.5 * x * x * x;
+            const float x = t * 2.0f - 1.0f;
+            return t < 0.5f
+                ? 0.5f - 0.5f * (1.0f - 2.0f * t) *
+                    (1.0f - 2.0f * t) * (1.0f - 2.0f * t)
+                : 0.5f + 0.5f * x * x * x;
         }
         case 14:
         {
-            const double x = t * 2.0 - 1.0;
-            return t < 0.5
-                ? 0.5 - 0.5 * (1.0 - 2.0 * t) *
-                    (1.0 - 2.0 * t) * (1.0 - 2.0 * t) * (1.0 - 2.0 * t)
-                : 0.5 + 0.5 * x * x * x * x;
+            const float x = t * 2.0f - 1.0f;
+            return t < 0.5f
+                ? 0.5f - 0.5f * (1.0f - 2.0f * t) *
+                    (1.0f - 2.0f * t) * (1.0f - 2.0f * t) * (1.0f - 2.0f * t)
+                : 0.5f + 0.5f * x * x * x * x;
         }
-        case 15: return 0.0;
-        case 16: return 1.0;
+        case 15: return 0.0f;
+        case 16: return 1.0f;
         default: return t;
         }
     }
@@ -1532,7 +1533,7 @@ namespace
             return;
         }
 
-        const float eased = (float)EaseTransition(mode, (double)t);
+        const float eased = EaseTransition(mode, t);
         for (unsigned int i = 0; i != 3; ++i)
         {
             const int startValue = transition->values[i];
@@ -1576,7 +1577,7 @@ namespace
         }
         else
         {
-            const double eased = EaseTransition(mode, t);
+            const float eased = EaseTransition(mode, (float)t);
             value = (double)transition->values[0] +
                 ((double)transition->values[1] -
                  (double)transition->values[0]) * eased;
@@ -1634,7 +1635,7 @@ namespace
             }
             else
             {
-                const double eased = EaseTransition(mode, t);
+                const float eased = EaseTransition(mode, (float)t);
                 value = (double)transition->values[i] +
                     ((double)transition->values[i + 3] -
                      (double)transition->values[i]) * eased;
@@ -1691,7 +1692,7 @@ namespace
             }
             else
             {
-                const double eased = EaseTransition(mode, t);
+                const float eased = EaseTransition(mode, (float)t);
                 value = (double)transition->values[i] +
                     ((double)transition->values[i + 2] -
                      (double)transition->values[i]) * eased;
@@ -1700,6 +1701,8 @@ namespace
         }
     }
 
+    // Scalar transitions are angles: every path uses target angle wrapping,
+    // including relative, Hermite and shortest-arc interpolation.
     float InterpolateScalar(AnmVmScalarTransition *transition)
     {
         const unsigned int mode = transition->mode;
@@ -1710,34 +1713,48 @@ namespace
 
         if (mode == 7)
         {
-            transition->values[0] += transition->values[1];
+            transition->values[0] = NormalizeAngle(
+                transition->values[0] + transition->values[1]);
             return transition->values[0];
         }
 
         if (mode == 17)
         {
-            transition->values[0] += transition->values[3];
-            transition->values[3] += transition->values[1];
+            transition->values[0] = NormalizeAngle(
+                transition->values[0] + transition->values[3]);
+            transition->values[3] = NormalizeAngle(
+                transition->values[3] + transition->values[1]);
             return transition->values[0];
         }
 
-        const double t = (double)transition->timer.currentF /
-            (double)transition->duration;
+        const float t = transition->timer.currentF /
+            (float)transition->duration;
         if (mode == 8)
         {
-            return (float)Hermite(
-                transition->values[0],
-                transition->values[1],
-                transition->values[2],
-                transition->values[3],
-                t);
+            const float tMinusOne = t - 1.0f;
+            const float targetTerm = NormalizeAngle(
+                (t * t * (3.0f - 2.0f * t)) * transition->values[1]);
+            const float startTerm = NormalizeAngle(
+                (tMinusOne * tMinusOne * (2.0f * t + 1.0f)) *
+                transition->values[0]);
+            float result = NormalizeAngle(startTerm + targetTerm);
+            const float startTangentTerm = NormalizeAngle(
+                ((1.0f - t) * (1.0f - t) * t) * transition->values[2]);
+            result = NormalizeAngle(startTangentTerm + result);
+            const float targetTangentTerm = NormalizeAngle(
+                (tMinusOne * t * t) * transition->values[3]);
+            return NormalizeAngle(targetTangentTerm + result);
         }
 
-        const double eased = EaseTransition(mode, t);
-        return (float)((double)transition->values[0] +
-            ((double)transition->values[1] -
-             (double)transition->values[0]) * eased);
+        const float eased = EaseTransition(mode, t);
+        const float difference = ShortestAngleDifference(
+            transition->values[1], transition->values[0]);
+        const float normalizedDifference = NormalizeAngle(difference);
+        const float scaledDifference = NormalizeAngle(
+            normalizedDifference * eased);
+        return NormalizeAngle(scaledDifference + transition->values[0]);
     }
+
 }
 
 __forceinline void AnmVm::UpdateTransitions()
