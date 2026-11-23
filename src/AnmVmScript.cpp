@@ -2197,6 +2197,10 @@ int AnmVm::Update()
 
     if (frameCallback != 0 && frameCallback(this) != 0)
     {
+        // The target's callback-termination edge shares the same epilogue as
+        // script termination and restores the caller's time scale before it
+        // returns. It deliberately skips the timer increment.
+        *gameSpeed = savedGameSpeed;
         return 1;
     }
 
