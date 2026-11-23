@@ -706,7 +706,7 @@ namespace
     }
 }
 
-void AnmVm::UpdateWorldMatrix(float matrix[4][4])
+void AnmVm::UpdateWorldMatrix(float matrix[4][4], bool applyAlignment)
 {
     if ((flags & 0x8000U) == 0 && (flags & 0x0CU) != 0)
     {
@@ -743,10 +743,53 @@ void AnmVm::UpdateWorldMatrix(float matrix[4][4])
     }
 
     memcpy(matrix, textureTransformMatrix, sizeof(textureTransformMatrix));
-    matrix[3][0] = position.x + secondaryPosition.x +
-        alternatePosition.x + matrix[3][0];
-    matrix[3][1] = position.y + secondaryPosition.y +
-        alternatePosition.y + matrix[3][1];
+
+    const float pivotX =
+        position.x + secondaryPosition.x + alternatePosition.x;
+    const float pivotY =
+        position.y + secondaryPosition.y + alternatePosition.y;
+    if (applyAlignment)
+    {
+        const float halfWidth = fabsf(
+            uvScrollX * scaleX * scale2X * 0.5f);
+        const float halfHeight = fabsf(
+            uvScrollY * scaleY * scale2Y * 0.5f);
+        float alignedX = pivotX;
+        float alignedY = pivotY;
+
+        switch ((flags >> 20) & 3U)
+        {
+        case 1:
+            alignedX -= halfWidth;
+            break;
+        case 2:
+            alignedX += halfWidth;
+            break;
+        default:
+            break;
+        }
+
+        switch ((flags >> 22) & 3U)
+        {
+        case 1:
+            alignedY -= halfHeight;
+            break;
+        case 2:
+            alignedY += halfHeight;
+            break;
+        default:
+            break;
+        }
+
+        matrix[3][0] = alignedX;
+        matrix[3][1] = alignedY;
+    }
+    else
+    {
+        // FUN_004609C0 adds the VM position to the existing matrix offset.
+        matrix[3][0] = pivotX + matrix[3][0];
+        matrix[3][1] = pivotY + matrix[3][1];
+    }
     matrix[3][2] = position.z + secondaryPosition.z + alternatePosition.z;
 }
 
@@ -1027,9 +1070,8 @@ static int DrawAnmVmWorldMatrixSprite(AnmVm *vm)
     }
 
     float worldMatrix[4][4];
-    // FUN_004609C0 preserves the script matrix translation; the caller
-    // uses anchor flags separately when calculating the culling bounds.
-    vm->UpdateWorldMatrix(worldMatrix);
+    // FUN_00460DD0 writes the anchor-adjusted pivot into the world matrix.
+    vm->UpdateWorldMatrix(worldMatrix, true);
     ApplyAnmVmRenderState(vm);
 
     unsigned int color =
@@ -1139,7 +1181,7 @@ static int DrawAnmVmWorldMatrixBatchSprite(AnmVm *vm)
         return -1;
     }
 
-    vm->UpdateWorldMatrix(manager->vmWorldMatrix);
+    vm->UpdateWorldMatrix(manager->vmWorldMatrix, false);
 
     AnmVm drawVm = *vm;
     drawVm.parentVm = 0;
@@ -1161,7 +1203,7 @@ static int DrawAnmVmWorldFogSprite(AnmVm *vm)
         return -1;
     }
 
-    vm->UpdateWorldMatrix(manager->vmWorldMatrix);
+    vm->UpdateWorldMatrix(manager->vmWorldMatrix, false);
 
     const unsigned int sourceColor =
         (vm->flags & 0x00030000U) == 0 ? vm->color : vm->secondaryColor;
