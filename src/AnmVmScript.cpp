@@ -896,12 +896,13 @@ __forceinline bool AnmVm::ExecuteBasicInstruction(const AnmVmInstructionHeader *
         positionTransition.values[3] = target[0];
         positionTransition.values[4] = target[1];
         positionTransition.values[5] = target[2];
-        positionTransition.values[6] = 0.0f;
-        positionTransition.values[7] = 0.0f;
-        positionTransition.values[8] = 0.0f;
-        positionTransition.values[9] = 0.0f;
-        positionTransition.values[10] = 0.0f;
-        positionTransition.values[11] = 0.0f;
+        const float *reference = reinterpret_cast<const float *>(0x004D2E54);
+        positionTransition.values[6] = reference[0];
+        positionTransition.values[7] = reference[1];
+        positionTransition.values[8] = reference[2];
+        positionTransition.values[9] = reference[0];
+        positionTransition.values[10] = reference[1];
+        positionTransition.values[11] = reference[2];
         positionTransition.duration =
             (unsigned int)IntegerSource(this, instruction, 8, 1U);
         positionTransition.mode =
@@ -2208,10 +2209,8 @@ int AnmVm::Update()
 
     if (frameCallback != 0 && frameCallback(this) != 0)
     {
-        // The target's callback-termination edge shares the same epilogue as
-        // script termination and restores the caller's time scale before it
-        // returns. It deliberately skips the timer increment.
-        *gameSpeed = savedGameSpeed;
+        // The target's callback-termination edge returns directly: it skips
+        // both the timer increment and the normal game-speed restoration.
         return 1;
     }
 
