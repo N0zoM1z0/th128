@@ -987,9 +987,9 @@ bool AnmVm::ExecuteBasicInstruction(const AnmVmInstructionHeader *instruction)
             viewPosition = alternatePosition;
         }
 
-        viewTarget.x = FloatSource(this, instruction, 16, 4U);
-        viewTarget.y = FloatSource(this, instruction, 20, 8U);
-        viewTarget.z = FloatSource(this, instruction, 24, 0x10U);
+        viewTarget.x = FloatSource(this, instruction, 32, 4U);
+        viewTarget.y = FloatSource(this, instruction, 40, 8U);
+        viewTarget.z = FloatSource(this, instruction, 48, 0x10U);
         timer0D4.Reset();
         scriptDataOffsetCopy = nextInstruction;
         return true;
