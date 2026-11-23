@@ -9,16 +9,19 @@ void AnmVm::SetColorTransition(
     unsigned char mode)
 {
     colorTransition.duration = (unsigned int)duration;
+    colorTransition.values[6] = 0;
+    colorTransition.values[9] = 0;
+    colorTransition.values[7] = 0;
+    colorTransition.values[10] = 0;
+    colorTransition.values[8] = 0;
+    colorTransition.values[11] = 0;
     colorTransition.mode = mode;
-
-    for (unsigned int i = 0; i != 3; ++i)
-    {
-        colorTransition.values[i] = current[i];
-        colorTransition.values[i + 3] = target[i];
-        colorTransition.values[i + 6] = 0;
-        colorTransition.values[i + 9] = 0;
-    }
-
+    colorTransition.values[0] = current[0];
+    colorTransition.values[3] = target[0];
+    colorTransition.values[1] = current[1];
+    colorTransition.values[4] = target[1];
+    colorTransition.values[2] = current[2];
+    colorTransition.values[5] = target[2];
     colorTransition.timer.Reset();
 }
 
@@ -82,30 +85,6 @@ void AnmVm::SetSecondaryEffectState(
     secondaryEffectTransition.timer.Reset();
 }
 
-void AnmVm::SetPositionTransition(
-    const float *target,
-    const float *current,
-    int duration,
-    unsigned int mode)
-{
-    positionTransition.duration = (unsigned int)duration;
-    positionTransition.mode = mode;
-
-    for (unsigned int i = 0; i != 3; ++i)
-    {
-        positionTransition.values[i] = current[i];
-        positionTransition.values[i + 3] = target[i];
-    }
-
-    const float *reference = reinterpret_cast<const float *>(0x004D2E54);
-    for (unsigned int i = 0; i != 3; ++i)
-    {
-        positionTransition.values[i + 6] = reference[i];
-        positionTransition.values[i + 9] = reference[i];
-    }
-
-    positionTransition.timer.Reset();
-}
 
 void AnmVm::SetSecondaryColorTransition(
     const unsigned char *target,
@@ -114,15 +93,18 @@ void AnmVm::SetSecondaryColorTransition(
     unsigned char mode)
 {
     secondaryColorTransition.duration = (unsigned int)duration;
+    secondaryColorTransition.values[6] = 0;
+    secondaryColorTransition.values[9] = 0;
+    secondaryColorTransition.values[7] = 0;
+    secondaryColorTransition.values[10] = 0;
+    secondaryColorTransition.values[8] = 0;
+    secondaryColorTransition.values[11] = 0;
     secondaryColorTransition.mode = mode;
-
-    for (unsigned int i = 0; i != 3; ++i)
-    {
-        secondaryColorTransition.values[i] = current[i];
-        secondaryColorTransition.values[i + 3] = target[i];
-        secondaryColorTransition.values[i + 6] = 0;
-        secondaryColorTransition.values[i + 9] = 0;
-    }
-
+    secondaryColorTransition.values[0] = current[0];
+    secondaryColorTransition.values[3] = target[0];
+    secondaryColorTransition.values[1] = current[1];
+    secondaryColorTransition.values[4] = target[1];
+    secondaryColorTransition.values[2] = current[2];
+    secondaryColorTransition.values[5] = target[2];
     secondaryColorTransition.timer.Reset();
 }

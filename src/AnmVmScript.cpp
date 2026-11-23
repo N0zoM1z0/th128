@@ -890,12 +890,23 @@ __forceinline bool AnmVm::ExecuteBasicInstruction(const AnmVmInstructionHeader *
             FloatSource(this, instruction, 20, 8U),
             FloatSource(this, instruction, 24, 0x10U)
         };
-        const float current[3] = {unknown024, unknown028, unknown02C};
-        SetPositionTransition(
-            target,
-            current,
-            IntegerSource(this, instruction, 8, 1U),
-            (unsigned int)ReadInstructionInteger(instruction, 12));
+        positionTransition.values[0] = unknown024;
+        positionTransition.values[1] = unknown028;
+        positionTransition.values[2] = unknown02C;
+        positionTransition.values[3] = target[0];
+        positionTransition.values[4] = target[1];
+        positionTransition.values[5] = target[2];
+        positionTransition.values[6] = 0.0f;
+        positionTransition.values[7] = 0.0f;
+        positionTransition.values[8] = 0.0f;
+        positionTransition.values[9] = 0.0f;
+        positionTransition.values[10] = 0.0f;
+        positionTransition.values[11] = 0.0f;
+        positionTransition.duration =
+            (unsigned int)IntegerSource(this, instruction, 8, 1U);
+        positionTransition.mode =
+            (unsigned int)ReadInstructionInteger(instruction, 12);
+        positionTransition.timer.Reset();
         flags |= 4U;
         scriptDataOffsetCopy = nextInstruction;
         return true;
