@@ -1824,9 +1824,10 @@ int __fastcall UpdateAnmVmEffect10(AnmVm *vm)
 
         data->particleRadius[i] += data->particleRadialSpeed[i];
         vertex->SetPolar(angle, data->particleRadius[i]);
-        vertex->x += data->centerX;
-        vertex->y += data->centerY;
-        vertex->z += data->centerZ;
+        // Preserve the target's per-vertex left-to-right additions.
+        vertex->x = vertex->x + vm->position.x + vm->secondaryPosition.x;
+        vertex->y = vertex->y + vm->secondaryPosition.y + vm->position.y;
+        vertex->z = vertex->z + vm->position.z + vm->secondaryPosition.z;
 
         angle += kEffect10AngleStep;
     }
