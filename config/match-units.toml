@@ -1889,10 +1889,10 @@ relocations = []
 
 
 [units.anm-vm-update-frame]
-frontier = true # Partial natural-C++ reconstruction of the VM's main per-frame update path.
+frontier = true # Partial natural-C++ reconstruction; script dispatch is co-located for VC10 inlining.
 artifact_kind = "coff"
-source = "src/AnmVmUpdate.cpp"
-inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp"]
+source = "src/AnmVmScript.cpp"
+inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp", "src/AnmManager.hpp", "src/AngleMath.hpp", "src/ZunTimer.hpp"]
 object = "build/match/AnmVmUpdate.obj"
 profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
 functions = ["AnmVm::Update"]
