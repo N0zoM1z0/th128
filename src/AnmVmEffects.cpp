@@ -1007,9 +1007,7 @@ static int DrawAnmVmWorldMatrixSprite(AnmVm *vm)
         return -1;
     }
 
-    const unsigned int selectedColor =
-        (vm->flags & 0x00030000U) == 0 ? vm->color : vm->secondaryColor;
-    if ((selectedColor & 0xFF000000U) == 0)
+    if ((vm->color & 0xFF000000U) == 0)
     {
         return -1;
     }
