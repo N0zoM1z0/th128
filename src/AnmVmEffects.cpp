@@ -52,7 +52,8 @@ struct AnmVmRendererState
     unsigned char unknown000[0xA8];
     unsigned int stateCallCount;            // +0x0A8
     unsigned int drawCallCount;             // +0x0AC
-    unsigned char unknown0B0[0x4E9688 - 0x0B0];
+    unsigned char unknown0B0[0x4E9684 - 0x0B0];
+    unsigned int currentTextureFactor;      // +0x4E9684
     void *currentTexture;                   // +0x4E9688
     unsigned char blendMode;                // +0x4E968C
     unsigned char unknown4E968D;
@@ -60,15 +61,26 @@ struct AnmVmRendererState
     unsigned char unknown4E968F[3];
     unsigned char samplerFilterMode;        // +0x4E9692
     unsigned char textureStageState;        // +0x4E9693
-    unsigned char unknown4E9694[0x4E96EC - 0x4E9694];
+    void *currentTextureTransformFile;      // +0x4E9694
+    IDirect3DVertexBuffer9 *vertexBuffer;    // +0x4E9698
+    unsigned char unknown4E969C[0x4E96EC - 0x4E969C];
     int pendingBatchCount;                  // +0x4E96EC
     unsigned char unknown4E96F0[0x8696F0 - 0x4E96F0];
     void *nextBatchVertex;                  // +0x8696F0
     void *batchVertices;                    // +0x8696F4
 };
 
+typedef char AnmVmRendererTextureFactorOffset[
+    (offsetof(AnmVmRendererState, currentTextureFactor) == 0x4E9684) ? 1 : -1
+];
 typedef char AnmVmRendererTextureOffset[
     (offsetof(AnmVmRendererState, currentTexture) == 0x4E9688) ? 1 : -1
+];
+typedef char AnmVmRendererTextureTransformFileOffset[
+    (offsetof(AnmVmRendererState, currentTextureTransformFile) == 0x4E9694) ? 1 : -1
+];
+typedef char AnmVmRendererVertexBufferOffset[
+    (offsetof(AnmVmRendererState, vertexBuffer) == 0x4E9698) ? 1 : -1
 ];
 typedef char AnmVmRendererPendingBatchOffset[
     (offsetof(AnmVmRendererState, pendingBatchCount) == 0x4E96EC) ? 1 : -1
@@ -636,14 +648,8 @@ namespace
     }
 }
 
-void AnmVm::UpdateWorldMatrix()
+void AnmVm::UpdateWorldMatrix(float matrix[4][4])
 {
-    AnmManager *manager = GetGlobalAnmManager();
-    if (manager == 0)
-    {
-        return;
-    }
-
     if ((flags & 0x8000U) == 0 && (flags & 0x0CU) != 0)
     {
         memcpy(
@@ -677,17 +683,131 @@ void AnmVm::UpdateWorldMatrix()
         flags &= ~4U;
     }
 
-    memcpy(
-        manager->vmWorldMatrix,
-        textureTransformMatrix,
-        sizeof(manager->vmWorldMatrix));
+    memcpy(matrix, textureTransformMatrix, sizeof(textureTransformMatrix));
 
-    manager->vmWorldMatrix[3][0] +=
+    float pivotX =
         position.x + secondaryPosition.x + alternatePosition.x;
-    manager->vmWorldMatrix[3][1] +=
+    float pivotY =
         position.y + secondaryPosition.y + alternatePosition.y;
-    manager->vmWorldMatrix[3][2] =
+    const float width = fabsf(uvScrollX * scaleX * scale2X) * 0.5f;
+    const float height = fabsf(uvScrollY * scaleY * scale2Y) * 0.5f;
+
+    switch ((flags >> 20) & 3U)
+    {
+    case 1:
+        pivotX -= width;
+        break;
+    case 2:
+        pivotX += width;
+        break;
+    default:
+        break;
+    }
+
+    switch ((flags >> 22) & 3U)
+    {
+    case 1:
+        pivotY -= height;
+        break;
+    case 2:
+        pivotY += height;
+        break;
+    default:
+        break;
+    }
+
+    matrix[3][0] = pivotX;
+    matrix[3][1] = pivotY;
+    matrix[3][2] =
         position.z + secondaryPosition.z + alternatePosition.z;
+    matrix[3][3] = 1.0f;
+}
+
+
+static int DrawAnmVmWorldMatrixSprite(AnmVm *vm)
+{
+    AnmManager *manager = GetGlobalAnmManager();
+    AnmVmRendererState *renderer = GetAnmVmRenderer();
+    IDirect3DDevice9 *device = GetAnmVmDevice();
+    if (manager == 0 || renderer == 0 || device == 0 || vm == 0 ||
+        vm->anmFileEntry == 0 || vm->anmFileEntry->texture == 0 ||
+        renderer->vertexBuffer == 0 || (vm->color & 0xFF000000U) == 0)
+    {
+        return -1;
+    }
+
+    if (renderer->pendingBatchCount != 0)
+    {
+        FlushAnmSpriteBatch();
+    }
+
+    float worldMatrix[4][4];
+    vm->UpdateWorldMatrix(worldMatrix);
+    ApplyAnmVmRenderState(vm);
+
+    unsigned int color =
+        (vm->flags & 0x00030000U) == 0 ? vm->color : vm->secondaryColor;
+    if (manager->colorModulationEnabled != 0)
+    {
+        color = ModulateAnmSpriteColor(color, manager->colorModulation);
+    }
+
+    if (renderer->currentTextureFactor != color)
+    {
+        FlushAnmSpriteBatch();
+        renderer->currentTextureFactor = color;
+        device->SetRenderState(D3DRS_TEXTUREFACTOR, color);
+    }
+
+    device->SetTransform(
+        D3DTS_WORLD,
+        reinterpret_cast<const D3DMATRIX *>(worldMatrix));
+
+    void *textureSlot = vm->anmFileEntry->texture;
+    if (renderer->currentTexture != textureSlot)
+    {
+        renderer->currentTexture = textureSlot;
+        device->SetTexture(
+            0,
+            *reinterpret_cast<IDirect3DBaseTexture9 **>(textureSlot));
+    }
+
+    if (renderer->currentTextureTransformFile != vm->anmFileEntry ||
+        vm->textureScrollX != 0.0f || vm->textureScrollY != 0.0f ||
+        vm->unknown058 != 1.0f || vm->unknown05C != 1.0f)
+    {
+        renderer->currentTextureTransformFile = vm->anmFileEntry;
+
+        float textureMatrix[4][4];
+        memcpy(textureMatrix, vm->spriteScaleMatrix, sizeof(textureMatrix));
+        textureMatrix[0][0] *= vm->unknown058;
+        textureMatrix[1][1] *= vm->unknown05C;
+        textureMatrix[3][0] = vm->textureRect[0][0] + vm->textureScrollX;
+        textureMatrix[3][1] = vm->textureRect[0][1] + vm->textureScrollY;
+
+        device->SetTransform(
+            D3DTS_TEXTURE0,
+            reinterpret_cast<const D3DMATRIX *>(textureMatrix));
+    }
+
+    if (renderer->vertexFormatMode != 2)
+    {
+        device->SetStreamSource(0, renderer->vertexBuffer, 0, 0x14);
+        device->SetFVF(0x102);
+        device->SetTextureStageState(0, D3DTSS_ALPHAARG2, 3);
+        device->SetTextureStageState(0, D3DTSS_COLORARG2, 3);
+        renderer->vertexFormatMode = 2;
+    }
+
+    if (renderer->textureStageState != 1)
+    {
+        device->SetTextureStageState(0, D3DTSS_ALPHAOP, 4);
+        device->SetTextureStageState(0, D3DTSS_COLOROP, 4);
+        renderer->textureStageState = 1;
+    }
+
+    device->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
+    return 0;
 }
 
 int DrawAnmVmTriangleStrip(
@@ -1107,6 +1227,8 @@ int DrawAnmVm(AnmVm *vm)
         return DrawAnmVmSpriteQuad(vm, false, true);
     case 2:
         return DrawAnmVmSpriteQuad(vm, false, false);
+    case 8:
+        return DrawAnmVmWorldMatrixSprite(vm);
     case 9:
     case 12:
     case 13:
