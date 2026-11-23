@@ -109,6 +109,11 @@ void AnmVm::Update()
     if (!IsScriptUpdateSuppressed(this))
     {
         ExecuteReadyInstructions();
+        if (scriptDataOffsetCopy == 0)
+        {
+            *gameSpeed = savedGameSpeed;
+            return;
+        }
     }
 
     UpdateContinuousMotion(this, *gameSpeed);

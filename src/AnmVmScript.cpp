@@ -1491,6 +1491,18 @@ unsigned int AnmVm::ExecuteReadyInstructions()
         const AnmVmInstructionHeader *instruction =
             reinterpret_cast<const AnmVmInstructionHeader *>(scriptDataOffsetCopy);
 
+        if (instruction->opcode == 0xFFFFU || instruction->opcode == 1U)
+        {
+            flags &= ~1U;
+            scriptDataOffsetCopy = 0;
+            return executed;
+        }
+        if (instruction->opcode == 2U)
+        {
+            scriptDataOffsetCopy = 0;
+            return executed;
+        }
+
         if (instruction->frame > timer070.current)
         {
             break;
