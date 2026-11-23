@@ -2059,10 +2059,10 @@ __forceinline void AnmVm::UpdateCustomGeometry()
     }
 
     const unsigned int divisor = count - 1U;
-    const float angleStep = scaleX / (float)divisor;
+    const float angleStep = unknown024 / (float)divisor;
     const float vStep = (float)integerVariables[1] / (float)divisor;
     const float initialAngle = geometryMode == 13U
-        ? scaleY - scaleX * 0.5f
+        ? unknown02C - unknown024 * 0.5f
         : unknown02C;
     float angle = NormalizeAngle(initialAngle);
     float v = 0.0f;
