@@ -195,6 +195,7 @@ struct AnmVm
     void UpdateTransitions();
     void UpdateTextureRectFromView();
     void UpdateCustomGeometry();
+    void UpdateWorldMatrix();
     int Update();
 
     int ResolveIntegerOperand(int operand);

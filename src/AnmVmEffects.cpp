@@ -562,6 +562,124 @@ static int DrawAnmVmSpriteQuad(AnmVm *vm, bool pixelSnap, bool rotate)
     return 0;
 }
 
+
+namespace
+{
+    void MultiplyAnmVmMatrix(
+        float destination[4][4],
+        const float left[4][4],
+        const float right[4][4])
+    {
+        float product[4][4];
+        for (unsigned int row = 0; row != 4; ++row)
+        {
+            for (unsigned int column = 0; column != 4; ++column)
+            {
+                float value = 0.0f;
+                for (unsigned int inner = 0; inner != 4; ++inner)
+                {
+                    value += left[row][inner] * right[inner][column];
+                }
+                product[row][column] = value;
+            }
+        }
+        memcpy(destination, product, sizeof(product));
+    }
+
+    void MakeAnmVmRotationX(float matrix[4][4], float angle)
+    {
+        const float cosine = (float)cos((double)angle);
+        const float sine = (float)sin((double)angle);
+        memset(matrix, 0, sizeof(float) * 16);
+        matrix[0][0] = 1.0f;
+        matrix[1][1] = cosine;
+        matrix[1][2] = sine;
+        matrix[2][1] = -sine;
+        matrix[2][2] = cosine;
+        matrix[3][3] = 1.0f;
+    }
+
+    void MakeAnmVmRotationY(float matrix[4][4], float angle)
+    {
+        const float cosine = (float)cos((double)angle);
+        const float sine = (float)sin((double)angle);
+        memset(matrix, 0, sizeof(float) * 16);
+        matrix[0][0] = cosine;
+        matrix[0][2] = -sine;
+        matrix[1][1] = 1.0f;
+        matrix[2][0] = sine;
+        matrix[2][2] = cosine;
+        matrix[3][3] = 1.0f;
+    }
+
+    void MakeAnmVmRotationZ(float matrix[4][4], float angle)
+    {
+        const float cosine = (float)cos((double)angle);
+        const float sine = (float)sin((double)angle);
+        memset(matrix, 0, sizeof(float) * 16);
+        matrix[0][0] = cosine;
+        matrix[0][1] = sine;
+        matrix[1][0] = -sine;
+        matrix[1][1] = cosine;
+        matrix[2][2] = 1.0f;
+        matrix[3][3] = 1.0f;
+    }
+}
+
+void AnmVm::UpdateWorldMatrix()
+{
+    AnmManager *manager = GetGlobalAnmManager();
+    if (manager == 0)
+    {
+        return;
+    }
+
+    if ((flags & 0x8000U) == 0 && (flags & 0x0CU) != 0)
+    {
+        memcpy(
+            textureTransformMatrix,
+            transformMatrix,
+            sizeof(textureTransformMatrix));
+
+        textureTransformMatrix[0][0] *= scaleX * scale2X;
+        textureTransformMatrix[1][1] *= scaleY * scale2Y;
+        flags &= ~8U;
+
+        float rotation[4][4];
+        if (unknown024 != 0.0f)
+        {
+            MakeAnmVmRotationX(rotation, unknown024);
+            MultiplyAnmVmMatrix(
+                textureTransformMatrix, textureTransformMatrix, rotation);
+        }
+        if (unknown028 != 0.0f)
+        {
+            MakeAnmVmRotationY(rotation, unknown028);
+            MultiplyAnmVmMatrix(
+                textureTransformMatrix, textureTransformMatrix, rotation);
+        }
+        if (unknown02C != 0.0f)
+        {
+            MakeAnmVmRotationZ(rotation, unknown02C);
+            MultiplyAnmVmMatrix(
+                textureTransformMatrix, textureTransformMatrix, rotation);
+        }
+        flags &= ~4U;
+    }
+
+    memcpy(
+        manager->vmWorldMatrix,
+        textureTransformMatrix,
+        sizeof(manager->vmWorldMatrix));
+
+    manager->vmWorldMatrix[3][0] +=
+        position.x + secondaryPosition.x + alternatePosition.x;
+    manager->vmWorldMatrix[3][1] +=
+        position.y + secondaryPosition.y + alternatePosition.y;
+    manager->vmWorldMatrix[3][2] =
+        position.z + secondaryPosition.z + alternatePosition.z;
+}
+
 int DrawAnmVmTriangleStrip(
     AnmVm *vm,
     const void *vertices,

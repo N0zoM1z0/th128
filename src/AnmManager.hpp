@@ -17,7 +17,9 @@ struct AnmManager
     AnmVm vmPool[0x1000];                   // +0x0BC
     unsigned char vmPoolUsed[0x1000];       // +0x4E80BC
     int nextVmPoolIndex;                    // +0x4E90BC
-    unsigned char unknown4E90C0[0x8B9704 - 0x4E90C0];
+    unsigned char unknown4E90C0[0x4E9158 - 0x4E90C0];
+    float vmWorldMatrix[4][4];              // +0x4E9158
+    unsigned char unknown4E9198[0x8B9704 - 0x4E9198];
     AnmVmListNode *worldVms;                // +0x8B9704
     AnmVmListNode *worldVmsTail;            // +0x8B9708
     AnmVmListNode *uiVms;                   // +0x8B970C
@@ -46,6 +48,7 @@ typedef char AnmManagerUpdateCountOffset[(offsetof(AnmManager, updateCount) == 0
 typedef char AnmManagerPoolOffset[(offsetof(AnmManager, vmPool) == 0xBC) ? 1 : -1];
 typedef char AnmManagerUsedOffset[(offsetof(AnmManager, vmPoolUsed) == 0x4E80BC) ? 1 : -1];
 typedef char AnmManagerPoolCursorOffset[(offsetof(AnmManager, nextVmPoolIndex) == 0x4E90BC) ? 1 : -1];
+typedef char AnmManagerVmWorldMatrixOffset[(offsetof(AnmManager, vmWorldMatrix) == 0x4E9158) ? 1 : -1];
 typedef char AnmManagerWorldListOffset[(offsetof(AnmManager, worldVms) == 0x8B9704) ? 1 : -1];
 typedef char AnmManagerRenderHeadsOffset[(offsetof(AnmManager, renderListHeads) == 0x8B9714) ? 1 : -1];
 typedef char AnmManagerNextIdOffset[(offsetof(AnmManager, nextVmId) == 0x8C38FC) ? 1 : -1];
