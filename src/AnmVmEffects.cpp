@@ -103,7 +103,9 @@ typedef char AnmVmRendererBatchPointerOffset[
 namespace
 {
     const float kEffect10Pi = 3.1415927410125732421875f;
-    const float kEffect10AngleStep = 0.202683404f;
+    // The target stores the binary32 step widened to binary64, then adds it
+    // to each float angle; preserve that x87 operand precision in C++.
+    const double kEffect10AngleStep = (double)0.202683404f;
     const float kEffect10RadialSpeedLimit = 1.0f / 15.0f;
 
     AnmVmRendererState *GetAnmVmRenderer()
