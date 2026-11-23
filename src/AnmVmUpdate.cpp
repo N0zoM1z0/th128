@@ -38,15 +38,18 @@ void AnmVm::Update()
         *gameSpeed = 1.0f;
     }
 
-    if (!IsScriptUpdateSuppressed(this))
+    if (IsScriptUpdateSuppressed(this))
     {
-        ExecuteReadyInstructions();
+        *gameSpeed = savedGameSpeed;
+        return;
     }
 
+    ExecuteReadyInstructions();
     UpdateTransitions();
 
     if (frameCallback != 0 && frameCallback(this) != 0)
     {
+        *gameSpeed = savedGameSpeed;
         return;
     }
 

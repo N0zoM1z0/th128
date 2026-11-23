@@ -81,7 +81,7 @@ void AnmResource::BindVmScript(AnmVm *vm, int scriptIndex)
     vm->scriptDataOffsetCopy = scriptData;
 
     InitializeVmTimer(vm);
-    vm->ExecuteReadyInstructions();
+    vm->Update();
     ++GetGlobalAnmManager()->activeVmCount;
 
     vm->scale2X = 1.0f;
@@ -115,7 +115,7 @@ void AnmResource::BindVmAtPosition(
     vm->scriptDataOffsetCopy = scriptData;
 
     InitializeVmTimer(vm);
-    vm->ExecuteReadyInstructions();
+    vm->Update();
     ++GetGlobalAnmManager()->activeVmCount;
 
     if ((vm->stateFlags & 0xC0U) == 0x80U)

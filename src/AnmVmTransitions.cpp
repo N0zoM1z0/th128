@@ -1,4 +1,5 @@
 #include "AnmVm.hpp"
+#include "AngleMath.hpp"
 
 
 namespace
@@ -130,28 +131,34 @@ namespace
             return;
         }
 
-        const double t = (double)transition->timer.currentF /
-            (double)transition->duration;
+        const float t = transition->timer.currentF /
+            (float)transition->duration;
+        if (mode == 8)
+        {
+            const float t2 = t * t;
+            const float t3 = t2 * t;
+            const float h00 = (2.0f * t3) - (3.0f * t2) + 1.0f;
+            const float h01 = (-2.0f * t3) + (3.0f * t2);
+            const float h10 = t3 - (2.0f * t2) + t;
+            const float h11 = t3 - t2;
+
+            for (unsigned int i = 0; i != 3; ++i)
+            {
+                result[i] =
+                    ZunRoundToInt((double)h00 * transition->values[i]) +
+                    ZunRoundToInt((double)h01 * transition->values[i + 3]) +
+                    ZunRoundToInt((double)h10 * transition->values[i + 6]) +
+                    ZunRoundToInt((double)h11 * transition->values[i + 9]);
+            }
+            return;
+        }
+
+        const float eased = (float)EaseTransition(mode, (double)t);
         for (unsigned int i = 0; i != 3; ++i)
         {
-            double value;
-            if (mode == 8)
-            {
-                value = Hermite(
-                    transition->values[i],
-                    transition->values[i + 3],
-                    transition->values[i + 6],
-                    transition->values[i + 9],
-                    t);
-            }
-            else
-            {
-                const double eased = EaseTransition(mode, t);
-                value = (double)transition->values[i] +
-                    ((double)transition->values[i + 3] -
-                     (double)transition->values[i]) * eased;
-            }
-            result[i] = ZunRoundToInt(value);
+            const int startValue = transition->values[i];
+            const int delta = transition->values[i + 3] - startValue;
+            result[i] = startValue + ZunRoundToInt((double)delta * eased);
         }
     }
 
@@ -198,7 +205,7 @@ namespace
         return ZunRoundToInt(value);
     }
 
-    void InterpolateVector(AnmVmVectorTransition *transition, float result[3])
+    void InterpolateVector(AnmVmVectorTransition *transition, float result[3], bool wrapAngles)
     {
         const unsigned int mode = transition->mode;
         if (AdvanceTransition(&transition->timer, &transition->duration, mode))
@@ -225,9 +232,13 @@ namespace
         {
             for (unsigned int i = 0; i != 3; ++i)
             {
-                transition->values[i] += transition->values[i + 9];
+                transition->values[i] = wrapAngles
+                    ? AddAngles(transition->values[i], transition->values[i + 9])
+                    : transition->values[i] + transition->values[i + 9];
                 result[i] = transition->values[i];
-                transition->values[i + 9] += transition->values[i + 3];
+                transition->values[i + 9] = wrapAngles
+                    ? AddAngles(transition->values[i + 9], transition->values[i + 3])
+                    : transition->values[i + 9] + transition->values[i + 3];
             }
             return;
         }
@@ -314,7 +325,7 @@ namespace
         }
     }
 
-    float InterpolateScalar(AnmVmScalarTransition *transition)
+    float InterpolateScalar(AnmVmScalarTransition *transition, bool wrapAngles)
     {
         const unsigned int mode = transition->mode;
         if (AdvanceTransition(&transition->timer, &transition->duration, mode))
@@ -324,14 +335,20 @@ namespace
 
         if (mode == 7)
         {
-            transition->values[0] += transition->values[1];
+            transition->values[0] = wrapAngles
+                ? AddAngles(transition->values[0], transition->values[1])
+                : transition->values[0] + transition->values[1];
             return transition->values[0];
         }
 
         if (mode == 17)
         {
-            transition->values[0] += transition->values[3];
-            transition->values[3] += transition->values[1];
+            transition->values[0] = wrapAngles
+                ? AddAngles(transition->values[0], transition->values[3])
+                : transition->values[0] + transition->values[3];
+            transition->values[3] = wrapAngles
+                ? AddAngles(transition->values[3], transition->values[1])
+                : transition->values[3] + transition->values[1];
             return transition->values[0];
         }
 
@@ -431,8 +448,6 @@ void AnmVm::SetSecondaryEffectState(
     secondaryEffectTransition.mode = mode & 0xFFU;
     secondaryEffectTransition.values[0] = parameter0;
     secondaryEffectTransition.values[1] = parameter1;
-    secondaryEffectTransition.values[2] = 0;
-    secondaryEffectTransition.values[3] = 0;
     secondaryEffectTransition.timer.Reset();
 }
 
@@ -520,7 +535,7 @@ void AnmVm::UpdateTransitions()
     if (positionTransition.duration != 0)
     {
         float result[3];
-        InterpolateVector(&positionTransition, result);
+        InterpolateVector(&positionTransition, result, true);
         unknown024 = result[0];
         unknown028 = result[1];
         unknown02C = result[2];
@@ -529,7 +544,7 @@ void AnmVm::UpdateTransitions()
 
     if (viewTransition.duration != 0)
     {
-        unknown02C = InterpolateScalar(&viewTransition);
+        unknown02C = InterpolateScalar(&viewTransition, true);
         flags |= 4U;
     }
 
@@ -551,11 +566,11 @@ void AnmVm::UpdateTransitions()
 
     if (textureOffsetXTransition.duration != 0)
     {
-        textureOffsetX = InterpolateScalar(&textureOffsetXTransition);
+        textureOffsetX = InterpolateScalar(&textureOffsetXTransition, false);
     }
 
     if (textureOffsetYTransition.duration != 0)
     {
-        textureOffsetY = InterpolateScalar(&textureOffsetYTransition);
+        textureOffsetY = InterpolateScalar(&textureOffsetYTransition, false);
     }
 }
