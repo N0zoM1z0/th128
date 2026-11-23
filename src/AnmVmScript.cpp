@@ -80,6 +80,202 @@ namespace
         return (unsigned int)(InstructionBytes(instruction) + instruction->size);
     }
 
+    void BuildViewCorners(const AnmVm *vm, float corners[4][3])
+    {
+        const AnmVm *parent = vm->parentVm;
+        const bool inheritParent =
+            parent != 0 && (vm->stateFlags & 0x100U) == 0;
+
+        float width = vm->uvScrollX * vm->scaleX * vm->scale2X;
+        float height = vm->uvScrollY * vm->scaleY * vm->scale2Y;
+        float parentX = 0.0f;
+        float parentY = 0.0f;
+
+        if (inheritParent)
+        {
+            width *= parent->scaleX * parent->scale2X;
+            height *= parent->scaleY * parent->scale2Y;
+            parentX = parent->position.x +
+                parent->secondaryPosition.x + parent->alternatePosition.x;
+            parentY = parent->position.y +
+                parent->secondaryPosition.y + parent->alternatePosition.y;
+        }
+
+        const float centerX = vm->position.x +
+            vm->secondaryPosition.x + vm->alternatePosition.x;
+        const float centerY = vm->position.y +
+            vm->secondaryPosition.y + vm->alternatePosition.y;
+        const float centerZ = vm->position.z +
+            vm->secondaryPosition.z + vm->alternatePosition.z;
+        const unsigned int viewMode = (vm->flags >> 24) & 0x1FU;
+        const unsigned int horizontalAnchor = (vm->flags >> 20) & 3U;
+        const unsigned int verticalAnchor = (vm->flags >> 22) & 3U;
+
+        if (viewMode == 1U)
+        {
+            float angle = vm->unknown02C;
+            if (inheritParent)
+            {
+                angle += parent->unknown02C;
+            }
+
+            const float cosine = (float)cos((double)angle);
+            const float sine = (float)sin((double)angle);
+            const float originX = centerX + parentX;
+            const float originY = centerY + parentY;
+
+            float left;
+            float right;
+            float top;
+            float bottom;
+            switch (horizontalAnchor)
+            {
+            case 0:
+                left = -width * 0.5f;
+                right = width * 0.5f;
+                break;
+            case 1:
+                left = 0.0f;
+                right = width;
+                break;
+            case 2:
+                left = -width;
+                right = 0.0f;
+                break;
+            default:
+                left = right = 0.0f;
+                break;
+            }
+
+            switch (verticalAnchor)
+            {
+            case 0:
+                top = -height * 0.5f;
+                bottom = height * 0.5f;
+                break;
+            case 1:
+                top = 0.0f;
+                bottom = height;
+                break;
+            case 2:
+                top = -height;
+                bottom = 0.0f;
+                break;
+            default:
+                top = bottom = 0.0f;
+                break;
+            }
+
+            const float xOffsets[4] = {left, right, left, right};
+            const float yOffsets[4] = {top, top, bottom, bottom};
+            for (unsigned int i = 0; i != 4; ++i)
+            {
+                corners[i][0] = originX +
+                    cosine * xOffsets[i] - sine * yOffsets[i];
+                corners[i][1] = originY +
+                    cosine * yOffsets[i] + sine * xOffsets[i];
+                corners[i][2] = centerZ;
+            }
+            return;
+        }
+
+        float left;
+        float right;
+        float top;
+        float bottom;
+        if (viewMode == 0U)
+        {
+            left = (float)ZunRoundToInt(
+                (double)centerX - (double)width * 0.5);
+            top = (float)ZunRoundToInt(
+                (double)centerY - (double)height * 0.5);
+            right = left + width;
+            bottom = top + height;
+        }
+        else
+        {
+            switch (horizontalAnchor)
+            {
+            case 0:
+                left = centerX - width * 0.5f;
+                right = left + width;
+                break;
+            case 1:
+                left = centerX;
+                right = centerX + width;
+                break;
+            case 2:
+                left = centerX - width;
+                right = centerX;
+                break;
+            default:
+                left = right = 0.0f;
+                break;
+            }
+
+            switch (verticalAnchor)
+            {
+            case 0:
+                top = centerY - height * 0.5f;
+                bottom = top + height;
+                break;
+            case 1:
+                top = centerY;
+                bottom = centerY + height;
+                break;
+            case 2:
+                top = centerY - height;
+                bottom = centerY;
+                break;
+            default:
+                top = bottom = 0.0f;
+                break;
+            }
+        }
+
+        left += parentX;
+        right += parentX;
+        top += parentY;
+        bottom += parentY;
+
+        corners[0][0] = left;
+        corners[0][1] = top;
+        corners[1][0] = right;
+        corners[1][1] = top;
+        corners[2][0] = left;
+        corners[2][1] = bottom;
+        corners[3][0] = right;
+        corners[3][1] = bottom;
+        for (unsigned int i = 0; i != 4; ++i)
+        {
+            corners[i][2] = centerZ;
+        }
+    }
+
+    void UpdateTextureRectFromView(AnmVm *vm)
+    {
+        float corners[4][3];
+        BuildViewCorners(vm, corners);
+
+        float *textureCoordinates = &vm->textureRect[0][0];
+        for (unsigned int i = 0; i != 4; ++i)
+        {
+            float u = (float)((double)corners[i][0] / 640.0);
+            float v = (float)((double)corners[i][1] / 480.0);
+            if (u < 0.0f)
+            {
+                u = 0.0f;
+            }
+            if (v < 0.0f)
+            {
+                v = 0.0f;
+            }
+
+            textureCoordinates[i * 2] = u;
+            textureCoordinates[i * 2 + 1] = v;
+        }
+    }
+
     void LinkChildVm(AnmVm *parent, AnmVm *child)
     {
         AnmVmListNode *head = &parent->childNode;
@@ -1052,6 +1248,11 @@ bool AnmVm::ExecuteBasicInstruction(const AnmVmInstructionHeader *instruction)
         scriptDataOffsetCopy = nextInstruction;
         return true;
     }
+
+    case 98:
+        UpdateTextureRectFromView(this);
+        scriptDataOffsetCopy = nextInstruction;
+        return true;
 
     case 100:
         viewMode = IntegerSource(this, instruction, 8, 1U);
