@@ -251,6 +251,8 @@ typedef char AnmVmSecondaryEffectTransitionOffset[(offsetof(AnmVm, secondaryEffe
 typedef char AnmVmTextureOffsetXTransitionOffset[(offsetof(AnmVm, textureOffsetXTransition) == 0x2D0) ? 1 : -1];
 typedef char AnmVmTextureOffsetYTransitionOffset[(offsetof(AnmVm, textureOffsetYTransition) == 0x2FC) ? 1 : -1];
 
+void ApplyAnmVmRenderState(AnmVm *vm);
+
 void __stdcall AnmVmSetScale(AnmVm *vm, float x, float y);
 void __stdcall AnmVmSetScaleX(AnmVm *vm, float x);
 void __stdcall AnmVmSetScaleY(AnmVm *vm, float y);

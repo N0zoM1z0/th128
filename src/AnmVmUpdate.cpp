@@ -128,6 +128,7 @@ int AnmVm::Update()
         UpdateTextureRectFromView();
     }
 
+    ApplyAnmVmRenderState(this);
     UpdateTransitions();
     UpdateCustomGeometry();
 

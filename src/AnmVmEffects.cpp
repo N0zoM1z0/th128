@@ -81,7 +81,7 @@ struct AnmVmRendererState
     unsigned char unknown4E968D;
     unsigned char vertexFormatMode;         // +0x4E968E
     unsigned char unknown4E968F[3];
-    unsigned char samplerFilterMode;        // +0x4E9692
+    unsigned char textureArgumentMode;      // +0x4E9692
     unsigned char textureStageState;        // +0x4E9693
     void *currentTextureTransformFile;      // +0x4E9694
     IDirect3DVertexBuffer9 *vertexBuffer;    // +0x4E9698
@@ -247,14 +247,17 @@ void ApplyAnmVmRenderState(AnmVm *vm)
         }
     }
 
-    const unsigned char samplerMode = (unsigned char)((vm->stateFlags >> 2) & 1U);
-    if (renderer->samplerFilterMode != samplerMode)
+    const unsigned char textureArgumentMode =
+        (unsigned char)((vm->stateFlags >> 2) & 1U);
+    if (renderer->textureArgumentMode != textureArgumentMode)
     {
         FlushAnmSpriteBatch();
-        renderer->samplerFilterMode = samplerMode;
-        const DWORD filter = samplerMode == 0 ? 2 : 1;
-        device->SetSamplerState(0, D3DSAMP_MINFILTER, filter);
-        device->SetSamplerState(0, D3DSAMP_MAGFILTER, filter);
+        renderer->textureArgumentMode = textureArgumentMode;
+        const DWORD argument = textureArgumentMode == 0
+            ? D3DTA_TEXTURE
+            : D3DTA_CURRENT;
+        device->SetTextureStageState(0, D3DTSS_ALPHAARG1, argument);
+        device->SetTextureStageState(0, D3DTSS_COLORARG1, argument);
     }
 
     ++renderer->stateCallCount;
