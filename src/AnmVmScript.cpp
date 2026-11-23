@@ -11,6 +11,36 @@
 
 namespace
 {
+    typedef void (__stdcall *AnmVmChildCriticalSectionRoutine)(void *);
+
+    class AnmVmChildCreationLock
+    {
+    public:
+        AnmVmChildCreationLock()
+        {
+            if ((*reinterpret_cast<volatile unsigned int *>(0x004D33F8) & 0x8000U) != 0)
+            {
+                AnmVmChildCriticalSectionRoutine enter =
+                    *reinterpret_cast<AnmVmChildCriticalSectionRoutine *>(0x0049A088);
+                enter(reinterpret_cast<void *>(0x004D3750));
+                ++*reinterpret_cast<volatile unsigned char *>(0x004D37A1);
+            }
+        }
+
+        ~AnmVmChildCreationLock()
+        {
+            // The original child-creation routines re-read the global flag
+            // at the exit edge rather than remembering the entry decision.
+            if ((*reinterpret_cast<volatile unsigned int *>(0x004D33F8) & 0x8000U) != 0)
+            {
+                AnmVmChildCriticalSectionRoutine leave =
+                    *reinterpret_cast<AnmVmChildCriticalSectionRoutine *>(0x0049A08C);
+                leave(reinterpret_cast<void *>(0x004D3750));
+                --*reinterpret_cast<volatile unsigned char *>(0x004D37A1);
+            }
+        }
+    };
+
     const unsigned char *InstructionBytes(const AnmVmInstructionHeader *instruction)
     {
         return reinterpret_cast<const unsigned char *>(instruction);
@@ -143,20 +173,11 @@ namespace
         int scriptIndex,
         unsigned int listMode)
     {
+        AnmVmChildCreationLock lock;
         AnmResource *resource = parent->resource;
-        AnmManager *manager = GetGlobalAnmManager();
-        if (resource == 0 || manager == 0)
-        {
-            return 0;
-        }
-
         ++resource->activeVmCount;
-        AnmVm *child = AllocateAnmVm();
-        if (child == 0)
-        {
-            return 0;
-        }
 
+        AnmVm *child = AllocateAnmVm();
         child->stateFlags |= 2U;
         child->position.x = 0.0f;
         child->position.y = 0.0f;
@@ -165,6 +186,7 @@ namespace
         resource->BindVmScript(child, scriptIndex);
         child->parentVm = parent;
 
+        AnmManager *manager = GetGlobalAnmManager();
         unsigned int id;
         if ((listMode & 4U) != 0)
         {
@@ -185,28 +207,21 @@ namespace
 
     unsigned int SpawnChildVmAtPosition(AnmVm *parent, int scriptIndex)
     {
+        AnmVmChildCreationLock lock;
         AnmResource *resource = parent->resource;
-        AnmManager *manager = GetGlobalAnmManager();
-        if (resource == 0 || manager == 0)
-        {
-            return 0;
-        }
-
         ++resource->activeVmCount;
-        AnmVm *child = AllocateAnmVm();
-        if (child == 0)
-        {
-            return 0;
-        }
 
+        AnmVm *child = AllocateAnmVm();
         child->stateFlags |= 2U;
-        child->position = parent->position;
         child->scriptState = parent->scriptState;
+        child->position = parent->position;
         resource->BindVmScript(child, scriptIndex);
         child->unknown024 = parent->unknown024;
         child->unknown028 = parent->unknown028;
         child->unknown02C = parent->unknown02C;
         child->alternatePosition = parent->secondaryPosition;
+
+        AnmManager *manager = GetGlobalAnmManager();
         return manager->RegisterWorldVmAtTail(child);
     }
 

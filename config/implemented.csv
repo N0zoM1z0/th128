@@ -120,6 +120,8 @@ Rng::GetU16
 Rng::GetU32
 SetTimeScale
 ShortestAngleDifference
+SpawnChildVm
+SpawnChildVmAtPosition
 SptInf::Slot00
 SptInf::Slot01
 SptInf::Slot02
