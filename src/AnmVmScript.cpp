@@ -165,6 +165,18 @@ namespace
         child->alternatePosition = parent->secondaryPosition;
         return manager->RegisterWorldVmAtTail(child);
     }
+
+    AnmResource *GetDefaultAnmResource()
+    {
+        void *globalState = *reinterpret_cast<void **>(0x004B8920);
+        if (globalState == 0)
+        {
+            return 0;
+        }
+
+        return *reinterpret_cast<AnmResource **>(
+            reinterpret_cast<unsigned char *>(globalState) + 0x1C894);
+    }
 }
 
 bool AnmVm::ExecuteWaitCommand(bool clearActiveFlag)
@@ -1037,6 +1049,54 @@ bool AnmVm::ExecuteBasicInstruction(const AnmVmInstructionHeader *instruction)
             child->alternatePosition.x = FloatSource(this, instruction, 12, 2U);
             child->alternatePosition.y = FloatSource(this, instruction, 16, 4U);
         }
+        scriptDataOffsetCopy = nextInstruction;
+        return true;
+    }
+
+    case 100:
+        viewMode = IntegerSource(this, instruction, 8, 1U);
+        viewPosition.x = FloatSource(this, instruction, 16, 4U);
+        viewPosition.y = FloatSource(this, instruction, 20, 8U);
+        viewPosition.z = FloatSource(this, instruction, 24, 0x10U);
+        timer0D4.Reset();
+        scriptDataOffsetCopy = nextInstruction;
+        return true;
+
+    case 102:
+    {
+        flags |= 1U;
+        int fileIndex;
+        if (anmFileResolver == 0)
+        {
+            const int firstIndex = IntegerSource(this, instruction, 8, 1U);
+            const unsigned int variantCount =
+                (unsigned int)IntegerSource(this, instruction, 12, 2U);
+            const unsigned int randomValue = NextRandomValue();
+            fileIndex = firstIndex +
+                (variantCount != 0 ? (int)(randomValue % variantCount) : 0);
+        }
+        else
+        {
+            // Resolve both encoded operands and consume the same random value
+            // as the built-in selector before delegating to the VM callback.
+            (void)IntegerSource(this, instruction, 8, 1U);
+            (void)IntegerSource(this, instruction, 12, 2U);
+            NextRandomValue();
+            fileIndex = anmFileResolver(this);
+        }
+
+        AnmResource *fileResource = resource;
+        if (fileIndex < 0)
+        {
+            fileIndex = 0x139;
+            fileResource = GetDefaultAnmResource();
+        }
+
+        if (fileResource != 0)
+        {
+            BindAnmFile(fileIndex, fileResource);
+        }
+        lastScriptFrame = timer070.current;
         scriptDataOffsetCopy = nextInstruction;
         return true;
     }
