@@ -50,6 +50,6 @@ void AnmVm::Update()
         return;
     }
 
-    timer070.AdvanceFrame();
+    timer070.Increment();
     *gameSpeed = savedGameSpeed;
 }

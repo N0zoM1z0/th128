@@ -1,20 +1,8 @@
 #include "AnmVm.hpp"
 
-#include <math.h>
 
 namespace
 {
-    double RoundNearestEven(double value)
-    {
-        const double lower = floor(value);
-        const double fraction = value - lower;
-        if (fraction > 0.5 || (fraction == 0.5 && fmod(lower, 2.0) != 0.0))
-        {
-            return lower + 1.0;
-        }
-        return lower;
-    }
-
     double EaseTransition(unsigned int mode, double t)
     {
         const double inverse = 1.0 - t;
@@ -97,7 +85,7 @@ namespace
             return false;
         }
 
-        timer->AdvanceFrame();
+        timer->Increment();
         if (timer->current < (int)*duration)
         {
             return false;
@@ -163,7 +151,7 @@ namespace
                     ((double)transition->values[i + 3] -
                      (double)transition->values[i]) * eased;
             }
-            result[i] = (int)RoundNearestEven(value);
+            result[i] = ZunRoundToInt(value);
         }
     }
 
@@ -207,7 +195,7 @@ namespace
                 ((double)transition->values[1] -
                  (double)transition->values[0]) * eased;
         }
-        return (int)RoundNearestEven(value);
+        return ZunRoundToInt(value);
     }
 
     void InterpolateVector(AnmVmVectorTransition *transition, float result[3])

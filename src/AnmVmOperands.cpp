@@ -7,26 +7,6 @@ namespace
     const unsigned int kVmOperandBase = 10000;
     const unsigned int kVmIntegerOperandEnd = 10022;
 
-    int RoundToNearestEven(float value)
-    {
-        if (value != value || value >= 2147483648.0f || value < -2147483648.0f)
-        {
-            return (int)0x80000000;
-        }
-
-        int integral = (int)value;
-        float fraction = value - (float)integral;
-
-        if (fraction > 0.5f || (fraction == 0.5f && (integral & 1) != 0))
-        {
-            ++integral;
-        }
-        else if (fraction < -0.5f || (fraction == -0.5f && (integral & 1) != 0))
-        {
-            --integral;
-        }
-        return integral;
-    }
 
     Rng *VmRandomGenerator(const AnmVm *vm)
     {
@@ -73,13 +53,13 @@ int AnmVm::ResolveIntegerOperand(int operand)
     case 10003:
         return integerVariables[3];
     case 10004:
-        return RoundToNearestEven(floatVariables[0]);
+        return ZunRoundToInt((double)floatVariables[0]);
     case 10005:
-        return RoundToNearestEven(floatVariables[1]);
+        return ZunRoundToInt((double)floatVariables[1]);
     case 10006:
-        return RoundToNearestEven(floatVariables[2]);
+        return ZunRoundToInt((double)floatVariables[2]);
     case 10007:
-        return RoundToNearestEven(floatVariables[3]);
+        return ZunRoundToInt((double)floatVariables[3]);
     case 10008:
         return integerVariables2[0];
     case 10009:
@@ -93,7 +73,7 @@ int AnmVm::ResolveIntegerOperand(int operand)
 
 float AnmVm::ResolveFloatOperand(float operand)
 {
-    const int variable = RoundToNearestEven(operand);
+    const int variable = ZunRoundToInt((double)operand);
     if ((unsigned int)variable - kVmOperandBase >= 0x1AU)
     {
         return operand;
@@ -181,7 +161,7 @@ int *AnmVm::ResolveIntegerOperandAddress(int *operand)
 
 float *AnmVm::ResolveFloatOperandAddress(float *operand)
 {
-    const int variable = RoundToNearestEven(*operand);
+    const int variable = ZunRoundToInt((double)*operand);
     switch (variable)
     {
     case 10004:
