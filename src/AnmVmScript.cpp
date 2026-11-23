@@ -9,8 +9,6 @@
 
 namespace
 {
-    const unsigned int kMaximumInstructionsPerTick = 0x10000;
-
     const unsigned char *InstructionBytes(const AnmVmInstructionHeader *instruction)
     {
         return reinterpret_cast<const unsigned char *>(instruction);
@@ -1491,46 +1489,42 @@ bool AnmVm::ExecuteBasicInstruction(const AnmVmInstructionHeader *instruction)
     }
 }
 
-unsigned int AnmVm::ExecuteReadyInstructions()
+void AnmVm::ExecuteReadyInstructions()
 {
     if (scriptDataOffsetCopy == 0 || (flags & 0x80000U) != 0)
     {
-        return 0;
+        return;
     }
 
     if (currentFrame != 0 && !ExecuteWaitCommand(false))
     {
-        return 0;
+        return;
     }
 
-    unsigned int executed = 0;
-    while (executed < kMaximumInstructionsPerTick)
+    for (;;)
     {
         const AnmVmInstructionHeader *instruction =
             reinterpret_cast<const AnmVmInstructionHeader *>(scriptDataOffsetCopy);
 
         if (instruction->frame > timer070.current)
         {
-            break;
+            return;
         }
 
         if (instruction->opcode == 0xFFFFU || instruction->opcode == 1U)
         {
             flags &= ~1U;
             scriptDataOffsetCopy = 0;
-            return executed;
+            return;
         }
         if (instruction->opcode == 2U)
         {
             scriptDataOffsetCopy = 0;
-            return executed;
+            return;
         }
         if (!ExecuteBasicInstruction(instruction))
         {
-            break;
+            return;
         }
-        ++executed;
     }
-
-    return executed;
 }

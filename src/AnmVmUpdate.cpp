@@ -119,7 +119,6 @@ int AnmVm::Update()
     ExecuteReadyInstructions();
     if (scriptDataOffsetCopy == 0)
     {
-        flags &= ~1U;
         *gameSpeed = savedGameSpeed;
         return 1;
     }

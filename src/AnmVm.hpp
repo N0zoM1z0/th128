@@ -191,7 +191,7 @@ struct AnmVm
     void SetSecondaryEffectState(unsigned int duration, unsigned int mode, unsigned char parameter0, unsigned char parameter1);
     bool ExecuteWaitCommand(bool clearActiveFlag);
     bool ExecuteBasicInstruction(const AnmVmInstructionHeader *instruction);
-    unsigned int ExecuteReadyInstructions();
+    void ExecuteReadyInstructions();
     void UpdateTransitions();
     void UpdateTextureRectFromView();
     void UpdateCustomGeometry();
