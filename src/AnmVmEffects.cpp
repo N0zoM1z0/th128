@@ -1129,7 +1129,12 @@ static int DrawAnmVmWorldMatrixBatchSprite(AnmVm *vm)
     }
 
     vm->UpdateWorldMatrix(manager->vmWorldMatrix, false);
-    const int result = DrawAnmVmSpriteQuad(vm, false, false);
+
+    AnmVm drawVm = *vm;
+    drawVm.parentVm = 0;
+    drawVm.stateFlags |= 0x100U;
+    const int result = DrawAnmVmSpriteQuad(&drawVm, false, false);
+    memcpy(vm->drawVertices, drawVm.drawVertices, sizeof(vm->drawVertices));
     ResetAnmVmSharedSpriteReciprocalW();
     return result;
 }
