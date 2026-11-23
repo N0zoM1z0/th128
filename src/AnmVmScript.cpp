@@ -2004,7 +2004,7 @@ __forceinline void AnmVm::UpdateCustomGeometry()
             innerU,
             v + textureScrollY);
         v += vStep;
-        angle = NormalizeAngle(angle + angleStep);
+        angle = AddAngles(angle, angleStep);
     }
 }
 
@@ -2030,7 +2030,7 @@ namespace
             reinterpret_cast<const unsigned char *>(stageState) + 0x60) & 2U) != 0;
     }
 
-    void UpdateContinuousMotion(AnmVm *vm, float gameSpeed)
+    __forceinline void UpdateContinuousMotion(AnmVm *vm, float gameSpeed)
     {
         if (vm->scriptVector.x != 0.0f)
         {
