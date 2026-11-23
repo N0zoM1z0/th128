@@ -46,6 +46,16 @@ struct AnmVmEffect10Data
 typedef char AnmVmEffect10DataSize[
     (sizeof(AnmVmEffect10Data) == 0x4B0) ? 1 : -1
 ];
+typedef char AnmVmEffect10CenterVertexLayout[
+    (offsetof(AnmVmEffect10Data, color) ==
+         offsetof(AnmVmEffect10Vertex, color) &&
+     offsetof(AnmVmEffect10Data, uvBaseU) ==
+         offsetof(AnmVmEffect10Vertex, u) &&
+     offsetof(AnmVmEffect10Data, uvBaseV) ==
+         offsetof(AnmVmEffect10Vertex, v) &&
+     offsetof(AnmVmEffect10Data, vertices) ==
+         sizeof(AnmVmEffect10Vertex)) ? 1 : -1
+];
 
 struct AnmVmWorldInputVertex
 {
