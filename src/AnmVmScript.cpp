@@ -1796,10 +1796,10 @@ namespace
         const unsigned int mode = transition->mode;
         if (AdvanceTransition(&transition->timer, &transition->duration, mode))
         {
-            return transition->values[(mode == 7) ? 0 : 1];
+            return transition->values[(mode == 9) ? 0 : 1];
         }
 
-        if (mode == 7)
+        if (mode == 9)
         {
             transition->values[0] += transition->values[1];
             return transition->values[0];
