@@ -250,7 +250,10 @@ void ApplyAnmVmRenderState(AnmVm *vm)
     ++renderer->stateCallCount;
 }
 
-void DrawAnmVmVertices(AnmVm *vm, const void *vertices, unsigned int vertexCount)
+int DrawAnmVmVertices(
+    AnmVm *vm,
+    const void *vertices,
+    unsigned int vertexCount)
 {
     AnmVmRendererState *renderer = GetAnmVmRenderer();
     IDirect3DDevice9 *device = GetAnmVmDevice();
@@ -258,21 +261,13 @@ void DrawAnmVmVertices(AnmVm *vm, const void *vertices, unsigned int vertexCount
         vm->anmFileEntry == 0 || vm->anmFileEntry->texture == 0 ||
         vertexCount < 3)
     {
-        return;
+        return -1;
     }
 
     if (renderer->pendingBatchCount != 0)
     {
         FlushAnmSpriteBatch();
     }
-
-    if (renderer->vertexFormatMode != 3)
-    {
-        device->SetFVF(0x144);
-        renderer->vertexFormatMode = 3;
-    }
-
-    ApplyAnmVmRenderState(vm);
 
     void *textureSlot = vm->anmFileEntry->texture;
     if (renderer->currentTexture != textureSlot)
@@ -283,14 +278,21 @@ void DrawAnmVmVertices(AnmVm *vm, const void *vertices, unsigned int vertexCount
             *reinterpret_cast<IDirect3DBaseTexture9 **>(textureSlot));
     }
 
-    FlushAnmSpriteBatch();
-    device->SetRenderState(D3DRS_ZWRITEENABLE, 0);
-
-    if (renderer->vertexFormatMode != 1)
+    if (renderer->vertexFormatMode != 3)
     {
+        device->SetFVF(0x144);
         device->SetTextureStageState(0, D3DTSS_ALPHAARG2, 0);
         device->SetTextureStageState(0, D3DTSS_COLORARG2, 0);
-        renderer->vertexFormatMode = 1;
+        renderer->vertexFormatMode = 3;
+    }
+
+    ApplyAnmVmRenderState(vm);
+
+    if (renderer->textureStageState != 1)
+    {
+        device->SetTextureStageState(0, D3DTSS_ALPHAOP, 4);
+        device->SetTextureStageState(0, D3DTSS_COLOROP, 4);
+        renderer->textureStageState = 1;
     }
 
     device->DrawPrimitiveUP(
@@ -298,6 +300,7 @@ void DrawAnmVmVertices(AnmVm *vm, const void *vertices, unsigned int vertexCount
         vertexCount - 2,
         vertices,
         sizeof(AnmVmEffect10Vertex));
+    return 0;
 }
 
 
@@ -1726,8 +1729,7 @@ int DrawAnmVm(AnmVm *vm)
             vm, vm->extraData, vertexCount);
 
     case 11:
-        DrawAnmVmVertices(vm, vm->extraData, vertexCount);
-        return 0;
+        return DrawAnmVmVertices(vm, vm->extraData, vertexCount);
 
     case 15:
     case 16:
