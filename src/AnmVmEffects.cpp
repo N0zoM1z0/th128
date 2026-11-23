@@ -1768,7 +1768,7 @@ int __fastcall UpdateAnmVmEffect10(AnmVm *vm)
         WrapEffect10U(data);
     }
 
-    data->uvBaseV += data->uvDeltaU;
+    data->uvBaseV += data->uvDeltaV;
     if (data->uvBaseV < 0.0f)
     {
         WrapEffect10V(data);
@@ -1785,7 +1785,7 @@ int __fastcall UpdateAnmVmEffect10(AnmVm *vm)
             WrapEffect10U(data);
         }
 
-        vertex->v += data->uvDeltaU;
+        vertex->v += data->uvDeltaV;
         if (vertex->v < 0.0f)
         {
             WrapEffect10V(data);
