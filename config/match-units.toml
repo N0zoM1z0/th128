@@ -2075,7 +2075,7 @@ size = 728
 relocations = []
 
 [units.anm-vm-start-effect10]
-frontier = true
+frontier = true # Full 764-byte target body; source C++ extent and target register convention still differ.
 artifact_kind = "coff"
 source = "src/AnmVmEffects.cpp"
 inputs = ["src/AnmVm.hpp", "src/AnmVmGeometry.hpp", "src/AnmResource.hpp", "src/ZunTimer.hpp"]
@@ -2084,7 +2084,7 @@ profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
 functions = ["AnmVm::StartEffect10"]
 symbol = "?StartEffect10@AnmVm@@QAEXXZ"
 target_address = 0x004631A0
-size = 127
+size = 764
 relocations = []
 
 [units.anm-vm-spawn-child]
