@@ -275,6 +275,14 @@ namespace
 
     void UpdateTextureRectFromViewForVm(AnmVm *vm)
     {
+        // The target's view-rectangle dispatcher handles only modes 0..3.
+        // Modes 9, 13 and 14 belong to the custom-geometry path and must not
+        // be interpreted as ordinary rectangular view layouts.
+        if (((vm->flags >> 24) & 0x1FU) > 3U)
+        {
+            return;
+        }
+
         float corners[4][3];
         BuildViewCorners(vm, corners);
 
