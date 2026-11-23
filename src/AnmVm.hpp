@@ -195,7 +195,7 @@ struct AnmVm
     void UpdateTransitions();
     void UpdateTextureRectFromView();
     void UpdateCustomGeometry();
-    void Update(unsigned int updateFlags);
+    int Update();
 
     int ResolveIntegerOperand(int operand);
     float ResolveFloatOperand(float operand);
