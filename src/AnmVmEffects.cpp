@@ -279,7 +279,7 @@ void DrawAnmVmVertices(AnmVm *vm, const void *vertices, unsigned int vertexCount
     }
 
     device->DrawPrimitiveUP(
-        D3DPT_TRIANGLEFAN,
+        D3DPT_TRIANGLELIST,
         vertexCount - 2,
         vertices,
         sizeof(AnmVmEffect10Vertex));
@@ -330,7 +330,11 @@ namespace
     }
 }
 
-static int DrawAnmVmSpriteQuad(AnmVm *vm, bool pixelSnap, bool rotate)
+static int DrawAnmVmSpriteQuad(
+    AnmVm *vm,
+    bool pixelSnap,
+    bool rotate,
+    bool applyColorModulation = true)
 {
     AnmVmRendererState *renderer = GetAnmVmRenderer();
     IDirect3DDevice9 *device = GetAnmVmDevice();
@@ -491,7 +495,7 @@ static int DrawAnmVmSpriteQuad(AnmVm *vm, bool pixelSnap, bool rotate)
 
     unsigned int primaryColor = vm->color;
     unsigned int secondaryColor = vm->secondaryColor;
-    if (manager->colorModulationEnabled != 0)
+    if (applyColorModulation && manager->colorModulationEnabled != 0)
     {
         primaryColor = ModulateAnmSpriteColor(
             primaryColor, manager->colorModulation);
@@ -740,19 +744,22 @@ typedef AnmVmProjectedPoint *(__stdcall *AnmD3DXVec3ProjectFn)(
     const D3DMATRIX *view,
     const D3DMATRIX *world);
 
-static int DrawAnmVmProjectedSprite(AnmVm *vm)
+static int ProjectAnmVmSprite(
+    const AnmVm *vm,
+    AnmVmProjectedPoint *projectedCenter,
+    float *projectedScale)
 {
     const unsigned char *camera =
         *reinterpret_cast<const unsigned char *const *>(0x004D33B4);
     // The original D3DXVec3Project import thunk is at 0x0049A2D4.
     AnmD3DXVec3ProjectFn project =
         *reinterpret_cast<AnmD3DXVec3ProjectFn *>(0x0049A2D4);
-    if (camera == 0 || project == 0 || vm == 0)
+    if (camera == 0 || project == 0 || vm == 0 ||
+        projectedCenter == 0 || projectedScale == 0)
     {
         return -1;
     }
 
-    const AnmVmProjectedPoint origin = {0.0f, 0.0f, 0.0f};
     const AnmVmProjectedPoint reference =
         *reinterpret_cast<const AnmVmProjectedPoint *>(camera + 0x30);
     const AnmVmProjectedPoint worldPosition =
@@ -767,12 +774,8 @@ static int DrawAnmVmProjectedSprite(AnmVm *vm)
     world._11 = 1.0f;
     world._22 = 1.0f;
     world._33 = 1.0f;
-    world._41 = worldPosition.x;
-    world._42 = worldPosition.y;
-    world._43 = worldPosition.z;
     world._44 = 1.0f;
 
-    AnmVmProjectedPoint projectedCenter;
     AnmVmProjectedPoint projectedReference;
     const D3DVIEWPORT9 *viewport =
         reinterpret_cast<const D3DVIEWPORT9 *>(camera + 0xCC);
@@ -781,9 +784,8 @@ static int DrawAnmVmProjectedSprite(AnmVm *vm)
     const D3DMATRIX *projection =
         reinterpret_cast<const D3DMATRIX *>(camera + 0x8C);
 
-    project(
-        &projectedCenter, &origin, viewport, projection, view, &world);
-    if (projectedCenter.z < 0.0f || projectedCenter.z > 1.0f)
+    project(projectedCenter, &worldPosition, viewport, projection, view, &world);
+    if (projectedCenter->z < 0.0f || projectedCenter->z > 1.0f)
     {
         return -1;
     }
@@ -792,35 +794,171 @@ static int DrawAnmVmProjectedSprite(AnmVm *vm)
         &projectedReference, &reference,
         viewport, projection, view, &world);
 
-    const float deltaX = projectedReference.x - projectedCenter.x;
-    const float deltaY = projectedReference.y - projectedCenter.y;
-    const float deltaZ = projectedReference.z - projectedCenter.z;
-    const float projectedScale = (float)(
+    const float deltaX = projectedReference.x - projectedCenter->x;
+    const float deltaY = projectedReference.y - projectedCenter->y;
+    const float deltaZ = projectedReference.z - projectedCenter->z;
+    *projectedScale = (float)(
         sqrt((double)(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ)) *
         6.283185307179586476925286766559);
+    return 0;
+}
+
+static void PrepareAnmVmProjectedSprite(
+    AnmVm *projectedVm,
+    const AnmVm *sourceVm,
+    const AnmVmProjectedPoint &center,
+    float projectedScale)
+{
+    *projectedVm = *sourceVm;
+    projectedVm->parentVm = 0;
+    projectedVm->stateFlags |= 0x100U;
+    projectedVm->position.x = center.x;
+    projectedVm->position.y = center.y;
+    projectedVm->position.z = center.z;
+    projectedVm->secondaryPosition.x = 0.0f;
+    projectedVm->secondaryPosition.y = 0.0f;
+    projectedVm->secondaryPosition.z = 0.0f;
+    projectedVm->alternatePosition.x = 0.0f;
+    projectedVm->alternatePosition.y = 0.0f;
+    projectedVm->alternatePosition.z = 0.0f;
+    projectedVm->scaleX = 1.0f;
+    projectedVm->scaleY = 1.0f;
+    projectedVm->scale2X = 1.0f;
+    projectedVm->scale2Y = 1.0f;
+    projectedVm->uvScrollX = sourceVm->uvScrollX *
+        sourceVm->scaleX * sourceVm->scale2X * projectedScale;
+    projectedVm->uvScrollY = sourceVm->uvScrollY *
+        sourceVm->scaleY * sourceVm->scale2Y * projectedScale;
+}
+
+static int DrawAnmVmProjectedSprite(AnmVm *vm)
+{
+    AnmVmProjectedPoint center;
+    float projectedScale;
+    if (ProjectAnmVmSprite(vm, &center, &projectedScale) != 0)
+    {
+        return -1;
+    }
 
     AnmVm projectedVm = *vm;
-    projectedVm.parentVm = 0;
-    projectedVm.stateFlags |= 0x100U;
-    projectedVm.position.x = projectedCenter.x;
-    projectedVm.position.y = projectedCenter.y;
-    projectedVm.position.z = projectedCenter.z;
-    projectedVm.secondaryPosition.x = 0.0f;
-    projectedVm.secondaryPosition.y = 0.0f;
-    projectedVm.secondaryPosition.z = 0.0f;
-    projectedVm.alternatePosition.x = 0.0f;
-    projectedVm.alternatePosition.y = 0.0f;
-    projectedVm.alternatePosition.z = 0.0f;
-    projectedVm.scaleX = 1.0f;
-    projectedVm.scaleY = 1.0f;
-    projectedVm.scale2X = 1.0f;
-    projectedVm.scale2Y = 1.0f;
-    projectedVm.uvScrollX = vm->uvScrollX * vm->scaleX *
-        vm->scale2X * projectedScale;
-    projectedVm.uvScrollY = vm->uvScrollY * vm->scaleY *
-        vm->scale2Y * projectedScale;
+    PrepareAnmVmProjectedSprite(&projectedVm, vm, center, projectedScale);
 
     const int result = DrawAnmVmSpriteQuad(&projectedVm, false, true);
+    memcpy(vm->drawVertices, projectedVm.drawVertices, sizeof(vm->drawVertices));
+    return result;
+}
+
+static unsigned int FadeAnmVmFogColor(unsigned int color, float fadeFactor)
+{
+    const float *fogColor = reinterpret_cast<const float *>(0x004D3170);
+    unsigned int result = 0;
+
+    for (unsigned int channel = 0; channel != 3; ++channel)
+    {
+        const int fog = (int)floorf(fogColor[channel] + 0.5f);
+        const int source = (int)((color >> (channel * 8)) & 0xFFU);
+        const int adjustment = (int)((float)(source - fog) * fadeFactor);
+        const unsigned int faded =
+            (unsigned int)(source - adjustment) & 0xFFU;
+        result |= faded << (channel * 8);
+    }
+
+    const int alpha = (int)(float)(color >> 24) * (1.0f - fadeFactor);
+    result |= ((unsigned int)alpha & 0xFFU) << 24;
+    return result;
+}
+
+static int DrawAnmVmFogSprite(AnmVm *vm)
+{
+    AnmManager *manager = GetGlobalAnmManager();
+    const unsigned char *camera =
+        *reinterpret_cast<const unsigned char *const *>(0x004D33B4);
+    if (manager == 0 || camera == 0 || vm == 0)
+    {
+        return -1;
+    }
+
+    AnmVmProjectedPoint center;
+    float projectedScale;
+    if (ProjectAnmVmSprite(vm, &center, &projectedScale) != 0)
+    {
+        return -1;
+    }
+
+    const float worldX =
+        vm->position.x + vm->secondaryPosition.x + vm->alternatePosition.x;
+    const float worldY =
+        vm->position.y + vm->secondaryPosition.y + vm->alternatePosition.y;
+    const float worldZ =
+        vm->position.z + vm->secondaryPosition.z + vm->alternatePosition.z;
+    const float deltaX = worldX - *reinterpret_cast<const float *>(0x004D306C);
+    const float deltaY = worldY - *reinterpret_cast<const float *>(0x004D3070);
+    const float deltaZ = worldZ - *reinterpret_cast<const float *>(0x004D3074);
+    const float distance = (float)sqrt(
+        (double)(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ));
+    const float fogStart = *reinterpret_cast<const float *>(0x004D3168);
+    const float fogRange =
+        *reinterpret_cast<const float *>(camera + 0xFC) -
+        *reinterpret_cast<const float *>(camera + 0x100);
+
+    float fadeFactor = 0.0f;
+    if (distance > fogStart)
+    {
+        fadeFactor = (fogStart - distance) / fogRange;
+        if (fadeFactor >= 1.0f)
+        {
+            return -1;
+        }
+    }
+
+    AnmVm projectedVm = *vm;
+    PrepareAnmVmProjectedSprite(&projectedVm, vm, center, projectedScale);
+
+    const unsigned int colorMode = (vm->flags >> 16) & 3U;
+    if (manager->colorModulationEnabled != 0)
+    {
+        if (colorMode == 0U)
+        {
+            projectedVm.color = ModulateAnmSpriteColor(
+                projectedVm.color, manager->colorModulation);
+        }
+        else if (colorMode == 1U)
+        {
+            projectedVm.secondaryColor = ModulateAnmSpriteColor(
+                projectedVm.secondaryColor, manager->colorModulation);
+        }
+        else
+        {
+            projectedVm.color = ModulateAnmSpriteColor(
+                projectedVm.color, manager->colorModulation);
+            projectedVm.secondaryColor = ModulateAnmSpriteColor(
+                projectedVm.secondaryColor, manager->colorModulation);
+        }
+    }
+
+    if (distance > fogStart)
+    {
+        if (colorMode == 0U)
+        {
+            projectedVm.color = FadeAnmVmFogColor(
+                projectedVm.color, fadeFactor);
+        }
+        else if (colorMode == 1U)
+        {
+            projectedVm.secondaryColor = FadeAnmVmFogColor(
+                projectedVm.secondaryColor, fadeFactor);
+        }
+        else
+        {
+            projectedVm.color = FadeAnmVmFogColor(
+                projectedVm.color, fadeFactor);
+            projectedVm.secondaryColor = FadeAnmVmFogColor(
+                projectedVm.secondaryColor, fadeFactor);
+        }
+    }
+
+    const int result =
+        DrawAnmVmSpriteQuad(&projectedVm, false, true, false);
     memcpy(vm->drawVertices, projectedVm.drawVertices, sizeof(vm->drawVertices));
     return result;
 }
@@ -908,6 +1046,7 @@ static int DrawAnmVmWorldMatrixSprite(AnmVm *vm)
     }
 
     device->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
+    ++manager->drawCallCount;
     return 0;
 }
 
@@ -1330,6 +1469,8 @@ int DrawAnmVm(AnmVm *vm)
         return DrawAnmVmSpriteQuad(vm, false, false);
     case 4:
         return DrawAnmVmProjectedSprite(vm);
+    case 6:
+        return DrawAnmVmFogSprite(vm);
     case 8:
         return DrawAnmVmWorldMatrixSprite(vm);
     case 9:
