@@ -319,7 +319,9 @@ __forceinline bool AnmVm::ExecuteWaitCommand(bool clearActiveFlag)
         return false;
     }
 
-    timer070.SetCurrent(timer070.current);
+    // Save the active script timer before moving it to the wait marker's
+    // frame. The target snapshots timer070.current into timer3FC here.
+    timer3FC.SetCurrent(timer070.current);
     waitScriptAddress = scriptDataOffsetCopy;
     timer070.SetCurrent(match->frame);
     flags |= 1U;
@@ -995,7 +997,8 @@ __forceinline bool AnmVm::ExecuteBasicInstruction(const AnmVmInstructionHeader *
         return ExecuteWaitCommand(true);
 
     case 81:
-        timer3FC.SetCurrent(timer3FC.current);
+        // Restore the saved active timer, then resume after the wait marker.
+        timer070.SetCurrent(timer3FC.current);
         scriptDataOffsetCopy = waitScriptAddress;
         return true;
 
