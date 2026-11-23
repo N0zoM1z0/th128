@@ -228,7 +228,8 @@ void DrawAnmVmVertices(AnmVm *vm, const void *vertices, unsigned int vertexCount
     AnmVmRendererState *renderer = GetAnmVmRenderer();
     IDirect3DDevice9 *device = GetAnmVmDevice();
     if (renderer == 0 || device == 0 || vm == 0 || vertices == 0 ||
-        vm->anmFileEntry == 0 || vertexCount < 3)
+        vm->anmFileEntry == 0 || vm->anmFileEntry->texture == 0 ||
+        vertexCount < 3)
     {
         return;
     }
@@ -256,13 +257,13 @@ void DrawAnmVmVertices(AnmVm *vm, const void *vertices, unsigned int vertexCount
     }
 
     FlushAnmSpriteBatch();
-    device->SetTextureStageState(0, (D3DTEXTURESTAGESTATETYPE)14, 0);
+    device->SetRenderState(D3DRS_ZWRITEENABLE, 0);
 
-    if (renderer->textureStageState != 1)
+    if (renderer->vertexFormatMode != 1)
     {
         device->SetTextureStageState(0, D3DTSS_ALPHAARG2, 0);
         device->SetTextureStageState(0, D3DTSS_COLORARG2, 0);
-        renderer->textureStageState = 1;
+        renderer->vertexFormatMode = 1;
     }
 
     device->DrawPrimitiveUP(
@@ -730,6 +731,343 @@ int DrawAnmVmTriangleStrip(
     return 0;
 }
 
+
+namespace
+{
+    struct AnmVmPrimitiveVertex
+    {
+        float x;
+        float y;
+        float z;
+        float reciprocalW;
+        unsigned int color;
+    };
+    typedef char AnmVmPrimitiveVertexSize[
+        (sizeof(AnmVmPrimitiveVertex) == 0x14) ? 1 : -1
+    ];
+
+    void SetAnmVmPrimitiveDrawState(
+        AnmVmRendererState *renderer,
+        IDirect3DDevice9 *device)
+    {
+        FlushAnmSpriteBatch();
+        device->SetRenderState(D3DRS_ZWRITEENABLE, 0);
+
+        if (renderer->textureStageState != 0)
+        {
+            device->SetTextureStageState(0, D3DTSS_ALPHAOP, 3);
+            device->SetTextureStageState(0, D3DTSS_COLOROP, 3);
+            renderer->textureStageState = 0;
+        }
+
+        if (renderer->vertexFormatMode != 1)
+        {
+            device->SetTextureStageState(0, D3DTSS_ALPHAARG2, 0);
+            device->SetTextureStageState(0, D3DTSS_COLORARG2, 0);
+            renderer->vertexFormatMode = 1;
+        }
+
+        device->SetFVF(0x44);
+    }
+
+    void WriteAnmVmPrimitiveQuad(
+        AnmVmPrimitiveVertex *vertices,
+        float centerX,
+        float centerY,
+        float width,
+        float height,
+        float angle,
+        unsigned int color0,
+        unsigned int color1,
+        unsigned int color2,
+        unsigned int color3)
+    {
+        float cosine = 1.0f;
+        float sine = 0.0f;
+        if (angle != 0.0f)
+        {
+            cosine = (float)cos((double)angle);
+            sine = (float)sin((double)angle);
+        }
+
+        const float halfWidth = width * 0.5f;
+        const float halfHeight = height * 0.5f;
+        const float x[4] =
+        {
+            centerX + halfWidth * cosine - halfHeight * sine,
+            centerX - (halfHeight * sine + halfWidth * cosine),
+            centerX + halfHeight * sine + halfWidth * cosine,
+            centerX + halfHeight * sine - halfWidth * cosine
+        };
+        const float y[4] =
+        {
+            centerY + halfHeight * cosine + halfWidth * sine,
+            centerY + halfHeight * cosine - halfWidth * sine,
+            centerY + halfWidth * sine - halfHeight * cosine,
+            centerY - (halfWidth * sine + halfHeight * cosine)
+        };
+        const unsigned int colors[4] =
+        {
+            color0, color1, color2, color3
+        };
+
+        for (unsigned int i = 0; i != 4; ++i)
+        {
+            vertices[i].x = x[i];
+            vertices[i].y = y[i];
+            vertices[i].z = 0.0f;
+            vertices[i].reciprocalW = 1.0f;
+            vertices[i].color = colors[i];
+        }
+    }
+
+    void DrawAnmVmPrimitiveQuad(
+        AnmManager *manager,
+        AnmVmRendererState *renderer,
+        IDirect3DDevice9 *device,
+        float centerX,
+        float centerY,
+        float width,
+        float height,
+        float angle,
+        unsigned int color0,
+        unsigned int color1,
+        unsigned int color2,
+        unsigned int color3)
+    {
+        if (manager->primitiveVertexCursor == 0)
+        {
+            return;
+        }
+
+        AnmVmPrimitiveVertex *vertices =
+            reinterpret_cast<AnmVmPrimitiveVertex *>(
+                manager->primitiveVertexCursor);
+        WriteAnmVmPrimitiveQuad(
+            vertices, centerX, centerY, width, height, angle,
+            color0, color1, color2, color3);
+
+        SetAnmVmPrimitiveDrawState(renderer, device);
+        device->DrawPrimitiveUP(
+            D3DPT_TRIANGLESTRIP, 2, vertices, sizeof(AnmVmPrimitiveVertex));
+        manager->primitiveVertexCursor += 0x50 / sizeof(float);
+        ++manager->drawCallCount;
+    }
+
+    void DrawAnmVmPrimitiveLine(
+        AnmManager *manager,
+        AnmVmRendererState *renderer,
+        IDirect3DDevice9 *device,
+        float centerX,
+        float centerY,
+        float radius,
+        float startAngle,
+        int segmentCount,
+        unsigned int color)
+    {
+        if (manager->primitiveVertexCursor == 0 || segmentCount <= 0)
+        {
+            return;
+        }
+
+        AnmVmPrimitiveVertex *vertices =
+            reinterpret_cast<AnmVmPrimitiveVertex *>(
+                manager->primitiveVertexCursor);
+        const float angleStep = 6.283185482025146484375f /
+            (float)segmentCount;
+        float angle = startAngle;
+        for (int i = 0; i <= segmentCount; ++i)
+        {
+            AnmVmPrimitiveVertex *vertex = &vertices[i];
+            vertex->x = centerX + (float)cos((double)angle) * radius;
+            vertex->y = centerY + (float)sin((double)angle) * radius;
+            vertex->z = 0.0f;
+            vertex->reciprocalW = 1.0f;
+            vertex->color = color;
+            angle = AddAngles(angle, angleStep);
+        }
+
+        SetAnmVmPrimitiveDrawState(renderer, device);
+        device->DrawPrimitiveUP(
+            D3DPT_LINESTRIP,
+            (UINT)segmentCount,
+            vertices,
+            sizeof(AnmVmPrimitiveVertex));
+        manager->primitiveVertexCursor += (segmentCount + 1) * 5;
+        ++manager->drawCallCount;
+    }
+
+    void DrawAnmVmPrimitiveFan(
+        AnmManager *manager,
+        AnmVmRendererState *renderer,
+        IDirect3DDevice9 *device,
+        float centerX,
+        float centerY,
+        float radius,
+        float startAngle,
+        int segmentCount,
+        unsigned int centerColor,
+        unsigned int edgeColor)
+    {
+        if (manager->primitiveVertexCursor == 0 || segmentCount <= 0)
+        {
+            return;
+        }
+
+        AnmVmPrimitiveVertex *vertices =
+            reinterpret_cast<AnmVmPrimitiveVertex *>(
+                manager->primitiveVertexCursor);
+        vertices[0].x = centerX;
+        vertices[0].y = centerY;
+        vertices[0].z = 0.0f;
+        vertices[0].reciprocalW = 1.0f;
+        vertices[0].color = centerColor;
+
+        const float angleStep = 6.283185482025146484375f /
+            (float)segmentCount;
+        float angle = startAngle;
+        for (int i = 0; i <= segmentCount; ++i)
+        {
+            AnmVmPrimitiveVertex *vertex = &vertices[i + 1];
+            vertex->x = centerX + (float)cos((double)angle) * radius;
+            vertex->y = centerY + (float)sin((double)angle) * radius;
+            vertex->z = 0.0f;
+            vertex->reciprocalW = 1.0f;
+            vertex->color = edgeColor;
+            angle = AddAngles(angle, angleStep);
+        }
+
+        SetAnmVmPrimitiveDrawState(renderer, device);
+        device->DrawPrimitiveUP(
+            D3DPT_TRIANGLEFAN,
+            (UINT)segmentCount,
+            vertices,
+            sizeof(AnmVmPrimitiveVertex));
+        manager->primitiveVertexCursor += (segmentCount + 2) * 5;
+        ++manager->drawCallCount;
+    }
+
+    void GetAnmVmEffectCenter(
+        const AnmVm *vm,
+        float *centerX,
+        float *centerY,
+        float *width,
+        float *height,
+        float *angle)
+    {
+        *centerX = vm->position.x +
+            vm->secondaryPosition.x + vm->alternatePosition.x;
+        *centerY = vm->position.y +
+            vm->secondaryPosition.y + vm->alternatePosition.y;
+        *width = vm->uvScrollX * vm->scaleX;
+        *height = vm->uvScrollY * vm->scaleY;
+        *angle = vm->unknown02C;
+
+        AnmVm *parent = vm->parentVm;
+        if (parent != 0 && (vm->stateFlags & 0x100U) == 0)
+        {
+            *centerX += parent->position.x +
+                parent->secondaryPosition.x + parent->alternatePosition.x;
+            *centerY += parent->position.y +
+                parent->secondaryPosition.y + parent->alternatePosition.y;
+            *width *= parent->scaleX;
+            *height *= parent->scaleY;
+            *angle += parent->unknown02C;
+        }
+    }
+
+    unsigned int HalfAlphaColor(unsigned int color)
+    {
+        return (color & 0x00FFFFFFU) |
+            (((color >> 24) >> 1) << 24);
+    }
+
+    int DrawAnmVmPrimitiveEffect(AnmVm *vm, unsigned int mode)
+    {
+        AnmManager *manager = GetGlobalAnmManager();
+        AnmVmRendererState *renderer = GetAnmVmRenderer();
+        IDirect3DDevice9 *device = GetAnmVmDevice();
+        if (manager == 0 || renderer == 0 || device == 0 ||
+            manager->primitiveVertexCursor == 0)
+        {
+            return -1;
+        }
+
+        float centerX;
+        float centerY;
+        float width;
+        float height;
+        float angle;
+        GetAnmVmEffectCenter(
+            vm, &centerX, &centerY, &width, &height, &angle);
+        ApplyAnmVmRenderState(vm);
+
+        switch (mode)
+        {
+        case 15:
+            DrawAnmVmPrimitiveQuad(
+                manager, renderer, device, centerX, centerY,
+                width, height, angle,
+                vm->color, vm->color, vm->color, vm->color);
+            return 0;
+
+        case 19:
+            DrawAnmVmPrimitiveQuad(
+                manager, renderer, device, centerX, centerY,
+                width, height, angle,
+                vm->color, vm->secondaryColor,
+                vm->color, vm->secondaryColor);
+            return 0;
+
+        case 20:
+        {
+            const unsigned int outline = HalfAlphaColor(vm->color);
+            DrawAnmVmPrimitiveQuad(
+                manager, renderer, device, centerX, centerY,
+                width + 1.0f, height + 1.0f, angle,
+                outline, outline, outline, outline);
+            DrawAnmVmPrimitiveQuad(
+                manager, renderer, device, centerX, centerY,
+                width, height, angle,
+                vm->color, vm->color, vm->color, vm->color);
+            return 0;
+        }
+
+        case 21:
+        {
+            const unsigned int outline = HalfAlphaColor(vm->secondaryColor);
+            DrawAnmVmPrimitiveQuad(
+                manager, renderer, device, centerX, centerY,
+                width + 1.0f, height + 1.0f, angle,
+                vm->color & 0x00FFFFFFU, outline,
+                vm->color & 0x00FFFFFFU, outline);
+            DrawAnmVmPrimitiveQuad(
+                manager, renderer, device, centerX, centerY,
+                width, height, angle,
+                vm->color, vm->secondaryColor,
+                vm->color, vm->secondaryColor);
+            return 0;
+        }
+
+        case 16:
+            DrawAnmVmPrimitiveFan(
+                manager, renderer, device, centerX, centerY,
+                width, angle, vm->integerVariables[0],
+                vm->color, vm->secondaryColor);
+            return 0;
+
+        case 17:
+            DrawAnmVmPrimitiveLine(
+                manager, renderer, device, centerX, centerY,
+                width, angle, vm->integerVariables[0], vm->color);
+            return 0;
+
+        default:
+            return 0;
+        }
+    }
+}
+
 int DrawAnmVm(AnmVm *vm)
 {
     if (vm == 0 || (vm->flags & 3U) != 3U ||
@@ -767,6 +1105,14 @@ int DrawAnmVm(AnmVm *vm)
     case 11:
         DrawAnmVmVertices(vm, vm->extraData, vertexCount);
         return 0;
+
+    case 15:
+    case 16:
+    case 17:
+    case 19:
+    case 20:
+    case 21:
+        return DrawAnmVmPrimitiveEffect(vm, mode);
 
     default:
         return 0;
