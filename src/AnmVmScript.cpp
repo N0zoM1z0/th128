@@ -2246,8 +2246,9 @@ int AnmVm::Update()
 
     if (IsFrameUpdateSuppressedByStage(this))
     {
-        // The target branches to its zero-return epilogue before the shared
-        // game-speed restore. Preserve that state leak on this stage gate.
+        // The target branches to the normal epilogue at 0x0045D0BA, which
+        // restores the saved game speed before returning zero.
+        *gameSpeed = savedGameSpeed;
         return 0;
     }
 
