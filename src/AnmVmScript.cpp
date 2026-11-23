@@ -132,7 +132,7 @@ namespace
         const unsigned int horizontalAnchor = (vm->flags >> 20) & 3U;
         const unsigned int verticalAnchor = (vm->flags >> 22) & 3U;
 
-        if (viewMode == 1U)
+        if (viewMode == 1U || viewMode == 3U)
         {
             float angle = vm->unknown02C;
             if (inheritParent)
