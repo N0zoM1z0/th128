@@ -1934,7 +1934,9 @@ __forceinline void AnmVm::UpdateTransitions()
 
 namespace
 {
-    const float kAnmVmGeometryTwoPi = 6.283185482025146484375f;
+    // The target divides its binary64 2*pi constant by a float-rounded
+    // segment count, then stores the quotient as float.
+    const double kAnmVmGeometryTwoPi = 6.28318530717958647692;
 
     __forceinline void WriteAnmVmGeometryVertexPair(
         AnmVmEffect10Vertex *vertices,
@@ -2062,10 +2064,11 @@ __forceinline void AnmVm::UpdateCustomGeometry()
             return;
         }
 
-        const float angleStep = kAnmVmGeometryTwoPi /
-            (float)segmentCount;
-        const float vStep = (float)integerVariables[1] /
-            (float)segmentCount;
+        const float segmentCountAsFloat = (float)segmentCount;
+        const float angleStep = (float)(
+            kAnmVmGeometryTwoPi / (double)segmentCountAsFloat);
+        const float vStep = (float)(
+            (double)integerVariables[1] / (double)segmentCountAsFloat);
         float angle = unknown02C;
         float v = 0.0f;
 
@@ -2096,8 +2099,10 @@ __forceinline void AnmVm::UpdateCustomGeometry()
     }
 
     const unsigned int divisor = count - 1U;
-    const float angleStep = unknown024 / (float)divisor;
-    const float vStep = (float)integerVariables[1] / (float)divisor;
+    const float divisorAsFloat = (float)divisor;
+    const float angleStep = unknown024 / divisorAsFloat;
+    const float vStep = (float)(
+        (double)integerVariables[1] / (double)divisorAsFloat);
     const float initialAngle = geometryMode == 13U
         ? unknown02C - unknown024 * 0.5f
         : unknown02C;
