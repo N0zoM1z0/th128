@@ -1982,3 +1982,94 @@ symbol = "?SetPolarForUpdate@AnmVmEffect10Vertex@@QAEXMM@Z"
 target_address = 0x0045E010
 size = 32
 relocations = []
+
+[units.anm-vm-transition-scalar]
+frontier = true
+artifact_kind = "coff"
+source = "src/AnmVmScript.cpp"
+inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp", "src/AnmManager.hpp", "src/AngleMath.hpp", "src/ZunTimer.hpp", "src/AnmVmGeometry.hpp"]
+object = "build/match/AnmVmUpdate.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["InterpolateScalar"]
+symbol = "?InterpolateScalar@?A0xcccfbf55@@YANPAUAnmVmScalarTransition@@@Z"
+target_address = 0x0040CCF0
+size = 332
+relocations = []
+
+[units.anm-vm-transition-angle]
+frontier = true
+artifact_kind = "coff"
+source = "src/AnmVmScript.cpp"
+inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp", "src/AnmManager.hpp", "src/AngleMath.hpp", "src/ZunTimer.hpp", "src/AnmVmGeometry.hpp"]
+object = "build/match/AnmVmUpdate.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["InterpolateAngle"]
+symbol = "?InterpolateAngle@?A0xcccfbf55@@YAMPAUAnmVmScalarTransition@@@Z"
+target_address = 0x0045D810
+size = 597
+relocations = []
+
+[units.anm-vm-transition-integer]
+frontier = true
+artifact_kind = "coff"
+source = "src/AnmVmScript.cpp"
+inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp", "src/AnmManager.hpp", "src/AngleMath.hpp", "src/ZunTimer.hpp", "src/AnmVmGeometry.hpp"]
+object = "build/match/AnmVmUpdate.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["InterpolateInteger"]
+symbol = "?InterpolateInteger@?A0xcccfbf55@@YAHPAUAnmVmIntegerTransition@@@Z"
+target_address = 0x0045D6C0
+size = 335
+relocations = []
+
+[units.anm-vm-transition-vector3]
+frontier = true
+artifact_kind = "coff"
+source = "src/AnmVmScript.cpp"
+inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp", "src/AnmManager.hpp", "src/AngleMath.hpp", "src/ZunTimer.hpp", "src/AnmVmGeometry.hpp"]
+object = "build/match/AnmVmUpdate.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["InterpolateVector"]
+symbol = "?InterpolateVector@?A0xcccfbf55@@YAXPAUAnmVmVectorTransition@@QAM@Z"
+target_address = 0x004065D0
+size = 783
+relocations = []
+
+[units.anm-vm-transition-vector2]
+frontier = true
+artifact_kind = "coff"
+source = "src/AnmVmScript.cpp"
+inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp", "src/AnmManager.hpp", "src/AngleMath.hpp", "src/ZunTimer.hpp", "src/AnmVmGeometry.hpp"]
+object = "build/match/AnmVmUpdate.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["InterpolateScale"]
+symbol = "?InterpolateScale@?A0xcccfbf55@@YAXPAUAnmVmScaleTransition@@QAM@Z"
+target_address = 0x0045DB20
+size = 607
+relocations = []
+
+[units.anm-vm-transition-color-vector]
+frontier = true
+artifact_kind = "coff"
+source = "src/AnmVmScript.cpp"
+inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp", "src/AnmManager.hpp", "src/AngleMath.hpp", "src/ZunTimer.hpp", "src/AnmVmGeometry.hpp"]
+object = "build/match/AnmVmUpdate.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["InterpolateColorVector"]
+symbol = "?InterpolateColorVector@?A0xcccfbf55@@YAXPAUAnmVmColorTransition@@QAH@Z"
+target_address = 0x0045D3D0
+size = 721
+relocations = []
+
+[units.anm-vm-transition-easing]
+frontier = true
+artifact_kind = "coff"
+source = "src/AnmVmScript.cpp"
+inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp", "src/AnmManager.hpp", "src/AngleMath.hpp", "src/ZunTimer.hpp", "src/AnmVmGeometry.hpp"]
+object = "build/match/AnmVmUpdate.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["EaseTransition"]
+symbol = "?EaseTransition@?A0xcccfbf55@@YAMIM@Z"
+target_address = 0x0046B190
+size = 728
+relocations = []
