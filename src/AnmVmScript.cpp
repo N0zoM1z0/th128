@@ -1868,7 +1868,7 @@ namespace
         float innerU,
         float v)
     {
-        vertices[0].SetPolar(angle, outerRadius);
+        vertices[0].SetPolarForUpdate(angle, outerRadius);
         vertices[0].x += centerX;
         vertices[0].y += centerY;
         vertices[0].z = centerZ;
@@ -1877,7 +1877,7 @@ namespace
         vertices[0].u = outerU;
         vertices[0].v = v;
 
-        vertices[1].SetPolar(angle, innerRadius);
+        vertices[1].SetPolarForUpdate(angle, innerRadius);
         vertices[1].x += centerX;
         vertices[1].y += centerY;
         vertices[1].z = centerZ;

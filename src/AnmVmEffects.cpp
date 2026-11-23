@@ -145,6 +145,15 @@ void AnmVmEffect10Vertex::SetPolar(float angle, float radius)
     y = (float)(sin((double)angle) * (double)radius);
 }
 
+// The target has a second, byte-identical FSINCOS helper dedicated to the
+// large per-VM update path. Keep it as a separate natural C++ leaf; this source
+// intentionally remains a codegen frontier rather than using inline assembly.
+void AnmVmEffect10Vertex::SetPolarForUpdate(float angle, float radius)
+{
+    x = (float)(cos((double)angle) * (double)radius);
+    y = (float)(sin((double)angle) * (double)radius);
+}
+
 void FlushAnmSpriteBatch()
 {
     AnmVmRendererState *renderer = GetAnmVmRenderer();

@@ -11,6 +11,7 @@ struct AnmVmEffect10Vertex
     float v;
 
     void SetPolar(float angle, float radius);
+    void SetPolarForUpdate(float angle, float radius);
 };
 typedef char AnmVmEffect10VertexSize[
     (sizeof(AnmVmEffect10Vertex) == 0x1C) ? 1 : -1

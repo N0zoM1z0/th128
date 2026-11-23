@@ -25,6 +25,7 @@ AnmVm::SetSecondaryScaleTransition
 AnmVm::StartEffect10
 AnmVm::Update
 AnmVmEffect10Vertex::SetPolar
+AnmVmEffect10Vertex::SetPolarForUpdate
 AnmVmEffectNoop412B30
 AnmVmEffectNoop412B40
 AnmVmEffectNoop412DF0

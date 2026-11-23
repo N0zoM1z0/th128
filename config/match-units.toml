@@ -1969,3 +1969,16 @@ relocations = [
   { offset = 36, type = "DIR32", symbol = "_kTwoPi", target = 0x004A6578 },
   { offset = 69, type = "DIR32", symbol = "_kTwoPi", target = 0x004A6578 },
 ]
+
+[units.anm-vm-effect10-set-polar-update]
+frontier = true # Natural C++ duplicate of the update-specific FSINCOS leaf; x87 codegen remains intentionally unmatched.
+artifact_kind = "coff"
+source = "src/AnmVmEffects.cpp"
+inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp", "src/AnmVmGeometry.hpp"]
+object = "build/match/AnmVmEffects.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["AnmVmEffect10Vertex::SetPolarForUpdate"]
+symbol = "?SetPolarForUpdate@AnmVmEffect10Vertex@@QAEXMM@Z"
+target_address = 0x0045E010
+size = 32
+relocations = []

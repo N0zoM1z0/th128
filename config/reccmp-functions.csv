@@ -99,6 +99,7 @@ AnmVm::ResolveFloatOperandAddress,0x00459C30,function
 AnmVm::ResolveIntegerOperandAddress,0x00459CE0,function
 NormalizeAnmCoordinates,0x00459D50,function
 AnmVm::Update,0x00459D90,function
+AnmVmEffect10Vertex::SetPolarForUpdate,0x0045E010,function
 AnmVm::SetSecondaryScaleTransition,0x0045E080,function
 AnmVm::SetScaleTransition,0x0045E190,function
 AnmVm::SetSecondaryEffectState,0x0045E240,function
