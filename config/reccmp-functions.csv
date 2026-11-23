@@ -97,11 +97,12 @@ AnmVm::ResolveIntegerOperand,0x00459B50,function
 AnmVm::ResolveFloatOperandAddress,0x00459C30,function
 AnmVm::ResolveIntegerOperandAddress,0x00459CE0,function
 NormalizeAnmCoordinates,0x00459D50,function
-AnmVm::SetPositionTransition,0x0045E080,function
+AnmVm::SetSecondaryScaleTransition,0x0045E080,function
 AnmVm::SetScaleTransition,0x0045E190,function
-AnmVm::SetSecondaryEffectTransition,0x0045E240,function
+AnmVm::SetSecondaryEffectState,0x0045E240,function
 AnmVm::SetSecondaryColorTransition,0x0045E2C0,function
 AnmVm::SetColorTransition,0x0045E4D0,function
+AnmVm::SetEffectState,0x0045E6C0,function
 ApplyAnmVmRenderState,0x0045E770,function
 FlushAnmSpriteBatch,0x0045EF60,function
 DrawAnmVmVertices,0x00461A00,function

@@ -121,11 +121,12 @@ game executables/data, compiler payloads, Ghidra databases, decompiler
 output, credentials or private endpoints. Do not run `git clean -fdx`: it
 deletes the ignored target, prefix and project.
 
-Create concise local commits after substantive advances, prefixed with the
-authoring agent: `claude-opus-5.5: ...` for Claude sessions, `gpt-web: ...`
-for GPT-web. Cold-replay only changed exact units and directly affected
-dependencies, refresh tracking/progress, and finish with `git diff --check`.
-Report local checkpoints separately from any verified remote state.
+Create concise local commits after substantive advances using the required
+format `gpt-web: <English summary>`. Cold-replay only changed exact units and
+directly affected dependencies; never run a full cold replay for routine
+source work. Refresh tracking/progress only when the relevant ledgers change,
+and finish with `git diff --check`. Report local checkpoints separately from
+any verified remote state.
 
 ## Shared Factory runtime
 

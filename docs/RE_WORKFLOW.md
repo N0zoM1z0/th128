@@ -20,9 +20,11 @@ For each coherent subsystem:
    contribution and every reviewed field. For a normal-COFF owner, recover the
    decorated symbol's complete extent and exhaustive relocation list. Add a
    canonical unit only when its complete zero-difference replay reproduces.
-5. Cold-replay affected canonical units, update ledgers and generated
-   progress, check the diff, and make a concise checkpoint prefixed with
-   the authoring agent (for example `claude-opus-5.5: ...`).
+5. Replay only affected canonical exact units and directly impacted
+   dependencies; do not run a full cold replay for routine changes. Update
+   ledgers and generated progress only when those inputs change, review the
+   diff, and checkpoint substantive work as
+   `gpt-web: <English summary>`.
 
 Static CRT and STL code (`libcmt.lib`, `libcpmt.lib`) is classified with
 `scan-library-code.py` against the pinned VC10 archives rather than

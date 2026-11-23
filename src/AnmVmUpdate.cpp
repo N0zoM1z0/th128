@@ -3,7 +3,7 @@
 
 namespace
 {
-    bool IsScriptUpdateSuppressed(const AnmVm *vm)
+    bool IsFrameUpdateSuppressedByStage(const AnmVm *vm)
     {
         if (vm->currentFrame != 0 || (vm->stateFlags & 0xC0U) != 0x40U)
         {
@@ -89,14 +89,13 @@ namespace
     }
 }
 
-// Main per-VM update entry at 0x00459D90. The script interpreter and
-// transition stages are reconstructed here; renderer-specific work remains
-// in the original large routine's still-unrecovered branches.
+// Partial reconstruction of the 13,604-byte per-VM update owner at
+// 0x00459D90. This source mapping is not an exact match: the remaining target
+// branches, ordering and side effects still require full control-flow review.
 int AnmVm::Update()
 {
     if (scriptDataOffsetCopy == 0)
     {
-        flags &= ~1U;
         return 1;
     }
     if ((flags & 0x00080000U) != 0)
@@ -111,15 +110,18 @@ int AnmVm::Update()
         *gameSpeed = 1.0f;
     }
 
-    if (!IsScriptUpdateSuppressed(this))
+    if (IsFrameUpdateSuppressedByStage(this))
     {
-        ExecuteReadyInstructions();
-        if (scriptDataOffsetCopy == 0)
-        {
-            flags &= ~1U;
-            *gameSpeed = savedGameSpeed;
-            return 1;
-        }
+        *gameSpeed = savedGameSpeed;
+        return 0;
+    }
+
+    ExecuteReadyInstructions();
+    if (scriptDataOffsetCopy == 0)
+    {
+        flags &= ~1U;
+        *gameSpeed = savedGameSpeed;
+        return 1;
     }
 
     UpdateContinuousMotion(this, *gameSpeed);
@@ -134,9 +136,6 @@ int AnmVm::Update()
 
     if (frameCallback != 0 && frameCallback(this) != 0)
     {
-        flags &= ~1U;
-        scriptDataOffsetCopy = 0;
-        *gameSpeed = savedGameSpeed;
         return 1;
     }
 

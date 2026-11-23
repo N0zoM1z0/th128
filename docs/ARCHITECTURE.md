@@ -24,10 +24,13 @@ and atexit destructors (`0x00499B40..0x00499C14`).
 A `std::string` instantiation cluster from the VC10 headers sits at
 `0x00452D50..0x004534EA` inside the game band.
 
-The boundary review closed the game-band inventory: it now has 3,516
-candidates overall, and no game-band byte is unclassified (see the knowledge
-base). Most of the 1,038 added game functions are small callbacks and
-unreferenced dead copies.
+The gap-classification pass accounts for every byte in the game band;
+this is not a claim that every candidate boundary or origin is closed. The
+current ledger still has 64 provisional candidate boundaries and 49 origin
+rows awaiting review. The 3,516-candidate denominator remains provisional;
+see [PROGRESS](PROGRESS.md) for generated counts and the knowledge base for
+the historical review evidence. Most of the 1,038 added game functions are
+small callbacks and unreferenced dead copies.
 
 ## Runtime dependencies
 
@@ -53,11 +56,15 @@ mode dialog (fullscreen 640×480, window 640×480, 960×720, 1280×960).
 | `src/WindowProc.cpp` | `WindowProc` `0x00454420` | exact (normal COFF) |
 | `src/GameWindow.cpp` | `CreateGameWindow` `0x00455320` | frontier (normal COFF) |
 | `src/LaserData.cpp` | `LaserDataInf` 24 virtual defaults `0x004299D0..0x00429B52` | exact (normal COFF) |
-| `src/LaserPoint.cpp` | `ZunVec3::SetPolarXY` `0x00432E20` (exact); the four laser slot-0 point methods `0x00429BF0..0x00429D59` | linked PE; slot 0 frontiers |
+| `src/LaserPoint.cpp` | `ZunVec3::SetPolarXY` `0x00432E20` (natural C++ frontier); four laser slot-0 point methods `0x00429BF0..0x00429D59` | target FSINCOS codegen unmatched; slot 0 frontiers |
 | `src/Spt.cpp` | `SptInf` five defaults and the scalar deleting destructor `0x00414630` | exact (normal COFF) |
 | `src/AngleMath.cpp` | `NormalizeAngle` `0x0046A700`, `AddAngles` `0x0046A660` | exact (normal COFF) |
 | `src/MenuCursor.cpp` | `MenuCursor::Move` `0x0046A970` | exact (linked PE) |
 | `src/Rng.cpp` | `Rng::GetU16` `0x0046A3F0`, `GetU32` `0x0046A460`, `GetFloat`/`GetFloatSigned`/`GetAngle` `0x0046A5D0..0x0046A65E` | exact (linked PE) |
 | `src/EclResource.cpp` | `SptResourceInf::LoadIncludes` `0x00414680` (exact), `Load` `0x004703F0` (frontier) | normal COFF |
 | `src/AnmVmEffects.cpp` | `StartAnmVmEffect06` `0x00412C80` | exact (normal COFF) |
+| `src/AnmVmUpdate.cpp` | `AnmVm::Update` `0x00459D90` (13,604-byte target extent) | source-present, incomplete; not exact |
+| `src/AnmVmScript.cpp` | wait handling, instruction dispatch, ready-instruction loop, view-corner/texture-rect helpers | source-present; not exact |
+| `src/AnmVmTransitions.cpp` | transition setup and `UpdateTransitions` | source-present; not exact |
+| `src/AnmVmEffects.cpp` | `ApplyAnmVmRenderState` `0x0045E770`, world-matrix paths `0x004609C0`/`0x00460DD0`, sprite/fog/primitive draw paths | source-present; not exact except the exact owner listed above |
 | `src/AnmVmEffects.cpp` (stubs) | four empty effect-table slots `0x00412B30`, `0x00412B40`, `0x00412DF0`, `0x00412E00` | exact (normal COFF) |

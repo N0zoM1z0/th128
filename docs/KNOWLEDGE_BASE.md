@@ -76,20 +76,17 @@ and no virtual destructor. Its defaults are exact as normal COFF; their
 arguments, slot 9 four, slot 10 six, slot 11 four). Slot 6 unlinks the laser
 from a doubly linked list (prev +4, next +8). The defaults are laid out in a
 different order from the slots (9, 10, 8, 11, 7 after slot 6), so the
-original defines them in another order. Derived kinds override most slots
-with 60–2,400-byte methods; slot 0 of each kind computes a point along the
-laser through a polar helper (for example `0x00432E20`) that contains
-`FSINCOS`, which VC10 never emits from C, so those helpers use inline
-assembly in the original. `ZunVec3::SetPolarXY` reproduces `0x00432E20`
-exactly from that inline assembly (`mov eax, this; fld angle; fsincos;
-fmul radius; fstp [eax]; fmul radius; fstp [eax+4]`). It must be an
-ordinary out-of-line definition, not `inline`: only then does VC10 LTCG
-learn that it clobbers just `EAX`, so callers keep `ECX`/`EDX` live across
-the call as the original does. That also explains the byte-identical copies
-in other subsystems (separate per-file definitions). The four slot-0
-methods then match except the x addition, where the original loads the
-point first; operator, component, reference and `/fp:fast` variants all
-load the position first.
+original defines them in another order. Derived kinds override most slots with 60–2,400-byte methods; slot 0 of each
+kind computes a point along the laser through a polar helper at 0x00432E20.
+The target helper uses x87 FSINCOS, which VC10 does not naturally emit from
+C. A previous source version used inline assembly to reproduce the 32-byte
+target body, but that violated the project's natural C/C++ requirement. The
+inline assembly has been removed: ZunVec3::SetPolarXY now uses ordinary C++
+cos/sin calls. Its exact ledger claim was withdrawn and the owner is again a
+codegen frontier. Do not reintroduce inline assembly just to recover the old
+match percentage. The four slot-0 methods remain frontiers too; the original
+loads the point before adding position, while the current compiler variants
+load position first.
 
 `LaserInfiniteInf::Slot01` (`0x0042EEB0`) runs the laser's timed commands:
 an 18-entry table of 0x2C-byte records at +0x61C indexed by +0x594 (type
@@ -171,6 +168,65 @@ loaders and the cipher key table.
   after the search loop; `continue`/nested-`if` forms both put it after the
   error path, and an indexed `entries[i]` loop changed the convention.
 
+## Current AnmVm reconstruction status (2026-11-23)
+
+The recent local work has concentrated on the large AnmVm update and rendering
+subsystem. Treat these implementations as source reconstruction frontiers,
+not as exact codegen or runtime proof. The canonical ledger currently has 86
+exact functions overall; only the following 11 exact owners are in the ANM
+area:
+
+- Setters: 0x00402B60, 0x00402C00, 0x00402C20, 0x00407020, 0x00407040
+- AnmVm::AnmVm at 0x004031A0
+- Effect table no-ops: 0x00412B30, 0x00412B40, 0x00412DF0, 0x00412E00
+- StartAnmVmEffect06 at 0x00412C80
+
+All other ANM source mappings are not exact unless a matching row is added to
+config/matches.csv.
+
+### Main update owner
+
+AnmVm::Update starts at 0x00459D90 and owns 13,604 target bytes
+(through 0x0045D2B3). It has a source mapping to src/AnmVmUpdate.cpp,
+but no accepted exact replay. The current C++ covers the early exits,
+game-speed save/restore, script update gate, continuous angle/scale/texture
+motion, view texture-rectangle refresh, render-state synchronization,
+transitions, custom geometry, callback and timer advancement. It is still a
+partial reconstruction of the large target function; branch ordering,
+missing paths and side effects require further target comparison.
+
+Useful evidence:
+- .analysis/anm-vm-update-target.txt — target Ghidra decompilation
+- .analysis/anm-vm-update-full.asm and
+  .analysis/anm-vm-update-boss.asm — target instruction evidence
+- .analysis/anm-vm-update-helpers.txt and
+  .analysis/anm-vm-update-leaves.txt — related helper decompilations
+
+### Related source files
+
+- src/AnmVmScript.cpp: wait handling, a large opcode switch, instruction
+  advancement, view-corner construction and texture-rectangle updates. Check
+  opcode operands, frame gates, script-address advancement and side effects
+  against the target; presence of a case is not proof of parity.
+- src/AnmVmTransitions.cpp: transition setup and interpolation for
+  position, scale, colors, effect state and scalar/vector modes. Modes 7/17
+  were corrected to use raw additive accumulation where the target does.
+  This file has not been accepted as an exact owner.
+- src/AnmVmEffects.cpp: render-state synchronization, world-matrix
+  generation, sprite batching, projected/world fog, primitive modes and
+  effect 10. UpdateWorldMatrix(..., true) models the anchor-adjusted
+  path at 0x00460DD0; false models the matrix-copy/translation-add
+  path at 0x004609C0. Keep those paths distinct and verify both before
+  making exactness claims.
+- src/AnmVmOperands.cpp, src/AnmVmResource.cpp and
+  src/AnmManager.cpp contain adjacent VM operand, resource and manager
+  support. Check their ledger rows individually.
+
+The renderer's draw dispatcher is separate from the per-VM update routine.
+Do not infer that an implemented render mode, a successful per-file compile,
+or a source mapping means the full VM owner is exact. Use the canonical
+ledger and accepted replay receipts as the authority.
+
 ## Origin review
 
 All 1,378 candidates left after the archive scan were reviewed from TH128
@@ -188,12 +244,16 @@ holds the private evidence). Results:
 | `crt-tail-archive-extent-review` | 3 | Archive matches whose Ghidra extent overruns (`_floor`, `__CIatan2`, inside `__cos_default`) |
 | `vc10-import-thunk-review`, `vc10-dynamic-init-tail-review` | 2 | `RtlUnwind` stub; one atexit-registering initializer |
 | `d3dx-header-candidate-review` | 21 | **Open:** bodies identical to `d3dx9math.inl` vector helpers; a game vector type would compile the same |
-| `ltcg-entry-adapter-review` | 13 | **Open:** 10-byte `PUSH r; MOV r, ECX; CALL body; RET` callback entries; authored static callbacks or linker-made adapters |
+| `ltcg-entry-adapter-review` | 12 | **Open:** 10-byte `PUSH r; MOV r, ECX; CALL body; RET` callback entries; authored static callbacks or linker-made adapters |
+| `boundary-review-new-function` | 16 | **Open:** later-added candidate rows whose origin has not yet been settled |
 
 Six tiny game vtable slots (`0x004144A0`, `0x004144B0`, `0x004144D0`,
 `0x00414680`, `0x00429A00`, `0x00450FD0`) also match tiny library bodies by
-chance and stay authored. The two open groups can be settled by cold VC10
-compiles (the D3DX one needs the DirectX SDK headers).
+chance and stay authored. The historical origin sweep left 34 rows open at that time. The current
+canonical origin ledger has 49 pending rows: 21 D3DX candidates, 12 adapter
+candidates and 16 later-added boundary-review candidates. Use
+config/function-origins.csv as the current authority; the private
+.analysis/origin-review/NOTES.md records the earlier snapshot.
 
 ## Pbg archive directory
 

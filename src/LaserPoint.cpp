@@ -1,17 +1,12 @@
 #include "Laser.hpp"
 
+#include <math.h>
+
 void ZunVec3::SetPolarXY(float angle, float radius)
 {
-    __asm
-    {
-        mov eax, this
-        fld angle
-        fsincos
-        fmul radius
-        fstp dword ptr [eax]
-        fmul radius
-        fstp dword ptr [eax + 4]
-    }
+    const double angleRadians = (double)angle;
+    x = (float)(cos(angleRadians) * (double)radius);
+    y = (float)(sin(angleRadians) * (double)radius);
 }
 
 // Point `distance` along the laser's direction from its origin.

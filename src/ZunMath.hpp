@@ -14,9 +14,8 @@ struct ZunVec3
         return *this;
     }
 
-    // x = cos(angle) * radius, y = sin(angle) * radius, z unchanged. The
-    // original computes this with FSINCOS, which VC10 cannot emit from C, so
-    // the body is inline assembly as in the original (out-of-line copy at
-    // 0x00432E20 shared by the laser kinds).
+    // Natural C++ polar transform. The target helper uses x87 FSINCOS, so
+    // this implementation intentionally remains a codegen frontier rather
+    // than using inline assembly to force an exact match.
     void SetPolarXY(float angle, float radius);
 };

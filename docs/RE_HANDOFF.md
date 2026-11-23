@@ -1,69 +1,170 @@
 # TH128 reconstruction handoff
 
-## Start here
+Snapshot: 2026-11-23. Read this first, then AGENTS.md.
 
-Run `git status --short --branch` and `git log -5 --oneline`; dirty work is
-ours to continue. Work against Japanese TH12.8 v1.00a only: private
-`resources/th128.exe`, 752,640 bytes, SHA-256
-`ba515750ece845b56640fe440592fc39ebb7bdd1ed87c541b67a19b148e767d4`.
-The code-generation target is **VC10 RTM build 30319**. The remote is the
-public `N0zoM1z0/th128`; push after coherent checkpoints.
+## Resume safely
 
-```bash
-scripts/repo-python scripts/verify-target.py
-scripts/repo-python scripts/validate-tracking.py --require-target
-scripts/repo-python scripts/verify-toolchain.py --check
-scripts/repo-python scripts/replay-exact-units.py --source src/PbgArchive.cpp
-```
+1. Run git status --short --branch and git log -5 --oneline. Preserve
+   existing dirty/untracked work; do not reset, rebase or clean it away.
+2. Work only against the original Japanese TH12.8 v1.00a target:
+   resources/th128.exe, 752,640 bytes, SHA-256
+   ba515750ece845b56640fe440592fc39ebb7bdd1ed87c541b67a19b148e767d4.
+3. Before target-dependent analysis in a new session, run:
 
-`build/` is disposable: `replay-exact-units.py` cold-rebuilds whatever it
-replays. Keep the Ghidra project, the compiler Wine prefix,
-`.analysis/architecture/` and the two review directories under `.analysis/`
-(decision CSVs, notes and their tools). The runtime prefix and game data are
-only needed for `capture-title-screen.sh` and are recreated on demand.
+   ~~~bash
+   scripts/repo-python scripts/verify-target.py
+   scripts/repo-python scripts/validate-tracking.py --require-target
+   scripts/repo-python scripts/verify-toolchain.py --check
+   ~~~
 
-## Current state
+4. Use scripts/ghidra.py for target analysis. It verifies the disk target,
+   loaded Program and complete mapped .text before each query. Decompiler
+   output remains a hypothesis until source and compiler evidence settle it.
 
-Counts are generated in [PROGRESS](PROGRESS.md); the source map is in
-[ARCHITECTURE](ARCHITECTURE.md), findings and tried variants in
-[KNOWLEDGE_BASE](KNOWLEDGE_BASE.md). Boundary and origin review cover the
-whole image (3,516 candidates; 50 origin rows open: 34 need VC10/D3DX
-compiles, 16 CRT-band rows).
+At the start of this documentation cleanup, main was at f8cf37f and 41
+local commits ahead of origin/main. The handoff/cleanup commits are added
+after that snapshot. Recheck the live branch count before any push; the
+repository shell has no network access, so this session did not push anything.
 
-Two codegen lanes are in use; both are hypotheses about the original TU
-split:
+## Current ledger status
 
-| Lane | Profile | Sources |
+docs/PROGRESS.md and resources/progress.svg are generated from the
+canonical ledgers. At this snapshot:
+
+| Measure | Current value |
+| --- | ---: |
+| Function candidates | 3,516 (provisional denominator) |
+| Boundary reviewed / provisional | 3,452 / 64 |
+| Origin rows pending | 49 |
+| Authored / excluded / indeterminate | 2,214 / 1,253 / 0 |
+| Source-present mappings | 130 |
+| Source-present with authored origin | 125 |
+| Authored source-present exact backlog | 44 |
+| Canonical exact functions | 86 |
+| Canonical exact codegen bytes | 4,102 |
+| Canonical exact authored bytes | 3,844 |
+
+The candidate inventory is not proven complete. The 49 pending origin rows
+are 21 D3DX candidates, 12 LTCG-entry adapter candidates and 16 later-added
+boundary-review candidates. Exact functions, source mappings and a clean Git
+tree do not prove that the native Windows product is complete or runnable.
+The native product has not been closed and runtime-validated.
+
+## Active reconstruction: AnmVm
+
+The recent 41 local commits before this handoff focused on AnmVm rendering,
+world matrices, fog, primitives, transitions and per-VM update behavior.
+This is substantial source progress, not 41 exact functions.
+
+### Main boss: AnmVm::Update
+
+- Target entry: 0x00459D90
+- Target extent: 13,604 bytes, through 0x0045D2B3
+- Source: src/AnmVmUpdate.cpp
+- Ledger: source mapping exists; no accepted exact match in
+  config/matches.csv
+- State: partial C++ reconstruction, not exact
+
+Current source covers script gating/termination, game-speed save/restore,
+continuous angle/scale/texture motion, view-rectangle refresh, render-state
+synchronization, transition updates, custom geometry, frame callback and timer
+advancement. The original owner is much larger; continue comparing its full
+control flow, branch ordering and side effects. Do not treat the current
+function comment or source mapping as proof of completeness.
+
+Primary evidence:
+- .analysis/anm-vm-update-target.txt
+- .analysis/anm-vm-update-full.asm
+- .analysis/anm-vm-update-boss.asm
+- .analysis/anm-vm-update-helpers.txt
+- .analysis/anm-vm-update-leaves.txt
+
+### Related source
+
+| Source | Scope | Status |
 | --- | --- | --- |
-| Normal COFF | `/TP /O2 /Oy- /Gy /MT` | Pbg file streams, AnmVm constructor and effect callbacks, `DebugPrint`, `WindowProc`, angle helpers, `SptInf`, `LaserDataInf`, script registry |
-| Linked PE | `/TP /O2 /Ob1 /Oy- /Gy /MT /GL` (+`/EHsc` for the archive) behind `probes/` contexts | ZunTimer, AnmVm setters, `MenuCursor`, `Rng`, Pbg archive chain, laser points |
+| src/AnmVmScript.cpp | wait commands, opcode dispatcher, ready-instruction loop, view corners and texture rectangle | source-present; not exact |
+| src/AnmVmTransitions.cpp | transition setup and interpolation | source-present; not exact |
+| src/AnmVmEffects.cpp | render-state sync, world matrices, sprite/fog/primitive draw paths, effect 10 | mixed exact and frontier owners; check each ledger row |
+| src/AnmVmOperands.cpp | operand resolution and random helpers | check each ledger row |
+| src/AnmVmResource.cpp | VM resource binding and coordinate normalization | check each ledger row |
+| src/AnmManager.cpp | VM allocation, lists, update and draw grouping | check each ledger row |
 
-Lessons that decide most matches (details in the knowledge base): `/Oy-`;
-`__stdcall` declarations or plain members for LTCG private receivers;
-`#include <new>` for `delete[]`; the release logger as normal COFF; vector
-struct assignment for integer copies; ordinary out-of-line definitions for
-inline-assembly helpers; and letting globals and pointers escape in probes
-(`&g_GameFlags`, aliasing timer speeds) so LTCG does not reorder loads and
-stores the original keeps in order.
+The two world-matrix paths are deliberately separate in
+AnmVm::UpdateWorldMatrix:
+- applyAlignment == true: anchor-adjusted path associated with target
+  FUN_00460DD0 (0x00460DD0).
+- applyAlignment == false: copy cached matrix then add VM translation,
+  associated with target FUN_004609C0 (0x004609C0).
+
+These are reverse-engineering hypotheses implemented in C++; neither path
+has an accepted exact owner replay yet.
+
+### Exact ANM owners
+
+The current config/matches.csv contains 11 exact ANM owners:
+
+- Setters: 0x00402B60, 0x00402C00, 0x00402C20, 0x00407020,
+  0x00407040
+- AnmVm::AnmVm: 0x004031A0
+- Effect no-ops: 0x00412B30, 0x00412B40, 0x00412DF0, 0x00412E00
+- StartAnmVmEffect06: 0x00412C80
+
+Do not expand this list from source presence or successful compilation. Only
+accepted rows in config/matches.csv count as exact.
+
+## Natural-source cleanup decision
+
+The target helper ZunVec3::SetPolarXY at 0x00432E20 uses x87 FSINCOS. Its
+former inline-assembly implementation has been replaced with natural C++
+cos/sin calls, and its exact ledger row was withdrawn. This deliberately
+reduces the exact count; do not restore inline assembly to recover that count.
+The target codegen mismatch is an honest frontier. The four laser slot-0
+callers remain frontiers as well.
 
 ## Next useful work
 
-1. **Close frontiers** (each lists its tried variants in the knowledge base):
-   `CreateGameWindow` (frame and EBX/EDI), `MemFile::Seek` (ESI
-   shrink-wrap), `ZunTimer::Add` (unscaled branch merge), the archive chain
-   (`ReadHeader`, `ReadEntry`, `DecryptBlocks`, `DecompressLzss`),
-   `SptResourceInf::Load` (register assignment), `AnmManager::GetVmById`
-   (id passed in ECX), `LaserInfiniteInf::Slot01` and the laser slot-0
-   points.
-2. **Fixed-convention owners first.** Virtual methods (laser kinds,
-   `EnemyInf`, `EclResourceInf`), Windows callbacks and table callbacks
-   (the AnmVm effect table near `0x004B1E9C`) keep their conventions under
-   LTCG. The remaining effect callbacks call `0x0045E770`, `0x00462A00`,
-   `0x00462B90` and `0x00412100`, whose private conventions are needed
-   first.
-3. **High-fan-in helpers** unlock callers: `0x00467480` (197 call sites, VM
-   value broadcast through `GetVmById`), `0x004670B0` (115), `0x0045EF60`.
-4. **AsciiInf** (`0x00401010..0x00402A55`): resolve the 0x141-iteration timer
-   loop before writing the constructor.
-5. Product closure needs the August 2009 DirectX SDK (`d3dx9_42`); D3D9
-   device calls are currently out of reach for that reason.
+1. Continue the full AnmVm::Update reconstruction from 0x00459D90. Recover
+   the missing branches rather than polishing only small helpers. Follow
+   incoming references and high-fan-in helpers where they clarify the boss
+   function's behavior.
+2. Audit ExecuteBasicInstruction/ExecuteReadyInstructions against the
+   target: opcode payload offsets, operand flags, frame gates, wait/restart
+   behavior, instruction pointer updates and termination.
+3. Audit transition setup and UpdateTransitions mode-by-mode, including
+   timer edge cases and vector/scalar differences.
+4. Continue renderer dispatch and world/fog/primitive modes, keeping
+   0x004609C0 and 0x00460DD0 semantics distinct.
+5. Compile only changed/affected translation units while iterating. When an
+   already-exact unit is changed, replay that unit and directly affected
+   dependencies only.
+
+## Workflow and constraints
+
+- Natural C/C++ only. No inline ASM, target-byte injection, inert padding,
+  fake returns or compiler-profile tricks to disguise incomplete source.
+- Do not run a full cold replay for routine progress. Use per-file compile
+  probes during exploration; use the canonical Oracle only for the affected
+  exact owner(s) and required dependencies.
+- Make substantive local checkpoints with the required format:
+  gpt-web: <English summary>.
+- Keep source-present, exact codegen, product closure and runtime behavior as
+  separate states.
+- build/ is disposable generated output. Recreate it through repository
+  scripts; never treat old objects/receipts as current proof.
+- Never run git clean -fdx.
+
+## Retained private state
+
+Keep these; they are not disposable build clutter:
+
+- resources/th128.exe and resources/title-screen.png
+- ghidra-project/TH128
+- .tools/msvc1000 and .tools/wineprefix-msvc1000
+- .analysis/architecture/, .analysis/boundary-review/ and
+  .analysis/origin-review/
+- .analysis/anm-vm-* target disassemblies and decompilations
+
+Generated compiler objects in build/, Python __pycache__, and Ghidra
+runtime logs/compiled caches can be removed and recreated. Do not delete the
+target, toolchain, compiler prefix, Ghidra project or reviewed ledger evidence.

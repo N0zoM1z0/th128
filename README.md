@@ -74,10 +74,10 @@ proven complete; the native Windows product is not yet linked or
 runtime-validated.
 
 Only rebuild and compare affected complete owners and their dependencies.
-Prefix coherent checkpoints with the authoring agent (for example
-`claude-opus-5.5: <English summary>` or `gpt-web: <English summary>`) and
-preserve dirty/untracked operator work. `config/build.toml` records open whole-product
-questions; exact functions do not establish that graph.
+Create coherent local checkpoints with the required format
+`gpt-web: <English summary>` and preserve existing dirty/untracked work.
+`config/build.toml` records open whole-product questions; exact functions do
+not establish that graph.
 
 Use `python3 scripts/ci.py` for fast syntax/public-file, ledger, build
 declaration and whitespace checks. This is also the GitHub Actions command.
