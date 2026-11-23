@@ -1059,7 +1059,9 @@ static int DrawAnmVmWorldMatrixSprite(AnmVm *vm)
     }
 
     float worldMatrix[4][4];
-    vm->UpdateWorldMatrix(worldMatrix);
+    // FUN_004609C0 uses the VM pivot directly; sprite alignment flags are
+    // not applied by the world-matrix renderer.
+    vm->UpdateWorldMatrix(worldMatrix, false);
     ApplyAnmVmRenderState(vm);
 
     unsigned int color =
