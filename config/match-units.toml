@@ -868,7 +868,6 @@ linkages = [
 
 
 [units.zun-timer-set-current-from-timer]
-frontier = true # LTCG private-EAX by-value timer transfer used by ANM wait save/restore.
 artifact_kind = "linked-pe"
 source = "src/ZunTimer.cpp"
 inputs = ["src/ZunTimer.hpp"]
