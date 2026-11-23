@@ -47,6 +47,18 @@ typedef char AnmVmEffect10DataSize[
     (sizeof(AnmVmEffect10Data) == 0x4B0) ? 1 : -1
 ];
 
+struct AnmVmWorldInputVertex
+{
+    float x;
+    float y;
+    float z;
+    float unknown0C;
+    unsigned int color;
+};
+typedef char AnmVmWorldInputVertexSize[
+    (sizeof(AnmVmWorldInputVertex) == 0x14) ? 1 : -1
+];
+
 struct AnmVmRendererState
 {
     unsigned char unknown000[0xA8];
@@ -63,7 +75,7 @@ struct AnmVmRendererState
     unsigned char textureStageState;        // +0x4E9693
     void *currentTextureTransformFile;      // +0x4E9694
     IDirect3DVertexBuffer9 *vertexBuffer;    // +0x4E9698
-    unsigned char unknown4E969C[0x4E96EC - 0x4E969C];
+    AnmVmWorldInputVertex worldInputVertices[4]; // +0x4E969C
     int pendingBatchCount;                  // +0x4E96EC
     unsigned char unknown4E96F0[0x8696F0 - 0x4E96F0];
     void *nextBatchVertex;                  // +0x8696F0
@@ -81,6 +93,9 @@ typedef char AnmVmRendererTextureTransformFileOffset[
 ];
 typedef char AnmVmRendererVertexBufferOffset[
     (offsetof(AnmVmRendererState, vertexBuffer) == 0x4E9698) ? 1 : -1
+];
+typedef char AnmVmRendererWorldInputVerticesOffset[
+    (offsetof(AnmVmRendererState, worldInputVertices) == 0x4E969C) ? 1 : -1
 ];
 typedef char AnmVmRendererPendingBatchOffset[
     (offsetof(AnmVmRendererState, pendingBatchCount) == 0x4E96EC) ? 1 : -1
@@ -334,7 +349,8 @@ static int DrawAnmVmSpriteQuad(
     AnmVm *vm,
     bool pixelSnap,
     bool rotate,
-    bool applyColorModulation = true)
+    bool applyColorModulation = true,
+    const unsigned int *vertexColorOverride = 0)
 {
     AnmVmRendererState *renderer = GetAnmVmRenderer();
     IDirect3DDevice9 *device = GetAnmVmDevice();
@@ -504,7 +520,14 @@ static int DrawAnmVmSpriteQuad(
     }
 
     const unsigned int colorMode = (vm->flags >> 16) & 3U;
-    if (colorMode == 0U)
+    if (vertexColorOverride != 0)
+    {
+        for (unsigned int i = 0; i != 4; ++i)
+        {
+            vertices[i].color = vertexColorOverride[i];
+        }
+    }
+    else if (colorMode == 0U)
     {
         for (unsigned int i = 0; i != 4; ++i)
         {
@@ -652,7 +675,7 @@ namespace
     }
 }
 
-void AnmVm::UpdateWorldMatrix(float matrix[4][4])
+void AnmVm::UpdateWorldMatrix(float matrix[4][4], bool applyAlignment)
 {
     if ((flags & 0x8000U) == 0 && (flags & 0x0CU) != 0)
     {
@@ -696,28 +719,31 @@ void AnmVm::UpdateWorldMatrix(float matrix[4][4])
     const float width = fabsf(uvScrollX * scaleX * scale2X) * 0.5f;
     const float height = fabsf(uvScrollY * scaleY * scale2Y) * 0.5f;
 
-    switch ((flags >> 20) & 3U)
+    if (applyAlignment)
     {
-    case 1:
-        pivotX -= width;
-        break;
-    case 2:
-        pivotX += width;
-        break;
-    default:
-        break;
-    }
+        switch ((flags >> 20) & 3U)
+        {
+        case 1:
+            pivotX -= width;
+            break;
+        case 2:
+            pivotX += width;
+            break;
+        default:
+            break;
+        }
 
-    switch ((flags >> 22) & 3U)
-    {
-    case 1:
-        pivotY -= height;
-        break;
-    case 2:
-        pivotY += height;
-        break;
-    default:
-        break;
+        switch ((flags >> 22) & 3U)
+        {
+        case 1:
+            pivotY -= height;
+            break;
+        case 2:
+            pivotY += height;
+            break;
+        default:
+            break;
+        }
     }
 
     matrix[3][0] = pivotX;
@@ -970,7 +996,14 @@ static int DrawAnmVmWorldMatrixSprite(AnmVm *vm)
     IDirect3DDevice9 *device = GetAnmVmDevice();
     if (manager == 0 || renderer == 0 || device == 0 || vm == 0 ||
         vm->anmFileEntry == 0 || vm->anmFileEntry->texture == 0 ||
-        renderer->vertexBuffer == 0 || (vm->color & 0xFF000000U) == 0)
+        renderer->vertexBuffer == 0)
+    {
+        return -1;
+    }
+
+    const unsigned int selectedColor =
+        (vm->flags & 0x00030000U) == 0 ? vm->color : vm->secondaryColor;
+    if ((selectedColor & 0xFF000000U) == 0)
     {
         return -1;
     }
@@ -1048,6 +1081,112 @@ static int DrawAnmVmWorldMatrixSprite(AnmVm *vm)
     device->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
     ++manager->drawCallCount;
     return 0;
+}
+
+static unsigned int FadeAnmVmWorldVertexColor(
+    unsigned int sourceColor,
+    float fadeFactor,
+    unsigned int fullFogColor)
+{
+    if (fadeFactor >= 1.0f)
+    {
+        return (fullFogColor & 0x00FFFFFFU) |
+            (sourceColor & 0xFF000000U);
+    }
+
+    const float *fogChannels =
+        reinterpret_cast<const float *>(0x004D3170);
+    unsigned int result = sourceColor & 0xFF000000U;
+    for (unsigned int channel = 0; channel != 3; ++channel)
+    {
+        const int fog = (int)floorf(fogChannels[channel] + 0.5f);
+        const int source =
+            (int)((sourceColor >> (channel * 8)) & 0xFFU);
+        const int adjustment =
+            (int)((float)(source - fog) * fadeFactor);
+        result |= ((unsigned int)(source - adjustment) & 0xFFU)
+            << (channel * 8);
+    }
+    return result;
+}
+
+static int DrawAnmVmWorldFogSprite(AnmVm *vm)
+{
+    AnmManager *manager = GetGlobalAnmManager();
+    AnmVmRendererState *renderer = GetAnmVmRenderer();
+    const unsigned char *camera =
+        *reinterpret_cast<const unsigned char *const *>(0x004D33B4);
+    if (manager == 0 || renderer == 0 || camera == 0 || vm == 0)
+    {
+        return -1;
+    }
+
+    vm->UpdateWorldMatrix(manager->vmWorldMatrix, false);
+
+    unsigned int sourceColor =
+        (vm->flags & 0x00030000U) == 0 ? vm->color : vm->secondaryColor;
+    if (manager->colorModulationEnabled != 0)
+    {
+        sourceColor = ModulateAnmSpriteColor(
+            sourceColor, manager->colorModulation);
+    }
+
+    const float fogStart = *reinterpret_cast<const float *>(0x004D3168);
+    const float fogRange =
+        *reinterpret_cast<const float *>(camera + 0xFC) -
+        *reinterpret_cast<const float *>(camera + 0x100);
+    const float cameraX = *reinterpret_cast<const float *>(0x004D306C);
+    const float cameraY = *reinterpret_cast<const float *>(0x004D3070);
+    const float cameraZ = *reinterpret_cast<const float *>(0x004D3074);
+    const unsigned int fullFogColor =
+        *reinterpret_cast<const unsigned int *>(camera + 0x114);
+
+    unsigned int vertexColors[4];
+    const float (*matrix)[4] = manager->vmWorldMatrix;
+    for (unsigned int i = 0; i != 4; ++i)
+    {
+        const AnmVmWorldInputVertex *source =
+            &renderer->worldInputVertices[i];
+        const float worldX =
+            source->x * matrix[0][0] +
+            source->y * matrix[1][0] +
+            source->z * matrix[2][0] + matrix[3][0];
+        const float worldY =
+            source->x * matrix[0][1] +
+            source->y * matrix[1][1] +
+            source->z * matrix[2][1] + matrix[3][1];
+        const float worldZ =
+            source->x * matrix[0][2] +
+            source->y * matrix[1][2] +
+            source->z * matrix[2][2] + matrix[3][2];
+
+        const float deltaX = worldX - cameraX;
+        const float deltaY = worldY - cameraY;
+        const float deltaZ = worldZ - cameraZ;
+        const float distance = (float)sqrt(
+            (double)(deltaX * deltaX +
+                     deltaY * deltaY +
+                     deltaZ * deltaZ));
+
+        if (distance <= fogStart)
+        {
+            vertexColors[i] = sourceColor;
+        }
+        else
+        {
+            const float fadeFactor = (fogStart - distance) / fogRange;
+            vertexColors[i] = FadeAnmVmWorldVertexColor(
+                sourceColor, fadeFactor, fullFogColor);
+        }
+    }
+
+    AnmVm drawVm = *vm;
+    drawVm.parentVm = 0;
+    drawVm.stateFlags |= 0x100U;
+    const int result = DrawAnmVmSpriteQuad(
+        &drawVm, false, true, false, vertexColors);
+    memcpy(vm->drawVertices, drawVm.drawVertices, sizeof(vm->drawVertices));
+    return result;
 }
 
 static int DrawAnmVmFogEnabledWorldMatrixSprite(AnmVm *vm)
@@ -1505,6 +1644,8 @@ int DrawAnmVm(AnmVm *vm)
         return DrawAnmVmProjectedSprite(vm);
     case 6:
         return DrawAnmVmFogSprite(vm);
+    case 7:
+        return DrawAnmVmWorldFogSprite(vm);
     case 8:
         return DrawAnmVmFogEnabledWorldMatrixSprite(vm);
     case 9:
