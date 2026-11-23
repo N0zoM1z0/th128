@@ -118,6 +118,7 @@ void AnmVm::Update()
     }
 
     UpdateTransitions();
+    UpdateCustomGeometry();
 
     if (frameCallback != 0 && frameCallback(this) != 0)
     {

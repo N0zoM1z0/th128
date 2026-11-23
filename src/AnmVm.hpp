@@ -194,6 +194,7 @@ struct AnmVm
     unsigned int ExecuteReadyInstructions();
     void UpdateTransitions();
     void UpdateTextureRectFromView();
+    void UpdateCustomGeometry();
     void Update();
 
     int ResolveIntegerOperand(int operand);
