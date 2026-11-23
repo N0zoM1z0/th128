@@ -115,8 +115,8 @@ namespace
 
         if (inheritParent)
         {
-            width *= parent->scaleX * parent->scale2X;
-            height *= parent->scaleY * parent->scale2Y;
+            width = parent->scale2X * parent->scaleX * width;
+            height = parent->scale2Y * parent->scaleY * height;
             parentX = parent->position.x +
                 parent->secondaryPosition.x + parent->alternatePosition.x;
             parentY = parent->position.y +
@@ -140,7 +140,7 @@ namespace
             float angle = vm->unknown02C;
             if (inheritParent)
             {
-                angle += parent->unknown02C;
+                angle = parent->unknown02C + angle;
             }
 
             const float cosine = (float)cos((double)angle);
