@@ -32,6 +32,7 @@ struct AnmManager
     void CleanupVm(AnmVm *vm);
     int UpdateWorldVms();
     int UpdateUiVms();
+    int DrawVmGroup(unsigned int group);
 };
 typedef char AnmManagerActiveCountOffset[(offsetof(AnmManager, activeVmCount) == 0xA0) ? 1 : -1];
 typedef char AnmManagerUpdateCountOffset[(offsetof(AnmManager, updateCount) == 0xB8) ? 1 : -1];

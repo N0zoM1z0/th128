@@ -3,6 +3,8 @@
 #include <new>
 #include <stdlib.h>
 
+int DrawAnmVm(AnmVm *vm);
+
 static unsigned int AssignVmId(AnmManager *manager, AnmVm *vm)
 {
     ++manager->nextVmId;
@@ -401,6 +403,32 @@ int AnmManager::UpdateUiVms()
 
         ++updateCount;
         node = next;
+    }
+
+    return 1;
+}
+
+
+int AnmManager::DrawVmGroup(unsigned int group)
+{
+    if (group >= 33U)
+    {
+        return 1;
+    }
+
+    AnmVmUpdateLock drawLock;
+    for (AnmVm *vm = renderListHeads[group].drawListNext;
+         vm != 0;
+         vm = vm->drawListNext)
+    {
+        if ((vm->flags & 0x20000000U) == 0)
+        {
+            if (vm->extraDataDrawCallback != 0)
+            {
+                vm->extraDataDrawCallback(vm);
+            }
+            DrawAnmVm(vm);
+        }
     }
 
     return 1;

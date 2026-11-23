@@ -270,6 +270,88 @@ void DrawAnmVmVertices(AnmVm *vm, const void *vertices, unsigned int vertexCount
         sizeof(AnmVmEffect10Vertex));
 }
 
+int DrawAnmVmTriangleStrip(
+    AnmVm *vm,
+    const void *vertices,
+    unsigned int vertexCount)
+{
+    AnmVmRendererState *renderer = GetAnmVmRenderer();
+    IDirect3DDevice9 *device = GetAnmVmDevice();
+    if (renderer == 0 || device == 0 || vm == 0 || vertices == 0 ||
+        vm->anmFileEntry == 0 || vertexCount < 3 ||
+        (vm->flags & 3U) != 3U || (vm->color & 0xFF000000U) == 0)
+    {
+        return -1;
+    }
+
+    if (renderer->pendingBatchCount != 0)
+    {
+        FlushAnmSpriteBatch();
+    }
+
+    if (renderer->currentTexture != vm->anmFileEntry->texture)
+    {
+        renderer->currentTexture = vm->anmFileEntry->texture;
+        device->SetTexture(
+            0,
+            reinterpret_cast<IDirect3DBaseTexture9 *>(vm->anmFileEntry->texture));
+    }
+
+    if (renderer->vertexFormatMode != 3)
+    {
+        device->SetFVF(0x144);
+        device->SetTextureStageState(0, D3DTSS_ALPHAARG2, 0);
+        device->SetTextureStageState(0, D3DTSS_COLORARG2, 0);
+        renderer->vertexFormatMode = 3;
+    }
+
+    ApplyAnmVmRenderState(vm);
+
+    if (renderer->textureStageState != 1)
+    {
+        device->SetTextureStageState(0, D3DTSS_ALPHAOP, 4);
+        device->SetTextureStageState(0, D3DTSS_COLOROP, 4);
+        renderer->textureStageState = 1;
+    }
+
+    device->DrawPrimitiveUP(
+        D3DPT_TRIANGLESTRIP,
+        vertexCount - 2,
+        vertices,
+        sizeof(AnmVmEffect10Vertex));
+    return 0;
+}
+
+int DrawAnmVm(AnmVm *vm)
+{
+    if (vm == 0 || (vm->flags & 3U) != 3U ||
+        (vm->flags & 0x20000000U) != 0)
+    {
+        return -1;
+    }
+
+    const unsigned int mode = (vm->flags >> 24) & 0x1FU;
+    const unsigned int vertexCount =
+        (unsigned int)vm->integerVariables[0] * 2U;
+
+    switch (mode)
+    {
+    case 9:
+    case 12:
+    case 13:
+    case 14:
+        return DrawAnmVmTriangleStrip(
+            vm, vm->extraData, vertexCount);
+
+    case 11:
+        DrawAnmVmVertices(vm, vm->extraData, vertexCount);
+        return 0;
+
+    default:
+        return 0;
+    }
+}
+
 int __fastcall UpdateAnmVmEffect10(AnmVm *vm)
 {
     AnmVmEffect10Data *data = (AnmVmEffect10Data *)vm->extraData;
