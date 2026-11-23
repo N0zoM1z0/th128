@@ -16,6 +16,11 @@ AnmVm::ResolveFloatOperand
 AnmVm::ResolveFloatOperandAddress
 AnmVm::ResolveIntegerOperand
 AnmVm::ResolveIntegerOperandAddress
+AnmVm::SetColorTransition
+AnmVm::SetPositionTransition
+AnmVm::SetScaleTransition
+AnmVm::SetSecondaryColorTransition
+AnmVm::SetSecondaryEffectTransition
 AnmVm::StartEffect10
 AnmVmEffect10Vertex::SetPolar
 AnmVmEffectNoop412B30

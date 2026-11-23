@@ -772,6 +772,71 @@ target_address = 0x00461A00
 size = 242
 relocations = []
 
+[units.anm-vm-set-color-transition]
+frontier = true # Color transition setup: copies current and target RGB bytes into the six transition slots, clears six interpolation offsets, records duration/mode, and resets timer120.
+artifact_kind = "coff"
+source = "src/AnmVmTransitions.cpp"
+inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp"]
+object = "build/match/AnmVmTransitions.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["AnmVm::SetColorTransition"]
+symbol = "?SetColorTransition@AnmVm@@QAEXPBE0HE@Z"
+target_address = 0x0045E4D0
+size = 227
+relocations = []
+
+[units.anm-vm-set-scale-transition]
+frontier = true # Scale transition setup: copies the current and target XY values, stores duration/mode, and resets timer200.
+artifact_kind = "coff"
+source = "src/AnmVmTransitions.cpp"
+inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp"]
+object = "build/match/AnmVmTransitions.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["AnmVm::SetScaleTransition"]
+symbol = "?SetScaleTransition@AnmVm@@QAEXPBM0HE@Z"
+target_address = 0x0045E190
+size = 140
+relocations = []
+
+[units.anm-vm-set-position-transition]
+frontier = true # Position transition setup: copies current and target XY values, stores duration/mode, and resets timer23C.
+artifact_kind = "coff"
+source = "src/AnmVmTransitions.cpp"
+inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp"]
+object = "build/match/AnmVmTransitions.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["AnmVm::SetPositionTransition"]
+symbol = "?SetPositionTransition@AnmVm@@QAEXPBM0HE@Z"
+target_address = 0x0045E080
+size = 140
+relocations = []
+
+[units.anm-vm-set-secondary-color-transition]
+frontier = true # Secondary color transition setup: copies current and target RGB bytes, clears six interpolation offsets, stores duration/mode, and resets timer288.
+artifact_kind = "coff"
+source = "src/AnmVmTransitions.cpp"
+inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp"]
+object = "build/match/AnmVmTransitions.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["AnmVm::SetSecondaryColorTransition"]
+symbol = "?SetSecondaryColorTransition@AnmVm@@QAEXPBE0HE@Z"
+target_address = 0x0045E2C0
+size = 227
+relocations = []
+
+[units.anm-vm-set-secondary-effect-transition]
+frontier = true # Secondary effect transition setup: stores the resource and low-byte effect index, records duration/mode, and resets timer2B4.
+artifact_kind = "coff"
+source = "src/AnmVmTransitions.cpp"
+inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp"]
+object = "build/match/AnmVmTransitions.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["AnmVm::SetSecondaryEffectTransition"]
+symbol = "?SetSecondaryEffectTransition@AnmVm@@QAEXPAXIIE@Z"
+target_address = 0x0045E240
+size = 120
+relocations = []
+
 [units.zun-timer-set-current]
 artifact_kind = "linked-pe"
 source = "src/ZunTimer.cpp"

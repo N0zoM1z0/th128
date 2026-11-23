@@ -26,6 +26,51 @@ struct AnmVmListNode
 };
 typedef char AnmVmListNodeSize[(sizeof(AnmVmListNode) == 12) ? 1 : -1];
 
+struct AnmVmColorTransition
+{
+    int values[12];
+    ZunTimer timer;
+    unsigned int duration;
+    unsigned int mode;
+};
+typedef char AnmVmColorTransitionSize[(sizeof(AnmVmColorTransition) == 0x4C) ? 1 : -1];
+
+struct AnmVmVectorTransition
+{
+    float values[12];
+    ZunTimer timer;
+    unsigned int duration;
+    unsigned int mode;
+};
+typedef char AnmVmVectorTransitionSize[(sizeof(AnmVmVectorTransition) == 0x4C) ? 1 : -1];
+
+struct AnmVmScaleTransition
+{
+    float values[8];
+    ZunTimer timer;
+    unsigned int duration;
+    unsigned int mode;
+};
+typedef char AnmVmScaleTransitionSize[(sizeof(AnmVmScaleTransition) == 0x3C) ? 1 : -1];
+
+struct AnmVmScalarTransition
+{
+    float values[4];
+    ZunTimer timer;
+    unsigned int duration;
+    unsigned int mode;
+};
+typedef char AnmVmScalarTransitionSize[(sizeof(AnmVmScalarTransition) == 0x2C) ? 1 : -1];
+
+struct AnmVmIntegerTransition
+{
+    int values[4];
+    ZunTimer timer;
+    unsigned int duration;
+    unsigned int mode;
+};
+typedef char AnmVmIntegerTransitionSize[(sizeof(AnmVmIntegerTransition) == 0x2C) ? 1 : -1];
+
 // Animation VM, 0x4E8 bytes. Offsets are TH128 target observations; field
 // names follow later games' AnmVm where possible. The two embedded links are
 // distinct: managerNode joins the global world/UI lists, while childNode is
@@ -63,53 +108,16 @@ struct AnmVm
     ZunTimer timer0D4;                      // +0x0D4
     int viewMode;                           // +0x0E8
     int viewFlags;                          // +0x0EC
-    unsigned int colorTransitionValues[6];  // +0x0F0..+0x104
-    unsigned int colorTransitionOffsets[6]; // +0x108..+0x11C
-    ZunTimer timer120;                      // +0x120
-    unsigned int colorTransitionDuration;   // +0x134
-    unsigned int colorTransitionMode;       // +0x138
-    unsigned int effectParameter0;          // +0x13C
-    unsigned int effectParameter1;          // +0x140
-    unsigned int effectProgress0;           // +0x144
-    unsigned int effectProgress1;           // +0x148
-    ZunTimer timer14C;                      // +0x14C
-    void *effectResource;                   // +0x160
-    unsigned int effectIndex;               // +0x164
-    ZunVec3 positionTransitionStart;        // +0x168
-    ZunVec3 positionTransitionTarget;       // +0x174
-    ZunVec3 positionTransitionReferenceA;   // +0x180
-    ZunVec3 positionTransitionReferenceB;   // +0x18C
-    ZunTimer timer198;                      // +0x198
-    unsigned int positionTransitionDuration; // +0x1AC
-    unsigned int positionTransitionMode;    // +0x1B0
-    unsigned char unknown1B4[0x1C4 - 0x1B4];
-    ZunTimer timer1C4;                      // +0x1C4
-    unsigned char unknown1D8[0x1E0 - 0x1D8];
-    float scaleTransitionStart[2];          // +0x1E0
-    float scaleTransitionTarget[2];         // +0x1E8
-    unsigned char unknown1F0[0x200 - 0x1F0];
-    ZunTimer timer200;                      // +0x200
-    unsigned int scaleTransitionDuration;   // +0x214
-    unsigned int scaleTransitionMode;       // +0x218
-    unsigned char unknown21C[0x23C - 0x21C];
-    ZunTimer timer23C;                      // +0x23C
-    unsigned char unknown250[8];
-    unsigned int secondaryColorTransitionValues[6];  // +0x258..+0x26C
-    unsigned int secondaryColorTransitionOffsets[6]; // +0x270..+0x284
-    ZunTimer timer288;                      // +0x288
-    unsigned int secondaryColorTransitionDuration; // +0x29C
-    unsigned int secondaryColorTransitionMode;     // +0x2A0
-    unsigned int secondaryEffectParameter0;        // +0x2A4
-    unsigned int secondaryEffectParameter1;        // +0x2A8
-    unsigned char unknown2AC[0x2B4 - 0x2AC];
-    ZunTimer timer2B4;                      // +0x2B4
-    void *secondaryEffectResource;           // +0x2C8
-    unsigned int secondaryEffectIndex;        // +0x2CC
-    unsigned char unknown2D0[0x2E0 - 0x2D0];
-    ZunTimer timer2E0;                      // +0x2E0
-    unsigned char unknown2F4[0x30C - 0x2F4];
-    ZunTimer timer30C;                      // +0x30C
-    unsigned char unknown320[8];
+    AnmVmColorTransition colorTransition;   // +0x0F0
+    AnmVmIntegerTransition effectTransition; // +0x13C
+    AnmVmVectorTransition positionTransition; // +0x168
+    AnmVmScalarTransition viewTransition;   // +0x1B4
+    AnmVmScaleTransition scaleTransition;   // +0x1E0
+    AnmVmScaleTransition secondaryScaleTransition; // +0x21C
+    AnmVmColorTransition secondaryColorTransition; // +0x258
+    AnmVmIntegerTransition secondaryEffectTransition; // +0x2A4
+    AnmVmScalarTransition textureOffsetXTransition; // +0x2D0
+    AnmVmScalarTransition textureOffsetYTransition; // +0x2FC
     float textureOffsetX;                   // +0x328
     float textureOffsetY;                   // +0x32C
     float transformMatrix[4][4];            // +0x330, reset to identity
@@ -152,12 +160,33 @@ struct AnmVm
     AnmVm();
     void ResetForReuse();
     int BindAnmFile(int fileIndex, AnmResource *resource);
-    void SetEffectState(void *resource, unsigned char index, unsigned char parameter0, unsigned char parameter1);
+    void SetEffectState(unsigned int duration, unsigned char mode, unsigned char parameter0, unsigned char parameter1);
     void StartEffect10();
-    void SetSecondaryEffectState(void *resource, unsigned int index, unsigned char parameter0, unsigned char parameter1);
+    void SetColorTransition(
+        const unsigned char *target,
+        const unsigned char *current,
+        int duration,
+        unsigned char mode);
+    void SetScaleTransition(
+        const float *target,
+        const float *current,
+        int duration,
+        unsigned char mode);
+    void SetPositionTransition(
+        const float *target,
+        const float *current,
+        int duration,
+        unsigned char mode);
+    void SetSecondaryColorTransition(
+        const unsigned char *target,
+        const unsigned char *current,
+        int duration,
+        unsigned char mode);
+    void SetSecondaryEffectState(unsigned int duration, unsigned int mode, unsigned char parameter0, unsigned char parameter1);
     bool ExecuteWaitCommand(bool clearActiveFlag);
     bool ExecuteBasicInstruction(const AnmVmInstructionHeader *instruction);
     unsigned int ExecuteReadyInstructions();
+    void UpdateTransitions();
 
     int ResolveIntegerOperand(int operand);
     float ResolveFloatOperand(float operand);
@@ -193,18 +222,19 @@ typedef char AnmVmColorOffset[(offsetof(AnmVm, color) == 0x3F0) ? 1 : -1];
 typedef char AnmVmSecondaryColorOffset[(offsetof(AnmVm, secondaryColor) == 0x3F4) ? 1 : -1];
 typedef char AnmVmTextureOffsetX[(offsetof(AnmVm, textureOffsetX) == 0x328) ? 1 : -1];
 typedef char AnmVmAlternatePositionOffset[(offsetof(AnmVm, alternatePosition) == 0x470) ? 1 : -1];
-typedef char AnmVmEffectParameterOffset[(offsetof(AnmVm, effectParameter0) == 0x13C) ? 1 : -1];
-typedef char AnmVmEffectResourceOffset[(offsetof(AnmVm, effectResource) == 0x160) ? 1 : -1];
+typedef char AnmVmEffectTransitionOffset[(offsetof(AnmVm, effectTransition) == 0x13C) ? 1 : -1];
 typedef char AnmVmViewPositionOffset[(offsetof(AnmVm, viewPosition) == 0xA4) ? 1 : -1];
 typedef char AnmVmViewModeOffset[(offsetof(AnmVm, viewMode) == 0xE8) ? 1 : -1];
-typedef char AnmVmColorTransitionValuesOffset[(offsetof(AnmVm, colorTransitionValues) == 0xF0) ? 1 : -1];
-typedef char AnmVmColorTransitionOffsetsOffset[(offsetof(AnmVm, colorTransitionOffsets) == 0x108) ? 1 : -1];
-typedef char AnmVmPositionTransitionOffset[(offsetof(AnmVm, positionTransitionStart) == 0x168) ? 1 : -1];
-typedef char AnmVmPositionTransitionDurationOffset[(offsetof(AnmVm, positionTransitionDuration) == 0x1AC) ? 1 : -1];
-typedef char AnmVmScaleTransitionOffset[(offsetof(AnmVm, scaleTransitionStart) == 0x1E0) ? 1 : -1];
-typedef char AnmVmScaleTransitionDurationOffset[(offsetof(AnmVm, scaleTransitionDuration) == 0x214) ? 1 : -1];
-typedef char AnmVmSecondaryColorTransitionOffset[(offsetof(AnmVm, secondaryColorTransitionValues) == 0x258) ? 1 : -1];
-typedef char AnmVmSecondaryEffectResourceOffset[(offsetof(AnmVm, secondaryEffectResource) == 0x2C8) ? 1 : -1];
+typedef char AnmVmColorTransitionOffset[(offsetof(AnmVm, colorTransition) == 0xF0) ? 1 : -1];
+typedef char AnmVmPositionTransitionOffset[(offsetof(AnmVm, positionTransition) == 0x168) ? 1 : -1];
+typedef char AnmVmViewTransitionOffset[(offsetof(AnmVm, viewTransition) == 0x1B4) ? 1 : -1];
+typedef char AnmVmScaleTransitionOffset[(offsetof(AnmVm, scaleTransition) == 0x1E0) ? 1 : -1];
+typedef char AnmVmSecondaryScaleTransitionOffset[(offsetof(AnmVm, secondaryScaleTransition) == 0x21C) ? 1 : -1];
+typedef char AnmVmSecondaryColorTransitionOffset[(offsetof(AnmVm, secondaryColorTransition) == 0x258) ? 1 : -1];
+typedef char AnmVmEffectTransitionOffset[(offsetof(AnmVm, effectTransition) == 0x13C) ? 1 : -1];
+typedef char AnmVmSecondaryEffectTransitionOffset[(offsetof(AnmVm, secondaryEffectTransition) == 0x2A4) ? 1 : -1];
+typedef char AnmVmTextureOffsetXTransitionOffset[(offsetof(AnmVm, textureOffsetXTransition) == 0x2D0) ? 1 : -1];
+typedef char AnmVmTextureOffsetYTransitionOffset[(offsetof(AnmVm, textureOffsetYTransition) == 0x2FC) ? 1 : -1];
 
 void __stdcall AnmVmSetScale(AnmVm *vm, float x, float y);
 void __stdcall AnmVmSetScaleX(AnmVm *vm, float x);

@@ -84,31 +84,33 @@ namespace
 }
 
 void AnmVm::SetEffectState(
-    void *resource,
-    unsigned char index,
+    unsigned int duration,
+    unsigned char mode,
     unsigned char parameter0,
     unsigned char parameter1)
 {
-    effectResource = resource;
-    effectIndex = index;
-    effectParameter0 = parameter0;
-    effectParameter1 = parameter1;
-    effectProgress0 = 0;
-    effectProgress1 = 0;
-    timer14C.Reset();
+    effectTransition.duration = duration;
+    effectTransition.mode = mode;
+    effectTransition.values[0] = parameter0;
+    effectTransition.values[1] = parameter1;
+    effectTransition.values[2] = 0;
+    effectTransition.values[3] = 0;
+    effectTransition.timer.Reset();
 }
 
 void AnmVm::SetSecondaryEffectState(
-    void *resource,
-    unsigned int index,
+    unsigned int duration,
+    unsigned int mode,
     unsigned char parameter0,
     unsigned char parameter1)
 {
-    secondaryEffectResource = resource;
-    secondaryEffectIndex = index & 0xFFU;
-    secondaryEffectParameter0 = parameter0;
-    secondaryEffectParameter1 = parameter1;
-    timer2B4.Reset();
+    secondaryEffectTransition.duration = duration;
+    secondaryEffectTransition.mode = mode & 0xFFU;
+    secondaryEffectTransition.values[0] = parameter0;
+    secondaryEffectTransition.values[1] = parameter1;
+    secondaryEffectTransition.values[2] = 0;
+    secondaryEffectTransition.values[3] = 0;
+    secondaryEffectTransition.timer.Reset();
 }
 
 bool AnmVm::ExecuteWaitCommand(bool clearActiveFlag)
@@ -693,14 +695,11 @@ bool AnmVm::ExecuteBasicInstruction(const AnmVmInstructionHeader *instruction)
 
     case 58:
     {
-        void *resource = reinterpret_cast<void *>(
-            (instruction->flags & 1U) != 0
-                ? (unsigned int)ResolveIntegerOperand(ReadInstructionInteger(instruction, 8))
-                : (unsigned int)ReadInstructionInteger(instruction, 8));
-        const unsigned char index = InstructionBytes(instruction)[12];
+        const unsigned int duration = (unsigned int)IntegerSource(this, instruction, 8, 1U);
+        const unsigned char mode = InstructionBytes(instruction)[12];
         const unsigned char parameter1 = (unsigned char)IntegerSource(this, instruction, 16, 4U);
         const unsigned char alpha = reinterpret_cast<unsigned char *>(&color)[3];
-        SetEffectState(resource, index, alpha, parameter1);
+        SetEffectState(duration, mode, alpha, parameter1);
         scriptDataOffsetCopy = nextInstruction;
         return true;
     }
@@ -744,35 +743,34 @@ bool AnmVm::ExecuteBasicInstruction(const AnmVmInstructionHeader *instruction)
         const unsigned char targetBlue =
             (unsigned char)IntegerSource(this, instruction, 16, 4U);
 
-        colorTransitionDuration = (unsigned int)IntegerSource(this, instruction, 8, 1U);
-        colorTransitionMode = InstructionBytes(instruction)[12];
-        colorTransitionValues[0] = sourceBlue;
-        colorTransitionValues[1] = sourceGreen;
-        colorTransitionValues[2] = sourceRed;
-        colorTransitionValues[3] = targetAlpha;
-        colorTransitionValues[4] = targetGreen;
-        colorTransitionValues[5] = targetBlue;
-        memset(colorTransitionOffsets, 0, sizeof(colorTransitionOffsets));
-        timer120.Reset();
+        const unsigned char target[3] = {targetAlpha, targetGreen, targetBlue};
+        const unsigned char current[3] = {sourceBlue, sourceGreen, sourceRed};
+        SetColorTransition(
+            target, current,
+            IntegerSource(this, instruction, 8, 1U),
+            InstructionBytes(instruction)[12]);
         scriptDataOffsetCopy = nextInstruction;
         return true;
     }
 
     case 59:
     {
-        positionTransitionDuration = (unsigned int)IntegerSource(this, instruction, 8, 1U);
-        positionTransitionMode = ReadInstructionInteger(instruction, 12);
-        positionTransitionStart.x = unknown024;
-        positionTransitionStart.y = unknown028;
-        positionTransitionStart.z = unknown02C;
-        positionTransitionTarget.x = FloatSource(this, instruction, 16, 4U);
-        positionTransitionTarget.y = FloatSource(this, instruction, 20, 8U);
-        positionTransitionTarget.z = FloatSource(this, instruction, 24, 0x10U);
-        positionTransitionReferenceA.x = *reinterpret_cast<const float *>(0x004D2E54);
-        positionTransitionReferenceA.y = *reinterpret_cast<const float *>(0x004D2E58);
-        positionTransitionReferenceA.z = *reinterpret_cast<const float *>(0x004D2E5C);
-        positionTransitionReferenceB = positionTransitionReferenceA;
-        timer198.Reset();
+        const float target[3] = {
+            FloatSource(this, instruction, 16, 4U),
+            FloatSource(this, instruction, 20, 8U),
+            FloatSource(this, instruction, 24, 0x10U)
+        };
+        const float current[3] = {unknown024, unknown028, unknown02C};
+        SetPositionTransition(
+            target, current,
+            IntegerSource(this, instruction, 8, 1U),
+            (unsigned char)ReadInstructionInteger(instruction, 12));
+        positionTransition.values[6] = *reinterpret_cast<const float *>(0x004D2E54);
+        positionTransition.values[7] = *reinterpret_cast<const float *>(0x004D2E58);
+        positionTransition.values[8] = *reinterpret_cast<const float *>(0x004D2E5C);
+        positionTransition.values[9] = positionTransition.values[6];
+        positionTransition.values[10] = positionTransition.values[7];
+        positionTransition.values[11] = positionTransition.values[8];
         flags |= 4U;
         scriptDataOffsetCopy = nextInstruction;
         return true;
@@ -780,13 +778,15 @@ bool AnmVm::ExecuteBasicInstruction(const AnmVmInstructionHeader *instruction)
 
     case 60:
     {
-        scaleTransitionDuration = (unsigned int)IntegerSource(this, instruction, 8, 1U);
-        scaleTransitionMode = InstructionBytes(instruction)[12];
-        scaleTransitionStart[0] = scaleX;
-        scaleTransitionStart[1] = scaleY;
-        scaleTransitionTarget[0] = FloatSource(this, instruction, 16, 4U);
-        scaleTransitionTarget[1] = FloatSource(this, instruction, 20, 8U);
-        timer200.Reset();
+        const float target[2] = {
+            FloatSource(this, instruction, 16, 4U),
+            FloatSource(this, instruction, 20, 8U)
+        };
+        const float current[2] = {scaleX, scaleY};
+        SetScaleTransition(
+            target, current,
+            IntegerSource(this, instruction, 8, 1U),
+            InstructionBytes(instruction)[12]);
         flags |= 8U;
         scriptDataOffsetCopy = nextInstruction;
         return true;
@@ -878,28 +878,23 @@ bool AnmVm::ExecuteBasicInstruction(const AnmVmInstructionHeader *instruction)
         const unsigned char targetBlue =
             (unsigned char)IntegerSource(this, instruction, 16, 4U);
 
-        secondaryColorTransitionDuration = (unsigned int)IntegerSource(this, instruction, 8, 1U);
-        secondaryColorTransitionMode = InstructionBytes(instruction)[12];
-        secondaryColorTransitionValues[0] = sourceBlue;
-        secondaryColorTransitionValues[1] = sourceGreen;
-        secondaryColorTransitionValues[2] = sourceRed;
-        secondaryColorTransitionValues[3] = targetAlpha;
-        secondaryColorTransitionValues[4] = targetGreen;
-        secondaryColorTransitionValues[5] = targetBlue;
-        memset(secondaryColorTransitionOffsets, 0, sizeof(secondaryColorTransitionOffsets));
-        timer288.Reset();
+        const unsigned char target[3] = {targetAlpha, targetGreen, targetBlue};
+        const unsigned char current[3] = {sourceBlue, sourceGreen, sourceRed};
+        SetSecondaryColorTransition(
+            target, current,
+            IntegerSource(this, instruction, 8, 1U),
+            InstructionBytes(instruction)[12]);
         scriptDataOffsetCopy = nextInstruction;
         return true;
     }
 
     case 79:
     {
-        void *resource = reinterpret_cast<void *>(
-            (unsigned int)IntegerSource(this, instruction, 12, 2U));
-        const unsigned int index = (unsigned int)IntegerSource(this, instruction, 16, 4U);
-        const unsigned char parameter1 = InstructionBytes(instruction)[8];
-        const unsigned char alpha = reinterpret_cast<unsigned char *>(&color)[3];
-        SetSecondaryEffectState(resource, index, alpha, parameter1);
+        const unsigned int duration = (unsigned int)IntegerSource(this, instruction, 8, 1U);
+        const unsigned char mode = InstructionBytes(instruction)[12];
+        const unsigned char parameter1 = (unsigned char)IntegerSource(this, instruction, 16, 4U);
+        const unsigned char alpha = reinterpret_cast<unsigned char *>(&secondaryColor)[3];
+        SetSecondaryEffectState(duration, mode, alpha, parameter1);
         scriptDataOffsetCopy = nextInstruction;
         return true;
     }
