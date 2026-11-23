@@ -498,6 +498,21 @@ void AnmVm::SetSecondaryColorTransition(
 
 void AnmVm::UpdateTransitions()
 {
+    if (viewMode != 0)
+    {
+        float result[3];
+        AnmVmVectorTransition *transition =
+            reinterpret_cast<AnmVmVectorTransition *>(&viewPosition);
+        InterpolateVector(transition, result, false);
+
+        ZunVec3 *viewOffset = (flags & 0x200U) != 0
+            ? &alternatePosition
+            : &secondaryPosition;
+        viewOffset->x = result[0];
+        viewOffset->y = result[1];
+        viewOffset->z = result[2];
+    }
+
     if (colorTransition.duration != 0)
     {
         int result[3];
