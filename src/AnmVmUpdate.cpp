@@ -56,7 +56,7 @@ namespace
             vm->flags |= 0x0CU;
         }
 
-        float scroll = vm->uvScrollX + gameSpeed * vm->textureScrollX;
+        float scroll = vm->textureScrollX + gameSpeed * vm->textureOffsetX;
         if (scroll >= 1.0f)
         {
             scroll -= 1.0f;
@@ -65,9 +65,9 @@ namespace
         {
             scroll += 1.0f;
         }
-        vm->uvScrollX = scroll;
+        vm->textureScrollX = scroll;
 
-        scroll = vm->uvScrollY + vm->textureScrollY * gameSpeed;
+        scroll = vm->textureScrollY + vm->textureOffsetY * gameSpeed;
         if (scroll >= 1.0f)
         {
             scroll -= 1.0f;
@@ -76,7 +76,7 @@ namespace
         {
             scroll += 1.0f;
         }
-        vm->uvScrollY = scroll;
+        vm->textureScrollY = scroll;
 
         if ((vm->flags & 0x4000U) != 0)
         {
