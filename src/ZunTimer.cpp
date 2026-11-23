@@ -39,6 +39,17 @@ void ZunTimer::SetCurrent(int value)
     currentF = (float)value;
 }
 
+// The ANM wait path passes a complete timer value by value; the target
+// consumes only its integer current field and rebuilds the destination's
+// previous/currentF values through the same lazy initialization path.
+void ZunTimer::SetCurrent(ZunTimer value)
+{
+    Initialize();
+    current = value.current;
+    previous = current - 1;
+    currentF = (float)current;
+}
+
 void ZunTimer::SetCurrentF(float value)
 {
     Initialize();

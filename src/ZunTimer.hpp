@@ -43,6 +43,7 @@ struct ZunTimer
     void Initialize();
     void Reset();
     void SetCurrent(int value);
+    void SetCurrent(ZunTimer value);
     void SetCurrentF(float value);
     void Add(float value);
     void Increment();
