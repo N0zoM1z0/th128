@@ -2073,3 +2073,42 @@ symbol = "?EaseTransition@?A0xcccfbf55@@YAMIM@Z"
 target_address = 0x0046B190
 size = 728
 relocations = []
+
+[units.anm-vm-start-effect10]
+frontier = true
+artifact_kind = "coff"
+source = "src/AnmVmEffects.cpp"
+inputs = ["src/AnmVm.hpp", "src/AnmVmGeometry.hpp", "src/AnmResource.hpp", "src/ZunTimer.hpp"]
+object = "build/match/AnmVmEffects.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["AnmVm::StartEffect10"]
+symbol = "?StartEffect10@AnmVm@@QAEXXZ"
+target_address = 0x004631A0
+size = 127
+relocations = []
+
+[units.anm-vm-spawn-child]
+frontier = true
+artifact_kind = "coff"
+source = "src/AnmVmScript.cpp"
+inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp", "src/AnmManager.hpp", "src/ZunTimer.hpp"]
+object = "build/match/AnmVmUpdate.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["SpawnChildVm"]
+symbol = "?SpawnChildVm@?A0xcccfbf55@@YAIPAUAnmVm@@HI@Z"
+target_address = 0x00467220
+size = 266
+relocations = []
+
+[units.anm-vm-spawn-child-at-position]
+frontier = true
+artifact_kind = "coff"
+source = "src/AnmVmScript.cpp"
+inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp", "src/AnmManager.hpp", "src/ZunTimer.hpp"]
+object = "build/match/AnmVmUpdate.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["SpawnChildVmAtPosition"]
+symbol = "?SpawnChildVmAtPosition@?A0xcccfbf55@@YAIPAUAnmVm@@H@Z"
+target_address = 0x00467330
+size = 230
+relocations = []

@@ -143,3 +143,5 @@ MenuCursor::Move,0x0046A970,function
 ZunTimer::Add,0x0046AA20,function
 EaseTransition,0x0046B190,function
 SptResourceInf::Load,0x004703F0,function
+SpawnChildVm,0x00467220,function
+SpawnChildVmAtPosition,0x00467330,function
