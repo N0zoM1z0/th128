@@ -1414,7 +1414,7 @@ namespace
                 vm->color, vm->color, vm->color, vm->color);
             return 0;
 
-        case 19:
+        case 16:
             DrawAnmVmPrimitiveQuad(
                 manager, renderer, device, centerX, centerY,
                 width, height, angle,
@@ -1422,7 +1422,7 @@ namespace
                 vm->color, vm->secondaryColor);
             return 0;
 
-        case 20:
+        case 17:
         {
             const unsigned int outline = HalfAlphaColor(vm->color);
             DrawAnmVmPrimitiveQuad(
@@ -1436,33 +1436,36 @@ namespace
             return 0;
         }
 
-        case 21:
+        case 18:
         {
-            const unsigned int outline = HalfAlphaColor(vm->secondaryColor);
+            const unsigned int outlineColor0 =
+                vm->secondaryColor & 0x00FFFFFFU;
+            const unsigned int outlineColor1 =
+                HalfAlphaColor(vm->color);
             DrawAnmVmPrimitiveQuad(
                 manager, renderer, device, centerX, centerY,
                 width + 1.0f, height + 1.0f, angle,
-                vm->color & 0x00FFFFFFU, outline,
-                vm->color & 0x00FFFFFFU, outline);
+                outlineColor0, outlineColor1,
+                outlineColor0, outlineColor1);
             DrawAnmVmPrimitiveQuad(
                 manager, renderer, device, centerX, centerY,
                 width, height, angle,
-                vm->color, vm->secondaryColor,
-                vm->color, vm->secondaryColor);
+                vm->secondaryColor, vm->color,
+                vm->secondaryColor, vm->color);
             return 0;
         }
 
-        case 16:
+        case 19:
+            DrawAnmVmPrimitiveLine(
+                manager, renderer, device, centerX, centerY,
+                width, angle, vm->integerVariables[0], vm->color);
+            return 0;
+
+        case 20:
             DrawAnmVmPrimitiveFan(
                 manager, renderer, device, centerX, centerY,
                 width, angle, vm->integerVariables[0],
                 vm->color, vm->secondaryColor);
-            return 0;
-
-        case 17:
-            DrawAnmVmPrimitiveLine(
-                manager, renderer, device, centerX, centerY,
-                width, angle, vm->integerVariables[0], vm->color);
             return 0;
 
         default:
@@ -1503,13 +1506,6 @@ int DrawAnmVm(AnmVm *vm)
     case 6:
         return DrawAnmVmFogSprite(vm);
     case 8:
-        return DrawAnmVmWorldMatrixSprite(vm);
-    case 18:
-        if ((vm->color & 0xFF000000U) == 0 &&
-            (vm->secondaryColor & 0xFF000000U) == 0)
-        {
-            return -1;
-        }
         return DrawAnmVmFogEnabledWorldMatrixSprite(vm);
     case 9:
     case 12:
@@ -1525,9 +1521,9 @@ int DrawAnmVm(AnmVm *vm)
     case 15:
     case 16:
     case 17:
+    case 18:
     case 19:
     case 20:
-    case 21:
         return DrawAnmVmPrimitiveEffect(vm, mode);
 
     default:
