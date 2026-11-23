@@ -1466,31 +1466,34 @@ namespace
         if (AdvanceTransition(&transition->timer, &transition->duration, mode))
         {
             const unsigned int endpoint = (mode == 7) ? 0 : 3;
-            for (unsigned int i = 0; i != 3; ++i)
-            {
-                result[i] = transition->values[endpoint + i];
-            }
+            result[0] = transition->values[endpoint];
+            result[1] = transition->values[endpoint + 1];
+            result[2] = transition->values[endpoint + 2];
             return;
         }
 
         if (mode == 7)
         {
-            for (unsigned int i = 0; i != 3; ++i)
-            {
-                transition->values[i] += transition->values[i + 3];
-                result[i] = transition->values[i];
-            }
+            transition->values[0] += transition->values[3];
+            transition->values[1] += transition->values[4];
+            transition->values[2] += transition->values[5];
+            result[0] = transition->values[0];
+            result[1] = transition->values[1];
+            result[2] = transition->values[2];
             return;
         }
 
         if (mode == 17)
         {
-            for (unsigned int i = 0; i != 3; ++i)
-            {
-                transition->values[i] += transition->values[i + 9];
-                result[i] = transition->values[i];
-                transition->values[i + 9] += transition->values[i + 3];
-            }
+            transition->values[0] += transition->values[9];
+            transition->values[1] += transition->values[10];
+            transition->values[2] += transition->values[11];
+            result[0] = transition->values[0];
+            result[1] = transition->values[1];
+            result[2] = transition->values[2];
+            transition->values[9] += transition->values[3];
+            transition->values[10] += transition->values[4];
+            transition->values[11] += transition->values[5];
             return;
         }
 
@@ -1503,26 +1506,33 @@ namespace
             const float h01 = t * t * (3.0f - 2.0f * t);
             const float h10 = (1.0f - t) * (1.0f - t) * t;
             const float h11 = tMinusOne * t * t;
-
-            for (unsigned int i = 0; i != 3; ++i)
-            {
-                result[i] =
-                    ZunRoundToInt((double)h00 * transition->values[i]) +
-                    ZunRoundToInt((double)h01 * transition->values[i + 3]) +
-                    ZunRoundToInt((double)h10 * transition->values[i + 6]) +
-                    ZunRoundToInt((double)h11 * transition->values[i + 9]);
-            }
+            result[0] =
+                ZunRoundToInt((double)h00 * transition->values[0]) +
+                ZunRoundToInt((double)h01 * transition->values[3]) +
+                ZunRoundToInt((double)h10 * transition->values[6]) +
+                ZunRoundToInt((double)h11 * transition->values[9]);
+            result[1] =
+                ZunRoundToInt((double)h00 * transition->values[1]) +
+                ZunRoundToInt((double)h01 * transition->values[4]) +
+                ZunRoundToInt((double)h10 * transition->values[7]) +
+                ZunRoundToInt((double)h11 * transition->values[10]);
+            result[2] =
+                ZunRoundToInt((double)h00 * transition->values[2]) +
+                ZunRoundToInt((double)h01 * transition->values[5]) +
+                ZunRoundToInt((double)h10 * transition->values[8]) +
+                ZunRoundToInt((double)h11 * transition->values[11]);
             return;
         }
 
         const float eased = EaseTransition(mode, t);
-        for (unsigned int i = 0; i != 3; ++i)
-        {
-            const int startValue = transition->values[i];
-            const int delta = transition->values[i + 3] - startValue;
-            result[i] = startValue + ZunRoundToInt((double)delta * eased);
-        }
+        const int delta0 = transition->values[3] - transition->values[0];
+        const int delta1 = transition->values[4] - transition->values[1];
+        const int delta2 = transition->values[5] - transition->values[2];
+        result[0] = transition->values[0] + ZunRoundToInt((double)delta0 * eased);
+        result[1] = transition->values[1] + ZunRoundToInt((double)delta1 * eased);
+        result[2] = transition->values[2] + ZunRoundToInt((double)delta2 * eased);
     }
+
 
     int InterpolateInteger(AnmVmIntegerTransition *transition)
     {
@@ -1573,31 +1583,34 @@ namespace
         if (AdvanceTransition(&transition->timer, &transition->duration, mode))
         {
             const unsigned int endpoint = (mode == 7) ? 0 : 3;
-            for (unsigned int i = 0; i != 3; ++i)
-            {
-                result[i] = transition->values[endpoint + i];
-            }
+            result[0] = transition->values[endpoint];
+            result[1] = transition->values[endpoint + 1];
+            result[2] = transition->values[endpoint + 2];
             return;
         }
 
         if (mode == 7)
         {
-            for (unsigned int i = 0; i != 3; ++i)
-            {
-                transition->values[i] += transition->values[i + 3];
-                result[i] = transition->values[i];
-            }
+            transition->values[0] += transition->values[3];
+            transition->values[1] += transition->values[4];
+            transition->values[2] += transition->values[5];
+            result[0] = transition->values[0];
+            result[1] = transition->values[1];
+            result[2] = transition->values[2];
             return;
         }
 
         if (mode == 17)
         {
-            for (unsigned int i = 0; i != 3; ++i)
-            {
-                transition->values[i] += transition->values[i + 9];
-                result[i] = transition->values[i];
-                transition->values[i + 9] += transition->values[i + 3];
-            }
+            transition->values[0] += transition->values[9];
+            transition->values[1] += transition->values[10];
+            transition->values[2] += transition->values[11];
+            result[0] = transition->values[0];
+            result[1] = transition->values[1];
+            result[2] = transition->values[2];
+            transition->values[9] += transition->values[3];
+            transition->values[10] += transition->values[4];
+            transition->values[11] += transition->values[5];
             return;
         }
 
@@ -1610,24 +1623,30 @@ namespace
             const float h01 = t * t * (3.0f - 2.0f * t);
             const float h10 = (1.0f - t) * (1.0f - t) * t;
             const float h11 = tMinusOne * t * t;
-            for (unsigned int i = 0; i != 3; ++i)
-            {
-                result[i] = h00 * transition->values[i] +
-                    h01 * transition->values[i + 3] +
-                    h10 * transition->values[i + 6] +
-                    h11 * transition->values[i + 9];
-            }
+            result[0] = h00 * transition->values[0] +
+                h01 * transition->values[3] +
+                h10 * transition->values[6] +
+                h11 * transition->values[9];
+            result[1] = h00 * transition->values[1] +
+                h01 * transition->values[4] +
+                h10 * transition->values[7] +
+                h11 * transition->values[10];
+            result[2] = h00 * transition->values[2] +
+                h01 * transition->values[5] +
+                h10 * transition->values[8] +
+                h11 * transition->values[11];
             return;
         }
 
         const float eased = EaseTransition(mode, t);
-        for (unsigned int i = 0; i != 3; ++i)
-        {
-            result[i] = eased *
-                (transition->values[i + 3] - transition->values[i]) +
-                transition->values[i];
-        }
+        result[0] = eased *
+            (transition->values[3] - transition->values[0]) + transition->values[0];
+        result[1] = eased *
+            (transition->values[4] - transition->values[1]) + transition->values[1];
+        result[2] = eased *
+            (transition->values[5] - transition->values[2]) + transition->values[2];
     }
+
 
     void InterpolateScale(AnmVmScaleTransition *transition, float result[2])
     {
@@ -1642,22 +1661,21 @@ namespace
 
         if (mode == 7)
         {
-            for (unsigned int i = 0; i != 2; ++i)
-            {
-                transition->values[i] += transition->values[i + 2];
-                result[i] = transition->values[i];
-            }
+            transition->values[0] += transition->values[2];
+            transition->values[1] += transition->values[3];
+            result[0] = transition->values[0];
+            result[1] = transition->values[1];
             return;
         }
 
         if (mode == 17)
         {
-            for (unsigned int i = 0; i != 2; ++i)
-            {
-                transition->values[i] += transition->values[i + 6];
-                result[i] = transition->values[i];
-                transition->values[i + 6] += transition->values[i + 2];
-            }
+            transition->values[0] += transition->values[6];
+            transition->values[1] += transition->values[7];
+            result[0] = transition->values[0];
+            result[1] = transition->values[1];
+            transition->values[6] += transition->values[2];
+            transition->values[7] += transition->values[3];
             return;
         }
 
@@ -1670,24 +1688,24 @@ namespace
             const float h01 = t * t * (3.0f - 2.0f * t);
             const float h10 = (1.0f - t) * (1.0f - t) * t;
             const float h11 = tMinusOne * t * t;
-            for (unsigned int i = 0; i != 2; ++i)
-            {
-                result[i] = h00 * transition->values[i] +
-                    h01 * transition->values[i + 2] +
-                    h10 * transition->values[i + 4] +
-                    h11 * transition->values[i + 6];
-            }
+            result[0] = h00 * transition->values[0] +
+                h01 * transition->values[2] +
+                h10 * transition->values[4] +
+                h11 * transition->values[6];
+            result[1] = h00 * transition->values[1] +
+                h01 * transition->values[3] +
+                h10 * transition->values[5] +
+                h11 * transition->values[7];
             return;
         }
 
         const float eased = EaseTransition(mode, t);
-        for (unsigned int i = 0; i != 2; ++i)
-        {
-            result[i] = eased *
-                (transition->values[i + 2] - transition->values[i]) +
-                transition->values[i];
-        }
+        result[0] = eased *
+            (transition->values[2] - transition->values[0]) + transition->values[0];
+        result[1] = eased *
+            (transition->values[3] - transition->values[1]) + transition->values[1];
     }
+
 
     // The view rotation is an angular scalar: relative and eased paths wrap,
     // and ordinary interpolation follows the shortest signed arc.
