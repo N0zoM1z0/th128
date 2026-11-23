@@ -142,7 +142,7 @@ void FlushAnmSpriteBatch()
     device->SetTextureStageState(0, D3DTSS_COLORARG2, 0);
     device->SetFVF(0x144);
     device->DrawPrimitiveUP(
-        D3DPT_TRIANGLESTRIP,
+        D3DPT_TRIANGLELIST,
         (UINT)(renderer->pendingBatchCount * 2),
         renderer->batchVertices,
         0x1C);
@@ -245,16 +245,17 @@ void DrawAnmVmVertices(AnmVm *vm, const void *vertices, unsigned int vertexCount
 
     ApplyAnmVmRenderState(vm);
 
-    if (renderer->currentTexture != vm->anmFileEntry->texture)
+    void **textureSlot = &vm->anmFileEntry->texture;
+    if (renderer->currentTexture != textureSlot)
     {
-        renderer->currentTexture = vm->anmFileEntry->texture;
+        renderer->currentTexture = textureSlot;
         device->SetTexture(
             0,
-            reinterpret_cast<IDirect3DBaseTexture9 *>(vm->anmFileEntry->texture));
+            reinterpret_cast<IDirect3DBaseTexture9 *>(*textureSlot));
     }
 
     FlushAnmSpriteBatch();
-    device->SetRenderState(D3DRS_ZWRITEENABLE, 0);
+    device->SetTextureStageState(0, (D3DTEXTURESTAGESTATETYPE)14, 0);
 
     if (renderer->textureStageState != 1)
     {
@@ -289,12 +290,13 @@ int DrawAnmVmTriangleStrip(
         FlushAnmSpriteBatch();
     }
 
-    if (renderer->currentTexture != vm->anmFileEntry->texture)
+    void **textureSlot = &vm->anmFileEntry->texture;
+    if (renderer->currentTexture != textureSlot)
     {
-        renderer->currentTexture = vm->anmFileEntry->texture;
+        renderer->currentTexture = textureSlot;
         device->SetTexture(
             0,
-            reinterpret_cast<IDirect3DBaseTexture9 *>(vm->anmFileEntry->texture));
+            reinterpret_cast<IDirect3DBaseTexture9 *>(*textureSlot));
     }
 
     if (renderer->vertexFormatMode != 3)
