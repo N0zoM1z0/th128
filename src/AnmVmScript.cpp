@@ -1211,6 +1211,15 @@ bool AnmVm::ExecuteBasicInstruction(const AnmVmInstructionHeader *instruction)
         scriptDataOffsetCopy = nextInstruction;
         return true;
 
+    case 114:
+    {
+        const int vertexCount = IntegerSource(this, instruction, 8, 1U);
+        flags = (flags & 0xEEFFFFFFU) | 0x0E000000U;
+        extraData = malloc(vertexCount * 0x38);
+        scriptDataOffsetCopy = nextInstruction;
+        return true;
+    }
+
     case 113:
         viewTransition.duration =
             (unsigned int)IntegerSource(this, instruction, 8, 1U);
