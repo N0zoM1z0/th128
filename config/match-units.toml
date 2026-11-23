@@ -866,6 +866,20 @@ linkages = [
   { offset = 38, type = "DIR32", symbol = "?g_TimeScale@@3MA", target = 0x004B6F58 },
 ]
 
+
+[units.zun-timer-set-current-from-timer]
+frontier = true # Wait save/restore transfers the integer current field from a by-value timer argument.
+artifact_kind = "coff"
+source = "src/ZunTimer.cpp"
+inputs = ["src/ZunTimer.hpp"]
+object = "build/match/ZunTimer.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["ZunTimer::SetCurrent(ZunTimer)"]
+symbol = "?SetCurrent@ZunTimer@@QAEXU1@@Z"
+target_address = 0x0045E5E0
+size = 61
+relocations = []
+
 [units.zun-timer-set-current-f]
 artifact_kind = "linked-pe"
 source = "src/ZunTimer.cpp"
