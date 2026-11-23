@@ -2267,11 +2267,16 @@ int AnmVm::Update()
     UpdateTransitions();
     UpdateCustomGeometry();
 
-    if (frameCallback != 0 && frameCallback(this) != 0)
+    if (frameCallback != 0)
     {
-        // The target's callback-termination edge returns directly: it skips
-        // both the timer increment and the normal game-speed restoration.
-        return 1;
+        const int callbackResult = frameCallback(this);
+        if (callbackResult != 0)
+        {
+            // The target branches straight to its shared epilogue without
+            // rewriting EAX, so the callback's exact nonzero result escapes.
+            // This edge also skips the timer increment and speed restoration.
+            return callbackResult;
+        }
     }
 
     timer070.Increment();
