@@ -1770,7 +1770,7 @@ int __fastcall UpdateAnmVmEffect10(AnmVm *vm)
         WrapEffect10U(data);
     }
 
-    data->uvBaseV += data->uvDeltaV;
+    data->uvBaseV += data->uvDeltaU;
     if (data->uvBaseV < 0.0f)
     {
         WrapEffect10V(data);
@@ -1787,7 +1787,7 @@ int __fastcall UpdateAnmVmEffect10(AnmVm *vm)
             WrapEffect10U(data);
         }
 
-        vertex->v += data->uvDeltaV;
+        vertex->v += data->uvDeltaU;
         if (vertex->v < 0.0f)
         {
             WrapEffect10V(data);
@@ -1813,7 +1813,9 @@ void __fastcall DrawAnmVmEffect10(AnmVm *vm)
     AnmVmEffect10Data *data = (AnmVmEffect10Data *)vm->extraData;
     if (data != 0)
     {
-        DrawAnmVmVertices(vm, data->vertices, 33);
+        // The leading 0x1C bytes are the center vertex; vertices[32] are
+        // the perimeter, so the fan consumes the whole data block.
+        DrawAnmVmVertices(vm, data, 33);
     }
 }
 
