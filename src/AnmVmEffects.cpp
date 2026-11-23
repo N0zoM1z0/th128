@@ -637,6 +637,8 @@ int DrawAnmVm(AnmVm *vm)
     {
     case 0:
         return DrawAnmVmSpriteQuad(vm, true, false);
+    case 2:
+        return DrawAnmVmSpriteQuad(vm, false, false);
     case 1:
     case 3:
         return DrawAnmVmSpriteQuad(vm, false, true);
