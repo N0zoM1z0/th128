@@ -1855,7 +1855,7 @@ namespace
 {
     const float kAnmVmGeometryTwoPi = 6.283185482025146484375f;
 
-    void WriteAnmVmGeometryVertexPair(
+    __forceinline void WriteAnmVmGeometryVertexPair(
         AnmVmEffect10Vertex *vertices,
         float centerX,
         float centerY,
