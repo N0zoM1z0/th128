@@ -1050,6 +1050,37 @@ static int DrawAnmVmWorldMatrixSprite(AnmVm *vm)
     return 0;
 }
 
+static int DrawAnmVmFogEnabledWorldMatrixSprite(AnmVm *vm)
+{
+    AnmVmRendererState *renderer = GetAnmVmRenderer();
+    IDirect3DDevice9 *device = GetAnmVmDevice();
+    if (renderer == 0 || device == 0 || vm == 0)
+    {
+        return -1;
+    }
+
+    // The mode-18 wrapper toggles D3DRS_FOGENABLE on the shared device
+    // context, flushing queued 2D quads before each state transition.
+    unsigned int *fogState =
+        reinterpret_cast<unsigned int *>(0x004D2E68 + 0x990);
+    if (*fogState != 1U)
+    {
+        FlushAnmSpriteBatch();
+        *fogState = 1U;
+        device->SetRenderState(D3DRS_FOGENABLE, TRUE);
+    }
+
+    const int result = DrawAnmVmWorldMatrixSprite(vm);
+
+    if (*fogState != 0U)
+    {
+        FlushAnmSpriteBatch();
+        *fogState = 0U;
+        device->SetRenderState(D3DRS_FOGENABLE, FALSE);
+    }
+    return result;
+}
+
 int DrawAnmVmTriangleStrip(
     AnmVm *vm,
     const void *vertices,
@@ -1473,6 +1504,13 @@ int DrawAnmVm(AnmVm *vm)
         return DrawAnmVmFogSprite(vm);
     case 8:
         return DrawAnmVmWorldMatrixSprite(vm);
+    case 18:
+        if ((vm->color & 0xFF000000U) == 0 &&
+            (vm->secondaryColor & 0xFF000000U) == 0)
+        {
+            return -1;
+        }
+        return DrawAnmVmFogEnabledWorldMatrixSprite(vm);
     case 9:
     case 12:
     case 13:
