@@ -118,8 +118,8 @@ namespace
 
     float NextSignedVmRandom()
     {
-        // StartEffect10 consumes the shared game RNG directly; unlike ANM
-        // operand 10012, this path does not select the VM-local generator.
+        // The target converts the shared unsigned RNG value to [-1, 1) with
+        // a 2^-31 scale before applying each effect-specific range.
         Rng *generator = reinterpret_cast<Rng *>(0x004D2AE0);
         const unsigned int value = generator->GetU32();
         return (float)((double)value * (1.0 / 2147483648.0) - 1.0);
@@ -144,7 +144,7 @@ namespace
     }
 }
 
-void AnmVmEffect10Vertex::SetPolar(float angle, float radius)
+__declspec(noinline) void AnmVmEffect10Vertex::SetPolar(float angle, float radius)
 {
     x = (float)(cos((double)angle) * (double)radius);
     y = (float)(sin((double)angle) * (double)radius);
@@ -153,7 +153,7 @@ void AnmVmEffect10Vertex::SetPolar(float angle, float radius)
 // The target has a second, byte-identical FSINCOS helper dedicated to the
 // large per-VM update path. Keep it as a separate natural C++ leaf; this source
 // intentionally remains a codegen frontier rather than using inline assembly.
-void AnmVmEffect10Vertex::SetPolarForUpdate(float angle, float radius)
+__declspec(noinline) void AnmVmEffect10Vertex::SetPolarForUpdate(float angle, float radius)
 {
     x = (float)(cos((double)angle) * (double)radius);
     y = (float)(sin((double)angle) * (double)radius);
@@ -1856,17 +1856,12 @@ void AnmVm::StartEffect10()
     extraDataUpdateCallback = UpdateAnmVmEffect10;
     extraDataDrawCallback = DrawAnmVmEffect10;
 
-    if (data == 0)
-    {
-        return;
-    }
-
     data->uvDeltaU = NextSignedVmRandom() * (1.0f / 120.0f);
     data->uvDeltaV = NextSignedVmRandom() * (1.0f / 120.0f);
 
     data->centerX = secondaryPosition.x + position.x;
-    data->centerY = secondaryPosition.y + position.y;
-    data->centerZ = secondaryPosition.z + position.z;
+    data->centerY = position.y + secondaryPosition.y;
+    data->centerZ = position.z + secondaryPosition.z;
     data->centerW = 1.0f;
     data->uvBaseU = 0.5f;
     data->uvBaseV = 0.5f;
@@ -1877,11 +1872,12 @@ void AnmVm::StartEffect10()
     for (unsigned int i = 0; i != 31; ++i)
     {
         AnmVmEffect10Vertex *vertex = &data->vertices[i];
-        vertex->SetPolar(angle, 0.5f);
+        AnmVmEffect10Vertex uvPosition;
+        uvPosition.SetPolar(angle, 0.5f);
+        vertex->u = uvPosition.x + 0.5f;
+        vertex->v = uvPosition.y + 0.5f;
         vertex->z = 0.0f;
         vertex->reciprocalW = 1.0f;
-        vertex->u = vertex->x + 0.5f;
-        vertex->v = vertex->y + 0.5f;
 
         data->particleRadius[i] =
             NextSignedVmRandom() * 8.0f + 80.0f;
@@ -1897,6 +1893,7 @@ void AnmVm::StartEffect10()
             radialSpeed = -kEffect10RadialSpeedLimit;
         }
 
+        vertex->SetPolar(angle, data->particleRadius[i]);
         vertex->x += data->centerX;
         vertex->y += data->centerY;
         vertex->z += data->centerZ;
