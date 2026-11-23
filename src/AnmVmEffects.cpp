@@ -889,6 +889,20 @@ static int DrawAnmVmProjectedSprite(AnmVm *vm)
     return result;
 }
 
+static int RoundAnmVmFogChannel(float value)
+{
+    // The target's FUN_0048FAC0 uses the x87 default rounding mode
+    // (nearest, ties to even) when converting fog-channel floats to ints.
+    const double integral = floor((double)value);
+    const double fraction = (double)value - integral;
+    int rounded = (int)integral;
+    if (fraction > 0.5 || (fraction == 0.5 && rounded % 2 != 0))
+    {
+        ++rounded;
+    }
+    return rounded;
+}
+
 static unsigned int FadeAnmVmFogColor(unsigned int color, float fadeFactor)
 {
     const float *fogColor = reinterpret_cast<const float *>(0x004D3170);
@@ -896,7 +910,7 @@ static unsigned int FadeAnmVmFogColor(unsigned int color, float fadeFactor)
 
     for (unsigned int channel = 0; channel != 3; ++channel)
     {
-        const int fog = (int)floorf(fogColor[channel] + 0.5f);
+        const int fog = RoundAnmVmFogChannel(fogColor[channel]);
         const int source = (int)((color >> (channel * 8)) & 0xFFU);
         const int adjustment = (int)((float)(source - fog) * fadeFactor);
         const unsigned int faded =
