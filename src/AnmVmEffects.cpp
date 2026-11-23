@@ -1100,14 +1100,35 @@ static unsigned int FadeAnmVmWorldVertexColor(
     unsigned int result = sourceColor & 0xFF000000U;
     for (unsigned int channel = 0; channel != 3; ++channel)
     {
-        const int fog = (int)floorf(fogChannels[channel] + 0.5f);
-        const int source =
-            (int)((sourceColor >> (channel * 8)) & 0xFFU);
+        const float source =
+            (float)((sourceColor >> (channel * 8)) & 0xFFU);
         const int adjustment =
-            (int)((float)(source - fog) * fadeFactor);
+            (int)((source - fogChannels[channel]) * fadeFactor);
         result |= ((unsigned int)(source - adjustment) & 0xFFU)
             << (channel * 8);
     }
+    return result;
+}
+
+static void ResetAnmVmSharedSpriteReciprocalW()
+{
+    *reinterpret_cast<float *>(0x004DAF34) = 1.0f;
+    *reinterpret_cast<float *>(0x004DAF50) = 1.0f;
+    *reinterpret_cast<float *>(0x004DAF6C) = 1.0f;
+    *reinterpret_cast<float *>(0x004DAF88) = 1.0f;
+}
+
+static int DrawAnmVmWorldMatrixBatchSprite(AnmVm *vm)
+{
+    AnmManager *manager = GetGlobalAnmManager();
+    if (manager == 0 || vm == 0)
+    {
+        return -1;
+    }
+
+    vm->UpdateWorldMatrix(manager->vmWorldMatrix, false);
+    const int result = DrawAnmVmSpriteQuad(vm, false, false);
+    ResetAnmVmSharedSpriteReciprocalW();
     return result;
 }
 
@@ -1124,13 +1145,8 @@ static int DrawAnmVmWorldFogSprite(AnmVm *vm)
 
     vm->UpdateWorldMatrix(manager->vmWorldMatrix, false);
 
-    unsigned int sourceColor =
+    const unsigned int sourceColor =
         (vm->flags & 0x00030000U) == 0 ? vm->color : vm->secondaryColor;
-    if (manager->colorModulationEnabled != 0)
-    {
-        sourceColor = ModulateAnmSpriteColor(
-            sourceColor, manager->colorModulation);
-    }
 
     const float fogStart = *reinterpret_cast<const float *>(0x004D3168);
     const float fogRange =
@@ -1187,6 +1203,7 @@ static int DrawAnmVmWorldFogSprite(AnmVm *vm)
     const int result = DrawAnmVmSpriteQuad(
         &drawVm, false, true, false, vertexColors);
     memcpy(vm->drawVertices, drawVm.drawVertices, sizeof(vm->drawVertices));
+    ResetAnmVmSharedSpriteReciprocalW();
     return result;
 }
 
@@ -1643,6 +1660,8 @@ int DrawAnmVm(AnmVm *vm)
         return DrawAnmVmSpriteQuad(vm, false, false);
     case 4:
         return DrawAnmVmProjectedSprite(vm);
+    case 5:
+        return DrawAnmVmWorldMatrixBatchSprite(vm);
     case 6:
         return DrawAnmVmFogSprite(vm);
     case 7:
