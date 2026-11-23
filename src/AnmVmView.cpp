@@ -46,8 +46,9 @@ namespace
                 parent->secondaryPosition.x + parent->alternatePosition.x;
             metrics.parentY = parent->position.y +
                 parent->secondaryPosition.y + parent->alternatePosition.y;
-            metrics.centerZ += parent->position.z +
-                parent->secondaryPosition.z + parent->alternatePosition.z;
+            // The target's three view helpers add the parent XY translation,
+            // but all four output Z coordinates are overwritten with the
+            // child's own Z sum at the end of each helper.
             metrics.angle += parent->unknown02C;
         }
 
