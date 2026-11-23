@@ -55,20 +55,34 @@ namespace
         return destination;
     }
 
-    int IntegerSource(AnmVm *vm, const AnmVmInstructionHeader *instruction, unsigned int offset, unsigned char flag)
+    unsigned short InstructionOperandFlags(
+        const AnmVmInstructionHeader *instruction)
+    {
+        return ReadInstructionUnsignedShort(instruction, 6);
+    }
+
+    int IntegerSource(
+        AnmVm *vm,
+        const AnmVmInstructionHeader *instruction,
+        unsigned int offset,
+        unsigned short flag)
     {
         int value = ReadInstructionInteger(instruction, offset);
-        if ((instruction->flags & flag) != 0)
+        if ((InstructionOperandFlags(instruction) & flag) != 0)
         {
             value = vm->ResolveIntegerOperand(value);
         }
         return value;
     }
 
-    float FloatSource(AnmVm *vm, const AnmVmInstructionHeader *instruction, unsigned int offset, unsigned char flag)
+    float FloatSource(
+        AnmVm *vm,
+        const AnmVmInstructionHeader *instruction,
+        unsigned int offset,
+        unsigned short flag)
     {
         float value = ReadInstructionFloat(instruction, offset);
-        if ((instruction->flags & flag) != 0)
+        if ((InstructionOperandFlags(instruction) & flag) != 0)
         {
             value = vm->ResolveFloatOperand(value);
         }
@@ -1262,17 +1276,17 @@ bool AnmVm::ExecuteBasicInstruction(const AnmVmInstructionHeader *instruction)
     case 100:
     {
         const float referenceAX =
-            FloatSource(this, instruction, 24, 2U);
+            FloatSource(this, instruction, 12, 2U);
         const float referenceAY =
-            FloatSource(this, instruction, 32, 4U);
+            FloatSource(this, instruction, 16, 4U);
         const float referenceAZ =
-            FloatSource(this, instruction, 40, 8U);
+            FloatSource(this, instruction, 20, 8U);
         const float referenceBX =
-            FloatSource(this, instruction, 72, 0x80U);
+            FloatSource(this, instruction, 36, 0x80U);
         const float referenceBY =
-            FloatSource(this, instruction, 80, 0x100U);
+            FloatSource(this, instruction, 40, 0x100U);
         const float referenceBZ =
-            FloatSource(this, instruction, 88, 0x200U);
+            FloatSource(this, instruction, 44, 0x200U);
         const int duration = IntegerSource(this, instruction, 8, 1U);
 
         viewMode = duration;
@@ -1287,9 +1301,9 @@ bool AnmVm::ExecuteBasicInstruction(const AnmVmInstructionHeader *instruction)
             ? alternatePosition
             : secondaryPosition;
 
-        viewTarget.x = FloatSource(this, instruction, 48, 0x10U);
-        viewTarget.y = FloatSource(this, instruction, 56, 0x20U);
-        viewTarget.z = FloatSource(this, instruction, 64, 0x40U);
+        viewTarget.x = FloatSource(this, instruction, 24, 0x10U);
+        viewTarget.y = FloatSource(this, instruction, 28, 0x20U);
+        viewTarget.z = FloatSource(this, instruction, 32, 0x40U);
         timer0D4.Reset();
         scriptDataOffsetCopy = nextInstruction;
         return true;
