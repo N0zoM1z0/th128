@@ -2,6 +2,7 @@
 #include "AnmVmGeometry.hpp"
 #include "AnmResource.hpp"
 #include "AnmManager.hpp"
+#include "Rng.hpp"
 #include "AngleMath.hpp"
 
 #include <d3d9.h>
@@ -115,9 +116,13 @@ namespace
         return *reinterpret_cast<IDirect3DDevice9 **>(0x004D2E70);
     }
 
-    float NextSignedVmRandom(AnmVm *vm)
+    float NextSignedVmRandom()
     {
-        return vm->ResolveFloatOperand(10012.0f);
+        // StartEffect10 consumes the shared game RNG directly; unlike ANM
+        // operand 10012, this path does not select the VM-local generator.
+        Rng *generator = reinterpret_cast<Rng *>(0x004D2AE0);
+        const unsigned int value = generator->GetU32();
+        return (float)((double)value * (1.0 / 2147483648.0) - 1.0);
     }
 
     void WrapEffect10U(AnmVmEffect10Data *data)
@@ -1856,8 +1861,8 @@ void AnmVm::StartEffect10()
         return;
     }
 
-    data->uvDeltaU = NextSignedVmRandom(this) * (1.0f / 120.0f);
-    data->uvDeltaV = NextSignedVmRandom(this) * (1.0f / 120.0f);
+    data->uvDeltaU = NextSignedVmRandom() * (1.0f / 120.0f);
+    data->uvDeltaV = NextSignedVmRandom() * (1.0f / 120.0f);
 
     data->centerX = secondaryPosition.x + position.x;
     data->centerY = secondaryPosition.y + position.y;
@@ -1867,7 +1872,7 @@ void AnmVm::StartEffect10()
     data->uvBaseV = 0.5f;
 
     float angle = -kEffect10Pi;
-    float radialSpeed = NextSignedVmRandom(this) * kEffect10RadialSpeedLimit;
+    float radialSpeed = NextSignedVmRandom() * kEffect10RadialSpeedLimit;
 
     for (unsigned int i = 0; i != 31; ++i)
     {
@@ -1879,10 +1884,10 @@ void AnmVm::StartEffect10()
         vertex->v = vertex->y + 0.5f;
 
         data->particleRadius[i] =
-            NextSignedVmRandom(this) * 8.0f + 80.0f;
+            NextSignedVmRandom() * 8.0f + 80.0f;
         data->particleRadialSpeed[i] = radialSpeed;
 
-        radialSpeed += NextSignedVmRandom(this) * (1.0f / 30.0f);
+        radialSpeed += NextSignedVmRandom() * (1.0f / 30.0f);
         if (radialSpeed > kEffect10RadialSpeedLimit)
         {
             radialSpeed = kEffect10RadialSpeedLimit;
