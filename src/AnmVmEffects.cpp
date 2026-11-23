@@ -408,16 +408,16 @@ void AnmVm::UpdateCustomGeometry()
         (flags & 0x00030000U) == 0 ? color : secondaryColor;
     const float outerRadius = scaleX * 0.5f + scaleY;
     const float innerRadius = scaleY - scaleX * 0.5f;
-    const float outerU = textureRect[0][0] + uvScrollX;
-    const float innerU = textureRect[0][2] + uvScrollX;
+    const float outerU = textureRect[0][0] + textureScrollX;
+    const float innerU = textureRect[0][2] + textureScrollX;
 
     if (geometryMode == 9U)
     {
         const unsigned int segmentCount = count - 1U;
         if (segmentCount == 0)
         {
-            vertices[0].v = uvScrollY;
-            vertices[1].v = uvScrollY;
+            vertices[0].v = textureScrollY;
+            vertices[1].v = textureScrollY;
             return;
         }
 
@@ -441,7 +441,7 @@ void AnmVm::UpdateCustomGeometry()
                 vertexColor,
                 outerU,
                 innerU,
-                v + uvScrollY);
+                v + textureScrollY);
             v += vStep;
             angle = AddAngles(angle, angleStep);
         }
@@ -449,8 +449,8 @@ void AnmVm::UpdateCustomGeometry()
         AnmVmEffect10Vertex *closingVertices = vertices + segmentCount * 2;
         closingVertices[0] = vertices[0];
         closingVertices[1] = vertices[1];
-        closingVertices[0].v = v + uvScrollY;
-        closingVertices[1].v = v + uvScrollY;
+        closingVertices[0].v = v + textureScrollY;
+        closingVertices[1].v = v + textureScrollY;
         return;
     }
 
@@ -479,7 +479,7 @@ void AnmVm::UpdateCustomGeometry()
             vertexColor,
             outerU,
             innerU,
-            v + uvScrollY);
+            v + textureScrollY);
         v += vStep;
         angle = AddAngles(angle, angleStep);
     }
