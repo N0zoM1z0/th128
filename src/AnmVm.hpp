@@ -86,7 +86,7 @@ struct AnmVm
     float unknown028;                       // +0x028, script-visible float variable
     float unknown02C;                       // +0x02C, script-visible float variable
     ZunVec3 scriptVector;                   // +0x030
-    unsigned char unknown03C[4];
+    AnmVm *parentVm;                         // +0x03C, parent for linked child VMs
     float scaleX;                           // +0x040
     float scaleY;                           // +0x044
     float scale2X;                          // +0x048
@@ -205,6 +205,7 @@ struct AnmVm
 typedef char AnmVmSize[(sizeof(AnmVm) == 0x4E8) ? 1 : -1];
 typedef char AnmVmManagerNodeOffset[(offsetof(AnmVm, managerNode) == 0x04) ? 1 : -1];
 typedef char AnmVmChildNodeOffset[(offsetof(AnmVm, childNode) == 0x10) ? 1 : -1];
+typedef char AnmVmParentVmOffset[(offsetof(AnmVm, parentVm) == 0x3C) ? 1 : -1];
 typedef char AnmVmScriptIndexOffset[(offsetof(AnmVm, anmScriptIndex) == 0x41E) ? 1 : -1];
 typedef char AnmVmResourceOffset[(offsetof(AnmVm, resource) == 0x42C) ? 1 : -1];
 typedef char AnmVmFileEntryOffset[(offsetof(AnmVm, anmFileEntry) == 0x428) ? 1 : -1];

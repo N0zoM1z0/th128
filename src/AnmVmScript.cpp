@@ -1,9 +1,9 @@
 #include "AnmVm.hpp"
 #include "AnmResource.hpp"
+#include "AnmManager.hpp"
 #include "AngleMath.hpp"
 
 #include <math.h>
-#include <stdlib.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -80,7 +80,91 @@ namespace
         return (unsigned int)(InstructionBytes(instruction) + instruction->size);
     }
 
+    void LinkChildVm(AnmVm *parent, AnmVm *child)
+    {
+        AnmVmListNode *head = &parent->childNode;
+        AnmVmListNode *node = &child->childNode;
+        node->vm = child;
+        node->previous = head;
+        node->next = head->next;
+        if (head->next != 0)
+        {
+            head->next->previous = node;
+        }
+        head->next = node;
+    }
 
+    unsigned int SpawnChildVm(
+        AnmVm *parent,
+        int scriptIndex,
+        unsigned int listMode)
+    {
+        AnmResource *resource = parent->resource;
+        AnmManager *manager = GetGlobalAnmManager();
+        if (resource == 0 || manager == 0)
+        {
+            return 0;
+        }
+
+        ++resource->activeVmCount;
+        AnmVm *child = AllocateAnmVm();
+        if (child == 0)
+        {
+            return 0;
+        }
+
+        child->stateFlags |= 2U;
+        child->position.x = 0.0f;
+        child->position.y = 0.0f;
+        child->position.z = 0.0f;
+        child->scriptState = parent->scriptState;
+        resource->BindVmScript(child, scriptIndex);
+        child->parentVm = parent;
+
+        unsigned int id;
+        if ((listMode & 4U) != 0)
+        {
+            id = (listMode & 2U) != 0
+                ? manager->RegisterUiVmAtHead(child)
+                : manager->RegisterUiVmAtTail(child);
+        }
+        else
+        {
+            id = (listMode & 2U) != 0
+                ? manager->RegisterWorldVmAtHead(child)
+                : manager->RegisterWorldVmAtTail(child);
+        }
+
+        LinkChildVm(parent, child);
+        return id;
+    }
+
+    unsigned int SpawnChildVmAtPosition(AnmVm *parent, int scriptIndex)
+    {
+        AnmResource *resource = parent->resource;
+        AnmManager *manager = GetGlobalAnmManager();
+        if (resource == 0 || manager == 0)
+        {
+            return 0;
+        }
+
+        ++resource->activeVmCount;
+        AnmVm *child = AllocateAnmVm();
+        if (child == 0)
+        {
+            return 0;
+        }
+
+        child->stateFlags |= 2U;
+        child->position = parent->position;
+        child->scriptState = parent->scriptState;
+        resource->BindVmScript(child, scriptIndex);
+        child->unknown024 = parent->unknown024;
+        child->unknown028 = parent->unknown028;
+        child->unknown02C = parent->unknown02C;
+        child->alternatePosition = parent->secondaryPosition;
+        return manager->RegisterWorldVmAtTail(child);
+    }
 }
 
 bool AnmVm::ExecuteWaitCommand(bool clearActiveFlag)
@@ -808,6 +892,14 @@ bool AnmVm::ExecuteBasicInstruction(const AnmVmInstructionHeader *instruction)
         scriptDataOffsetCopy = waitScriptAddress;
         return true;
 
+    case 75:
+    {
+        const int frameOffset = IntegerSource(this, instruction, 8, 1U);
+        timer070.Add((float)-frameOffset);
+        scriptDataOffsetCopy = nextInstruction;
+        return true;
+    }
+
     case 76:
     {
         unsigned char *colorBytes = reinterpret_cast<unsigned char *>(&secondaryColor);
@@ -873,6 +965,78 @@ bool AnmVm::ExecuteBasicInstruction(const AnmVmInstructionHeader *instruction)
         const int vertexCount = IntegerSource(this, instruction, 8, 1U);
         flags = (flags & 0xEDFFFFFFU) | 0x0D000000U;
         extraData = malloc(vertexCount * 0x38);
+        scriptDataOffsetCopy = nextInstruction;
+        return true;
+    }
+
+    case 88:
+        SpawnChildVm(
+            this,
+            IntegerSource(this, instruction, 8, 1U),
+            0);
+        scriptDataOffsetCopy = nextInstruction;
+        return true;
+
+    case 90:
+        SpawnChildVm(
+            this,
+            IntegerSource(this, instruction, 8, 1U),
+            4);
+        scriptDataOffsetCopy = nextInstruction;
+        return true;
+
+    case 91:
+        SpawnChildVm(
+            this,
+            IntegerSource(this, instruction, 8, 1U),
+            2);
+        scriptDataOffsetCopy = nextInstruction;
+        return true;
+
+    case 92:
+        SpawnChildVm(
+            this,
+            IntegerSource(this, instruction, 8, 1U),
+            6);
+        scriptDataOffsetCopy = nextInstruction;
+        return true;
+
+    case 95:
+        SpawnChildVmAtPosition(
+            this,
+            IntegerSource(this, instruction, 8, 1U));
+        scriptDataOffsetCopy = nextInstruction;
+        return true;
+
+    case 96:
+    {
+        const unsigned int childId = SpawnChildVm(
+            this,
+            IntegerSource(this, instruction, 8, 1U),
+            0);
+        AnmManager *manager = GetGlobalAnmManager();
+        AnmVm *child = manager != 0 ? manager->GetVmById(childId) : 0;
+        if (child != 0)
+        {
+            child->alternatePosition.x = FloatSource(this, instruction, 12, 2U);
+            child->alternatePosition.y = FloatSource(this, instruction, 16, 4U);
+        }
+        scriptDataOffsetCopy = nextInstruction;
+        return true;
+    }
+
+    case 97:
+    {
+        const unsigned int childId = SpawnChildVmAtPosition(
+            this,
+            IntegerSource(this, instruction, 8, 1U));
+        AnmManager *manager = GetGlobalAnmManager();
+        AnmVm *child = manager != 0 ? manager->GetVmById(childId) : 0;
+        if (child != 0)
+        {
+            child->alternatePosition.x = FloatSource(this, instruction, 12, 2U);
+            child->alternatePosition.y = FloatSource(this, instruction, 16, 4U);
+        }
         scriptDataOffsetCopy = nextInstruction;
         return true;
     }
