@@ -125,21 +125,27 @@ namespace
         return (float)((double)value * (1.0 / 4294967296.0) - 1.0);
     }
 
-    void WrapEffect10U(AnmVmEffect10Data *data)
+    __forceinline void WrapEffect10U(AnmVmEffect10Data *data)
     {
-        data->uvBaseU += 1.0f;
-        for (unsigned int i = 0; i != 32; ++i)
+        // The target walks the center UV plus two particle UVs per iteration;
+        // each group spans three 0x1C-byte vertices (0x54 bytes total).
+        float *group = &data->uvBaseU;
+        for (unsigned int i = 0; i != 11; ++i, group += 21)
         {
-            data->vertices[i].u += 1.0f;
+            group[0] += 1.0f;
+            group[7] += 1.0f;
+            group[14] += 1.0f;
         }
     }
 
-    void WrapEffect10V(AnmVmEffect10Data *data)
+    __forceinline void WrapEffect10V(AnmVmEffect10Data *data)
     {
-        data->uvBaseV += 1.0f;
-        for (unsigned int i = 0; i != 32; ++i)
+        float *group = &data->uvBaseV;
+        for (unsigned int i = 0; i != 11; ++i, group += 21)
         {
-            data->vertices[i].v += 1.0f;
+            group[0] += 1.0f;
+            group[7] += 1.0f;
+            group[14] += 1.0f;
         }
     }
 }
@@ -1780,7 +1786,6 @@ int __fastcall UpdateAnmVmEffect10(AnmVm *vm)
     data->centerX = vm->position.x + vm->secondaryPosition.x;
     data->centerY = vm->secondaryPosition.y + vm->position.y;
     data->centerZ = vm->position.z + vm->secondaryPosition.z;
-    data->color = vm->color;
 
     data->uvBaseU += data->uvDeltaU;
     if (data->uvBaseU < 0.0f)
@@ -1794,6 +1799,7 @@ int __fastcall UpdateAnmVmEffect10(AnmVm *vm)
         WrapEffect10V(data);
     }
 
+    data->color = vm->color;
     float angle = -kEffect10Pi;
     for (unsigned int i = 0; i != 31; ++i)
     {
@@ -1811,7 +1817,8 @@ int __fastcall UpdateAnmVmEffect10(AnmVm *vm)
             WrapEffect10V(data);
         }
 
-        vertex->color = vm->color & 0x00FFFFFFU;
+        vertex->color = vm->color;
+        reinterpret_cast<unsigned char *>(&vertex->color)[3] = 0;
 
         data->particleRadius[i] += data->particleRadialSpeed[i];
         vertex->SetPolar(angle, data->particleRadius[i]);
