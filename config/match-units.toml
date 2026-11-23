@@ -473,6 +473,19 @@ relocations = [
   { offset = 95, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
 ]
 
+[units.anm-vm-reset-for-reuse]
+frontier = true # target receives the VM through ESI; thiscall source mapping is semantic, not exact codegen
+artifact_kind = "coff"
+source = "src/AnmVm.cpp"
+inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
+object = "build/match/AnmVmReset.obj"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+functions = ["AnmVm::ResetForReuse"]
+symbol = "?ResetForReuse@AnmVm@@QAEXXZ"
+target_address = 0x00402EA0
+size = 345
+relocations = []
+
 [units.zun-timer-set-current]
 artifact_kind = "linked-pe"
 source = "src/ZunTimer.cpp"

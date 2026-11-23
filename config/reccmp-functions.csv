@@ -5,6 +5,7 @@ AnmVmSetUvScroll,0x00402B60,function
 AnmVmSetScale2,0x00402C00,function
 AnmVmSetScale,0x00402C20,function
 ZunTimer::operator<,0x00402C40,function
+AnmVm::ResetForReuse,0x00402EA0,function
 AnmVm::AnmVm,0x004031A0,function
 ZunTimer::SetCurrent,0x00403240,function
 AnmVmSetScaleY,0x00407020,function

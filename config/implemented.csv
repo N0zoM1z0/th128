@@ -1,6 +1,7 @@
 AddAngles
 AnmManager::GetVmById
 AnmVm::AnmVm
+AnmVm::ResetForReuse
 AnmVmEffectNoop412B30
 AnmVmEffectNoop412B40
 AnmVmEffectNoop412DF0

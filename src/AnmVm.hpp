@@ -3,20 +3,34 @@
 #include "ZunMath.hpp"
 #include "ZunTimer.hpp"
 
+struct AnmVm;
+
+struct AnmVmListNode
+{
+    AnmVm *vm;
+    AnmVmListNode *next;
+    AnmVmListNode *previous;
+};
+
 // Animation VM, 0x4E8 bytes. Offsets are TH128 target observations; field
-// names follow later games' AnmVm and are provisional. The thirteen embedded
-// timers are the ones the constructor's member initialization touches.
+// names follow later games' AnmVm where possible. The two embedded links are
+// distinct: managerNode joins the global world/UI lists, while childNode is
+// the sentinel/link used to associate child VMs with their parent.
 struct AnmVm
 {
     unsigned int id;                        // +0x000
-    unsigned char unknown004[0x20 - 0x4];
+    AnmVmListNode managerNode;               // +0x004
+    AnmVmListNode childNode;                 // +0x010
+    unsigned char unknown01C[0x20 - 0x1C];
     int scriptState;                        // +0x020
     unsigned char unknown024[0x40 - 0x24];
     float scaleX;                           // +0x040
     float scaleY;                           // +0x044
     float scale2X;                          // +0x048
     float scale2Y;                          // +0x04C
-    unsigned char unknown050[0x60 - 0x50];
+    unsigned char unknown050[8];
+    float unknown058;                       // +0x058, reset to 1.0
+    float unknown05C;                       // +0x05C, reset to 1.0
     float uvScrollX;                        // +0x060
     float uvScrollY;                        // +0x064
     unsigned char unknown068[0x70 - 0x68];
@@ -43,7 +57,11 @@ struct AnmVm
     ZunTimer timer2E0;                      // +0x2E0
     unsigned char unknown2F4[0x30C - 0x2F4];
     ZunTimer timer30C;                      // +0x30C
-    unsigned char unknown320[0x3FC - 0x320];
+    unsigned char unknown320[0x330 - 0x320];
+    float transformMatrix[4][4];            // +0x330, reset to identity
+    unsigned char unknown370[0x3F0 - 0x370];
+    int unknown3F0;                          // +0x3F0, reset to -1
+    unsigned char unknown3F4[8];
     ZunTimer timer3FC;                      // +0x3FC
     unsigned char unknown410[0x418 - 0x410];
     short anmFileIndex;                     // +0x418, -1 when unbound
@@ -52,9 +70,13 @@ struct AnmVm
     unsigned char unknown470[0x4AC - 0x470];
     void *extraData;                        // +0x4AC, freed by the destructor
     unsigned int flags;                     // +0x4B0, bit 3 marks the transform dirty
-    unsigned char unknown4B4[0x4E8 - 0x4B4];
+    unsigned int stateFlags;                // +0x4B4, bit 6 set by reset
+    unsigned char unknown4B8[0x4C8 - 0x4B8];
+    void (__fastcall *stopCallback)(AnmVm *, short); // +0x4C8
+    unsigned char unknown4CC[0x4E8 - 0x4CC];
 
     AnmVm();
+    void ResetForReuse();
 };
 typedef char AnmVmSize[(sizeof(AnmVm) == 0x4E8) ? 1 : -1];
 
