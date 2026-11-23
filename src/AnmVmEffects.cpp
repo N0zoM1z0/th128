@@ -1,4 +1,5 @@
 #include "AnmVm.hpp"
+#include "AnmVmGeometry.hpp"
 #include "AnmResource.hpp"
 #include "AnmManager.hpp"
 #include "AngleMath.hpp"
@@ -7,22 +8,6 @@
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
-
-struct AnmVmEffect10Vertex
-{
-    float x;
-    float y;
-    float z;
-    float reciprocalW;
-    unsigned int color;
-    float u;
-    float v;
-
-    void SetPolar(float angle, float radius);
-};
-typedef char AnmVmEffect10VertexSize[
-    (sizeof(AnmVmEffect10Vertex) == 0x1C) ? 1 : -1
-];
 
 struct AnmVmEffect10Data
 {
@@ -1840,163 +1825,6 @@ void __fastcall DrawAnmVmEffect10(AnmVm *vm)
         // The leading 0x1C bytes are the center vertex; vertices[32] are
         // the perimeter, so the fan consumes the whole data block.
         DrawAnmVmVertices(vm, data, 33);
-    }
-}
-
-namespace
-{
-    const float kAnmVmGeometryTwoPi = 6.283185482025146484375f;
-
-    void WriteAnmVmGeometryVertexPair(
-        AnmVmEffect10Vertex *vertices,
-        float centerX,
-        float centerY,
-        float centerZ,
-        float angle,
-        float outerRadius,
-        float innerRadius,
-        unsigned int color,
-        float outerU,
-        float innerU,
-        float v)
-    {
-        vertices[0].SetPolar(angle, outerRadius);
-        vertices[0].x += centerX;
-        vertices[0].y += centerY;
-        vertices[0].z = centerZ;
-        vertices[0].reciprocalW = 1.0f;
-        vertices[0].color = color;
-        vertices[0].u = outerU;
-        vertices[0].v = v;
-
-        vertices[1].SetPolar(angle, innerRadius);
-        vertices[1].x += centerX;
-        vertices[1].y += centerY;
-        vertices[1].z = centerZ;
-        vertices[1].reciprocalW = 1.0f;
-        vertices[1].color = color;
-        vertices[1].u = innerU;
-        vertices[1].v = v;
-    }
-}
-
-void AnmVm::UpdateCustomGeometry()
-{
-    const unsigned int geometryMode = (flags >> 24) & 0x1FU;
-    if ((geometryMode != 9U && geometryMode != 13U && geometryMode != 14U) ||
-        extraData == 0)
-    {
-        return;
-    }
-
-    AnmVmEffect10Vertex *vertices =
-        reinterpret_cast<AnmVmEffect10Vertex *>(extraData);
-    const unsigned int count = integerVariables[0] < 0
-        ? 0U
-        : (unsigned int)integerVariables[0];
-    if (count == 0)
-    {
-        if (geometryMode == 9U)
-        {
-            // The target still writes the seam V coordinate when the ring
-            // has no segments; its zero-initialized loop accumulator is used.
-            vertices[0].v = textureScrollY;
-            vertices[1].v = textureScrollY;
-        }
-        return;
-    }
-
-    float centerX = position.x + secondaryPosition.x + alternatePosition.x;
-    float centerY = position.y + secondaryPosition.y + alternatePosition.y;
-    float centerZ = position.z + secondaryPosition.z + alternatePosition.z;
-    if (parentVm != 0)
-    {
-        centerX += parentVm->position.x +
-            parentVm->secondaryPosition.x + parentVm->alternatePosition.x;
-        centerY += parentVm->position.y +
-            parentVm->secondaryPosition.y + parentVm->alternatePosition.y;
-        centerZ += parentVm->position.z +
-            parentVm->secondaryPosition.z + parentVm->alternatePosition.z;
-    }
-
-    const unsigned int vertexColor =
-        (flags & 0x00030000U) == 0 ? color : secondaryColor;
-    const float outerRadius = scaleX * 0.5f + scaleY;
-    const float innerRadius = scaleY - scaleX * 0.5f;
-    const float outerU = textureRect[0][0] + textureScrollX;
-    const float innerU = textureRect[0][2] + textureScrollX;
-
-    if (geometryMode == 9U)
-    {
-        const unsigned int segmentCount = count - 1U;
-        if (segmentCount == 0)
-        {
-            vertices[0].v = textureScrollY;
-            vertices[1].v = textureScrollY;
-            return;
-        }
-
-        const float angleStep = kAnmVmGeometryTwoPi /
-            (float)segmentCount;
-        const float vStep = (float)integerVariables[1] /
-            (float)segmentCount;
-        float angle = unknown02C;
-        float v = 0.0f;
-
-        for (unsigned int i = 0; i != segmentCount; ++i)
-        {
-            WriteAnmVmGeometryVertexPair(
-                vertices + i * 2,
-                centerX,
-                centerY,
-                centerZ,
-                angle,
-                outerRadius,
-                innerRadius,
-                vertexColor,
-                outerU,
-                innerU,
-                v + textureScrollY);
-            v += vStep;
-            angle = AddAngles(angle, angleStep);
-        }
-
-        AnmVmEffect10Vertex *closingVertices = vertices + segmentCount * 2;
-        closingVertices[0] = vertices[0];
-        closingVertices[1] = vertices[1];
-        closingVertices[0].v = v + textureScrollY;
-        closingVertices[1].v = v + textureScrollY;
-        return;
-    }
-
-    const unsigned int divisor = count - 1U;
-    const float angleStep = divisor != 0
-        ? unknown024 / (float)divisor
-        : 0.0f;
-    const float vStep = divisor != 0
-        ? (float)integerVariables[1] / (float)divisor
-        : 0.0f;
-    float angle = geometryMode == 13U
-        ? NormalizeAngle(unknown02C - unknown024 * 0.5f)
-        : NormalizeAngle(unknown02C);
-    float v = 0.0f;
-
-    for (unsigned int i = 0; i != count; ++i)
-    {
-        WriteAnmVmGeometryVertexPair(
-            vertices + i * 2,
-            centerX,
-            centerY,
-            centerZ,
-            angle,
-            outerRadius,
-            innerRadius,
-            vertexColor,
-            outerU,
-            innerU,
-            v + textureScrollY);
-        v += vStep;
-        angle = AddAngles(angle, angleStep);
     }
 }
 
