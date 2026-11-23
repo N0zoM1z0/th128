@@ -1896,6 +1896,13 @@ void AnmVm::UpdateCustomGeometry()
         : (unsigned int)integerVariables[0];
     if (count == 0)
     {
+        if (geometryMode == 9U)
+        {
+            // The target still writes the seam V coordinate when the ring
+            // has no segments; its zero-initialized loop accumulator is used.
+            vertices[0].v = textureScrollY;
+            vertices[1].v = textureScrollY;
+        }
         return;
     }
 
