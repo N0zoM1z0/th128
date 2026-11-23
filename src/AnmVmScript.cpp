@@ -2249,9 +2249,8 @@ int AnmVm::Update()
 
     if (IsFrameUpdateSuppressedByStage(this))
     {
-        // The target branches to the normal epilogue at 0x0045D0BA, which
-        // restores the saved game speed before returning zero.
-        *gameSpeed = savedGameSpeed;
+        // The target branches directly to 0x0045D0BA, past the game-speed
+        // restore at 0x0045D0B0. Preserve the temporary speed on this edge.
         return 0;
     }
 
