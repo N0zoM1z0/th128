@@ -252,7 +252,7 @@ namespace
         }
     }
 
-    void UpdateTextureRectFromView(AnmVm *vm)
+    void UpdateTextureRectFromViewForVm(AnmVm *vm)
     {
         float corners[4][3];
         BuildViewCorners(vm, corners);
@@ -373,6 +373,11 @@ namespace
         return *reinterpret_cast<AnmResource **>(
             reinterpret_cast<unsigned char *>(globalState) + 0x1C894);
     }
+}
+
+void AnmVm::UpdateTextureRectFromView()
+{
+    UpdateTextureRectFromViewForVm(this);
 }
 
 bool AnmVm::ExecuteWaitCommand(bool clearActiveFlag)
@@ -1250,7 +1255,7 @@ bool AnmVm::ExecuteBasicInstruction(const AnmVmInstructionHeader *instruction)
     }
 
     case 98:
-        UpdateTextureRectFromView(this);
+        UpdateTextureRectFromView();
         scriptDataOffsetCopy = nextInstruction;
         return true;
 

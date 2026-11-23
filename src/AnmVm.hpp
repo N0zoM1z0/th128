@@ -193,6 +193,7 @@ struct AnmVm
     bool ExecuteBasicInstruction(const AnmVmInstructionHeader *instruction);
     unsigned int ExecuteReadyInstructions();
     void UpdateTransitions();
+    void UpdateTextureRectFromView();
     void Update();
 
     int ResolveIntegerOperand(int operand);
