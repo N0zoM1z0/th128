@@ -1080,7 +1080,6 @@ static int DrawAnmVmWorldMatrixSprite(AnmVm *vm)
     }
 
     device->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
-    ++manager->drawCallCount;
     return 0;
 }
 
