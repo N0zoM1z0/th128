@@ -57,6 +57,15 @@ namespace
         return *reinterpret_cast<const int *>(InstructionBytes(instruction) + offset);
     }
 
+    __forceinline int ReadInstructionIntegerVolatile(
+        const AnmVmInstructionHeader *instruction,
+        unsigned int offset)
+    {
+        const volatile int *value = reinterpret_cast<const volatile int *>(
+            InstructionBytes(instruction) + offset);
+        return *value;
+    }
+
     __forceinline unsigned short ReadInstructionUnsignedShort(
         const AnmVmInstructionHeader *instruction,
         unsigned int offset)
@@ -105,9 +114,10 @@ namespace
     {
         if ((InstructionOperandFlags(instruction) & flag) != 0)
         {
-            return vm->ResolveIntegerOperand(ReadInstructionInteger(instruction, offset));
+            return vm->ResolveIntegerOperand(
+                ReadInstructionIntegerVolatile(instruction, offset));
         }
-        return ReadInstructionInteger(instruction, offset);
+        return ReadInstructionIntegerVolatile(instruction, offset);
     }
 
     __forceinline float FloatSource(
@@ -770,7 +780,6 @@ int AnmVm::Update()
 
     float *gameSpeed = reinterpret_cast<float *>(0x004B6F58);
     const float savedGameSpeed = *gameSpeed;
-    AnmVm *vm = this;
     if ((stateFlags & 1U) != 0)
     {
         *gameSpeed = 1.0f;
@@ -781,7 +790,7 @@ int AnmVm::Update()
         goto AnmVmUpdateWaitScan;
     }
 
-    if ((vm->stateFlags & 0xC0U) == 0x40U)
+    if ((this->stateFlags & 0xC0U) == 0x40U)
     {
         const void *stageState =
             *reinterpret_cast<void *const *>(0x004B8954);
@@ -1979,40 +1988,40 @@ AnmVmUpdateAfterScript:
 
     {
         const float frameGameSpeed = *gameSpeed;
-        if (vm->scriptVector.x != 0.0f)
+        if (this->scriptVector.x != 0.0f)
         {
-            vm->unknown024 = AddAngles(
-                vm->unknown024, frameGameSpeed * vm->scriptVector.x);
-            vm->flags |= 4U;
+            this->unknown024 = AddAngles(
+                this->unknown024, frameGameSpeed * this->scriptVector.x);
+            this->flags |= 4U;
         }
 
-        if (vm->scriptVector.y != 0.0f)
+        if (this->scriptVector.y != 0.0f)
         {
-            vm->unknown028 = AddAngles(
-                vm->unknown028, frameGameSpeed * vm->scriptVector.y);
-            vm->flags |= 4U;
+            this->unknown028 = AddAngles(
+                this->unknown028, frameGameSpeed * this->scriptVector.y);
+            this->flags |= 4U;
         }
 
-        if (vm->scriptVector.z != 0.0f)
+        if (this->scriptVector.z != 0.0f)
         {
-            vm->unknown02C = AddAngles(
-                vm->unknown02C, frameGameSpeed * vm->scriptVector.z);
-            vm->flags |= 4U;
+            this->unknown02C = AddAngles(
+                this->unknown02C, frameGameSpeed * this->scriptVector.z);
+            this->flags |= 4U;
         }
 
-        if (vm->unknown054 != 0.0f)
+        if (this->unknown054 != 0.0f)
         {
-            vm->scaleY += frameGameSpeed * vm->unknown054;
-            vm->flags |= 8U;
+            this->scaleY += frameGameSpeed * this->unknown054;
+            this->flags |= 8U;
         }
 
-        if (vm->unknown050 != 0.0f)
+        if (this->unknown050 != 0.0f)
         {
-            vm->scaleX += vm->unknown050 * frameGameSpeed;
-            vm->flags |= 0x0CU;
+            this->scaleX += this->unknown050 * frameGameSpeed;
+            this->flags |= 0x0CU;
         }
 
-        float scroll = vm->textureScrollX + frameGameSpeed * vm->textureOffsetX;
+        float scroll = this->textureScrollX + frameGameSpeed * this->textureOffsetX;
         if (scroll >= 1.0f)
         {
             scroll -= 1.0f;
@@ -2021,9 +2030,9 @@ AnmVmUpdateAfterScript:
         {
             scroll += 1.0f;
         }
-        vm->textureScrollX = scroll;
+        this->textureScrollX = scroll;
 
-        scroll = vm->textureScrollY + vm->textureOffsetY * frameGameSpeed;
+        scroll = this->textureScrollY + this->textureOffsetY * frameGameSpeed;
         if (scroll < 1.0f)
         {
             if (scroll < 0.0f)
@@ -2037,15 +2046,15 @@ AnmVmUpdateAfterScript:
             // Y path sends unordered values through the subtract-one branch.
             scroll -= 1.0f;
         }
-        vm->textureScrollY = scroll;
+        this->textureScrollY = scroll;
 
-        if ((vm->flags & 0x4000U) != 0)
+        if ((this->flags & 0x4000U) != 0)
         {
             const float *stageOffset =
                 reinterpret_cast<const float *>(0x004D338C);
-            vm->position.x += stageOffset[0];
-            vm->position.y += stageOffset[1];
-            vm->position.z += stageOffset[2];
+            this->position.x += stageOffset[0];
+            this->position.y += stageOffset[1];
+            this->position.z += stageOffset[2];
         }
         }
     if ((stateFlags & 0x20U) != 0)
@@ -2053,17 +2062,17 @@ AnmVmUpdateAfterScript:
 
         float corners[12];
         bool cornersValid = true;
-        switch ((vm->flags >> 24) & 0x1FU)
+        switch ((this->flags >> 24) & 0x1FU)
         {
         case 0:
-            BuildAnmVmViewCornersMode0(vm, corners, corners + 3, corners + 6, corners + 9);
+            BuildAnmVmViewCornersMode0(this, corners, corners + 3, corners + 6, corners + 9);
             break;
         case 1:
-            BuildAnmVmViewCornersMode1(vm, corners, corners + 3, corners + 6, corners + 9);
+            BuildAnmVmViewCornersMode1(this, corners, corners + 3, corners + 6, corners + 9);
             break;
         case 2:
         case 3:
-            BuildAnmVmViewCornersMode23(vm, corners, corners + 3, corners + 6, corners + 9);
+            BuildAnmVmViewCornersMode23(this, corners, corners + 3, corners + 6, corners + 9);
             break;
         default:
             cornersValid = false;
@@ -2072,7 +2081,7 @@ AnmVmUpdateAfterScript:
 
         if (cornersValid)
         {
-        float *textureCoordinates = &vm->textureRect[0][0];
+        float *textureCoordinates = &this->textureRect[0][0];
         for (unsigned int i = 0; i != 4; ++i)
         {
             const float pixels[2] = {corners[i * 3], corners[i * 3 + 1]};
