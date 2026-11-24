@@ -84,20 +84,4 @@ void ZunTimer::Add(float value)
     }
 }
 
-// Advances by one frame scaled by the game speed.
-void ZunTimer::Increment()
-{
-    previous = current;
-
-    if (*gameSpeed > 0.99f && *gameSpeed < 1.01f)
-    {
-        ++current;
-        currentF += 1.0f;
-    }
-    else
-    {
-        currentF += *gameSpeed;
-        current = ZunRoundToInt((double)currentF);
-    }
-}
 

@@ -1217,25 +1217,26 @@ AnmVmUpdateScriptLoop:
     }
 
     case 48:
-    {
-        const float x = FloatSource(*this, instruction, 8, 1U);
-        const float y = FloatSource(*this, instruction, 12, 2U);
-        const float z = FloatSource(*this, instruction, 16, 4U);
         if ((flags & 0x200U) == 0)
         {
+            const float z = FloatSource(*this, instruction, 16, 4U);
+            const float y = FloatSource(*this, instruction, 12, 2U);
+            const float x = FloatSource(*this, instruction, 8, 1U);
             secondaryPosition.x = x;
             secondaryPosition.y = y;
             secondaryPosition.z = z;
         }
         else
         {
+            const float z = FloatSource(*this, instruction, 16, 4U);
+            const float y = FloatSource(*this, instruction, 12, 2U);
+            const float x = FloatSource(*this, instruction, 8, 1U);
             alternatePosition.x = x;
             alternatePosition.y = y;
             alternatePosition.z = z;
         }
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
-    }
 
     case 49:
         unknown024 = FloatSource(*this, instruction, 8, 1U);
@@ -1798,8 +1799,18 @@ AnmVmUpdateScriptLoop:
 
     case 103:
         flags = (flags & 0xEFFFFFFFU) | 0x0F000000U;
-        uvScrollX = FloatSource(*this, instruction, 8, 1U);
-        uvScrollY = FloatSource(*this, instruction, 12, 2U);
+        floatValue = ReadInstructionFloat(instruction, 8);
+        if ((instruction->flags & 1U) != 0)
+        {
+            floatValue = ResolveFloatOperand(floatValue);
+        }
+        uvScrollX = floatValue;
+        floatValue = ReadInstructionFloat(instruction, 12);
+        if ((instruction->flags & 2U) != 0)
+        {
+            floatValue = ResolveFloatOperand(floatValue);
+        }
+        uvScrollY = floatValue;
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
@@ -2354,7 +2365,17 @@ AnmVmUpdateAfterScript:
         }
     }
 
-    timer070.Increment();
+    timer070.previous = timer070.current;
+    if (*timer070.gameSpeed > 0.99 && *timer070.gameSpeed < 1.01f)
+    {
+        ++timer070.current;
+        timer070.currentF += 1.0f;
+    }
+    else
+    {
+        timer070.currentF += *timer070.gameSpeed;
+        timer070.current = (int)timer070.currentF;
+    }
     *gameSpeed = savedGameSpeed;
     return 0;
 }

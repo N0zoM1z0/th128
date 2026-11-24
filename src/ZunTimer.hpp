@@ -46,7 +46,26 @@ struct ZunTimer
     void SetCurrent(ZunTimer value);
     void SetCurrentF(float value);
     void Add(float value);
-    void Increment();
+    __forceinline void Increment()
+    {
+        int nextCurrent = current;
+        float *const speed = gameSpeed;
+        previous = nextCurrent;
+        if (*speed > 0.99 && *speed < 1.01f)
+        {
+            float nextCurrentF = currentF;
+            ++nextCurrent;
+            nextCurrentF += 1.0f;
+            current = nextCurrent;
+            currentF = nextCurrentF;
+        }
+        else
+        {
+            const float nextCurrentF = *speed + currentF;
+            currentF = nextCurrentF;
+            current = ZunRoundToInt((double)nextCurrentF);
+        }
+    }
 
     bool operator<(int value) const;
     bool operator<=(int value) const;
