@@ -377,7 +377,7 @@ namespace
         return true;
     }
 
-    void InterpolateColorVector(AnmVmColorTransition *transition, int result[3])
+    int *InterpolateColorVector(AnmVmColorTransition *transition, int result[3])
     {
         const unsigned int mode = transition->mode;
         if (AdvanceTransition(&transition->timer, &transition->duration, mode))
@@ -386,7 +386,7 @@ namespace
             result[0] = transition->values[endpoint];
             result[1] = transition->values[endpoint + 1];
             result[2] = transition->values[endpoint + 2];
-            return;
+            return result;
         }
 
         if (mode == 7)
@@ -397,7 +397,7 @@ namespace
             result[0] = transition->values[0];
             result[1] = transition->values[1];
             result[2] = transition->values[2];
-            return;
+            return result;
         }
 
         if (mode == 17)
@@ -411,7 +411,7 @@ namespace
             transition->values[9] += transition->values[3];
             transition->values[10] += transition->values[4];
             transition->values[11] += transition->values[5];
-            return;
+            return result;
         }
 
         const double t = (double)transition->timer.currentF /
@@ -438,7 +438,7 @@ namespace
                 ZunRoundToInt((double)h01 * transition->values[5]) +
                 ZunRoundToInt((double)h10 * transition->values[8]) +
                 ZunRoundToInt((double)h11 * transition->values[11]);
-            return;
+            return result;
         }
 
         const float eased = EaseTransition(mode, (float)t);
@@ -448,7 +448,8 @@ namespace
         result[0] = transition->values[0] + ZunRoundToInt((double)delta0 * eased);
         result[1] = transition->values[1] + ZunRoundToInt((double)delta1 * eased);
         result[2] = transition->values[2] + ZunRoundToInt((double)delta2 * eased);
-    }
+        return result;
+}
 
 
     int InterpolateInteger(AnmVmIntegerTransition *transition)
@@ -495,7 +496,7 @@ namespace
     }
 
     // The target's three-component vector helper uses mode 7 for relative updates.
-    void InterpolateVector(AnmVmVectorTransition *transition, float result[3])
+    float *InterpolateVector(AnmVmVectorTransition *transition, float result[3])
     {
         const unsigned int mode = transition->mode;
         if (AdvanceTransition(&transition->timer, &transition->duration, mode))
@@ -504,7 +505,7 @@ namespace
             result[0] = transition->values[endpoint];
             result[1] = transition->values[endpoint + 1];
             result[2] = transition->values[endpoint + 2];
-            return;
+            return result;
         }
 
         if (mode == 7)
@@ -515,7 +516,7 @@ namespace
             result[0] = transition->values[0];
             result[1] = transition->values[1];
             result[2] = transition->values[2];
-            return;
+            return result;
         }
 
         if (mode == 17)
@@ -529,7 +530,7 @@ namespace
             transition->values[9] += transition->values[3];
             transition->values[10] += transition->values[4];
             transition->values[11] += transition->values[5];
-            return;
+            return result;
         }
 
         const double t = (double)transition->timer.currentF /
@@ -553,7 +554,7 @@ namespace
                 h01 * transition->values[5] +
                 h10 * transition->values[8] +
                 h11 * transition->values[11];
-            return;
+            return result;
         }
 
         const float eased = EaseTransition(mode, (float)t);
@@ -563,10 +564,11 @@ namespace
             (transition->values[4] - transition->values[1]) + transition->values[1];
         result[2] = eased *
             (transition->values[5] - transition->values[2]) + transition->values[2];
-    }
+        return result;
+}
 
 
-    void InterpolateScale(AnmVmScaleTransition *transition, float result[2])
+    float *InterpolateScale(AnmVmScaleTransition *transition, float result[2])
     {
         const unsigned int mode = transition->mode;
         if (AdvanceTransition(&transition->timer, &transition->duration, mode))
@@ -576,7 +578,7 @@ namespace
             const unsigned int endpoint = (mode == 7) ? 0 : 2;
             result[0] = transition->values[endpoint];
             result[1] = transition->values[endpoint + 1];
-            return;
+            return result;
         }
 
         if (mode == 7)
@@ -585,7 +587,7 @@ namespace
             transition->values[1] += transition->values[3];
             result[0] = transition->values[0];
             result[1] = transition->values[1];
-            return;
+            return result;
         }
 
         if (mode == 17)
@@ -596,7 +598,7 @@ namespace
             result[1] = transition->values[1];
             transition->values[6] += transition->values[2];
             transition->values[7] += transition->values[3];
-            return;
+            return result;
         }
 
         const double t = (double)transition->timer.currentF /
@@ -616,7 +618,7 @@ namespace
                 h01 * transition->values[3] +
                 h10 * transition->values[5] +
                 h11 * transition->values[7];
-            return;
+            return result;
         }
 
         const float eased = EaseTransition(mode, (float)t);
@@ -624,24 +626,27 @@ namespace
             (transition->values[2] - transition->values[0]) + transition->values[0];
         result[1] = eased *
             (transition->values[3] - transition->values[1]) + transition->values[1];
-    }
+        return result;
+}
 
 
     // The view rotation is an angular scalar: relative and eased paths wrap,
     // and ordinary interpolation follows the shortest signed arc.
-    float InterpolateAngle(AnmVmScalarTransition *transition)
+    float *InterpolateAngle(AnmVmScalarTransition *transition, float *result)
     {
         const unsigned int mode = transition->mode;
         if (AdvanceTransition(&transition->timer, &transition->duration, mode))
         {
-            return transition->values[(mode == 7) ? 0 : 1];
+            *result = transition->values[(mode == 7) ? 0 : 1];
+            return result;
         }
 
         if (mode == 7)
         {
             transition->values[0] = NormalizeAngle(
                 transition->values[0] + transition->values[1]);
-            return transition->values[0];
+            *result = transition->values[0];
+            return result;
         }
 
         if (mode == 17)
@@ -650,7 +655,8 @@ namespace
                 transition->values[0] + transition->values[3]);
             transition->values[3] = NormalizeAngle(
                 transition->values[3] + transition->values[1]);
-            return transition->values[0];
+            *result = transition->values[0];
+            return result;
         }
 
         const double t = (double)transition->timer.currentF /
@@ -663,13 +669,14 @@ namespace
             const float startTerm = NormalizeAngle(
                 (float)(tMinusOne * tMinusOne * (t + t + 1.0) *
                 transition->values[0]));
-            float result = NormalizeAngle(startTerm + targetTerm);
+            float angle = NormalizeAngle(startTerm + targetTerm);
             const float startTangentTerm = NormalizeAngle(
                 (float)((1.0 - t) * (1.0 - t) * t * transition->values[2]));
-            result = NormalizeAngle(startTangentTerm + result);
+            angle = NormalizeAngle(startTangentTerm + angle);
             const float targetTangentTerm = NormalizeAngle(
                 (float)(tMinusOne * t * t * transition->values[3]));
-            return NormalizeAngle(targetTangentTerm + result);
+            *result = NormalizeAngle(targetTangentTerm + angle);
+            return result;
         }
 
         const float eased = EaseTransition(mode, (float)t);
@@ -678,7 +685,8 @@ namespace
         const float normalizedDifference = NormalizeAngle(difference);
         const float scaledDifference = NormalizeAngle(
             normalizedDifference * eased);
-        return NormalizeAngle(scaledDifference + transition->values[0]);
+        *result = NormalizeAngle(scaledDifference + transition->values[0]);
+        return result;
     }
 
     // Texture scroll offsets use the ordinary scalar helper at 0x0040CCF0.
@@ -2149,29 +2157,25 @@ AnmVmUpdateAfterScript:
         if ((flags & 0x200U) != 0)
         {
             float alternateResult[3];
-            InterpolateVector(transition, alternateResult);
-            alternatePosition.x = alternateResult[0];
-            alternatePosition.y = alternateResult[1];
-            alternatePosition.z = alternateResult[2];
+            float *interpolated = InterpolateVector(transition, alternateResult);
+            memcpy(&alternatePosition, interpolated, sizeof(alternatePosition));
         }
         else
         {
             float secondaryResult[3];
-            InterpolateVector(transition, secondaryResult);
-            secondaryPosition.x = secondaryResult[0];
-            secondaryPosition.y = secondaryResult[1];
-            secondaryPosition.z = secondaryResult[2];
+            float *interpolated = InterpolateVector(transition, secondaryResult);
+            memcpy(&secondaryPosition, interpolated, sizeof(secondaryPosition));
         }
     }
 
     if (colorTransition.duration != 0)
     {
         int result[3];
-        InterpolateColorVector(&colorTransition, result);
+        int *interpolated = InterpolateColorVector(&colorTransition, result);
         unsigned char *channels = reinterpret_cast<unsigned char *>(&color);
-        channels[0] = (unsigned char)result[0];
-        channels[1] = (unsigned char)result[1];
-        channels[2] = (unsigned char)result[2];
+        channels[0] = (unsigned char)interpolated[0];
+        channels[1] = (unsigned char)interpolated[1];
+        channels[2] = (unsigned char)interpolated[2];
     }
 
     if (effectTransition.duration != 0)
@@ -2183,45 +2187,43 @@ AnmVmUpdateAfterScript:
     if (scaleTransition.duration != 0)
     {
         float result[2];
-        InterpolateScale(&scaleTransition, result);
-        scaleX = result[0];
-        scaleY = result[1];
+        float *interpolated = InterpolateScale(&scaleTransition, result);
+        memcpy(&scaleX, interpolated, sizeof(float) * 2);
         flags |= 8U;
     }
 
     if (secondaryScaleTransition.duration != 0)
     {
         float result[2];
-        InterpolateScale(&secondaryScaleTransition, result);
-        scale2X = result[0];
-        scale2Y = result[1];
+        float *interpolated = InterpolateScale(&secondaryScaleTransition, result);
+        memcpy(&scale2X, interpolated, sizeof(float) * 2);
         flags |= 0x10U;
     }
 
     if (positionTransition.duration != 0)
     {
         float result[3];
-        InterpolateVector(&positionTransition, result);
-        unknown024 = result[0];
-        unknown028 = result[1];
-        unknown02C = result[2];
+        float *interpolated = InterpolateVector(&positionTransition, result);
+        memcpy(&unknown024, interpolated, sizeof(ZunVec3));
         flags |= 4U;
     }
 
     if (viewTransition.duration != 0)
     {
-        unknown02C = InterpolateAngle(&viewTransition);
+        float result;
+        float *interpolated = InterpolateAngle(&viewTransition, &result);
+        memcpy(&unknown02C, interpolated, sizeof(float));
         flags |= 4U;
     }
 
     if (secondaryColorTransition.duration != 0)
     {
         int result[3];
-        InterpolateColorVector(&secondaryColorTransition, result);
+        int *interpolated = InterpolateColorVector(&secondaryColorTransition, result);
         unsigned char *channels = reinterpret_cast<unsigned char *>(&secondaryColor);
-        channels[0] = (unsigned char)result[0];
-        channels[1] = (unsigned char)result[1];
-        channels[2] = (unsigned char)result[2];
+        channels[0] = (unsigned char)interpolated[0];
+        channels[1] = (unsigned char)interpolated[1];
+        channels[2] = (unsigned char)interpolated[2];
     }
 
     if (secondaryEffectTransition.duration != 0)
