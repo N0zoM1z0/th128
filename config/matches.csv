@@ -19,6 +19,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00412C80,StartAnmVmEffect06,187,exact,100.00,start-anm-vm-effect-06,"Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; CRT, constant and game-speed relocations replayed; zero byte differences."
 0x00412DF0,AnmVmEffectNoop412DF0,3,exact,100.00,anm-vm-effect-noop-412df0,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
 0x00412E00,AnmVmEffectNoop412E00,3,exact,100.00,anm-vm-effect-noop-412e00,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
+0x00412E90,Rng::GetFloatSignedScaled,58,exact,100.00,rng-get-float-signed-scale,Cold pinned VC10 normal-COFF build of src/Rng.cpp; complete 58-byte function and all four reviewed relocations match the original with zero byte differences.
 0x00414360,SptInf::Slot00,3,exact,100.00,spt-slot00,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
 0x004144A0,SptInf::Slot01,5,exact,100.00,spt-slot01,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
 0x004144B0,SptInf::Slot02,5,exact,100.00,spt-slot02,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.

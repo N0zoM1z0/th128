@@ -1797,13 +1797,12 @@ linkages = [
 
 
 [units.rng-get-float-signed-scale]
-frontier = true # Natural C++ overload for the scaled signed-random helper at 0x00412E90.
 artifact_kind = "coff"
 source = "src/Rng.cpp"
 inputs = ["src/Rng.hpp"]
 object = "build/match/RngScaled.obj"
 profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
-functions = ["Rng::GetFloatSigned"]
+functions = ["Rng::GetFloatSignedScaled"]
 symbol = "?GetFloatSigned@Rng@@QAEMM@Z"
 target_address = 0x00412E90
 size = 58

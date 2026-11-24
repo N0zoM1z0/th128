@@ -22,6 +22,7 @@ AnmVmEffectNoop412B40,0x00412B40,function
 StartAnmVmEffect06,0x00412C80,function
 AnmVmEffectNoop412DF0,0x00412DF0,function
 AnmVmEffectNoop412E00,0x00412E00,function
+Rng::GetFloatSignedScaled,0x00412E90,function
 SptInf::Slot00,0x00414360,function
 SptInf::Slot01,0x004144A0,function
 SptInf::Slot02,0x004144B0,function

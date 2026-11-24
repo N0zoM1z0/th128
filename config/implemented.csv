@@ -116,6 +116,7 @@ Pbg::ParseArchiveDirectory
 Rng::GetAngle
 Rng::GetFloat
 Rng::GetFloatSigned
+Rng::GetFloatSignedScaled
 Rng::GetU16
 Rng::GetU32
 SetTimeScale
