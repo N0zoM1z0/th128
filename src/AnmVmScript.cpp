@@ -1840,12 +1840,27 @@ AnmVmUpdateScriptLoop:
 
     case 41:
     {
-        const bool useUiRandom = (stateFlags & 2U) != 0;
-        const float limit = FloatSource(*this, instruction, 12, 2U);
-        Rng *randomGenerator = useUiRandom
-            ? reinterpret_cast<Rng *>(0x004D2AD8)
-            : reinterpret_cast<Rng *>(0x004D2AE0);
-        const float value = randomGenerator->GetFloat(limit);
+        const volatile unsigned char *vmStateFlags =
+            reinterpret_cast<const volatile unsigned char *>(&stateFlags);
+        const bool useUiRandom = (*vmStateFlags & 2U) != 0;
+        float limit = ReadInstructionFloat(instruction, 12);
+        float value;
+        if (useUiRandom)
+        {
+            if ((InstructionOperandFlags(instruction) & 2U) != 0)
+            {
+                limit = ResolveFloatOperand(limit);
+            }
+            value = reinterpret_cast<Rng *>(0x004D2AD8)->GetFloat(limit);
+        }
+        else
+        {
+            if ((InstructionOperandFlags(instruction) & 2U) != 0)
+            {
+                limit = ResolveFloatOperand(limit);
+            }
+            value = reinterpret_cast<Rng *>(0x004D2AE0)->GetFloat(limit);
+        }
         float *destination = FloatDestination(*this, instruction);
         *destination = value;
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
@@ -2096,15 +2111,10 @@ AnmVmUpdateAfterScript:
 
         if (cornersValid)
         {
-        float *textureCoordinates = &textureRect[0][0];
-        for (unsigned int i = 0; i != 4; ++i)
-        {
-            const float pixels[2] = {corners[i * 3], corners[i * 3 + 1]};
-            float normalized[2];
-            NormalizeAnmCoordinates(normalized, pixels);
-            textureCoordinates[i * 2] = normalized[0];
-            textureCoordinates[i * 2 + 1] = normalized[1];
-        }
+            NormalizeAnmCoordinates(&textureRect[0][0], &corners[0]);
+            NormalizeAnmCoordinates(&textureRect[1][0], &corners[3]);
+            NormalizeAnmCoordinates(&textureRect[2][0], &corners[6]);
+            NormalizeAnmCoordinates(&textureRect[3][0], &corners[9]);
         }
 
     }
