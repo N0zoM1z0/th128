@@ -1,6 +1,6 @@
 # TH128 reconstruction handoff
 
-Snapshot: 2026-11-23. Read this first, then AGENTS.md.
+Snapshot: 2026-11-24. Read this first, then AGENTS.md.
 
 ## Resume safely
 
@@ -21,10 +21,9 @@ Snapshot: 2026-11-23. Read this first, then AGENTS.md.
    loaded Program and complete mapped .text before each query. Decompiler
    output remains a hypothesis until source and compiler evidence settle it.
 
-At the start of this documentation cleanup, main was at f8cf37f and 41
-local commits ahead of origin/main. The handoff/cleanup commits are added
-after that snapshot. Recheck the live branch count before any push; the
-repository shell has no network access, so this session did not push anything.
+Local commits are reconstruction checkpoints, not remote publication.
+Recheck the live branch and remote state before any push; the repository
+shell has no network access, so this workflow does not push changes.
 
 ## Current ledger status
 
@@ -37,12 +36,12 @@ canonical ledgers. At this snapshot:
 | Boundary reviewed / provisional | 3,452 / 64 |
 | Origin rows pending | 49 |
 | Authored / excluded / indeterminate | 2,214 / 1,253 / 0 |
-| Source-present mappings | 130 |
-| Source-present with authored origin | 125 |
-| Authored source-present exact backlog | 44 |
-| Canonical exact functions | 86 |
-| Canonical exact codegen bytes | 4,102 |
-| Canonical exact authored bytes | 3,844 |
+| Source-present mappings | 148 |
+| Source-present with authored origin | 143 |
+| Authored source-present exact backlog | 55 |
+| Canonical exact functions | 93 |
+| Canonical exact codegen bytes | 5,385 |
+| Canonical exact authored bytes | 5,127 |
 
 The candidate inventory is not proven complete. The 49 pending origin rows
 are 21 D3DX candidates, 12 LTCG-entry adapter candidates and 16 later-added
@@ -52,9 +51,10 @@ The native product has not been closed and runtime-validated.
 
 ## Active reconstruction: AnmVm
 
-The recent 41 local commits before this handoff focused on AnmVm rendering,
-world matrices, fog, primitives, transitions and per-VM update behavior.
-This is substantial source progress, not 41 exact functions.
+Recent local work has focused on AnmVm rendering, world matrices, fog,
+primitives, transitions, per-VM update behavior and the operand resolver
+family. Exact counts below come only from the canonical ledger and replay
+receipts, not from commit count or source presence.
 
 ### Main boss: AnmVm::Update
 
@@ -86,7 +86,7 @@ Primary evidence:
 | src/AnmVmScript.cpp | wait commands, opcode dispatcher, ready-instruction loop, view corners and texture rectangle | source-present; not exact |
 | src/AnmVmTransitions.cpp | transition setup and interpolation | source-present; not exact |
 | src/AnmVmEffects.cpp | render-state sync, world matrices, sprite/fog/primitive draw paths, effect 10 | mixed exact and frontier owners; check each ledger row |
-| src/AnmVmOperands.cpp | operand resolution and random helpers | check each ledger row |
+| src/AnmVmOperands.cpp | four operand resolver owners | four complete linked-PE owners exact; replay affected owners after edits |
 | src/AnmVmResource.cpp | VM resource binding and coordinate normalization | check each ledger row |
 | src/AnmManager.cpp | VM allocation, lists, update and draw grouping | check each ledger row |
 
@@ -102,7 +102,7 @@ has an accepted exact owner replay yet.
 
 ### Exact ANM owners
 
-The current config/matches.csv contains 11 exact ANM owners:
+The current config/matches.csv contains 15 exact ANM owners:
 
 - Setters: 0x00402B60, 0x00402C00, 0x00402C20, 0x00407020,
   0x00407040

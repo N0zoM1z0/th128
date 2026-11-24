@@ -658,7 +658,7 @@ relocations = []
 
 
 [units.anm-vm-resolve-integer-operand-linked]
-frontier = true # LTCG-owned replay context for the complete natural-C++ operand resolver implementation.
+# The 23-byte inline byte dispatch table at +0xBC is data and is raw-compared.
 artifact_kind = "linked-pe"
 source = "src/AnmVmOperands.cpp"
 inputs = ["src/AnmVm.hpp", "src/Rng.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
@@ -1174,42 +1174,7 @@ functions = ["DecryptBlocks"]
 symbol = "?DecryptBlocks@@YGPAEPAEHEEHH@Z"
 target_address = 0x00469A00
 size = 274
-linkages = [
-  { offset = 12, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
-  { offset = 33, type = "DIR32", local = true, target = 0x00459AE4 },
-  { offset = 189, type = "REL32", symbol = "?GetFloat@Rng@@QAEMXZ", target = 0x0046A5D0 },
-  { offset = 226, type = "REL32", symbol = "?GetFloatSigned@Rng@@QAEMXZ", target = 0x0046A600 },
-  { offset = 252, type = "DIR32", symbol = "__real@40490fdb", target = 0x004A6850 },
-  { offset = 273, type = "REL32", symbol = "?GetFloatSigned@Rng@@QAEMM@Z", target = 0x00412E90 },
-  { offset = 457, type = "REL32", symbol = "?GetU32@Rng@@QAEIXZ", target = 0x0046A460 },
-  { offset = 473, type = "DIR32", symbol = "__real@4f800000", target = 0x004A6660 },
-  { offset = 484, type = "DIR32", local = true, target = 0x00459925 },
-  { offset = 488, type = "DIR32", local = true, target = 0x00459932 },
-  { offset = 492, type = "DIR32", local = true, target = 0x0045993F },
-  { offset = 496, type = "DIR32", local = true, target = 0x0045994C },
-  { offset = 500, type = "DIR32", local = true, target = 0x00459959 },
-  { offset = 504, type = "DIR32", local = true, target = 0x00459966 },
-  { offset = 508, type = "DIR32", local = true, target = 0x00459973 },
-  { offset = 512, type = "DIR32", local = true, target = 0x00459980 },
-  { offset = 516, type = "DIR32", local = true, target = 0x0045998D },
-  { offset = 520, type = "DIR32", local = true, target = 0x0045999A },
-  { offset = 524, type = "DIR32", local = true, target = 0x004599F1 },
-  { offset = 528, type = "DIR32", local = true, target = 0x004599A7 },
-  { offset = 532, type = "DIR32", local = true, target = 0x004599CC },
-  { offset = 536, type = "DIR32", local = true, target = 0x00459A20 },
-  { offset = 540, type = "DIR32", local = true, target = 0x00459A2D },
-  { offset = 544, type = "DIR32", local = true, target = 0x00459A3A },
-  { offset = 548, type = "DIR32", local = true, target = 0x00459A65 },
-  { offset = 552, type = "DIR32", local = true, target = 0x00459A72 },
-  { offset = 556, type = "DIR32", local = true, target = 0x00459A7F },
-  { offset = 560, type = "DIR32", local = true, target = 0x00459A8C },
-  { offset = 564, type = "DIR32", local = true, target = 0x00459A99 },
-  { offset = 568, type = "DIR32", local = true, target = 0x00459AA6 },
-  { offset = 572, type = "DIR32", local = true, target = 0x00459AB3 },
-  { offset = 576, type = "DIR32", local = true, target = 0x00459A47 },
-  { offset = 580, type = "DIR32", local = true, target = 0x00459A51 },
-  { offset = 584, type = "DIR32", local = true, target = 0x00459A5B },
-]
+linkages = []
 
 [units.pbg-archive-read-header]
 frontier = true # every call site matches; register priority differs (original keeps packed size in EBX and the listing offset on the stack)

@@ -168,18 +168,20 @@ loaders and the cipher key table.
   after the search loop; `continue`/nested-`if` forms both put it after the
   error path, and an indexed `entries[i]` loop changed the convention.
 
-## Current AnmVm reconstruction status (2026-11-23)
+## Current AnmVm reconstruction status (2026-11-24)
 
-The recent local work has concentrated on the large AnmVm update and rendering
-subsystem. Treat these implementations as source reconstruction frontiers,
-not as exact codegen or runtime proof. The canonical ledger currently has 86
-exact functions overall; only the following 11 exact owners are in the ANM
-area:
+The recent local work has concentrated on the large AnmVm update, operand
+resolution and rendering subsystem. Treat implementations without accepted
+rows in the canonical ledger as source frontiers, not as exact codegen or
+runtime proof. The canonical ledger currently has 93 exact functions overall;
+15 exact owners are in the ANM area:
 
 - Setters: 0x00402B60, 0x00402C00, 0x00402C20, 0x00407020, 0x00407040
 - AnmVm::AnmVm at 0x004031A0
 - Effect table no-ops: 0x00412B30, 0x00412B40, 0x00412DF0, 0x00412E00
 - StartAnmVmEffect06 at 0x00412C80
+- Operand resolvers: 0x00459900 (588 bytes), 0x00459B50 (211 bytes),
+  0x00459C30 (162 bytes), 0x00459CE0 (104 bytes)
 
 All other ANM source mappings are not exact unless a matching row is added to
 config/matches.csv.
@@ -202,6 +204,24 @@ Useful evidence:
 - .analysis/anm-vm-update-helpers.txt and
   .analysis/anm-vm-update-leaves.txt — related helper decompilations
 
+### Operand resolution
+
+All four `AnmVm::Resolve*Operand*` owners now have complete pinned VC10
+`/GL` linked-PE replays. `ResolveFloatOperand` uses the target conversion
+helper for the encoded float operand and calls the scaled signed-random leaf
+for operand 10010. The integer resolver uses the same runtime conversion
+helper for float-backed integer slots and selects the VM's world/UI RNG for
+operand 10022. The two address resolvers preserve their target pointer-return
+semantics and local switch tables.
+
+`ResolveIntegerOperand` owns a 211-byte contribution containing a 12-entry
+DIR32 jump table at +0x8C and a 23-byte byte dispatch table at +0xBC. The
+latter is explicitly declared as an inline data span in the linked Oracle;
+those bytes are excluded from instruction decoding but remain in the complete
+owner and are compared raw. All 19 relocation fields and all remaining bytes
+replay with zero differences. This is a compiler-generated table in natural
+C++ output, not embedded assembly or padding.
+
 ### Related source files
 
 - src/AnmVmScript.cpp: wait handling, a large opcode switch, instruction
@@ -218,8 +238,9 @@ Useful evidence:
   path at 0x00460DD0; false models the matrix-copy/translation-add
   path at 0x004609C0. Keep those paths distinct and verify both before
   making exactness claims.
-- src/AnmVmOperands.cpp, src/AnmVmResource.cpp and
-  src/AnmManager.cpp contain adjacent VM operand, resource and manager
+- src/AnmVmOperands.cpp: the four operand resolver owners above are exact;
+  keep any adjacent helper or future edits separate and replay affected owners.
+- src/AnmVmResource.cpp and src/AnmManager.cpp contain resource and manager
   support. Check their ledger rows individually.
 
 The renderer's draw dispatcher is separate from the per-VM update routine.
@@ -415,6 +436,10 @@ flags (`0x004D33F8`) is set (lock `0x004D3768`, depth byte `0x004D37A2`).
 - The float forms convert with `(float)GetU32()` first (float `2^32` bias
   constant), then scale by double constants (`2^-32`, `2^-31` then `- 1.0`,
   `/ 683565248.0` then `- pi`).
+- The scaled overload `Rng::GetFloatSigned(float scale)` at `0x00412E90`
+  is also exact as a 58-byte normal-COFF leaf with four reviewed relocations.
+  It rounds the signed unit-range intermediate to float before multiplying
+  by `scale`; `AnmVm::ResolveFloatOperand` uses it for the random-angle slot.
 
 `AnmManager::GetVmById` (`0x00467420`, 277 call sites) searches two VM
 lists (`+0x8B9704`, `+0x8B970C`, nodes `{vm, next}`) for `vm->id` (AnmVm
