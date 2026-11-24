@@ -2125,6 +2125,24 @@ target_address = 0x00459D90
 size = 13604
 linkages = []
 
+[units.anm-vm-normalize-coordinates-linked]
+# LTCG call-context replay for the ECX output / EAX input helper ABI.
+artifact_kind = "linked-pe"
+source = "src/AnmVmResource.cpp"
+inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp", "src/AnmManager.hpp", "src/AngleMath.hpp", "src/ZunTimer.hpp", "src/AnmVmGeometry.hpp", "src/AnmVmView.hpp", "src/ZunMath.hpp"]
+support_sources = ["probes/anm-vm-update-context.cpp", "src/AnmVmScript.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmOperands.cpp", "src/AnmVmEffects.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "src/ZunTimer.cpp", "src/AnmVmView.cpp"]
+output_dir = "build/match-linked/AnmVmResourceInUpdate"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmVmUpdateProbe@4"
+functions = ["NormalizeAnmCoordinates"]
+symbol = "?NormalizeAnmCoordinates@@YAXPAMPBM@Z"
+target_address = 0x00459D50
+size = 52
+linkages = [
+  { offset = 4, type = "DIR32", symbol = "__real@4084000000000000", target = 0x004A65C8 },
+  { offset = 15, type = "DIR32", symbol = "__real@407e000000000000", target = 0x004A65C0 },
+]
+
 # View-rectangle geometry: the three target paths are distinct natural C++ helpers.
 [units.anm-vm-view-corners-mode0]
 frontier = true # Builds the mode-0 axis-aligned corners, including floored center anchors.

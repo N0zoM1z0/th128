@@ -38,10 +38,10 @@ canonical ledgers. At this snapshot:
 | Authored / excluded / indeterminate | 2,214 / 1,253 / 0 |
 | Source-present mappings | 149 |
 | Source-present with authored origin | 144 |
-| Authored source-present exact backlog | 55 |
-| Canonical exact functions | 94 |
-| Canonical exact codegen bytes | 5,437 |
-| Canonical exact authored bytes | 5,179 |
+| Authored source-present exact backlog | 54 |
+| Canonical exact functions | 95 |
+| Canonical exact codegen bytes | 5,489 |
+| Canonical exact authored bytes | 5,231 |
 
 The candidate inventory is not proven complete. The 49 pending origin rows
 are 21 D3DX candidates, 12 LTCG-entry adapter candidates and 16 later-added
@@ -60,7 +60,7 @@ receipts, not from commit count or source presence.
 
 - Target entry: 0x00459D90
 - Target extent: 13,604 bytes, through 0x0045D2B3
-- Source: src/AnmVmUpdate.cpp
+- Source: src/AnmVmScript.cpp
 - Ledger: source mapping exists; no accepted exact match in
   config/matches.csv
 - State: partial C++ reconstruction, not exact
@@ -106,13 +106,15 @@ has an accepted exact owner replay yet.
 
 ### Exact ANM owners
 
-The current config/matches.csv contains 15 exact ANM owners:
+The current config/matches.csv contains 16 exact ANM owners:
 
 - Setters: 0x00402B60, 0x00402C00, 0x00402C20, 0x00407020,
   0x00407040
 - AnmVm::AnmVm: 0x004031A0
 - Effect no-ops: 0x00412B30, 0x00412B40, 0x00412DF0, 0x00412E00
 - StartAnmVmEffect06: 0x00412C80
+- Operand resolvers: 0x00459900, 0x00459B50, 0x00459C30, 0x00459CE0
+- NormalizeAnmCoordinates: 0x00459D50 (52 bytes; Update LTCG caller context)
 
 Do not expand this list from source presence or successful compilation. Only
 accepted rows in config/matches.csv count as exact.

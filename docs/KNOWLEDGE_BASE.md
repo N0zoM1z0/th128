@@ -173,8 +173,8 @@ loaders and the cipher key table.
 The recent local work has concentrated on the large AnmVm update, operand
 resolution and rendering subsystem. Treat implementations without accepted
 rows in the canonical ledger as source frontiers, not as exact codegen or
-runtime proof. The canonical ledger currently has 94 exact functions overall;
-15 exact owners are in the ANM area:
+runtime proof. The canonical ledger currently has 95 exact functions overall;
+16 exact owners are in the ANM area:
 
 - Setters: 0x00402B60, 0x00402C00, 0x00402C20, 0x00407020, 0x00407040
 - AnmVm::AnmVm at 0x004031A0
@@ -182,6 +182,8 @@ runtime proof. The canonical ledger currently has 94 exact functions overall;
 - StartAnmVmEffect06 at 0x00412C80
 - Operand resolvers: 0x00459900 (588 bytes), 0x00459B50 (211 bytes),
   0x00459C30 (162 bytes), 0x00459CE0 (104 bytes)
+- NormalizeAnmCoordinates at 0x00459D50 (52 bytes), recovered with its
+  real AnmVm::Update caller in the LTCG context.
 
 All other ANM source mappings are not exact unless a matching row is added to
 config/matches.csv.
@@ -189,15 +191,19 @@ config/matches.csv.
 ### Main update owner
 
 AnmVm::Update starts at 0x00459D90 and owns 13,604 target bytes
-(through 0x0045D2B3). It has a source mapping to src/AnmVmUpdate.cpp,
+(through 0x0045D2B3). It has a source mapping to src/AnmVmScript.cpp,
 but no accepted exact replay. The current C++ covers the early exits,
 game-speed save/restore, script update gate, continuous angle/scale/texture
 motion, view texture-rectangle refresh, render-state synchronization,
 transitions, custom geometry, callback and timer advancement. It is still a
 partial reconstruction of the large target function; branch ordering,
 missing paths and side effects require further target comparison. The latest
-selected VC10 `/GL` candidate owns 13,516 bytes versus the 13,604-byte target
-contribution; this is a useful frontier measurement, not an exact replay.
+selected VC10 `/GL` candidate currently owns 14,056 bytes versus the
+13,604-byte target contribution; this is a useful frontier measurement, not
+an exact replay. The latest opcode-41 source experiment keeps the world/UI RNG
+selection and operand conversion explicit, but the compiler still spills the
+float source across the branch and does not yet reproduce the target's x87
+stack flow.
 Opcode 41 now routes through the exact `Rng::GetFloat(float scale)` helper at
 `0x0040D130`, selecting the world/UI generator from `stateFlags` before the
 scaled sample. The boss itself remains unclassified until its complete owner
@@ -228,6 +234,17 @@ owner and are compared raw. All 19 relocation fields and all remaining bytes
 replay with zero differences. This is a compiler-generated table in natural
 C++ output, not embedded assembly or padding.
 
+### Coordinate normalization helper
+
+`NormalizeAnmCoordinates` at `0x00459D50` is now exact as a 52-byte
+linked-PE owner. Its standalone normal-COFF ABI did not match the target, so
+the accepted replay includes the real `AnmVm::Update` caller in the VC10 LTCG
+context. The target uses ECX for the output pointer and EAX for the input
+pointer; the two DIR32 constants resolve to the 640- and 480-pixel scale
+constants at `0x004A65C8` and `0x004A65C0`. Both relocation fields and all
+remaining bytes replay with zero differences. The function divides X by 640
+and Y by 480, then clamps negative results to zero without an upper clamp.
+
 ### Related source files
 
 - src/AnmVmScript.cpp: wait handling, a large opcode switch, instruction
@@ -246,8 +263,10 @@ C++ output, not embedded assembly or padding.
   making exactness claims.
 - src/AnmVmOperands.cpp: the four operand resolver owners above are exact;
   keep any adjacent helper or future edits separate and replay affected owners.
-- src/AnmVmResource.cpp and src/AnmManager.cpp contain resource and manager
-  support. Check their ledger rows individually.
+- src/AnmVmResource.cpp: `NormalizeAnmCoordinates` at 0x00459D50 is exact
+  only in the recorded `AnmVm::Update` LTCG caller context; adjacent resource
+  helpers remain separate frontiers.
+- src/AnmManager.cpp contains manager support. Check its ledger rows individually.
 
 The renderer's draw dispatcher is separate from the per-VM update routine.
 Do not infer that an implemented render mode, a successful per-file compile,
