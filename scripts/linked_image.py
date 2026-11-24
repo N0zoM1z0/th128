@@ -647,14 +647,32 @@ def linked_code_fields(
     publics: list[dict[str, object]],
     address: int,
     size: int,
+    *,
+    data_spans: list[tuple[int, int]] | tuple[tuple[int, int], ...] = (),
 ) -> dict[str, object]:
-    """Enumerate link-resolved fields in one complete linked code extent."""
+    """Enumerate link-resolved fields in one complete linked code extent.
+
+    Explicit data spans are reviewed non-instruction tables inside a code
+    contribution. Their bytes remain part of the owner and are compared raw;
+    they are excluded only from instruction decoding.
+    """
     try:
         from capstone import CS_ARCH_X86, CS_GRP_CALL, CS_GRP_JUMP, CS_MODE_32, Cs
         from capstone.x86_const import X86_OP_IMM
     except ImportError as exc:
         raise LinkedImageError("Capstone is required for linked-image decoding") from exc
     code = image.read_address(address, size)
+    normalized_spans = []
+    occupied_data: set[int] = set()
+    for raw_offset, raw_size in data_spans:
+        offset, span_size = int(raw_offset), int(raw_size)
+        extent = set(range(offset, offset + span_size))
+        if offset < 0 or span_size <= 0 or offset + span_size > size or occupied_data & extent:
+            raise LinkedImageError("invalid or overlapping linked data span")
+        occupied_data.update(extent)
+        normalized_spans.append((offset, span_size))
+    normalized_spans.sort()
+
     symbols_by_address: dict[int, list[str]] = {}
     for public in publics:
         symbols_by_address.setdefault(int(public["address"]), []).append(
@@ -668,8 +686,11 @@ def linked_code_fields(
                 raise LinkedImageError("base relocation crosses the function boundary")
         if address <= relocation_address and relocation_address + 4 <= address + size:
             offset = relocation_address - address
+            relocation_extent = set(range(offset, offset + 4))
+            if relocation_extent & occupied_data:
+                raise LinkedImageError("declared data span overlaps a PE base relocation")
             destination = struct.unpack_from("<I", code, offset)[0]
-            base_relocation_bytes.update(range(offset, offset + 4))
+            base_relocation_bytes.update(relocation_extent)
             fields.append(
                 {
                     "offset": offset,
@@ -685,39 +706,52 @@ def linked_code_fields(
 
     decoder = Cs(CS_ARCH_X86, CS_MODE_32)
     decoder.detail = True
-    decoded = 0
-    for instruction in decoder.disasm(code, address):
-        if instruction.address != address + decoded:
-            break
-        decoded += instruction.size
-        is_control = instruction.group(CS_GRP_CALL) or instruction.group(CS_GRP_JUMP)
-        if not is_control or not instruction.operands:
-            continue
-        operand = instruction.operands[0]
-        if operand.type != X86_OP_IMM or not instruction.imm_size:
-            continue
-        destination = int(operand.imm) & 0xFFFFFFFF
-        if address <= destination < address + size:
-            continue
-        relative_offset = instruction.address - address + instruction.imm_offset
-        relative_extent = set(range(relative_offset, relative_offset + instruction.imm_size))
-        # A PDB contribution may own an inline jump table after its executable
-        # body. Capstone necessarily decodes those data bytes as instructions;
-        # a PE base relocation is authoritative when such a false control-flow
-        # immediate overlaps one of the table's absolute entries.
-        if relative_extent & base_relocation_bytes:
-            continue
-        fields.append(
-            {
-                "offset": relative_offset,
-                "width": instruction.imm_size,
-                "type": f"REL{instruction.imm_size * 8}",
-                "instruction": instruction.mnemonic,
-                "candidate_target": destination,
-                "candidate_symbols": sorted(symbols_by_address.get(destination, [])),
-                "instruction_end": instruction.address - address + instruction.size,
-            }
-        )
+    decoded_bytes: set[int] = set()
+
+    def decode_segment(segment_start: int, segment_end: int) -> None:
+        segment = code[segment_start:segment_end]
+        decoded_in_segment = 0
+        for instruction in decoder.disasm(segment, address + segment_start):
+            if instruction.address != address + segment_start + decoded_in_segment:
+                break
+            instruction_offset = segment_start + decoded_in_segment
+            decoded_bytes.update(range(instruction_offset, instruction_offset + instruction.size))
+            decoded_in_segment += instruction.size
+            is_control = instruction.group(CS_GRP_CALL) or instruction.group(CS_GRP_JUMP)
+            if not is_control or not instruction.operands:
+                continue
+            operand = instruction.operands[0]
+            if operand.type != X86_OP_IMM or not instruction.imm_size:
+                continue
+            destination = int(operand.imm) & 0xFFFFFFFF
+            if address <= destination < address + size:
+                continue
+            relative_offset = instruction.address - address + instruction.imm_offset
+            relative_extent = set(range(relative_offset, relative_offset + instruction.imm_size))
+            # A PE base relocation is authoritative when Capstone decodes
+            # inline absolute table data as a false control-flow immediate.
+            if relative_extent & base_relocation_bytes:
+                continue
+            fields.append(
+                {
+                    "offset": relative_offset,
+                    "width": instruction.imm_size,
+                    "type": f"REL{instruction.imm_size * 8}",
+                    "instruction": instruction.mnemonic,
+                    "candidate_target": destination,
+                    "candidate_symbols": sorted(symbols_by_address.get(destination, [])),
+                    "instruction_end": instruction.address - address + instruction.size,
+                }
+            )
+
+    cursor = 0
+    for offset, span_size in normalized_spans:
+        if cursor < offset:
+            decode_segment(cursor, offset)
+        cursor = offset + span_size
+    if cursor < size:
+        decode_segment(cursor, size)
+
     fields.sort(key=lambda field: (int(field["offset"]), str(field["type"])))
     occupied: set[int] = set()
     for field in fields:
@@ -731,16 +765,14 @@ def linked_code_fields(
             raise LinkedImageError("linked-image field leaves the function extent")
         if occupied & extent:
             raise LinkedImageError("overlapping linked-image fields")
+        if occupied_data & extent:
+            raise LinkedImageError("linked-image field overlaps a declared data span")
         occupied.update(extent)
-    # PDB code contributions can end in compiler-emitted absolute jump-table
-    # data. Capstone may stop in the middle of the final table entry because
-    # those bytes are not an instruction stream. PE base relocations still
-    # account for such bytes exactly, so regard the extent as normalized when
-    # every undecoded byte belongs to a complete authoritative DIR32 field.
-    normalized_bytes = set(range(decoded)) | base_relocation_bytes
+    normalized_bytes = decoded_bytes | base_relocation_bytes | occupied_data
     return {
-        "decoded_bytes": decoded,
+        "decoded_bytes": len(decoded_bytes),
         "normalization_complete": len(normalized_bytes) == len(code),
+        "data_spans": [dict(offset=offset, size=span_size) for offset, span_size in normalized_spans],
         "fields": fields,
     }
 

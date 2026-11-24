@@ -152,6 +152,29 @@ class LinkedControls(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'overlapping'):
             self.replay()
 
+    def test_reviewed_data_span_is_skipped_by_decoder_but_compared_raw(self):
+        self.code = self.code[:-1] + b'\x0a'
+        self.original = self.original[:-1] + b'\x0a'
+        self.write()
+        with self.assertRaisesRegex(ValueError, 'decoder'):
+            self.replay()
+        self.unit['data_spans'] = [dict(offset=11, size=1)]
+        self.assertEqual(self.replay()['result'], 'exact')
+        self.code = self.code[:-1] + b'\xcc'
+        self.write()
+        result = self.replay()
+        self.assertEqual(result['result'], 'mismatch')
+        self.assertEqual(result['first_differences'], [11])
+
+    def test_data_spans_must_be_bounded_disjoint_and_not_overlap_fields(self):
+        for spans in [[dict(offset=1, size=4)], [dict(offset=12, size=1)],
+                      [dict(offset=11, size=0)], [dict(offset=11, size=2)],
+                      [dict(offset=11, size=1, kind='table')],
+                      [dict(offset=10, size=2), dict(offset=11, size=1)]]:
+            self.unit['data_spans'] = spans
+            with self.subTest(spans=spans), self.assertRaises(ValueError):
+                self.replay()
+
     def test_incomplete_decode_or_nonexecutable_section_rejected(self):
         self.code = self.code[:-1] + b'\x0f'
         self.write()

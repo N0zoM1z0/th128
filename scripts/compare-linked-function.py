@@ -52,6 +52,23 @@ def fields(unit: dict) -> list[dict]:
     return sorted(result, key=lambda row: (row['offset'], row['type']))
 
 
+def data_spans(unit: dict) -> list[tuple[int, int]]:
+    rows = unit.get('data_spans', [])
+    if not isinstance(rows, list):
+        raise ValueError('linked data spans must be an array')
+    result, occupied = [], set()
+    for raw in rows:
+        if not isinstance(raw, dict) or set(raw) != {'offset', 'size'}:
+            raise ValueError('unsupported linked data span selector')
+        offset, size = int(raw['offset']), int(raw['size'])
+        extent = set(range(offset, offset + size))
+        if offset < 0 or size <= 0 or offset + size > int(unit['size']) or extent & occupied:
+            raise ValueError('overlapping or escaping linked data span')
+        occupied.update(extent)
+        result.append((offset, size))
+    return sorted(result)
+
+
 def owner(image: PEImage, map_path: Path, pdb_path: Path, symbol: str, size: int) -> dict:
     linked = linked_functions(image.path, map_path, pdb_path)
     selected = [f for f in linked['functions'] if f['symbol'] == symbol]
@@ -117,10 +134,14 @@ def replay(unit: dict, image: PEImage, map_path: Path, pdb_path: Path, target: P
     function = owner(image, map_path, pdb_path, unit['symbol'], size)
     address = int(function['address'], 0)
     publics = map_publics(map_path)
-    decoded = linked_code_fields(image, publics, address, size)
+    expected = fields(unit)
+    spans = data_spans(unit)
+    data_bytes = {byte for offset, span_size in spans for byte in range(offset, offset + span_size)}
+    if any(set(range(field['offset'], field['offset'] + field['width'])) & data_bytes for field in expected):
+        raise ValueError('linked data span overlaps a declared relocation field')
+    decoded = linked_code_fields(image, publics, address, size, data_spans=spans)
     if not decoded['normalization_complete']:
         raise ValueError('linked decoder does not cover the complete owned extent')
-    expected = fields(unit)
     key = lambda r: (int(r['offset']), r['type'], int(r['width']))
     if sorted(map(key, decoded['fields'])) != sorted(map(key, expected)):
         raise ValueError('exhaustive linked fields differ from manifest')

@@ -24,7 +24,7 @@ def below(value: str, *, build: bool = False) -> Path:
 def contract(unit: dict) -> dict:
     if unit.get('artifact_kind') != 'linked-pe':
         raise ValueError('explicit linked-pe artifact kind required')
-    if any(key in unit for key in ('compare_size', 'owner_visibility', 'pdb_source', 'data_spans')):
+    if any(key in unit for key in ('compare_size', 'owner_visibility', 'pdb_source')):
         raise ValueError('this lane accepts complete public primary-TU contributions only')
     profile = unit.get('profile', [])
     if (not isinstance(profile, list) or not profile

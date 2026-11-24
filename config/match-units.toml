@@ -691,6 +691,7 @@ linkages = [
   { offset = 180, type = "DIR32", local = true, target = 0x00459BBF },
   { offset = 184, type = "DIR32", local = true, target = 0x00459BD9 },
 ]
+data_spans = [{ offset = 188, size = 23 }]
 
 [units.anm-vm-resolve-float-operand-linked]
 artifact_kind = "linked-pe"
