@@ -772,10 +772,11 @@ int AnmVm::Update()
         return 0;
     }
 
-    const float savedGameSpeed = *reinterpret_cast<float *>(0x004B6F58);
+    float *gameSpeed = reinterpret_cast<float *>(0x004B6F58);
+    const float savedGameSpeed = *gameSpeed;
     if ((stateFlags & 1U) != 0)
     {
-        *reinterpret_cast<float *>(0x004B6F58) = 1.0f;
+        *gameSpeed = 1.0f;
     }
 
     if (currentFrame != 0)
@@ -1974,12 +1975,12 @@ AnmVmUpdateWaitScan:
 AnmVmUpdateAfterScript:
     if (scriptDataOffsetCopy == 0)
     {
-        *reinterpret_cast<float *>(0x004B6F58) = savedGameSpeed;
+        *gameSpeed = savedGameSpeed;
         return 1;
     }
 
     {
-        const float frameGameSpeed = *reinterpret_cast<float *>(0x004B6F58);
+        const float frameGameSpeed = *gameSpeed;
         if (scriptVector.x != 0.0f)
         {
             unknown024 = AddAngles(
@@ -2354,6 +2355,6 @@ AnmVmUpdateAfterScript:
     }
 
     timer070.Increment();
-    *reinterpret_cast<float *>(0x004B6F58) = savedGameSpeed;
+    *gameSpeed = savedGameSpeed;
     return 0;
 }
