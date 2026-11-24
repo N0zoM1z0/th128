@@ -10,8 +10,11 @@ namespace
 
     __forceinline Rng *VmRandomGenerator(const AnmVm *vm)
     {
-        return reinterpret_cast<Rng *>(
-            (vm->stateFlags & 2U) != 0 ? 0x004D2AD8 : 0x004D2AE0);
+        if ((vm->stateFlags & 2U) != 0)
+        {
+            return reinterpret_cast<Rng *>(0x004D2AD8);
+        }
+        return reinterpret_cast<Rng *>(0x004D2AE0);
     }
 
     __forceinline unsigned int NextVmRandomValue(const AnmVm *vm)
@@ -37,35 +40,35 @@ namespace
 
 int AnmVm::ResolveIntegerOperand(int operand)
 {
-    if ((unsigned int)operand - kVmOperandBase >= 0x17U)
+    const unsigned int variable = (unsigned int)operand - kVmOperandBase;
+    switch (variable)
     {
-        return operand;
-    }
-
-    switch ((unsigned int)operand)
-    {
-    case 10000:
+    case 0:
         return integerVariables[0];
-    case 10001:
+    case 1:
         return integerVariables[1];
-    case 10002:
+    case 2:
         return integerVariables[2];
-    case 10003:
+    case 3:
         return integerVariables[3];
-    case 10004:
-        return ZunRoundToInt((double)floatVariables[0]);
-    case 10005:
-        return ZunRoundToInt((double)floatVariables[1]);
-    case 10006:
-        return ZunRoundToInt((double)floatVariables[2]);
-    case 10007:
-        return ZunRoundToInt((double)floatVariables[3]);
-    case 10008:
+    case 4:
+        return (int)floatVariables[0];
+    case 5:
+        return (int)floatVariables[1];
+    case 6:
+        return (int)floatVariables[2];
+    case 7:
+        return (int)floatVariables[3];
+    case 8:
         return integerVariables2[0];
-    case 10009:
+    case 9:
         return integerVariables2[1];
-    case 10022:
-        return (int)NextVmRandomValue(this);
+    case 22:
+        if ((stateFlags & 2U) != 0)
+        {
+            return (int)reinterpret_cast<Rng *>(0x004D2AD8)->GetU32();
+        }
+        return (int)reinterpret_cast<Rng *>(0x004D2AE0)->GetU32();
     default:
         return operand;
     }
@@ -73,10 +76,8 @@ int AnmVm::ResolveIntegerOperand(int operand)
 
 __declspec(noinline) float AnmVm::ResolveFloatOperand(float operand)
 {
-    // Mirror the target CRT's SSE2/x87 conversion split before dispatching
-    // the 10000-based script operand table.
-    const int roundedOperand = ZunRoundToInt((double)operand);
-    const int variable = (int)((unsigned int)roundedOperand - kVmOperandBase);
+    // Use the same VC10 float-to-int conversion as the target operand helper.
+    const int variable = (int)operand - (int)kVmOperandBase;
     switch (variable)
     {
     case 0:
@@ -100,11 +101,41 @@ __declspec(noinline) float AnmVm::ResolveFloatOperand(float operand)
     case 9:
         return (float)integerVariables2[1];
     case 11:
-        return RandomUnitValue(this);
+        if ((stateFlags & 2U) != 0)
+        {
+            *reinterpret_cast<volatile float *>(&operand) =
+                reinterpret_cast<Rng *>(0x004D2AD8)->GetFloat();
+        }
+        else
+        {
+            *reinterpret_cast<volatile float *>(&operand) =
+                reinterpret_cast<Rng *>(0x004D2AE0)->GetFloat();
+        }
+        return operand;
     case 12:
-        return RandomSignedValue(this);
+        if ((stateFlags & 2U) != 0)
+        {
+            *reinterpret_cast<volatile float *>(&operand) =
+                reinterpret_cast<Rng *>(0x004D2AD8)->GetFloatSigned();
+        }
+        else
+        {
+            *reinterpret_cast<volatile float *>(&operand) =
+                reinterpret_cast<Rng *>(0x004D2AE0)->GetFloatSigned();
+        }
+        return operand;
     case 10:
-        return RandomSignedValue(this) * 3.1415927410125732421875f;
+        if ((stateFlags & 2U) != 0)
+        {
+            *reinterpret_cast<volatile float *>(&operand) =
+                reinterpret_cast<Rng *>(0x004D2AD8)->GetFloatSigned(3.1415927410125732421875f);
+        }
+        else
+        {
+            *reinterpret_cast<volatile float *>(&operand) =
+                reinterpret_cast<Rng *>(0x004D2AE0)->GetFloatSigned(3.1415927410125732421875f);
+        }
+        return operand;
     case 13:
         return secondaryPosition.x;
     case 14:
@@ -130,7 +161,18 @@ __declspec(noinline) float AnmVm::ResolveFloatOperand(float operand)
     case 21:
         return ReadTargetFloat(0x004D32C8);
     case 22:
-        return (float)NextVmRandomValue(this);
+    {
+        unsigned int randomValue;
+        if ((stateFlags & 2U) != 0)
+        {
+            randomValue = reinterpret_cast<Rng *>(0x004D2AD8)->GetU32();
+        }
+        else
+        {
+            randomValue = reinterpret_cast<Rng *>(0x004D2AE0)->GetU32();
+        }
+        return (float)randomValue;
+    }
     default:
         return operand;
     }
@@ -159,7 +201,7 @@ int *AnmVm::ResolveIntegerOperandAddress(int *operand)
 
 float *AnmVm::ResolveFloatOperandAddress(float *operand)
 {
-    const int variable = ZunRoundToInt((double)*operand);
+    const int variable = (int)*operand;
     switch (variable)
     {
     case 10004:

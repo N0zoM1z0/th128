@@ -655,6 +655,147 @@ target_address = 0x00459C30
 size = 162
 relocations = []
 
+
+
+[units.anm-vm-resolve-integer-operand-linked]
+frontier = true # LTCG-owned replay context for the complete natural-C++ operand resolver implementation.
+artifact_kind = "linked-pe"
+source = "src/AnmVmOperands.cpp"
+inputs = ["src/AnmVm.hpp", "src/Rng.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
+support_sources = ["probes/anm-vm-operands-context.cpp", "src/Rng.cpp", "probes/rng-context.cpp"]
+output_dir = "build/match-linked/AnmVmOperands"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmVmOperandsProbe@12"
+functions = ["AnmVm::ResolveIntegerOperand"]
+symbol = "?ResolveIntegerOperand@AnmVm@@QAEHH@Z"
+target_address = 0x00459B50
+size = 211
+linkages = [
+  { offset = 14, type = "DIR32", local = true, target = 0x00459C0C },
+  { offset = 21, type = "DIR32", local = true, target = 0x00459BDC },
+  { offset = 60, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 71, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 82, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 93, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 132, type = "REL32", symbol = "?GetU32@Rng@@QAEIXZ", target = 0x0046A460 },
+  { offset = 140, type = "DIR32", local = true, target = 0x00459B69 },
+  { offset = 144, type = "DIR32", local = true, target = 0x00459B70 },
+  { offset = 148, type = "DIR32", local = true, target = 0x00459B77 },
+  { offset = 152, type = "DIR32", local = true, target = 0x00459B7E },
+  { offset = 156, type = "DIR32", local = true, target = 0x00459B85 },
+  { offset = 160, type = "DIR32", local = true, target = 0x00459B90 },
+  { offset = 164, type = "DIR32", local = true, target = 0x00459B9B },
+  { offset = 168, type = "DIR32", local = true, target = 0x00459BA6 },
+  { offset = 172, type = "DIR32", local = true, target = 0x00459BB1 },
+  { offset = 176, type = "DIR32", local = true, target = 0x00459BB8 },
+  { offset = 180, type = "DIR32", local = true, target = 0x00459BBF },
+  { offset = 184, type = "DIR32", local = true, target = 0x00459BD9 },
+]
+
+[units.anm-vm-resolve-float-operand-linked]
+artifact_kind = "linked-pe"
+source = "src/AnmVmOperands.cpp"
+inputs = ["src/AnmVm.hpp", "src/Rng.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
+support_sources = ["probes/anm-vm-operands-context.cpp", "src/Rng.cpp", "probes/rng-context.cpp"]
+output_dir = "build/match-linked/AnmVmOperands"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmVmOperandsProbe@12"
+functions = ["AnmVm::ResolveFloatOperand"]
+symbol = "?ResolveFloatOperand@AnmVm@@QAEMM@Z"
+target_address = 0x00459900
+size = 588
+linkages = [
+  { offset = 12, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 33, type = "DIR32", local = true, target = 0x00459AE4 },
+  { offset = 189, type = "REL32", symbol = "?GetFloat@Rng@@QAEMXZ", target = 0x0046A5D0 },
+  { offset = 226, type = "REL32", symbol = "?GetFloatSigned@Rng@@QAEMXZ", target = 0x0046A600 },
+  { offset = 252, type = "DIR32", symbol = "__real@40490fdb", target = 0x004A6850 },
+  { offset = 273, type = "REL32", symbol = "?GetFloatSigned@Rng@@QAEMM@Z", target = 0x00412E90 },
+  { offset = 457, type = "REL32", symbol = "?GetU32@Rng@@QAEIXZ", target = 0x0046A460 },
+  { offset = 473, type = "DIR32", symbol = "__real@4f800000", target = 0x004A6660 },
+  { offset = 484, type = "DIR32", local = true, target = 0x00459925 },
+  { offset = 488, type = "DIR32", local = true, target = 0x00459932 },
+  { offset = 492, type = "DIR32", local = true, target = 0x0045993F },
+  { offset = 496, type = "DIR32", local = true, target = 0x0045994C },
+  { offset = 500, type = "DIR32", local = true, target = 0x00459959 },
+  { offset = 504, type = "DIR32", local = true, target = 0x00459966 },
+  { offset = 508, type = "DIR32", local = true, target = 0x00459973 },
+  { offset = 512, type = "DIR32", local = true, target = 0x00459980 },
+  { offset = 516, type = "DIR32", local = true, target = 0x0045998D },
+  { offset = 520, type = "DIR32", local = true, target = 0x0045999A },
+  { offset = 524, type = "DIR32", local = true, target = 0x004599F1 },
+  { offset = 528, type = "DIR32", local = true, target = 0x004599A7 },
+  { offset = 532, type = "DIR32", local = true, target = 0x004599CC },
+  { offset = 536, type = "DIR32", local = true, target = 0x00459A20 },
+  { offset = 540, type = "DIR32", local = true, target = 0x00459A2D },
+  { offset = 544, type = "DIR32", local = true, target = 0x00459A3A },
+  { offset = 548, type = "DIR32", local = true, target = 0x00459A65 },
+  { offset = 552, type = "DIR32", local = true, target = 0x00459A72 },
+  { offset = 556, type = "DIR32", local = true, target = 0x00459A7F },
+  { offset = 560, type = "DIR32", local = true, target = 0x00459A8C },
+  { offset = 564, type = "DIR32", local = true, target = 0x00459A99 },
+  { offset = 568, type = "DIR32", local = true, target = 0x00459AA6 },
+  { offset = 572, type = "DIR32", local = true, target = 0x00459AB3 },
+  { offset = 576, type = "DIR32", local = true, target = 0x00459A47 },
+  { offset = 580, type = "DIR32", local = true, target = 0x00459A51 },
+  { offset = 584, type = "DIR32", local = true, target = 0x00459A5B },
+]
+
+[units.anm-vm-resolve-integer-operand-address-linked]
+artifact_kind = "linked-pe"
+source = "src/AnmVmOperands.cpp"
+inputs = ["src/AnmVm.hpp", "src/Rng.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
+support_sources = ["probes/anm-vm-operands-context.cpp", "src/Rng.cpp", "probes/rng-context.cpp"]
+output_dir = "build/match-linked/AnmVmOperands"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmVmOperandsProbe@12"
+functions = ["AnmVm::ResolveIntegerOperandAddress"]
+symbol = "?ResolveIntegerOperandAddress@AnmVm@@QAEPAHPAH@Z"
+target_address = 0x00459CE0
+size = 104
+linkages = [
+  { offset = 16, type = "DIR32", local = true, target = 0x00459D20 },
+  { offset = 64, type = "DIR32", local = true, target = 0x00459CF4 },
+  { offset = 68, type = "DIR32", local = true, target = 0x00459CFB },
+  { offset = 72, type = "DIR32", local = true, target = 0x00459D02 },
+  { offset = 76, type = "DIR32", local = true, target = 0x00459D09 },
+  { offset = 80, type = "DIR32", local = true, target = 0x00459D1D },
+  { offset = 84, type = "DIR32", local = true, target = 0x00459D1D },
+  { offset = 88, type = "DIR32", local = true, target = 0x00459D1D },
+  { offset = 92, type = "DIR32", local = true, target = 0x00459D1D },
+  { offset = 96, type = "DIR32", local = true, target = 0x00459D10 },
+  { offset = 100, type = "DIR32", local = true, target = 0x00459D17 },
+]
+
+[units.anm-vm-resolve-float-operand-address-linked]
+artifact_kind = "linked-pe"
+source = "src/AnmVmOperands.cpp"
+inputs = ["src/AnmVm.hpp", "src/Rng.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
+support_sources = ["probes/anm-vm-operands-context.cpp", "src/Rng.cpp", "probes/rng-context.cpp"]
+output_dir = "build/match-linked/AnmVmOperands"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmVmOperandsProbe@12"
+functions = ["AnmVm::ResolveFloatOperandAddress"]
+symbol = "?ResolveFloatOperandAddress@AnmVm@@QAEPAMPAM@Z"
+target_address = 0x00459C30
+size = 162
+linkages = [
+  { offset = 3, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 20, type = "DIR32", local = true, target = 0x00459CBC },
+  { offset = 27, type = "DIR32", local = true, target = 0x00459C90 },
+  { offset = 96, type = "DIR32", local = true, target = 0x00459C4F },
+  { offset = 100, type = "DIR32", local = true, target = 0x00459C56 },
+  { offset = 104, type = "DIR32", local = true, target = 0x00459C5D },
+  { offset = 108, type = "DIR32", local = true, target = 0x00459C64 },
+  { offset = 112, type = "DIR32", local = true, target = 0x00459C6B },
+  { offset = 116, type = "DIR32", local = true, target = 0x00459C72 },
+  { offset = 120, type = "DIR32", local = true, target = 0x00459C79 },
+  { offset = 124, type = "DIR32", local = true, target = 0x00459C80 },
+  { offset = 128, type = "DIR32", local = true, target = 0x00459C84 },
+  { offset = 132, type = "DIR32", local = true, target = 0x00459C88 },
+  { offset = 136, type = "DIR32", local = true, target = 0x00459C8C },
+]
+
 [units.anm-vm-bind-anm-file]
 frontier = true # The target passes the VM in EAX, file index in ECX, and resource in EDX.
 artifact_kind = "coff"
@@ -1032,7 +1173,42 @@ functions = ["DecryptBlocks"]
 symbol = "?DecryptBlocks@@YGPAEPAEHEEHH@Z"
 target_address = 0x00469A00
 size = 274
-linkages = []
+linkages = [
+  { offset = 12, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 33, type = "DIR32", local = true, target = 0x00459AE4 },
+  { offset = 189, type = "REL32", symbol = "?GetFloat@Rng@@QAEMXZ", target = 0x0046A5D0 },
+  { offset = 226, type = "REL32", symbol = "?GetFloatSigned@Rng@@QAEMXZ", target = 0x0046A600 },
+  { offset = 252, type = "DIR32", symbol = "__real@40490fdb", target = 0x004A6850 },
+  { offset = 273, type = "REL32", symbol = "?GetFloatSigned@Rng@@QAEMM@Z", target = 0x00412E90 },
+  { offset = 457, type = "REL32", symbol = "?GetU32@Rng@@QAEIXZ", target = 0x0046A460 },
+  { offset = 473, type = "DIR32", symbol = "__real@4f800000", target = 0x004A6660 },
+  { offset = 484, type = "DIR32", local = true, target = 0x00459925 },
+  { offset = 488, type = "DIR32", local = true, target = 0x00459932 },
+  { offset = 492, type = "DIR32", local = true, target = 0x0045993F },
+  { offset = 496, type = "DIR32", local = true, target = 0x0045994C },
+  { offset = 500, type = "DIR32", local = true, target = 0x00459959 },
+  { offset = 504, type = "DIR32", local = true, target = 0x00459966 },
+  { offset = 508, type = "DIR32", local = true, target = 0x00459973 },
+  { offset = 512, type = "DIR32", local = true, target = 0x00459980 },
+  { offset = 516, type = "DIR32", local = true, target = 0x0045998D },
+  { offset = 520, type = "DIR32", local = true, target = 0x0045999A },
+  { offset = 524, type = "DIR32", local = true, target = 0x004599F1 },
+  { offset = 528, type = "DIR32", local = true, target = 0x004599A7 },
+  { offset = 532, type = "DIR32", local = true, target = 0x004599CC },
+  { offset = 536, type = "DIR32", local = true, target = 0x00459A20 },
+  { offset = 540, type = "DIR32", local = true, target = 0x00459A2D },
+  { offset = 544, type = "DIR32", local = true, target = 0x00459A3A },
+  { offset = 548, type = "DIR32", local = true, target = 0x00459A65 },
+  { offset = 552, type = "DIR32", local = true, target = 0x00459A72 },
+  { offset = 556, type = "DIR32", local = true, target = 0x00459A7F },
+  { offset = 560, type = "DIR32", local = true, target = 0x00459A8C },
+  { offset = 564, type = "DIR32", local = true, target = 0x00459A99 },
+  { offset = 568, type = "DIR32", local = true, target = 0x00459AA6 },
+  { offset = 572, type = "DIR32", local = true, target = 0x00459AB3 },
+  { offset = 576, type = "DIR32", local = true, target = 0x00459A47 },
+  { offset = 580, type = "DIR32", local = true, target = 0x00459A51 },
+  { offset = 584, type = "DIR32", local = true, target = 0x00459A5B },
+]
 
 [units.pbg-archive-read-header]
 frontier = true # every call site matches; register priority differs (original keeps packed size in EBX and the listing offset on the stack)
@@ -1048,7 +1224,22 @@ functions = ["Pbg::Archive::ReadHeader"]
 symbol = "?ReadHeader@Archive@Pbg@@QAE_NPBD@Z"
 target_address = 0x0044F9A0
 size = 384
-linkages = []
+linkages = [
+  { offset = 3, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 20, type = "DIR32", local = true, target = 0x00459CBC },
+  { offset = 27, type = "DIR32", local = true, target = 0x00459C90 },
+  { offset = 96, type = "DIR32", local = true, target = 0x00459C4F },
+  { offset = 100, type = "DIR32", local = true, target = 0x00459C56 },
+  { offset = 104, type = "DIR32", local = true, target = 0x00459C5D },
+  { offset = 108, type = "DIR32", local = true, target = 0x00459C64 },
+  { offset = 112, type = "DIR32", local = true, target = 0x00459C6B },
+  { offset = 116, type = "DIR32", local = true, target = 0x00459C72 },
+  { offset = 120, type = "DIR32", local = true, target = 0x00459C79 },
+  { offset = 124, type = "DIR32", local = true, target = 0x00459C80 },
+  { offset = 128, type = "DIR32", local = true, target = 0x00459C84 },
+  { offset = 132, type = "DIR32", local = true, target = 0x00459C88 },
+  { offset = 136, type = "DIR32", local = true, target = 0x00459C8C },
+]
 
 [units.pbg-archive-read-entry]
 frontier = true # convention matches (this on the stack, RET 0xC); the found block is laid out after the error path and ESI/EDI roles swap
@@ -1064,7 +1255,19 @@ functions = ["Pbg::Archive::ReadEntry"]
 symbol = "?ReadEntry@Archive@Pbg@@QAEPAXPBDPAX@Z"
 target_address = 0x0044F7D0
 size = 328
-linkages = []
+linkages = [
+  { offset = 16, type = "DIR32", local = true, target = 0x00459D20 },
+  { offset = 64, type = "DIR32", local = true, target = 0x00459CF4 },
+  { offset = 68, type = "DIR32", local = true, target = 0x00459CFB },
+  { offset = 72, type = "DIR32", local = true, target = 0x00459D02 },
+  { offset = 76, type = "DIR32", local = true, target = 0x00459D09 },
+  { offset = 80, type = "DIR32", local = true, target = 0x00459D1D },
+  { offset = 84, type = "DIR32", local = true, target = 0x00459D1D },
+  { offset = 88, type = "DIR32", local = true, target = 0x00459D1D },
+  { offset = 92, type = "DIR32", local = true, target = 0x00459D1D },
+  { offset = 96, type = "DIR32", local = true, target = 0x00459D10 },
+  { offset = 100, type = "DIR32", local = true, target = 0x00459D17 },
+]
 
 [units.pbg-archive-entry-constructor]
 artifact_kind = "linked-pe"
