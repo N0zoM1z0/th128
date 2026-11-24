@@ -8,28 +8,28 @@ namespace
     const unsigned int kVmIntegerOperandEnd = 10022;
 
 
-    Rng *VmRandomGenerator(const AnmVm *vm)
+    __forceinline Rng *VmRandomGenerator(const AnmVm *vm)
     {
         return reinterpret_cast<Rng *>(
             (vm->stateFlags & 2U) != 0 ? 0x004D2AD8 : 0x004D2AE0);
     }
 
-    unsigned int NextVmRandomValue(const AnmVm *vm)
+    __forceinline unsigned int NextVmRandomValue(const AnmVm *vm)
     {
         return VmRandomGenerator(vm)->GetU32();
     }
 
-    float RandomUnitValue(const AnmVm *vm)
+    __forceinline float RandomUnitValue(const AnmVm *vm)
     {
         return VmRandomGenerator(vm)->GetFloat();
     }
 
-    float RandomSignedValue(const AnmVm *vm)
+    __forceinline float RandomSignedValue(const AnmVm *vm)
     {
         return VmRandomGenerator(vm)->GetFloatSigned();
     }
 
-    float ReadTargetFloat(unsigned int address)
+    __forceinline float ReadTargetFloat(unsigned int address)
     {
         return *reinterpret_cast<const float *>(address);
     }
@@ -71,9 +71,10 @@ int AnmVm::ResolveIntegerOperand(int operand)
     }
 }
 
-float AnmVm::ResolveFloatOperand(float operand)
+__declspec(noinline) float AnmVm::ResolveFloatOperand(float operand)
 {
-    // Resolve script operands with the target's nearest-even conversion.
+    // Mirror the target CRT's SSE2/x87 conversion split before dispatching
+    // the 10000-based script operand table.
     const int roundedOperand = ZunRoundToInt((double)operand);
     const int variable = (int)((unsigned int)roundedOperand - kVmOperandBase);
     switch (variable)
