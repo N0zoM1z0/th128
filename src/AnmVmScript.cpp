@@ -47,29 +47,29 @@ namespace
         return reinterpret_cast<Rng *>(0x004D2AE0)->GetU32();
     }
 
-    const unsigned char *InstructionBytes(const AnmVmInstructionHeader *instruction)
+    __forceinline const unsigned char *InstructionBytes(const AnmVmInstructionHeader *instruction)
     {
         return reinterpret_cast<const unsigned char *>(instruction);
     }
 
-    int ReadInstructionInteger(const AnmVmInstructionHeader *instruction, unsigned int offset)
+    __forceinline int ReadInstructionInteger(const AnmVmInstructionHeader *instruction, unsigned int offset)
     {
         return *reinterpret_cast<const int *>(InstructionBytes(instruction) + offset);
     }
 
-    unsigned short ReadInstructionUnsignedShort(
+    __forceinline unsigned short ReadInstructionUnsignedShort(
         const AnmVmInstructionHeader *instruction,
         unsigned int offset)
     {
         return *reinterpret_cast<const unsigned short *>(InstructionBytes(instruction) + offset);
     }
 
-    float ReadInstructionFloat(const AnmVmInstructionHeader *instruction, unsigned int offset)
+    __forceinline float ReadInstructionFloat(const AnmVmInstructionHeader *instruction, unsigned int offset)
     {
         return *reinterpret_cast<const float *>(InstructionBytes(instruction) + offset);
     }
 
-    int *IntegerDestination(AnmVm *vm, const AnmVmInstructionHeader *instruction)
+    __forceinline int *IntegerDestination(AnmVm *vm, const AnmVmInstructionHeader *instruction)
     {
         int *destination = reinterpret_cast<int *>(
             const_cast<unsigned char *>(InstructionBytes(instruction) + 8));
@@ -80,7 +80,7 @@ namespace
         return destination;
     }
 
-    float *FloatDestination(AnmVm *vm, const AnmVmInstructionHeader *instruction)
+    __forceinline float *FloatDestination(AnmVm *vm, const AnmVmInstructionHeader *instruction)
     {
         float *destination = reinterpret_cast<float *>(
             const_cast<unsigned char *>(InstructionBytes(instruction) + 8));
@@ -91,13 +91,13 @@ namespace
         return destination;
     }
 
-    unsigned short InstructionOperandFlags(
+    __forceinline unsigned short InstructionOperandFlags(
         const AnmVmInstructionHeader *instruction)
     {
         return ReadInstructionUnsignedShort(instruction, 6);
     }
 
-    int IntegerSource(
+    __forceinline int IntegerSource(
         AnmVm *vm,
         const AnmVmInstructionHeader *instruction,
         unsigned int offset,
@@ -111,7 +111,7 @@ namespace
         return value;
     }
 
-    float FloatSource(
+    __forceinline float FloatSource(
         AnmVm *vm,
         const AnmVmInstructionHeader *instruction,
         unsigned int offset,
@@ -125,7 +125,7 @@ namespace
         return value;
     }
 
-    unsigned int NextInstructionAddress(const AnmVmInstructionHeader *instruction)
+    __forceinline unsigned int NextInstructionAddress(const AnmVmInstructionHeader *instruction)
     {
         return (unsigned int)(InstructionBytes(instruction) + instruction->size);
     }
@@ -197,7 +197,18 @@ namespace
         return manager->RegisterWorldVmAtTail(child);
     }
 
-    AnmResource *GetDefaultAnmResource()
+    __declspec(noinline) AnmVm *ResolveAnmVmId(unsigned int *id)
+    {
+        AnmManager *manager = GetGlobalAnmManager();
+        AnmVm *vm = manager->GetVmById(*id);
+        if (vm == 0)
+        {
+            *id = 0;
+        }
+        return vm;
+    }
+
+    __forceinline AnmResource *GetDefaultAnmResource()
     {
         void *globalState = *reinterpret_cast<void **>(0x004B8920);
         if (globalState == 0)
@@ -790,10 +801,14 @@ int AnmVm::Update()
         }
     }
 
-    if (currentFrame == 0 || ExecuteWaitCommand(false))
+    if (currentFrame != 0)
     {
-        for (;;)
-        {
+        goto AnmVmUpdateWaitScan;
+    }
+
+AnmVmUpdateScriptLoop:
+    for (;;)
+    {
             const AnmVmInstructionHeader *instruction =
                 reinterpret_cast<const AnmVmInstructionHeader *>(scriptDataOffsetCopy);
             if (instruction->frame > timer070.current)
@@ -801,27 +816,14 @@ int AnmVm::Update()
                 break;
             }
 
-            if (instruction->opcode == 0xFFFFU || instruction->opcode == 1U)
-            {
-                flags &= ~1U;
-                scriptDataOffsetCopy = 0;
-                break;
-            }
-            if (instruction->opcode == 2U)
-            {
-                scriptDataOffsetCopy = 0;
-                break;
-            }
-
-            bool keepExecuting = true;
-
     const unsigned int nextInstruction = NextInstructionAddress(instruction);
     int *integerDestination;
     float *floatDestination;
     int integerValue;
     float floatValue;
 
-    switch (instruction->opcode)
+    const short opcode = static_cast<short>(instruction->opcode);
+    switch (opcode)
     {
     case 3:
     {
@@ -1046,59 +1048,99 @@ int AnmVm::Update()
         continue;
 
     case 28:
+    {
+        const int left = IntegerSource(this, instruction, 8, 1U);
+        const int right = IntegerSource(this, instruction, 12, 2U);
+        if (left == right) goto AnmVmUpdateConditionalBranch;
+        break;
+    }
+
     case 29:
+    {
+        const float left = FloatSource(this, instruction, 8, 1U);
+        const float right = FloatSource(this, instruction, 12, 2U);
+        if (left == right) goto AnmVmUpdateConditionalBranch;
+        break;
+    }
+
     case 30:
+    {
+        const int left = IntegerSource(this, instruction, 8, 1U);
+        const int right = IntegerSource(this, instruction, 12, 2U);
+        if (left != right) goto AnmVmUpdateConditionalBranch;
+        break;
+    }
+
     case 31:
+    {
+        const float left = FloatSource(this, instruction, 8, 1U);
+        const float right = FloatSource(this, instruction, 12, 2U);
+        if (left != right) goto AnmVmUpdateConditionalBranch;
+        break;
+    }
+
     case 32:
+    {
+        const int left = IntegerSource(this, instruction, 8, 1U);
+        const int right = IntegerSource(this, instruction, 12, 2U);
+        if (left < right) goto AnmVmUpdateConditionalBranch;
+        break;
+    }
+
     case 33:
+    {
+        const float left = FloatSource(this, instruction, 8, 1U);
+        const float right = FloatSource(this, instruction, 12, 2U);
+        if (left < right) goto AnmVmUpdateConditionalBranch;
+        break;
+    }
+
     case 34:
+    {
+        const int left = IntegerSource(this, instruction, 8, 1U);
+        const int right = IntegerSource(this, instruction, 12, 2U);
+        if (left <= right) goto AnmVmUpdateConditionalBranch;
+        break;
+    }
+
     case 35:
+    {
+        const float left = FloatSource(this, instruction, 8, 1U);
+        const float right = FloatSource(this, instruction, 12, 2U);
+        if (left <= right) goto AnmVmUpdateConditionalBranch;
+        break;
+    }
+
     case 36:
+    {
+        const int left = IntegerSource(this, instruction, 8, 1U);
+        const int right = IntegerSource(this, instruction, 12, 2U);
+        if (left > right) goto AnmVmUpdateConditionalBranch;
+        break;
+    }
+
     case 37:
+    {
+        const float left = FloatSource(this, instruction, 8, 1U);
+        const float right = FloatSource(this, instruction, 12, 2U);
+        if (left > right) goto AnmVmUpdateConditionalBranch;
+        break;
+    }
+
     case 38:
+    {
+        const int left = IntegerSource(this, instruction, 8, 1U);
+        const int right = IntegerSource(this, instruction, 12, 2U);
+        if (left >= right) goto AnmVmUpdateConditionalBranch;
+        break;
+    }
+
     case 39:
     {
-        bool takeBranch = false;
-        const unsigned short opcode = instruction->opcode;
-        if ((opcode & 1U) == 0)
-        {
-            const int left = IntegerSource(this, instruction, 8, 1U);
-            const int right = IntegerSource(this, instruction, 12, 2U);
-            switch (opcode)
-            {
-            case 28: takeBranch = (left == right); break;
-            case 30: takeBranch = (left != right); break;
-            case 32: takeBranch = (left < right); break;
-            case 34: takeBranch = (left <= right); break;
-            case 36: takeBranch = (left > right); break;
-            case 38: takeBranch = (left >= right); break;
-            }
-        }
-        else
-        {
-            const float left = FloatSource(this, instruction, 8, 1U);
-            const float right = FloatSource(this, instruction, 12, 2U);
-            switch (opcode)
-            {
-            case 29: takeBranch = (left == right); break;
-            case 31: takeBranch = (left != right); break;
-            case 33: takeBranch = (left < right); break;
-            case 35: takeBranch = (left <= right); break;
-            case 37: takeBranch = (left > right); break;
-            case 39: takeBranch = (left >= right); break;
-            }
-        }
-
-        if (takeBranch)
-        {
-            timer070.SetCurrent(ReadInstructionInteger(instruction, 20));
-            scriptDataOffsetCopy = scriptDataOffset + ReadInstructionInteger(instruction, 16);
-        }
-        else
-        {
-            scriptDataOffsetCopy = nextInstruction;
-        }
-        continue;
+        const float left = FloatSource(this, instruction, 8, 1U);
+        const float right = FloatSource(this, instruction, 12, 2U);
+        if (left >= right) goto AnmVmUpdateConditionalBranch;
+        break;
     }
 
     case 40:
@@ -1470,9 +1512,11 @@ int AnmVm::Update()
         continue;
 
     case 63:
-        keepExecuting = ExecuteWaitCommand(false);
-        if (keepExecuting) continue;
-        break;
+        if (currentFrame == 0)
+        {
+            goto AnmVmUpdateWaitNoFrame;
+        }
+        goto AnmVmUpdateWaitScan;
 
     case 68:
         scriptState = (int)InstructionBytes(instruction)[8];
@@ -1480,9 +1524,12 @@ int AnmVm::Update()
         continue;
 
     case 69:
-        keepExecuting = ExecuteWaitCommand(true);
-        if (keepExecuting) continue;
-        break;
+        flags &= ~1U;
+        if (currentFrame == 0)
+        {
+            goto AnmVmUpdateWaitNoFrame;
+        }
+        goto AnmVmUpdateWaitScan;
 
     case 81:
         // Restore the saved active timer, then resume after the wait marker.
@@ -1608,12 +1655,11 @@ int AnmVm::Update()
 
     case 96:
     {
-        const unsigned int childId = SpawnChildVm(
+        unsigned int childId = SpawnChildVm(
             this,
             IntegerSource(this, instruction, 8, 1U),
             0);
-        AnmManager *manager = GetGlobalAnmManager();
-        AnmVm *child = manager != 0 ? manager->GetVmById(childId) : 0;
+        AnmVm *child = ResolveAnmVmId(&childId);
         if (child != 0)
         {
             child->alternatePosition.x = FloatSource(this, instruction, 12, 2U);
@@ -1625,11 +1671,10 @@ int AnmVm::Update()
 
     case 97:
     {
-        const unsigned int childId = SpawnChildVmAtPosition(
+        unsigned int childId = SpawnChildVmAtPosition(
             this,
             IntegerSource(this, instruction, 8, 1U));
-        AnmManager *manager = GetGlobalAnmManager();
-        AnmVm *child = manager != 0 ? manager->GetVmById(childId) : 0;
+        AnmVm *child = ResolveAnmVmId(&childId);
         if (child != 0)
         {
             child->alternatePosition.x = FloatSource(this, instruction, 12, 2U);
@@ -1849,17 +1894,82 @@ int AnmVm::Update()
         scriptDataOffsetCopy = nextInstruction;
         continue;
 
+    case -1:
+    case 1:
+        flags &= ~1U;
+        // Fall through to the shared script-completion case.
+    case 2:
+        scriptDataOffsetCopy = 0;
+        goto AnmVmUpdateAfterScript;
+
     default:
-        scriptDataOffsetCopy = nextInstruction;
-        continue;
-    }
-            if (!keepExecuting)
-            {
-                break;
-            }
-        }
+        break;
     }
 
+            scriptDataOffsetCopy = nextInstruction;
+            continue;
+
+AnmVmUpdateConditionalBranch:
+            timer070.SetCurrent(ReadInstructionInteger(instruction, 20));
+            scriptDataOffsetCopy = scriptDataOffset + ReadInstructionInteger(instruction, 16);
+            continue;
+    }
+    goto AnmVmUpdateAfterScript;
+
+AnmVmUpdateWaitNoFrame:
+    flags |= 0x2000U;
+    timer070.Add(-1.0f);
+    goto AnmVmUpdateAfterScript;
+
+AnmVmUpdateWaitScan:
+    {
+        const AnmVmInstructionHeader *match = 0;
+        const AnmVmInstructionHeader *fallback = 0;
+        const AnmVmInstructionHeader *marker =
+            reinterpret_cast<const AnmVmInstructionHeader *>(scriptDataOffset);
+
+        while (marker->opcode != 0xFFFFU)
+        {
+            if (marker->opcode == 0x40U)
+            {
+                const int targetFrame = ReadInstructionInteger(marker, 8);
+                if (targetFrame == currentFrame)
+                {
+                    match = marker;
+                    break;
+                }
+                if (targetFrame == -1)
+                {
+                    fallback = marker;
+                }
+            }
+
+            marker = reinterpret_cast<const AnmVmInstructionHeader *>(
+                InstructionBytes(marker) + marker->size);
+        }
+
+        if (match == 0)
+        {
+            match = fallback;
+        }
+
+        flags &= ~0x2000U;
+        currentFrame = 0;
+        if (match == 0)
+        {
+            timer070.Add(-1.0f);
+            goto AnmVmUpdateAfterScript;
+        }
+
+        timer3FC.SetCurrent(timer070);
+        waitScriptAddress = scriptDataOffsetCopy;
+        timer070.SetCurrent(match->frame);
+        flags |= 1U;
+        scriptDataOffsetCopy = NextInstructionAddress(match);
+    }
+    goto AnmVmUpdateScriptLoop;
+
+AnmVmUpdateAfterScript:
     if (scriptDataOffsetCopy == 0)
     {
         *gameSpeed = savedGameSpeed;
@@ -1945,14 +2055,14 @@ int AnmVm::Update()
         switch ((vm->flags >> 24) & 0x1FU)
         {
         case 0:
-            BuildAnmVmViewCornersMode0(vm, corners);
+            BuildAnmVmViewCornersMode0(vm, corners, corners + 3, corners + 6, corners + 9);
             break;
         case 1:
-            BuildAnmVmViewCornersMode1(vm, corners);
+            BuildAnmVmViewCornersMode1(vm, corners, corners + 3, corners + 6, corners + 9);
             break;
         case 2:
         case 3:
-            BuildAnmVmViewCornersMode23(vm, corners);
+            BuildAnmVmViewCornersMode23(vm, corners, corners + 3, corners + 6, corners + 9);
             break;
         default:
             cornersValid = false;
@@ -2162,8 +2272,7 @@ int AnmVm::Update()
         const float segmentCountAsFloat = (float)segmentCount;
         const float angleStep = (float)(
             kAnmVmGeometryTwoPi / (double)segmentCountAsFloat);
-        const float vStep = (float)(
-            (double)integerVariables[1] / (double)segmentCountAsFloat);
+        const float vStep = integerVariables[1] / segmentCountAsFloat;
         float angle = unknown02C;
         float v = 0.0f;
 
@@ -2202,8 +2311,7 @@ int AnmVm::Update()
     const unsigned int divisor = count - 1U;
     const float divisorAsFloat = (float)divisor;
     const float angleStep = unknown024 / divisorAsFloat;
-    const float vStep = (float)(
-        (double)integerVariables[1] / (double)divisorAsFloat);
+    const float vStep = integerVariables[1] / divisorAsFloat;
     const float initialAngle = geometryMode == 13U
         ? unknown02C - unknown024 * 0.5f
         : unknown02C;

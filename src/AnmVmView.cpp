@@ -3,223 +3,310 @@
 
 #include <math.h>
 
-namespace
+void BuildAnmVmViewCornersMode0(
+    const AnmVm *vm,
+    float *topLeft,
+    float *topRight,
+    float *bottomLeft,
+    float *bottomRight)
 {
-    struct AnmVmViewMetrics
+    const AnmVm *parent = vm->parentVm;
+    const bool inheritParent = parent != 0 && (vm->stateFlags & 0x100U) == 0;
+
+    float width = vm->uvScrollX * vm->scaleX * vm->scale2X;
+    float height = vm->uvScrollY * vm->scaleY * vm->scale2Y;
+    if (inheritParent)
     {
-        float width;
-        float height;
-        float centerX;
-        float centerY;
-        float centerZ;
-        float parentX;
-        float parentY;
-        float angle;
-        unsigned int horizontalAnchor;
-        unsigned int verticalAnchor;
-        bool inheritParent;
-    };
-
-    __forceinline AnmVmViewMetrics GetAnmVmViewMetrics(const AnmVm *vm)
-    {
-        AnmVmViewMetrics metrics;
-        const AnmVm *parent = vm->parentVm;
-        metrics.inheritParent = parent != 0 && (vm->stateFlags & 0x100U) == 0;
-
-        metrics.width = vm->uvScrollX * vm->scaleX * vm->scale2X;
-        metrics.height = vm->uvScrollY * vm->scaleY * vm->scale2Y;
-        metrics.centerX = vm->position.x +
-            vm->secondaryPosition.x + vm->alternatePosition.x;
-        metrics.centerY = vm->position.y +
-            vm->secondaryPosition.y + vm->alternatePosition.y;
-        metrics.centerZ = vm->position.z +
-            vm->secondaryPosition.z + vm->alternatePosition.z;
-        metrics.parentX = 0.0f;
-        metrics.parentY = 0.0f;
-        metrics.angle = vm->unknown02C;
-
-        if (metrics.inheritParent)
-        {
-            metrics.width = parent->scale2X * parent->scaleX * metrics.width;
-            metrics.height = parent->scale2Y * parent->scaleY * metrics.height;
-            metrics.parentX = parent->position.x +
-                parent->secondaryPosition.x + parent->alternatePosition.x;
-            metrics.parentY = parent->position.y +
-                parent->secondaryPosition.y + parent->alternatePosition.y;
-            // The target's three view helpers add the parent XY translation,
-            // but all four output Z coordinates are overwritten with the
-            // child's own Z sum at the end of each helper.
-            metrics.angle += parent->unknown02C;
-        }
-
-        metrics.horizontalAnchor = (vm->flags >> 20) & 3U;
-        metrics.verticalAnchor = (vm->flags >> 22) & 3U;
-        return metrics;
+        width = parent->scale2X * parent->scaleX * width;
+        height = parent->scale2Y * parent->scaleY * height;
     }
 
-    __forceinline void WriteAxisAlignedCorners(
-        const AnmVmViewMetrics &metrics,
-        float centerX,
-        float centerY,
-        bool floorCenteredEdges,
-        float *corners)
-    {
-        float left;
-        float right;
-        float top;
-        float bottom;
+    const float centerX =
+        vm->position.x + vm->secondaryPosition.x + vm->alternatePosition.x;
+    const float centerY =
+        vm->position.y + vm->secondaryPosition.y + vm->alternatePosition.y;
 
-        switch (metrics.horizontalAnchor)
-        {
-        case 0:
-        {
-            const float centeredLeft = centerX - metrics.width * 0.5f;
-            left = floorCenteredEdges ? (float)floor((double)centeredLeft) : centeredLeft;
-            right = left + metrics.width;
-            break;
-        }
-        case 1:
-            left = centerX;
-            right = centerX + metrics.width;
-            break;
-        case 2:
-            left = centerX - metrics.width;
-            right = centerX;
-            break;
-        default:
-            left = right = 0.0f;
-            break;
-        }
-
-        switch (metrics.verticalAnchor)
-        {
-        case 0:
-        {
-            const float centeredTop = centerY - metrics.height * 0.5f;
-            top = floorCenteredEdges ? (float)floor((double)centeredTop) : centeredTop;
-            bottom = top + metrics.height;
-            break;
-        }
-        case 1:
-            top = centerY;
-            bottom = centerY + metrics.height;
-            break;
-        case 2:
-            top = centerY - metrics.height;
-            bottom = centerY;
-            break;
-        default:
-            top = bottom = 0.0f;
-            break;
-        }
-
-        left += metrics.parentX;
-        right += metrics.parentX;
-        top += metrics.parentY;
-        bottom += metrics.parentY;
-
-        corners[0] = left;
-        corners[1] = top;
-        corners[2] = metrics.centerZ;
-        corners[3] = right;
-        corners[4] = top;
-        corners[5] = metrics.centerZ;
-        corners[6] = left;
-        corners[7] = bottom;
-        corners[8] = metrics.centerZ;
-        corners[9] = right;
-        corners[10] = bottom;
-        corners[11] = metrics.centerZ;
-    }
-}
-
-void BuildAnmVmViewCornersMode0(const AnmVm *vm, float *corners)
-{
-    const AnmVmViewMetrics metrics = GetAnmVmViewMetrics(vm);
-    WriteAxisAlignedCorners(metrics, metrics.centerX, metrics.centerY, true, corners);
-}
-
-void BuildAnmVmViewCornersMode23(const AnmVm *vm, float *corners)
-{
-    const AnmVmViewMetrics metrics = GetAnmVmViewMetrics(vm);
-    WriteAxisAlignedCorners(metrics, metrics.centerX, metrics.centerY, false, corners);
-}
-
-void BuildAnmVmViewCornersMode1(const AnmVm *vm, float *corners)
-{
-    const AnmVmViewMetrics metrics = GetAnmVmViewMetrics(vm);
-    const float cosine = (float)cos((double)metrics.angle);
-    const float sine = (float)sin((double)metrics.angle);
-    const float originX = metrics.centerX + metrics.parentX;
-    const float originY = metrics.centerY + metrics.parentY;
-
-    float left;
-    float right;
-    float top;
-    float bottom;
-    switch (metrics.horizontalAnchor)
+    float left = 0.0f;
+    float right = 0.0f;
+    switch ((vm->flags >> 20) & 3U)
     {
     case 0:
-        left = -metrics.width * 0.5f;
-        right = metrics.width * 0.5f;
+        left = (float)floor((double)(centerX - width * 0.5f));
+        right = left + width;
         break;
     case 1:
-        left = 0.0f;
-        right = metrics.width;
+        left = centerX;
+        right = centerX + width;
         break;
     case 2:
-        left = -metrics.width;
-        right = 0.0f;
-        break;
-    default:
-        left = right = 0.0f;
+        left = centerX - width;
+        right = centerX;
         break;
     }
 
-    switch (metrics.verticalAnchor)
+    float top = 0.0f;
+    float bottom = 0.0f;
+    switch ((vm->flags >> 22) & 3U)
     {
     case 0:
-        top = -metrics.height * 0.5f;
-        bottom = metrics.height * 0.5f;
+        top = (float)floor((double)(centerY - height * 0.5f));
+        bottom = top + height;
         break;
     case 1:
-        top = 0.0f;
-        bottom = metrics.height;
+        top = centerY;
+        bottom = centerY + height;
         break;
     case 2:
-        top = -metrics.height;
-        bottom = 0.0f;
-        break;
-    default:
-        top = bottom = 0.0f;
+        top = centerY - height;
+        bottom = centerY;
         break;
     }
 
-    const float xOffsets[4] = {left, right, left, right};
-    const float yOffsets[4] = {top, top, bottom, bottom};
-    for (unsigned int i = 0; i != 4; ++i)
+    topLeft[0] = left;
+    topRight[0] = right;
+    bottomLeft[0] = left;
+    bottomRight[0] = right;
+    topLeft[1] = top;
+    topRight[1] = top;
+    bottomLeft[1] = bottom;
+    bottomRight[1] = bottom;
+
+    if (inheritParent)
     {
-        corners[i * 3] = originX +
-            cosine * xOffsets[i] - sine * yOffsets[i];
-        corners[i * 3 + 1] = originY +
-            cosine * yOffsets[i] + sine * xOffsets[i];
-        corners[i * 3 + 2] = metrics.centerZ;
+        topLeft[0] += parent->position.x +
+            parent->secondaryPosition.x + parent->alternatePosition.x;
+        topLeft[1] += parent->position.y +
+            parent->secondaryPosition.y + parent->alternatePosition.y;
+
+        topRight[0] += parent->position.x +
+            parent->secondaryPosition.x + parent->alternatePosition.x;
+        topRight[1] += parent->position.y +
+            parent->secondaryPosition.y + parent->alternatePosition.y;
+
+        bottomLeft[0] += parent->position.x +
+            parent->secondaryPosition.x + parent->alternatePosition.x;
+        bottomLeft[1] += parent->position.y +
+            parent->secondaryPosition.y + parent->alternatePosition.y;
+
+        bottomRight[0] += parent->position.x +
+            parent->secondaryPosition.x + parent->alternatePosition.x;
+        bottomRight[1] += parent->position.y +
+            parent->secondaryPosition.y + parent->alternatePosition.y;
     }
+
+    const float centerZ =
+        vm->position.z + vm->secondaryPosition.z + vm->alternatePosition.z;
+    topLeft[2] = centerZ;
+    topRight[2] = centerZ;
+    bottomLeft[2] = centerZ;
+    bottomRight[2] = centerZ;
+}
+
+void BuildAnmVmViewCornersMode23(
+    const AnmVm *vm,
+    float *topLeft,
+    float *topRight,
+    float *bottomLeft,
+    float *bottomRight)
+{
+    const AnmVm *parent = vm->parentVm;
+    const bool inheritParent = parent != 0 && (vm->stateFlags & 0x100U) == 0;
+
+    float width = vm->uvScrollX * vm->scaleX * vm->scale2X;
+    float height = vm->uvScrollY * vm->scaleY * vm->scale2Y;
+    if (inheritParent)
+    {
+        width = parent->scale2X * parent->scaleX * width;
+        height = parent->scale2Y * parent->scaleY * height;
+    }
+
+    const float centerX =
+        vm->position.x + vm->secondaryPosition.x + vm->alternatePosition.x;
+    const float centerY =
+        vm->position.y + vm->secondaryPosition.y + vm->alternatePosition.y;
+
+    float left = 0.0f;
+    float right = 0.0f;
+    switch ((vm->flags >> 20) & 3U)
+    {
+    case 0:
+        left = centerX - width * 0.5f;
+        right = left + width;
+        break;
+    case 1:
+        left = centerX;
+        right = centerX + width;
+        break;
+    case 2:
+        left = centerX - width;
+        right = centerX;
+        break;
+    }
+
+    float top = 0.0f;
+    float bottom = 0.0f;
+    switch ((vm->flags >> 22) & 3U)
+    {
+    case 0:
+        top = centerY - height * 0.5f;
+        bottom = top + height;
+        break;
+    case 1:
+        top = centerY;
+        bottom = centerY + height;
+        break;
+    case 2:
+        top = centerY - height;
+        bottom = centerY;
+        break;
+    }
+
+    topLeft[0] = left;
+    topRight[0] = right;
+    bottomLeft[0] = left;
+    bottomRight[0] = right;
+    topLeft[1] = top;
+    topRight[1] = top;
+    bottomLeft[1] = bottom;
+    bottomRight[1] = bottom;
+
+    if (inheritParent)
+    {
+        topLeft[0] += parent->position.x +
+            parent->secondaryPosition.x + parent->alternatePosition.x;
+        topLeft[1] += parent->position.y +
+            parent->secondaryPosition.y + parent->alternatePosition.y;
+
+        topRight[0] += parent->position.x +
+            parent->secondaryPosition.x + parent->alternatePosition.x;
+        topRight[1] += parent->position.y +
+            parent->secondaryPosition.y + parent->alternatePosition.y;
+
+        bottomLeft[0] += parent->position.x +
+            parent->secondaryPosition.x + parent->alternatePosition.x;
+        bottomLeft[1] += parent->position.y +
+            parent->secondaryPosition.y + parent->alternatePosition.y;
+
+        bottomRight[0] += parent->position.x +
+            parent->secondaryPosition.x + parent->alternatePosition.x;
+        bottomRight[1] += parent->position.y +
+            parent->secondaryPosition.y + parent->alternatePosition.y;
+    }
+
+    const float centerZ =
+        vm->position.z + vm->secondaryPosition.z + vm->alternatePosition.z;
+    topLeft[2] = centerZ;
+    topRight[2] = centerZ;
+    bottomLeft[2] = centerZ;
+    bottomRight[2] = centerZ;
+}
+
+void BuildAnmVmViewCornersMode1(
+    const AnmVm *vm,
+    float *topLeft,
+    float *topRight,
+    float *bottomLeft,
+    float *bottomRight)
+{
+    const AnmVm *parent = vm->parentVm;
+    const bool inheritParent = parent != 0 && (vm->stateFlags & 0x100U) == 0;
+
+    float angle = vm->unknown02C;
+    if (inheritParent)
+    {
+        angle += parent->unknown02C;
+    }
+    const float cosine = (float)cos((double)angle);
+    const float sine = (float)sin((double)angle);
+
+    float width = vm->uvScrollX * vm->scaleX * vm->scale2X;
+    float height = vm->uvScrollY * vm->scaleY * vm->scale2Y;
+    if (inheritParent)
+    {
+        width = parent->scale2X * parent->scaleX * width;
+        height = parent->scale2Y * parent->scaleY * height;
+    }
+
+    float originX =
+        vm->position.x + vm->secondaryPosition.x + vm->alternatePosition.x;
+    float originY =
+        vm->position.y + vm->secondaryPosition.y + vm->alternatePosition.y;
+    if (inheritParent)
+    {
+        originX += parent->position.x +
+            parent->secondaryPosition.x + parent->alternatePosition.x;
+        originY += parent->position.y +
+            parent->secondaryPosition.y + parent->alternatePosition.y;
+    }
+
+    const float centerZ =
+        vm->position.z + vm->secondaryPosition.z + vm->alternatePosition.z;
+
+    float left = 0.0f;
+    float right = 0.0f;
+    switch ((vm->flags >> 20) & 3U)
+    {
+    case 0:
+        left = -width * 0.5f;
+        right = width * 0.5f;
+        break;
+    case 1:
+        right = width;
+        break;
+    case 2:
+        left = -width;
+        break;
+    }
+
+    float top = 0.0f;
+    float bottom = 0.0f;
+    switch ((vm->flags >> 22) & 3U)
+    {
+    case 0:
+        top = -height * 0.5f;
+        bottom = height * 0.5f;
+        break;
+    case 1:
+        bottom = height;
+        break;
+    case 2:
+        top = -height;
+        break;
+    }
+
+    topLeft[0] = originX + cosine * left - sine * top;
+    topLeft[1] = originY + cosine * top + sine * left;
+    topRight[0] = originX + cosine * right - sine * top;
+    topRight[1] = originY + cosine * top + sine * right;
+    bottomLeft[0] = originX + cosine * left - sine * bottom;
+    bottomLeft[1] = originY + cosine * bottom + sine * left;
+    bottomRight[0] = originX + cosine * right - sine * bottom;
+    bottomRight[1] = originY + cosine * bottom + sine * right;
+
+    topLeft[2] = centerZ;
+    topRight[2] = centerZ;
+    bottomLeft[2] = centerZ;
+    bottomRight[2] = centerZ;
 }
 
 void BuildAnmVmViewCorners(const AnmVm *vm, float *corners)
 {
+    float *topLeft = corners;
+    float *topRight = corners + 3;
+    float *bottomLeft = corners + 6;
+    float *bottomRight = corners + 9;
+
     switch ((vm->flags >> 24) & 0x1FU)
     {
     case 0:
-        BuildAnmVmViewCornersMode0(vm, corners);
+        BuildAnmVmViewCornersMode0(vm, topLeft, topRight, bottomLeft, bottomRight);
         break;
     case 1:
-        BuildAnmVmViewCornersMode1(vm, corners);
+        BuildAnmVmViewCornersMode1(vm, topLeft, topRight, bottomLeft, bottomRight);
         break;
     case 2:
     case 3:
-        BuildAnmVmViewCornersMode23(vm, corners);
+        BuildAnmVmViewCornersMode23(vm, topLeft, topRight, bottomLeft, bottomRight);
         break;
     }
 }

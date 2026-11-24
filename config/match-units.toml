@@ -1906,17 +1906,19 @@ relocations = []
 
 
 [units.anm-vm-update-frame]
-frontier = true # Partial natural-C++ reconstruction; script dispatch is co-located for VC10 inlining.
-artifact_kind = "coff"
+frontier = true # LTCG experiment for the full natural-C++ per-VM frame owner and its inlined script interpreter.
+artifact_kind = "linked-pe"
 source = "src/AnmVmScript.cpp"
 inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp", "src/AnmManager.hpp", "src/AngleMath.hpp", "src/ZunTimer.hpp", "src/AnmVmGeometry.hpp", "src/AnmVmView.hpp"]
-object = "build/match/AnmVmUpdate.obj"
-profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+support_sources = ["probes/anm-vm-update-context.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVmEffects.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "src/ZunTimer.cpp", "src/AnmVmView.cpp"]
+output_dir = "build/match-linked/AnmVmUpdate"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmVmUpdateProbe@4"
 functions = ["AnmVm::Update"]
 symbol = "?Update@AnmVm@@QAEHXZ"
 target_address = 0x00459D90
 size = 13604
-relocations = []
+linkages = []
 
 # View-rectangle geometry: the three target paths are distinct natural C++ helpers.
 [units.anm-vm-view-corners-mode0]
@@ -1927,7 +1929,7 @@ inputs = ["src/AnmVm.hpp", "src/AnmVmView.hpp"]
 object = "build/match/AnmVmView.obj"
 profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
 functions = ["BuildAnmVmViewCornersMode0"]
-symbol = "?BuildAnmVmViewCornersMode0@@YAXPBUAnmVm@@PAM@Z"
+symbol = "?BuildAnmVmViewCornersMode0@@YAXPBUAnmVm@@PAM111@Z"
 target_address = 0x0045F110
 size = 1209
 relocations = []
@@ -1940,7 +1942,7 @@ inputs = ["src/AnmVm.hpp", "src/AnmVmView.hpp"]
 object = "build/match/AnmVmView.obj"
 profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
 functions = ["BuildAnmVmViewCornersMode23"]
-symbol = "?BuildAnmVmViewCornersMode23@@YAXPBUAnmVm@@PAM@Z"
+symbol = "?BuildAnmVmViewCornersMode23@@YAXPBUAnmVm@@PAM111@Z"
 target_address = 0x0045F610
 size = 1020
 relocations = []
@@ -1953,7 +1955,7 @@ inputs = ["src/AnmVm.hpp", "src/AnmVmView.hpp"]
 object = "build/match/AnmVmView.obj"
 profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
 functions = ["BuildAnmVmViewCornersMode1"]
-symbol = "?BuildAnmVmViewCornersMode1@@YAXPBUAnmVm@@PAM@Z"
+symbol = "?BuildAnmVmViewCornersMode1@@YAXPBUAnmVm@@PAM111@Z"
 target_address = 0x0045FAD0
 size = 623
 relocations = []
