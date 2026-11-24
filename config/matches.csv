@@ -1,5 +1,5 @@
 address,name,size,status,match_percent,unit,evidence
-0x00402AC0,ZunTimer::Increment,88,exact,100.00,zun-timer-increment,Cold pinned VC10 /GL /Ob1 /Oy- complete public primary-TU PDB contribution behind the shared ZunTimer probe context; current receipts; the three constants and _ftol2_sse replay with zero byte differences.
+0x00402AC0,ZunTimer::Increment,88,exact,100.00,zun-timer-increment,Cold pinned VC10 /GL linked-PE replay; complete 88-byte PDB contribution; three reviewed DIR32 constants and one REL32 __ftol2_sse relocation; zero byte differences.
 0x00402B20,ZunTimerModulo,16,exact,100.00,zun-timer-modulo,Cold pinned VC10 /GL /Ob1 /Oy- complete 16-byte public primary-TU PDB contribution behind an independent two-call probe context; current receipts; no fields; zero byte differences.
 0x00402B60,AnmVmSetUvScroll,26,exact,100.00,anm-vm-set-uv-scroll,Cold pinned VC10 /GL /Ob1 /Oy- complete public primary-TU PDB contribution behind the AnmVm setter probe context; current receipts; no fields; zero byte differences.
 0x00402C00,AnmVmSetScale2,26,exact,100.00,anm-vm-set-scale2,Cold pinned VC10 /GL /Ob1 /Oy- complete public primary-TU PDB contribution behind the AnmVm setter probe context; current receipts; no fields; zero byte differences.

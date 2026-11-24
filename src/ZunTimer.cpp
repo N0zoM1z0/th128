@@ -1,5 +1,25 @@
 #include "ZunTimer.hpp"
 
+__declspec(noinline) void ZunTimer::Increment()
+{
+    int nextCurrent = current;
+    float *const speed = gameSpeed;
+    previous = nextCurrent;
+    if (*speed > 0.99 && *speed < 1.01f)
+    {
+        float nextCurrentF = currentF;
+        ++nextCurrent;
+        nextCurrentF += 1.0f;
+        current = nextCurrent;
+        currentF = nextCurrentF;
+    }
+    else
+    {
+        const float nextCurrentF = *speed + currentF;
+        currentF = nextCurrentF;
+        current = (int)nextCurrentF;
+    }
+}
 
 __declspec(noinline) void ZunTimer::Reset()
 {
