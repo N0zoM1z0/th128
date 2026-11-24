@@ -1657,11 +1657,13 @@ AnmVmUpdateScriptLoop:
     }
 
     case 19:
-        *FloatDestination(*this, instruction) =
-            FloatSource(*this, instruction, 12, 2U) +
-            FloatSource(*this, instruction, 16, 4U);
+    {
+        const float left = FloatSource(*this, instruction, 12, 2U);
+        const float right = FloatSource(*this, instruction, 16, 4U);
+        *FloatDestination(*this, instruction) = left + right;
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
+    }
 
     case 20:
     {
@@ -1673,11 +1675,13 @@ AnmVmUpdateScriptLoop:
     }
 
     case 21:
-        *FloatDestination(*this, instruction) =
-            FloatSource(*this, instruction, 12, 2U) -
-            FloatSource(*this, instruction, 16, 4U);
+    {
+        const float left = FloatSource(*this, instruction, 12, 2U);
+        const float right = FloatSource(*this, instruction, 16, 4U);
+        *FloatDestination(*this, instruction) = left - right;
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
+    }
 
     case 22:
     {
@@ -1689,11 +1693,13 @@ AnmVmUpdateScriptLoop:
     }
 
     case 23:
-        *FloatDestination(*this, instruction) =
-            FloatSource(*this, instruction, 12, 2U) *
-            FloatSource(*this, instruction, 16, 4U);
+    {
+        const float left = FloatSource(*this, instruction, 12, 2U);
+        const float right = FloatSource(*this, instruction, 16, 4U);
+        *FloatDestination(*this, instruction) = left * right;
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
+    }
 
     case 24:
     {
@@ -1705,11 +1711,13 @@ AnmVmUpdateScriptLoop:
     }
 
     case 25:
-        *FloatDestination(*this, instruction) =
-            FloatSource(*this, instruction, 12, 2U) /
-            FloatSource(*this, instruction, 16, 4U);
+    {
+        const float left = FloatSource(*this, instruction, 12, 2U);
+        const float right = FloatSource(*this, instruction, 16, 4U);
+        *FloatDestination(*this, instruction) = left / right;
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
+    }
 
     case 26:
     {
@@ -1721,12 +1729,14 @@ AnmVmUpdateScriptLoop:
     }
 
     case 27:
-        *FloatDestination(*this, instruction) =
-            (float)fmod(
-                (double)FloatSource(*this, instruction, 12, 2U),
-                (double)FloatSource(*this, instruction, 16, 4U));
+    {
+        const float right = FloatSource(*this, instruction, 16, 4U);
+        const float left = FloatSource(*this, instruction, 12, 2U);
+        const float result = (float)fmod((double)left, (double)right);
+        *FloatDestination(*this, instruction) = result;
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
+    }
 
     case 8:
     {
@@ -1910,8 +1920,7 @@ AnmVmUpdateScriptLoop:
     case 87:
         stateFlags = (stateFlags & ~2U) |
             (((unsigned int)InstructionBytes(instruction)[8] << 1) & 2U);
-        scriptDataOffsetCopy = NextInstructionAddress(instruction);
-        continue;
+        break;
 
     default:
         break;
