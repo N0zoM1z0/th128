@@ -2242,10 +2242,6 @@ AnmVmUpdateAfterScript:
 
     const unsigned int vertexColor =
         (flags & 0x00030000U) == 0 ? color : secondaryColor;
-    const float outerRadius = scaleX * 0.5f + scaleY;
-    const float innerRadius = scaleY - scaleX * 0.5f;
-    const float outerU = textureRect[0][0] + textureScrollX;
-    const float innerU = textureRect[0][2] + textureScrollX;
 
     if (geometryMode == 9U)
     {
@@ -2267,23 +2263,23 @@ AnmVmUpdateAfterScript:
         for (unsigned int i = 0; i != segmentCount; ++i)
         {
             AnmVmEffect10Vertex *pairVertices = vertices + i * 2;
-            pairVertices[0].SetPolarForUpdate(angle, outerRadius);
+            pairVertices[0].reciprocalW = 1.0f;
+            pairVertices[0].color = vertexColor;
+            pairVertices[0].u = textureRect[0][0] + textureScrollX;
+            pairVertices[0].v = v + textureScrollY;
+            pairVertices[0].SetPolarForUpdate(angle, scaleX * 0.5f + scaleY);
             pairVertices[0].x += centerX;
             pairVertices[0].y += centerY;
             pairVertices[0].z = centerZ;
-            pairVertices[0].reciprocalW = 1.0f;
-            pairVertices[0].color = vertexColor;
-            pairVertices[0].u = outerU;
-            pairVertices[0].v = v + textureScrollY;
 
-            pairVertices[1].SetPolarForUpdate(angle, innerRadius);
+            pairVertices[1].reciprocalW = 1.0f;
+            pairVertices[1].color = vertexColor;
+            pairVertices[1].u = textureRect[0][2] + textureScrollX;
+            pairVertices[1].v = v + textureScrollY;
+            pairVertices[1].SetPolarForUpdate(angle, scaleY - scaleX * 0.5f);
             pairVertices[1].x += centerX;
             pairVertices[1].y += centerY;
             pairVertices[1].z = centerZ;
-            pairVertices[1].reciprocalW = 1.0f;
-            pairVertices[1].color = vertexColor;
-            pairVertices[1].u = innerU;
-            pairVertices[1].v = v + textureScrollY;
             v += vStep;
             angle = AddAngles(angle, angleStep);
         }
@@ -2309,23 +2305,23 @@ AnmVmUpdateAfterScript:
     for (unsigned int i = 0; i != count; ++i)
     {
         AnmVmEffect10Vertex *pairVertices = vertices + i * 2;
-        pairVertices[0].SetPolarForUpdate(angle, outerRadius);
+        pairVertices[0].reciprocalW = 1.0f;
+        pairVertices[0].color = vertexColor;
+        pairVertices[0].u = textureRect[0][0] + textureScrollX;
+        pairVertices[0].v = v + textureScrollY;
+        pairVertices[0].SetPolarForUpdate(angle, scaleX * 0.5f + scaleY);
         pairVertices[0].x += centerX;
         pairVertices[0].y += centerY;
         pairVertices[0].z = centerZ;
-        pairVertices[0].reciprocalW = 1.0f;
-        pairVertices[0].color = vertexColor;
-        pairVertices[0].u = outerU;
-        pairVertices[0].v = v + textureScrollY;
 
-        pairVertices[1].SetPolarForUpdate(angle, innerRadius);
+        pairVertices[1].reciprocalW = 1.0f;
+        pairVertices[1].color = vertexColor;
+        pairVertices[1].u = textureRect[0][2] + textureScrollX;
+        pairVertices[1].v = v + textureScrollY;
+        pairVertices[1].SetPolarForUpdate(angle, scaleY - scaleX * 0.5f);
         pairVertices[1].x += centerX;
         pairVertices[1].y += centerY;
         pairVertices[1].z = centerZ;
-        pairVertices[1].reciprocalW = 1.0f;
-        pairVertices[1].color = vertexColor;
-        pairVertices[1].u = innerU;
-        pairVertices[1].v = v + textureScrollY;
         v += vStep;
         angle = AddAngles(angle, angleStep);
     }
