@@ -73,68 +73,63 @@ int AnmVm::ResolveIntegerOperand(int operand)
 
 float AnmVm::ResolveFloatOperand(float operand)
 {
-    // The target routes float operands through its nearest-even conversion
-    // helper; a C++ cast would truncate and select the wrong script variable.
-    const int variable = ZunRoundToInt((double)operand);
-    if ((unsigned int)variable - kVmOperandBase >= 0x1AU)
+    // Resolve script operands with the target's nearest-even conversion.
+    const int roundedOperand = ZunRoundToInt((double)operand);
+    const int variable = (int)((unsigned int)roundedOperand - kVmOperandBase);
+    switch (variable)
     {
-        return operand;
-    }
-
-    switch ((unsigned int)variable)
-    {
-    case 10000:
+    case 0:
         return (float)integerVariables[0];
-    case 10001:
+    case 1:
         return (float)integerVariables[1];
-    case 10002:
+    case 2:
         return (float)integerVariables[2];
-    case 10003:
+    case 3:
         return (float)integerVariables[3];
-    case 10004:
+    case 4:
         return floatVariables[0];
-    case 10005:
+    case 5:
         return floatVariables[1];
-    case 10006:
+    case 6:
         return floatVariables[2];
-    case 10007:
+    case 7:
         return floatVariables[3];
-    case 10008:
+    case 8:
         return (float)integerVariables2[0];
-    case 10009:
+    case 9:
         return (float)integerVariables2[1];
-    case 10010:
-        return RandomSignedValue(this) * 3.1415927410125732421875f;
-    case 10011:
+    case 11:
         return RandomUnitValue(this);
-    case 10012:
+    case 12:
         return RandomSignedValue(this);
-    case 10013:
+    case 10:
+        return RandomSignedValue(this) * 3.1415927410125732421875f;
+    case 13:
         return secondaryPosition.x;
-    case 10014:
+    case 14:
         return secondaryPosition.y;
-    case 10015:
+    case 15:
         return secondaryPosition.z;
-    case 10016:
-        return ReadTargetFloat(0x004D329C);
-    case 10017:
-        return ReadTargetFloat(0x004D32A0);
-    case 10018:
-        return ReadTargetFloat(0x004D32A4);
-    case 10019:
-        return ReadTargetFloat(0x004D32C0);
-    case 10020:
-        return ReadTargetFloat(0x004D32C4);
-    case 10021:
-        return ReadTargetFloat(0x004D32C8);
-    case 10022:
-        return (float)NextVmRandomValue(this);
-    case 10023:
+    case 23:
         return unknown024;
-    case 10024:
+    case 24:
         return unknown028;
-    case 10025:
+    case 25:
         return unknown02C;
+    case 16:
+        return ReadTargetFloat(0x004D329C);
+    case 17:
+        return ReadTargetFloat(0x004D32A0);
+    case 18:
+        return ReadTargetFloat(0x004D32A4);
+    case 19:
+        return ReadTargetFloat(0x004D32C0);
+    case 20:
+        return ReadTargetFloat(0x004D32C4);
+    case 21:
+        return ReadTargetFloat(0x004D32C8);
+    case 22:
+        return (float)NextVmRandomValue(this);
     default:
         return operand;
     }
