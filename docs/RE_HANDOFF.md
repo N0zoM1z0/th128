@@ -68,9 +68,12 @@ receipts, not from commit count or source presence.
 Current source covers script gating/termination, game-speed save/restore,
 continuous angle/scale/texture motion, view-rectangle refresh, render-state
 synchronization, transition updates, custom geometry, frame callback and timer
-advancement. The original owner is much larger; continue comparing its full
-control flow, branch ordering and side effects. Do not treat the current
-function comment or source mapping as proof of completeness.
+advancement. The latest selected VC10 `/GL` PDB contribution is 13,516 bytes
+versus the 13,604-byte target; it is still not an exact replay. Opcode 41 now
+uses the exact `Rng::GetFloat(float scale)` leaf at 0x0040D130 with the
+world/UI generator selected from `stateFlags`. Continue comparing the full
+control flow, branch ordering and side effects; do not mark the boss exact
+from source presence or this size improvement.
 
 Primary evidence:
 - .analysis/anm-vm-update-target.txt
@@ -87,6 +90,7 @@ Primary evidence:
 | src/AnmVmTransitions.cpp | transition setup and interpolation | source-present; not exact |
 | src/AnmVmEffects.cpp | render-state sync, world matrices, sprite/fog/primitive draw paths, effect 10 | mixed exact and frontier owners; check each ledger row |
 | src/AnmVmOperands.cpp | four operand resolver owners | four complete linked-PE owners exact; replay affected owners after edits |
+| src/Rng.cpp | RNG primitives and scaled overloads | unsigned/signed scaled helpers exact; opcode 41 uses unsigned scaled overload |
 | src/AnmVmResource.cpp | VM resource binding and coordinate normalization | check each ledger row |
 | src/AnmManager.cpp | VM allocation, lists, update and draw grouping | check each ledger row |
 

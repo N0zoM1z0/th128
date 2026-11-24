@@ -1840,8 +1840,14 @@ AnmVmUpdateScriptLoop:
 
     case 41:
     {
+        const bool useUiRandom = (stateFlags & 2U) != 0;
         const float limit = FloatSource(*this, instruction, 12, 2U);
-        *FloatDestination(*this, instruction) = (float)(RandomUnit() * limit);
+        Rng *randomGenerator = useUiRandom
+            ? reinterpret_cast<Rng *>(0x004D2AD8)
+            : reinterpret_cast<Rng *>(0x004D2AE0);
+        const float value = randomGenerator->GetFloat(limit);
+        float *destination = FloatDestination(*this, instruction);
+        *destination = value;
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }

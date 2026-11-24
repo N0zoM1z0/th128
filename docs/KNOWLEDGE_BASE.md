@@ -195,7 +195,13 @@ game-speed save/restore, script update gate, continuous angle/scale/texture
 motion, view texture-rectangle refresh, render-state synchronization,
 transitions, custom geometry, callback and timer advancement. It is still a
 partial reconstruction of the large target function; branch ordering,
-missing paths and side effects require further target comparison.
+missing paths and side effects require further target comparison. The latest
+selected VC10 `/GL` candidate owns 13,516 bytes versus the 13,604-byte target
+contribution; this is a useful frontier measurement, not an exact replay.
+Opcode 41 now routes through the exact `Rng::GetFloat(float scale)` helper at
+`0x0040D130`, selecting the world/UI generator from `stateFlags` before the
+scaled sample. The boss itself remains unclassified until its complete owner
+and linkage set replay with zero differences.
 
 Useful evidence:
 - .analysis/anm-vm-update-target.txt — target Ghidra decompilation
