@@ -115,6 +115,7 @@ Pbg::MemFile::~MemFile
 Pbg::ParseArchiveDirectory
 Rng::GetAngle
 Rng::GetFloat
+Rng::GetFloatScaled
 Rng::GetFloatSigned
 Rng::GetFloatSignedScaled
 Rng::GetU16

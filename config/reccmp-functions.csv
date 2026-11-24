@@ -16,6 +16,7 @@ SetTimeScale,0x00407310,function
 ZunTimer::operator>=,0x004073B0,function
 ZunTimer::operator==,0x00407E70,function
 InterpolateLinearScalar,0x0040CCF0,function
+Rng::GetFloatScaled,0x0040D130,function
 ZunTimer::operator>,0x00410CD0,function
 AnmVmEffectNoop412B30,0x00412B30,function
 AnmVmEffectNoop412B40,0x00412B40,function

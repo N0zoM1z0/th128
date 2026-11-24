@@ -173,7 +173,7 @@ loaders and the cipher key table.
 The recent local work has concentrated on the large AnmVm update, operand
 resolution and rendering subsystem. Treat implementations without accepted
 rows in the canonical ledger as source frontiers, not as exact codegen or
-runtime proof. The canonical ledger currently has 93 exact functions overall;
+runtime proof. The canonical ledger currently has 94 exact functions overall;
 15 exact owners are in the ANM area:
 
 - Setters: 0x00402B60, 0x00402C00, 0x00402C20, 0x00407020, 0x00407040
@@ -437,9 +437,14 @@ flags (`0x004D33F8`) is set (lock `0x004D3768`, depth byte `0x004D37A2`).
   constant), then scale by double constants (`2^-32`, `2^-31` then `- 1.0`,
   `/ 683565248.0` then `- pi`).
 - The scaled overload `Rng::GetFloatSigned(float scale)` at `0x00412E90`
-  is also exact as a 58-byte normal-COFF leaf with four reviewed relocations.
-  It rounds the signed unit-range intermediate to float before multiplying
-  by `scale`; `AnmVm::ResolveFloatOperand` uses it for the random-angle slot.
+  is exact as a 58-byte normal-COFF leaf with four reviewed relocations. It
+  rounds the signed unit-range intermediate to float before multiplying by
+  `scale`; `AnmVm::ResolveFloatOperand` uses it for the random-angle slot.
+- The unsigned scaled overload `Rng::GetFloat(float scale)` at `0x0040D130`
+  is exact as a 52-byte linked-PE leaf with three reviewed relocations. It
+  converts `GetU32()` to the unsigned unit interval, rounds that intermediate
+  to float, then multiplies by `scale`; `AnmVm::Update` opcode 41 calls it on
+  the VM-selected world/UI RNG.
 
 `AnmManager::GetVmById` (`0x00467420`, 277 call sites) searches two VM
 lists (`+0x8B9704`, `+0x8B970C`, nodes `{vm, next}`) for `vm->id` (AnmVm

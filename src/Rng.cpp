@@ -54,6 +54,12 @@ float Rng::GetFloat()
     return (float)((float)GetU32() * (1.0 / 4294967296.0));
 }
 
+__declspec(noinline) float Rng::GetFloat(float scale)
+{
+    scale = (float)((float)GetU32() * (1.0 / 4294967296.0)) * scale;
+    return scale;
+}
+
 float Rng::GetFloatSigned()
 {
     return (float)((float)GetU32() * (2.0 / 4294967296.0) - 1.0);

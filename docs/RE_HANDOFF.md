@@ -36,12 +36,12 @@ canonical ledgers. At this snapshot:
 | Boundary reviewed / provisional | 3,452 / 64 |
 | Origin rows pending | 49 |
 | Authored / excluded / indeterminate | 2,214 / 1,253 / 0 |
-| Source-present mappings | 148 |
-| Source-present with authored origin | 143 |
+| Source-present mappings | 149 |
+| Source-present with authored origin | 144 |
 | Authored source-present exact backlog | 55 |
-| Canonical exact functions | 93 |
-| Canonical exact codegen bytes | 5,385 |
-| Canonical exact authored bytes | 5,127 |
+| Canonical exact functions | 94 |
+| Canonical exact codegen bytes | 5,437 |
+| Canonical exact authored bytes | 5,179 |
 
 The candidate inventory is not proven complete. The 49 pending origin rows
 are 21 D3DX candidates, 12 LTCG-entry adapter candidates and 16 later-added

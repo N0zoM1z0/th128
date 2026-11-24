@@ -9,5 +9,5 @@ unsigned int *g_ProbeFlagsAddress = &g_GameFlags;
 extern "C" float __stdcall RngProbe(Rng *a, Rng *b)
 {
     unsigned int value = a->GetU32() + b->GetU16() + a->GetU16();
-    return a->GetFloat() + b->GetFloatSigned() + a->GetAngle() + b->GetFloat() + (float)value;
+    return a->GetFloat() + a->GetFloat(1.0f) + b->GetFloatSigned() + a->GetAngle() + b->GetFloat() + (float)value;
 }
