@@ -2111,10 +2111,25 @@ AnmVmUpdateAfterScript:
 
         if (cornersValid)
         {
-            NormalizeAnmCoordinates(&textureRect[0][0], &corners[0]);
-            NormalizeAnmCoordinates(&textureRect[1][0], &corners[3]);
-            NormalizeAnmCoordinates(&textureRect[2][0], &corners[6]);
-            NormalizeAnmCoordinates(&textureRect[3][0], &corners[9]);
+            const float textureWidth = 640.0f;
+            const float textureHeight = 480.0f;
+            float *textureCoordinates = &textureRect[0][0];
+            textureCoordinates[0] = corners[0] / textureWidth;
+            textureCoordinates[1] = corners[1] / textureHeight;
+            if (textureCoordinates[0] < 0.0f) textureCoordinates[0] = 0.0f;
+            if (textureCoordinates[1] < 0.0f) textureCoordinates[1] = 0.0f;
+            textureCoordinates[2] = corners[3] / textureWidth;
+            textureCoordinates[3] = corners[4] / textureHeight;
+            if (textureCoordinates[2] < 0.0f) textureCoordinates[2] = 0.0f;
+            if (textureCoordinates[3] < 0.0f) textureCoordinates[3] = 0.0f;
+            textureCoordinates[4] = corners[6] / textureWidth;
+            textureCoordinates[5] = corners[7] / textureHeight;
+            if (textureCoordinates[4] < 0.0f) textureCoordinates[4] = 0.0f;
+            if (textureCoordinates[5] < 0.0f) textureCoordinates[5] = 0.0f;
+            textureCoordinates[6] = corners[9] / textureWidth;
+            textureCoordinates[7] = corners[10] / textureHeight;
+            if (textureCoordinates[6] < 0.0f) textureCoordinates[6] = 0.0f;
+            if (textureCoordinates[7] < 0.0f) textureCoordinates[7] = 0.0f;
         }
 
     }

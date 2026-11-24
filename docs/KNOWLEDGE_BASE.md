@@ -198,12 +198,15 @@ motion, view texture-rectangle refresh, render-state synchronization,
 transitions, custom geometry, callback and timer advancement. It is still a
 partial reconstruction of the large target function; branch ordering,
 missing paths and side effects require further target comparison. The latest
-selected VC10 `/GL` candidate currently owns 14,056 bytes versus the
+selected VC10 `/GL` candidate currently owns 14,332 bytes versus the
 13,604-byte target contribution; this is a useful frontier measurement, not
-an exact replay. The latest opcode-41 source experiment keeps the world/UI RNG
-selection and operand conversion explicit, but the compiler still spills the
-float source across the branch and does not yet reproduce the target's x87
-stack flow.
+an exact replay. Opcode 41 keeps world/UI RNG selection and operand conversion
+explicit, but the compiler still spills the float source across the branch
+and does not yet reproduce the target's x87 stack flow. The per-frame
+`stateFlags & 0x20` view refresh now performs its four coordinate divisions
+and lower-bound clamps inline, matching the target's direct x87 arithmetic;
+only opcode 98 calls the separate `NormalizeAnmCoordinates` helper. The latest
+call-site inventory has four target and four candidate calls to that helper.
 Opcode 41 now routes through the exact `Rng::GetFloat(float scale)` helper at
 `0x0040D130`, selecting the world/UI generator from `stateFlags` before the
 scaled sample. The boss itself remains unclassified until its complete owner
