@@ -223,22 +223,13 @@ namespace
 
 __forceinline void AnmVm::UpdateTextureRectFromView()
 {
-    if (((flags >> 24) & 0x1FU) > 3U)
-    {
-        return;
-    }
-
     float corners[12];
     BuildAnmVmViewCorners(this, corners);
     float *textureCoordinates = &textureRect[0][0];
-    for (unsigned int i = 0; i != 4; ++i)
-    {
-        const float pixels[2] = {corners[i * 3], corners[i * 3 + 1]};
-        float normalized[2];
-        NormalizeAnmCoordinates(normalized, pixels);
-        textureCoordinates[i * 2] = normalized[0];
-        textureCoordinates[i * 2 + 1] = normalized[1];
-    }
+    NormalizeAnmCoordinates(textureCoordinates, corners);
+    NormalizeAnmCoordinates(textureCoordinates + 2, corners + 3);
+    NormalizeAnmCoordinates(textureCoordinates + 4, corners + 6);
+    NormalizeAnmCoordinates(textureCoordinates + 6, corners + 9);
 }
 
 __forceinline bool AnmVm::ExecuteWaitCommand(bool clearActiveFlag)
@@ -1474,36 +1465,34 @@ AnmVmUpdateScriptLoop:
     case 61:
         flags ^= 0x400U;
         flags |= 8U;
-        scaleX = -scaleX;
+        scaleX *= -1.0f;
         scriptDataOffsetCopy = nextInstruction;
         continue;
 
     case 62:
         flags ^= 0x800U;
         flags |= 8U;
-        scaleY = -scaleY;
+        scaleY *= -1.0f;
         scriptDataOffsetCopy = nextInstruction;
         continue;
 
     case 65:
     {
-        const unsigned int xFlags = ReadInstructionUnsignedShort(instruction, 8);
-        const unsigned int yFlags = ReadInstructionUnsignedShort(instruction, 10);
-        flags = (flags & ~0x00300000U) | ((xFlags << 20) & 0x00300000U);
-        flags = (flags & ~0x00C00000U) | ((yFlags << 22) & 0x00C00000U);
+        flags = (flags & ~0x00300000U) |
+            (((unsigned int)ReadInstructionUnsignedShort(instruction, 8) << 20) & 0x00300000U);
+        flags = (flags & ~0x00C00000U) |
+            (((unsigned int)ReadInstructionUnsignedShort(instruction, 10) << 22) & 0x00C00000U);
         scriptDataOffsetCopy = nextInstruction;
         continue;
     }
 
     case 66:
-        flags = (flags & ~0x000000E0U) |
-            (((unsigned int)ReadInstructionInteger(instruction, 8) << 5) & 0x000000E0U);
+        flags ^= (((unsigned int)ReadInstructionInteger(instruction, 8) << 5) ^ flags) & 0x000000E0U;
         scriptDataOffsetCopy = nextInstruction;
         continue;
 
     case 67:
-        flags = (flags & ~0x1F000000U) |
-            (((unsigned int)IntegerSource(this, instruction, 8, 1U) << 24) & 0x1F000000U);
+        flags ^= (((unsigned int)ReadInstructionInteger(instruction, 8) << 24) ^ flags) & 0x1F000000U;
         if ((flags & 0x1F000000U) == 0x0A000000U)
         {
             StartEffect10();
@@ -1598,8 +1587,8 @@ AnmVmUpdateScriptLoop:
 
     case 84:
     {
-        const int vertexCount = IntegerSource(this, instruction, 8, 1U);
         flags = (flags & 0xE9FFFFFFU) | 0x09000000U;
+        const int vertexCount = IntegerSource(this, instruction, 8, 1U);
         extraData = malloc(vertexCount * 0x38);
         scriptDataOffsetCopy = nextInstruction;
         continue;
@@ -1607,8 +1596,8 @@ AnmVmUpdateScriptLoop:
 
     case 101:
     {
-        const int vertexCount = IntegerSource(this, instruction, 8, 1U);
         flags = (flags & 0xEDFFFFFFU) | 0x0D000000U;
+        const int vertexCount = IntegerSource(this, instruction, 8, 1U);
         extraData = malloc(vertexCount * 0x38);
         scriptDataOffsetCopy = nextInstruction;
         continue;
@@ -1872,8 +1861,8 @@ AnmVmUpdateScriptLoop:
 
     case 114:
     {
-        const int vertexCount = IntegerSource(this, instruction, 8, 1U);
         flags = (flags & 0xEEFFFFFFU) | 0x0E000000U;
+        const int vertexCount = IntegerSource(this, instruction, 8, 1U);
         extraData = malloc(vertexCount * 0x38);
         scriptDataOffsetCopy = nextInstruction;
         continue;
