@@ -787,7 +787,12 @@ int AnmVm::Update()
         *gameSpeed = 1.0f;
     }
 
-    if (vm->currentFrame == 0 && (vm->stateFlags & 0xC0U) == 0x40U)
+    if (currentFrame != 0)
+    {
+        goto AnmVmUpdateWaitScan;
+    }
+
+    if ((vm->stateFlags & 0xC0U) == 0x40U)
     {
         const void *stageState =
             *reinterpret_cast<void *const *>(0x004B8954);
@@ -799,11 +804,6 @@ int AnmVm::Update()
             // restore at 0x0045D0B0. Preserve the temporary speed on this edge.
             return 0;
         }
-    }
-
-    if (currentFrame != 0)
-    {
-        goto AnmVmUpdateWaitScan;
     }
 
 AnmVmUpdateScriptLoop:
@@ -1923,49 +1923,48 @@ AnmVmUpdateWaitNoFrame:
 
 AnmVmUpdateWaitScan:
     {
-        const AnmVmInstructionHeader *match = 0;
         const AnmVmInstructionHeader *fallback = 0;
         const AnmVmInstructionHeader *marker =
             reinterpret_cast<const AnmVmInstructionHeader *>(scriptDataOffset);
 
-        while (marker->opcode != 0xFFFFU)
+        for (;;)
         {
-            if (marker->opcode == 0x40U)
+            if (marker->opcode == 0x40U &&
+                ReadInstructionInteger(marker, 8) == currentFrame)
             {
-                const int targetFrame = ReadInstructionInteger(marker, 8);
-                if (targetFrame == currentFrame)
-                {
-                    match = marker;
-                    break;
-                }
-                if (targetFrame == -1)
-                {
-                    fallback = marker;
-                }
+                break;
+            }
+            if (marker->opcode == 0xFFFFU)
+            {
+                break;
+            }
+            if (marker->opcode == 0x40U &&
+                ReadInstructionInteger(marker, 8) == -1)
+            {
+                fallback = marker;
             }
 
             marker = reinterpret_cast<const AnmVmInstructionHeader *>(
                 InstructionBytes(marker) + marker->size);
         }
 
-        if (match == 0)
-        {
-            match = fallback;
-        }
-
         flags &= ~0x2000U;
         currentFrame = 0;
-        if (match == 0)
+        if (marker->opcode != 0x40U)
         {
-            timer070.Add(-1.0f);
-            goto AnmVmUpdateAfterScript;
+            if (fallback == 0)
+            {
+                timer070.Add(-1.0f);
+                goto AnmVmUpdateAfterScript;
+            }
+            marker = fallback;
         }
 
         timer3FC.SetCurrent(timer070);
         waitScriptAddress = scriptDataOffsetCopy;
-        timer070.SetCurrent(match->frame);
+        timer070.SetCurrent(marker->frame);
         flags |= 1U;
-        scriptDataOffsetCopy = NextInstructionAddress(match);
+        scriptDataOffsetCopy = NextInstructionAddress(marker);
     }
     goto AnmVmUpdateScriptLoop;
 
