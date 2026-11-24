@@ -807,7 +807,6 @@ AnmVmUpdateScriptLoop:
                 break;
             }
 
-    const unsigned int nextInstruction = NextInstructionAddress(instruction);
     int *integerDestination;
     float *floatDestination;
     int integerValue;
@@ -846,7 +845,7 @@ AnmVmUpdateScriptLoop:
         }
         BindAnmFile(fileIndex, fileResource);
         lastScriptFrame = timer070.current;
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
 
@@ -866,176 +865,192 @@ AnmVmUpdateScriptLoop:
         }
         else
         {
-            scriptDataOffsetCopy = nextInstruction;
+            scriptDataOffsetCopy = NextInstructionAddress(instruction);
         }
         continue;
 
     case 6:
         *IntegerDestination(this, instruction) =
             IntegerSource(this, instruction, 12, 2U);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case 7:
         *FloatDestination(this, instruction) =
             FloatSource(this, instruction, 12, 2U);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case 8:
+    {
+        const int operand = IntegerSource(this, instruction, 12, 2U);
         integerDestination = IntegerDestination(this, instruction);
-        *integerDestination += IntegerSource(this, instruction, 12, 2U);
-        scriptDataOffsetCopy = nextInstruction;
+        *integerDestination += operand;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
+    }
 
     case 9:
+    {
+        const float operand = FloatSource(this, instruction, 12, 2U);
         floatDestination = FloatDestination(this, instruction);
-        *floatDestination += FloatSource(this, instruction, 12, 2U);
-        scriptDataOffsetCopy = nextInstruction;
+        *floatDestination += operand;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
+    }
 
     case 10:
+    {
+        const int operand = IntegerSource(this, instruction, 12, 2U);
         integerDestination = IntegerDestination(this, instruction);
-        *integerDestination -= IntegerSource(this, instruction, 12, 2U);
-        scriptDataOffsetCopy = nextInstruction;
+        *integerDestination -= operand;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
+    }
 
     case 11:
+    {
+        const float operand = FloatSource(this, instruction, 12, 2U);
         floatDestination = FloatDestination(this, instruction);
-        *floatDestination -= FloatSource(this, instruction, 12, 2U);
-        scriptDataOffsetCopy = nextInstruction;
+        *floatDestination -= operand;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
+    }
 
     case 12:
+    {
+        const int operand = IntegerSource(this, instruction, 12, 2U);
         integerDestination = IntegerDestination(this, instruction);
-        *integerDestination *= IntegerSource(this, instruction, 12, 2U);
-        scriptDataOffsetCopy = nextInstruction;
+        *integerDestination *= operand;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
+    }
 
     case 13:
+    {
+        const float operand = FloatSource(this, instruction, 12, 2U);
         floatDestination = FloatDestination(this, instruction);
-        *floatDestination *= FloatSource(this, instruction, 12, 2U);
-        scriptDataOffsetCopy = nextInstruction;
+        *floatDestination *= operand;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
+    }
 
     case 14:
+    {
+        const int operand = IntegerSource(this, instruction, 12, 2U);
         integerDestination = IntegerDestination(this, instruction);
-        *integerDestination /= IntegerSource(this, instruction, 12, 2U);
-        scriptDataOffsetCopy = nextInstruction;
+        *integerDestination /= operand;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
+    }
 
     case 15:
+    {
+        const float operand = FloatSource(this, instruction, 12, 2U);
         floatDestination = FloatDestination(this, instruction);
-        *floatDestination /= FloatSource(this, instruction, 12, 2U);
-        scriptDataOffsetCopy = nextInstruction;
+        *floatDestination /= operand;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
+    }
 
     case 16:
+    {
+        const int operand = IntegerSource(this, instruction, 12, 2U);
         integerDestination = IntegerDestination(this, instruction);
-        *integerDestination %= IntegerSource(this, instruction, 12, 2U);
-        scriptDataOffsetCopy = nextInstruction;
+        *integerDestination %= operand;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
+    }
 
     case 17:
-        floatDestination = FloatDestination(this, instruction);
-        floatValue = FloatSource(this, instruction, 8, 1U);
-        *floatDestination = (float)fmod(
-            (double)floatValue,
-            (double)FloatSource(this, instruction, 12, 2U));
-        scriptDataOffsetCopy = nextInstruction;
+    {
+        const float right = FloatSource(this, instruction, 12, 2U);
+        const float left = FloatSource(this, instruction, 8, 1U);
+        const float result = (float)fmod((double)left, (double)right);
+        *FloatDestination(this, instruction) = result;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
+    }
 
     case 18:
-        floatValue = ReadInstructionFloat(instruction, 12);
-        if ((instruction->flags & 2U) != 0)
-        {
-            floatValue = (float)ResolveIntegerOperand(ReadInstructionInteger(instruction, 12));
-        }
-        *IntegerDestination(this, instruction) =
-            (int)floatValue + IntegerSource(this, instruction, 16, 4U);
-        scriptDataOffsetCopy = nextInstruction;
+    {
+        const int left = IntegerSource(this, instruction, 12, 2U);
+        const int right = IntegerSource(this, instruction, 16, 4U);
+        *IntegerDestination(this, instruction) = left + right;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
+    }
 
     case 19:
         *FloatDestination(this, instruction) =
             FloatSource(this, instruction, 12, 2U) +
             FloatSource(this, instruction, 16, 4U);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case 20:
-        floatValue = ReadInstructionFloat(instruction, 16);
-        if ((instruction->flags & 4U) != 0)
-        {
-            floatValue = (float)ResolveIntegerOperand(ReadInstructionInteger(instruction, 16));
-        }
-        *IntegerDestination(this, instruction) =
-            IntegerSource(this, instruction, 12, 2U) - (int)floatValue;
-        scriptDataOffsetCopy = nextInstruction;
+    {
+        const int left = IntegerSource(this, instruction, 12, 2U);
+        const int right = IntegerSource(this, instruction, 16, 4U);
+        *IntegerDestination(this, instruction) = left - right;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
+    }
 
     case 21:
         *FloatDestination(this, instruction) =
             FloatSource(this, instruction, 12, 2U) -
             FloatSource(this, instruction, 16, 4U);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case 22:
-        floatValue = ReadInstructionFloat(instruction, 12);
-        if ((instruction->flags & 2U) != 0)
-        {
-            floatValue = (float)ResolveIntegerOperand(ReadInstructionInteger(instruction, 12));
-        }
-        *IntegerDestination(this, instruction) =
-            (int)floatValue * IntegerSource(this, instruction, 16, 4U);
-        scriptDataOffsetCopy = nextInstruction;
+    {
+        const int left = IntegerSource(this, instruction, 12, 2U);
+        const int right = IntegerSource(this, instruction, 16, 4U);
+        *IntegerDestination(this, instruction) = left * right;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
+    }
 
     case 23:
         *FloatDestination(this, instruction) =
             FloatSource(this, instruction, 12, 2U) *
             FloatSource(this, instruction, 16, 4U);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case 24:
-        floatValue = ReadInstructionFloat(instruction, 12);
-        if ((instruction->flags & 2U) != 0)
-        {
-            floatValue = (float)ResolveIntegerOperand(ReadInstructionInteger(instruction, 12));
-        }
-        integerValue = (int)floatValue;
-        *IntegerDestination(this, instruction) =
-            integerValue / IntegerSource(this, instruction, 16, 4U);
-        scriptDataOffsetCopy = nextInstruction;
+    {
+        const int left = IntegerSource(this, instruction, 12, 2U);
+        const int right = IntegerSource(this, instruction, 16, 4U);
+        *IntegerDestination(this, instruction) = left / right;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
+    }
 
     case 25:
         *FloatDestination(this, instruction) =
             FloatSource(this, instruction, 12, 2U) /
             FloatSource(this, instruction, 16, 4U);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case 26:
-        floatValue = ReadInstructionFloat(instruction, 12);
-        if ((instruction->flags & 2U) != 0)
-        {
-            floatValue = (float)ResolveIntegerOperand(ReadInstructionInteger(instruction, 12));
-        }
-        integerValue = (int)floatValue;
-        *IntegerDestination(this, instruction) =
-            integerValue % IntegerSource(this, instruction, 16, 4U);
-        scriptDataOffsetCopy = nextInstruction;
+    {
+        const int left = IntegerSource(this, instruction, 12, 2U);
+        const int right = IntegerSource(this, instruction, 16, 4U);
+        *IntegerDestination(this, instruction) = left % right;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
+    }
 
     case 27:
         *FloatDestination(this, instruction) =
             (float)fmod(
                 (double)FloatSource(this, instruction, 12, 2U),
                 (double)FloatSource(this, instruction, 16, 4U));
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case 28:
@@ -1139,7 +1154,7 @@ AnmVmUpdateScriptLoop:
         const unsigned int limit = (unsigned int)IntegerSource(this, instruction, 12, 2U);
         const unsigned int value = (limit == 0) ? 0 : NextRandomValue() % limit;
         *IntegerDestination(this, instruction) = (int)value;
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
 
@@ -1147,7 +1162,7 @@ AnmVmUpdateScriptLoop:
     {
         const float limit = FloatSource(this, instruction, 12, 2U);
         *FloatDestination(this, instruction) = (float)(RandomUnit() * limit);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
 
@@ -1155,7 +1170,7 @@ AnmVmUpdateScriptLoop:
     {
         const double value = (double)FloatSource(this, instruction, 12, 2U);
         *FloatDestination(this, instruction) = (float)sin(value);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
 
@@ -1163,7 +1178,7 @@ AnmVmUpdateScriptLoop:
     {
         const double value = (double)FloatSource(this, instruction, 12, 2U);
         *FloatDestination(this, instruction) = (float)cos(value);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
 
@@ -1171,7 +1186,7 @@ AnmVmUpdateScriptLoop:
     {
         const double value = (double)FloatSource(this, instruction, 12, 2U);
         *FloatDestination(this, instruction) = (float)tan(value);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
 
@@ -1179,7 +1194,7 @@ AnmVmUpdateScriptLoop:
     {
         const double value = (double)FloatSource(this, instruction, 12, 2U);
         *FloatDestination(this, instruction) = (float)asin(value);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
 
@@ -1187,7 +1202,7 @@ AnmVmUpdateScriptLoop:
     {
         const double value = (double)FloatSource(this, instruction, 12, 2U);
         *FloatDestination(this, instruction) = (float)atan(value);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
 
@@ -1195,7 +1210,7 @@ AnmVmUpdateScriptLoop:
     {
         const float angle = FloatSource(this, instruction, 8, 1U);
         *FloatDestination(this, instruction) = NormalizeAngle(angle);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
 
@@ -1216,7 +1231,7 @@ AnmVmUpdateScriptLoop:
             alternatePosition.y = y;
             alternatePosition.z = z;
         }
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
 
@@ -1225,21 +1240,21 @@ AnmVmUpdateScriptLoop:
         unknown028 = FloatSource(this, instruction, 12, 2U);
         unknown02C = FloatSource(this, instruction, 16, 4U);
         flags |= 4U;
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case 50:
         scaleX = FloatSource(this, instruction, 8, 1U);
         scaleY = FloatSource(this, instruction, 12, 2U);
         flags |= 8U;
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case 51:
     {
         unsigned char *colorBytes = reinterpret_cast<unsigned char *>(&color);
         colorBytes[3] = (unsigned char)IntegerSource(this, instruction, 8, 1U);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
 
@@ -1249,7 +1264,7 @@ AnmVmUpdateScriptLoop:
         colorBytes[2] = (unsigned char)IntegerSource(this, instruction, 8, 1U);
         colorBytes[1] = (unsigned char)IntegerSource(this, instruction, 12, 2U);
         colorBytes[0] = (unsigned char)IntegerSource(this, instruction, 16, 4U);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
 
@@ -1258,53 +1273,53 @@ AnmVmUpdateScriptLoop:
         scriptVector.y = FloatSource(this, instruction, 12, 2U);
         scriptVector.z = FloatSource(this, instruction, 16, 4U);
         flags |= 4U;
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case 54:
         unknown050 = FloatSource(this, instruction, 8, 1U);
         unknown054 = FloatSource(this, instruction, 12, 2U);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case 70:
         textureOffsetX = FloatSource(this, instruction, 8, 1U);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case 71:
         textureOffsetY = FloatSource(this, instruction, 8, 1U);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case 72:
         flags = (flags & ~0x00000001U) |
             ((unsigned int)ReadInstructionInteger(instruction, 8) & 1U);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case 73:
         flags = (flags & ~0x00001000U) |
             (((unsigned int)ReadInstructionInteger(instruction, 8) << 12) & 0x00001000U);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case 74:
         flags = (flags & ~0x00004000U) |
             (((unsigned int)ReadInstructionInteger(instruction, 8) << 14) & 0x00004000U);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case 80:
         flags = (flags & ~0x00030000U) |
             (((unsigned int)InstructionBytes(instruction)[8] << 16) & 0x00030000U);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case 82:
         flags = (flags & ~0x40000000U) |
             (((unsigned int)InstructionBytes(instruction)[8] << 30) & 0x40000000U);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case 83:
@@ -1314,38 +1329,38 @@ AnmVmUpdateScriptLoop:
         position.y = 0.0f;
         position.z = 0.0f;
         secondaryPosition = oldPosition;
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
 
     case 85:
         flags = (flags & 0x7FFFFFFFU) |
             ((unsigned int)InstructionBytes(instruction)[8] << 31);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case 86:
         stateFlags = (stateFlags & ~1U) |
             ((unsigned int)IntegerSource(this, instruction, 8, 1U) & 1U);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case 87:
         stateFlags = (stateFlags & ~2U) |
             (((unsigned int)InstructionBytes(instruction)[8] << 1) & 2U);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case 89:
         stateFlags = (stateFlags & ~4U) |
             (((unsigned int)IntegerSource(this, instruction, 8, 1U) << 2) & 4U);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case 99:
         stateFlags = (stateFlags & ~0x20U) |
             (((unsigned int)IntegerSource(this, instruction, 8, 1U) << 5) & 0x20U);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case 55:
@@ -1354,7 +1369,7 @@ AnmVmUpdateScriptLoop:
         const unsigned char parameter1 = InstructionBytes(instruction)[8];
         const unsigned char alpha = reinterpret_cast<unsigned char *>(&color)[3];
         SetEffectState(duration, 0, alpha, parameter1);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
 
@@ -1365,7 +1380,7 @@ AnmVmUpdateScriptLoop:
         const unsigned char parameter1 = (unsigned char)IntegerSource(this, instruction, 16, 4U);
         const unsigned char alpha = reinterpret_cast<unsigned char *>(&color)[3];
         SetEffectState(duration, mode, alpha, parameter1);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
 
@@ -1392,7 +1407,7 @@ AnmVmUpdateScriptLoop:
         viewTarget.y = FloatSource(this, instruction, 20, 8U);
         viewTarget.z = FloatSource(this, instruction, 24, 0x10U);
         timer0D4.Reset();
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
 
@@ -1414,7 +1429,7 @@ AnmVmUpdateScriptLoop:
             target, current,
             IntegerSource(this, instruction, 8, 1U),
             InstructionBytes(instruction)[12]);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
 
@@ -1444,7 +1459,7 @@ AnmVmUpdateScriptLoop:
             (unsigned int)ReadInstructionInteger(instruction, 12);
         positionTransition.timer.Reset();
         flags |= 4U;
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
 
@@ -1458,7 +1473,7 @@ AnmVmUpdateScriptLoop:
         const int duration = IntegerSource(this, instruction, 8, 1U);
         const unsigned char mode = InstructionBytes(instruction)[12];
         SetScaleTransition(target, current, duration, mode);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
 
@@ -1466,14 +1481,14 @@ AnmVmUpdateScriptLoop:
         flags ^= 0x400U;
         flags |= 8U;
         scaleX *= -1.0f;
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case 62:
         flags ^= 0x800U;
         flags |= 8U;
         scaleY *= -1.0f;
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case 65:
@@ -1482,13 +1497,13 @@ AnmVmUpdateScriptLoop:
             (((unsigned int)ReadInstructionUnsignedShort(instruction, 8) << 20) & 0x00300000U);
         flags = (flags & ~0x00C00000U) |
             (((unsigned int)ReadInstructionUnsignedShort(instruction, 10) << 22) & 0x00C00000U);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
 
     case 66:
         flags ^= (((unsigned int)ReadInstructionInteger(instruction, 8) << 5) ^ flags) & 0x000000E0U;
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case 67:
@@ -1497,7 +1512,7 @@ AnmVmUpdateScriptLoop:
         {
             StartEffect10();
         }
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case 63:
@@ -1509,7 +1524,7 @@ AnmVmUpdateScriptLoop:
 
     case 68:
         scriptState = (int)InstructionBytes(instruction)[8];
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case 69:
@@ -1530,7 +1545,7 @@ AnmVmUpdateScriptLoop:
     {
         const int frameOffset = IntegerSource(this, instruction, 8, 1U);
         timer070.Add((float)-frameOffset);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
 
@@ -1540,7 +1555,7 @@ AnmVmUpdateScriptLoop:
         colorBytes[2] = (unsigned char)IntegerSource(this, instruction, 8, 1U);
         colorBytes[1] = (unsigned char)IntegerSource(this, instruction, 12, 2U);
         colorBytes[0] = (unsigned char)IntegerSource(this, instruction, 16, 4U);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
 
@@ -1548,7 +1563,7 @@ AnmVmUpdateScriptLoop:
     {
         unsigned char *colorBytes = reinterpret_cast<unsigned char *>(&secondaryColor);
         colorBytes[3] = (unsigned char)IntegerSource(this, instruction, 8, 1U);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
 
@@ -1570,7 +1585,7 @@ AnmVmUpdateScriptLoop:
             target, current,
             IntegerSource(this, instruction, 8, 1U),
             InstructionBytes(instruction)[12]);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
 
@@ -1581,7 +1596,7 @@ AnmVmUpdateScriptLoop:
         const unsigned char parameter1 = (unsigned char)IntegerSource(this, instruction, 16, 4U);
         const unsigned char alpha = reinterpret_cast<unsigned char *>(&secondaryColor)[3];
         SetSecondaryEffectState(duration, mode, alpha, parameter1);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
 
@@ -1590,7 +1605,7 @@ AnmVmUpdateScriptLoop:
         flags = (flags & 0xE9FFFFFFU) | 0x09000000U;
         const int vertexCount = IntegerSource(this, instruction, 8, 1U);
         extraData = malloc(vertexCount * 0x38);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
 
@@ -1599,7 +1614,7 @@ AnmVmUpdateScriptLoop:
         flags = (flags & 0xEDFFFFFFU) | 0x0D000000U;
         const int vertexCount = IntegerSource(this, instruction, 8, 1U);
         extraData = malloc(vertexCount * 0x38);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
 
@@ -1608,7 +1623,7 @@ AnmVmUpdateScriptLoop:
             this,
             IntegerSource(this, instruction, 8, 1U),
             0);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case 90:
@@ -1616,7 +1631,7 @@ AnmVmUpdateScriptLoop:
             this,
             IntegerSource(this, instruction, 8, 1U),
             4);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case 91:
@@ -1624,7 +1639,7 @@ AnmVmUpdateScriptLoop:
             this,
             IntegerSource(this, instruction, 8, 1U),
             2);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case 92:
@@ -1632,14 +1647,14 @@ AnmVmUpdateScriptLoop:
             this,
             IntegerSource(this, instruction, 8, 1U),
             6);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case 95:
         SpawnChildVmAtPosition(
             this,
             IntegerSource(this, instruction, 8, 1U));
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case 96:
@@ -1654,7 +1669,7 @@ AnmVmUpdateScriptLoop:
             child->alternatePosition.x = FloatSource(this, instruction, 12, 2U);
             child->alternatePosition.y = FloatSource(this, instruction, 16, 4U);
         }
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
 
@@ -1669,13 +1684,13 @@ AnmVmUpdateScriptLoop:
             child->alternatePosition.x = FloatSource(this, instruction, 12, 2U);
             child->alternatePosition.y = FloatSource(this, instruction, 16, 4U);
         }
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
 
     case 98:
         UpdateTextureRectFromView();
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case 100:
@@ -1710,7 +1725,7 @@ AnmVmUpdateScriptLoop:
         viewTarget.y = FloatSource(this, instruction, 28, 0x20U);
         viewTarget.z = FloatSource(this, instruction, 32, 0x40U);
         timer0D4.Reset();
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
 
@@ -1745,7 +1760,7 @@ AnmVmUpdateScriptLoop:
 
         BindAnmFile(fileIndex, fileResource);
         lastScriptFrame = timer070.current;
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
 
@@ -1761,7 +1776,7 @@ AnmVmUpdateScriptLoop:
         textureOffsetXTransition.values[2] = 0.0f;
         textureOffsetXTransition.values[3] = 0.0f;
         textureOffsetXTransition.timer.Reset();
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
 
@@ -1777,7 +1792,7 @@ AnmVmUpdateScriptLoop:
         textureOffsetYTransition.values[2] = 0.0f;
         textureOffsetYTransition.values[3] = 0.0f;
         textureOffsetYTransition.timer.Reset();
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
 
@@ -1785,28 +1800,28 @@ AnmVmUpdateScriptLoop:
         flags = (flags & 0xEFFFFFFFU) | 0x0F000000U;
         uvScrollX = FloatSource(this, instruction, 8, 1U);
         uvScrollY = FloatSource(this, instruction, 12, 2U);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case 104:
         flags = (flags & 0xF0FFFFFFU) | 0x10000000U;
         uvScrollX = FloatSource(this, instruction, 8, 1U);
         integerVariables[0] = IntegerSource(this, instruction, 12, 2U);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case 105:
         flags = (flags & 0xF1FFFFFFU) | 0x11000000U;
         uvScrollX = FloatSource(this, instruction, 8, 1U);
         integerVariables[0] = IntegerSource(this, instruction, 12, 2U);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case 106:
         unknown058 = FloatSource(this, instruction, 8, 1U);
         unknown05C = FloatSource(this, instruction, 12, 2U);
         flags |= 0x10U;
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case 107:
@@ -1822,7 +1837,7 @@ AnmVmUpdateScriptLoop:
             IntegerSource(this, instruction, 8, 1U),
             InstructionBytes(instruction)[12]);
         flags |= 0x10U;
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
 
@@ -1830,33 +1845,33 @@ AnmVmUpdateScriptLoop:
         flags = (flags & 0xF3FFFFFFU) | 0x13000000U;
         uvScrollX = FloatSource(this, instruction, 8, 1U);
         uvScrollY = FloatSource(this, instruction, 12, 2U);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case 109:
         flags = (flags & 0xF4FFFFFFU) | 0x14000000U;
         uvScrollX = FloatSource(this, instruction, 8, 1U);
         uvScrollY = FloatSource(this, instruction, 12, 2U);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case 110:
         flags = (flags & 0xF5FFFFFFU) | 0x15000000U;
         uvScrollX = FloatSource(this, instruction, 8, 1U);
         uvScrollY = FloatSource(this, instruction, 12, 2U);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case 111:
         stateFlags = (stateFlags & ~0xC0U) |
             (((unsigned int)IntegerSource(this, instruction, 8, 1U) << 6) & 0xC0U);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case 112:
         stateFlags = (stateFlags & ~0x100U) |
             (((unsigned int)IntegerSource(this, instruction, 8, 1U) << 8) & 0x100U);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case 114:
@@ -1864,7 +1879,7 @@ AnmVmUpdateScriptLoop:
         flags = (flags & 0xEEFFFFFFU) | 0x0E000000U;
         const int vertexCount = IntegerSource(this, instruction, 8, 1U);
         extraData = malloc(vertexCount * 0x38);
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
 
@@ -1880,7 +1895,7 @@ AnmVmUpdateScriptLoop:
         viewTransition.values[3] = 0.0f;
         viewTransition.timer.Reset();
         flags |= 4U;
-        scriptDataOffsetCopy = nextInstruction;
+        scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
     case -1:
@@ -1895,7 +1910,7 @@ AnmVmUpdateScriptLoop:
         break;
     }
 
-            scriptDataOffsetCopy = nextInstruction;
+            scriptDataOffsetCopy = NextInstructionAddress(instruction);
             continue;
 
 AnmVmUpdateConditionalBranch:
