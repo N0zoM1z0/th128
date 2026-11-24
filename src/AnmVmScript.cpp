@@ -130,9 +130,10 @@ namespace
 
 
 
-    unsigned int SpawnChildVm(
-        AnmVm *parent,
+    __declspec(noinline) unsigned int *__stdcall SpawnChildVm(
+        unsigned int *childId,
         int scriptIndex,
+        AnmVm *parent,
         unsigned int listMode)
     {
         AnmVmChildCreationLock lock;
@@ -149,16 +150,15 @@ namespace
         child->parentVm = parent;
 
         AnmManager *manager = GetGlobalAnmManager();
-        unsigned int id;
         if ((listMode & 4U) != 0)
         {
-            id = (listMode & 2U) != 0
+            *childId = (listMode & 2U) != 0
                 ? manager->RegisterUiVmAtHead(child)
                 : manager->RegisterUiVmAtTail(child);
         }
         else
         {
-            id = (listMode & 2U) != 0
+            *childId = (listMode & 2U) != 0
                 ? manager->RegisterWorldVmAtHead(child)
                 : manager->RegisterWorldVmAtTail(child);
         }
@@ -172,10 +172,13 @@ namespace
             head->next->previous = node;
         }
         head->next = node;
-        return id;
+        return childId;
     }
 
-    unsigned int SpawnChildVmAtPosition(AnmVm *parent, int scriptIndex)
+    __declspec(noinline) unsigned int *__stdcall SpawnChildVmAtPosition(
+        unsigned int *childId,
+        int scriptIndex,
+        AnmVm *parent)
     {
         AnmVmChildCreationLock lock;
         AnmResource *resource = parent->resource;
@@ -192,7 +195,8 @@ namespace
         child->alternatePosition = parent->secondaryPosition;
 
         AnmManager *manager = GetGlobalAnmManager();
-        return manager->RegisterWorldVmAtTail(child);
+        *childId = manager->RegisterWorldVmAtTail(child);
+        return childId;
     }
 
     __declspec(noinline) AnmVm *ResolveAnmVmId(unsigned int *id)
@@ -794,10 +798,11 @@ int AnmVm::Update()
         }
     }
 
+    register const AnmVmInstructionHeader *instruction;
 AnmVmUpdateScriptLoop:
     for (;;)
     {
-            const AnmVmInstructionHeader *instruction =
+            instruction =
                 reinterpret_cast<const AnmVmInstructionHeader *>(scriptDataOffsetCopy);
             if (instruction->frame > timer070.current)
             {
@@ -1616,50 +1621,49 @@ AnmVmUpdateScriptLoop:
     }
 
     case 88:
-        SpawnChildVm(
-            this,
-            IntegerSource(*this, instruction, 8, 1U),
-            0);
+    {
+        unsigned int childId;
+        SpawnChildVm(&childId, IntegerSource(*this, instruction, 8, 1U), this, 0);
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
+    }
 
     case 90:
-        SpawnChildVm(
-            this,
-            IntegerSource(*this, instruction, 8, 1U),
-            4);
+    {
+        unsigned int childId;
+        SpawnChildVm(&childId, IntegerSource(*this, instruction, 8, 1U), this, 4);
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
+    }
 
     case 91:
-        SpawnChildVm(
-            this,
-            IntegerSource(*this, instruction, 8, 1U),
-            2);
+    {
+        unsigned int childId;
+        SpawnChildVm(&childId, IntegerSource(*this, instruction, 8, 1U), this, 2);
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
+    }
 
     case 92:
-        SpawnChildVm(
-            this,
-            IntegerSource(*this, instruction, 8, 1U),
-            6);
+    {
+        unsigned int childId;
+        SpawnChildVm(&childId, IntegerSource(*this, instruction, 8, 1U), this, 6);
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
+    }
 
     case 95:
-        SpawnChildVmAtPosition(
-            this,
-            IntegerSource(*this, instruction, 8, 1U));
+    {
+        unsigned int childId;
+        SpawnChildVmAtPosition(&childId, IntegerSource(*this, instruction, 8, 1U), this);
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
+    }
 
     case 96:
     {
-        unsigned int childId = SpawnChildVm(
-            this,
-            IntegerSource(*this, instruction, 8, 1U),
-            0);
+        unsigned int childId;
+        SpawnChildVm(&childId, IntegerSource(*this, instruction, 8, 1U), this, 0);
         AnmVm *child = ResolveAnmVmId(&childId);
         if (child != 0)
         {
@@ -1672,9 +1676,8 @@ AnmVmUpdateScriptLoop:
 
     case 97:
     {
-        unsigned int childId = SpawnChildVmAtPosition(
-            this,
-            IntegerSource(*this, instruction, 8, 1U));
+        unsigned int childId;
+        SpawnChildVmAtPosition(&childId, IntegerSource(*this, instruction, 8, 1U), this);
         AnmVm *child = ResolveAnmVmId(&childId);
         if (child != 0)
         {
