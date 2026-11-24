@@ -1799,18 +1799,8 @@ AnmVmUpdateScriptLoop:
 
     case 103:
         flags = (flags & 0xEFFFFFFFU) | 0x0F000000U;
-        floatValue = ReadInstructionFloat(instruction, 8);
-        if ((instruction->flags & 1U) != 0)
-        {
-            floatValue = ResolveFloatOperand(floatValue);
-        }
-        uvScrollX = floatValue;
-        floatValue = ReadInstructionFloat(instruction, 12);
-        if ((instruction->flags & 2U) != 0)
-        {
-            floatValue = ResolveFloatOperand(floatValue);
-        }
-        uvScrollY = floatValue;
+        uvScrollX = FloatSource(*this, instruction, 8, 1U);
+        uvScrollY = FloatSource(*this, instruction, 12, 2U);
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
 
