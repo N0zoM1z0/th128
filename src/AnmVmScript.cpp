@@ -57,15 +57,6 @@ namespace
         return *reinterpret_cast<const int *>(InstructionBytes(instruction) + offset);
     }
 
-    __forceinline int ReadInstructionIntegerVolatile(
-        const AnmVmInstructionHeader *instruction,
-        unsigned int offset)
-    {
-        const volatile int *value = reinterpret_cast<const volatile int *>(
-            InstructionBytes(instruction) + offset);
-        return *value;
-    }
-
     __forceinline unsigned short ReadInstructionUnsignedShort(
         const AnmVmInstructionHeader *instruction,
         unsigned int offset)
@@ -114,10 +105,9 @@ namespace
     {
         if ((InstructionOperandFlags(instruction) & flag) != 0)
         {
-            return vm->ResolveIntegerOperand(
-                ReadInstructionIntegerVolatile(instruction, offset));
+            return vm->ResolveIntegerOperand(ReadInstructionInteger(instruction, offset));
         }
-        return ReadInstructionIntegerVolatile(instruction, offset);
+        return ReadInstructionInteger(instruction, offset);
     }
 
     __forceinline float FloatSource(
