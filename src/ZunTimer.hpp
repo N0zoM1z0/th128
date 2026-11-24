@@ -69,11 +69,3 @@ inline void ZunTimer::Initialize()
         initialized = 1;
     }
 }
-
-inline void ZunTimer::Reset()
-{
-    Initialize();
-    currentF = 0.0f;
-    current = 0;
-    previous = -1;
-}

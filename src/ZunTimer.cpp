@@ -1,6 +1,14 @@
 #include "ZunTimer.hpp"
 
 
+__declspec(noinline) void ZunTimer::Reset()
+{
+    Initialize();
+    currentF = 0.0f;
+    current = 0;
+    previous = -1;
+}
+
 int __stdcall ZunTimerModulo(ZunTimer *timer, int divisor)
 {
     return timer->current % divisor;
