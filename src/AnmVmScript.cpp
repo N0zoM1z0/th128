@@ -960,7 +960,8 @@ AnmVmUpdateScriptLoop:
         // Fall through to the shared script-completion case.
     case 2:
         scriptDataOffsetCopy = 0;
-        goto AnmVmUpdateAfterScript;
+        *gameSpeed = savedGameSpeed;
+        return 1;
 
     case 86:
         stateFlags = (stateFlags & ~1U) |
@@ -1305,9 +1306,14 @@ AnmVmUpdateScriptLoop:
             viewPosition = alternatePosition;
         }
 
-        viewTarget.x = FloatSource(*this, instruction, 16, 4U);
-        viewTarget.y = FloatSource(*this, instruction, 20, 8U);
-        viewTarget.z = FloatSource(*this, instruction, 24, 0x10U);
+        // The target resolves Z, Y, X; resolving an indirect random operand
+        // advances the VM RNG, so preserve that order before assigning fields.
+        const float viewTargetZ = FloatSource(*this, instruction, 24, 0x10U);
+        const float viewTargetY = FloatSource(*this, instruction, 20, 8U);
+        const float viewTargetX = FloatSource(*this, instruction, 16, 4U);
+        viewTarget.x = viewTargetX;
+        viewTarget.y = viewTargetY;
+        viewTarget.z = viewTargetZ;
         timer0D4.Reset();
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
@@ -1341,9 +1347,12 @@ AnmVmUpdateScriptLoop:
             ? alternatePosition
             : secondaryPosition;
 
-        viewTarget.x = FloatSource(*this, instruction, 24, 0x10U);
-        viewTarget.y = FloatSource(*this, instruction, 28, 0x20U);
-        viewTarget.z = FloatSource(*this, instruction, 32, 0x40U);
+        const float viewTargetZ = FloatSource(*this, instruction, 32, 0x40U);
+        const float viewTargetY = FloatSource(*this, instruction, 28, 0x20U);
+        const float viewTargetX = FloatSource(*this, instruction, 24, 0x10U);
+        viewTarget.x = viewTargetX;
+        viewTarget.y = viewTargetY;
+        viewTarget.z = viewTargetZ;
         timer0D4.Reset();
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
@@ -1417,11 +1426,10 @@ AnmVmUpdateScriptLoop:
 
     case 59:
     {
-        const float target[3] = {
-            FloatSource(*this, instruction, 16, 4U),
-            FloatSource(*this, instruction, 20, 8U),
-            FloatSource(*this, instruction, 24, 0x10U)
-        };
+        const float targetZ = FloatSource(*this, instruction, 24, 0x10U);
+        const float targetY = FloatSource(*this, instruction, 20, 8U);
+        const float targetX = FloatSource(*this, instruction, 16, 4U);
+        const float target[3] = {targetX, targetY, targetZ};
         positionTransition.values[0] = unknown024;
         positionTransition.values[1] = unknown028;
         positionTransition.values[2] = unknown02C;
@@ -1462,10 +1470,9 @@ AnmVmUpdateScriptLoop:
 
     case 60:
     {
-        const float target[2] = {
-            FloatSource(*this, instruction, 16, 4U),
-            FloatSource(*this, instruction, 20, 8U)
-        };
+        const float targetY = FloatSource(*this, instruction, 20, 8U);
+        const float targetX = FloatSource(*this, instruction, 16, 4U);
+        const float target[2] = {targetX, targetY};
         const float current[2] = { scaleX, scaleY };
         const int duration = IntegerSource(*this, instruction, 8, 1U);
         const unsigned char mode = InstructionBytes(instruction)[12];
@@ -1476,10 +1483,9 @@ AnmVmUpdateScriptLoop:
 
     case 107:
     {
-        const float target[2] = {
-            FloatSource(*this, instruction, 16, 4U),
-            FloatSource(*this, instruction, 20, 8U)
-        };
+        const float targetY = FloatSource(*this, instruction, 20, 8U);
+        const float targetX = FloatSource(*this, instruction, 16, 4U);
+        const float target[2] = {targetX, targetY};
         const float current[2] = {unknown058, unknown05C};
         SetSecondaryScaleTransition(
             target,
