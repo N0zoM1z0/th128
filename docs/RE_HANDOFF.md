@@ -68,9 +68,14 @@ receipts, not from commit count or source presence.
 Current source covers script gating/termination, game-speed save/restore,
 continuous angle/scale/texture motion, view-rectangle refresh, render-state
 synchronization, transition updates, custom geometry, frame callback and timer
-advancement. The latest selected VC10 `/GL` PDB contribution is 14,020 bytes
-versus the 13,604-byte target; it is still not an exact replay. Opcodes 40 and
-41 select the world/UI RNG in separate branches; opcode 41 uses the exact
+advancement. The latest selected VC10 `/GL` PDB contribution is 13,772 bytes
+versus the 13,604-byte target (168 bytes larger), and its direct call count is
+284 versus the target's 286; it is still not an exact replay. The separate
+`InterpolateColorVector` frontier is 650 bytes versus its 721-byte target;
+its mode-8 path now uses target-style float time and 15 truncating conversions,
+but its private register ABI and x87 scheduling still differ. `ZunTimer::Increment`
+is now an exact 88-byte out-of-line leaf, preserving the timer call edge inside
+transition interpolation. Opcodes 40 and 41 select the world/UI RNG in separate branches; opcode 41 uses the exact
 `Rng::GetFloat(float scale)` leaf at 0x0040D130. Opcodes 17, 27 and 42..46
 share the target float-result store, opcode 47 uses `AddAngles(angle, 0)`, and
 opcode 113 plus mode-13/14 geometry preserve the target angle-normalization
@@ -81,8 +86,13 @@ divisions and lower-bound clamps, as in the target. The view-mode interpolation
 now retains the target's two world/UI call sites plus the position-transition
 call (three `InterpolateVector` calls). Two timer-reset call sites remain
 coalesced by the candidate compiler, leaving 284 direct calls versus 286 in
-the target. Continue comparing the full control flow, branch ordering and side
-effects; do not mark the boss exact from source presence or code size.
+the target. The separately tracked `InterpolateColorVector` mode-8 helper now
+uses a float-rounded normalized time and materializes its twelve converted
+Hermite terms in target basis order; its current candidate is 650 bytes versus
+the 721-byte target and remains a frontier. `ZunTimer::Increment` has been
+moved out of line and replayed exact as an 88-byte linked-PE leaf. Continue
+comparing the full control flow, branch ordering and side effects; do not mark
+the boss exact from source presence or code size.
 
 Primary evidence:
 - .analysis/anm-vm-update-target.txt

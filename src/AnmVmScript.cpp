@@ -414,30 +414,30 @@ namespace
             return result;
         }
 
-        const double t = (double)transition->timer.currentF /
-            (double)transition->duration;
+        const float t = transition->timer.currentF /
+            (float)transition->duration;
         if (mode == 8)
         {
-            const double tMinusOne = t - 1.0;
+            const double tMinusOne = (double)t - 1.0;
             const float h00 = (float)((t + t + 1.0) * tMinusOne * tMinusOne);
             const float h01 = (float)(t * t * (3.0 - (t + t)));
             const float h10 = (float)((1.0 - t) * (1.0 - t) * t);
             const float h11 = (float)(tMinusOne * t * t);
             result[0] =
-                ZunRoundToInt((double)h00 * transition->values[0]) +
-                ZunRoundToInt((double)h01 * transition->values[3]) +
-                ZunRoundToInt((double)h10 * transition->values[6]) +
-                ZunRoundToInt((double)h11 * transition->values[9]);
+                (int)((double)h00 * transition->values[0]) +
+                (int)((double)h01 * transition->values[3]) +
+                (int)((double)h10 * transition->values[6]) +
+                (int)((double)h11 * transition->values[9]);
             result[1] =
-                ZunRoundToInt((double)h00 * transition->values[1]) +
-                ZunRoundToInt((double)h01 * transition->values[4]) +
-                ZunRoundToInt((double)h10 * transition->values[7]) +
-                ZunRoundToInt((double)h11 * transition->values[10]);
+                (int)((double)h00 * transition->values[1]) +
+                (int)((double)h01 * transition->values[4]) +
+                (int)((double)h10 * transition->values[7]) +
+                (int)((double)h11 * transition->values[10]);
             result[2] =
-                ZunRoundToInt((double)h00 * transition->values[2]) +
-                ZunRoundToInt((double)h01 * transition->values[5]) +
-                ZunRoundToInt((double)h10 * transition->values[8]) +
-                ZunRoundToInt((double)h11 * transition->values[11]);
+                (int)((double)h00 * transition->values[2]) +
+                (int)((double)h01 * transition->values[5]) +
+                (int)((double)h10 * transition->values[8]) +
+                (int)((double)h11 * transition->values[11]);
             return result;
         }
 
@@ -445,9 +445,9 @@ namespace
         const int delta0 = transition->values[3] - transition->values[0];
         const int delta1 = transition->values[4] - transition->values[1];
         const int delta2 = transition->values[5] - transition->values[2];
-        result[0] = transition->values[0] + ZunRoundToInt((double)delta0 * eased);
-        result[1] = transition->values[1] + ZunRoundToInt((double)delta1 * eased);
-        result[2] = transition->values[2] + ZunRoundToInt((double)delta2 * eased);
+        result[0] = transition->values[0] + (int)((double)delta0 * eased);
+        result[1] = transition->values[1] + (int)((double)delta1 * eased);
+        result[2] = transition->values[2] + (int)((double)delta2 * eased);
         return result;
 }
 

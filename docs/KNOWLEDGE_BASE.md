@@ -198,8 +198,9 @@ motion, view texture-rectangle refresh, render-state synchronization,
 transitions, custom geometry, callback and timer advancement. It is still a
 partial reconstruction of the large target function; branch ordering,
 missing paths and side effects require further target comparison. The latest
-selected VC10 `/GL` candidate owns 14,076 bytes versus the 13,604-byte target
-contribution; this is a useful frontier measurement, not an exact replay.
+selected VC10 `/GL` candidate owns 13,772 bytes versus the 13,604-byte target
+contribution (168 bytes larger), with 284 direct calls versus the target's
+286. This is a useful frontier measurement, not an exact replay.
 
 Opcode 40 now selects the UI/world RNG in separate branches and keeps integer
 operand resolution inside each branch, matching the target's two resolver
@@ -216,6 +217,15 @@ The per-frame `stateFlags & 0x20` view refresh performs coordinate normalization
 inline; only opcode 98 calls the separate `NormalizeAnmCoordinates` helper
 four times. The boss remains unclassified until its complete owner and
 linkage set replay with zero differences.
+
+The color-vector cubic path is tracked separately by
+`anm-vm-interpolate-color-vector-linked`. Its mode-8 source now rounds the
+normalized time through a float and materializes the twelve individually
+converted Hermite terms in basis-major order (h11, h10, h01, h00), matching
+the target's conversion call order. The selected owner is currently 650 bytes
+versus the 721-byte target; its remaining differences are in x87 coefficient
+scheduling, stack layout and register allocation. This is source progress, not
+an exact helper.
 
 Useful evidence:
 - .analysis/anm-vm-update-target.txt — target Ghidra decompilation
@@ -431,10 +441,13 @@ source shape: float-rounded pi and two pi stored as doubles (`0x004A6580`,
 `0x004A6578`), `-pi` folded to `0x004A65B8`, and one 33-correction budget
 shared by both loops.
 
-`ZunTimer::Increment` (`0x00402AC0`, 39 call sites) is exact: inside the
-speed window it does `current++; currentF += 1.0;` (a double constant),
-otherwise `currentF += *gameSpeed; current = (int)currentF;`, which VC10
-compiles with a temporary slot and converts from `ST0`.
+`ZunTimer::Increment` (`0x00402AC0`, 39 call sites) is exact as an 88-byte
+out-of-line linked-PE member. It uses three DIR32 constant relocations and one
+REL32 `__ftol2_sse` call. Inside the speed window it does `current++;
+currentF += 1.0;`; otherwise `currentF += *gameSpeed; current = (int)currentF;`.
+The body was moved from the header-inline definition to `src/ZunTimer.cpp`
+with `__declspec(noinline)` so the real transition helpers retain their
+original call boundary.
 
 `ZunTimer::Add` (`0x0046AA20`) is a close frontier: the game speed is
 ignored inside `(0.99, 1.01)` (a double `0.99` and a float `1.01f`
