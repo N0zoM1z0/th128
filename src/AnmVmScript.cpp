@@ -1458,11 +1458,11 @@ AnmVmUpdateScriptLoop:
             IntegerSource(*this, instruction, 8, 1U);
         viewTransition.mode =
             (unsigned int)ReadInstructionInteger(instruction, 12);
-        viewTransition.values[0] = NormalizeAngle(unknown02C);
         viewTransition.values[1] =
             NormalizeAngle(FloatSource(*this, instruction, 16, 4U));
-        viewTransition.values[2] = 0.0f;
-        viewTransition.values[3] = 0.0f;
+        viewTransition.values[0] = NormalizeAngle(unknown02C);
+        viewTransition.values[2] = NormalizeAngle(0.0f);
+        viewTransition.values[3] = viewTransition.values[2];
         viewTransition.timer.Reset();
         flags |= 4U;
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
@@ -1732,10 +1732,8 @@ AnmVmUpdateScriptLoop:
     {
         const float right = FloatSource(*this, instruction, 16, 4U);
         const float left = FloatSource(*this, instruction, 12, 2U);
-        const float result = (float)fmod((double)left, (double)right);
-        *FloatDestination(*this, instruction) = result;
-        scriptDataOffsetCopy = NextInstructionAddress(instruction);
-        continue;
+        floatValue = (float)fmod((double)left, (double)right);
+        goto AnmVmUpdateStoreUnaryFloat;
     }
 
     case 8:
@@ -1823,16 +1821,29 @@ AnmVmUpdateScriptLoop:
     {
         const float right = FloatSource(*this, instruction, 12, 2U);
         const float left = FloatSource(*this, instruction, 8, 1U);
-        const float result = (float)fmod((double)left, (double)right);
-        *FloatDestination(*this, instruction) = result;
-        scriptDataOffsetCopy = NextInstructionAddress(instruction);
-        continue;
+        floatValue = (float)fmod((double)left, (double)right);
+        goto AnmVmUpdateStoreUnaryFloat;
     }
 
     case 40:
     {
-        const unsigned int limit = (unsigned int)IntegerSource(*this, instruction, 12, 2U);
-        const unsigned int value = (limit == 0) ? 0 : NextRandomValue() % limit;
+        unsigned int value;
+        if ((stateFlags & 2U) != 0)
+        {
+            const unsigned int limit =
+                (unsigned int)IntegerSource(*this, instruction, 12, 2U);
+            value = limit == 0
+                ? 0
+                : reinterpret_cast<Rng *>(0x004D2AD8)->GetU32() % limit;
+        }
+        else
+        {
+            const unsigned int limit =
+                (unsigned int)IntegerSource(*this, instruction, 12, 2U);
+            value = limit == 0
+                ? 0
+                : reinterpret_cast<Rng *>(0x004D2AE0)->GetU32() % limit;
+        }
         *IntegerDestination(*this, instruction) = (int)value;
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
@@ -1870,47 +1881,47 @@ AnmVmUpdateScriptLoop:
     case 42:
     {
         const double value = (double)FloatSource(*this, instruction, 12, 2U);
-        *FloatDestination(*this, instruction) = (float)sin(value);
-        scriptDataOffsetCopy = NextInstructionAddress(instruction);
-        continue;
+        floatValue = (float)sin(value);
+        goto AnmVmUpdateStoreUnaryFloat;
     }
 
     case 43:
     {
         const double value = (double)FloatSource(*this, instruction, 12, 2U);
-        *FloatDestination(*this, instruction) = (float)cos(value);
-        scriptDataOffsetCopy = NextInstructionAddress(instruction);
-        continue;
+        floatValue = (float)cos(value);
+        goto AnmVmUpdateStoreUnaryFloat;
     }
 
     case 44:
     {
         const double value = (double)FloatSource(*this, instruction, 12, 2U);
-        *FloatDestination(*this, instruction) = (float)tan(value);
-        scriptDataOffsetCopy = NextInstructionAddress(instruction);
-        continue;
+        floatValue = (float)tan(value);
+        goto AnmVmUpdateStoreUnaryFloat;
     }
 
     case 45:
     {
         const double value = (double)FloatSource(*this, instruction, 12, 2U);
-        *FloatDestination(*this, instruction) = (float)asin(value);
-        scriptDataOffsetCopy = NextInstructionAddress(instruction);
-        continue;
+        floatValue = (float)asin(value);
+        goto AnmVmUpdateStoreUnaryFloat;
     }
 
     case 46:
     {
         const double value = (double)FloatSource(*this, instruction, 12, 2U);
-        *FloatDestination(*this, instruction) = (float)atan(value);
-        scriptDataOffsetCopy = NextInstructionAddress(instruction);
-        continue;
+        floatValue = (float)atan(value);
+        goto AnmVmUpdateStoreUnaryFloat;
     }
+
+AnmVmUpdateStoreUnaryFloat:
+    *FloatDestination(*this, instruction) = floatValue;
+    scriptDataOffsetCopy = NextInstructionAddress(instruction);
+    continue;
 
     case 47:
     {
         const float angle = FloatSource(*this, instruction, 8, 1U);
-        *FloatDestination(*this, instruction) = NormalizeAngle(angle);
+        *FloatDestination(*this, instruction) = AddAngles(angle, 0.0f);
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
@@ -2358,10 +2369,11 @@ AnmVmUpdateAfterScript:
     const float divisorAsFloat = (float)divisor;
     const float angleStep = unknown024 / divisorAsFloat;
     const float vStep = integerVariables[1] / divisorAsFloat;
-    const float initialAngle = geometryMode == 13U
-        ? unknown02C - unknown024 * 0.5f
-        : unknown02C;
-    float angle = NormalizeAngle(initialAngle);
+    float angle = NormalizeAngle(unknown02C - unknown024 * 0.5f);
+    if (geometryMode == 14U)
+    {
+        angle = NormalizeAngle(unknown02C);
+    }
     float v = 0.0f;
 
     for (unsigned int i = 0; i != count; ++i)

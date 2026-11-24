@@ -198,19 +198,24 @@ motion, view texture-rectangle refresh, render-state synchronization,
 transitions, custom geometry, callback and timer advancement. It is still a
 partial reconstruction of the large target function; branch ordering,
 missing paths and side effects require further target comparison. The latest
-selected VC10 `/GL` candidate currently owns 14,332 bytes versus the
-13,604-byte target contribution; this is a useful frontier measurement, not
-an exact replay. Opcode 41 keeps world/UI RNG selection and operand conversion
-explicit, but the compiler still spills the float source across the branch
-and does not yet reproduce the target's x87 stack flow. The per-frame
-`stateFlags & 0x20` view refresh now performs its four coordinate divisions
-and lower-bound clamps inline, matching the target's direct x87 arithmetic;
-only opcode 98 calls the separate `NormalizeAnmCoordinates` helper. The latest
-call-site inventory has four target and four candidate calls to that helper.
-Opcode 41 now routes through the exact `Rng::GetFloat(float scale)` helper at
-`0x0040D130`, selecting the world/UI generator from `stateFlags` before the
-scaled sample. The boss itself remains unclassified until its complete owner
-and linkage set replay with zero differences.
+selected VC10 `/GL` candidate owns 14,020 bytes versus the 13,604-byte target
+contribution; this is a useful frontier measurement, not an exact replay.
+
+Opcode 40 now selects the UI/world RNG in separate branches and keeps integer
+operand resolution inside each branch, matching the target's two resolver
+call sites. Opcode 41 uses the exact `Rng::GetFloat(float scale)` leaf at
+`0x0040D130` with the same UI/world selection. Opcodes 17 and 27 share the
+same float-result store as opcodes 42..46, reproducing the target's single
+destination-resolution block; opcode 47 uses `AddAngles(angle, 0)` as the
+target does. The opcode-113 view transition preserves the target's three
+`NormalizeAngle` calls, including the normalized zero terms, and the mode-13
+and mode-14 geometry paths retain their separate normalization call sites.
+The four operand resolver call counts now match the target: 93 float source,
+82 integer source, 12 float destination and 13 integer destination calls.
+The per-frame `stateFlags & 0x20` view refresh performs coordinate normalization
+inline; only opcode 98 calls the separate `NormalizeAnmCoordinates` helper
+four times. The boss remains unclassified until its complete owner and
+linkage set replay with zero differences.
 
 Useful evidence:
 - .analysis/anm-vm-update-target.txt — target Ghidra decompilation

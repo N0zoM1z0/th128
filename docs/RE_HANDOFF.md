@@ -68,14 +68,18 @@ receipts, not from commit count or source presence.
 Current source covers script gating/termination, game-speed save/restore,
 continuous angle/scale/texture motion, view-rectangle refresh, render-state
 synchronization, transition updates, custom geometry, frame callback and timer
-advancement. The latest selected VC10 `/GL` PDB contribution is 14,332 bytes
-versus the 13,604-byte target; it is still not an exact replay. Opcode 41 now
-uses the exact `Rng::GetFloat(float scale)` leaf at 0x0040D130 with the
-world/UI generator selected from `stateFlags`. Opcode 98 retains four calls to
-the exact coordinate helper; the per-frame view-mode refresh uses inline
-coordinate divisions and lower-bound clamps, as in the target. Continue
-comparing the full control flow, branch ordering and side effects; do not mark
-the boss exact from source presence or code size.
+advancement. The latest selected VC10 `/GL` PDB contribution is 14,020 bytes
+versus the 13,604-byte target; it is still not an exact replay. Opcodes 40 and
+41 select the world/UI RNG in separate branches; opcode 41 uses the exact
+`Rng::GetFloat(float scale)` leaf at 0x0040D130. Opcodes 17, 27 and 42..46
+share the target float-result store, opcode 47 uses `AddAngles(angle, 0)`, and
+opcode 113 plus mode-13/14 geometry preserve the target angle-normalization
+call paths. The integer/float source and destination resolver call counts now
+match the target (82/93 and 13/12). Opcode 98 retains four calls to the exact
+coordinate helper; the per-frame view-mode refresh uses inline coordinate
+divisions and lower-bound clamps, as in the target. Continue comparing the
+full control flow, branch ordering and side effects; do not mark the boss exact
+from source presence or code size.
 
 Primary evidence:
 - .analysis/anm-vm-update-target.txt
