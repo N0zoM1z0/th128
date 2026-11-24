@@ -10,5 +10,6 @@ struct Rng
     unsigned int GetU32();
     float GetFloat();               // [0, 1)
     float GetFloatSigned();         // [-1, 1)
+    float GetFloatSigned(float scale); // signed random value scaled by an argument
     float GetAngle();               // [-pi, pi)
 };

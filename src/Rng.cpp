@@ -2,6 +2,11 @@
 
 #include <windows.h>
 
+namespace
+{
+    const volatile float kRandomUnsignedRange = 4294967296.0f;
+}
+
 extern unsigned int g_GameFlags;        // bit 15: worker threads share the generator
 extern CRITICAL_SECTION g_RngLock;      // 0x004D3768
 extern unsigned char g_RngLockDepth;    // 0x004D37A2
@@ -52,6 +57,12 @@ float Rng::GetFloat()
 float Rng::GetFloatSigned()
 {
     return (float)((float)GetU32() * (2.0 / 4294967296.0) - 1.0);
+}
+
+__declspec(noinline) float Rng::GetFloatSigned(float scale)
+{
+    scale *= (float)((float)GetU32() * (2.0 / 4294967296.0) - 1.0);
+    return scale;
 }
 
 float Rng::GetAngle()
