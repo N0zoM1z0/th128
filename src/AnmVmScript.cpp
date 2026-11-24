@@ -42,11 +42,6 @@ namespace
         }
     };
 
-    unsigned int NextGlobalAnmRandomValue()
-    {
-        return reinterpret_cast<Rng *>(0x004D2AE0)->GetU32();
-    }
-
     __forceinline const unsigned char *InstructionBytes(const AnmVmInstructionHeader *instruction)
     {
         return reinterpret_cast<const unsigned char *>(instruction);
@@ -1086,7 +1081,8 @@ AnmVmUpdateScriptLoop:
             const int firstIndex = IntegerSource(*this, instruction, 8, 1U);
             const unsigned int variantCount =
                 (unsigned int)IntegerSource(*this, instruction, 12, 2U);
-            const unsigned int randomValue = NextGlobalAnmRandomValue();
+            const unsigned int randomValue =
+                reinterpret_cast<Rng *>(0x004D2AE0)->GetU32();
             fileIndex = firstIndex + (int)(randomValue % variantCount);
         }
         else
@@ -1095,7 +1091,7 @@ AnmVmUpdateScriptLoop:
             // the shared global RNG before invoking the resolver callback.
             (void)IntegerSource(*this, instruction, 8, 1U);
             (void)IntegerSource(*this, instruction, 12, 2U);
-            NextGlobalAnmRandomValue();
+            reinterpret_cast<Rng *>(0x004D2AE0)->GetU32();
             fileIndex = anmFileResolver(this);
         }
 
@@ -2148,17 +2144,24 @@ AnmVmUpdateAfterScript:
 
     if (viewMode != 0)
     {
-        float result[3];
         AnmVmVectorTransition *transition =
             reinterpret_cast<AnmVmVectorTransition *>(&viewPosition);
-        InterpolateVector(transition, result);
-
-        ZunVec3 *viewOffset = (flags & 0x200U) != 0
-            ? &alternatePosition
-            : &secondaryPosition;
-        viewOffset->x = result[0];
-        viewOffset->y = result[1];
-        viewOffset->z = result[2];
+        if ((flags & 0x200U) != 0)
+        {
+            float alternateResult[3];
+            InterpolateVector(transition, alternateResult);
+            alternatePosition.x = alternateResult[0];
+            alternatePosition.y = alternateResult[1];
+            alternatePosition.z = alternateResult[2];
+        }
+        else
+        {
+            float secondaryResult[3];
+            InterpolateVector(transition, secondaryResult);
+            secondaryPosition.x = secondaryResult[0];
+            secondaryPosition.y = secondaryResult[1];
+            secondaryPosition.z = secondaryResult[2];
+        }
     }
 
     if (colorTransition.duration != 0)

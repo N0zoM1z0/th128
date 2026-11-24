@@ -77,9 +77,12 @@ opcode 113 plus mode-13/14 geometry preserve the target angle-normalization
 call paths. The integer/float source and destination resolver call counts now
 match the target (82/93 and 13/12). Opcode 98 retains four calls to the exact
 coordinate helper; the per-frame view-mode refresh uses inline coordinate
-divisions and lower-bound clamps, as in the target. Continue comparing the
-full control flow, branch ordering and side effects; do not mark the boss exact
-from source presence or code size.
+divisions and lower-bound clamps, as in the target. The view-mode interpolation
+now retains the target's two world/UI call sites plus the position-transition
+call (three `InterpolateVector` calls). Two timer-reset call sites remain
+coalesced by the candidate compiler, leaving 284 direct calls versus 286 in
+the target. Continue comparing the full control flow, branch ordering and side
+effects; do not mark the boss exact from source presence or code size.
 
 Primary evidence:
 - .analysis/anm-vm-update-target.txt

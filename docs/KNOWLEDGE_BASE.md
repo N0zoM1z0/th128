@@ -198,7 +198,7 @@ motion, view texture-rectangle refresh, render-state synchronization,
 transitions, custom geometry, callback and timer advancement. It is still a
 partial reconstruction of the large target function; branch ordering,
 missing paths and side effects require further target comparison. The latest
-selected VC10 `/GL` candidate owns 14,020 bytes versus the 13,604-byte target
+selected VC10 `/GL` candidate owns 14,076 bytes versus the 13,604-byte target
 contribution; this is a useful frontier measurement, not an exact replay.
 
 Opcode 40 now selects the UI/world RNG in separate branches and keeps integer
