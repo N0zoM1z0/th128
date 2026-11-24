@@ -116,12 +116,11 @@ namespace
         unsigned int offset,
         unsigned short flag)
     {
-        float value = ReadInstructionFloat(instruction, offset);
         if ((InstructionOperandFlags(instruction) & flag) != 0)
         {
-            value = vm->ResolveFloatOperand(value);
+            return vm->ResolveFloatOperand(ReadInstructionFloat(instruction, offset));
         }
-        return value;
+        return ReadInstructionFloat(instruction, offset);
     }
 
     __forceinline unsigned int NextInstructionAddress(const AnmVmInstructionHeader *instruction)
@@ -981,22 +980,11 @@ AnmVmUpdateScriptLoop:
     }
 
     case 19:
-    {
-        float left = ReadInstructionFloat(instruction, 12);
-        if ((instruction->flags & 2U) != 0)
-        {
-            left = ResolveFloatOperand(left);
-        }
-        float right = ReadInstructionFloat(instruction, 16);
-        if ((instruction->flags & 4U) != 0)
-        {
-            right = ResolveFloatOperand(right);
-        }
-        floatDestination = FloatDestination(this, instruction);
-        *floatDestination = left + right;
+        *FloatDestination(this, instruction) =
+            FloatSource(this, instruction, 12, 2U) +
+            FloatSource(this, instruction, 16, 4U);
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
-    }
 
     case 20:
     {
