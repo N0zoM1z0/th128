@@ -223,7 +223,10 @@ resets the timer at owner `+0x10`; the target and candidate both retain its two
 call edges for the X/Y scalar transitions. Opcode 113 has a third, byte-identical
 52-byte owner-relative helper copy, `ResetViewTransitionTimer(void *)` at
 `0x0045DAD0`, also using owner `+0x10`; it remains a separate function and
-preserves the view-transition call edge.
+preserves the view-transition call edge. The four Update-owned timer-frame
+writes also use a separate exact 61-byte `SetUpdateTimerCurrent` copy at
+`0x00403280`, distinct from `ZunTimer::SetCurrent` at `0x00403240`; all four
+call edges now match the target.
 The view-corner helpers now preserve the target's anchor-3 no-write behavior
 for modes 0 and 2/3. Their parent translations also retain per-corner x87
 operand order and intermediate float stores; the non-rotated paths perform

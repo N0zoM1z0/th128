@@ -100,7 +100,9 @@ opcodes 107 and 108 now use the separate exact 52-byte `ResetScalarTransitionTim
 helper at `0x0040CEA0`, resetting the timer at owner `+0x10`; both original
 call edges are retained. Opcode 113 uses a third byte-identical 52-byte
 `ResetViewTransitionTimer` copy at `0x0045DAD0`, also owner `+0x10`, and keeps
-its separate target call edge. Opcodes 40 and 41
+its separate target call edge. The four Update timer-frame writes now call
+the exact 61-byte `SetUpdateTimerCurrent` copy at `0x00403280`, distinct from
+`ZunTimer::SetCurrent` at `0x00403240`. Opcodes 40 and 41
 select the world/UI RNG in separate branches; opcode 41 uses the exact
 `Rng::GetFloat(float scale)` leaf at 0x0040D130. Opcodes 17, 27 and 42..46
 share the target float-result store, opcode 47 uses `AddAngles(angle, 0)`, and

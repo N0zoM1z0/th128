@@ -184,6 +184,18 @@ namespace
         timer->previous = -1;
     }
 
+    // Update has a second target copy of SetCurrent at 0x00403280. Keep the
+    // private EAX/stack ABI as a separate natural C++ call boundary.
+    __declspec(noinline) void __stdcall SetUpdateTimerCurrent(
+        ZunTimer *timer,
+        int value)
+    {
+        timer->Initialize();
+        timer->current = value;
+        timer->previous = value - 1;
+        timer->currentF = (float)value;
+    }
+
 
     __declspec(noinline) unsigned int *__stdcall SpawnChildVm(
         unsigned int *childId,
@@ -1024,7 +1036,7 @@ AnmVmUpdateScriptLoop:
         break;
 
     case 4:
-        timer070.SetCurrent(ReadInstructionInteger(instruction, 12));
+        SetUpdateTimerCurrent(&timer070, ReadInstructionInteger(instruction, 12));
         scriptDataOffsetCopy = scriptDataOffset + ReadInstructionInteger(instruction, 8);
         continue;
 
@@ -1034,7 +1046,7 @@ AnmVmUpdateScriptLoop:
         integerValue = IntegerSource(*this, instruction, 8, 1U);
         if (integerValue > 0)
         {
-            timer070.SetCurrent(ReadInstructionInteger(instruction, 16));
+            SetUpdateTimerCurrent(&timer070, ReadInstructionInteger(instruction, 16));
             scriptDataOffsetCopy = scriptDataOffset + ReadInstructionInteger(instruction, 12);
         }
         else
@@ -2167,7 +2179,7 @@ AnmVmUpdateInstructionAdvance:
             continue;
 
 AnmVmUpdateConditionalBranch:
-            timer070.SetCurrent(ReadInstructionInteger(instruction, 20));
+            SetUpdateTimerCurrent(&timer070, ReadInstructionInteger(instruction, 20));
             scriptDataOffsetCopy = scriptDataOffset + ReadInstructionInteger(instruction, 16);
             continue;
     }
@@ -2219,7 +2231,7 @@ AnmVmUpdateWaitScan:
 
         timer3FC.SetCurrent(timer070);
         waitScriptAddress = scriptDataOffsetCopy;
-        timer070.SetCurrent(marker->frame);
+        SetUpdateTimerCurrent(&timer070, marker->frame);
         flags |= 1U;
         scriptDataOffsetCopy = NextInstructionAddress(marker);
     }
