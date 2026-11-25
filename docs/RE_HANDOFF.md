@@ -116,8 +116,11 @@ The remaining three direct-call deficit is `SpawnChildVm`: target has five
 callsites while LTCG folds the four list-mode handlers (88/91/90/92) into one
 candidate call, leaving two total. `SpawnChildVmAtPosition` remains 2/2. The
 float/integer operand-address helper counts are 11/14 candidate vs 12/13
-target, and the random-float call still targets `Rng::GetFloat` rather than
-the target's `Rng::GetFloatScaled`. These are open frontiers. Opcodes 40 and 41
+target. The random-float call is the exact 52-byte `Rng::GetFloat(float scale)`
+leaf at `0x0040D130` (target inventory label `Rng::GetFloatScaled`);
+`Rng::GetU32` is an exact 149-byte leaf with eight mapped relocations. The
+`SpawnChildVm` helper owner is 252 bytes vs 263 target and retains a private
+EAX-resource/stack-owner ABI frontier. Opcodes 40 and 41
 select the world/UI RNG in separate branches; opcode 41 uses the exact
 `Rng::GetFloat(float scale)` leaf at 0x0040D130. Opcodes 17, 27 and 42..46
 share the target float-result store, opcode 47 uses `AddAngles(angle, 0)`, and

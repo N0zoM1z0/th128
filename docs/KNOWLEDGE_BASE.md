@@ -243,9 +243,14 @@ difference is the target's five `SpawnChildVm` callsites versus two candidate
 calls: LTCG folds the four list-mode-only opcodes (88, 91, 90 and 92) into one
 shared natural-C++ call. `SpawnChildVmAtPosition` remains two calls on both
 sides. The candidate also has one fewer `ResolveFloatOperandAddress` call and
-one extra `ResolveIntegerOperandAddress` call; its single random-float call
-uses `Rng::GetFloat` where the target calls `Rng::GetFloatScaled`. These remain
-frontiers, not exactness claims.
+one extra `ResolveIntegerOperandAddress` call. Its random-float call resolves
+to the exact 52-byte `Rng::GetFloat(float scale)` leaf at `0x0040D130` (the
+target inventory names this overload `Rng::GetFloatScaled`), so that call is
+not an outstanding mismatch. `Rng::GetU32` is also an exact 149-byte natural-C++
+leaf with all eight reviewed relocation fields matching; its canonical unit
+is `rng-get-u32`. The `SpawnChildVm` helper itself is currently
+252 bytes versus the 263-byte target; its EAX resource/stack-owner ABI remains
+a separate natural-C++ frontier.
 The view-corner helpers now preserve the target's anchor-3 no-write behavior
 for modes 0 and 2/3. Their parent translations also retain per-corner x87
 operand order and intermediate float stores; the non-rotated paths perform
