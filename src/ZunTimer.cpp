@@ -17,7 +17,8 @@ __declspec(noinline) void ZunTimer::Increment()
     {
         const float nextCurrentF = *speed + currentF;
         currentF = nextCurrentF;
-        current = ZunRoundToInt((double)nextCurrentF);
+        // Keep VC10's CRT conversion path; it applies the runtime rounding mode.
+        current = (int)nextCurrentF;
     }
 }
 
