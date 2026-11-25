@@ -660,14 +660,31 @@ A Capstone sweep across all 2,214 confirmed authored game functions (`0x00401000
 - **Gameplay & UI (`0x00401000..0x0044F500`, ~305 KB):** `AsciiInf` (`0x401000..0x403FFF`), `Bullet` (`0x404000..0x40BFFF`), `Ice`/`Card` (`0x40C000..0x40FFFF`), `SprtView`/`SptInf`/`EclResourceInf` (`0x410000..0x415000`), `EnemyInf`/ECL VM (`0x415000..0x41FFFF`, incl. 18.8 KB `0x417FF0`), `Gui`/`Help` (`0x420000..0x427FFF`), `Laser*Inf` & `Player`/`Stage` (`0x428000..0x433FFF`), `Mother`/`GameManager`/`Pause` (`0x434000..0x43FFFF`), `Replay`/`Title`/`Score` (`0x440000..0x44F500`).
 - **Engine & Platform (`0x0044F500..0x004708BC`, ~128 KB):** `Pbg` archive/file/LZSS (`0x44F500..0x451300`), D3D9/Window/App/Snapshot (`0x451300..0x458000`), Sound/BGM manager (`0x458000..0x4593B0`), **ANM engine** (`0x4593B0..0x468100`), `Chain` (`0x468100..0x468900`), Input/File/Cipher/Rng/AngleMath/MenuCursor/ZunTimer/ThreadInf/Easing (`0x468900..0x46C800`), DirectSound `CSound`/`CStreamingSound` (`0x46C800..0x46E100`), tail engine/SPT (`0x46E100..0x4708BC`).
 
+## VC10 `/GL` compiler debug findings from Phases 1–2 (2026-11-25)
+
+Verified against TH128 (`resources/th128.exe`, VC10 RTM `16.00.30319.01`, link `10.00.30319.01`) across +201 newly accepted exact functions (`102 -> 303` exact, `6,620 -> 17,121` exact bytes):
+
+- **`struct AnmId` by-value solves the `GetVmById` (`0x00467420`) / `ResolveAnmVmId` (`0x00467780`) LTCG stack-arg mystery.** VC10 `/GL` custom calling convention promotes scalar and pointer parameters (`this`, `AnmId *`, `ZunVec3 *`) into registers, but **never** register-promotes by-value `struct` parameters (`struct AnmId { unsigned int id; };`). Declaring `AnmVm *AnmManager::GetVmById(AnmId id)` naturally keeps `this` in `EDX` and `id` on the stack (`push eax; call 0x467420`) with zero unused-`ECX` workaround, reproducing both the 89-byte `GetVmById` body and 30+ `AnmHelpers` / `ResolveAnmVmId` callers exactly.
+- **`/Ob1` (inline only `__inline`/in-class) is required for ANM `/GL` units.** Under default `/O2` (`/Ob2`), VC10 `/GL` aggressively inlines out-of-line `.cpp` helpers (`GetVmById`, `EaseTransition`, `DrawAnmVmWithManager`, `Supervisor::EnterCriticalSection`/`LeaveCriticalSection`), inflating callers by 24–70 bytes. Adding `/Ob1` (`/TP /O2 /Ob1 /Oy- /Gy /MT /Isrc /GL`) keeps out-of-line `.cpp` calls intact while still inlining header-defined `inline` methods (`ZunTimer::Initialize`, `ResolveVmIdPtrInline`). Note: `Pbg::File` (`~File` inlining `Close`) still uses `/O2` without `/Ob1`, confirming per-TU/per-project inline settings differ between Pbg and ANM.
+- **Interprocedural stack-alignment (`and esp, -8`) hoisting under `/GL`.** When a function has an 8-byte aligned local (`double`, `LARGE_INTEGER`) or calls a callee that does (`AnmVm::Update`), VC10 `/GL` hoists `and esp, -8` out of non-escaping callees into their callers. Taking the function's address in the probe (matching real `Chain` callback registration) restores `and esp, -8` inside the function (`SupervisorTime::GetElapsedSeconds` `0x00455160`, 266B exact; `UpdateWorldVms`/`UpdateUiVms` `0x00466AF0`/`0x00466BE0`).
+- **Singleton `this` constant propagation unlocks IV strength reduction.** Calling `SoundManager` methods on `&g_SoundManager` lets `/GL` constant-propagate `this`, emitting the exact pointer+index induction variable (`cmp ecx, &queuedIds[12]`) and matching all 17 `SoundManager` functions (`0x00458410..0x0045921F`).
+- **Nested signed range check vs unsigned range fold.** `if (x < 60 && x >= 0)` folds to `(unsigned)x <= 59` (`cmp/ja`, 5B). Writing `if (arr[slot] < 60) { int c = arr[slot]; if (c >= 0) { ... } }` preserves the separate `cmp ecx, 0x3c; jge; test ecx, ecx; js` (9B) observed in `SoundManager::PlaySfx` / `PlaySfxWithPan`.
+- **x87 comparison operand order and `/fp:precise` ternary rounding merge.** Writing `if (g_TimeOrigin > elapsed)` emits `fcom qword ptr [g_TimeOrigin]; fnstsw ax; test ah, 5; jp` (-2B vs `fld; fcomp`). In `AnmInterp<T>::EvalProgress` (`0x0045DD90`/`C0`/`F0`/`0x0045DE30`), returning via ternary `(m <= 0xFu) ? EaseTransition(m, progress) : progress` causes `/fp:precise` to merge both arms at the `fstp [ebp-4]; fld [ebp-4]` float-rounding spill (`ja +9` instead of `ja +0xf`), matching all four 44-byte template instantiations.
+- **Struct assignment (`mov`) unlocks `fldz` hoisting across `ZunTimer::Initialize`.** In `AnmVm::SetScaleTransition` (`0x0045E190`, 140B) and `SetSecondaryScaleTransition` (`0x0045E080`, 140B), copying the 2-float scale pair as a struct emits integer `mov`s instead of `fld`/`fstp`, freeing the x87 stack so VC10 hoists `fldz` to the prologue and shares `st(0) = 0.0f` across `Initialize()` (`fst`) and the post-init zeroing (`fstp`).
+- **DLL import calls (`call dword ptr [__imp__...]`).** Win32/DirectX APIs such as `DirectSoundCreate8` must be declared `__declspec(dllimport)` so VC10 emits indirect 6-byte IAT calls instead of 5-byte direct `call rel32`.
+- **`AnmInterp<T>` template layout (`src/AnmInterp.hpp`/`.cpp`).** `0x0045D3D0..0x0045E6B3` is a single C++ template `AnmInterp<T>` (`start, goal, vel1, vel2, ZunTimer timer, int duration, unsigned int mode`) instantiated for `AnmColor3`, `float`, `int`, and `ZunVec2`. Explicitly instantiating `template struct AnmInterp<T>;` in `src/AnmInterp.cpp` guarantees primary-TU PDB ownership under `compare-linked-function.py`.
+- **Remaining natural-C++ frontiers from Phases 1–2:**
+  - `Chain::CutImpl` (`0x004686D0`) and its 4 callers (`RunCalcChain`, `RunDrawChain`, `CutList`, `Cut`): exact-size natural C++, differing only in VC10 `/GL` `ECX`/`EDX` private tie-breaker.
+  - `ClearD3DTexture` (`0x00467BD0`, 133B) / `ClearD3DTextureBlack` (`0x00467C60`, 272B): exact-size natural C++, currently reserving an extra 4B slot above `__security_cookie` (`[ebp-8]` vs `[ebp-4]`).
+  - `AnmVm::Update` (`0x00459D90`, 13,604B), `SetColorTransition` (`0x0045E4D0`, 227B), `SetEffectState` (`0x0045E6C0`, 133B), `UpdateWorldVms` (`0x00466AF0`), `UpdateUiVms` (`0x00466BE0`), `CreateVm` (`0x004670B0`, 365 vs 364B), `PreloadAnm` (`0x00465600`, 124B), `StopVmById` (`0x00467480`, 103B).
+
 ## Open questions
 
 - Per-unit flags, the TU partition, which objects were `/GL`, the library set
   and the link order. Both lanes in the handoff reproduce exact owners, so
   the split between normal and LTCG objects is still a hypothesis per file.
-- How the original call graph made LTCG keep some arguments on the stack
-  (`AnmManager::GetVmById`, the archive cipher before `size` became
-  in-place) and keep values in memory across stores (`ZunTimer::Add`,
-  `LaserInfiniteInf::Slot01`). Address escapes in probes fixed two such
-  cases; the others may need the real callers.
-- Why the original `CreateGameWindow` frame has two extra 4-byte slots.
+- Remaining LTCG register-allocation and stack-layout frontiers: why VC10
+  leaves 4 unused bytes above `__security_cookie` in `ClearD3DTexture`
+  (`0x00467BD0`), two extra 4-byte slots in `CreateGameWindow` (`0x00455320`),
+  keeps values in memory across stores (`ZunTimer::Add`, `LaserInfiniteInf::Slot01`),
+  and swaps `ECX`/`EDX` in `Chain::CutImpl` (`0x004686D0`).

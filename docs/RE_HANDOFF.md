@@ -1,6 +1,6 @@
 # TH128 reconstruction handoff
 
-Snapshot: 2026-11-24. Read this first, then AGENTS.md.
+Snapshot: 2026-11-25 (Phases 0–2 complete). Read this first, then AGENTS.md.
 
 ## Resume safely
 
@@ -34,20 +34,48 @@ canonical ledgers. At this snapshot:
 | --- | ---: |
 | Function candidates | 3,516 (provisional denominator) |
 | Boundary reviewed / provisional | 3,452 / 64 |
-| Origin rows pending | 49 |
-| Authored / excluded / indeterminate | 2,214 / 1,253 / 0 |
-| Source-present mappings | 149 |
-| Source-present with authored origin | 144 |
-| Authored source-present exact backlog | 54 |
-| Canonical exact functions | 95 |
-| Canonical exact codegen bytes | 5,489 |
-| Canonical exact authored bytes | 5,231 |
+| Origin rows pending | 21 |
+| Authored / excluded / indeterminate | 2,226 / 1,269 / 0 |
+| Source-present mappings | 350 |
+| Source-present with authored origin | 342 |
+| Authored source-present exact backlog | 47 |
+| Canonical exact functions | 303 |
+| Canonical exact codegen bytes | 17,121 |
+| Canonical exact authored bytes | 16,792 |
 
-The candidate inventory is not proven complete. The 49 pending origin rows
-are 21 D3DX candidates, 12 LTCG-entry adapter candidates and 16 later-added
-boundary-review candidates. Exact functions, source mappings and a clean Git
-tree do not prove that the native Windows product is complete or runnable.
-The native product has not been closed and runtime-validated.
+The candidate inventory is not proven complete. The 21 remaining pending origin
+rows are unreferenced `d3dx9math.inl` candidates (all 16 CRT-band boundary-review
+rows and all 12 LTCG-entry-adapter rows were closed in Phase 0). Exact functions,
+source mappings and a clean Git tree do not prove that the native Windows product
+is complete or runnable. The native product has not been closed and
+runtime-validated.
+
+## Completed Phases 0–2 summary (2026-11-25)
+
+Four local checkpoints (`a56cce6`, `c46e1f8`, `d8e26b4`, `c8c11fd`) advanced the
+canonical ledger from **102 exact / 6,620 B** to **303 exact / 17,121 B** (+201
+cold-replayed exact functions, +10,501 exact bytes):
+
+- **Phase 0 (`a56cce6`)**: Closed 16 CRT-band and 12 LTCG-entry-adapter pending
+  origins; documented whole-binary VC10 RTM flags (`/O2 /Oy- /fp:precise /GS /GL /OPT:NOICF`)
+  and coarse engine/gameplay map in `docs/KNOWLEDGE_BASE.md`.
+- **Phase 1A (`c46e1f8`, +52 exact / +4,180 B)**: `SupervisorTime` (1/1),
+  `SoundManager` (17/17), `MenuCursor` (3/3), `ThreadInf` (8/8), `Chain` (13/19),
+  `FileSystem` (7/8), `GameErrorContext` (2/2), `EngineUtil` (2/5).
+- **Phase 1B (`d8e26b4`, +42 exact / +2,148 B)**: `Input` (6/8), `CoreMath` (11/14),
+  `CSoundManager` / `CSoundView` / `CWaveFileView` (25/29).
+- **Phase 2 (`c8c11fd`, +107 exact / +4,173 B)**: `AnmManager` core + 23 `DrawLayer`
+  callbacks + `DrawVmGroup` + `CleanupVm` + `FlushSpriteBatch` + `AreAllAnmsLoaded` +
+  `ReleaseAnm` (30), `AnmResource` / `AnmTextureEntry` (3), `AnmHelpers` (32,
+  including `ResolveAnmVmId` `0x00467780` via natural `struct AnmId` by-value ABI),
+  `AnmInterp<T>` template + vector/angle/color helpers (39), and `AnmVmTransitions`
+  (`SetScaleTransition`, `SetSecondaryScaleTransition`, `SetSecondaryEffectState`, 3).
+
+Key compiler discoveries recorded in `docs/KNOWLEDGE_BASE.md`: `struct AnmId`
+by-value naturally reproduces `GetVmById` (`0x00467420`) and 30+ callers without
+any unused-`ECX` shim; `/Ob1` is required on ANM `/GL` units so out-of-line helpers
+are not over-inlined; address-taken probe pointers prevent interprocedural
+`and esp, -8` hoisting; struct copies unlock `fldz` hoisting in transition setters.
 
 ## Active reconstruction: AnmVm
 
@@ -196,22 +224,26 @@ reduces the exact count; do not restore inline assembly to recover that count.
 The target codegen mismatch is an honest frontier. The four laser slot-0
 callers remain frontiers as well.
 
-## Next useful work
+## Next useful work (Phase 3+)
 
-1. Continue the full AnmVm::Update reconstruction from 0x00459D90. Recover
-   the missing branches rather than polishing only small helpers. Follow
-   incoming references and high-fan-in helpers where they clarify the boss
-   function's behavior.
-2. Audit ExecuteBasicInstruction/ExecuteReadyInstructions against the
-   target: opcode payload offsets, operand flags, frame gates, wait/restart
-   behavior, instruction pointer updates and termination.
-3. Audit transition setup and UpdateTransitions mode-by-mode, including
-   timer edge cases and vector/scalar differences.
-4. Continue renderer dispatch and world/fog/primitive modes, keeping
-   0x004609C0 and 0x00460DD0 semantics distinct.
-5. Compile only changed/affected translation units while iterating. When an
-   already-exact unit is changed, replay that unit and directly affected
-   dependencies only.
+1. **Close remaining ANM medium functions**: finish `UpdateWorldVms` (`0x00466AF0`),
+   `UpdateUiVms` (`0x00466BE0`), `CreateVm` (`0x004670B0`, 365 vs 364B), `PreloadAnm`
+   (`0x00465600`, 124B), `StopVmById` (`0x00467480`, 103B), `SetEffectState` (`0x0045E6C0`, 133B),
+   `SetColorTransition` (`0x0045E4D0`, 227B), `ClearD3DTexture` (`0x00467BD0`), and the
+   four `AnmInterp<T>::Step` functions (`0x0045D3D0..0x0045DB20`), plus `AnmVm::Update`
+   (`0x00459D90`, 13,604B).
+2. **Phase 3 — D3D9/Window/Supervisor (`0x00451300..0x00458400`) & ECL/SPT Engine
+   (`0x00410000..0x0041FFFF`, `0x0046E100..0x004708BC`)**: reconstruct `Supervisor`
+   initialization/main loop and the ECL VM / `SptInf` resource layer next, reusing
+   the `/Ob1`, `struct`-by-value, and address-escape patterns proven in Phases 1–2.
+3. **Phase 4 — Gameplay modules (`0x00401000..0x0044F500`)**: `AsciiInf`, `Bullet`,
+   `Ice`/`Card`, `EnemyInf`, `Gui`, `Laser*Inf`, `Player`, `Stage`, `GameManager`,
+   `Replay`/`Title`/`Score`.
+4. **Next verification command when resuming**:
+
+   ~~~bash
+   scripts/repo-python scripts/validate-tracking.py --require-target
+   ~~~
 
 ## Workflow and constraints
 
