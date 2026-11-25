@@ -234,7 +234,18 @@ address-taken probe reference. It searches world then UI VM lists. The
 both Update call edges; its current candidate is 23 bytes versus the 21-byte
 target because LTCG emits a zeroing instruction for the unused ECX slot.
 Opcode 45 is `acos`, confirmed by the target's `__CIacos` call; the source now
-uses `acos` rather than `asin`.
+uses `acos` rather than `asin`. The latest targeted `AnmVm::Update` linked
+build is 13,628 bytes against the 13,604-byte target (3,721 vs 3,769 decoded
+instructions; 286 vs 289 calls, with 283 vs 286 direct). Opcode 40 now keeps
+both target `Rng::GetU32` callsites, and opcode 102 keeps both target
+`BindAnmFile` callsites; each count is exact. The remaining three direct-call
+difference is the target's five `SpawnChildVm` callsites versus two candidate
+calls: LTCG folds the four list-mode-only opcodes (88, 91, 90 and 92) into one
+shared natural-C++ call. `SpawnChildVmAtPosition` remains two calls on both
+sides. The candidate also has one fewer `ResolveFloatOperandAddress` call and
+one extra `ResolveIntegerOperandAddress` call; its single random-float call
+uses `Rng::GetFloat` where the target calls `Rng::GetFloatScaled`. These remain
+frontiers, not exactness claims.
 The view-corner helpers now preserve the target's anchor-3 no-write behavior
 for modes 0 and 2/3. Their parent translations also retain per-corner x87
 operand order and intermediate float stores; the non-rotated paths perform

@@ -108,7 +108,16 @@ ECX slot retained by an address-taken probe reference. The 21-byte
 `ResolveAnmVmId` wrapper is a 23-byte natural-C++ candidate because the caller
 materializes zero into that unused ECX slot; both Update call edges and the
 exact lookup helper are retained. Opcode 45 is confirmed as `acos` by the
-target `__CIacos` call. Opcodes 40 and 41
+target `__CIacos` call. The latest targeted `AnmVm::Update` candidate is
+13,628 bytes vs 13,604 target (3,721 vs 3,769 instructions; 286 vs 289 calls,
+283 vs 286 direct). The opcode-40 world/UI branches now preserve both target
+`Rng::GetU32` calls, and opcode 102 preserves both target `BindAnmFile` calls.
+The remaining three direct-call deficit is `SpawnChildVm`: target has five
+callsites while LTCG folds the four list-mode handlers (88/91/90/92) into one
+candidate call, leaving two total. `SpawnChildVmAtPosition` remains 2/2. The
+float/integer operand-address helper counts are 11/14 candidate vs 12/13
+target, and the random-float call still targets `Rng::GetFloat` rather than
+the target's `Rng::GetFloatScaled`. These are open frontiers. Opcodes 40 and 41
 select the world/UI RNG in separate branches; opcode 41 uses the exact
 `Rng::GetFloat(float scale)` leaf at 0x0040D130. Opcodes 17, 27 and 42..46
 share the target float-result store, opcode 47 uses `AddAngles(angle, 0)`, and
