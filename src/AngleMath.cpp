@@ -18,7 +18,8 @@ float __stdcall NormalizeAngle(float angle)
             break;
         }
     }
-    while (angle < -kPi)
+    // The target lower bound is -float(pi) widened to double, not -kPi.
+    while (angle < -3.1415927410125732421875)
     {
         angle = static_cast<float>(angle + kTwoPi);
         if (corrections++ > 32)
@@ -31,27 +32,29 @@ float __stdcall NormalizeAngle(float angle)
 
 float __stdcall AddAngles(float angle, float offset)
 {
-    // FUN_0046A660 keeps the initial sum in the x87 extended register, but
-    // rounds each wraparound adjustment back to float before comparing again.
-    double value = (double)angle + (double)offset;
+    // Keep the initial sum in the x87 register. The target only rounds it
+    // through the float parameter slot when a wraparound adjustment occurs.
+    float value = angle;
+    value += offset;
     int corrections = 0;
     while (value > kPi)
     {
-        value = (double)(float)(value - kTwoPi);
+        value = (float)(value - kTwoPi);
         if (corrections++ > 32)
         {
             break;
         }
     }
-    while (value < -kPi)
+    // Match the same float-rounded lower bound in the angle-add helper.
+    while (value < -3.1415927410125732421875)
     {
-        value = (double)(float)(value + kTwoPi);
+        value = (float)(value + kTwoPi);
         if (corrections++ > 32)
         {
             break;
         }
     }
-    return (float)value;
+    return value;
 }
 
 
