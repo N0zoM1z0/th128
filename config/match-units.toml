@@ -2553,3 +2553,34 @@ size = 61
 linkages = [
   { offset = 38, type = "DIR32", symbol = "?g_TimeScale@@3MA", target = 0x004B6F58 },
 ]
+
+[units.anm-manager-get-vm-by-id-target-abi]
+artifact_kind = "linked-pe"
+source = "src/AnmManager.cpp"
+inputs = ["src/AnmManager.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp"]
+support_sources = ["probes/anm-manager-context.cpp"]
+output_dir = "build/match-linked/AnmManagerTargetAbi"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmManagerProbe@12"
+functions = ["GetVmByIdTargetAbi"]
+symbol = "?GetVmByIdTargetAbi@@YIPAUAnmVm@@PAXPAUAnmManager@@I@Z"
+target_address = 0x00467420
+size = 89
+linkages = []
+
+[units.anm-vm-resolve-anm-vm-id]
+frontier = true # The target helper receives its ID pointer in ESI and leaves ECX unspecified; natural C++ currently emits a two-byte ECX setup before the exact manager lookup call.
+artifact_kind = "linked-pe"
+source = "src/AnmVmScript.cpp"
+inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp", "src/AnmManager.hpp", "src/AngleMath.hpp", "src/ZunTimer.hpp", "src/AnmVmGeometry.hpp", "src/AnmVmView.hpp"]
+support_sources = ["probes/anm-vm-update-context.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVmEffects.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "src/ZunTimer.cpp", "src/AnmVmView.cpp"]
+output_dir = "build/match-linked/AnmVmUpdate"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmVmUpdateProbe@4"
+functions = ["ResolveAnmVmId"]
+symbol = "?ResolveAnmVmId@?A0xcccfbf55@@YAPAUAnmVm@@PAI@Z"
+target_address = 0x00467780
+size = 21
+linkages = [
+  { offset = 10, type = "REL32", symbol = "?GetVmByIdTargetAbi@@YIPAUAnmVm@@PAXPAUAnmManager@@I@Z", target = 0x00467420 },
+]

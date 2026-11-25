@@ -269,7 +269,7 @@ namespace
     __declspec(noinline) AnmVm *ResolveAnmVmId(unsigned int *id)
     {
         AnmManager *manager = GetGlobalAnmManager();
-        AnmVm *vm = manager->GetVmById(*id);
+        AnmVm *vm = GetVmByIdTargetAbi(0, manager, *id);
         if (vm == 0)
         {
             *id = 0;
@@ -2118,7 +2118,7 @@ AnmVmUpdateScriptLoop:
     case 45:
     {
         const double value = (double)FloatSource(*this, instruction, 12, 2U);
-        floatValue = (float)asin(value);
+        floatValue = (float)acos(value);
         goto AnmVmUpdateStoreUnaryFloat;
     }
 

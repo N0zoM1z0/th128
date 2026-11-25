@@ -5,6 +5,11 @@
 
 AnmManager **g_ProbeAnmManagerAddress = &g_AnmManager;
 
+typedef AnmVm *(__fastcall *GetVmByIdTargetAbiPointer)(
+    void *, AnmManager *, volatile unsigned int);
+GetVmByIdTargetAbiPointer volatile g_KeepGetVmByIdTargetAbi =
+    &GetVmByIdTargetAbi;
+
 struct ProbeVmOwner
 {
     unsigned int vmIds[4];

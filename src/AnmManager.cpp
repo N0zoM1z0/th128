@@ -42,6 +42,37 @@ AnmVm *AnmManager::GetVmById(unsigned int id)
     return 0;
 }
 
+__declspec(noinline) AnmVm *__fastcall GetVmByIdTargetAbi(
+    void *unused, AnmManager *manager, volatile unsigned int id)
+{
+    (void)unused;
+    const unsigned int lookupId = id;
+    if (lookupId == 0)
+    {
+        return 0;
+    }
+
+    for (AnmVmListNode *node = manager->worldVms;
+         node != 0; node = node->next)
+    {
+        if (node->vm->id == lookupId)
+        {
+            return node->vm;
+        }
+    }
+
+    for (AnmVmListNode *node = manager->uiVms;
+         node != 0; node = node->next)
+    {
+        if (node->vm->id == lookupId)
+        {
+            return node->vm;
+        }
+    }
+
+    return 0;
+}
+
 unsigned int AnmManager::RegisterWorldVmAtTail(AnmVm *vm)
 {
     AnmVmListNode *node = &vm->managerNode;

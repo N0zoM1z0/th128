@@ -45,6 +45,12 @@ struct AnmManager
     int UpdateUiVms();
     int DrawVmGroup(unsigned int group);
 };
+
+// The original VM lookup helper uses the manager in EDX and leaves the VM id
+// on the stack. Its unused ECX slot is part of the target's private fastcall.
+AnmVm *__fastcall GetVmByIdTargetAbi(
+    void *unused, AnmManager *manager, volatile unsigned int id);
+
 typedef char AnmManagerActiveCountOffset[(offsetof(AnmManager, activeVmCount) == 0xA0) ? 1 : -1];
 typedef char AnmManagerViewOffsetX[(offsetof(AnmManager, viewOffsetX) == 0xB0) ? 1 : -1];
 typedef char AnmManagerViewOffsetY[(offsetof(AnmManager, viewOffsetY) == 0xB4) ? 1 : -1];
