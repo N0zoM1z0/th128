@@ -164,6 +164,26 @@ namespace
         timer->previous = -1;
     }
 
+    // The view-angle transition has its own target helper copy at 0x45DAD0;
+    // keep its owner-relative timer reset as a distinct natural C++ call edge.
+    __declspec(noinline) void ResetViewTransitionTimer(void *owner)
+    {
+        ZunTimer *timer = reinterpret_cast<ZunTimer *>(
+            reinterpret_cast<unsigned char *>(owner) +
+            offsetof(AnmVmScalarTransition, timer));
+        if (!timer->initialized)
+        {
+            timer->currentF = 0.0f;
+            timer->current = 0;
+            timer->previous = -999999;
+            timer->gameSpeed = &g_TimeScale;
+            timer->initialized = 1;
+        }
+        timer->currentF = 0.0f;
+        timer->current = 0;
+        timer->previous = -1;
+    }
+
 
     __declspec(noinline) unsigned int *__stdcall SpawnChildVm(
         unsigned int *childId,
@@ -1647,7 +1667,7 @@ AnmVmUpdateScriptLoop:
         viewTransition.values[0] = NormalizeAngle(unknown02C);
         viewTransition.values[2] = NormalizeAngle(0.0f);
         viewTransition.values[3] = viewTransition.values[2];
-        viewTransition.timer.Reset();
+        ResetViewTransitionTimer(&viewTransition);
         flags |= 4U;
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;

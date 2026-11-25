@@ -2521,3 +2521,19 @@ size = 52
 linkages = [
   { offset = 31, type = "DIR32", symbol = "?g_TimeScale@@3MA", target = 0x004B6F58 },
 ]
+
+[units.anm-vm-view-transition-reset]
+artifact_kind = "linked-pe"
+source = "src/AnmVmScript.cpp"
+inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp", "src/AnmManager.hpp", "src/AngleMath.hpp", "src/ZunTimer.hpp", "src/AnmVmGeometry.hpp", "src/AnmVmView.hpp"]
+support_sources = ["probes/anm-vm-update-context.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVmEffects.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "src/ZunTimer.cpp", "src/AnmVmView.cpp"]
+output_dir = "build/match-linked/AnmVmViewTransitionReset"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmVmUpdateProbe@4"
+functions = ["ResetViewTransitionTimer"]
+symbol = "?ResetViewTransitionTimer@?A0xcccfbf55@@YAXPAX@Z"
+target_address = 0x0045DAD0
+size = 52
+linkages = [
+  { offset = 31, type = "DIR32", symbol = "?g_TimeScale@@3MA", target = 0x004B6F58 },
+]

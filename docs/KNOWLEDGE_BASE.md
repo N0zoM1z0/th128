@@ -220,7 +220,10 @@ pointer relocation, and the final `previous = -1` store. Opcodes 56, 100 and
 distinct operation. Texture-offset opcodes 107 and 108 use a second exact
 52-byte helper, `ResetScalarTransitionTimer(void *)` at `0x0040CEA0`, which
 resets the timer at owner `+0x10`; the target and candidate both retain its two
-call edges for the X/Y scalar transitions.
+call edges for the X/Y scalar transitions. Opcode 113 has a third, byte-identical
+52-byte owner-relative helper copy, `ResetViewTransitionTimer(void *)` at
+`0x0045DAD0`, also using owner `+0x10`; it remains a separate function and
+preserves the view-transition call edge.
 The view-corner helpers now preserve the target's anchor-3 no-write behavior
 for modes 0 and 2/3. Their parent translations also retain per-corner x87
 operand order and intermediate float stores; the non-rotated paths perform
