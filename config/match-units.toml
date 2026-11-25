@@ -2126,7 +2126,7 @@ size = 13604
 linkages = []
 
 [units.anm-vm-interpolate-color-vector-linked]
-frontier = true # Candidate owner 650 bytes versus the 721-byte target; track cubic mode-8 codegen and output-pointer ABI.
+frontier = true # Candidate owner 719 bytes versus the 721-byte target; track mode-8 codegen and output-pointer ABI.
 artifact_kind = "linked-pe"
 source = "src/AnmVmScript.cpp"
 inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp", "src/AnmManager.hpp", "src/AngleMath.hpp", "src/ZunTimer.hpp", "src/AnmVmGeometry.hpp", "src/AnmVmView.hpp"]
@@ -2352,7 +2352,7 @@ size = 728
 relocations = []
 
 [units.anm-vm-transition-easing-linked]
-frontier = true # Full 728-byte LTCG owner; 12 x87 operand-direction bytes still differ after relocation normalization.
+frontier = true # Full 728-byte LTCG owner; all 35 relocation fields replay exactly.
 artifact_kind = "linked-pe"
 source = "src/AnmVmScript.cpp"
 inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp", "src/AnmManager.hpp", "src/AngleMath.hpp", "src/ZunTimer.hpp", "src/AnmVmGeometry.hpp", "src/AnmVmView.hpp"]

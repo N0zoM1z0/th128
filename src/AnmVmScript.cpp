@@ -338,50 +338,59 @@ namespace
             if (t < 1.0f)
                 return (float)((double)t * t * t * 0.5);
             {
-                const double delta = 2.0 - (double)t;
-                const double power = delta * (delta * delta);
-                return (float)((2.0 - power) * 0.5);
+                double delta = 2.0 - (double)t;
+                delta *= delta;
+                delta *= 2.0 - (double)t;
+                return (float)((2.0 - delta) * 0.5);
             }
         case 12:
             t += t;
             if (t < 1.0f)
             {
-                const double delta = 1.0 - t;
-                const double power = delta * (delta * delta);
+                double delta = 1.0 - t;
+                delta *= delta;
+                delta *= 1.0 - t;
                 const double half = 0.5;
-                return (float)(half - half * power);
+                return (float)(half - half * delta);
             }
             else
             {
-                const double delta = t - 1.0;
-                const double power = delta * (delta * delta);
+                double delta = t - 1.0;
+                delta *= delta;
+                delta *= t - 1.0;
                 const double half = 0.5;
-                return (float)(half + half * power);
+                return (float)(half + half * delta);
             }
         case 10:
             t *= 2.0;
             if (t < 1.0f)
                 return (float)((double)t * t * t * t * 0.5);
             {
-                const double delta = 2.0 - (double)t;
-                const double power = delta * (delta * (delta * delta));
-                return (float)((2.0 - power) * 0.5);
+                double delta = 2.0 - (double)t;
+                delta *= delta;
+                delta *= 2.0 - (double)t;
+                delta *= 2.0 - (double)t;
+                return (float)((2.0 - delta) * 0.5);
             }
         case 13:
             t += t;
             if (t < 1.0f)
             {
-                const double delta = 1.0 - t;
-                const double power = delta * (delta * (delta * delta));
+                double delta = 1.0 - t;
+                delta *= delta;
+                delta *= 1.0 - t;
+                delta *= 1.0 - t;
                 const double half = 0.5;
-                return (float)(half - half * power);
+                return (float)(half - half * delta);
             }
             else
             {
-                const double delta = t - 1.0;
-                const double power = delta * (delta * (delta * delta));
+                double delta = t - 1.0;
+                delta *= delta;
+                delta *= t - 1.0;
+                delta *= t - 1.0;
                 const double half = 0.5;
-                return (float)(half + half * power);
+                return (float)(half + half * delta);
             }
         case 14: return 0.0f;
         case 15: return 1.0f;

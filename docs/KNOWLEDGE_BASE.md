@@ -222,10 +222,19 @@ The color-vector cubic path is tracked separately by
 `anm-vm-interpolate-color-vector-linked`. Its mode-8 source now rounds the
 normalized time through a float and materializes the twelve individually
 converted Hermite terms in basis-major order (h11, h10, h01, h00), matching
-the target's conversion call order. The selected owner is currently 650 bytes
-versus the 721-byte target; its remaining differences are in x87 coefficient
-scheduling, stack layout and register allocation. This is source progress, not
-an exact helper.
+the target's conversion call order. The selected owner is currently 719 bytes versus the 721-byte target; its
+remaining differences include x87 coefficient scheduling, stack layout,
+register allocation and the target's internal register ABI. This is source
+progress, not an exact helper.
+
+The easing dispatcher `EaseTransition` at `0x0046B190` is tracked separately
+by `anm-vm-transition-easing-linked`. Its LTCG candidate owns the complete
+728-byte contribution and all 35 absolute fields (the jump-table pointer,
+16 handler entries and floating-point constants) are mapped. The natural C++
+mutation order for cubic and quartic easing now reproduces the target x87
+operand forms. The selected linked-function replay reports `exact` with zero
+normalized byte differences. The normal-COFF view has a different extent and
+calling convention; the linked caller context is the relevant replay.
 
 Useful evidence:
 - .analysis/anm-vm-update-target.txt — target Ghidra decompilation

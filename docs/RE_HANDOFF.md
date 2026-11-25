@@ -71,9 +71,13 @@ synchronization, transition updates, custom geometry, frame callback and timer
 advancement. The latest selected VC10 `/GL` PDB contribution is 13,772 bytes
 versus the 13,604-byte target (168 bytes larger), and its direct call count is
 284 versus the target's 286; it is still not an exact replay. The separate
-`InterpolateColorVector` frontier is 650 bytes versus its 721-byte target;
-its mode-8 path now uses target-style float time and 15 truncating conversions,
-but its private register ABI and x87 scheduling still differ. `ZunTimer::Increment`
+`InterpolateColorVector` frontier is 719 bytes versus its 721-byte target;
+its mode-8 path now uses target-style float time and 12 individually converted
+Hermite terms in target basis order, but its private register ABI and x87
+scheduling still differ. `EaseTransition` at 0x0046B190 now has a separate
+linked-PE replay: 728-byte owner, 35 mapped relocation fields, and zero
+normalized byte differences. Its 16 jump-table entries, handler order and
+natural C++ easing expressions now reproduce the target. `ZunTimer::Increment`
 is now an exact 88-byte out-of-line leaf, preserving the timer call edge inside
 transition interpolation. Opcodes 40 and 41 select the world/UI RNG in separate branches; opcode 41 uses the exact
 `Rng::GetFloat(float scale)` leaf at 0x0040D130. Opcodes 17, 27 and 42..46
