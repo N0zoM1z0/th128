@@ -5,14 +5,6 @@
 #include <string.h>
 #include <windows.h>
 
-// The original dispatches into the large interpreter/draw routine at
-// 0x00459D90. Until its renderer is reconstructed, binding runs the recovered
-// command-execution subset and leaves unsupported commands pending.
-static float *AnmGameSpeed()
-{
-    return reinterpret_cast<float *>(0x004B6F58);
-}
-
 class AnmVmCreationLock
 {
 public:
@@ -44,85 +36,6 @@ private:
     CRITICAL_SECTION *criticalSection;
     bool locked;
 };
-
-static void InitializeVmTimer(AnmVm *vm)
-{
-    if (!vm->timer070.initialized)
-    {
-        vm->timer070.previous = -999999;
-        vm->timer070.current = 0;
-        vm->timer070.currentF = 0.0f;
-        vm->timer070.gameSpeed = AnmGameSpeed();
-        vm->timer070.initialized = 1;
-    }
-
-    vm->timer070.currentF = 0.0f;
-    vm->timer070.current = 0;
-    vm->timer070.previous = -1;
-    vm->flags &= ~1U;
-}
-
-void AnmResource::BindVmScript(AnmVm *vm, int scriptIndex)
-{
-    const unsigned int scriptData = scriptOffsets[scriptIndex];
-    if (scriptData == 0 || isInvalid != 0)
-    {
-        memset(vm, 0, sizeof(AnmVm));
-        return;
-    }
-
-    vm->ResetForReuse();
-    vm->anmScriptIndex = (short)scriptIndex;
-    vm->anmFileId = (short)fileId;
-    vm->flags &= ~0xC00U;
-    vm->resource = this;
-    vm->stateFlags = (vm->stateFlags & ~0x40U) | 0x80U;
-    vm->scriptDataOffset = scriptData;
-    vm->scriptDataOffsetCopy = scriptData;
-
-    InitializeVmTimer(vm);
-    vm->Update();
-    ++GetGlobalAnmManager()->activeVmCount;
-
-    vm->scale2X = 1.0f;
-    vm->scale2Y = 1.0f;
-    if ((vm->stateFlags & 0xC0U) == 0x80U)
-    {
-        vm->stateFlags = (vm->stateFlags & ~0x80U) | 0x40U;
-    }
-}
-
-void AnmResource::BindVmAtPosition(
-    AnmVm *vm,
-    int scriptIndex,
-    const ZunVec3 *position)
-{
-    const unsigned int scriptData = scriptOffsets[scriptIndex];
-    if (scriptData == 0 || isInvalid != 0)
-    {
-        memset(vm, 0, sizeof(AnmVm));
-        return;
-    }
-
-    vm->ResetForReuse();
-    vm->secondaryPosition = *position;
-    vm->anmScriptIndex = (short)scriptIndex;
-    vm->anmFileId = (short)fileId;
-    vm->flags &= ~0xC00U;
-    vm->resource = this;
-    vm->stateFlags = (vm->stateFlags & ~0x40U) | 0x80U;
-    vm->scriptDataOffset = scriptData;
-    vm->scriptDataOffsetCopy = scriptData;
-
-    InitializeVmTimer(vm);
-    vm->Update();
-    ++GetGlobalAnmManager()->activeVmCount;
-
-    if ((vm->stateFlags & 0xC0U) == 0x80U)
-    {
-        vm->stateFlags = (vm->stateFlags & ~0x80U) | 0x40U;
-    }
-}
 
 unsigned int *AnmResource::CreateVm(
     const ZunVec3 *position,

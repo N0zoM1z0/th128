@@ -202,7 +202,7 @@ namespace
         unsigned int *childId,
         int scriptIndex,
         AnmVm *parent,
-        unsigned int listMode)
+        volatile unsigned int listMode)
     {
         AnmVmChildCreationLock lock;
         ++resource->activeVmCount;
@@ -262,7 +262,13 @@ namespace
         AnmVm *child = AllocateAnmVm();
         child->stateFlags |= 2U;
         child->scriptState = parent->scriptState;
-        memcpy(&child->position, &parent->position, sizeof(child->position));
+        const unsigned int *sourcePosition =
+            reinterpret_cast<const unsigned int *>(&parent->position);
+        unsigned int *destinationPosition =
+            reinterpret_cast<unsigned int *>(&child->position);
+        destinationPosition[0] = sourcePosition[0];
+        destinationPosition[1] = sourcePosition[1];
+        destinationPosition[2] = sourcePosition[2];
         resource->BindVmScript(child, scriptIndex);
         child->unknown024 = parent->unknown024;
         child->unknown028 = parent->unknown028;
@@ -958,6 +964,96 @@ namespace
 
 
 
+}
+
+void __stdcall UpdateVmForBinding(AnmVm *vm);
+
+void AnmResource::BindVmScript(AnmVm *vm, int scriptIndex)
+{
+    if (scriptOffsets[scriptIndex] == 0 || isInvalid != 0)
+    {
+        memset(vm, 0, sizeof(AnmVm));
+        return;
+    }
+
+    vm->ResetForReuse();
+    vm->anmScriptIndex = (short)scriptIndex;
+    vm->anmFileId = (short)fileId;
+    vm->flags &= ~0xC00U;
+    vm->resource = this;
+    vm->stateFlags = (vm->stateFlags & ~0x40U) | 0x80U;
+    const unsigned int scriptData = scriptOffsets[scriptIndex];
+    vm->scriptDataOffset = scriptData;
+    vm->scriptDataOffsetCopy = scriptData;
+
+    if (!vm->timer070.initialized)
+    {
+        vm->timer070.currentF = 0.0f;
+        vm->timer070.current = 0;
+        vm->timer070.previous = -999999;
+        vm->timer070.gameSpeed = reinterpret_cast<float *>(0x004B6F58);
+        vm->timer070.initialized = 1;
+    }
+    (void)*reinterpret_cast<AnmManager *volatile *>(0x004D2E50);
+    vm->timer070.currentF = 0.0f;
+    vm->timer070.current = 0;
+    vm->timer070.previous = -1;
+    *reinterpret_cast<volatile unsigned int *>(&vm->flags) &= ~1U;
+
+    UpdateVmForBinding(vm);
+    ++GetGlobalAnmManager()->activeVmCount;
+
+    vm->scale2X = 1.0f;
+    vm->scale2Y = 1.0f;
+    if ((vm->stateFlags & 0xC0U) == 0x80U)
+    {
+        vm->stateFlags = (vm->stateFlags & ~0x80U) | 0x40U;
+    }
+}
+
+void AnmResource::BindVmAtPosition(
+    AnmVm *vm,
+    int scriptIndex,
+    const ZunVec3 *position)
+{
+    if (scriptOffsets[scriptIndex] == 0 || isInvalid != 0)
+    {
+        memset(vm, 0, sizeof(AnmVm));
+        return;
+    }
+
+    vm->ResetForReuse();
+    vm->secondaryPosition = *position;
+    vm->anmScriptIndex = (short)scriptIndex;
+    vm->anmFileId = (short)fileId;
+    vm->flags &= ~0xC00U;
+    vm->resource = this;
+    vm->stateFlags = (vm->stateFlags & ~0x40U) | 0x80U;
+    const unsigned int scriptData = scriptOffsets[scriptIndex];
+    vm->scriptDataOffset = scriptData;
+    vm->scriptDataOffsetCopy = scriptData;
+
+    if (!vm->timer070.initialized)
+    {
+        vm->timer070.currentF = 0.0f;
+        vm->timer070.current = 0;
+        vm->timer070.previous = -999999;
+        vm->timer070.gameSpeed = reinterpret_cast<float *>(0x004B6F58);
+        vm->timer070.initialized = 1;
+    }
+    (void)*reinterpret_cast<AnmManager *volatile *>(0x004D2E50);
+    vm->timer070.currentF = 0.0f;
+    vm->timer070.current = 0;
+    vm->timer070.previous = -1;
+    *reinterpret_cast<volatile unsigned int *>(&vm->flags) &= ~1U;
+
+    UpdateVmForBinding(vm);
+    ++GetGlobalAnmManager()->activeVmCount;
+
+    if ((vm->stateFlags & 0xC0U) == 0x80U)
+    {
+        vm->stateFlags = (vm->stateFlags & ~0x80U) | 0x40U;
+    }
 }
 
 __declspec(noinline) int AnmVm::BindAnmFile(
