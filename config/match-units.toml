@@ -2444,3 +2444,48 @@ symbol = "?SpawnChildVmAtPosition@?A0xcccfbf55@@YAIPAUAnmVm@@H@Z"
 target_address = 0x00467330
 size = 230
 relocations = []
+
+[units.anm-vm-view-corners-mode0-linked]
+frontier = true # LTCG probe for the target's private register convention in the mode-0 view helper.
+artifact_kind = "linked-pe"
+source = "src/AnmVmView.cpp"
+inputs = ["src/AnmVm.hpp", "src/AnmVmView.hpp"]
+support_sources = ["probes/anm-vm-view-context.cpp"]
+output_dir = "build/match-linked/AnmVmView"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmVmViewProbe@20"
+functions = ["BuildAnmVmViewCornersMode0"]
+symbol = "?BuildAnmVmViewCornersMode0@@YAXPBUAnmVm@@PAM111@Z"
+target_address = 0x0045F110
+size = 1209
+linkages = []
+
+[units.anm-vm-view-corners-mode23-linked]
+frontier = true # LTCG measurement for the target's private register convention in the non-rotated mode-2/3 helper.
+artifact_kind = "linked-pe"
+source = "src/AnmVmView.cpp"
+inputs = ["src/AnmVm.hpp", "src/AnmVmView.hpp"]
+support_sources = ["probes/anm-vm-view-context.cpp"]
+output_dir = "build/match-linked/AnmVmView"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmVmViewProbe@20"
+functions = ["BuildAnmVmViewCornersMode23"]
+symbol = "?BuildAnmVmViewCornersMode23@@YAXPBUAnmVm@@PAM111@Z"
+target_address = 0x0045F610
+size = 1020
+linkages = []
+
+[units.anm-vm-view-corners-mode1-linked]
+frontier = true # LTCG measurement for the target's private register convention and FSINCOS path in the rotated helper.
+artifact_kind = "linked-pe"
+source = "src/AnmVmView.cpp"
+inputs = ["src/AnmVm.hpp", "src/AnmVmView.hpp"]
+support_sources = ["probes/anm-vm-view-context.cpp"]
+output_dir = "build/match-linked/AnmVmView"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmVmViewProbe@20"
+functions = ["BuildAnmVmViewCornersMode1"]
+symbol = "?BuildAnmVmViewCornersMode1@@YAXPBUAnmVm@@PAM111@Z"
+target_address = 0x0045FAD0
+size = 623
+linkages = []

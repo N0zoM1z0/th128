@@ -211,6 +211,14 @@ destination-resolution block; opcode 47 uses `AddAngles(angle, 0)` as the
 target does. The opcode-113 view transition preserves the target's three
 `NormalizeAngle` calls, including the normalized zero terms, and the mode-13
 and mode-14 geometry paths retain their separate normalization call sites.
+The view-corner helpers now preserve the target's anchor-3 no-write behavior
+for modes 0 and 2/3. Their parent translations also retain per-corner x87
+operand order and intermediate float stores; the non-rotated paths perform
+the target's transient parent-Z additions before restoring the child center Z.
+LTCG measurement frontiers remain larger in the target because its helper
+call sites use a private register convention that the natural C++ probe does
+not reproduce: mode 0 is 834/1209 bytes, mode 2/3 is 799/1020 bytes, and mode
+1 is 537/623 bytes. These are measurements, not exact replays.
 The effect-10 geometry path now keeps the signed particle count and the
 mode-specific evaluation order. Mode 9 loads the raw start angle before the
 count-minus-one conversion, computes the double-constant 2π step, initializes

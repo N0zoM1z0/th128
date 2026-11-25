@@ -77,7 +77,12 @@ steps; mode 14 normalizes again after local-center composition and before the
 parent-center contribution. The ring closes through its advanced vertex
 cursor, including the no-loop case. The Update-specific `SetPolarForUpdate`
 leaf at 0x0045E010 remains a natural-C++ frontier: target FSINCOS versus source
-cos/sin calls; do not use inline assembly. The separate `InterpolateColorVector`
+cos/sin calls; do not use inline assembly. The view-corner helpers now preserve
+the target's anchor-3 no-write path in modes 0 and 2/3, per-corner parent
+translation order, and transient parent-Z additions before the final child-Z
+store. Their LTCG frontiers are 834/1209 bytes (mode 0), 799/1020 (mode 2/3),
+and 537/623 (mode 1); the target's private register ABI is not reproduced by
+the natural C++ probe. The separate `InterpolateColorVector`
 frontier is 719 bytes versus its 721-byte target;
 its mode-8 path now uses target-style float time and 12 individually converted
 Hermite terms in target basis order, but its private register ABI and x87
