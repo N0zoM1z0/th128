@@ -2351,6 +2351,57 @@ target_address = 0x0046B190
 size = 728
 relocations = []
 
+[units.anm-vm-transition-easing-linked]
+frontier = true # Full 728-byte LTCG owner; 12 x87 operand-direction bytes still differ after relocation normalization.
+artifact_kind = "linked-pe"
+source = "src/AnmVmScript.cpp"
+inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp", "src/AnmManager.hpp", "src/AngleMath.hpp", "src/ZunTimer.hpp", "src/AnmVmGeometry.hpp", "src/AnmVmView.hpp"]
+support_sources = ["probes/anm-vm-update-context.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVmEffects.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "src/ZunTimer.cpp", "src/AnmVmView.cpp"]
+output_dir = "build/match-linked/AnmVmColorInterpolation"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmVmUpdateProbe@4"
+functions = ["EaseTransition"]
+symbol = "?EaseTransition@?A0xcccfbf55@@YGMIM@Z"
+target_address = 0x0046B190
+size = 728
+linkages = [
+  { offset = 6, type = "DIR32", local = true, target = 0x0046B428 },
+  { offset = 151, type = "DIR32", symbol = "__real@4000000000000000", target = 0x004A65B0 },
+  { offset = 184, type = "DIR32", symbol = "__real@3fe0000000000000", target = 0x004A65A8 },
+  { offset = 206, type = "DIR32", symbol = "__real@3fe0000000000000", target = 0x004A65A8 },
+  { offset = 252, type = "DIR32", symbol = "__real@3fe0000000000000", target = 0x004A65A8 },
+  { offset = 272, type = "DIR32", symbol = "__real@3ff0000000000000", target = 0x004A6588 },
+  { offset = 280, type = "DIR32", symbol = "__real@3fe0000000000000", target = 0x004A65A8 },
+  { offset = 303, type = "DIR32", symbol = "__real@4000000000000000", target = 0x004A65B0 },
+  { offset = 340, type = "DIR32", symbol = "__real@3fe0000000000000", target = 0x004A65A8 },
+  { offset = 366, type = "DIR32", symbol = "__real@3fe0000000000000", target = 0x004A65A8 },
+  { offset = 416, type = "DIR32", symbol = "__real@3fe0000000000000", target = 0x004A65A8 },
+  { offset = 436, type = "DIR32", symbol = "__real@3ff0000000000000", target = 0x004A6588 },
+  { offset = 448, type = "DIR32", symbol = "__real@3fe0000000000000", target = 0x004A65A8 },
+  { offset = 471, type = "DIR32", symbol = "__real@4000000000000000", target = 0x004A65B0 },
+  { offset = 510, type = "DIR32", symbol = "__real@3fe0000000000000", target = 0x004A65A8 },
+  { offset = 538, type = "DIR32", symbol = "__real@3fe0000000000000", target = 0x004A65A8 },
+  { offset = 590, type = "DIR32", symbol = "__real@3fe0000000000000", target = 0x004A65A8 },
+  { offset = 610, type = "DIR32", symbol = "__real@3ff0000000000000", target = 0x004A6588 },
+  { offset = 624, type = "DIR32", symbol = "__real@3fe0000000000000", target = 0x004A65A8 },
+  { offset = 664, type = "DIR32", local = true, target = 0x0046B19A },
+  { offset = 668, type = "DIR32", local = true, target = 0x0046B1C2 },
+  { offset = 672, type = "DIR32", local = true, target = 0x0046B1F0 },
+  { offset = 676, type = "DIR32", local = true, target = 0x0046B1A9 },
+  { offset = 680, type = "DIR32", local = true, target = 0x0046B1D5 },
+  { offset = 684, type = "DIR32", local = true, target = 0x0046B205 },
+  { offset = 688, type = "DIR32", local = true, target = 0x0046B41E },
+  { offset = 692, type = "DIR32", local = true, target = 0x0046B41E },
+  { offset = 696, type = "DIR32", local = true, target = 0x0046B222 },
+  { offset = 700, type = "DIR32", local = true, target = 0x0046B2BA },
+  { offset = 704, type = "DIR32", local = true, target = 0x0046B362 },
+  { offset = 708, type = "DIR32", local = true, target = 0x0046B26C },
+  { offset = 712, type = "DIR32", local = true, target = 0x0046B30C },
+  { offset = 716, type = "DIR32", local = true, target = 0x0046B3B8 },
+  { offset = 720, type = "DIR32", local = true, target = 0x0046B412 },
+  { offset = 724, type = "DIR32", local = true, target = 0x0046B418 },
+]
+
 [units.anm-vm-start-effect10]
 frontier = true # Full 764-byte target body; source C++ extent and target register convention still differ.
 artifact_kind = "coff"
