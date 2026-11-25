@@ -4,31 +4,6 @@
 // +4 and the bit-0 flag at +0x10 that embedded timers clear on construction.
 extern float g_TimeScale;
 
-static inline int ZunRoundToInt(double value)
-{
-    if (value != value || value >= 2147483648.0 || value < -2147483648.0)
-    {
-        return (int)0x80000000;
-    }
-
-    if (*reinterpret_cast<const volatile int *>(0x004DCD68) != 0)
-    {
-        return (int)value;
-    }
-
-    int integral = (int)value;
-    const double fraction = value - (double)integral;
-    if (fraction > 0.5 || (fraction == 0.5 && (integral & 1) != 0))
-    {
-        ++integral;
-    }
-    else if (fraction < -0.5 || (fraction == -0.5 && (integral & 1) != 0))
-    {
-        --integral;
-    }
-    return integral;
-}
-
 struct ZunTimer
 {
     int previous;

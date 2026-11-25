@@ -82,7 +82,7 @@ void ZunTimer::SetCurrent(ZunTimer value)
 void ZunTimer::SetCurrentF(float value)
 {
     Initialize();
-    current = ZunRoundToInt((double)value);
+    current = (int)value;
     currentF = value;
     previous = current - 1;
 }
@@ -94,14 +94,15 @@ void ZunTimer::Add(float value)
     previous = current;
     if (*gameSpeed > 0.99 && *gameSpeed < 1.01f)
     {
-        currentF += value;
-        current = ZunRoundToInt((double)currentF);
+        volatile float &storedCurrentF = currentF;
+        storedCurrentF = storedCurrentF + value;
+        current = (int)storedCurrentF;
     }
     else
     {
         value *= *gameSpeed;
-        currentF += value;
-        current = ZunRoundToInt((double)currentF);
+        *reinterpret_cast<volatile float *>(&currentF) = value + currentF;
+        current = (int)currentF;
     }
 }
 

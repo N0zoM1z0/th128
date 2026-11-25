@@ -1815,7 +1815,6 @@ relocations = [
 ]
 
 [units.zun-timer-add]
-frontier = true # same compares and branches; the original reloads currentF after storing it and keeps the sum out of the argument slot
 artifact_kind = "linked-pe"
 source = "src/ZunTimer.cpp"
 inputs = ["src/ZunTimer.hpp"]
@@ -1827,7 +1826,12 @@ functions = ["ZunTimer::Add"]
 symbol = "?Add@ZunTimer@@QAEXM@Z"
 target_address = 0x0046AA20
 size = 97
-linkages = []
+linkages = [
+  { offset = 15, type = "DIR32", symbol = "__real@3fefae147ae147ae", target = 0x004A6698 },
+  { offset = 28, type = "DIR32", symbol = "__real@3f8147ae", target = 0x004A6694 },
+  { offset = 54, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 86, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+]
 
 [units.zun-timer-increment]
 artifact_kind = "linked-pe"
