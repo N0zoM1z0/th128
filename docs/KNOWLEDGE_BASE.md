@@ -217,7 +217,10 @@ embedded at owner `+0x30`. `ResetTransitionTimer(void *)` now reproduces that
 52-byte helper exactly, including lazy initialization, the `g_TimeScale`
 pointer relocation, and the final `previous = -1` store. Opcodes 56, 100 and
 59 share this owner-relative helper; the standalone timer reset remains a
-distinct operation.
+distinct operation. Texture-offset opcodes 107 and 108 use a second exact
+52-byte helper, `ResetScalarTransitionTimer(void *)` at `0x0040CEA0`, which
+resets the timer at owner `+0x10`; the target and candidate both retain its two
+call edges for the X/Y scalar transitions.
 The view-corner helpers now preserve the target's anchor-3 no-write behavior
 for modes 0 and 2/3. Their parent translations also retain per-corner x87
 operand order and intermediate float stores; the non-rotated paths perform

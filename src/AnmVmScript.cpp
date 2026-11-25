@@ -144,6 +144,26 @@ namespace
         timer->previous = -1;
     }
 
+    // Scalar transition owners place the same timer immediately after their
+    // four float lanes, at +0x10 rather than the vector owner's +0x30.
+    __declspec(noinline) void ResetScalarTransitionTimer(void *owner)
+    {
+        ZunTimer *timer = reinterpret_cast<ZunTimer *>(
+            reinterpret_cast<unsigned char *>(owner) +
+            offsetof(AnmVmScalarTransition, timer));
+        if (!timer->initialized)
+        {
+            timer->currentF = 0.0f;
+            timer->current = 0;
+            timer->previous = -999999;
+            timer->gameSpeed = &g_TimeScale;
+            timer->initialized = 1;
+        }
+        timer->currentF = 0.0f;
+        timer->current = 0;
+        timer->previous = -1;
+    }
+
 
     __declspec(noinline) unsigned int *__stdcall SpawnChildVm(
         unsigned int *childId,
@@ -1672,7 +1692,7 @@ AnmVmUpdateScriptLoop:
             FloatSource(*this, instruction, 16, 4U);
         textureOffsetXTransition.values[2] = 0.0f;
         textureOffsetXTransition.values[3] = 0.0f;
-        textureOffsetXTransition.timer.Reset();
+        ResetScalarTransitionTimer(&textureOffsetXTransition);
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
@@ -1688,7 +1708,7 @@ AnmVmUpdateScriptLoop:
             FloatSource(*this, instruction, 16, 4U);
         textureOffsetYTransition.values[2] = 0.0f;
         textureOffsetYTransition.values[3] = 0.0f;
-        textureOffsetYTransition.timer.Reset();
+        ResetScalarTransitionTimer(&textureOffsetYTransition);
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }

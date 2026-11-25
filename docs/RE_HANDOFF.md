@@ -95,7 +95,10 @@ transition interpolation. `ResetTransitionTimer(void *)` now exactly replays
 the 52-byte `FUN_00406F80` owner-relative reset helper: it receives a transition
 owner and resets the embedded timer at `+0x30`, including lazy initialization
 and the `g_TimeScale` relocation. Update opcodes 56, 100 and 59 now share this
-natural C++ helper (three target and candidate call edges). Opcodes 40 and 41
+natural C++ helper (three target and candidate call edges). Texture-offset
+opcodes 107 and 108 now use the separate exact 52-byte `ResetScalarTransitionTimer`
+helper at `0x0040CEA0`, resetting the timer at owner `+0x10`; both original
+call edges are retained. Opcodes 40 and 41
 select the world/UI RNG in separate branches; opcode 41 uses the exact
 `Rng::GetFloat(float scale)` leaf at 0x0040D130. Opcodes 17, 27 and 42..46
 share the target float-result store, opcode 47 uses `AddAngles(angle, 0)`, and

@@ -198,6 +198,7 @@ struct AnmVm
 };
 typedef char AnmVmColorTransitionTimerOffset[(offsetof(AnmVmColorTransition, timer) == 0x30) ? 1 : -1];
 typedef char AnmVmVectorTransitionTimerOffset[(offsetof(AnmVmVectorTransition, timer) == 0x30) ? 1 : -1];
+typedef char AnmVmScalarTransitionTimerOffset[(offsetof(AnmVmScalarTransition, timer) == 0x10) ? 1 : -1];
 typedef char AnmVmViewTimerOwnerRelativeOffset[(offsetof(AnmVm, timer0D4) - offsetof(AnmVm, viewPosition) == 0x30) ? 1 : -1];
 typedef char AnmVmSize[(sizeof(AnmVm) == 0x4E8) ? 1 : -1];
 typedef char AnmVmManagerNodeOffset[(offsetof(AnmVm, managerNode) == 0x04) ? 1 : -1];
