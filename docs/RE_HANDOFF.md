@@ -102,7 +102,13 @@ call edges are retained. Opcode 113 uses a third byte-identical 52-byte
 `ResetViewTransitionTimer` copy at `0x0045DAD0`, also owner `+0x10`, and keeps
 its separate target call edge. The four Update timer-frame writes now call
 the exact 61-byte `SetUpdateTimerCurrent` copy at `0x00403280`, distinct from
-`ZunTimer::SetCurrent` at `0x00403240`. Opcodes 40 and 41
+`ZunTimer::SetCurrent` at `0x00403240`. `AnmManager::GetVmById` now has an
+exact 89-byte target-ABI helper replay: manager in EDX, ID on the stack, unused
+ECX slot retained by an address-taken probe reference. The 21-byte
+`ResolveAnmVmId` wrapper is a 23-byte natural-C++ candidate because the caller
+materializes zero into that unused ECX slot; both Update call edges and the
+exact lookup helper are retained. Opcode 45 is confirmed as `acos` by the
+target `__CIacos` call. Opcodes 40 and 41
 select the world/UI RNG in separate branches; opcode 41 uses the exact
 `Rng::GetFloat(float scale)` leaf at 0x0040D130. Opcodes 17, 27 and 42..46
 share the target float-result store, opcode 47 uses `AddAngles(angle, 0)`, and
