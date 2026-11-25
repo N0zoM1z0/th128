@@ -523,15 +523,15 @@ The body was moved from the header-inline definition to `src/ZunTimer.cpp`
 with `__declspec(noinline)` so the real transition helpers retain their
 original call boundary.
 
-`ZunTimer::Add` (`0x0046AA20`) is a close frontier: the game speed is
-ignored inside `(0.99, 1.01)` (a double `0.99` and a float `1.01f`
-compare), otherwise the step is scaled. VC10 keeps the sum in the argument
-slot and converts from `ST0`, where the original stores `currentF`, reloads
-it and converts; each branch carries its own conversion. With the timer
-probe letting `gameSpeed` point at another timer's `currentF` (as the game
-can), the scaled branch matches the original exactly; the unscaled branch
-is still merged into the scaled tail because VC10 canonicalizes both
-additions to the same operand order.
+`ZunTimer::Add` (`0x0046AA20`) now replays as an exact 97-byte LTCG
+contribution. Its four reviewed DIR32/REL32 fields bind the two floating-point
+constants and both `_ftol2_sse` calls; the complete PDB-owned function has
+zero byte differences. The natural C++ implementation preserves the
+target's game-speed tolerance: use an unscaled increment inside `(0.99, 1.01)`,
+otherwise scale by `*gameSpeed`; both branches store the accumulated
+`currentF` before converting it to `current`. The explicit volatile access
+also preserves the aliasing case where `gameSpeed` points at another timer's
+`currentF`. Canonical unit `zun-timer-add`.
 
 `MenuCursor::Move` (`0x0046A970`, 99 call sites) is exact on the first
 try as a plain member: LTCG gives it the original's `EAX` receiver from a
