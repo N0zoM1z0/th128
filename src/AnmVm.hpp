@@ -155,7 +155,7 @@ struct AnmVm
     void (__fastcall *stopCallback)(AnmVm *, short);     // +0x4C8
     unsigned char unknown4CC[0x4DC - 0x4CC];
     int (__thiscall *frameCallback)(AnmVm *); // +0x4DC, can terminate this update
-    int (__fastcall *anmFileResolver)(AnmVm *); // +0x4E0
+    int (__fastcall *anmFileResolver)(AnmVm *, int fileIndex); // +0x4E0
     unsigned int unknown4E4;
 
     AnmVm();

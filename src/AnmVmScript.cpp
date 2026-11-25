@@ -903,6 +903,7 @@ namespace
 // branches, ordering and side effects still require full control-flow review.
 int AnmVm::Update()
 {
+    register AnmVm *const vm = this;
     if (scriptDataOffsetCopy == 0)
     {
         return 1;
@@ -1006,7 +1007,7 @@ AnmVmUpdateScriptLoop:
         const int left = IntegerSource(*this, instruction, 8, 1U);
         const int right = IntegerSource(*this, instruction, 12, 2U);
         if (left == right) goto AnmVmUpdateConditionalBranch;
-        break;
+        goto AnmVmUpdateInstructionAdvance;
     }
 
     case 29:
@@ -1014,7 +1015,7 @@ AnmVmUpdateScriptLoop:
         const float left = FloatSource(*this, instruction, 8, 1U);
         const float right = FloatSource(*this, instruction, 12, 2U);
         if (left == right) goto AnmVmUpdateConditionalBranch;
-        break;
+        goto AnmVmUpdateInstructionAdvance;
     }
 
     case 30:
@@ -1022,7 +1023,7 @@ AnmVmUpdateScriptLoop:
         const int left = IntegerSource(*this, instruction, 8, 1U);
         const int right = IntegerSource(*this, instruction, 12, 2U);
         if (left != right) goto AnmVmUpdateConditionalBranch;
-        break;
+        goto AnmVmUpdateInstructionAdvance;
     }
 
     case 31:
@@ -1030,7 +1031,7 @@ AnmVmUpdateScriptLoop:
         const float left = FloatSource(*this, instruction, 8, 1U);
         const float right = FloatSource(*this, instruction, 12, 2U);
         if (left != right) goto AnmVmUpdateConditionalBranch;
-        break;
+        goto AnmVmUpdateInstructionAdvance;
     }
 
     case 32:
@@ -1038,7 +1039,7 @@ AnmVmUpdateScriptLoop:
         const int left = IntegerSource(*this, instruction, 8, 1U);
         const int right = IntegerSource(*this, instruction, 12, 2U);
         if (left < right) goto AnmVmUpdateConditionalBranch;
-        break;
+        goto AnmVmUpdateInstructionAdvance;
     }
 
     case 33:
@@ -1046,7 +1047,7 @@ AnmVmUpdateScriptLoop:
         const float left = FloatSource(*this, instruction, 8, 1U);
         const float right = FloatSource(*this, instruction, 12, 2U);
         if (left < right) goto AnmVmUpdateConditionalBranch;
-        break;
+        goto AnmVmUpdateInstructionAdvance;
     }
 
     case 34:
@@ -1054,7 +1055,7 @@ AnmVmUpdateScriptLoop:
         const int left = IntegerSource(*this, instruction, 8, 1U);
         const int right = IntegerSource(*this, instruction, 12, 2U);
         if (left <= right) goto AnmVmUpdateConditionalBranch;
-        break;
+        goto AnmVmUpdateInstructionAdvance;
     }
 
     case 35:
@@ -1062,7 +1063,7 @@ AnmVmUpdateScriptLoop:
         const float left = FloatSource(*this, instruction, 8, 1U);
         const float right = FloatSource(*this, instruction, 12, 2U);
         if (left <= right) goto AnmVmUpdateConditionalBranch;
-        break;
+        goto AnmVmUpdateInstructionAdvance;
     }
 
     case 36:
@@ -1070,7 +1071,7 @@ AnmVmUpdateScriptLoop:
         const int left = IntegerSource(*this, instruction, 8, 1U);
         const int right = IntegerSource(*this, instruction, 12, 2U);
         if (left > right) goto AnmVmUpdateConditionalBranch;
-        break;
+        goto AnmVmUpdateInstructionAdvance;
     }
 
     case 37:
@@ -1078,7 +1079,7 @@ AnmVmUpdateScriptLoop:
         const float left = FloatSource(*this, instruction, 8, 1U);
         const float right = FloatSource(*this, instruction, 12, 2U);
         if (left > right) goto AnmVmUpdateConditionalBranch;
-        break;
+        goto AnmVmUpdateInstructionAdvance;
     }
 
     case 38:
@@ -1086,7 +1087,7 @@ AnmVmUpdateScriptLoop:
         const int left = IntegerSource(*this, instruction, 8, 1U);
         const int right = IntegerSource(*this, instruction, 12, 2U);
         if (left >= right) goto AnmVmUpdateConditionalBranch;
-        break;
+        goto AnmVmUpdateInstructionAdvance;
     }
 
     case 39:
@@ -1094,7 +1095,7 @@ AnmVmUpdateScriptLoop:
         const float left = FloatSource(*this, instruction, 8, 1U);
         const float right = FloatSource(*this, instruction, 12, 2U);
         if (left >= right) goto AnmVmUpdateConditionalBranch;
-        break;
+        goto AnmVmUpdateInstructionAdvance;
     }
 
     case -1:
@@ -1199,13 +1200,13 @@ AnmVmUpdateScriptLoop:
         }
         else
         {
-            // The target consumes an indirect operand before invoking the
-            // resolver callback, even though the callback supplies the index.
+            // The resolver receives the same direct or indirect file index
+            // that the built-in path would use.
             if ((instruction->flags & 1U) != 0)
             {
-                ResolveIntegerOperand(fileIndex);
+                fileIndex = ResolveIntegerOperand(fileIndex);
             }
-            fileIndex = anmFileResolver(this);
+            fileIndex = anmFileResolver(this, fileIndex);
         }
 
         AnmResource *fileResource = resource;
@@ -1235,12 +1236,13 @@ AnmVmUpdateScriptLoop:
         }
         else
         {
-            // The target consumes both encoded operands and one value from
-            // the shared global RNG before invoking the resolver callback.
-            (void)IntegerSource(*this, instruction, 8, 1U);
-            (void)IntegerSource(*this, instruction, 12, 2U);
-            reinterpret_cast<Rng *>(0x004D2AE0)->GetU32();
-            fileIndex = anmFileResolver(this);
+            const int firstIndex = IntegerSource(*this, instruction, 8, 1U);
+            const unsigned int variantCount =
+                (unsigned int)IntegerSource(*this, instruction, 12, 2U);
+            const unsigned int randomValue =
+                reinterpret_cast<Rng *>(0x004D2AE0)->GetU32();
+            fileIndex = firstIndex + (int)(randomValue % variantCount);
+            fileIndex = anmFileResolver(this, fileIndex);
         }
 
         AnmResource *fileResource = resource;
@@ -2102,6 +2104,7 @@ AnmVmUpdateStoreUnaryFloat:
         break;
     }
 
+AnmVmUpdateInstructionAdvance:
             scriptDataOffsetCopy = NextInstructionAddress(instruction);
             continue;
 
@@ -2309,13 +2312,13 @@ AnmVmUpdateAfterScript:
     }
 
     int colorResult[3];
-    if (colorTransition.duration != 0)
+    if (vm->colorTransition.duration != 0)
     {
-        int *interpolated = InterpolateColorVector(&colorTransition, colorResult);
-        unsigned char *channels = reinterpret_cast<unsigned char *>(&color);
-        channels[0] = (unsigned char)interpolated[0];
-        channels[1] = (unsigned char)interpolated[1];
-        channels[2] = (unsigned char)interpolated[2];
+        InterpolateColorVector(&vm->colorTransition, colorResult);
+        unsigned char *channels = reinterpret_cast<unsigned char *>(&vm->color);
+        channels[0] = (unsigned char)colorResult[0];
+        channels[1] = (unsigned char)colorResult[1];
+        channels[2] = (unsigned char)colorResult[2];
     }
 
     if (effectTransition.duration != 0)
@@ -2356,13 +2359,13 @@ AnmVmUpdateAfterScript:
         flags |= 4U;
     }
 
-    if (secondaryColorTransition.duration != 0)
+    if (vm->secondaryColorTransition.duration != 0)
     {
-        int *interpolated = InterpolateColorVector(&secondaryColorTransition, colorResult);
-        unsigned char *channels = reinterpret_cast<unsigned char *>(&secondaryColor);
-        channels[0] = (unsigned char)interpolated[0];
-        channels[1] = (unsigned char)interpolated[1];
-        channels[2] = (unsigned char)interpolated[2];
+        InterpolateColorVector(&vm->secondaryColorTransition, colorResult);
+        unsigned char *channels = reinterpret_cast<unsigned char *>(&vm->secondaryColor);
+        channels[0] = (unsigned char)colorResult[0];
+        channels[1] = (unsigned char)colorResult[1];
+        channels[2] = (unsigned char)colorResult[2];
     }
 
     if (secondaryEffectTransition.duration != 0)
