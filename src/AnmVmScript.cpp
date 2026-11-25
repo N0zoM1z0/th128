@@ -2299,10 +2299,10 @@ AnmVmUpdateAfterScript:
         }
     }
 
+    int colorResult[3];
     if (colorTransition.duration != 0)
     {
-        int result[3];
-        int *interpolated = InterpolateColorVector(&colorTransition, result);
+        int *interpolated = InterpolateColorVector(&colorTransition, colorResult);
         unsigned char *channels = reinterpret_cast<unsigned char *>(&color);
         channels[0] = (unsigned char)interpolated[0];
         channels[1] = (unsigned char)interpolated[1];
@@ -2349,8 +2349,7 @@ AnmVmUpdateAfterScript:
 
     if (secondaryColorTransition.duration != 0)
     {
-        int result[3];
-        int *interpolated = InterpolateColorVector(&secondaryColorTransition, result);
+        int *interpolated = InterpolateColorVector(&secondaryColorTransition, colorResult);
         unsigned char *channels = reinterpret_cast<unsigned char *>(&secondaryColor);
         channels[0] = (unsigned char)interpolated[0];
         channels[1] = (unsigned char)interpolated[1];
