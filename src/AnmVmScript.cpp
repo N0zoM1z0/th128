@@ -297,60 +297,100 @@ __forceinline bool AnmVm::ExecuteWaitCommand(bool clearActiveFlag)
 
 namespace
 {
-    // Modes 1..16 mirror the target's 16-entry easing jump table at 0x0046B428.
-    float EaseTransition(unsigned int mode, float t)
+    // Callers validate mode 1..16 and pass the target's zero-based table index.
+    float __stdcall EaseTransition(unsigned int modeIndex, float t)
     {
-        const float inverse = 1.0f - t;
-        switch (mode)
+        __assume(modeIndex < 16U);
+        switch (modeIndex)
         {
-        case 1: return t * t;
-        case 2: return t * t * t;
-        case 3: return t * t * t * t;
-        case 4: return 1.0f - inverse * inverse;
-        case 5: return 1.0f - inverse * inverse * inverse;
-        case 6: return 1.0f - inverse * inverse * inverse * inverse;
-        case 7:
+        case 0: return t * t;
+        case 3: return 1.0f - (1.0f - t) * (1.0f - t);
+        case 1: return t * t * t;
+        case 4: return 1.0f - (1.0f - t) * (1.0f - t) * (1.0f - t);
+        case 2: return t * t * t * t;
+        case 5: return 1.0f - (1.0f - t) * (1.0f - t) * (1.0f - t) * (1.0f - t);
         case 8:
-            return t;
-        case 9:
-            return t < 0.5f
-                ? 2.0f * t * t
-                : 1.0f - 2.0f * inverse * inverse;
-        case 10:
-            return t < 0.5f
-                ? 4.0f * t * t * t
-                : 1.0f - 4.0f * inverse * inverse * inverse;
+            t *= 2.0;
+            if (t < 1.0f)
+                return (float)((double)t * t * 0.5);
+            {
+                const double delta = 2.0 - (double)t;
+                return (float)((2.0 - delta * delta) * 0.5);
+            }
         case 11:
-            return t < 0.5f
-                ? 8.0f * t * t * t * t
-                : 1.0f - 8.0f * inverse * inverse * inverse * inverse;
+            t += t;
+            if (t < 1.0f)
+            {
+                const double delta = 1.0 - t;
+                const double power = delta * delta;
+                const double half = 0.5;
+                return (float)(half - half * power);
+            }
+            else
+            {
+                const double delta = t - 1.0;
+                const double power = delta * delta;
+                const double half = 0.5;
+                return (float)(half + half * power);
+            }
+        case 9:
+            t *= 2.0;
+            if (t < 1.0f)
+                return (float)((double)t * t * t * 0.5);
+            {
+                const double delta = 2.0 - (double)t;
+                const double power = delta * (delta * delta);
+                return (float)((2.0 - power) * 0.5);
+            }
         case 12:
-        {
-            const float x = t * 2.0f - 1.0f;
-            return t < 0.5f
-                ? 0.5f - 0.5f * (1.0f - 2.0f * t) * (1.0f - 2.0f * t)
-                : 0.5f + 0.5f * x * x;
-        }
+            t += t;
+            if (t < 1.0f)
+            {
+                const double delta = 1.0 - t;
+                const double power = delta * (delta * delta);
+                const double half = 0.5;
+                return (float)(half - half * power);
+            }
+            else
+            {
+                const double delta = t - 1.0;
+                const double power = delta * (delta * delta);
+                const double half = 0.5;
+                return (float)(half + half * power);
+            }
+        case 10:
+            t *= 2.0;
+            if (t < 1.0f)
+                return (float)((double)t * t * t * t * 0.5);
+            {
+                const double delta = 2.0 - (double)t;
+                const double power = delta * (delta * (delta * delta));
+                return (float)((2.0 - power) * 0.5);
+            }
         case 13:
-        {
-            const float x = t * 2.0f - 1.0f;
-            return t < 0.5f
-                ? 0.5f - 0.5f * (1.0f - 2.0f * t) *
-                    (1.0f - 2.0f * t) * (1.0f - 2.0f * t)
-                : 0.5f + 0.5f * x * x * x;
+            t += t;
+            if (t < 1.0f)
+            {
+                const double delta = 1.0 - t;
+                const double power = delta * (delta * (delta * delta));
+                const double half = 0.5;
+                return (float)(half - half * power);
+            }
+            else
+            {
+                const double delta = t - 1.0;
+                const double power = delta * (delta * (delta * delta));
+                const double half = 0.5;
+                return (float)(half + half * power);
+            }
+        case 14: return 0.0f;
+        case 15: return 1.0f;
+        case 6:
+        case 7:
+            return t;
         }
-        case 14:
-        {
-            const float x = t * 2.0f - 1.0f;
-            return t < 0.5f
-                ? 0.5f - 0.5f * (1.0f - 2.0f * t) *
-                    (1.0f - 2.0f * t) * (1.0f - 2.0f * t) * (1.0f - 2.0f * t)
-                : 0.5f + 0.5f * x * x * x * x;
-        }
-        case 15: return 0.0f;
-        case 16: return 1.0f;
-        default: return t;
-        }
+        __assume(0);
+        return 0.0f;
     }
 
     __forceinline bool AdvanceTransition(
@@ -379,38 +419,79 @@ namespace
 
     int *InterpolateColorVector(AnmVmColorTransition *transition, int result[3])
     {
-        const unsigned int mode = transition->mode;
-        if (AdvanceTransition(&transition->timer, &transition->duration, mode))
+        volatile int *const durationValue = &transition->duration;
+        if (*durationValue > 0)
         {
-            const unsigned int endpoint = (mode == 7) ? 0 : 3;
-            result[0] = transition->values[endpoint];
-            result[1] = transition->values[endpoint + 1];
-            result[2] = transition->values[endpoint + 2];
-            return result;
+            transition->timer.Increment();
+            const int duration = *durationValue;
+            if (transition->timer.current >= duration)
+            {
+                transition->timer.Initialize();
+                transition->timer.previous = duration - 1;
+                transition->timer.current = duration;
+                transition->timer.currentF = (float)duration;
+                *durationValue = 0;
+                volatile unsigned int *const transitionMode = &transition->mode;
+                if (*transitionMode != 7)
+                {
+                    result[0] = transition->values[3];
+                    result[1] = transition->values[4];
+                    result[2] = transition->values[5];
+                }
+                else
+                {
+                    result[0] = transition->values[0];
+                    result[1] = transition->values[1];
+                    result[2] = transition->values[2];
+                }
+                return result;
+            }
         }
 
+        unsigned int mode = transition->mode;
         if (mode == 7)
         {
-            transition->values[0] += transition->values[3];
-            transition->values[1] += transition->values[4];
-            transition->values[2] += transition->values[5];
-            result[0] = transition->values[0];
-            result[1] = transition->values[1];
-            result[2] = transition->values[2];
+            const int current0 = transition->values[0];
+            const int current1 = transition->values[1];
+            const int current2 = transition->values[2];
+            const int delta0 = transition->values[3];
+            const int delta1 = transition->values[4];
+            const int delta2 = transition->values[5];
+            const int next0 = current0 + delta0;
+            const int next1 = current1 + delta1;
+            const int next2 = current2 + delta2;
+            transition->values[0] = next0;
+            transition->values[1] = next1;
+            transition->values[2] = next2;
+            result[0] = next0;
+            result[1] = next1;
+            result[2] = next2;
             return result;
         }
 
         if (mode == 17)
         {
-            transition->values[0] += transition->values[9];
-            transition->values[1] += transition->values[10];
-            transition->values[2] += transition->values[11];
-            result[0] = transition->values[0];
-            result[1] = transition->values[1];
-            result[2] = transition->values[2];
-            transition->values[9] += transition->values[3];
-            transition->values[10] += transition->values[4];
-            transition->values[11] += transition->values[5];
+            const int current0 = transition->values[0];
+            const int current1 = transition->values[1];
+            const int current2 = transition->values[2];
+            const int future0 = transition->values[9];
+            const int future1 = transition->values[10];
+            const int future2 = transition->values[11];
+            const int next0 = future0 + current0;
+            const int next1 = future1 + current1;
+            const int next2 = future2 + current2;
+            transition->values[0] = next0;
+            transition->values[1] = next1;
+            transition->values[2] = next2;
+            result[0] = next0;
+            result[1] = next1;
+            result[2] = next2;
+            volatile int nextFuture0 = future0 + transition->values[3];
+            volatile int nextFuture1 = future1 + transition->values[4];
+            volatile int nextFuture2 = future2 + transition->values[5];
+            transition->values[9] = nextFuture0;
+            transition->values[10] = nextFuture1;
+            transition->values[11] = nextFuture2;
             return result;
         }
 
@@ -419,47 +500,61 @@ namespace
         if (mode == 8)
         {
             const double tMinusOne = (double)t - 1.0;
-            const float h00 = (float)((t + t + 1.0) * tMinusOne * tMinusOne);
-            const float h01 = (float)(t * t * (3.0 - (t + t)));
-            const float h10 = (float)((1.0 - t) * (1.0 - t) * t);
-            const float h11 = (float)(tMinusOne * t * t);
-            result[0] =
-                (int)((double)h00 * transition->values[0]) +
-                (int)((double)h01 * transition->values[3]) +
-                (int)((double)h10 * transition->values[6]) +
-                (int)((double)h11 * transition->values[9]);
-            result[1] =
-                (int)((double)h00 * transition->values[1]) +
-                (int)((double)h01 * transition->values[4]) +
-                (int)((double)h10 * transition->values[7]) +
-                (int)((double)h11 * transition->values[10]);
-            result[2] =
-                (int)((double)h00 * transition->values[2]) +
-                (int)((double)h01 * transition->values[5]) +
-                (int)((double)h10 * transition->values[8]) +
-                (int)((double)h11 * transition->values[11]);
+            volatile float coefficients[4];
+            coefficients[0] = (float)((t + t + 1.0) * tMinusOne * tMinusOne);
+            coefficients[1] = (float)(t * t * (3.0 - (t + t)));
+            coefficients[2] = (float)((1.0 - t) * (1.0 - t) * t);
+            coefficients[3] = (float)(tMinusOne * t * t);
+            volatile int terms[12];
+            terms[0] = (int)((double)coefficients[3] * transition->values[9]);
+            terms[1] = (int)((double)coefficients[3] * transition->values[10]);
+            terms[2] = (int)((double)coefficients[3] * transition->values[11]);
+            terms[3] = (int)((double)coefficients[2] * transition->values[6]);
+            terms[4] = (int)((double)coefficients[2] * transition->values[7]);
+            terms[5] = (int)((double)coefficients[2] * transition->values[8]);
+            terms[6] = (int)((double)coefficients[1] * transition->values[3]);
+            terms[7] = (int)((double)coefficients[1] * transition->values[4]);
+            terms[8] = (int)((double)coefficients[1] * transition->values[5]);
+            terms[9] = (int)((double)coefficients[0] * transition->values[0]);
+            terms[10] = (int)((double)coefficients[0] * transition->values[1]);
+            terms[11] = (int)((double)coefficients[0] * transition->values[2]);
+            result[0] = terms[9] + terms[6] + terms[3] + terms[0];
+            result[1] = terms[10] + terms[7] + terms[4] + terms[1];
+            result[2] = terms[11] + terms[8] + terms[5] + terms[2];
             return result;
         }
 
-        const float eased = EaseTransition(mode, (float)t);
+        --mode;
+        float eased = t;
+        if (mode <= 15U)
+        {
+            eased = EaseTransition(mode, t);
+        }
         const int delta0 = transition->values[3] - transition->values[0];
         const int delta1 = transition->values[4] - transition->values[1];
         const int delta2 = transition->values[5] - transition->values[2];
-        result[0] = transition->values[0] + (int)((double)delta0 * eased);
-        result[1] = transition->values[1] + (int)((double)delta1 * eased);
-        result[2] = transition->values[2] + (int)((double)delta2 * eased);
+        const int value0 = transition->values[0] +
+            (int)((double)delta0 * eased);
+        const int value1 = transition->values[1] +
+            (int)((double)delta1 * eased);
+        const int value2 = transition->values[2] +
+            (int)((double)delta2 * eased);
+        result[0] = value0;
+        result[1] = value1;
+        result[2] = value2;
         return result;
 }
 
 
     int InterpolateInteger(AnmVmIntegerTransition *transition)
     {
-        const unsigned int mode = transition->mode;
-        if (AdvanceTransition(&transition->timer, &transition->duration, mode))
+        if (AdvanceTransition(&transition->timer, &transition->duration,
+            transition->mode))
         {
-            return transition->values[(mode == 7) ? 0 : 1];
+            return transition->values[(transition->mode == 7) ? 0 : 1];
         }
 
+        unsigned int mode = transition->mode;
         if (mode == 7)
         {
             transition->values[0] += transition->values[1];
@@ -482,32 +577,42 @@ namespace
             const float h01 = (float)(t * t * (3.0 - (t + t)));
             const float h10 = (float)((1.0 - t) * (1.0 - t) * t);
             const float h11 = (float)(tMinusOne * t * t);
+            const double h00Extended = (double)h00;
+            const double h01Extended = (double)h01;
+            const double h10Extended = (double)h10;
+            const double h11Extended = (double)h11;
             const double value =
-                (double)h00 * transition->values[0] +
-                (double)h01 * transition->values[1] +
-                (double)h10 * transition->values[2] +
-                (double)h11 * transition->values[3];
-            return ZunRoundToInt(value);
+                h00Extended * transition->values[0] +
+                h01Extended * transition->values[1] +
+                h10Extended * transition->values[2] +
+                h11Extended * transition->values[3];
+            return (int)value;
         }
 
-        const float eased = EaseTransition(mode, (float)t);
+        --mode;
+        float eased = (float)t;
+        if (mode <= 15U)
+        {
+            eased = EaseTransition(mode, eased);
+        }
         const int delta = transition->values[1] - transition->values[0];
-        return ZunRoundToInt((double)delta * eased + transition->values[0]);
+        return (int)((double)delta * eased + transition->values[0]);
     }
 
     // The target's three-component vector helper uses mode 7 for relative updates.
     float *InterpolateVector(AnmVmVectorTransition *transition, float result[3])
     {
-        const unsigned int mode = transition->mode;
-        if (AdvanceTransition(&transition->timer, &transition->duration, mode))
+        if (AdvanceTransition(&transition->timer, &transition->duration,
+            transition->mode))
         {
-            const unsigned int endpoint = (mode == 7) ? 0 : 3;
+            const unsigned int endpoint = (transition->mode == 7) ? 0 : 3;
             result[0] = transition->values[endpoint];
             result[1] = transition->values[endpoint + 1];
             result[2] = transition->values[endpoint + 2];
             return result;
         }
 
+        unsigned int mode = transition->mode;
         if (mode == 7)
         {
             transition->values[0] += transition->values[3];
@@ -557,7 +662,12 @@ namespace
             return result;
         }
 
-        const float eased = EaseTransition(mode, (float)t);
+        --mode;
+        float eased = (float)t;
+        if (mode <= 15U)
+        {
+            eased = EaseTransition(mode, eased);
+        }
         result[0] = eased *
             (transition->values[3] - transition->values[0]) + transition->values[0];
         result[1] = eased *
@@ -570,17 +680,18 @@ namespace
 
     float *InterpolateScale(AnmVmScaleTransition *transition, float result[2])
     {
-        const unsigned int mode = transition->mode;
-        if (AdvanceTransition(&transition->timer, &transition->duration, mode))
+        if (AdvanceTransition(&transition->timer, &transition->duration,
+            transition->mode))
         {
             // The target's two-component scale helper also uses mode 7 for
             // its relative endpoint.
-            const unsigned int endpoint = (mode == 7) ? 0 : 2;
+            const unsigned int endpoint = (transition->mode == 7) ? 0 : 2;
             result[0] = transition->values[endpoint];
             result[1] = transition->values[endpoint + 1];
             return result;
         }
 
+        unsigned int mode = transition->mode;
         if (mode == 7)
         {
             transition->values[0] += transition->values[2];
@@ -621,7 +732,12 @@ namespace
             return result;
         }
 
-        const float eased = EaseTransition(mode, (float)t);
+        --mode;
+        float eased = (float)t;
+        if (mode <= 15U)
+        {
+            eased = EaseTransition(mode, eased);
+        }
         result[0] = eased *
             (transition->values[2] - transition->values[0]) + transition->values[0];
         result[1] = eased *
@@ -634,13 +750,14 @@ namespace
     // and ordinary interpolation follows the shortest signed arc.
     float *InterpolateAngle(AnmVmScalarTransition *transition, float *result)
     {
-        const unsigned int mode = transition->mode;
-        if (AdvanceTransition(&transition->timer, &transition->duration, mode))
+        if (AdvanceTransition(&transition->timer, &transition->duration,
+            transition->mode))
         {
-            *result = transition->values[(mode == 7) ? 0 : 1];
+            *result = transition->values[(transition->mode == 7) ? 0 : 1];
             return result;
         }
 
+        unsigned int mode = transition->mode;
         if (mode == 7)
         {
             transition->values[0] = NormalizeAngle(
@@ -679,7 +796,12 @@ namespace
             return result;
         }
 
-        const float eased = EaseTransition(mode, (float)t);
+        --mode;
+        float eased = (float)t;
+        if (mode <= 15U)
+        {
+            eased = EaseTransition(mode, eased);
+        }
         const float difference = ShortestAngleDifference(
             transition->values[1], transition->values[0]);
         const float normalizedDifference = NormalizeAngle(difference);
@@ -694,12 +816,13 @@ namespace
     // without angle normalization or shortest-arc interpolation.
     float InterpolateLinearScalar(AnmVmScalarTransition *transition)
     {
-        const unsigned int mode = transition->mode;
-        if (AdvanceTransition(&transition->timer, &transition->duration, mode))
+        if (AdvanceTransition(&transition->timer, &transition->duration,
+            transition->mode))
         {
-            return transition->values[(mode == 7) ? 0 : 1];
+            return transition->values[(transition->mode == 7) ? 0 : 1];
         }
 
+        unsigned int mode = transition->mode;
         if (mode == 7)
         {
             transition->values[0] += transition->values[1];
@@ -732,7 +855,12 @@ namespace
             return result + targetTangentTerm;
         }
 
-        const float eased = EaseTransition(mode, (float)t);
+        --mode;
+        float eased = (float)t;
+        if (mode <= 15U)
+        {
+            eased = EaseTransition(mode, eased);
+        }
         return (transition->values[1] - transition->values[0]) * eased +
             transition->values[0];
     }
@@ -770,16 +898,16 @@ int AnmVm::Update()
     {
         return 1;
     }
+
     if ((flags & 0x00080000U) != 0)
     {
         return 0;
     }
 
-    float *gameSpeed = reinterpret_cast<float *>(0x004B6F58);
-    const float savedGameSpeed = *gameSpeed;
+    const float savedGameSpeed = g_TimeScale;
     if ((stateFlags & 1U) != 0)
     {
-        *gameSpeed = 1.0f;
+        g_TimeScale = 1.0f;
     }
 
     if (currentFrame != 0)
@@ -795,17 +923,14 @@ int AnmVm::Update()
             (*reinterpret_cast<const unsigned char *>(
                 reinterpret_cast<const unsigned char *>(stageState) + 0x60) & 2U) != 0)
         {
-            // The target branches directly to 0x0045D0BA, past the game-speed
-            // restore at 0x0045D0B0. Preserve the temporary speed on this edge.
             return 0;
         }
     }
 
-    register const AnmVmInstructionHeader *instruction;
 AnmVmUpdateScriptLoop:
     for (;;)
     {
-            instruction =
+            const AnmVmInstructionHeader *const instruction =
                 reinterpret_cast<const AnmVmInstructionHeader *>(scriptDataOffsetCopy);
             if (instruction->frame > timer070.current)
             {
@@ -820,6 +945,12 @@ AnmVmUpdateScriptLoop:
     const short opcode = static_cast<short>(instruction->opcode);
     switch (opcode)
     {
+    // Both opcode zero and opcode 64 are explicit no-ops in the target's
+    // dispatch table; they advance through the common instruction tail.
+    case 0:
+    case 64:
+        break;
+
     case 4:
         timer070.SetCurrent(ReadInstructionInteger(instruction, 12));
         scriptDataOffsetCopy = scriptDataOffset + ReadInstructionInteger(instruction, 8);
@@ -963,7 +1094,7 @@ AnmVmUpdateScriptLoop:
         // Fall through to the shared script-completion case.
     case 2:
         scriptDataOffsetCopy = 0;
-        *gameSpeed = savedGameSpeed;
+        g_TimeScale = savedGameSpeed;
         return 1;
 
     case 86:
@@ -2027,12 +2158,12 @@ AnmVmUpdateWaitScan:
 AnmVmUpdateAfterScript:
     if (scriptDataOffsetCopy == 0)
     {
-        *gameSpeed = savedGameSpeed;
+        g_TimeScale = savedGameSpeed;
         return 1;
     }
 
     {
-        const float frameGameSpeed = *gameSpeed;
+        const float frameGameSpeed = g_TimeScale;
         if (scriptVector.x != 0.0f)
         {
             unknown024 = AddAngles(
@@ -2429,6 +2560,6 @@ AnmVmUpdateAfterScript:
         timer070.currentF += *timer070.gameSpeed;
         timer070.current = (int)timer070.currentF;
     }
-    *gameSpeed = savedGameSpeed;
+    g_TimeScale = savedGameSpeed;
     return 0;
 }

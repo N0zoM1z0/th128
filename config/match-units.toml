@@ -2138,7 +2138,27 @@ functions = ["InterpolateColorVector"]
 symbol = "?InterpolateColorVector@?A0xcccfbf55@@YAPAHPAUAnmVmColorTransition@@QAH@Z"
 target_address = 0x0045D3D0
 size = 721
-linkages = []
+linkages = [
+  { offset = 22, type = "REL32", symbol = "?Increment@ZunTimer@@QAEXXZ", target = 0x00402AC0 },
+  { offset = 68, type = "DIR32", symbol = "?g_TimeScale@@3MA", target = 0x004B6F58 },
+  { offset = 349, type = "DIR32", symbol = "__real@4008000000000000", target = 0x004A6668 },
+  { offset = 383, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 397, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 411, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 425, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 439, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 453, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 467, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 481, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 495, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 508, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 522, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 536, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 610, type = "REL32", symbol = "?EaseTransition@?A0xcccfbf55@@YGMIM@Z", target = 0x0046B190 },
+  { offset = 642, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 666, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 695, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+]
 
 [units.anm-vm-normalize-coordinates-linked]
 # LTCG call-context replay for the ECX output / EAX input helper ABI.
@@ -2326,7 +2346,7 @@ inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp", "src/AnmManager.hpp", "src/Ang
 object = "build/match/AnmVmUpdate.obj"
 profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
 functions = ["EaseTransition"]
-symbol = "?EaseTransition@?A0xcccfbf55@@YAMIM@Z"
+symbol = "?EaseTransition@?A0xcccfbf55@@YGMIM@Z"
 target_address = 0x0046B190
 size = 728
 relocations = []
