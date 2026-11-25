@@ -971,9 +971,9 @@ __declspec(noinline) int AnmVm::BindAnmFile(
     }
 
     vm->anmFileIndex = (short)fileIndex;
-    AnmFileEntry *entry = &resource->anmFiles[fileIndex];
-    AnmFileEntry *entryForLaterFields = entry;
+    register AnmFileEntry *entry = &resource->anmFiles[fileIndex];
     vm->anmFileEntry = entry;
+    register AnmFileEntry *entryForLaterFields = entry;
 
     const float left = entry->field024;
     vm->textureRect[1][0] = left;
@@ -1009,6 +1009,10 @@ __declspec(noinline) int AnmVm::BindAnmFile(
     transformMatrix[5] = 1.0f;
     transformMatrix[0] = 1.0f;
 
+    vm->spriteScaleMatrix[3][3] = 1.0f;
+    vm->spriteScaleMatrix[2][2] = 1.0f;
+    vm->spriteScaleMatrix[1][1] = 1.0f;
+    vm->spriteScaleMatrix[0][0] = 1.0f;
     vm->spriteScaleMatrix[3][2] = 0.0f;
     vm->spriteScaleMatrix[3][1] = 0.0f;
     vm->spriteScaleMatrix[3][0] = 0.0f;
@@ -1021,20 +1025,16 @@ __declspec(noinline) int AnmVm::BindAnmFile(
     vm->spriteScaleMatrix[0][3] = 0.0f;
     vm->spriteScaleMatrix[0][2] = 0.0f;
     vm->spriteScaleMatrix[0][1] = 0.0f;
-    vm->spriteScaleMatrix[3][3] = 1.0f;
-    vm->spriteScaleMatrix[2][2] = 1.0f;
-    vm->spriteScaleMatrix[1][1] = 1.0f;
-    vm->spriteScaleMatrix[0][0] = 1.0f;
 
+    register AnmFileEntry *scaleEntry = vm->anmFileEntry;
     transformMatrix[0] = vm->uvScrollX * (1.0f / 256.0f);
-    transformMatrix[5] = vm->uvScrollY * (1.0f / 256.0f);
+    vm->transformMatrix[1][1] = vm->uvScrollY * (1.0f / 256.0f);
 
     vm->spriteScaleMatrix[0][0] =
-        (vm->uvScrollX / vm->anmFileEntry->field020) * vm->anmFileEntry->field03C;
-    const float yScale =
-        (vm->uvScrollY / vm->anmFileEntry->field01C) * vm->anmFileEntry->field040;
+        (vm->uvScrollX / scaleEntry->field020) * scaleEntry->field03C;
     memcpy(vm->textureTransformMatrix, transformMatrix, sizeof(vm->textureTransformMatrix));
-    vm->spriteScaleMatrix[1][1] = yScale;
+    vm->spriteScaleMatrix[1][1] =
+        (vm->uvScrollY / scaleEntry->field01C) * scaleEntry->field040;
 
     return 0;
 }
@@ -2551,22 +2551,26 @@ AnmVmUpdateAfterScript:
             position.z += stageOffset[2];
         }
         }
+    union AnmVmUpdateScratch
+    {
+        float floats[12];
+        int integers[3];
+    } scratch;
+
     if ((stateFlags & 0x20U) != 0)
     {
-
-        float corners[12];
         bool cornersValid = true;
         switch ((flags >> 24) & 0x1FU)
         {
         case 0:
-            BuildAnmVmViewCornersMode0(this, corners, corners + 3, corners + 6, corners + 9);
+            BuildAnmVmViewCornersMode0(this, scratch.floats, scratch.floats + 3, scratch.floats + 6, scratch.floats + 9);
             break;
         case 1:
-            BuildAnmVmViewCornersMode1(this, corners, corners + 3, corners + 6, corners + 9);
+            BuildAnmVmViewCornersMode1(this, scratch.floats, scratch.floats + 3, scratch.floats + 6, scratch.floats + 9);
             break;
         case 2:
         case 3:
-            BuildAnmVmViewCornersMode23(this, corners, corners + 3, corners + 6, corners + 9);
+            BuildAnmVmViewCornersMode23(this, scratch.floats, scratch.floats + 3, scratch.floats + 6, scratch.floats + 9);
             break;
         default:
             cornersValid = false;
@@ -2578,20 +2582,20 @@ AnmVmUpdateAfterScript:
             const float textureWidth = 640.0f;
             const float textureHeight = 480.0f;
             float *textureCoordinates = &textureRect[0][0];
-            textureCoordinates[0] = corners[0] / textureWidth;
-            textureCoordinates[1] = corners[1] / textureHeight;
+            textureCoordinates[0] = scratch.floats[0] / textureWidth;
+            textureCoordinates[1] = scratch.floats[1] / textureHeight;
             if (textureCoordinates[0] < 0.0f) textureCoordinates[0] = 0.0f;
             if (textureCoordinates[1] < 0.0f) textureCoordinates[1] = 0.0f;
-            textureCoordinates[2] = corners[3] / textureWidth;
-            textureCoordinates[3] = corners[4] / textureHeight;
+            textureCoordinates[2] = scratch.floats[3] / textureWidth;
+            textureCoordinates[3] = scratch.floats[4] / textureHeight;
             if (textureCoordinates[2] < 0.0f) textureCoordinates[2] = 0.0f;
             if (textureCoordinates[3] < 0.0f) textureCoordinates[3] = 0.0f;
-            textureCoordinates[4] = corners[6] / textureWidth;
-            textureCoordinates[5] = corners[7] / textureHeight;
+            textureCoordinates[4] = scratch.floats[6] / textureWidth;
+            textureCoordinates[5] = scratch.floats[7] / textureHeight;
             if (textureCoordinates[4] < 0.0f) textureCoordinates[4] = 0.0f;
             if (textureCoordinates[5] < 0.0f) textureCoordinates[5] = 0.0f;
-            textureCoordinates[6] = corners[9] / textureWidth;
-            textureCoordinates[7] = corners[10] / textureHeight;
+            textureCoordinates[6] = scratch.floats[9] / textureWidth;
+            textureCoordinates[7] = scratch.floats[10] / textureHeight;
             if (textureCoordinates[6] < 0.0f) textureCoordinates[6] = 0.0f;
             if (textureCoordinates[7] < 0.0f) textureCoordinates[7] = 0.0f;
         }
@@ -2605,26 +2609,23 @@ AnmVmUpdateAfterScript:
             reinterpret_cast<AnmVmVectorTransition *>(&viewPosition);
         if ((flags & 0x200U) != 0)
         {
-            float alternateResult[3];
-            float *interpolated = InterpolateVector(transition, alternateResult);
-            memcpy(&alternatePosition, interpolated, sizeof(alternatePosition));
+            InterpolateVector(transition, scratch.floats);
+            memcpy(&alternatePosition, scratch.floats, sizeof(alternatePosition));
         }
         else
         {
-            float secondaryResult[3];
-            float *interpolated = InterpolateVector(transition, secondaryResult);
-            memcpy(&secondaryPosition, interpolated, sizeof(secondaryPosition));
+            InterpolateVector(transition, scratch.floats);
+            memcpy(&secondaryPosition, scratch.floats, sizeof(secondaryPosition));
         }
     }
 
-    int colorResult[3];
     if (vm->colorTransition.duration != 0)
     {
-        InterpolateColorVector(&vm->colorTransition, colorResult);
+        InterpolateColorVector(&vm->colorTransition, scratch.integers);
         unsigned char *channels = reinterpret_cast<unsigned char *>(&vm->color);
-        channels[0] = (unsigned char)colorResult[0];
-        channels[1] = (unsigned char)colorResult[1];
-        channels[2] = (unsigned char)colorResult[2];
+        channels[0] = (unsigned char)scratch.integers[0];
+        channels[1] = (unsigned char)scratch.integers[1];
+        channels[2] = (unsigned char)scratch.integers[2];
     }
 
     if (effectTransition.duration != 0)
@@ -2635,43 +2636,39 @@ AnmVmUpdateAfterScript:
 
     if (scaleTransition.duration != 0)
     {
-        float result[2];
-        float *interpolated = InterpolateScale(&scaleTransition, result);
-        memcpy(&scaleX, interpolated, sizeof(float) * 2);
+        InterpolateScale(&scaleTransition, scratch.floats);
+        memcpy(&scaleX, scratch.floats, sizeof(float) * 2);
         flags |= 8U;
     }
 
     if (secondaryScaleTransition.duration != 0)
     {
-        float result[2];
-        float *interpolated = InterpolateScale(&secondaryScaleTransition, result);
-        memcpy(&scale2X, interpolated, sizeof(float) * 2);
+        InterpolateScale(&secondaryScaleTransition, scratch.floats);
+        memcpy(&scale2X, scratch.floats, sizeof(float) * 2);
         flags |= 0x10U;
     }
 
     if (positionTransition.duration != 0)
     {
-        float result[3];
-        float *interpolated = InterpolateVector(&positionTransition, result);
-        memcpy(&unknown024, interpolated, sizeof(ZunVec3));
+        InterpolateVector(&positionTransition, scratch.floats);
+        memcpy(&unknown024, scratch.floats, sizeof(ZunVec3));
         flags |= 4U;
     }
 
     if (viewTransition.duration != 0)
     {
-        float result;
-        float *interpolated = InterpolateAngle(&viewTransition, &result);
-        memcpy(&unknown02C, interpolated, sizeof(float));
+        InterpolateAngle(&viewTransition, scratch.floats);
+        memcpy(&unknown02C, scratch.floats, sizeof(float));
         flags |= 4U;
     }
 
     if (vm->secondaryColorTransition.duration != 0)
     {
-        InterpolateColorVector(&vm->secondaryColorTransition, colorResult);
+        InterpolateColorVector(&vm->secondaryColorTransition, scratch.integers);
         unsigned char *channels = reinterpret_cast<unsigned char *>(&vm->secondaryColor);
-        channels[0] = (unsigned char)colorResult[0];
-        channels[1] = (unsigned char)colorResult[1];
-        channels[2] = (unsigned char)colorResult[2];
+        channels[0] = (unsigned char)scratch.integers[0];
+        channels[1] = (unsigned char)scratch.integers[1];
+        channels[2] = (unsigned char)scratch.integers[2];
     }
 
     if (secondaryEffectTransition.duration != 0)
