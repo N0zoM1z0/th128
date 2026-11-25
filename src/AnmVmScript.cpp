@@ -216,22 +216,29 @@ namespace
         resource->BindVmScript(child, scriptIndex);
         child->parentVm = parent;
 
+        AnmVm *parentForChildren = parent;
+        unsigned int *registeredId;
         if ((listMode & 4U) != 0)
         {
             if ((listMode & 2U) != 0)
-                child->RegisterUiVmAtHead(childId);
+                registeredId = child->RegisterUiVmAtHead(
+                    reinterpret_cast<unsigned int *>(&parent));
             else
-                child->RegisterUiVmAtTail(childId);
+                registeredId = child->RegisterUiVmAtTail(
+                    reinterpret_cast<unsigned int *>(&parent));
         }
         else
         {
             if ((listMode & 2U) != 0)
-                child->RegisterWorldVmAtHead(childId);
+                registeredId = child->RegisterWorldVmAtHead(
+                    reinterpret_cast<unsigned int *>(&parent));
             else
-                child->RegisterWorldVmAtTail(childId);
+                registeredId = child->RegisterWorldVmAtTail(
+                    reinterpret_cast<unsigned int *>(&parent));
         }
+        *childId = *registeredId;
 
-        AnmVmListNode *head = &parent->childNode;
+        AnmVmListNode *head = &parentForChildren->childNode;
         AnmVmListNode *node = &child->childNode;
         node->previous = head;
         node->next = head->next;
@@ -261,7 +268,9 @@ namespace
         child->unknown028 = parent->unknown028;
         child->unknown02C = parent->unknown02C;
         child->alternatePosition = parent->secondaryPosition;
-        child->RegisterWorldVmAtTail(childId);
+        unsigned int *registeredId = child->RegisterWorldVmAtTail(
+            reinterpret_cast<unsigned int *>(&parent));
+        *childId = *registeredId;
         return childId;
     }
 
@@ -963,6 +972,7 @@ __declspec(noinline) int AnmVm::BindAnmFile(
 
     vm->anmFileIndex = (short)fileIndex;
     AnmFileEntry *entry = &resource->anmFiles[fileIndex];
+    AnmFileEntry *entryForLaterFields = entry;
     vm->anmFileEntry = entry;
 
     const float left = entry->field024;
@@ -971,14 +981,14 @@ __declspec(noinline) int AnmVm::BindAnmFile(
     const float bottom = entry->field02C;
     vm->textureRect[1][2] = bottom;
     vm->textureRect[0][2] = bottom;
-    const float top = entry->field028;
+    const float top = entryForLaterFields->field028;
     vm->textureRect[0][3] = top;
     vm->textureRect[0][1] = top;
     const float right = entry->field030;
     vm->textureRect[1][3] = right;
     vm->textureRect[1][1] = right;
 
-    vm->uvScrollX = entry->field038;
+    vm->uvScrollX = entryForLaterFields->field038;
     vm->uvScrollY = entry->field034;
 
     float *transformMatrix = vm->transformMatrix[0];
@@ -999,10 +1009,6 @@ __declspec(noinline) int AnmVm::BindAnmFile(
     transformMatrix[5] = 1.0f;
     transformMatrix[0] = 1.0f;
 
-    vm->spriteScaleMatrix[3][3] = 1.0f;
-    vm->spriteScaleMatrix[2][2] = 1.0f;
-    vm->spriteScaleMatrix[1][1] = 1.0f;
-    vm->spriteScaleMatrix[0][0] = 1.0f;
     vm->spriteScaleMatrix[3][2] = 0.0f;
     vm->spriteScaleMatrix[3][1] = 0.0f;
     vm->spriteScaleMatrix[3][0] = 0.0f;
@@ -1015,15 +1021,20 @@ __declspec(noinline) int AnmVm::BindAnmFile(
     vm->spriteScaleMatrix[0][3] = 0.0f;
     vm->spriteScaleMatrix[0][2] = 0.0f;
     vm->spriteScaleMatrix[0][1] = 0.0f;
+    vm->spriteScaleMatrix[3][3] = 1.0f;
+    vm->spriteScaleMatrix[2][2] = 1.0f;
+    vm->spriteScaleMatrix[1][1] = 1.0f;
+    vm->spriteScaleMatrix[0][0] = 1.0f;
 
     transformMatrix[0] = vm->uvScrollX * (1.0f / 256.0f);
     transformMatrix[5] = vm->uvScrollY * (1.0f / 256.0f);
 
     vm->spriteScaleMatrix[0][0] =
-        (vm->uvScrollX / entry->field020) * entry->field03C;
-    vm->spriteScaleMatrix[1][1] =
-        (vm->uvScrollY / entry->field01C) * entry->field040;
+        (vm->uvScrollX / vm->anmFileEntry->field020) * vm->anmFileEntry->field03C;
+    const float yScale =
+        (vm->uvScrollY / vm->anmFileEntry->field01C) * vm->anmFileEntry->field040;
     memcpy(vm->textureTransformMatrix, transformMatrix, sizeof(vm->textureTransformMatrix));
+    vm->spriteScaleMatrix[1][1] = yScale;
 
     return 0;
 }
