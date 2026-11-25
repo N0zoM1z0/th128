@@ -2352,7 +2352,7 @@ size = 728
 relocations = []
 
 [units.anm-vm-transition-easing-linked]
-frontier = true # Full 728-byte LTCG owner; all 35 relocation fields replay exactly.
+# Exact 728-byte LTCG owner; all 35 relocation fields replay exactly.
 artifact_kind = "linked-pe"
 source = "src/AnmVmScript.cpp"
 inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp", "src/AnmManager.hpp", "src/AngleMath.hpp", "src/ZunTimer.hpp", "src/AnmVmGeometry.hpp", "src/AnmVmView.hpp"]

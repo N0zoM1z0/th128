@@ -94,3 +94,4 @@ address,name,size,status,match_percent,unit,evidence
 0x0046A660,AddAngles,153,exact,100.00,add-angles,"Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; pi, two-pi and minus-pi double constants replayed; zero byte differences."
 0x0046A700,NormalizeAngle,144,exact,100.00,normalize-angle,"Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; pi, two-pi and minus-pi double constants replayed; zero byte differences."
 0x0046A970,MenuCursor::Move,121,exact,100.00,menu-cursor-move,Cold pinned VC10 /GL /Ob1 /Oy- complete public primary-TU PDB contribution behind an independent three-call probe; current receipts; no fields; zero byte differences.
+0x0046B190,EaseTransition,728,exact,100.00,anm-vm-transition-easing-linked,Cold pinned VC10 /GL linked-PE replay; complete 728-byte PDB contribution; 35 reviewed DIR32 fields (jump-table pointer handler entries and constants) replay; zero byte differences.

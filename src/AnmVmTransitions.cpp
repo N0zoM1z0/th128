@@ -22,7 +22,10 @@ void AnmVm::SetColorTransition(
     colorTransition.values[4] = target[1];
     colorTransition.values[2] = current[2];
     colorTransition.values[5] = target[2];
-    colorTransition.timer.Reset();
+    colorTransition.timer.Initialize();
+    colorTransition.timer.currentF = 0.0f;
+    colorTransition.timer.current = 0;
+    colorTransition.timer.previous = -1;
 }
 
 void AnmVm::SetScaleTransition(
@@ -38,7 +41,10 @@ void AnmVm::SetScaleTransition(
     scaleTransition.values[1] = current[1];
     scaleTransition.values[2] = target[0];
     scaleTransition.values[3] = target[1];
-    scaleTransition.timer.Reset();
+    scaleTransition.timer.Initialize();
+    scaleTransition.timer.currentF = 0.0f;
+    scaleTransition.timer.current = 0;
+    scaleTransition.timer.previous = -1;
 }
 
 void AnmVm::SetSecondaryScaleTransition(
@@ -54,7 +60,10 @@ void AnmVm::SetSecondaryScaleTransition(
     secondaryScaleTransition.values[1] = current[1];
     secondaryScaleTransition.values[2] = target[0];
     secondaryScaleTransition.values[3] = target[1];
-    secondaryScaleTransition.timer.Reset();
+    secondaryScaleTransition.timer.Initialize();
+    secondaryScaleTransition.timer.currentF = 0.0f;
+    secondaryScaleTransition.timer.current = 0;
+    secondaryScaleTransition.timer.previous = -1;
 }
 
 void AnmVm::SetEffectState(
@@ -69,7 +78,10 @@ void AnmVm::SetEffectState(
     effectTransition.values[1] = parameter1;
     effectTransition.values[2] = 0;
     effectTransition.values[3] = 0;
-    effectTransition.timer.Reset();
+    effectTransition.timer.Initialize();
+    effectTransition.timer.currentF = 0.0f;
+    effectTransition.timer.current = 0;
+    effectTransition.timer.previous = -1;
 }
 
 void AnmVm::SetSecondaryEffectState(
@@ -82,7 +94,10 @@ void AnmVm::SetSecondaryEffectState(
     secondaryEffectTransition.mode = mode & 0xFFU;
     secondaryEffectTransition.values[0] = parameter0;
     secondaryEffectTransition.values[1] = parameter1;
-    secondaryEffectTransition.timer.Reset();
+    secondaryEffectTransition.timer.Initialize();
+    secondaryEffectTransition.timer.currentF = 0.0f;
+    secondaryEffectTransition.timer.current = 0;
+    secondaryEffectTransition.timer.previous = -1;
 }
 
 
@@ -106,5 +121,8 @@ void AnmVm::SetSecondaryColorTransition(
     secondaryColorTransition.values[4] = target[1];
     secondaryColorTransition.values[2] = current[2];
     secondaryColorTransition.values[5] = target[2];
-    secondaryColorTransition.timer.Reset();
+    secondaryColorTransition.timer.Initialize();
+    secondaryColorTransition.timer.currentF = 0.0f;
+    secondaryColorTransition.timer.current = 0;
+    secondaryColorTransition.timer.previous = -1;
 }
