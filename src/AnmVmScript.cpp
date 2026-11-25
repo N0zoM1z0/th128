@@ -2395,29 +2395,37 @@ AnmVmUpdateAfterScript:
         break;
     }
 
-    AnmVmEffect10Vertex *vertices =
-        reinterpret_cast<AnmVmEffect10Vertex *>(extraData);
+    AnmVmEffect10Vertex *vertices;
     // Keep the count signed: the target performs its divisor calculations
     // even for zero/negative counts, and only the later loop test rejects them.
-    const int count = integerVariables[0];
-    const int divisor = count - 1;
-    const float divisorAsFloat = (float)divisor;
+    int count;
+    int divisor;
     float angleStep;
     float vStep;
     float angle;
-    float v = 0.0f;
+    float v;
     if (geometryMode == 9U)
     {
+        count = integerVariables[0];
+        angle = unknown02C;
+        divisor = count - 1;
+        vertices = reinterpret_cast<AnmVmEffect10Vertex *>(extraData);
+        const float divisorAsFloat = (float)divisor;
         angleStep = (float)(
             kAnmVmGeometryTwoPi / (double)divisorAsFloat);
+        v = 0.0f;
         vStep = integerVariables[1] / divisorAsFloat;
-        angle = unknown02C;
     }
     else
     {
-        angleStep = unknown024 / divisorAsFloat;
-        vStep = integerVariables[1] / divisorAsFloat;
+        count = integerVariables[0];
         angle = NormalizeAngle(unknown02C - unknown024 * 0.5f);
+        divisor = count - 1;
+        vertices = reinterpret_cast<AnmVmEffect10Vertex *>(extraData);
+        const float divisorAsFloat = (float)divisor;
+        angleStep = unknown024 / divisorAsFloat;
+        v = 0.0f;
+        vStep = integerVariables[1] / divisorAsFloat;
     }
 
     float centerX;
@@ -2482,9 +2490,9 @@ AnmVmUpdateAfterScript:
 
     if (geometryMode == 9U)
     {
+        AnmVmEffect10Vertex *pairVertices = vertices;
         for (int i = 0; i < divisor; ++i)
         {
-            AnmVmEffect10Vertex *pairVertices = vertices + i * 2;
             pairVertices[0].reciprocalW = 1.0f;
             pairVertices[0].color = vertexColor;
             pairVertices[0].u = textureRect[0][0] + textureScrollX;
@@ -2504,20 +2512,19 @@ AnmVmUpdateAfterScript:
             pairVertices[1].z = centerZ;
             v += vStep;
             angle = AddAngles(angle, angleStep);
+            pairVertices += 2;
         }
 
-        AnmVmEffect10Vertex *closingVertices =
-            vertices + (divisor > 0 ? divisor * 2 : 0);
-        closingVertices[0] = vertices[0];
-        closingVertices[1] = vertices[1];
-        closingVertices[0].v = v + textureScrollY;
-        closingVertices[1].v = v + textureScrollY;
+        pairVertices[0] = vertices[0];
+        pairVertices[1] = vertices[1];
+        pairVertices[0].v = v + textureScrollY;
+        pairVertices[1].v = v + textureScrollY;
         break;
     }
 
+    AnmVmEffect10Vertex *pairVertices = vertices;
     for (int i = 0; i < count; ++i)
     {
-        AnmVmEffect10Vertex *pairVertices = vertices + i * 2;
         pairVertices[0].reciprocalW = 1.0f;
         pairVertices[0].color = vertexColor;
         pairVertices[0].u = textureRect[0][0] + textureScrollX;
@@ -2537,6 +2544,7 @@ AnmVmUpdateAfterScript:
         pairVertices[1].z = centerZ;
         v += vStep;
         angle = AddAngles(angle, angleStep);
+        pairVertices += 2;
     }
     } while (0);
 
