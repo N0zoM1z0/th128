@@ -2572,7 +2572,7 @@ AnmVmUpdateAfterScript:
     else
     {
         timer070.currentF += *timer070.gameSpeed;
-        timer070.current = (int)timer070.currentF;
+        timer070.current = ZunRoundToInt((double)timer070.currentF);
     }
     g_TimeScale = savedGameSpeed;
     return 0;
