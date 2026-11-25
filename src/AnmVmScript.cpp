@@ -2397,19 +2397,27 @@ AnmVmUpdateAfterScript:
 
     AnmVmEffect10Vertex *vertices =
         reinterpret_cast<AnmVmEffect10Vertex *>(extraData);
-    const unsigned int count = integerVariables[0] < 0
-        ? 0U
-        : (unsigned int)integerVariables[0];
-    if (count == 0)
+    // Keep the count signed: the target performs its divisor calculations
+    // even for zero/negative counts, and only the later loop test rejects them.
+    const int count = integerVariables[0];
+    const int divisor = count - 1;
+    const float divisorAsFloat = (float)divisor;
+    float angleStep;
+    float vStep;
+    float angle;
+    float v = 0.0f;
+    if (geometryMode == 9U)
     {
-        if (geometryMode == 9U)
-        {
-            // The target still writes the seam V coordinate when the ring
-            // has no segments; its zero-initialized loop accumulator is used.
-            vertices[0].v = textureScrollY;
-            vertices[1].v = textureScrollY;
-        }
-        break;
+        angleStep = (float)(
+            kAnmVmGeometryTwoPi / (double)divisorAsFloat);
+        vStep = integerVariables[1] / divisorAsFloat;
+        angle = unknown02C;
+    }
+    else
+    {
+        angleStep = unknown024 / divisorAsFloat;
+        vStep = integerVariables[1] / divisorAsFloat;
+        angle = NormalizeAngle(unknown02C - unknown024 * 0.5f);
     }
 
     float centerX;
@@ -2432,6 +2440,13 @@ AnmVmUpdateAfterScript:
         centerX = position.x + centerX;
         centerY = position.y + centerY;
         centerZ = position.z + centerZ;
+    }
+
+    // Mode 14 replaces the first normalized angle after local-center
+    // accumulation but before the parent-center contribution, as in Update.
+    if (geometryMode == 14U)
+    {
+        angle = NormalizeAngle(unknown02C);
     }
 
     if (parentVm != 0)
@@ -2467,22 +2482,7 @@ AnmVmUpdateAfterScript:
 
     if (geometryMode == 9U)
     {
-        const unsigned int segmentCount = count - 1U;
-        if (segmentCount == 0)
-        {
-            vertices[0].v = textureScrollY;
-            vertices[1].v = textureScrollY;
-            break;
-        }
-
-        const float segmentCountAsFloat = (float)segmentCount;
-        const float angleStep = (float)(
-            kAnmVmGeometryTwoPi / (double)segmentCountAsFloat);
-        const float vStep = integerVariables[1] / segmentCountAsFloat;
-        float angle = unknown02C;
-        float v = 0.0f;
-
-        for (unsigned int i = 0; i != segmentCount; ++i)
+        for (int i = 0; i < divisor; ++i)
         {
             AnmVmEffect10Vertex *pairVertices = vertices + i * 2;
             pairVertices[0].reciprocalW = 1.0f;
@@ -2506,7 +2506,8 @@ AnmVmUpdateAfterScript:
             angle = AddAngles(angle, angleStep);
         }
 
-        AnmVmEffect10Vertex *closingVertices = vertices + segmentCount * 2;
+        AnmVmEffect10Vertex *closingVertices =
+            vertices + (divisor > 0 ? divisor * 2 : 0);
         closingVertices[0] = vertices[0];
         closingVertices[1] = vertices[1];
         closingVertices[0].v = v + textureScrollY;
@@ -2514,18 +2515,7 @@ AnmVmUpdateAfterScript:
         break;
     }
 
-    const unsigned int divisor = count - 1U;
-    const float divisorAsFloat = (float)divisor;
-    const float angleStep = unknown024 / divisorAsFloat;
-    const float vStep = integerVariables[1] / divisorAsFloat;
-    float angle = NormalizeAngle(unknown02C - unknown024 * 0.5f);
-    if (geometryMode == 14U)
-    {
-        angle = NormalizeAngle(unknown02C);
-    }
-    float v = 0.0f;
-
-    for (unsigned int i = 0; i != count; ++i)
+    for (int i = 0; i < count; ++i)
     {
         AnmVmEffect10Vertex *pairVertices = vertices + i * 2;
         pairVertices[0].reciprocalW = 1.0f;
@@ -2571,7 +2561,8 @@ AnmVmUpdateAfterScript:
     else
     {
         timer070.currentF += *timer070.gameSpeed;
-        timer070.current = ZunRoundToInt((double)timer070.currentF);
+        // Preserve VC10's __ftol2_sse conversion and its runtime rounding mode.
+        timer070.current = (int)timer070.currentF;
     }
     g_TimeScale = savedGameSpeed;
     return 0;
