@@ -101,7 +101,7 @@ address,origin,subsystem,disposition,confidence,evidence_id
 0x00404730,authored_game,,authored,high,game-band-origin-sweep
 0x00404AA0,authored_game,,authored,medium,game-band-origin-sweep-new-rows
 0x00404AB0,authored_game,,authored,medium,game-band-origin-sweep-new-rows
-0x00404AC0,unknown,,review,unknown,ltcg-entry-adapter-review
+0x00404AC0,authored_game,,authored,medium,ltcg-entry-adapter-resolved
 0x00404AD0,authored_game,,authored,high,game-band-origin-sweep
 0x00404AF0,authored_game,,authored,high,game-band-origin-sweep
 0x00405130,authored_game,,authored,high,game-band-origin-sweep
@@ -338,7 +338,7 @@ address,origin,subsystem,disposition,confidence,evidence_id
 0x0040DBF0,authored_game,,authored,high,game-band-origin-sweep
 0x0040DD40,authored_game,,authored,medium,game-band-origin-sweep-new-rows
 0x0040DD50,authored_game,,authored,medium,game-band-origin-sweep-new-rows
-0x0040DD60,unknown,,review,unknown,ltcg-entry-adapter-review
+0x0040DD60,authored_game,,authored,medium,ltcg-entry-adapter-resolved
 0x0040DD70,authored_game,,authored,high,game-band-origin-sweep
 0x0040E350,authored_game,,authored,high,game-band-origin-sweep
 0x0040E4E0,authored_game,,authored,high,game-band-origin-sweep
@@ -442,7 +442,7 @@ address,origin,subsystem,disposition,confidence,evidence_id
 0x004113D0,authored_game,,authored,high,game-band-origin-sweep
 0x004118A0,authored_game,,authored,high,game-band-origin-sweep
 0x00411BB0,authored_game,,authored,medium,game-band-origin-sweep-new-rows
-0x00411BC0,unknown,,review,unknown,ltcg-entry-adapter-review
+0x00411BC0,authored_game,,authored,medium,ltcg-entry-adapter-resolved
 0x00411BD0,authored_game,,authored,medium,game-band-origin-sweep-new-rows
 0x00411BE0,authored_game,,authored,high,game-band-origin-sweep
 0x00411C70,authored_game,,authored,high,game-band-origin-sweep
@@ -815,8 +815,8 @@ address,origin,subsystem,disposition,confidence,evidence_id
 0x004225F0,authored_game,,authored,high,game-band-origin-sweep
 0x00422680,authored_game,,authored,high,game-band-origin-sweep
 0x00422D60,authored_game,,authored,medium,game-band-origin-sweep-new-rows
-0x00422D70,unknown,,review,unknown,ltcg-entry-adapter-review
-0x00422D80,unknown,,review,unknown,ltcg-entry-adapter-review
+0x00422D70,authored_game,,authored,medium,ltcg-entry-adapter-resolved
+0x00422D80,authored_game,,authored,medium,ltcg-entry-adapter-resolved
 0x00422D90,authored_game,,authored,high,game-band-origin-sweep
 0x00423110,authored_game,,authored,high,game-band-origin-sweep
 0x004231C0,authored_game,,authored,medium,game-band-origin-sweep-new-rows
@@ -1133,8 +1133,8 @@ address,origin,subsystem,disposition,confidence,evidence_id
 0x00433490,authored_game,,authored,medium,game-band-origin-sweep-new-rows
 0x004334B0,authored_game,,authored,high,game-band-origin-sweep
 0x00433510,authored_game,,authored,high,game-band-origin-sweep
-0x004335B0,unknown,,review,unknown,ltcg-entry-adapter-review
-0x004335C0,unknown,,review,unknown,ltcg-entry-adapter-review
+0x004335B0,authored_game,,authored,medium,ltcg-entry-adapter-resolved
+0x004335C0,authored_game,,authored,medium,ltcg-entry-adapter-resolved
 0x004335D0,authored_game,,authored,medium,game-band-origin-sweep-new-rows
 0x00433600,authored_game,,authored,medium,game-band-origin-sweep-new-rows
 0x00433610,authored_game,,authored,medium,game-band-origin-sweep-new-rows
@@ -1298,7 +1298,7 @@ address,origin,subsystem,disposition,confidence,evidence_id
 0x0043B680,authored_game,,authored,high,game-band-origin-sweep
 0x0043C1D0,authored_game,,authored,high,game-band-origin-sweep
 0x0043C260,authored_game,,authored,medium,game-band-origin-sweep-new-rows
-0x0043C270,unknown,,review,unknown,ltcg-entry-adapter-review
+0x0043C270,authored_game,,authored,medium,ltcg-entry-adapter-resolved
 0x0043C280,authored_game,,authored,high,game-band-origin-sweep
 0x0043C330,authored_game,,authored,medium,game-band-origin-sweep
 0x0043C3A0,authored_game,,authored,high,game-band-origin-sweep
@@ -1400,7 +1400,7 @@ address,origin,subsystem,disposition,confidence,evidence_id
 0x00441620,authored_game,,authored,high,game-band-origin-sweep
 0x00441E20,authored_game,,authored,high,game-band-origin-sweep
 0x00442010,authored_game,,authored,medium,game-band-origin-sweep-new-rows
-0x00442020,unknown,,review,unknown,ltcg-entry-adapter-review
+0x00442020,authored_game,,authored,medium,ltcg-entry-adapter-resolved
 0x00442030,authored_game,,authored,medium,game-band-origin-sweep-new-rows
 0x00442070,authored_game,,authored,medium,game-band-origin-sweep-new-rows
 0x00442090,authored_game,,authored,high,game-band-origin-sweep
@@ -1457,7 +1457,7 @@ address,origin,subsystem,disposition,confidence,evidence_id
 0x00443690,authored_game,,authored,medium,game-band-origin-sweep-new-rows
 0x00443810,authored_game,,authored,high,game-band-origin-sweep
 0x004438F0,authored_game,,authored,medium,game-band-origin-sweep-new-rows
-0x00443900,unknown,,review,unknown,ltcg-entry-adapter-review
+0x00443900,authored_game,,authored,medium,ltcg-entry-adapter-resolved
 0x00443910,authored_game,,authored,medium,game-band-origin-sweep-new-rows
 0x00443920,authored_game,,authored,medium,game-band-origin-sweep-new-rows
 0x00443960,authored_game,,authored,medium,game-band-origin-sweep-new-rows
@@ -1489,7 +1489,7 @@ address,origin,subsystem,disposition,confidence,evidence_id
 0x004446D0,authored_game,,authored,high,game-band-origin-sweep
 0x00444A80,authored_game,,authored,high,game-band-origin-sweep
 0x00444C90,authored_game,,authored,medium,game-band-origin-sweep-new-rows
-0x00444CA0,unknown,,review,unknown,ltcg-entry-adapter-review
+0x00444CA0,authored_game,,authored,medium,ltcg-entry-adapter-resolved
 0x00444CB0,authored_game,,authored,medium,game-band-origin-sweep-new-rows
 0x00444CC0,authored_game,,authored,high,game-band-origin-sweep
 0x00444D10,authored_game,TitleInf,authored,high,game-band-origin-sweep
@@ -1522,7 +1522,7 @@ address,origin,subsystem,disposition,confidence,evidence_id
 0x00445750,authored_game,,authored,medium,game-band-origin-sweep-new-rows
 0x00445770,authored_game,,authored,high,game-band-origin-sweep
 0x00445C10,authored_game,,authored,high,game-band-origin-sweep
-0x00445C80,unknown,,review,unknown,ltcg-entry-adapter-review
+0x00445C80,authored_game,,authored,medium,ltcg-entry-adapter-resolved
 0x00445C90,authored_game,,authored,high,game-band-origin-sweep
 0x00445D00,authored_game,,authored,high,game-band-origin-sweep
 0x00445E50,authored_game,,authored,high,game-band-origin-sweep
@@ -2401,15 +2401,15 @@ address,origin,subsystem,disposition,confidence,evidence_id
 0x004725A4,library,MsvcCPPRT,exclude,high,vc10-crt-archive-scan
 0x004725AF,library,MsvcCPPRT,exclude,high,vc10-crt-archive-scan
 0x004725D2,library,MsvcCPPRT,exclude,high,vc10-crt-archive-scan
-0x004725F6,unknown,,review,unknown,boundary-review-new-function
+0x004725F6,library,CRT,exclude,high,crt-band-library-review
 0x004725FB,library,MsvcCPPRT,exclude,high,vc10-crt-archive-scan
-0x0047261F,unknown,,review,unknown,boundary-review-new-function
+0x0047261F,library,CRT,exclude,high,crt-band-library-review
 0x00472624,library,MsvcCPPRT,exclude,high,vc10-crt-archive-scan
-0x00472648,unknown,,review,unknown,boundary-review-new-function
+0x00472648,library,CRT,exclude,high,crt-band-library-review
 0x0047264D,library,MsvcCPPRT,exclude,high,vc10-crt-archive-scan
-0x0047266B,unknown,,review,unknown,boundary-review-new-function
+0x0047266B,library,CRT,exclude,high,crt-band-library-review
 0x00472670,library,MsvcCPPRT,exclude,high,vc10-crt-archive-scan
-0x00472694,unknown,,review,unknown,boundary-review-new-function
+0x00472694,library,CRT,exclude,high,crt-band-library-review
 0x00472699,library,MsvcCPPRT,exclude,high,vc10-crt-archive-scan
 0x004726C9,library,MsvcCPPRT,exclude,high,vc10-crt-archive-scan
 0x004726E6,library,MsvcCPPRT,exclude,high,vc10-crt-archive-scan
@@ -2624,7 +2624,7 @@ address,origin,subsystem,disposition,confidence,evidence_id
 0x004784AE,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
 0x00478500,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
 0x00478533,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
-0x0047853C,unknown,,review,unknown,boundary-review-new-function
+0x0047853C,library,CRT,exclude,high,crt-band-library-review
 0x00478545,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
 0x0047855F,library,MsvcCRT,exclude,high,crt-tail-archive-multihit
 0x00478565,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
@@ -2687,7 +2687,7 @@ address,origin,subsystem,disposition,confidence,evidence_id
 0x0047C169,library,MsvcCRT,exclude,high,crt-tail-archive-multihit
 0x0047C178,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
 0x0047C1D7,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
-0x0047C2DA,unknown,,review,unknown,boundary-review-new-function
+0x0047C2DA,library,CRT,exclude,high,crt-band-library-review
 0x0047C2EA,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
 0x0047C319,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
 0x0047C37D,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
@@ -2719,7 +2719,7 @@ address,origin,subsystem,disposition,confidence,evidence_id
 0x0047DB77,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
 0x0047DC6C,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
 0x0047DDEB,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
-0x0047DE2D,unknown,,review,unknown,boundary-review-new-function
+0x0047DE2D,library,CRT,exclude,high,crt-band-library-review
 0x0047DE3B,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
 0x0047DE9A,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
 0x0047DF76,library,MsvcCRT,exclude,high,crt-tail-archive-multihit
@@ -2728,7 +2728,7 @@ address,origin,subsystem,disposition,confidence,evidence_id
 0x0047E1DA,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
 0x0047E271,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
 0x0047E509,library,MsvcCRT,exclude,high,crt-tail-archive-multihit
-0x0047E52F,unknown,,review,unknown,boundary-review-new-function
+0x0047E52F,library,CRT,exclude,high,crt-band-library-review
 0x0047E555,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
 0x0047E5F0,library,MsvcCRT,exclude,high,crt-tail-archive-multihit
 0x0047E5F8,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
@@ -2811,15 +2811,15 @@ address,origin,subsystem,disposition,confidence,evidence_id
 0x00480F00,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
 0x00480F1F,library,MsvcCRT,exclude,high,crt-tail-archive-multihit
 0x00480F4F,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
-0x00480F66,unknown,,review,unknown,boundary-review-new-function
-0x00480F6A,unknown,,review,unknown,boundary-review-new-function
+0x00480F66,library,CRT,exclude,high,crt-band-library-review
+0x00480F6A,library,CRT,exclude,high,crt-band-library-review
 0x00480F6E,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
 0x00480F85,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
 0x00480FAF,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
 0x00480FC5,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
 0x00480FDC,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
 0x00480FFD,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
-0x00481022,unknown,,review,unknown,boundary-review-new-function
+0x00481022,library,CRT,exclude,high,crt-band-library-review
 0x00481026,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
 0x00481032,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
 0x004810B8,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
@@ -2841,7 +2841,7 @@ address,origin,subsystem,disposition,confidence,evidence_id
 0x0048148D,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
 0x004814D7,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
 0x00481526,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
-0x0048157D,unknown,,review,unknown,boundary-review-new-function
+0x0048157D,library,CRT,exclude,high,crt-band-library-review
 0x00481581,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
 0x00481593,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
 0x004815B0,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
@@ -3055,7 +3055,7 @@ address,origin,subsystem,disposition,confidence,evidence_id
 0x0048DB1F,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
 0x0048DB67,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
 0x0048DC94,library,MsvcCRT,exclude,high,crt-tail-archive-multihit
-0x0048DC9D,unknown,,review,unknown,boundary-review-new-function
+0x0048DC9D,library,CRT,exclude,high,crt-band-library-review
 0x0048DCA6,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
 0x0048DD42,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
 0x0048DD76,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
@@ -3201,7 +3201,7 @@ address,origin,subsystem,disposition,confidence,evidence_id
 0x0048FF20,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
 0x0048FF60,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
 0x0048FFB8,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
-0x00490070,unknown,,review,unknown,boundary-review-new-function
+0x00490070,library,CRT,exclude,high,crt-band-library-review
 0x0049007A,library,MsvcCRT,exclude,high,crt-tail-archive-extent-review
 0x00490090,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
 0x004900AD,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
@@ -3262,7 +3262,7 @@ address,origin,subsystem,disposition,confidence,evidence_id
 0x00491667,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
 0x004917C3,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
 0x004917CA,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
-0x004917E3,unknown,,review,unknown,boundary-review-new-function
+0x004917E3,library,CRT,exclude,high,crt-band-library-review
 0x00491800,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
 0x0049181E,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
 0x00491AF0,library,MsvcCRT,exclude,high,vc10-crt-archive-scan
