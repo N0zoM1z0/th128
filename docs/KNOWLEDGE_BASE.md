@@ -198,9 +198,9 @@ motion, view texture-rectangle refresh, render-state synchronization,
 transitions, custom geometry, callback and timer advancement. It is still a
 partial reconstruction of the large target function; branch ordering,
 missing paths and side effects require further target comparison. The latest
-selected VC10 `/GL` candidate owns 13,772 bytes versus the 13,604-byte target
-contribution (168 bytes larger), with 284 direct calls versus the target's
-286. This is a useful frontier measurement, not an exact replay.
+selected VC10 `/GL` candidate owns 13,748 bytes versus the 13,604-byte target
+contribution (144 bytes larger). This is a useful frontier measurement, not
+an exact replay.
 
 Opcode 40 now selects the UI/world RNG in separate branches and keeps integer
 operand resolution inside each branch, matching the target's two resolver
@@ -211,7 +211,15 @@ destination-resolution block; opcode 47 uses `AddAngles(angle, 0)` as the
 target does. The opcode-113 view transition preserves the target's three
 `NormalizeAngle` calls, including the normalized zero terms, and the mode-13
 and mode-14 geometry paths retain their separate normalization call sites.
-The four operand resolver call counts now match the target: 93 float source,
+The effect-10 geometry path now keeps the signed particle count, computes the
+mode-specific step divisions before center accumulation, and preserves the
+mode-14 angle override between local- and parent-center composition. Zero and
+negative counts still execute the target's divisor operations before the
+loop test; no assembly or padding is used. The Update-specific
+`SetPolarForUpdate` leaf at `0x0045E010` remains a natural-C++ codegen frontier:
+the target uses x87 `FSINCOS`, while the source uses ordinary `cos`/`sin` calls.
+Do not introduce inline assembly to force that leaf. The four operand resolver
+call counts now match the target: 93 float source,
 82 integer source, 12 float destination and 13 integer destination calls.
 The per-frame `stateFlags & 0x20` view refresh performs coordinate normalization
 inline; only opcode 98 calls the separate `NormalizeAnmCoordinates` helper

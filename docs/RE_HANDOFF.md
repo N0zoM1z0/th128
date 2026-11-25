@@ -68,10 +68,14 @@ receipts, not from commit count or source presence.
 Current source covers script gating/termination, game-speed save/restore,
 continuous angle/scale/texture motion, view-rectangle refresh, render-state
 synchronization, transition updates, custom geometry, frame callback and timer
-advancement. The latest selected VC10 `/GL` PDB contribution is 13,772 bytes
-versus the 13,604-byte target (168 bytes larger), and its direct call count is
-284 versus the target's 286; it is still not an exact replay. The separate
-`InterpolateColorVector` frontier is 719 bytes versus its 721-byte target;
+advancement. The latest selected VC10 `/GL` PDB contribution is 13,748 bytes
+versus the 13,604-byte target (144 bytes larger); it is still not an exact
+replay. Effect-10 geometry keeps the target's signed particle count and step-
+division ordering, with mode-14's angle override between local and parent
+center composition. The Update-specific `SetPolarForUpdate` leaf at
+0x0045E010 remains a natural-C++ frontier: target FSINCOS versus source
+cos/sin calls; do not use inline assembly. The separate `InterpolateColorVector`
+frontier is 719 bytes versus its 721-byte target;
 its mode-8 path now uses target-style float time and 12 individually converted
 Hermite terms in target basis order, but its private register ABI and x87
 scheduling still differ. `EaseTransition` at 0x0046B190 now has a separate
