@@ -91,7 +91,12 @@ linked-PE replay: 728-byte owner, 35 mapped relocation fields, and zero
 normalized byte differences. Its 16 jump-table entries, handler order and
 natural C++ easing expressions now reproduce the target. `ZunTimer::Increment`
 is now an exact 88-byte out-of-line leaf, preserving the timer call edge inside
-transition interpolation. Opcodes 40 and 41 select the world/UI RNG in separate branches; opcode 41 uses the exact
+transition interpolation. `ResetTransitionTimer(void *)` now exactly replays
+the 52-byte `FUN_00406F80` owner-relative reset helper: it receives a transition
+owner and resets the embedded timer at `+0x30`, including lazy initialization
+and the `g_TimeScale` relocation. Update opcodes 56, 100 and 59 now share this
+natural C++ helper (three target and candidate call edges). Opcodes 40 and 41
+select the world/UI RNG in separate branches; opcode 41 uses the exact
 `Rng::GetFloat(float scale)` leaf at 0x0040D130. Opcodes 17, 27 and 42..46
 share the target float-result store, opcode 47 uses `AddAngles(angle, 0)`, and
 opcode 113 plus mode-13/14 geometry preserve the target angle-normalization

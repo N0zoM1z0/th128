@@ -211,6 +211,13 @@ destination-resolution block; opcode 47 uses `AddAngles(angle, 0)` as the
 target does. The opcode-113 view transition preserves the target's three
 `NormalizeAngle` calls, including the normalized zero terms, and the mode-13
 and mode-14 geometry paths retain their separate normalization call sites.
+The Update transition-reset call at `0x00406F80` is not a direct
+`ZunTimer::Reset`: it receives the transition/view owner and resets the timer
+embedded at owner `+0x30`. `ResetTransitionTimer(void *)` now reproduces that
+52-byte helper exactly, including lazy initialization, the `g_TimeScale`
+pointer relocation, and the final `previous = -1` store. Opcodes 56, 100 and
+59 share this owner-relative helper; the standalone timer reset remains a
+distinct operation.
 The view-corner helpers now preserve the target's anchor-3 no-write behavior
 for modes 0 and 2/3. Their parent translations also retain per-corner x87
 operand order and intermediate float stores; the non-rotated paths perform

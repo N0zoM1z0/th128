@@ -2489,3 +2489,19 @@ symbol = "?BuildAnmVmViewCornersMode1@@YAXPBUAnmVm@@PAM111@Z"
 target_address = 0x0045FAD0
 size = 623
 linkages = []
+
+[units.anm-vm-transition-reset]
+artifact_kind = "linked-pe"
+source = "src/AnmVmScript.cpp"
+inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp", "src/AnmManager.hpp", "src/AngleMath.hpp", "src/ZunTimer.hpp", "src/AnmVmGeometry.hpp", "src/AnmVmView.hpp"]
+support_sources = ["probes/anm-vm-update-context.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVmEffects.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "src/ZunTimer.cpp", "src/AnmVmView.cpp"]
+output_dir = "build/match-linked/AnmVmTransitionReset"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmVmUpdateProbe@4"
+functions = ["ResetTransitionTimer"]
+symbol = "?ResetTransitionTimer@?A0xcccfbf55@@YAXPAX@Z"
+target_address = 0x00406F80
+size = 52
+linkages = [
+  { offset = 31, type = "DIR32", symbol = "?g_TimeScale@@3MA", target = 0x004B6F58 },
+]

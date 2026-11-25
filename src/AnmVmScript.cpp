@@ -123,6 +123,26 @@ namespace
         return (unsigned int)(InstructionBytes(instruction) + instruction->size);
     }
 
+    // The original transition owner reset receives the owner object, not the
+    // embedded ZunTimer. Every owner used here stores its timer at +0x30.
+    // Keeping that boundary also preserves the target's shared call edge.
+    __declspec(noinline) void ResetTransitionTimer(void *owner)
+    {
+        ZunTimer *timer = reinterpret_cast<ZunTimer *>(
+            reinterpret_cast<unsigned char *>(owner) +
+            offsetof(AnmVmVectorTransition, timer));
+        if (!timer->initialized)
+        {
+            timer->currentF = 0.0f;
+            timer->current = 0;
+            timer->previous = -999999;
+            timer->gameSpeed = &g_TimeScale;
+            timer->initialized = 1;
+        }
+        timer->currentF = 0.0f;
+        timer->current = 0;
+        timer->previous = -1;
+    }
 
 
     __declspec(noinline) unsigned int *__stdcall SpawnChildVm(
@@ -1462,7 +1482,7 @@ AnmVmUpdateScriptLoop:
         viewTarget.x = viewTargetX;
         viewTarget.y = viewTargetY;
         viewTarget.z = viewTargetZ;
-        timer0D4.Reset();
+        ResetTransitionTimer(&viewPosition);
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
@@ -1501,7 +1521,7 @@ AnmVmUpdateScriptLoop:
         viewTarget.x = viewTargetX;
         viewTarget.y = viewTargetY;
         viewTarget.z = viewTargetZ;
-        timer0D4.Reset();
+        ResetTransitionTimer(&viewPosition);
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
@@ -1577,25 +1597,21 @@ AnmVmUpdateScriptLoop:
         const float targetZ = FloatSource(*this, instruction, 24, 0x10U);
         const float targetY = FloatSource(*this, instruction, 20, 8U);
         const float targetX = FloatSource(*this, instruction, 16, 4U);
-        const float target[3] = {targetX, targetY, targetZ};
-        positionTransition.values[0] = unknown024;
-        positionTransition.values[1] = unknown028;
-        positionTransition.values[2] = unknown02C;
-        positionTransition.values[3] = target[0];
-        positionTransition.values[4] = target[1];
-        positionTransition.values[5] = target[2];
+        const int duration = IntegerSource(*this, instruction, 8, 1U);
+        positionTransition.duration = duration;
+
         const float *reference = reinterpret_cast<const float *>(0x004D2E54);
-        positionTransition.values[6] = reference[0];
-        positionTransition.values[7] = reference[1];
-        positionTransition.values[8] = reference[2];
-        positionTransition.values[9] = reference[0];
-        positionTransition.values[10] = reference[1];
-        positionTransition.values[11] = reference[2];
-        positionTransition.duration =
-            IntegerSource(*this, instruction, 8, 1U);
+        // The target copies these transition lanes as raw dwords; memcpy
+        // preserves the bitwise stores instead of routing them through x87.
+        memcpy(&positionTransition.values[6], reference, sizeof(float) * 3);
+        memcpy(&positionTransition.values[9], reference, sizeof(float) * 3);
         positionTransition.mode =
             (unsigned int)ReadInstructionInteger(instruction, 12);
-        positionTransition.timer.Reset();
+
+        memcpy(&positionTransition.values[0], &unknown024, sizeof(float) * 3);
+        const float target[3] = {targetX, targetY, targetZ};
+        memcpy(&positionTransition.values[3], target, sizeof(target));
+        ResetTransitionTimer(&positionTransition);
         flags |= 4U;
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
