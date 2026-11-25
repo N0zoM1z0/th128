@@ -3615,3 +3615,677 @@ symbol = "?SetThreadFlagBit2@@YGXPAI@Z"
 target_address = 0x0046ADF0
 size = 4
 linkages = []
+
+[units.input-init-joypad]
+artifact_kind = "linked-pe"
+source = "src/Input.cpp"
+inputs = ["src/Input.hpp", "src/GameErrorContext.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp"]
+support_sources = ["src/GameErrorContext.cpp", "probes/input-context.cpp"]
+output_dir = "build/match-linked/Input"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "InputProbe@64"
+functions = ["InitJoypad"]
+symbol = "?InitJoypad@@YAHXZ"
+target_address = 0x004688F0
+size = 134
+linkages = [
+  { offset = 7, type = "DIR32", symbol = "___security_cookie", target = 0x004B01F4 },
+  { offset = 19, type = "DIR32", symbol = "__imp__joyGetPosEx@8", target = 0x0049A290 },
+  { offset = 62, type = "DIR32", symbol = "??_C@_0CJ@KCBEENJD@?$IOg?$IC?$KG?$IC?i?$IDp?$IDb?$IDh?$IC?$KK?$JB?$LG?$IN?$NN?$IC?$LF?$IC?H?$IC?$KC?$IC?f?$IC?$KE?$IC?E?$IC?$LH@", target = 0x004A5E90 },
+  { offset = 67, type = "DIR32", symbol = "?g_GameErrorContext@@3UGameErrorContext@@A", target = 0x004B4F50 },
+  { offset = 72, type = "REL32", symbol = "?Log@GameErrorContext@@QAAPBDPBDZZ", target = 0x0046A250 },
+  { offset = 91, type = "REL32", symbol = "@__security_check_cookie@4", target = 0x004728FD },
+  { offset = 105, type = "DIR32", symbol = "?g_JoyCaps@@3UtagJOYCAPSA@@A", target = 0x004D2AE8 },
+  { offset = 113, type = "DIR32", symbol = "__imp__joyGetDevCapsA@12", target = 0x0049A280 },
+  { offset = 126, type = "REL32", symbol = "@__security_check_cookie@4", target = 0x004728FD },
+]
+
+[units.input-map-joy-button-byte]
+artifact_kind = "linked-pe"
+source = "src/Input.cpp"
+inputs = ["src/Input.hpp", "src/GameErrorContext.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp"]
+support_sources = ["src/GameErrorContext.cpp", "probes/input-context.cpp"]
+output_dir = "build/match-linked/Input"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "InputProbe@64"
+functions = ["MapJoyButtonByte"]
+symbol = "?MapJoyButtonByte@@YGIPAIIPBEF@Z"
+target_address = 0x00468980
+size = 41
+linkages = []
+
+[units.input-map-joy-button-bit]
+artifact_kind = "linked-pe"
+source = "src/Input.cpp"
+inputs = ["src/Input.hpp", "src/GameErrorContext.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp"]
+support_sources = ["src/GameErrorContext.cpp", "probes/input-context.cpp"]
+output_dir = "build/match-linked/Input"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "InputProbe@64"
+functions = ["MapJoyButtonBit"]
+symbol = "?MapJoyButtonBit@@YGIPAIFII@Z"
+target_address = 0x004689B0
+size = 37
+linkages = []
+
+[units.input-update-slot]
+artifact_kind = "linked-pe"
+source = "src/Input.cpp"
+inputs = ["src/Input.hpp", "src/GameErrorContext.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp"]
+support_sources = ["src/GameErrorContext.cpp", "probes/input-context.cpp"]
+output_dir = "build/match-linked/Input"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "InputProbe@64"
+functions = ["UpdateInputSlot"]
+symbol = "?UpdateInputSlot@@YGIHI@Z"
+target_address = 0x004691F0
+size = 27
+linkages = [
+  { offset = 8, type = "DIR32", symbol = "?g_InputStates@@3PAUInputState@@A", target = 0x004DAFF8 },
+  { offset = 20, type = "REL32", symbol = "?UpdateTimers@InputState@@QAEXXZ", target = 0x0046C2A0 },
+]
+
+[units.input-poll-keyboard-state]
+artifact_kind = "linked-pe"
+source = "src/Input.cpp"
+inputs = ["src/Input.hpp", "src/GameErrorContext.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp"]
+support_sources = ["src/GameErrorContext.cpp", "probes/input-context.cpp"]
+output_dir = "build/match-linked/Input"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "InputProbe@64"
+functions = ["PollKeyboardState"]
+symbol = "?PollKeyboardState@@YGHPAE@Z"
+target_address = 0x00469940
+size = 101
+linkages = [
+  { offset = 9, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+  { offset = 18, type = "DIR32", symbol = "?g_WindowActive@@3HA", target = 0x004D397C },
+  { offset = 27, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", addend = 1432, target = 0x004D2E60 },
+  { offset = 40, type = "DIR32", symbol = "__imp__GetKeyboardState@4", target = 0x0049A238 },
+  { offset = 51, type = "DIR32", symbol = "?g_DirectInputKeyboard@@3PAUDirectInputDeviceView@@A", target = 0x004D2E88 },
+  { offset = 80, type = "DIR32", symbol = "?g_DirectInputKeyboard@@3PAUDirectInputDeviceView@@A", target = 0x004D2E88 },
+]
+
+[units.input-clear-keyboard-state]
+artifact_kind = "linked-pe"
+source = "src/Input.cpp"
+inputs = ["src/Input.hpp", "src/GameErrorContext.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp"]
+support_sources = ["src/GameErrorContext.cpp", "probes/input-context.cpp"]
+output_dir = "build/match-linked/Input"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "InputProbe@64"
+functions = ["ClearKeyboardState"]
+symbol = "?ClearKeyboardState@@YAXXZ"
+target_address = 0x004699B0
+size = 77
+linkages = [
+  { offset = 10, type = "DIR32", symbol = "___security_cookie", target = 0x004B01F4 },
+  { offset = 28, type = "DIR32", symbol = "__imp__GetKeyboardState@4", target = 0x0049A238 },
+  { offset = 59, type = "DIR32", symbol = "__imp__SetKeyboardState@4", target = 0x0049A20C },
+  { offset = 69, type = "REL32", symbol = "@__security_check_cookie@4", target = 0x004728FD },
+]
+
+[units.core-math-vec2-length-sq]
+artifact_kind = "linked-pe"
+source = "src/CoreMath.cpp"
+inputs = ["src/CoreMath.hpp", "src/Chain.hpp", "src/ZunMath.hpp", "src/GameErrorContext.hpp"]
+support_sources = ["probes/core-math-context.cpp"]
+output_dir = "build/match-linked/CoreMath"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CoreMathProbe@128"
+functions = ["Vec2LengthSq"]
+symbol = "?Vec2LengthSq@@YGMPBUZunVec2@@@Z"
+target_address = 0x0046C0C0
+size = 27
+linkages = []
+
+[units.core-math-shortest-angle-diff2]
+artifact_kind = "linked-pe"
+source = "src/CoreMath.cpp"
+inputs = ["src/CoreMath.hpp", "src/Chain.hpp", "src/ZunMath.hpp", "src/GameErrorContext.hpp"]
+support_sources = ["probes/core-math-context.cpp"]
+output_dir = "build/match-linked/CoreMath"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CoreMathProbe@128"
+functions = ["ShortestAngleDifference2"]
+symbol = "?ShortestAngleDifference2@@YGMMM@Z"
+target_address = 0x0046C0E0
+size = 99
+linkages = [
+  { offset = 17, type = "DIR32", symbol = "__real@400921fb54442d18", target = 0x004A6580 },
+  { offset = 36, type = "DIR32", symbol = "__real@401921fb54442d18", target = 0x004A6578 },
+  { offset = 69, type = "DIR32", symbol = "__real@401921fb54442d18", target = 0x004A6578 },
+]
+
+[units.core-math-multiply-float-ptr]
+artifact_kind = "linked-pe"
+source = "src/CoreMath.cpp"
+inputs = ["src/CoreMath.hpp", "src/Chain.hpp", "src/ZunMath.hpp", "src/GameErrorContext.hpp"]
+support_sources = ["probes/core-math-context.cpp"]
+output_dir = "build/match-linked/CoreMath"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CoreMathProbe@128"
+functions = ["MultiplyFloatPtr"]
+symbol = "?MultiplyFloatPtr@@YGMPBMM@Z"
+target_address = 0x0046C210
+size = 18
+linkages = []
+
+[units.core-math-dec-time-scale-ref]
+artifact_kind = "linked-pe"
+source = "src/CoreMath.cpp"
+inputs = ["src/CoreMath.hpp", "src/Chain.hpp", "src/ZunMath.hpp", "src/GameErrorContext.hpp"]
+support_sources = ["probes/core-math-context.cpp"]
+output_dir = "build/match-linked/CoreMath"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CoreMathProbe@128"
+functions = ["DecTimeScaleRef"]
+symbol = "?DecTimeScaleRef@@YGXPAUTimeScaleGlobal@@@Z"
+target_address = 0x0046C230
+size = 4
+linkages = []
+
+[units.core-math-stub-46c240]
+artifact_kind = "linked-pe"
+source = "src/CoreMath.cpp"
+inputs = ["src/CoreMath.hpp", "src/Chain.hpp", "src/ZunMath.hpp", "src/GameErrorContext.hpp"]
+support_sources = ["probes/core-math-context.cpp"]
+output_dir = "build/match-linked/CoreMath"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CoreMathProbe@128"
+functions = ["Stub46C240"]
+symbol = "?Stub46C240@@YAXXZ"
+target_address = 0x0046C240
+size = 1
+linkages = []
+
+[units.core-math-init-default-time-scale]
+artifact_kind = "linked-pe"
+source = "src/CoreMath.cpp"
+inputs = ["src/CoreMath.hpp", "src/Chain.hpp", "src/ZunMath.hpp", "src/GameErrorContext.hpp"]
+support_sources = ["probes/core-math-context.cpp"]
+output_dir = "build/match-linked/CoreMath"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CoreMathProbe@128"
+functions = ["InitDefaultTimeScale"]
+symbol = "?InitDefaultTimeScale@@YAPAUTimeScaleGlobal@@XZ"
+target_address = 0x0046C250
+size = 24
+linkages = [
+  { offset = 4, type = "DIR32", symbol = "?g_DefaultTimeScale@@3UTimeScaleGlobal@@A", addend = 4, target = 0x004B6F58 },
+  { offset = 14, type = "DIR32", symbol = "?g_DefaultTimeScale@@3UTimeScaleGlobal@@A", target = 0x004B6F58 },
+  { offset = 19, type = "DIR32", symbol = "?g_DefaultTimeScale@@3UTimeScaleGlobal@@A", target = 0x004B6F58 },
+]
+
+[units.core-math-stub-46c270]
+artifact_kind = "linked-pe"
+source = "src/CoreMath.cpp"
+inputs = ["src/CoreMath.hpp", "src/Chain.hpp", "src/ZunMath.hpp", "src/GameErrorContext.hpp"]
+support_sources = ["probes/core-math-context.cpp"]
+output_dir = "build/match-linked/CoreMath"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CoreMathProbe@128"
+functions = ["Stub46C270"]
+symbol = "?Stub46C270@@YAXXZ"
+target_address = 0x0046C270
+size = 1
+linkages = []
+
+[units.core-math-debug-log-46c320]
+artifact_kind = "linked-pe"
+source = "src/CoreMath.cpp"
+inputs = ["src/CoreMath.hpp", "src/Chain.hpp", "src/ZunMath.hpp", "src/GameErrorContext.hpp"]
+support_sources = ["probes/core-math-context.cpp"]
+output_dir = "build/match-linked/CoreMath"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CoreMathProbe@128"
+functions = ["DebugLog46C320"]
+symbol = "?DebugLog46C320@@YAXPBDZZ"
+target_address = 0x0046C320
+size = 1
+linkages = []
+
+[units.core-math-find-chain-node-by-owner]
+artifact_kind = "linked-pe"
+source = "src/CoreMath.cpp"
+inputs = ["src/CoreMath.hpp", "src/Chain.hpp", "src/ZunMath.hpp", "src/GameErrorContext.hpp"]
+support_sources = ["probes/core-math-context.cpp"]
+output_dir = "build/match-linked/CoreMath"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CoreMathProbe@128"
+functions = ["FindChainNodeByOwner"]
+symbol = "?FindChainNodeByOwner@@YGPAUChainNode@@PAU1@PAUChainElem@@@Z"
+target_address = 0x0046C380
+size = 18
+linkages = []
+
+[units.core-math-set-chain-elem-callback-46c3a0]
+artifact_kind = "linked-pe"
+source = "src/CoreMath.cpp"
+inputs = ["src/CoreMath.hpp", "src/Chain.hpp", "src/ZunMath.hpp", "src/GameErrorContext.hpp"]
+support_sources = ["probes/core-math-context.cpp"]
+output_dir = "build/match-linked/CoreMath"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CoreMathProbe@128"
+functions = ["SetChainElemCallback46C3A0"]
+symbol = "?SetChainElemCallback46C3A0@@YGXPAUChainElem@@P6IHPAX@Z@Z"
+target_address = 0x0046C3A0
+size = 12
+linkages = []
+
+[units.core-math-set-global-matrix4x4]
+artifact_kind = "linked-pe"
+source = "src/CoreMath.cpp"
+inputs = ["src/CoreMath.hpp", "src/Chain.hpp", "src/ZunMath.hpp", "src/GameErrorContext.hpp"]
+support_sources = ["probes/core-math-context.cpp"]
+output_dir = "build/match-linked/CoreMath"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CoreMathProbe@128"
+functions = ["SetGlobalMatrix4x4"]
+symbol = "?SetGlobalMatrix4x4@@YGPAUMatrix4x4@@MMMMMMMMMMMMMMMM@Z"
+target_address = 0x0046C3B0
+size = 156
+linkages = [
+  { offset = 7, type = "DIR32", symbol = "?g_GlobalMatrix4x4@@3UMatrix4x4@@A", target = 0x004B4F10 },
+  { offset = 13, type = "DIR32", symbol = "?g_GlobalMatrix4x4@@3UMatrix4x4@@A", target = 0x004B4F10 },
+  { offset = 22, type = "DIR32", symbol = "?g_GlobalMatrix4x4@@3UMatrix4x4@@A", addend = 4, target = 0x004B4F10 },
+  { offset = 31, type = "DIR32", symbol = "?g_GlobalMatrix4x4@@3UMatrix4x4@@A", addend = 8, target = 0x004B4F10 },
+  { offset = 40, type = "DIR32", symbol = "?g_GlobalMatrix4x4@@3UMatrix4x4@@A", addend = 12, target = 0x004B4F10 },
+  { offset = 49, type = "DIR32", symbol = "?g_GlobalMatrix4x4@@3UMatrix4x4@@A", addend = 16, target = 0x004B4F10 },
+  { offset = 58, type = "DIR32", symbol = "?g_GlobalMatrix4x4@@3UMatrix4x4@@A", addend = 20, target = 0x004B4F10 },
+  { offset = 67, type = "DIR32", symbol = "?g_GlobalMatrix4x4@@3UMatrix4x4@@A", addend = 24, target = 0x004B4F10 },
+  { offset = 76, type = "DIR32", symbol = "?g_GlobalMatrix4x4@@3UMatrix4x4@@A", addend = 28, target = 0x004B4F10 },
+  { offset = 85, type = "DIR32", symbol = "?g_GlobalMatrix4x4@@3UMatrix4x4@@A", addend = 32, target = 0x004B4F10 },
+  { offset = 94, type = "DIR32", symbol = "?g_GlobalMatrix4x4@@3UMatrix4x4@@A", addend = 36, target = 0x004B4F10 },
+  { offset = 103, type = "DIR32", symbol = "?g_GlobalMatrix4x4@@3UMatrix4x4@@A", addend = 40, target = 0x004B4F10 },
+  { offset = 112, type = "DIR32", symbol = "?g_GlobalMatrix4x4@@3UMatrix4x4@@A", addend = 44, target = 0x004B4F10 },
+  { offset = 121, type = "DIR32", symbol = "?g_GlobalMatrix4x4@@3UMatrix4x4@@A", addend = 48, target = 0x004B4F10 },
+  { offset = 130, type = "DIR32", symbol = "?g_GlobalMatrix4x4@@3UMatrix4x4@@A", addend = 52, target = 0x004B4F10 },
+  { offset = 139, type = "DIR32", symbol = "?g_GlobalMatrix4x4@@3UMatrix4x4@@A", addend = 56, target = 0x004B4F10 },
+  { offset = 148, type = "DIR32", symbol = "?g_GlobalMatrix4x4@@3UMatrix4x4@@A", addend = 60, target = 0x004B4F10 },
+]
+
+[units.csound-manager-ctor]
+artifact_kind = "linked-pe"
+source = "src/CSoundManager.cpp"
+inputs = ["src/CSoundManager.hpp"]
+support_sources = ["probes/csound-manager-context.cpp"]
+output_dir = "build/match-linked/CSoundManager"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CSoundManagerProbe@60"
+functions = ["CSoundManager::CSoundManager"]
+symbol = "??0CSoundManager@@QAE@XZ"
+target_address = 0x0046C450
+size = 7
+linkages = []
+
+[units.csound-manager-dtor]
+artifact_kind = "linked-pe"
+source = "src/CSoundManager.cpp"
+inputs = ["src/CSoundManager.hpp"]
+support_sources = ["probes/csound-manager-context.cpp"]
+output_dir = "build/match-linked/CSoundManager"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CSoundManagerProbe@60"
+functions = ["CSoundManager::~CSoundManager"]
+symbol = "??1CSoundManager@@QAE@XZ"
+target_address = 0x0046C460
+size = 21
+linkages = []
+
+[units.csound-manager-initialize]
+artifact_kind = "linked-pe"
+source = "src/CSoundManager.cpp"
+inputs = ["src/CSoundManager.hpp"]
+support_sources = ["probes/csound-manager-context.cpp"]
+output_dir = "build/match-linked/CSoundManager"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CSoundManagerProbe@60"
+functions = ["CSoundManager::Initialize"]
+symbol = "?Initialize@CSoundManager@@QAEJPAUHWND__@@@Z"
+target_address = 0x0046C480
+size = 70
+linkages = [
+  { offset = 30, type = "DIR32", symbol = "__imp__DirectSoundCreate8@12", target = 0x0049A008 },
+  { offset = 60, type = "REL32", symbol = "?SetPrimaryBufferFormat@CSoundManager@@QAEJXZ", target = 0x0046C4D0 },
+]
+
+[units.csound-manager-set-primary-buffer-format]
+artifact_kind = "linked-pe"
+source = "src/CSoundManager.cpp"
+inputs = ["src/CSoundManager.hpp"]
+support_sources = ["probes/csound-manager-context.cpp"]
+output_dir = "build/match-linked/CSoundManager"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CSoundManagerProbe@60"
+functions = ["CSoundManager::SetPrimaryBufferFormat"]
+symbol = "?SetPrimaryBufferFormat@CSoundManager@@QAEJXZ"
+target_address = 0x0046C4D0
+size = 222
+linkages = [
+  { offset = 7, type = "DIR32", symbol = "___security_cookie", target = 0x004B01F4 },
+  { offset = 43, type = "REL32", symbol = "@__security_check_cookie@4", target = 0x004728FD },
+  { offset = 212, type = "REL32", symbol = "@__security_check_cookie@4", target = 0x004728FD },
+]
+
+[units.csound-restore-buffer]
+artifact_kind = "linked-pe"
+source = "src/CSoundManager.cpp"
+inputs = ["src/CSoundManager.hpp"]
+support_sources = ["probes/csound-manager-context.cpp"]
+output_dir = "build/match-linked/CSoundManager"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CSoundManagerProbe@60"
+functions = ["CSoundView::RestoreBuffer"]
+symbol = "?RestoreBuffer@CSoundView@@QAEJPAUIDirectSoundBufferFullView@@PAH@Z"
+target_address = 0x0046D0C0
+size = 105
+linkages = [
+  { offset = 39, type = "DIR32", symbol = "__imp__Sleep@4", target = 0x0049A084 },
+]
+
+[units.csound-get-free-buffer]
+artifact_kind = "linked-pe"
+source = "src/CSoundManager.cpp"
+inputs = ["src/CSoundManager.hpp"]
+support_sources = ["probes/csound-manager-context.cpp"]
+output_dir = "build/match-linked/CSoundManager"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CSoundManagerProbe@60"
+functions = ["CSoundView::GetFreeBuffer"]
+symbol = "?GetFreeBuffer@CSoundView@@QAEPAUIDirectSoundBufferFullView@@XZ"
+target_address = 0x0046D130
+size = 112
+linkages = [
+  { offset = 92, type = "REL32", symbol = "_rand", target = 0x00474410 },
+]
+
+[units.csound-get-buffer0]
+artifact_kind = "linked-pe"
+source = "src/CSoundManager.cpp"
+inputs = ["src/CSoundManager.hpp"]
+support_sources = ["probes/csound-manager-context.cpp"]
+output_dir = "build/match-linked/CSoundManager"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CSoundManagerProbe@60"
+functions = ["CSoundView::GetBuffer0"]
+symbol = "?GetBuffer0@CSoundView@@QAEPAUIDirectSoundBufferFullView@@XZ"
+target_address = 0x0046D1A0
+size = 19
+linkages = []
+
+[units.csound-get-3d-buffer-interface]
+artifact_kind = "linked-pe"
+source = "src/CSoundManager.cpp"
+inputs = ["src/CSoundManager.hpp"]
+support_sources = ["probes/csound-manager-context.cpp"]
+output_dir = "build/match-linked/CSoundManager"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CSoundManagerProbe@60"
+functions = ["CSoundView::Get3DBufferInterface"]
+symbol = "?Get3DBufferInterface@CSoundView@@QAEJKPAPAX@Z"
+target_address = 0x0046D1C0
+size = 49
+linkages = [
+  { offset = 39, type = "DIR32", symbol = "?g_IID_IDirectSound3DBuffer@@3U_GUID@@B", target = 0x0049B7DC },
+]
+
+[units.csound-set-volume]
+artifact_kind = "linked-pe"
+source = "src/CSoundManager.cpp"
+inputs = ["src/CSoundManager.hpp"]
+support_sources = ["probes/csound-manager-context.cpp"]
+output_dir = "build/match-linked/CSoundManager"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CSoundManagerProbe@60"
+functions = ["CSoundView::SetVolume"]
+symbol = "?SetVolume@CSoundView@@QAEJH@Z"
+target_address = 0x0046D290
+size = 122
+linkages = [
+  { offset = 6, type = "DIR32", symbol = "?g_BgmVolume@@3HA", target = 0x004DAEBC },
+  { offset = 18, type = "DIR32", symbol = "?g_BgmVolume@@3HA", target = 0x004DAEBC },
+  { offset = 33, type = "DIR32", symbol = "__real@4059000000000000", target = 0x004A6590 },
+  { offset = 81, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+]
+
+[units.csound-pause]
+artifact_kind = "linked-pe"
+source = "src/CSoundManager.cpp"
+inputs = ["src/CSoundManager.hpp"]
+support_sources = ["probes/csound-manager-context.cpp"]
+output_dir = "build/match-linked/CSoundManager"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CSoundManagerProbe@60"
+functions = ["CSoundView::Pause"]
+symbol = "?Pause@CSoundView@@QAEJXZ"
+target_address = 0x0046D3A0
+size = 117
+linkages = [
+  { offset = 69, type = "DIR32", symbol = "__imp__SetFilePointer@16", target = 0x0049A0A0 },
+  { offset = 97, type = "DIR32", symbol = "__imp__CloseHandle@4", target = 0x0049A0A4 },
+]
+
+[units.csound-reset]
+artifact_kind = "linked-pe"
+source = "src/CSoundManager.cpp"
+inputs = ["src/CSoundManager.hpp"]
+support_sources = ["probes/csound-manager-context.cpp"]
+output_dir = "build/match-linked/CSoundManager"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CSoundManagerProbe@60"
+functions = ["CSoundView::Reset"]
+symbol = "?Reset@CSoundView@@QAEJXZ"
+target_address = 0x0046D470
+size = 52
+linkages = []
+
+[units.csound-is-sound-playing]
+artifact_kind = "linked-pe"
+source = "src/CSoundManager.cpp"
+inputs = ["src/CSoundManager.hpp"]
+support_sources = ["probes/csound-manager-context.cpp"]
+output_dir = "build/match-linked/CSoundManager"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CSoundManagerProbe@60"
+functions = ["CSoundView::IsSoundPlaying"]
+symbol = "?IsSoundPlaying@CSoundView@@QAEHXZ"
+target_address = 0x0046D4B0
+size = 85
+linkages = []
+
+[units.csound-update-fade-out]
+artifact_kind = "linked-pe"
+source = "src/CSoundManager.cpp"
+inputs = ["src/CSoundManager.hpp"]
+support_sources = ["probes/csound-manager-context.cpp"]
+output_dir = "build/match-linked/CSoundManager"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CSoundManagerProbe@60"
+functions = ["CSoundView::UpdateFadeOut"]
+symbol = "?UpdateFadeOut@CSoundView@@QAEHXZ"
+target_address = 0x0046D590
+size = 68
+linkages = [
+  { offset = 61, type = "REL32", symbol = "?SetVolume@CSoundView@@QAEJH@Z", target = 0x0046D290 },
+]
+
+[units.csound-update-fade-in]
+artifact_kind = "linked-pe"
+source = "src/CSoundManager.cpp"
+inputs = ["src/CSoundManager.hpp"]
+support_sources = ["probes/csound-manager-context.cpp"]
+output_dir = "build/match-linked/CSoundManager"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CSoundManagerProbe@60"
+functions = ["CSoundView::UpdateFadeIn"]
+symbol = "?UpdateFadeIn@CSoundView@@QAEHXZ"
+target_address = 0x0046D5E0
+size = 51
+linkages = [
+  { offset = 44, type = "REL32", symbol = "?SetVolume@CSoundView@@QAEJH@Z", target = 0x0046D290 },
+]
+
+[units.csound-update-fade-low]
+artifact_kind = "linked-pe"
+source = "src/CSoundManager.cpp"
+inputs = ["src/CSoundManager.hpp"]
+support_sources = ["probes/csound-manager-context.cpp"]
+output_dir = "build/match-linked/CSoundManager"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CSoundManagerProbe@60"
+functions = ["CSoundView::UpdateFadeLow"]
+symbol = "?UpdateFadeLow@CSoundView@@QAEHXZ"
+target_address = 0x0046D620
+size = 51
+linkages = [
+  { offset = 44, type = "REL32", symbol = "?SetVolume@CSoundView@@QAEJH@Z", target = 0x0046D290 },
+]
+
+[units.csound-update-fade-high]
+artifact_kind = "linked-pe"
+source = "src/CSoundManager.cpp"
+inputs = ["src/CSoundManager.hpp"]
+support_sources = ["probes/csound-manager-context.cpp"]
+output_dir = "build/match-linked/CSoundManager"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CSoundManagerProbe@60"
+functions = ["CSoundView::UpdateFadeHigh"]
+symbol = "?UpdateFadeHigh@CSoundView@@QAEHXZ"
+target_address = 0x0046D660
+size = 55
+linkages = [
+  { offset = 48, type = "REL32", symbol = "?SetVolume@CSoundView@@QAEJH@Z", target = 0x0046D290 },
+]
+
+[units.cwave-file-ctor]
+artifact_kind = "linked-pe"
+source = "src/CSoundManager.cpp"
+inputs = ["src/CSoundManager.hpp"]
+support_sources = ["probes/csound-manager-context.cpp"]
+output_dir = "build/match-linked/CSoundManager"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CSoundManagerProbe@60"
+functions = ["CWaveFileView::CWaveFileView"]
+symbol = "??0CWaveFileView@@QAE@XZ"
+target_address = 0x0046D9A0
+size = 17
+linkages = []
+
+[units.cwave-file-dtor]
+artifact_kind = "linked-pe"
+source = "src/CSoundManager.cpp"
+inputs = ["src/CSoundManager.hpp"]
+support_sources = ["probes/csound-manager-context.cpp"]
+output_dir = "build/match-linked/CSoundManager"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CSoundManagerProbe@60"
+functions = ["CWaveFileView::~CWaveFileView"]
+symbol = "??1CWaveFileView@@QAE@XZ"
+target_address = 0x0046D9C0
+size = 30
+linkages = [
+  { offset = 15, type = "DIR32", symbol = "__imp__CloseHandle@4", target = 0x0049A0A4 },
+]
+
+[units.cwave-file-open-from-memory]
+artifact_kind = "linked-pe"
+source = "src/CSoundManager.cpp"
+inputs = ["src/CSoundManager.hpp"]
+support_sources = ["probes/csound-manager-context.cpp"]
+output_dir = "build/match-linked/CSoundManager"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CSoundManagerProbe@60"
+functions = ["CWaveFileView::OpenFromMemory"]
+symbol = "?OpenFromMemory@CWaveFileView@@QAEJPAEKPAX@Z"
+target_address = 0x0046DB60
+size = 46
+linkages = []
+
+[units.cwave-file-get-size]
+artifact_kind = "linked-pe"
+source = "src/CSoundManager.cpp"
+inputs = ["src/CSoundManager.hpp"]
+support_sources = ["probes/csound-manager-context.cpp"]
+output_dir = "build/match-linked/CSoundManager"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CSoundManagerProbe@60"
+functions = ["CWaveFileView::GetSize"]
+symbol = "?GetSize@CWaveFileView@@QAEKXZ"
+target_address = 0x0046DB90
+size = 4
+linkages = []
+
+[units.cwave-file-close]
+artifact_kind = "linked-pe"
+source = "src/CSoundManager.cpp"
+inputs = ["src/CSoundManager.hpp"]
+support_sources = ["probes/csound-manager-context.cpp"]
+output_dir = "build/match-linked/CSoundManager"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CSoundManagerProbe@60"
+functions = ["CWaveFileView::Close"]
+symbol = "?Close@CWaveFileView@@QAEJXZ"
+target_address = 0x0046DD60
+size = 32
+linkages = [
+  { offset = 15, type = "DIR32", symbol = "__imp__CloseHandle@4", target = 0x0049A0A4 },
+]
+
+[units.cwave-file-get-saved-pos]
+artifact_kind = "linked-pe"
+source = "src/CSoundManager.cpp"
+inputs = ["src/CSoundManager.hpp"]
+support_sources = ["probes/csound-manager-context.cpp"]
+output_dir = "build/match-linked/CSoundManager"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CSoundManagerProbe@60"
+functions = ["CWaveFileView::GetSavedPos"]
+symbol = "?GetSavedPos@CWaveFileView@@QAEKXZ"
+target_address = 0x0046DD80
+size = 7
+linkages = []
+
+[units.cwave-file-save-file-pos]
+artifact_kind = "linked-pe"
+source = "src/CSoundManager.cpp"
+inputs = ["src/CSoundManager.hpp"]
+support_sources = ["probes/csound-manager-context.cpp"]
+output_dir = "build/match-linked/CSoundManager"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CSoundManagerProbe@60"
+functions = ["CWaveFileView::SaveFilePos"]
+symbol = "?SaveFilePos@CWaveFileView@@QAEXXZ"
+target_address = 0x0046DDB0
+size = 26
+linkages = [
+  { offset = 15, type = "DIR32", symbol = "__imp__SetFilePointer@16", target = 0x0049A0A0 },
+]
+
+[units.wave-debug-log]
+artifact_kind = "linked-pe"
+source = "src/CSoundManager.cpp"
+inputs = ["src/CSoundManager.hpp"]
+support_sources = ["probes/csound-manager-context.cpp"]
+output_dir = "build/match-linked/CSoundManager"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CSoundManagerProbe@60"
+functions = ["WaveDebugLog"]
+symbol = "?WaveDebugLog@@YAXPBDZZ"
+target_address = 0x0046DDD0
+size = 1
+linkages = []
+
+[units.ecl-debug-log]
+artifact_kind = "linked-pe"
+source = "src/CSoundManager.cpp"
+inputs = ["src/CSoundManager.hpp"]
+support_sources = ["probes/csound-manager-context.cpp"]
+output_dir = "build/match-linked/CSoundManager"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CSoundManagerProbe@60"
+functions = ["EclDebugLog"]
+symbol = "?EclDebugLog@@YAXPBDZZ"
+target_address = 0x0046DDE0
+size = 1
+linkages = []
