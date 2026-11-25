@@ -8,7 +8,9 @@ ZunTimer::operator<,0x00402C40,function
 AnmVm::ResetForReuse,0x00402EA0,function
 AnmVm::AnmVm,0x004031A0,function
 ZunTimer::SetCurrent,0x00403240,function
+SetUpdateTimerCurrent,0x00403280,function
 InterpolateVector,0x004065D0,function
+ResetTransitionTimer,0x00406F80,function
 AnmVmSetScaleY,0x00407020,function
 AnmVmSetScaleX,0x00407040,function
 ZunTimer::operator<=,0x00407130,function
@@ -16,6 +18,7 @@ SetTimeScale,0x00407310,function
 ZunTimer::operator>=,0x004073B0,function
 ZunTimer::operator==,0x00407E70,function
 InterpolateLinearScalar,0x0040CCF0,function
+ResetScalarTransitionTimer,0x0040CEA0,function
 Rng::GetFloatScaled,0x0040D130,function
 ZunTimer::operator>,0x00410CD0,function
 AnmVmEffectNoop412B30,0x00412B30,function
@@ -106,6 +109,7 @@ AnmVm::Update,0x00459D90,function
 InterpolateColorVector,0x0045D3D0,function
 InterpolateInteger,0x0045D6C0,function
 InterpolateAngle,0x0045D810,function
+ResetViewTransitionTimer,0x0045DAD0,function
 InterpolateScale,0x0045DB20,function
 AnmVmEffect10Vertex::SetPolarForUpdate,0x0045E010,function
 AnmVm::SetSecondaryScaleTransition,0x0045E080,function
@@ -135,6 +139,7 @@ SpawnChildVm,0x00467220,function
 SpawnChildVmAtPosition,0x00467330,function
 AnmManager::GetVmById,0x00467420,function
 AnmManager::StopVmById,0x00467480,function
+ResolveAnmVmId,0x00467780,function
 AllocateAnmVm,0x00468010,function
 DecryptBlocks,0x00469A00,function
 Rng::GetU16,0x0046A3F0,function

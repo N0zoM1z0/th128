@@ -113,6 +113,10 @@ Pbg::MemFile::Write
 Pbg::MemFile::`scalar deleting destructor'
 Pbg::MemFile::~MemFile
 Pbg::ParseArchiveDirectory
+ResetScalarTransitionTimer
+ResetTransitionTimer
+ResetViewTransitionTimer
+ResolveAnmVmId
 Rng::GetAngle
 Rng::GetFloat
 Rng::GetFloatScaled
@@ -121,6 +125,7 @@ Rng::GetFloatSignedScaled
 Rng::GetU16
 Rng::GetU32
 SetTimeScale
+SetUpdateTimerCurrent
 ShortestAngleDifference
 SpawnChildVm
 SpawnChildVmAtPosition

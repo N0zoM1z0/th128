@@ -2,7 +2,7 @@
 
 #include <string.h>
 
-int AnmVm::BindAnmFile(int fileIndex, AnmResource *resource)
+__declspec(noinline) int AnmVm::BindAnmFile(int fileIndex, AnmResource *resource)
 {
     if (resource->anmFileHeader == 0 || resource->isInvalid != 0)
     {

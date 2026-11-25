@@ -198,13 +198,13 @@ namespace
 
 
     __declspec(noinline) unsigned int *__stdcall SpawnChildVm(
+        AnmResource *resource,
         unsigned int *childId,
         int scriptIndex,
         AnmVm *parent,
         unsigned int listMode)
     {
         AnmVmChildCreationLock lock;
-        AnmResource *resource = parent->resource;
         ++resource->activeVmCount;
 
         AnmVm *child = AllocateAnmVm();
@@ -243,12 +243,12 @@ namespace
     }
 
     __declspec(noinline) unsigned int *__stdcall SpawnChildVmAtPosition(
+        AnmResource *resource,
         unsigned int *childId,
         int scriptIndex,
         AnmVm *parent)
     {
         AnmVmChildCreationLock lock;
-        AnmResource *resource = parent->resource;
         ++resource->activeVmCount;
 
         AnmVm *child = AllocateAnmVm();
@@ -976,6 +976,13 @@ namespace
 int AnmVm::Update()
 {
     register AnmVm *const vm = this;
+    AnmResource *const resource = vm->resource;
+    int (__fastcall * volatile fileResolvers[2])(AnmVm *, int);
+    volatile int bindIndices[2];
+    AnmResource * volatile bindResources[2];
+    // Keep one child-id output slot per target spawn opcode. Their distinct
+    // addresses prevent LTCG from folding five original callsites together.
+    unsigned int childSpawnIds[5];
     if (scriptDataOffsetCopy == 0)
     {
         return 1;
@@ -1189,17 +1196,15 @@ AnmVmUpdateScriptLoop:
 
     case 88:
     {
-        unsigned int childId;
-        SpawnChildVm(&childId, IntegerSource(*this, instruction, 8, 1U), this, 0);
+        SpawnChildVm(resource, &childSpawnIds[0], IntegerSource(*this, instruction, 8, 1U), this, 0);
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
 
     case 96:
     {
-        unsigned int childId;
-        SpawnChildVm(&childId, IntegerSource(*this, instruction, 8, 1U), this, 0);
-        AnmVm *child = ResolveAnmVmId(&childId);
+        SpawnChildVm(resource, &childSpawnIds[1], IntegerSource(*this, instruction, 8, 1U), this, 0);
+        AnmVm *child = ResolveAnmVmId(&childSpawnIds[1]);
         if (child != 0)
         {
             child->alternatePosition.x = FloatSource(*this, instruction, 12, 2U);
@@ -1211,24 +1216,21 @@ AnmVmUpdateScriptLoop:
 
     case 91:
     {
-        unsigned int childId;
-        SpawnChildVm(&childId, IntegerSource(*this, instruction, 8, 1U), this, 2);
+        SpawnChildVm(resource, &childSpawnIds[2], IntegerSource(*this, instruction, 8, 1U), this, 2);
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
 
     case 90:
     {
-        unsigned int childId;
-        SpawnChildVm(&childId, IntegerSource(*this, instruction, 8, 1U), this, 4);
+        SpawnChildVm(resource, &childSpawnIds[3], IntegerSource(*this, instruction, 8, 1U), this, 4);
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
 
     case 92:
     {
-        unsigned int childId;
-        SpawnChildVm(&childId, IntegerSource(*this, instruction, 8, 1U), this, 6);
+        SpawnChildVm(resource, &childSpawnIds[4], IntegerSource(*this, instruction, 8, 1U), this, 6);
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
@@ -1242,7 +1244,7 @@ AnmVmUpdateScriptLoop:
     case 97:
     {
         unsigned int childId;
-        SpawnChildVmAtPosition(&childId, IntegerSource(*this, instruction, 8, 1U), this);
+        SpawnChildVmAtPosition(resource, &childId, IntegerSource(*this, instruction, 8, 1U), this);
         AnmVm *child = ResolveAnmVmId(&childId);
         if (child != 0)
         {
@@ -1256,7 +1258,7 @@ AnmVmUpdateScriptLoop:
     case 95:
     {
         unsigned int childId;
-        SpawnChildVmAtPosition(&childId, IntegerSource(*this, instruction, 8, 1U), this);
+        SpawnChildVmAtPosition(resource, &childId, IntegerSource(*this, instruction, 8, 1U), this);
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
@@ -1274,13 +1276,12 @@ AnmVmUpdateScriptLoop:
         }
         else
         {
-            // The resolver receives the same direct or indirect file index
-            // that the built-in path would use.
             if ((instruction->flags & 1U) != 0)
             {
                 fileIndex = ResolveIntegerOperand(fileIndex);
             }
-            fileIndex = anmFileResolver(this, fileIndex);
+            fileResolvers[0] = anmFileResolver;
+            fileIndex = fileResolvers[0](this, fileIndex);
         }
 
         AnmResource *fileResource = resource;
@@ -1289,7 +1290,9 @@ AnmVmUpdateScriptLoop:
             fileIndex = 0x139;
             fileResource = GetDefaultAnmResource();
         }
-        BindAnmFile(fileIndex, fileResource);
+        bindIndices[0] = fileIndex;
+        bindResources[0] = fileResource;
+        BindAnmFile(bindIndices[0], bindResources[0]);
         lastScriptFrame = timer070.current;
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
@@ -1298,6 +1301,7 @@ AnmVmUpdateScriptLoop:
     case 102:
     {
         flags |= 1U;
+        int fileIndex;
         if (anmFileResolver == 0)
         {
             const int firstIndex = IntegerSource(*this, instruction, 8, 1U);
@@ -1305,33 +1309,29 @@ AnmVmUpdateScriptLoop:
                 (unsigned int)IntegerSource(*this, instruction, 12, 2U);
             const unsigned int randomValue =
                 reinterpret_cast<Rng *>(0x004D2AE0)->GetU32();
-            int fileIndex = firstIndex + (int)(randomValue % variantCount);
-            AnmResource *fileResource = resource;
-            if (fileIndex < 0)
-            {
-                fileIndex = 0x139;
-                fileResource = GetDefaultAnmResource();
-            }
-            BindAnmFile(fileIndex, fileResource);
-            lastScriptFrame = timer070.current;
-            scriptDataOffsetCopy = NextInstructionAddress(instruction);
-            continue;
+            fileIndex = firstIndex + (int)(randomValue % variantCount);
+        }
+        else
+        {
+            const int firstIndex = IntegerSource(*this, instruction, 8, 1U);
+            const unsigned int variantCount =
+                (unsigned int)IntegerSource(*this, instruction, 12, 2U);
+            const unsigned int randomValue =
+                reinterpret_cast<Rng *>(0x004D2AE0)->GetU32();
+            fileIndex = firstIndex + (int)(randomValue % variantCount);
+            fileResolvers[1] = anmFileResolver;
+            fileIndex = fileResolvers[1](this, fileIndex);
         }
 
-        const int firstIndex = IntegerSource(*this, instruction, 8, 1U);
-        const unsigned int variantCount =
-            (unsigned int)IntegerSource(*this, instruction, 12, 2U);
-        const unsigned int randomValue =
-            reinterpret_cast<Rng *>(0x004D2AE0)->GetU32();
-        int fileIndex = firstIndex + (int)(randomValue % variantCount);
-        fileIndex = anmFileResolver(this, fileIndex);
         AnmResource *fileResource = resource;
         if (fileIndex < 0)
         {
             fileIndex = 0x139;
             fileResource = GetDefaultAnmResource();
         }
-        BindAnmFile(fileIndex, fileResource);
+        bindIndices[1] = fileIndex;
+        bindResources[1] = fileResource;
+        BindAnmFile(bindIndices[1], bindResources[1]);
         lastScriptFrame = timer070.current;
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
