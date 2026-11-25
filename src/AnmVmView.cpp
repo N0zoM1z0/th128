@@ -26,50 +26,61 @@ void BuildAnmVmViewCornersMode0(
     const float centerY =
         vm->position.y + vm->secondaryPosition.y + vm->alternatePosition.y;
 
-    float left = 0.0f;
-    float right = 0.0f;
-    switch ((vm->flags >> 20) & 3U)
+    // Anchor value 3 is a no-write mode in the target; do not replace the
+    // caller's existing corner coordinates with a synthetic zero rectangle.
+    const unsigned int horizontalAnchor = (vm->flags >> 20) & 3U;
+    if (horizontalAnchor != 3U)
     {
-    case 0:
-        left = (float)floor((double)(centerX - width * 0.5f));
-        right = left + width;
-        break;
-    case 1:
-        left = centerX;
-        right = centerX + width;
-        break;
-    case 2:
-        left = centerX - width;
-        right = centerX;
-        break;
+        float left;
+        float right;
+        switch (horizontalAnchor)
+        {
+        case 0:
+            left = (float)floor((double)(centerX - width * 0.5f));
+            right = left + width;
+            break;
+        case 1:
+            left = centerX;
+            right = centerX + width;
+            break;
+        default:
+            left = centerX - width;
+            right = centerX;
+            break;
+        }
+
+        topLeft[0] = left;
+        topRight[0] = right;
+        bottomLeft[0] = left;
+        bottomRight[0] = right;
     }
 
-    float top = 0.0f;
-    float bottom = 0.0f;
-    switch ((vm->flags >> 22) & 3U)
+    const unsigned int verticalAnchor = (vm->flags >> 22) & 3U;
+    if (verticalAnchor != 3U)
     {
-    case 0:
-        top = (float)floor((double)(centerY - height * 0.5f));
-        bottom = top + height;
-        break;
-    case 1:
-        top = centerY;
-        bottom = centerY + height;
-        break;
-    case 2:
-        top = centerY - height;
-        bottom = centerY;
-        break;
-    }
+        float top;
+        float bottom;
+        switch (verticalAnchor)
+        {
+        case 0:
+            top = (float)floor((double)(centerY - height * 0.5f));
+            bottom = top + height;
+            break;
+        case 1:
+            top = centerY;
+            bottom = centerY + height;
+            break;
+        default:
+            top = centerY - height;
+            bottom = centerY;
+            break;
+        }
 
-    topLeft[0] = left;
-    topRight[0] = right;
-    bottomLeft[0] = left;
-    bottomRight[0] = right;
-    topLeft[1] = top;
-    topRight[1] = top;
-    bottomLeft[1] = bottom;
-    bottomRight[1] = bottom;
+        topLeft[1] = top;
+        topRight[1] = top;
+        bottomLeft[1] = bottom;
+        bottomRight[1] = bottom;
+    }
 
     if (inheritParent)
     {
@@ -125,50 +136,60 @@ void BuildAnmVmViewCornersMode23(
     const float centerY =
         vm->position.y + vm->secondaryPosition.y + vm->alternatePosition.y;
 
-    float left = 0.0f;
-    float right = 0.0f;
-    switch ((vm->flags >> 20) & 3U)
+    // Mode 2/3 shares the target's no-write handling for anchor value 3.
+    const unsigned int horizontalAnchor = (vm->flags >> 20) & 3U;
+    if (horizontalAnchor != 3U)
     {
-    case 0:
-        left = centerX - width * 0.5f;
-        right = left + width;
-        break;
-    case 1:
-        left = centerX;
-        right = centerX + width;
-        break;
-    case 2:
-        left = centerX - width;
-        right = centerX;
-        break;
+        float left;
+        float right;
+        switch (horizontalAnchor)
+        {
+        case 0:
+            left = centerX - width * 0.5f;
+            right = left + width;
+            break;
+        case 1:
+            left = centerX;
+            right = centerX + width;
+            break;
+        default:
+            left = centerX - width;
+            right = centerX;
+            break;
+        }
+
+        topLeft[0] = left;
+        topRight[0] = right;
+        bottomLeft[0] = left;
+        bottomRight[0] = right;
     }
 
-    float top = 0.0f;
-    float bottom = 0.0f;
-    switch ((vm->flags >> 22) & 3U)
+    const unsigned int verticalAnchor = (vm->flags >> 22) & 3U;
+    if (verticalAnchor != 3U)
     {
-    case 0:
-        top = centerY - height * 0.5f;
-        bottom = top + height;
-        break;
-    case 1:
-        top = centerY;
-        bottom = centerY + height;
-        break;
-    case 2:
-        top = centerY - height;
-        bottom = centerY;
-        break;
-    }
+        float top;
+        float bottom;
+        switch (verticalAnchor)
+        {
+        case 0:
+            top = centerY - height * 0.5f;
+            bottom = top + height;
+            break;
+        case 1:
+            top = centerY;
+            bottom = centerY + height;
+            break;
+        default:
+            top = centerY - height;
+            bottom = centerY;
+            break;
+        }
 
-    topLeft[0] = left;
-    topRight[0] = right;
-    bottomLeft[0] = left;
-    bottomRight[0] = right;
-    topLeft[1] = top;
-    topRight[1] = top;
-    bottomLeft[1] = bottom;
-    bottomRight[1] = bottom;
+        topLeft[1] = top;
+        topRight[1] = top;
+        bottomLeft[1] = bottom;
+        bottomRight[1] = bottom;
+    }
 
     if (inheritParent)
     {
