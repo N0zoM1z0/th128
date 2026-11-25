@@ -4,5 +4,10 @@
 
 extern "C" int __stdcall MenuCursorProbe(MenuCursor *a, MenuCursor *b, int delta)
 {
-    return a->Move(delta) + b->Move(-1) + a->Move(1);
+    a->Push();
+    b->Push();
+    int result = a->Move(delta) + b->Move(-1) + a->Move(1);
+    a->Pop();
+    b->Pop();
+    return result;
 }

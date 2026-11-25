@@ -1,5 +1,29 @@
 #include "MenuCursor.hpp"
 
+void MenuCursor::Push()
+{
+    savedValues[stackDepth] = value;
+    savedCounts[stackDepth] = count;
+    ++stackDepth;
+    disabledCount = 0;
+    if (stackDepth >= 16)
+    {
+        stackDepth = 15;
+    }
+}
+
+void MenuCursor::Pop()
+{
+    --stackDepth;
+    if (stackDepth < 0)
+    {
+        stackDepth = 0;
+    }
+    value = savedValues[stackDepth];
+    count = savedCounts[stackDepth];
+    disabledCount = 0;
+}
+
 // Moves by `delta`, wrapping or clamping at the ends and skipping disabled
 // entries; returns the new value.
 int MenuCursor::Move(int delta)
