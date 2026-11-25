@@ -84,25 +84,63 @@ void BuildAnmVmViewCornersMode0(
 
     if (inheritParent)
     {
-        topLeft[0] += parent->position.x +
-            parent->secondaryPosition.x + parent->alternatePosition.x;
-        topLeft[1] += parent->position.y +
-            parent->secondaryPosition.y + parent->alternatePosition.y;
+        // Preserve the target's per-corner x87 addition order. The original
+        // materializes each parent offset as a float before adding it to a
+        // corner, and swaps the first two X operands for the middle corners.
+        volatile float topLeftX =
+            parent->secondaryPosition.x + parent->position.x;
+        topLeftX = parent->alternatePosition.x + topLeftX;
+        topLeft[0] = topLeft[0] + topLeftX;
+        volatile float topLeftY =
+            parent->secondaryPosition.y + parent->position.y;
+        topLeftY = parent->alternatePosition.y + topLeftY;
+        topLeft[1] = topLeft[1] + topLeftY;
 
-        topRight[0] += parent->position.x +
-            parent->secondaryPosition.x + parent->alternatePosition.x;
-        topRight[1] += parent->position.y +
-            parent->secondaryPosition.y + parent->alternatePosition.y;
+        volatile float topRightX =
+            parent->position.x + parent->secondaryPosition.x;
+        topRightX = parent->alternatePosition.x + topRightX;
+        topRight[0] = topRight[0] + topRightX;
+        volatile float topRightY =
+            parent->secondaryPosition.y + parent->position.y;
+        topRightY = parent->alternatePosition.y + topRightY;
+        topRight[1] = topRight[1] + topRightY;
 
-        bottomLeft[0] += parent->position.x +
-            parent->secondaryPosition.x + parent->alternatePosition.x;
-        bottomLeft[1] += parent->position.y +
-            parent->secondaryPosition.y + parent->alternatePosition.y;
+        volatile float bottomLeftX =
+            parent->position.x + parent->secondaryPosition.x;
+        bottomLeftX = parent->alternatePosition.x + bottomLeftX;
+        bottomLeft[0] = bottomLeft[0] + bottomLeftX;
+        volatile float bottomLeftY =
+            parent->secondaryPosition.y + parent->position.y;
+        bottomLeftY = parent->alternatePosition.y + bottomLeftY;
+        bottomLeft[1] = bottomLeft[1] + bottomLeftY;
 
-        bottomRight[0] += parent->position.x +
-            parent->secondaryPosition.x + parent->alternatePosition.x;
-        bottomRight[1] += parent->position.y +
-            parent->secondaryPosition.y + parent->alternatePosition.y;
+        volatile float bottomRightX =
+            parent->secondaryPosition.x + parent->position.x;
+        bottomRightX = parent->alternatePosition.x + bottomRightX;
+        bottomRight[0] = bottomRight[0] + bottomRightX;
+        volatile float bottomRightY =
+            parent->secondaryPosition.y + parent->position.y;
+        bottomRightY = parent->alternatePosition.y + bottomRightY;
+        bottomRight[1] = bottomRight[1] + bottomRightY;
+
+        // The target also translates each temporary corner Z by the parent,
+        // then replaces all four Z values with the child's center Z below.
+        volatile float topLeftZ =
+            parent->secondaryPosition.z + parent->position.z;
+        topLeftZ = parent->alternatePosition.z + topLeftZ;
+        topLeft[2] = topLeft[2] + topLeftZ;
+        volatile float topRightZ =
+            parent->secondaryPosition.z + parent->position.z;
+        topRightZ = parent->alternatePosition.z + topRightZ;
+        topRight[2] = topRight[2] + topRightZ;
+        volatile float bottomLeftZ =
+            parent->secondaryPosition.z + parent->position.z;
+        bottomLeftZ = parent->alternatePosition.z + bottomLeftZ;
+        bottomLeft[2] = bottomLeft[2] + bottomLeftZ;
+        volatile float bottomRightZ =
+            parent->secondaryPosition.z + parent->position.z;
+        bottomRightZ = parent->alternatePosition.z + bottomRightZ;
+        bottomRight[2] = bottomRight[2] + bottomRightZ;
     }
 
     const float centerZ =
@@ -193,25 +231,59 @@ void BuildAnmVmViewCornersMode23(
 
     if (inheritParent)
     {
-        topLeft[0] += parent->position.x +
-            parent->secondaryPosition.x + parent->alternatePosition.x;
-        topLeft[1] += parent->position.y +
-            parent->secondaryPosition.y + parent->alternatePosition.y;
+        // The non-rotated target path materializes a 3D parent offset for
+        // each corner. Its X operand order differs for the right corners.
+        volatile float topLeftX =
+            parent->secondaryPosition.x + parent->position.x;
+        topLeftX = parent->alternatePosition.x + topLeftX;
+        topLeft[0] = topLeft[0] + topLeftX;
+        volatile float topLeftY =
+            parent->secondaryPosition.y + parent->position.y;
+        topLeftY = parent->alternatePosition.y + topLeftY;
+        topLeft[1] = topLeft[1] + topLeftY;
+        volatile float topLeftZ =
+            parent->secondaryPosition.z + parent->position.z;
+        topLeftZ = parent->alternatePosition.z + topLeftZ;
+        topLeft[2] = topLeft[2] + topLeftZ;
 
-        topRight[0] += parent->position.x +
-            parent->secondaryPosition.x + parent->alternatePosition.x;
-        topRight[1] += parent->position.y +
-            parent->secondaryPosition.y + parent->alternatePosition.y;
+        volatile float topRightX =
+            parent->position.x + parent->secondaryPosition.x;
+        topRightX = parent->alternatePosition.x + topRightX;
+        topRight[0] = topRight[0] + topRightX;
+        volatile float topRightY =
+            parent->secondaryPosition.y + parent->position.y;
+        topRightY = parent->alternatePosition.y + topRightY;
+        topRight[1] = topRight[1] + topRightY;
+        volatile float topRightZ =
+            parent->secondaryPosition.z + parent->position.z;
+        topRightZ = parent->alternatePosition.z + topRightZ;
+        topRight[2] = topRight[2] + topRightZ;
 
-        bottomLeft[0] += parent->position.x +
-            parent->secondaryPosition.x + parent->alternatePosition.x;
-        bottomLeft[1] += parent->position.y +
-            parent->secondaryPosition.y + parent->alternatePosition.y;
+        volatile float bottomLeftX =
+            parent->secondaryPosition.x + parent->position.x;
+        bottomLeftX = parent->alternatePosition.x + bottomLeftX;
+        bottomLeft[0] = bottomLeft[0] + bottomLeftX;
+        volatile float bottomLeftY =
+            parent->secondaryPosition.y + parent->position.y;
+        bottomLeftY = parent->alternatePosition.y + bottomLeftY;
+        bottomLeft[1] = bottomLeft[1] + bottomLeftY;
+        volatile float bottomLeftZ =
+            parent->secondaryPosition.z + parent->position.z;
+        bottomLeftZ = parent->alternatePosition.z + bottomLeftZ;
+        bottomLeft[2] = bottomLeft[2] + bottomLeftZ;
 
-        bottomRight[0] += parent->position.x +
-            parent->secondaryPosition.x + parent->alternatePosition.x;
-        bottomRight[1] += parent->position.y +
-            parent->secondaryPosition.y + parent->alternatePosition.y;
+        volatile float bottomRightX =
+            parent->position.x + parent->secondaryPosition.x;
+        bottomRightX = parent->alternatePosition.x + bottomRightX;
+        bottomRight[0] = bottomRight[0] + bottomRightX;
+        volatile float bottomRightY =
+            parent->secondaryPosition.y + parent->position.y;
+        bottomRightY = parent->alternatePosition.y + bottomRightY;
+        bottomRight[1] = bottomRight[1] + bottomRightY;
+        volatile float bottomRightZ =
+            parent->secondaryPosition.z + parent->position.z;
+        bottomRightZ = parent->alternatePosition.z + bottomRightZ;
+        bottomRight[2] = bottomRight[2] + bottomRightZ;
     }
 
     const float centerZ =
