@@ -2389,8 +2389,7 @@ AnmVmUpdateAfterScript:
     do
     {
     const unsigned int geometryMode = (flags >> 24) & 0x1FU;
-    if ((geometryMode != 9U && geometryMode != 13U && geometryMode != 14U) ||
-        extraData == 0)
+    if (geometryMode != 9U && geometryMode != 13U && geometryMode != 14U)
     {
         break;
     }
@@ -2442,9 +2441,15 @@ AnmVmUpdateAfterScript:
     }
     else
     {
-        centerX = secondaryPosition.x + alternatePosition.x;
-        centerY = secondaryPosition.y + alternatePosition.y;
-        centerZ = secondaryPosition.z + alternatePosition.z;
+        // Keep the target's operand evaluation order: secondary first,
+        // alternate second, then primary position. Volatile reads prevent
+        // LTCG from folding this path into the mode-9 addition sequence.
+        const volatile float &alternateX = alternatePosition.x;
+        const volatile float &alternateY = alternatePosition.y;
+        const volatile float &alternateZ = alternatePosition.z;
+        centerX = alternateX + secondaryPosition.x;
+        centerY = alternateY + secondaryPosition.y;
+        centerZ = alternateZ + secondaryPosition.z;
         centerX = position.x + centerX;
         centerY = position.y + centerY;
         centerZ = position.z + centerZ;
