@@ -34,10 +34,6 @@ struct AnmManager
     unsigned int colorModulationEnabled;     // +0x8C3904
 
     AnmVm *GetVmById(unsigned int id);
-    unsigned int RegisterWorldVmAtTail(AnmVm *vm);
-    unsigned int RegisterWorldVmAtHead(AnmVm *vm);
-    unsigned int RegisterUiVmAtTail(AnmVm *vm);
-    unsigned int RegisterUiVmAtHead(AnmVm *vm);
     void __fastcall UpdateVm(unsigned int stateFlags, AnmVm *vm);
     void StopVmById(unsigned int id);
     void CleanupVm(AnmVm *vm);

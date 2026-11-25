@@ -173,28 +173,19 @@ unsigned int *AnmResource::CreateVm(
         BindVmAtPosition(vm, scriptIndex, position);
     }
 
-    AnmManager *manager = GetGlobalAnmManager();
     if ((flags & 4U) == 0)
     {
         if ((flags & 2U) == 0)
-        {
-            *outId = manager->RegisterWorldVmAtTail(vm);
-        }
+            vm->RegisterWorldVmAtTail(outId);
         else
-        {
-            *outId = manager->RegisterWorldVmAtHead(vm);
-        }
+            vm->RegisterWorldVmAtHead(outId);
     }
     else
     {
         if ((flags & 2U) == 0)
-        {
-            *outId = manager->RegisterUiVmAtTail(vm);
-        }
+            vm->RegisterUiVmAtTail(outId);
         else
-        {
-            *outId = manager->RegisterUiVmAtHead(vm);
-        }
+            vm->RegisterUiVmAtHead(outId);
         vm->stateFlags &= ~0xC0U;
     }
 

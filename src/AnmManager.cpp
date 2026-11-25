@@ -5,17 +5,6 @@
 
 int DrawAnmVm(AnmVm *vm);
 
-static unsigned int AssignVmId(AnmManager *manager, AnmVm *vm)
-{
-    ++manager->nextVmId;
-    if (manager->nextVmId == 0)
-    {
-        ++manager->nextVmId;
-    }
-    vm->id = manager->nextVmId;
-    return vm->id;
-}
-
 AnmVm *AnmManager::GetVmById(unsigned int id)
 {
     if (id == 0)
@@ -71,86 +60,6 @@ __declspec(noinline) AnmVm *__fastcall GetVmByIdTargetAbi(
     }
 
     return 0;
-}
-
-unsigned int AnmManager::RegisterWorldVmAtTail(AnmVm *vm)
-{
-    AnmVmListNode *node = &vm->managerNode;
-    node->vm = vm;
-    node->next = 0;
-    node->previous = worldVmsTail;
-
-    if (worldVmsTail != 0)
-    {
-        worldVmsTail->next = node;
-    }
-    else
-    {
-        worldVms = node;
-    }
-    worldVmsTail = node;
-
-    return AssignVmId(this, vm);
-}
-
-unsigned int AnmManager::RegisterWorldVmAtHead(AnmVm *vm)
-{
-    AnmVmListNode *node = &vm->managerNode;
-    node->vm = vm;
-    node->previous = 0;
-    node->next = worldVms;
-
-    if (worldVms != 0)
-    {
-        worldVms->previous = node;
-    }
-    else
-    {
-        worldVmsTail = node;
-    }
-    worldVms = node;
-
-    return AssignVmId(this, vm);
-}
-
-unsigned int AnmManager::RegisterUiVmAtTail(AnmVm *vm)
-{
-    AnmVmListNode *node = &vm->managerNode;
-    node->vm = vm;
-    node->next = 0;
-    node->previous = uiVmsTail;
-
-    if (uiVmsTail != 0)
-    {
-        uiVmsTail->next = node;
-    }
-    else
-    {
-        uiVms = node;
-    }
-    uiVmsTail = node;
-
-    return AssignVmId(this, vm);
-}
-
-unsigned int AnmManager::RegisterUiVmAtHead(AnmVm *vm)
-{
-    AnmVmListNode *node = &vm->managerNode;
-    node->vm = vm;
-    node->previous = 0;
-    node->next = uiVms;
-
-    if (uiVms != 0)
-    {
-        uiVms->previous = node;
-    }
-    else
-    {
-        uiVmsTail = node;
-    }
-    uiVms = node;
-
-    return AssignVmId(this, vm);
 }
 
 static int AdvanceVmPoolIndex(int index)

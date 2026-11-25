@@ -486,54 +486,54 @@ target_address = 0x00402EA0
 size = 345
 relocations = []
 
-[units.anm-manager-register-world-tail]
-frontier = true # The target helper appends the embedded managerNode to the world list tail and assigns a nonzero VM ID. The C++ member form is a semantic frontier because the target carries the VM through EBX.
+[units.anm-vm-register-world-tail]
+frontier = true # The target carries AnmVm in EBX, obtains the global manager internally, and returns the output-id pointer.
 artifact_kind = "coff"
-source = "src/AnmManager.cpp"
-inputs = ["src/AnmManager.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
-object = "build/match/AnmManagerWorldTail.obj"
+source = "src/AnmVmScript.cpp"
+inputs = ["src/AnmVm.hpp", "src/AnmManager.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
+object = "build/match/AnmVmScriptWorldTail.obj"
 profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
-functions = ["AnmManager::RegisterWorldVmAtTail"]
-symbol = "?RegisterWorldVmAtTail@AnmManager@@QAEIPAUAnmVm@@@Z"
+functions = ["AnmVm::RegisterWorldVmAtTail"]
+symbol = "?RegisterWorldVmAtTail@AnmVm@@QAEPAIPAI@Z"
 target_address = 0x00466D60
 size = 124
 relocations = []
 
-[units.anm-manager-register-world-head]
-frontier = true # The target helper prepends the embedded managerNode to the world list and assigns a nonzero VM ID. The C++ member form is a semantic frontier because the target carries the VM through EBX.
+[units.anm-vm-register-world-head]
+frontier = true # The target carries AnmVm in EBX, obtains the global manager internally, and returns the output-id pointer.
 artifact_kind = "coff"
-source = "src/AnmManager.cpp"
-inputs = ["src/AnmManager.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
-object = "build/match/AnmManagerWorldHead.obj"
+source = "src/AnmVmScript.cpp"
+inputs = ["src/AnmVm.hpp", "src/AnmManager.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
+object = "build/match/AnmVmScriptWorldHead.obj"
 profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
-functions = ["AnmManager::RegisterWorldVmAtHead"]
-symbol = "?RegisterWorldVmAtHead@AnmManager@@QAEIPAUAnmVm@@@Z"
+functions = ["AnmVm::RegisterWorldVmAtHead"]
+symbol = "?RegisterWorldVmAtHead@AnmVm@@QAEPAIPAI@Z"
 target_address = 0x00466DE0
 size = 119
 relocations = []
 
-[units.anm-manager-register-ui-tail]
+[units.anm-vm-register-ui-tail]
 frontier = true # The target helper appends the embedded managerNode to the UI list tail and assigns a nonzero VM ID. The C++ member form is a semantic frontier because the target carries the VM through EBX.
 artifact_kind = "coff"
-source = "src/AnmManager.cpp"
-inputs = ["src/AnmManager.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
-object = "build/match/AnmManagerUiTail.obj"
+source = "src/AnmVmScript.cpp"
+inputs = ["src/AnmVm.hpp", "src/AnmManager.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
+object = "build/match/AnmVmScriptUiTail.obj"
 profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
-functions = ["AnmManager::RegisterUiVmAtTail"]
-symbol = "?RegisterUiVmAtTail@AnmManager@@QAEIPAUAnmVm@@@Z"
+functions = ["AnmVm::RegisterUiVmAtTail"]
+symbol = "?RegisterUiVmAtTail@AnmVm@@QAEPAIPAI@Z"
 target_address = 0x00466E60
 size = 124
 relocations = []
 
-[units.anm-manager-register-ui-head]
-frontier = true # The target helper prepends the embedded managerNode to the UI list and assigns a nonzero VM ID. The C++ member form is a semantic frontier because the target carries the VM through EBX.
+[units.anm-vm-register-ui-head]
+frontier = true # The target carries AnmVm in EBX, obtains the global manager internally, and returns the output-id pointer.
 artifact_kind = "coff"
-source = "src/AnmManager.cpp"
-inputs = ["src/AnmManager.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
-object = "build/match/AnmManagerUiHead.obj"
+source = "src/AnmVmScript.cpp"
+inputs = ["src/AnmVm.hpp", "src/AnmManager.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
+object = "build/match/AnmVmScriptUiHead.obj"
 profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
-functions = ["AnmManager::RegisterUiVmAtHead"]
-symbol = "?RegisterUiVmAtHead@AnmManager@@QAEIPAUAnmVm@@@Z"
+functions = ["AnmVm::RegisterUiVmAtHead"]
+symbol = "?RegisterUiVmAtHead@AnmVm@@QAEPAIPAI@Z"
 target_address = 0x00466EE0
 size = 119
 relocations = []
@@ -798,14 +798,14 @@ linkages = [
 ]
 
 [units.anm-vm-bind-anm-file]
-frontier = true # The target passes the VM in EAX, file index in ECX, and resource in EDX.
+frontier = true # The target passes the VM in EAX, file index in ECX, and resource in EDX; same-TU LTCG chooses the private member ABI.
 artifact_kind = "coff"
-source = "src/AnmVmResource.cpp"
-inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
-object = "build/match/AnmVmResource.obj"
+source = "src/AnmVmScript.cpp"
+inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp", "src/AnmManager.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
+object = "build/match/AnmVmScriptBindAnmFile.obj"
 profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
 functions = ["AnmVm::BindAnmFile"]
-symbol = "?BindAnmFile@AnmVm@@QAEHHPAUAnmResource@@@Z"
+symbol = "?BindAnmFile@AnmVm@@QAEHPAUAnmResource@@H@Z"
 target_address = 0x00459220
 size = 396
 relocations = []

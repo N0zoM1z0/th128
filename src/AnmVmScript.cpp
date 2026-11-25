@@ -216,18 +216,19 @@ namespace
         resource->BindVmScript(child, scriptIndex);
         child->parentVm = parent;
 
-        AnmManager *manager = GetGlobalAnmManager();
         if ((listMode & 4U) != 0)
         {
-            *childId = (listMode & 2U) != 0
-                ? manager->RegisterUiVmAtHead(child)
-                : manager->RegisterUiVmAtTail(child);
+            if ((listMode & 2U) != 0)
+                child->RegisterUiVmAtHead(childId);
+            else
+                child->RegisterUiVmAtTail(childId);
         }
         else
         {
-            *childId = (listMode & 2U) != 0
-                ? manager->RegisterWorldVmAtHead(child)
-                : manager->RegisterWorldVmAtTail(child);
+            if ((listMode & 2U) != 0)
+                child->RegisterWorldVmAtHead(childId);
+            else
+                child->RegisterWorldVmAtTail(childId);
         }
 
         AnmVmListNode *head = &parent->childNode;
@@ -254,15 +255,13 @@ namespace
         AnmVm *child = AllocateAnmVm();
         child->stateFlags |= 2U;
         child->scriptState = parent->scriptState;
-        child->position = parent->position;
+        memcpy(&child->position, &parent->position, sizeof(child->position));
         resource->BindVmScript(child, scriptIndex);
         child->unknown024 = parent->unknown024;
         child->unknown028 = parent->unknown028;
         child->unknown02C = parent->unknown02C;
         child->alternatePosition = parent->secondaryPosition;
-
-        AnmManager *manager = GetGlobalAnmManager();
-        *childId = manager->RegisterWorldVmAtTail(child);
+        child->RegisterWorldVmAtTail(childId);
         return childId;
     }
 
@@ -946,7 +945,89 @@ namespace
             transition->values[0];
     }
 
+
+
+
+
 }
+
+__declspec(noinline) int AnmVm::BindAnmFile(
+    AnmResource *resource,
+    int fileIndex)
+{
+    AnmVm *vm = this;
+    if (resource->anmFileHeader == 0 || resource->isInvalid != 0)
+    {
+        return -1;
+    }
+
+    vm->anmFileIndex = (short)fileIndex;
+    AnmFileEntry *entry = &resource->anmFiles[fileIndex];
+    vm->anmFileEntry = entry;
+
+    const float left = entry->field024;
+    vm->textureRect[1][0] = left;
+    vm->textureRect[0][0] = left;
+    const float bottom = entry->field02C;
+    vm->textureRect[1][2] = bottom;
+    vm->textureRect[0][2] = bottom;
+    const float top = entry->field028;
+    vm->textureRect[0][3] = top;
+    vm->textureRect[0][1] = top;
+    const float right = entry->field030;
+    vm->textureRect[1][3] = right;
+    vm->textureRect[1][1] = right;
+
+    vm->uvScrollX = entry->field038;
+    vm->uvScrollY = entry->field034;
+
+    float *transformMatrix = vm->transformMatrix[0];
+    transformMatrix[14] = 0.0f;
+    transformMatrix[13] = 0.0f;
+    transformMatrix[12] = 0.0f;
+    transformMatrix[11] = 0.0f;
+    transformMatrix[9] = 0.0f;
+    transformMatrix[8] = 0.0f;
+    transformMatrix[7] = 0.0f;
+    transformMatrix[6] = 0.0f;
+    transformMatrix[4] = 0.0f;
+    transformMatrix[3] = 0.0f;
+    transformMatrix[2] = 0.0f;
+    transformMatrix[1] = 0.0f;
+    transformMatrix[15] = 1.0f;
+    transformMatrix[10] = 1.0f;
+    transformMatrix[5] = 1.0f;
+    transformMatrix[0] = 1.0f;
+
+    vm->spriteScaleMatrix[3][3] = 1.0f;
+    vm->spriteScaleMatrix[2][2] = 1.0f;
+    vm->spriteScaleMatrix[1][1] = 1.0f;
+    vm->spriteScaleMatrix[0][0] = 1.0f;
+    vm->spriteScaleMatrix[3][2] = 0.0f;
+    vm->spriteScaleMatrix[3][1] = 0.0f;
+    vm->spriteScaleMatrix[3][0] = 0.0f;
+    vm->spriteScaleMatrix[2][3] = 0.0f;
+    vm->spriteScaleMatrix[2][1] = 0.0f;
+    vm->spriteScaleMatrix[2][0] = 0.0f;
+    vm->spriteScaleMatrix[1][3] = 0.0f;
+    vm->spriteScaleMatrix[1][2] = 0.0f;
+    vm->spriteScaleMatrix[1][0] = 0.0f;
+    vm->spriteScaleMatrix[0][3] = 0.0f;
+    vm->spriteScaleMatrix[0][2] = 0.0f;
+    vm->spriteScaleMatrix[0][1] = 0.0f;
+
+    transformMatrix[0] = vm->uvScrollX * (1.0f / 256.0f);
+    transformMatrix[5] = vm->uvScrollY * (1.0f / 256.0f);
+
+    vm->spriteScaleMatrix[0][0] =
+        (vm->uvScrollX / entry->field020) * entry->field03C;
+    vm->spriteScaleMatrix[1][1] =
+        (vm->uvScrollY / entry->field01C) * entry->field040;
+    memcpy(vm->textureTransformMatrix, transformMatrix, sizeof(vm->textureTransformMatrix));
+
+    return 0;
+}
+
 
 
 
@@ -970,14 +1051,156 @@ namespace
 
 }
 
+unsigned int *AnmVm::RegisterWorldVmAtTail(unsigned int *outId)
+{
+    AnmManager *manager = GetGlobalAnmManager();
+    AnmVmListNode *node = &managerNode;
+    node->vm = this;
+    node->next = 0;
+    node->previous = 0;
+
+    if (manager->worldVms == 0)
+    {
+        manager->worldVms = node;
+    }
+    else
+    {
+        volatile AnmVmListNode *tail = manager->worldVmsTail;
+        if (tail->next != 0)
+        {
+            node->next = tail->next;
+            tail->next->previous = node;
+        }
+        tail->next = node;
+        node->previous = const_cast<AnmVmListNode *>(tail);
+    }
+    manager->worldVmsTail = node;
+
+    ++manager->nextVmId;
+    if (manager->nextVmId == 0)
+    {
+        ++manager->nextVmId;
+    }
+    id = manager->nextVmId;
+    *outId = manager->nextVmId;
+    return outId;
+}
+
+unsigned int *AnmVm::RegisterWorldVmAtHead(unsigned int *outId)
+{
+    AnmManager *manager = GetGlobalAnmManager();
+    AnmVmListNode *node = &managerNode;
+    node->vm = this;
+    node->next = 0;
+    node->previous = 0;
+
+    volatile AnmVmListNode *head = manager->worldVms;
+    if (head == 0)
+    {
+        manager->worldVmsTail = node;
+    }
+    else
+    {
+        volatile AnmVmListNode *volatileNode = node;
+        AnmVmListNode *next = volatileNode->next;
+        if (next != 0)
+        {
+            head->next = next;
+            next->previous = const_cast<AnmVmListNode *>(head);
+        }
+        node->next = const_cast<AnmVmListNode *>(head);
+        head->previous = node;
+    }
+    manager->worldVms = node;
+
+    ++manager->nextVmId;
+    if (manager->nextVmId == 0)
+    {
+        ++manager->nextVmId;
+    }
+    id = manager->nextVmId;
+    *outId = manager->nextVmId;
+    return outId;
+}
+
+unsigned int *AnmVm::RegisterUiVmAtTail(unsigned int *outId)
+{
+    AnmManager *manager = GetGlobalAnmManager();
+    AnmVmListNode *node = &managerNode;
+    node->vm = this;
+    node->next = 0;
+    node->previous = 0;
+
+    if (manager->uiVms == 0)
+    {
+        manager->uiVms = node;
+    }
+    else
+    {
+        volatile AnmVmListNode *tail = manager->uiVmsTail;
+        if (tail->next != 0)
+        {
+            node->next = tail->next;
+            tail->next->previous = node;
+        }
+        tail->next = node;
+        node->previous = const_cast<AnmVmListNode *>(tail);
+    }
+    manager->uiVmsTail = node;
+
+    ++manager->nextVmId;
+    if (manager->nextVmId == 0)
+    {
+        ++manager->nextVmId;
+    }
+    id = manager->nextVmId;
+    *outId = manager->nextVmId;
+    return outId;
+}
+
+unsigned int *AnmVm::RegisterUiVmAtHead(unsigned int *outId)
+{
+    AnmManager *manager = GetGlobalAnmManager();
+    AnmVmListNode *node = &managerNode;
+    node->vm = this;
+    node->next = 0;
+    node->previous = 0;
+
+    volatile AnmVmListNode *head = manager->uiVms;
+    if (head == 0)
+    {
+        manager->uiVmsTail = node;
+    }
+    else
+    {
+        volatile AnmVmListNode *volatileNode = node;
+        AnmVmListNode *next = volatileNode->next;
+        if (next != 0)
+        {
+            head->next = next;
+            next->previous = const_cast<AnmVmListNode *>(head);
+        }
+        node->next = const_cast<AnmVmListNode *>(head);
+        head->previous = node;
+    }
+    manager->uiVms = node;
+
+    ++manager->nextVmId;
+    if (manager->nextVmId == 0)
+    {
+        ++manager->nextVmId;
+    }
+    id = manager->nextVmId;
+    *outId = manager->nextVmId;
+    return outId;
+}
+
 // Partial reconstruction of the 13,604-byte per-VM update owner at
 // 0x00459D90. This source mapping is not an exact match: the remaining target
 // branches, ordering and side effects still require full control-flow review.
 int AnmVm::Update()
 {
     register AnmVm *const vm = this;
-    volatile int bindIndices[2];
-    AnmResource * volatile bindResources[2];
     // Keep one child-id output slot per target spawn opcode. Their distinct
     // addresses prevent LTCG from folding five original callsites together.
     unsigned int childSpawnId88;
@@ -1291,9 +1514,7 @@ AnmVmUpdateScriptLoop:
             fileIndex = 0x139;
             fileResource = GetDefaultAnmResource();
         }
-        bindIndices[0] = fileIndex;
-        bindResources[0] = fileResource;
-        BindAnmFile(bindIndices[0], bindResources[0]);
+        BindAnmFile(fileResource, fileIndex);
         lastScriptFrame = timer070.current;
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
@@ -1330,9 +1551,7 @@ AnmVmUpdateScriptLoop:
             fileIndex = 0x139;
             fileResource = GetDefaultAnmResource();
         }
-        bindIndices[1] = fileIndex;
-        bindResources[1] = fileResource;
-        BindAnmFile(bindIndices[1], bindResources[1]);
+        BindAnmFile(fileResource, fileIndex);
         lastScriptFrame = timer070.current;
         scriptDataOffsetCopy = NextInstructionAddress(variantInstruction);
         continue;
