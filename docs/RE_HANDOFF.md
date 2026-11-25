@@ -68,12 +68,15 @@ receipts, not from commit count or source presence.
 Current source covers script gating/termination, game-speed save/restore,
 continuous angle/scale/texture motion, view-rectangle refresh, render-state
 synchronization, transition updates, custom geometry, frame callback and timer
-advancement. The latest selected VC10 `/GL` PDB contribution is 13,748 bytes
-versus the 13,604-byte target (144 bytes larger); it is still not an exact
-replay. Effect-10 geometry keeps the target's signed particle count and step-
-division ordering, with mode-14's angle override between local and parent
-center composition. The Update-specific `SetPolarForUpdate` leaf at
-0x0045E010 remains a natural-C++ frontier: target FSINCOS versus source
+advancement. The latest selected VC10 `/GL` PDB contribution is 13,764 bytes
+versus the 13,604-byte target (160 bytes larger), with 284 direct calls versus
+286 in the target; it is still not an exact replay. Effect-10 geometry keeps
+the signed count and mode-specific ordering: mode 9 loads its raw angle before
+the divisor conversion; modes 13/14 normalize first, then compute the angle/V
+steps; mode 14 normalizes again after local-center composition and before the
+parent-center contribution. The ring closes through its advanced vertex
+cursor, including the no-loop case. The Update-specific `SetPolarForUpdate`
+leaf at 0x0045E010 remains a natural-C++ frontier: target FSINCOS versus source
 cos/sin calls; do not use inline assembly. The separate `InterpolateColorVector`
 frontier is 719 bytes versus its 721-byte target;
 its mode-8 path now uses target-style float time and 12 individually converted
@@ -87,8 +90,11 @@ transition interpolation. Opcodes 40 and 41 select the world/UI RNG in separate 
 `Rng::GetFloat(float scale)` leaf at 0x0040D130. Opcodes 17, 27 and 42..46
 share the target float-result store, opcode 47 uses `AddAngles(angle, 0)`, and
 opcode 113 plus mode-13/14 geometry preserve the target angle-normalization
-call paths. The integer/float source and destination resolver call counts now
-match the target (82/93 and 13/12). Opcode 98 retains four calls to the exact
+call paths. `NormalizeAngle` (144 bytes) and `AddAngles` (153 bytes) now both
+replay exact as natural C++ normal-COFF leaves, including the float-rounded
+negative-pi bound and x87-preserved initial sum in `AddAngles`. The integer/float
+source and destination resolver call counts now match the target (82/93 and
+13/12). Opcode 98 retains four calls to the exact
 coordinate helper; the per-frame view-mode refresh uses inline coordinate
 divisions and lower-bound clamps, as in the target. The view-mode interpolation
 now retains the target's two world/UI call sites plus the position-transition
