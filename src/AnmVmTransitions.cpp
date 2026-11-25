@@ -28,19 +28,26 @@ void AnmVm::SetColorTransition(
     colorTransition.timer.previous = -1;
 }
 
+namespace
+{
+struct AnmScalePair
+{
+    float x;
+    float y;
+};
+}
+
 void AnmVm::SetScaleTransition(
-    const float *target,
     const float *current,
+    const float *target,
     int duration,
     unsigned char mode)
 {
     scaleTransition.duration = duration;
     scaleTransition.mode = mode;
 
-    scaleTransition.values[0] = current[0];
-    scaleTransition.values[1] = current[1];
-    scaleTransition.values[2] = target[0];
-    scaleTransition.values[3] = target[1];
+    *(AnmScalePair *)&scaleTransition.values[0] = *(const AnmScalePair *)current;
+    *(AnmScalePair *)&scaleTransition.values[2] = *(const AnmScalePair *)target;
     scaleTransition.timer.Initialize();
     scaleTransition.timer.currentF = 0.0f;
     scaleTransition.timer.current = 0;
@@ -48,18 +55,16 @@ void AnmVm::SetScaleTransition(
 }
 
 void AnmVm::SetSecondaryScaleTransition(
-    const float *target,
     const float *current,
+    const float *target,
     int duration,
     unsigned char mode)
 {
     secondaryScaleTransition.duration = duration;
     secondaryScaleTransition.mode = mode;
 
-    secondaryScaleTransition.values[0] = current[0];
-    secondaryScaleTransition.values[1] = current[1];
-    secondaryScaleTransition.values[2] = target[0];
-    secondaryScaleTransition.values[3] = target[1];
+    *(AnmScalePair *)&secondaryScaleTransition.values[0] = *(const AnmScalePair *)current;
+    *(AnmScalePair *)&secondaryScaleTransition.values[2] = *(const AnmScalePair *)target;
     secondaryScaleTransition.timer.Initialize();
     secondaryScaleTransition.timer.currentF = 0.0f;
     secondaryScaleTransition.timer.current = 0;
@@ -68,12 +73,12 @@ void AnmVm::SetSecondaryScaleTransition(
 
 void AnmVm::SetEffectState(
     unsigned int duration,
-    unsigned char mode,
+    unsigned int mode,
     unsigned char parameter0,
     unsigned char parameter1)
 {
     effectTransition.duration = (int)duration;
-    effectTransition.mode = mode;
+    effectTransition.mode = mode & 0xFFU;
     effectTransition.values[0] = parameter0;
     effectTransition.values[1] = parameter1;
     effectTransition.values[2] = 0;
@@ -86,12 +91,12 @@ void AnmVm::SetEffectState(
 
 void AnmVm::SetSecondaryEffectState(
     unsigned int duration,
-    unsigned int mode,
+    unsigned char mode,
     unsigned char parameter0,
     unsigned char parameter1)
 {
     secondaryEffectTransition.duration = (int)duration;
-    secondaryEffectTransition.mode = mode & 0xFFU;
+    secondaryEffectTransition.mode = mode;
     secondaryEffectTransition.values[0] = parameter0;
     secondaryEffectTransition.values[1] = parameter1;
     secondaryEffectTransition.timer.Initialize();

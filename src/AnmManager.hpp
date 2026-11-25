@@ -3,6 +3,11 @@
 #include <stddef.h>
 #include "AnmVm.hpp"
 
+struct AnmId
+{
+    unsigned int id;
+};
+
 // Animation manager (global pointer slot 0x004D2E50). The embedded pool is
 // 0x1000 VMs; the used-byte table and rotating allocation cursor immediately
 // follow it in the target object.
@@ -19,9 +24,16 @@ struct AnmManager
     AnmVm vmPool[0x1000];                   // +0x0BC
     unsigned char vmPoolUsed[0x1000];       // +0x4E80BC
     int nextVmPoolIndex;                    // +0x4E90BC
-    unsigned char unknown4E90C0[0x4E9158 - 0x4E90C0];
+    AnmResource *loadedAnms[38];            // +0x4E90C0
     float vmWorldMatrix[4][4];              // +0x4E9158
-    unsigned char unknown4E9198[0x8B96FC - 0x4E9198];
+    unsigned char unknown4E9198[0x4E9693 - 0x4E9198];
+    unsigned char spriteStageMode;          // +0x4E9693
+    unsigned char unknown4E9694[0x4E96EC - 0x4E9694];
+    int spriteBatchCount;                   // +0x4E96EC
+    unsigned char unknown4E96F0[0x8696F0 - 0x4E96F0];
+    void *spriteVertexBufferBase;           // +0x8696F0
+    void *spriteVertexBufferStart;          // +0x8696F4
+    unsigned char unknown8696F8[0x8B96FC - 0x8696F8];
     float *primitiveVertexCursor;           // +0x8B96FC
     unsigned int unknown8B9700;
     AnmVmListNode *worldVms;                // +0x8B9704
@@ -34,12 +46,46 @@ struct AnmManager
     unsigned int colorModulationEnabled;     // +0x8C3904
 
     AnmVm *GetVmById(unsigned int id);
+    AnmVm *GetVmById(AnmId id);
     void __fastcall UpdateVm(unsigned int stateFlags, AnmVm *vm);
-    void StopVmById(unsigned int id);
-    void CleanupVm(AnmVm *vm);
+    void StopVmById(AnmId id, short interrupt);
+    void SetInterruptAndUpdate(AnmId id, short interrupt);
+    void MarkResourceVmsForDelete(AnmResource *resource);
+    void DeleteVmById(unsigned int *id);
+    unsigned int *FindChildVmByScript(unsigned int *outId, unsigned int *rootId, int scriptIndex);
+    int CleanupVm(AnmVm *vm);
     int UpdateWorldVms();
     int UpdateUiVms();
+    int OnTickUiCallback();
     int DrawVmGroup(unsigned int group);
+    int DrawLayer0();
+    int DrawLayer1();
+    int DrawLayer2();
+    int DrawLayer3();
+    int DrawLayer5();
+    int DrawLayer6();
+    int DrawLayer7();
+    int DrawLayer8();
+    int DrawLayer9();
+    int DrawLayer10();
+    int DrawLayer11();
+    int DrawLayer12();
+    int DrawLayer13();
+    int DrawLayer14();
+    int DrawLayer15();
+    int DrawLayer16();
+    int DrawLayer17();
+    int DrawLayer18();
+    int DrawLayer19();
+    int DrawLayer22();
+    int DrawLayer23();
+    int DrawLayer25();
+    int DrawLayer26();
+    int AreAllAnmsLoaded();
+    void ReleaseAnm(unsigned int slot);
+    bool IsPoolVm(AnmVm *vm);
+    static AnmResource *PreloadAnm(int slot, const char *filename);
+    void FlushSpriteBatch();
 };
 
 // The original VM lookup helper uses the manager in EDX and leaves the VM id

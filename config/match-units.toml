@@ -2558,7 +2558,7 @@ linkages = [
 [units.anm-manager-get-vm-by-id-target-abi]
 artifact_kind = "linked-pe"
 source = "src/AnmManager.cpp"
-inputs = ["src/AnmManager.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp"]
+inputs = ["src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp"]
 support_sources = ["probes/anm-manager-context.cpp"]
 output_dir = "build/match-linked/AnmManagerTargetAbi"
 profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
@@ -4289,3 +4289,1684 @@ symbol = "?EclDebugLog@@YAXPBDZZ"
 target_address = 0x0046DDE0
 size = 1
 linkages = []
+
+[units.anm-manager-flush-sprite-batch]
+artifact_kind = "linked-pe"
+source = "src/AnmManager.cpp"
+inputs = ["src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp"]
+output_dir = "build/match-linked/AnmCore"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["FlushAnmSpriteBatch"]
+symbol = "?FlushSpriteBatch@AnmManager@@QAEXXZ"
+target_address = 0x0045EF60
+size = 213
+linkages = [
+  { offset = 14, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+  { offset = 28, type = "DIR32", symbol = "?g_D3DDevice@@3PAUAnmD3DDeviceView@@A", target = 0x004D2E70 },
+  { offset = 50, type = "DIR32", symbol = "?g_D3DDevice@@3PAUAnmD3DDeviceView@@A", target = 0x004D2E70 },
+  { offset = 72, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+  { offset = 84, type = "DIR32", symbol = "?g_D3DDevice@@3PAUAnmD3DDeviceView@@A", target = 0x004D2E70 },
+  { offset = 106, type = "DIR32", symbol = "?g_D3DDevice@@3PAUAnmD3DDeviceView@@A", target = 0x004D2E70 },
+  { offset = 128, type = "DIR32", symbol = "?g_D3DDevice@@3PAUAnmD3DDeviceView@@A", target = 0x004D2E70 },
+  { offset = 155, type = "DIR32", symbol = "?g_D3DDevice@@3PAUAnmD3DDeviceView@@A", target = 0x004D2E70 },
+]
+
+[units.anm-manager-are-all-anms-loaded]
+artifact_kind = "linked-pe"
+source = "src/AnmManager.cpp"
+inputs = ["src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp"]
+output_dir = "build/match-linked/AnmCore"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmManager::AreAllAnmsLoaded"]
+symbol = "?AreAllAnmsLoaded@AnmManager@@QAEHXZ"
+target_address = 0x00465EE0
+size = 50
+linkages = []
+
+[units.anm-manager-release-anm]
+artifact_kind = "linked-pe"
+source = "src/AnmManager.cpp"
+inputs = ["src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp"]
+output_dir = "build/match-linked/AnmCore"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmManager::ReleaseAnm"]
+symbol = "?ReleaseAnm@AnmManager@@QAEXI@Z"
+target_address = 0x00465F20
+size = 51
+linkages = [
+  { offset = 18, type = "REL32", symbol = "?Release@AnmResource@@QAEXXZ", target = 0x00465F60 },
+  { offset = 31, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+]
+
+[units.anm-manager-draw-layer-0]
+artifact_kind = "linked-pe"
+source = "src/AnmManager.cpp"
+inputs = ["src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp"]
+output_dir = "build/match-linked/AnmCore"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmManager::DrawLayer0"]
+symbol = "?DrawLayer0@AnmManager@@QAEHXZ"
+target_address = 0x004666D0
+size = 12
+linkages = [
+  { offset = 6, type = "REL32", symbol = "?DrawVmGroup@AnmManager@@QAEHI@Z", target = 0x00466CE0 },
+]
+
+[units.anm-manager-draw-layer-1]
+artifact_kind = "linked-pe"
+source = "src/AnmManager.cpp"
+inputs = ["src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp"]
+output_dir = "build/match-linked/AnmCore"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmManager::DrawLayer1"]
+symbol = "?DrawLayer1@AnmManager@@QAEHXZ"
+target_address = 0x004666E0
+size = 15
+linkages = [
+  { offset = 9, type = "REL32", symbol = "?DrawVmGroup@AnmManager@@QAEHI@Z", target = 0x00466CE0 },
+]
+
+[units.anm-manager-draw-layer-2]
+artifact_kind = "linked-pe"
+source = "src/AnmManager.cpp"
+inputs = ["src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp"]
+output_dir = "build/match-linked/AnmCore"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmManager::DrawLayer2"]
+symbol = "?DrawLayer2@AnmManager@@QAEHXZ"
+target_address = 0x004666F0
+size = 15
+linkages = [
+  { offset = 9, type = "REL32", symbol = "?DrawVmGroup@AnmManager@@QAEHI@Z", target = 0x00466CE0 },
+]
+
+[units.anm-manager-draw-layer-3]
+artifact_kind = "linked-pe"
+source = "src/AnmManager.cpp"
+inputs = ["src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp"]
+output_dir = "build/match-linked/AnmCore"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmManager::DrawLayer3"]
+symbol = "?DrawLayer3@AnmManager@@QAEHXZ"
+target_address = 0x00466700
+size = 15
+linkages = [
+  { offset = 9, type = "REL32", symbol = "?DrawVmGroup@AnmManager@@QAEHI@Z", target = 0x00466CE0 },
+]
+
+[units.anm-manager-draw-layer-5]
+artifact_kind = "linked-pe"
+source = "src/AnmManager.cpp"
+inputs = ["src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp"]
+output_dir = "build/match-linked/AnmCore"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmManager::DrawLayer5"]
+symbol = "?DrawLayer5@AnmManager@@QAEHXZ"
+target_address = 0x00466790
+size = 15
+linkages = [
+  { offset = 9, type = "REL32", symbol = "?DrawVmGroup@AnmManager@@QAEHI@Z", target = 0x00466CE0 },
+]
+
+[units.anm-manager-draw-layer-6]
+artifact_kind = "linked-pe"
+source = "src/AnmManager.cpp"
+inputs = ["src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp"]
+output_dir = "build/match-linked/AnmCore"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmManager::DrawLayer6"]
+symbol = "?DrawLayer6@AnmManager@@QAEHXZ"
+target_address = 0x004667A0
+size = 15
+linkages = [
+  { offset = 9, type = "REL32", symbol = "?DrawVmGroup@AnmManager@@QAEHI@Z", target = 0x00466CE0 },
+]
+
+[units.anm-manager-draw-layer-7]
+artifact_kind = "linked-pe"
+source = "src/AnmManager.cpp"
+inputs = ["src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp"]
+output_dir = "build/match-linked/AnmCore"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmManager::DrawLayer7"]
+symbol = "?DrawLayer7@AnmManager@@QAEHXZ"
+target_address = 0x004667B0
+size = 15
+linkages = [
+  { offset = 9, type = "REL32", symbol = "?DrawVmGroup@AnmManager@@QAEHI@Z", target = 0x00466CE0 },
+]
+
+[units.anm-manager-draw-layer-8]
+artifact_kind = "linked-pe"
+source = "src/AnmManager.cpp"
+inputs = ["src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp"]
+output_dir = "build/match-linked/AnmCore"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmManager::DrawLayer8"]
+symbol = "?DrawLayer8@AnmManager@@QAEHXZ"
+target_address = 0x004667C0
+size = 15
+linkages = [
+  { offset = 9, type = "REL32", symbol = "?DrawVmGroup@AnmManager@@QAEHI@Z", target = 0x00466CE0 },
+]
+
+[units.anm-manager-draw-layer-9]
+artifact_kind = "linked-pe"
+source = "src/AnmManager.cpp"
+inputs = ["src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp"]
+output_dir = "build/match-linked/AnmCore"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmManager::DrawLayer9"]
+symbol = "?DrawLayer9@AnmManager@@QAEHXZ"
+target_address = 0x004667D0
+size = 15
+linkages = [
+  { offset = 9, type = "REL32", symbol = "?DrawVmGroup@AnmManager@@QAEHI@Z", target = 0x00466CE0 },
+]
+
+[units.anm-manager-draw-layer-10]
+artifact_kind = "linked-pe"
+source = "src/AnmManager.cpp"
+inputs = ["src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp"]
+output_dir = "build/match-linked/AnmCore"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmManager::DrawLayer10"]
+symbol = "?DrawLayer10@AnmManager@@QAEHXZ"
+target_address = 0x004667E0
+size = 15
+linkages = [
+  { offset = 9, type = "REL32", symbol = "?DrawVmGroup@AnmManager@@QAEHI@Z", target = 0x00466CE0 },
+]
+
+[units.anm-manager-draw-layer-11]
+artifact_kind = "linked-pe"
+source = "src/AnmManager.cpp"
+inputs = ["src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp"]
+output_dir = "build/match-linked/AnmCore"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmManager::DrawLayer11"]
+symbol = "?DrawLayer11@AnmManager@@QAEHXZ"
+target_address = 0x004667F0
+size = 15
+linkages = [
+  { offset = 9, type = "REL32", symbol = "?DrawVmGroup@AnmManager@@QAEHI@Z", target = 0x00466CE0 },
+]
+
+[units.anm-manager-draw-layer-12]
+artifact_kind = "linked-pe"
+source = "src/AnmManager.cpp"
+inputs = ["src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp"]
+output_dir = "build/match-linked/AnmCore"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmManager::DrawLayer12"]
+symbol = "?DrawLayer12@AnmManager@@QAEHXZ"
+target_address = 0x00466800
+size = 15
+linkages = [
+  { offset = 9, type = "REL32", symbol = "?DrawVmGroup@AnmManager@@QAEHI@Z", target = 0x00466CE0 },
+]
+
+[units.anm-manager-draw-layer-13]
+artifact_kind = "linked-pe"
+source = "src/AnmManager.cpp"
+inputs = ["src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp"]
+output_dir = "build/match-linked/AnmCore"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmManager::DrawLayer13"]
+symbol = "?DrawLayer13@AnmManager@@QAEHXZ"
+target_address = 0x00466810
+size = 15
+linkages = [
+  { offset = 9, type = "REL32", symbol = "?DrawVmGroup@AnmManager@@QAEHI@Z", target = 0x00466CE0 },
+]
+
+[units.anm-manager-draw-layer-14]
+artifact_kind = "linked-pe"
+source = "src/AnmManager.cpp"
+inputs = ["src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp"]
+output_dir = "build/match-linked/AnmCore"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmManager::DrawLayer14"]
+symbol = "?DrawLayer14@AnmManager@@QAEHXZ"
+target_address = 0x00466820
+size = 15
+linkages = [
+  { offset = 9, type = "REL32", symbol = "?DrawVmGroup@AnmManager@@QAEHI@Z", target = 0x00466CE0 },
+]
+
+[units.anm-manager-draw-layer-15]
+artifact_kind = "linked-pe"
+source = "src/AnmManager.cpp"
+inputs = ["src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp"]
+output_dir = "build/match-linked/AnmCore"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmManager::DrawLayer15"]
+symbol = "?DrawLayer15@AnmManager@@QAEHXZ"
+target_address = 0x00466830
+size = 15
+linkages = [
+  { offset = 9, type = "REL32", symbol = "?DrawVmGroup@AnmManager@@QAEHI@Z", target = 0x00466CE0 },
+]
+
+[units.anm-manager-draw-layer-16]
+artifact_kind = "linked-pe"
+source = "src/AnmManager.cpp"
+inputs = ["src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp"]
+output_dir = "build/match-linked/AnmCore"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmManager::DrawLayer16"]
+symbol = "?DrawLayer16@AnmManager@@QAEHXZ"
+target_address = 0x00466840
+size = 15
+linkages = [
+  { offset = 9, type = "REL32", symbol = "?DrawVmGroup@AnmManager@@QAEHI@Z", target = 0x00466CE0 },
+]
+
+[units.anm-manager-draw-layer-17]
+artifact_kind = "linked-pe"
+source = "src/AnmManager.cpp"
+inputs = ["src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp"]
+output_dir = "build/match-linked/AnmCore"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmManager::DrawLayer17"]
+symbol = "?DrawLayer17@AnmManager@@QAEHXZ"
+target_address = 0x00466850
+size = 15
+linkages = [
+  { offset = 9, type = "REL32", symbol = "?DrawVmGroup@AnmManager@@QAEHI@Z", target = 0x00466CE0 },
+]
+
+[units.anm-manager-draw-layer-18]
+artifact_kind = "linked-pe"
+source = "src/AnmManager.cpp"
+inputs = ["src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp"]
+output_dir = "build/match-linked/AnmCore"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmManager::DrawLayer18"]
+symbol = "?DrawLayer18@AnmManager@@QAEHXZ"
+target_address = 0x00466860
+size = 15
+linkages = [
+  { offset = 9, type = "REL32", symbol = "?DrawVmGroup@AnmManager@@QAEHI@Z", target = 0x00466CE0 },
+]
+
+[units.anm-manager-draw-layer-19]
+artifact_kind = "linked-pe"
+source = "src/AnmManager.cpp"
+inputs = ["src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp"]
+output_dir = "build/match-linked/AnmCore"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmManager::DrawLayer19"]
+symbol = "?DrawLayer19@AnmManager@@QAEHXZ"
+target_address = 0x00466870
+size = 15
+linkages = [
+  { offset = 9, type = "REL32", symbol = "?DrawVmGroup@AnmManager@@QAEHI@Z", target = 0x00466CE0 },
+]
+
+[units.anm-manager-draw-layer-26]
+artifact_kind = "linked-pe"
+source = "src/AnmManager.cpp"
+inputs = ["src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp"]
+output_dir = "build/match-linked/AnmCore"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmManager::DrawLayer26"]
+symbol = "?DrawLayer26@AnmManager@@QAEHXZ"
+target_address = 0x00466880
+size = 15
+linkages = [
+  { offset = 9, type = "REL32", symbol = "?DrawVmGroup@AnmManager@@QAEHI@Z", target = 0x00466CE0 },
+]
+
+[units.anm-manager-draw-layer-25]
+artifact_kind = "linked-pe"
+source = "src/AnmManager.cpp"
+inputs = ["src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp"]
+output_dir = "build/match-linked/AnmCore"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmManager::DrawLayer25"]
+symbol = "?DrawLayer25@AnmManager@@QAEHXZ"
+target_address = 0x00466890
+size = 15
+linkages = [
+  { offset = 9, type = "REL32", symbol = "?DrawVmGroup@AnmManager@@QAEHI@Z", target = 0x00466CE0 },
+]
+
+[units.anm-manager-draw-layer-23]
+artifact_kind = "linked-pe"
+source = "src/AnmManager.cpp"
+inputs = ["src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp"]
+output_dir = "build/match-linked/AnmCore"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmManager::DrawLayer23"]
+symbol = "?DrawLayer23@AnmManager@@QAEHXZ"
+target_address = 0x004668A0
+size = 15
+linkages = [
+  { offset = 9, type = "REL32", symbol = "?DrawVmGroup@AnmManager@@QAEHI@Z", target = 0x00466CE0 },
+]
+
+[units.anm-manager-draw-layer-22]
+artifact_kind = "linked-pe"
+source = "src/AnmManager.cpp"
+inputs = ["src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp"]
+output_dir = "build/match-linked/AnmCore"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmManager::DrawLayer22"]
+symbol = "?DrawLayer22@AnmManager@@QAEHXZ"
+target_address = 0x004668B0
+size = 15
+linkages = [
+  { offset = 9, type = "REL32", symbol = "?DrawVmGroup@AnmManager@@QAEHI@Z", target = 0x00466CE0 },
+]
+
+[units.anm-manager-draw-vm-group]
+artifact_kind = "linked-pe"
+source = "src/AnmManager.cpp"
+inputs = ["src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp"]
+output_dir = "build/match-linked/AnmCore"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmManager::DrawVmGroup"]
+symbol = "?DrawVmGroup@AnmManager@@QAEHI@Z"
+target_address = 0x00466CE0
+size = 126
+linkages = [
+  { offset = 2, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", addend = 1432, target = 0x004D2E60 },
+  { offset = 16, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", addend = 2288, target = 0x004D2E60 },
+  { offset = 22, type = "DIR32", symbol = "__imp__EnterCriticalSection@4", target = 0x0049A088 },
+  { offset = 28, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", addend = 2369, target = 0x004D2E60 },
+  { offset = 79, type = "REL32", symbol = "?DrawAnmVmWithManager@@YGHPAUAnmVm@@PAUAnmManager@@@Z", target = 0x00461B00 },
+  { offset = 92, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", addend = 1432, target = 0x004D2E60 },
+  { offset = 104, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", addend = 2288, target = 0x004D2E60 },
+  { offset = 110, type = "DIR32", symbol = "__imp__LeaveCriticalSection@4", target = 0x0049A08C },
+  { offset = 116, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", addend = 2369, target = 0x004D2E60 },
+]
+
+[units.anm-manager-cleanup-vm]
+artifact_kind = "linked-pe"
+source = "src/AnmManager.cpp"
+inputs = ["src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp"]
+output_dir = "build/match-linked/AnmCore"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmManager::CleanupVm"]
+symbol = "?CleanupVm@AnmManager@@QAEHPAUAnmVm@@@Z"
+target_address = 0x00466F60
+size = 323
+linkages = [
+  { offset = 264, type = "REL32", symbol = "_free", target = 0x0047290C },
+  { offset = 296, type = "REL32", symbol = "_free", target = 0x0047290C },
+  { offset = 313, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+]
+
+[units.anm-manager-mark-resource-vms-for-delete]
+artifact_kind = "linked-pe"
+source = "src/AnmManager.cpp"
+inputs = ["src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp"]
+output_dir = "build/match-linked/AnmCore"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmManager::MarkResourceVmsForDelete"]
+symbol = "?MarkResourceVmsForDelete@AnmManager@@QAEXPAUAnmResource@@@Z"
+target_address = 0x00467710
+size = 78
+linkages = []
+
+[units.anm-manager-is-pool-vm]
+artifact_kind = "linked-pe"
+source = "src/AnmManager.cpp"
+inputs = ["src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp"]
+output_dir = "build/match-linked/AnmCore"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmManager::IsPoolVm"]
+symbol = "?IsPoolVm@AnmManager@@QAE_NPAUAnmVm@@@Z"
+target_address = 0x004680E0
+size = 29
+linkages = []
+
+[units.anm-resource-release]
+artifact_kind = "linked-pe"
+source = "src/AnmResource.cpp"
+inputs = ["src/AnmResource.hpp", "src/AnmManager.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmManager.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp"]
+output_dir = "build/match-linked/AnmResource"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmResource::Release"]
+symbol = "?Release@AnmResource@@QAEXXZ"
+target_address = 0x00465F60
+size = 251
+linkages = [
+  { offset = 22, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+  { offset = 29, type = "REL32", symbol = "?MarkResourceVmsForDelete@AnmManager@@QAEXPAUAnmResource@@@Z", target = 0x00467710 },
+  { offset = 86, type = "REL32", symbol = "_free", target = 0x0047290C },
+  { offset = 133, type = "REL32", symbol = "_free", target = 0x0047290C },
+  { offset = 158, type = "REL32", symbol = "_free", target = 0x0047290C },
+  { offset = 183, type = "REL32", symbol = "_free", target = 0x0047290C },
+  { offset = 208, type = "REL32", symbol = "_free", target = 0x0047290C },
+  { offset = 233, type = "REL32", symbol = "_free", target = 0x0047290C },
+]
+
+[units.anm-texture-entry-release]
+artifact_kind = "linked-pe"
+source = "src/AnmResource.cpp"
+inputs = ["src/AnmResource.hpp", "src/AnmManager.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmManager.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp"]
+output_dir = "build/match-linked/AnmResource"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmTextureEntry::Release"]
+symbol = "?Release@AnmTextureEntry@@QAEXXZ"
+target_address = 0x00466060
+size = 44
+linkages = [
+  { offset = 29, type = "REL32", symbol = "_free", target = 0x0047290C },
+]
+
+[units.anm-resource-ctor]
+artifact_kind = "linked-pe"
+source = "src/AnmResource.cpp"
+inputs = ["src/AnmResource.hpp", "src/AnmManager.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmManager.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp"]
+output_dir = "build/match-linked/AnmResource"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmResource::AnmResource"]
+symbol = "??0AnmResource@@QAE@XZ"
+target_address = 0x00468110
+size = 19
+linkages = [
+  { offset = 9, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+]
+
+[units.anm-helpers-mark-vm-tree-for-delete-by-id]
+artifact_kind = "linked-pe"
+source = "src/AnmHelpers.cpp"
+inputs = ["src/AnmHelpers.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp"]
+support_sources = ["src/AnmManager.cpp", "probes/anm-helpers-context.cpp"]
+output_dir = "build/match-linked/AnmHelpers"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmHelpersProbe@64"
+functions = ["AnmHelpers::MarkVmTreeForDeleteById"]
+symbol = "?MarkVmTreeForDeleteById@AnmHelpers@@YGXUAnmId@@@Z"
+target_address = 0x00467570
+size = 67
+linkages = [
+  { offset = 8, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+  { offset = 14, type = "REL32", symbol = "?GetVmById@AnmManager@@QAEPAUAnmVm@@UAnmId@@@Z", target = 0x00467420 },
+]
+
+[units.anm-helpers-set-vm-pos-by-id]
+artifact_kind = "linked-pe"
+source = "src/AnmHelpers.cpp"
+inputs = ["src/AnmHelpers.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp"]
+support_sources = ["src/AnmManager.cpp", "probes/anm-helpers-context.cpp"]
+output_dir = "build/match-linked/AnmHelpers"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmHelpersProbe@64"
+functions = ["AnmHelpers::SetVmPosById"]
+symbol = "?SetVmPosById@AnmHelpers@@YGXUAnmId@@PBUZunVec3@@@Z"
+target_address = 0x004675C0
+size = 52
+linkages = [
+  { offset = 8, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+  { offset = 14, type = "REL32", symbol = "?GetVmById@AnmManager@@QAEPAUAnmVm@@UAnmId@@@Z", target = 0x00467420 },
+]
+
+[units.anm-helpers-set-vm-rot-z-by-id]
+artifact_kind = "linked-pe"
+source = "src/AnmHelpers.cpp"
+inputs = ["src/AnmHelpers.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp"]
+support_sources = ["src/AnmManager.cpp", "probes/anm-helpers-context.cpp"]
+output_dir = "build/match-linked/AnmHelpers"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmHelpersProbe@64"
+functions = ["AnmHelpers::SetVmRotZById"]
+symbol = "?SetVmRotZById@AnmHelpers@@YGXUAnmId@@M@Z"
+target_address = 0x00467600
+size = 39
+linkages = [
+  { offset = 8, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+  { offset = 14, type = "REL32", symbol = "?GetVmById@AnmManager@@QAEPAUAnmVm@@UAnmId@@@Z", target = 0x00467420 },
+]
+
+[units.anm-helpers-set-vm-pos-by-id-2]
+artifact_kind = "linked-pe"
+source = "src/AnmHelpers.cpp"
+inputs = ["src/AnmHelpers.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp"]
+support_sources = ["src/AnmManager.cpp", "probes/anm-helpers-context.cpp"]
+output_dir = "build/match-linked/AnmHelpers"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmHelpersProbe@64"
+functions = ["AnmHelpers::SetVmPosById2"]
+symbol = "?SetVmPosById2@AnmHelpers@@YGXUAnmId@@PBUZunVec3@@@Z"
+target_address = 0x00467630
+size = 52
+linkages = [
+  { offset = 8, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+  { offset = 14, type = "REL32", symbol = "?GetVmById@AnmManager@@QAEPAUAnmVm@@UAnmId@@@Z", target = 0x00467420 },
+]
+
+[units.anm-helpers-set-vm-game-pos-by-id]
+artifact_kind = "linked-pe"
+source = "src/AnmHelpers.cpp"
+inputs = ["src/AnmHelpers.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp"]
+support_sources = ["src/AnmManager.cpp", "probes/anm-helpers-context.cpp"]
+output_dir = "build/match-linked/AnmHelpers"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmHelpersProbe@64"
+functions = ["AnmHelpers::SetVmGamePosById"]
+symbol = "?SetVmGamePosById@AnmHelpers@@YGXUAnmId@@PBUZunVec3@@@Z"
+target_address = 0x00467670
+size = 70
+linkages = [
+  { offset = 8, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+  { offset = 14, type = "REL32", symbol = "?GetVmById@AnmManager@@QAEPAUAnmVm@@UAnmId@@@Z", target = 0x00467420 },
+  { offset = 26, type = "DIR32", symbol = "__real@4060000000000000", target = 0x004A65F8 },
+  { offset = 32, type = "DIR32", symbol = "__real@4068000000000000", target = 0x004A65D8 },
+  { offset = 47, type = "DIR32", symbol = "__real@4030000000000000", target = 0x004A6610 },
+]
+
+[units.anm-helpers-set-vm-game-position]
+artifact_kind = "linked-pe"
+source = "src/AnmHelpers.cpp"
+inputs = ["src/AnmHelpers.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp"]
+support_sources = ["src/AnmManager.cpp", "probes/anm-helpers-context.cpp"]
+output_dir = "build/match-linked/AnmHelpers"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmHelpersProbe@64"
+functions = ["AnmHelpers::SetVmGamePosition"]
+symbol = "?SetVmGamePosition@AnmHelpers@@YGXPAUAnmVm@@PBUZunVec3@@@Z"
+target_address = 0x004676C0
+size = 45
+linkages = [
+  { offset = 4, type = "DIR32", symbol = "__real@4060000000000000", target = 0x004A65F8 },
+  { offset = 10, type = "DIR32", symbol = "__real@4068000000000000", target = 0x004A65D8 },
+  { offset = 25, type = "DIR32", symbol = "__real@4030000000000000", target = 0x004A6610 },
+]
+
+[units.anm-helpers-get-vm-pos-by-id]
+artifact_kind = "linked-pe"
+source = "src/AnmHelpers.cpp"
+inputs = ["src/AnmHelpers.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp"]
+support_sources = ["src/AnmManager.cpp", "probes/anm-helpers-context.cpp"]
+output_dir = "build/match-linked/AnmHelpers"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmHelpersProbe@64"
+functions = ["AnmHelpers::GetVmPosById"]
+symbol = "?GetVmPosById@AnmHelpers@@YGPAUZunVec3@@PAUAnmManager@@UAnmId@@@Z"
+target_address = 0x004676F0
+size = 31
+linkages = [
+  { offset = 8, type = "REL32", symbol = "?GetVmById@AnmManager@@QAEPAUAnmVm@@UAnmId@@@Z", target = 0x00467420 },
+]
+
+[units.anm-helpers-draw-single-vm]
+artifact_kind = "linked-pe"
+source = "src/AnmHelpers.cpp"
+inputs = ["src/AnmHelpers.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp"]
+support_sources = ["src/AnmManager.cpp", "probes/anm-helpers-context.cpp"]
+output_dir = "build/match-linked/AnmHelpers"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmHelpersProbe@64"
+functions = ["AnmHelpers::DrawSingleVm"]
+symbol = "?DrawSingleVm@AnmHelpers@@YGXPAUAnmVm@@@Z"
+target_address = 0x00467760
+size = 21
+linkages = [
+  { offset = 4, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+  { offset = 13, type = "REL32", symbol = "?DrawAnmVmWithManager@@YGHPAUAnmVm@@PAUAnmManager@@@Z", target = 0x00461B00 },
+]
+
+[units.anm-helpers-resolve-vm-id-ptr]
+artifact_kind = "linked-pe"
+source = "src/AnmHelpers.cpp"
+inputs = ["src/AnmHelpers.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp"]
+support_sources = ["src/AnmManager.cpp", "probes/anm-helpers-context.cpp"]
+output_dir = "build/match-linked/AnmHelpers"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmHelpersProbe@64"
+functions = ["ResolveAnmVmId"]
+symbol = "?ResolveVmIdPtr@AnmHelpers@@YGPAUAnmVm@@PAUAnmId@@@Z"
+target_address = 0x00467780
+size = 21
+linkages = [
+  { offset = 4, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+  { offset = 10, type = "REL32", symbol = "?GetVmById@AnmManager@@QAEPAUAnmVm@@UAnmId@@@Z", target = 0x00467420 },
+]
+
+[units.anm-helpers-stop-vm-by-id-ptr]
+artifact_kind = "linked-pe"
+source = "src/AnmHelpers.cpp"
+inputs = ["src/AnmHelpers.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp"]
+support_sources = ["src/AnmManager.cpp", "probes/anm-helpers-context.cpp"]
+output_dir = "build/match-linked/AnmHelpers"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmHelpersProbe@64"
+functions = ["AnmHelpers::StopVmByIdPtr"]
+symbol = "?StopVmByIdPtr@AnmHelpers@@YGXPAUAnmId@@F@Z"
+target_address = 0x004677A0
+size = 9
+linkages = [
+  { offset = 4, type = "REL32", symbol = "?StopVmById@AnmManager@@QAEXUAnmId@@F@Z", target = 0x00467480 },
+]
+
+[units.anm-helpers-set-interrupt-and-update-by-id-ptr]
+artifact_kind = "linked-pe"
+source = "src/AnmHelpers.cpp"
+inputs = ["src/AnmHelpers.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp"]
+support_sources = ["src/AnmManager.cpp", "probes/anm-helpers-context.cpp"]
+output_dir = "build/match-linked/AnmHelpers"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmHelpersProbe@64"
+functions = ["AnmHelpers::SetInterruptAndUpdateByIdPtr"]
+symbol = "?SetInterruptAndUpdateByIdPtr@AnmHelpers@@YGXPAUAnmId@@F@Z"
+target_address = 0x004677B0
+size = 9
+linkages = [
+  { offset = 4, type = "REL32", symbol = "?SetInterruptAndUpdate@AnmManager@@QAEXUAnmId@@F@Z", target = 0x004674F0 },
+]
+
+[units.anm-helpers-hide-vm-tree-by-id-ptr]
+artifact_kind = "linked-pe"
+source = "src/AnmHelpers.cpp"
+inputs = ["src/AnmHelpers.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp"]
+support_sources = ["src/AnmManager.cpp", "probes/anm-helpers-context.cpp"]
+output_dir = "build/match-linked/AnmHelpers"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmHelpersProbe@64"
+functions = ["AnmHelpers::HideVmTreeByIdPtr"]
+symbol = "?HideVmTreeByIdPtr@AnmHelpers@@YGXPAUAnmId@@@Z"
+target_address = 0x004677C0
+size = 78
+linkages = [
+  { offset = 4, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+  { offset = 10, type = "REL32", symbol = "?GetVmById@AnmManager@@QAEPAUAnmVm@@UAnmId@@@Z", target = 0x00467420 },
+]
+
+[units.anm-helpers-show-vm-tree-by-id-ptr]
+artifact_kind = "linked-pe"
+source = "src/AnmHelpers.cpp"
+inputs = ["src/AnmHelpers.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp"]
+support_sources = ["src/AnmManager.cpp", "probes/anm-helpers-context.cpp"]
+output_dir = "build/match-linked/AnmHelpers"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmHelpersProbe@64"
+functions = ["AnmHelpers::ShowVmTreeByIdPtr"]
+symbol = "?ShowVmTreeByIdPtr@AnmHelpers@@YGXPAUAnmId@@@Z"
+target_address = 0x00467810
+size = 92
+linkages = [
+  { offset = 4, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+  { offset = 10, type = "REL32", symbol = "?GetVmById@AnmManager@@QAEPAUAnmVm@@UAnmId@@@Z", target = 0x00467420 },
+]
+
+[units.anm-helpers-set-visible-bit-by-id-ptr]
+artifact_kind = "linked-pe"
+source = "src/AnmHelpers.cpp"
+inputs = ["src/AnmHelpers.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp"]
+support_sources = ["src/AnmManager.cpp", "probes/anm-helpers-context.cpp"]
+output_dir = "build/match-linked/AnmHelpers"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmHelpersProbe@64"
+functions = ["AnmHelpers::SetVisibleBitByIdPtr"]
+symbol = "?SetVisibleBitByIdPtr@AnmHelpers@@YGXPAUAnmId@@@Z"
+target_address = 0x00467870
+size = 64
+linkages = [
+  { offset = 4, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+  { offset = 10, type = "REL32", symbol = "?GetVmById@AnmManager@@QAEPAUAnmVm@@UAnmId@@@Z", target = 0x00467420 },
+]
+
+[units.anm-helpers-clear-visible-bit-by-id-ptr]
+artifact_kind = "linked-pe"
+source = "src/AnmHelpers.cpp"
+inputs = ["src/AnmHelpers.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp"]
+support_sources = ["src/AnmManager.cpp", "probes/anm-helpers-context.cpp"]
+output_dir = "build/match-linked/AnmHelpers"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmHelpersProbe@64"
+functions = ["AnmHelpers::ClearVisibleBitByIdPtr"]
+symbol = "?ClearVisibleBitByIdPtr@AnmHelpers@@YGXPAUAnmId@@@Z"
+target_address = 0x004678B0
+size = 64
+linkages = [
+  { offset = 4, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+  { offset = 10, type = "REL32", symbol = "?GetVmById@AnmManager@@QAEPAUAnmVm@@UAnmId@@@Z", target = 0x00467420 },
+]
+
+[units.anm-helpers-set-child-visible-by-script]
+artifact_kind = "linked-pe"
+source = "src/AnmHelpers.cpp"
+inputs = ["src/AnmHelpers.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp"]
+support_sources = ["src/AnmManager.cpp", "probes/anm-helpers-context.cpp"]
+output_dir = "build/match-linked/AnmHelpers"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmHelpersProbe@64"
+functions = ["AnmHelpers::SetChildVisibleByScript"]
+symbol = "?SetChildVisibleByScript@AnmHelpers@@YGXPAUAnmId@@H@Z"
+target_address = 0x004678F0
+size = 83
+linkages = [
+  { offset = 2, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+  { offset = 13, type = "REL32", symbol = "?GetVmById@AnmManager@@QAEPAUAnmVm@@UAnmId@@@Z", target = 0x00467420 },
+]
+
+[units.anm-helpers-clear-child-visible-by-script]
+artifact_kind = "linked-pe"
+source = "src/AnmHelpers.cpp"
+inputs = ["src/AnmHelpers.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp"]
+support_sources = ["src/AnmManager.cpp", "probes/anm-helpers-context.cpp"]
+output_dir = "build/match-linked/AnmHelpers"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmHelpersProbe@64"
+functions = ["AnmHelpers::ClearChildVisibleByScript"]
+symbol = "?ClearChildVisibleByScript@AnmHelpers@@YGXPAUAnmId@@H@Z"
+target_address = 0x00467950
+size = 83
+linkages = [
+  { offset = 2, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+  { offset = 13, type = "REL32", symbol = "?GetVmById@AnmManager@@QAEPAUAnmVm@@UAnmId@@@Z", target = 0x00467420 },
+]
+
+[units.anm-helpers-delete-vm-by-id-ptr]
+artifact_kind = "linked-pe"
+source = "src/AnmHelpers.cpp"
+inputs = ["src/AnmHelpers.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp"]
+support_sources = ["src/AnmManager.cpp", "probes/anm-helpers-context.cpp"]
+output_dir = "build/match-linked/AnmHelpers"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmHelpersProbe@64"
+functions = ["AnmHelpers::DeleteVmByIdPtr"]
+symbol = "?DeleteVmByIdPtr@AnmHelpers@@YGXPAUAnmId@@@Z"
+target_address = 0x004679B0
+size = 70
+linkages = [
+  { offset = 4, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+  { offset = 10, type = "REL32", symbol = "?GetVmById@AnmManager@@QAEPAUAnmVm@@UAnmId@@@Z", target = 0x00467420 },
+]
+
+[units.anm-helpers-set-vm-game-position-2]
+artifact_kind = "linked-pe"
+source = "src/AnmHelpers.cpp"
+inputs = ["src/AnmHelpers.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp"]
+support_sources = ["src/AnmManager.cpp", "probes/anm-helpers-context.cpp"]
+output_dir = "build/match-linked/AnmHelpers"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmHelpersProbe@64"
+functions = ["AnmHelpers::SetVmGamePosition2"]
+symbol = "?SetVmGamePosition2@AnmHelpers@@YGXPAUAnmVm@@PBUZunVec3@@@Z"
+target_address = 0x00467AD0
+size = 45
+linkages = [
+  { offset = 4, type = "DIR32", symbol = "__real@4060000000000000", target = 0x004A65F8 },
+  { offset = 10, type = "DIR32", symbol = "__real@4068000000000000", target = 0x004A65D8 },
+  { offset = 25, type = "DIR32", symbol = "__real@4030000000000000", target = 0x004A6610 },
+]
+
+[units.anm-helpers-find-child-id-from-vm]
+artifact_kind = "linked-pe"
+source = "src/AnmHelpers.cpp"
+inputs = ["src/AnmHelpers.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp"]
+support_sources = ["src/AnmManager.cpp", "probes/anm-helpers-context.cpp"]
+output_dir = "build/match-linked/AnmHelpers"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmHelpersProbe@64"
+functions = ["AnmHelpers::FindChildIdFromVm"]
+symbol = "?FindChildIdFromVm@AnmHelpers@@YGPAIPAIPAUAnmVm@@H@Z"
+target_address = 0x00467D70
+size = 57
+linkages = []
+
+[units.anm-helpers-find-child-vm-from-vm]
+artifact_kind = "linked-pe"
+source = "src/AnmHelpers.cpp"
+inputs = ["src/AnmHelpers.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp"]
+support_sources = ["src/AnmManager.cpp", "probes/anm-helpers-context.cpp"]
+output_dir = "build/match-linked/AnmHelpers"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmHelpersProbe@64"
+functions = ["AnmHelpers::FindChildVmFromVm"]
+symbol = "?FindChildVmFromVm@AnmHelpers@@YGPAUAnmVm@@PAU2@H@Z"
+target_address = 0x00467DB0
+size = 53
+linkages = []
+
+[units.anm-helpers-find-child-id-by-id-ptr]
+artifact_kind = "linked-pe"
+source = "src/AnmHelpers.cpp"
+inputs = ["src/AnmHelpers.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp"]
+support_sources = ["src/AnmManager.cpp", "probes/anm-helpers-context.cpp"]
+output_dir = "build/match-linked/AnmHelpers"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmHelpersProbe@64"
+functions = ["AnmHelpers::FindChildIdByIdPtr"]
+symbol = "?FindChildIdByIdPtr@AnmHelpers@@YGPAIPAIPAUAnmId@@H@Z"
+target_address = 0x00467DF0
+size = 73
+linkages = [
+  { offset = 4, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+  { offset = 10, type = "REL32", symbol = "?GetVmById@AnmManager@@QAEPAUAnmVm@@UAnmId@@@Z", target = 0x00467420 },
+]
+
+[units.anm-helpers-find-child-vm-by-id-ptr]
+artifact_kind = "linked-pe"
+source = "src/AnmHelpers.cpp"
+inputs = ["src/AnmHelpers.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp"]
+support_sources = ["src/AnmManager.cpp", "probes/anm-helpers-context.cpp"]
+output_dir = "build/match-linked/AnmHelpers"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmHelpersProbe@64"
+functions = ["AnmHelpers::FindChildVmByIdPtr"]
+symbol = "?FindChildVmByIdPtr@AnmHelpers@@YGPAUAnmVm@@PAUAnmId@@H@Z"
+target_address = 0x00467E40
+size = 69
+linkages = [
+  { offset = 2, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+  { offset = 13, type = "REL32", symbol = "?GetVmById@AnmManager@@QAEPAUAnmVm@@UAnmId@@@Z", target = 0x00467420 },
+]
+
+[units.anm-helpers-set-vm-rot-x]
+artifact_kind = "linked-pe"
+source = "src/AnmHelpers.cpp"
+inputs = ["src/AnmHelpers.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp"]
+support_sources = ["src/AnmManager.cpp", "probes/anm-helpers-context.cpp"]
+output_dir = "build/match-linked/AnmHelpers"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmHelpersProbe@64"
+functions = ["AnmHelpers::SetVmRotX"]
+symbol = "?SetVmRotX@AnmHelpers@@YGXPAUAnmVm@@M@Z"
+target_address = 0x00467E90
+size = 20
+linkages = []
+
+[units.anm-helpers-set-vm-rot-y]
+artifact_kind = "linked-pe"
+source = "src/AnmHelpers.cpp"
+inputs = ["src/AnmHelpers.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp"]
+support_sources = ["src/AnmManager.cpp", "probes/anm-helpers-context.cpp"]
+output_dir = "build/match-linked/AnmHelpers"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmHelpersProbe@64"
+functions = ["AnmHelpers::SetVmRotY"]
+symbol = "?SetVmRotY@AnmHelpers@@YGXPAUAnmVm@@M@Z"
+target_address = 0x00467EB0
+size = 20
+linkages = []
+
+[units.anm-helpers-set-vm-rot-z]
+artifact_kind = "linked-pe"
+source = "src/AnmHelpers.cpp"
+inputs = ["src/AnmHelpers.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp"]
+support_sources = ["src/AnmManager.cpp", "probes/anm-helpers-context.cpp"]
+output_dir = "build/match-linked/AnmHelpers"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmHelpersProbe@64"
+functions = ["AnmHelpers::SetVmRotZ"]
+symbol = "?SetVmRotZ@AnmHelpers@@YGXPAUAnmVm@@M@Z"
+target_address = 0x00467ED0
+size = 20
+linkages = []
+
+[units.anm-helpers-set-vm-color-by-id-ptr]
+artifact_kind = "linked-pe"
+source = "src/AnmHelpers.cpp"
+inputs = ["src/AnmHelpers.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp"]
+support_sources = ["src/AnmManager.cpp", "probes/anm-helpers-context.cpp"]
+output_dir = "build/match-linked/AnmHelpers"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmHelpersProbe@64"
+functions = ["AnmHelpers::SetVmColorByIdPtr"]
+symbol = "?SetVmColorByIdPtr@AnmHelpers@@YGXPAUAnmId@@I@Z"
+target_address = 0x00467F70
+size = 27
+linkages = [
+  { offset = 4, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+  { offset = 10, type = "REL32", symbol = "?GetVmById@AnmManager@@QAEPAUAnmVm@@UAnmId@@@Z", target = 0x00467420 },
+]
+
+[units.anm-helpers-set-vm-rot-y-2]
+artifact_kind = "linked-pe"
+source = "src/AnmHelpers.cpp"
+inputs = ["src/AnmHelpers.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp"]
+support_sources = ["src/AnmManager.cpp", "probes/anm-helpers-context.cpp"]
+output_dir = "build/match-linked/AnmHelpers"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmHelpersProbe@64"
+functions = ["AnmHelpers::SetVmRotY2"]
+symbol = "?SetVmRotY2@AnmHelpers@@YGXPAUAnmVm@@M@Z"
+target_address = 0x00467F90
+size = 20
+linkages = []
+
+[units.anm-helpers-set-vm-rot-x-2]
+artifact_kind = "linked-pe"
+source = "src/AnmHelpers.cpp"
+inputs = ["src/AnmHelpers.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp"]
+support_sources = ["src/AnmManager.cpp", "probes/anm-helpers-context.cpp"]
+output_dir = "build/match-linked/AnmHelpers"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmHelpersProbe@64"
+functions = ["AnmHelpers::SetVmRotX2"]
+symbol = "?SetVmRotX2@AnmHelpers@@YGXPAUAnmVm@@M@Z"
+target_address = 0x00467FB0
+size = 20
+linkages = []
+
+[units.anm-helpers-set-vm-rot-z-2]
+artifact_kind = "linked-pe"
+source = "src/AnmHelpers.cpp"
+inputs = ["src/AnmHelpers.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp"]
+support_sources = ["src/AnmManager.cpp", "probes/anm-helpers-context.cpp"]
+output_dir = "build/match-linked/AnmHelpers"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmHelpersProbe@64"
+functions = ["AnmHelpers::SetVmRotZ2"]
+symbol = "?SetVmRotZ2@AnmHelpers@@YGXPAUAnmVm@@M@Z"
+target_address = 0x00467FE0
+size = 20
+linkages = []
+
+[units.anm-helpers-id-equals]
+artifact_kind = "linked-pe"
+source = "src/AnmHelpers.cpp"
+inputs = ["src/AnmHelpers.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp"]
+support_sources = ["src/AnmManager.cpp", "probes/anm-helpers-context.cpp"]
+output_dir = "build/match-linked/AnmHelpers"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmHelpersProbe@64"
+functions = ["AnmHelpers::AnmVmIdEquals"]
+symbol = "?AnmVmIdEquals@AnmHelpers@@YG_NPBUAnmId@@0@Z"
+target_address = 0x00468000
+size = 10
+linkages = []
+
+[units.anm-helpers-next-vm-id]
+artifact_kind = "linked-pe"
+source = "src/AnmHelpers.cpp"
+inputs = ["src/AnmHelpers.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp"]
+support_sources = ["src/AnmManager.cpp", "probes/anm-helpers-context.cpp"]
+output_dir = "build/match-linked/AnmHelpers"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmHelpersProbe@64"
+functions = ["AnmHelpers::NextVmId"]
+symbol = "?NextVmId@AnmHelpers@@YGIPAUAnmId@@@Z"
+target_address = 0x00468100
+size = 8
+linkages = []
+
+[units.anm-interp-update-anm-vm-array]
+artifact_kind = "linked-pe"
+source = "src/AnmInterp.cpp"
+inputs = ["src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmVmTransitions.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmInterp"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
+functions = ["AnmInterpHelpers::UpdateAnmVmArray"]
+symbol = "?UpdateAnmVmArray@AnmInterpHelpers@@YGXPAUAnmVm@@H@Z"
+target_address = 0x0045D330
+size = 45
+linkages = [
+  { offset = 29, type = "REL32", symbol = "?Update@AnmVm@@QAEHXZ", target = 0x00459D90 },
+]
+
+[units.anm-interp-color3-get-duration]
+artifact_kind = "linked-pe"
+source = "src/AnmInterp.cpp"
+inputs = ["src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmVmTransitions.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmInterp"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
+functions = ["AnmInterp<AnmColor3>::GetDuration"]
+symbol = "?GetDuration@?$AnmInterp@UAnmColor3@@@@QBEHXZ"
+target_address = 0x0045D6B0
+size = 4
+linkages = []
+
+[units.anm-interp-float-set-start]
+artifact_kind = "linked-pe"
+source = "src/AnmInterp.cpp"
+inputs = ["src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmVmTransitions.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmInterp"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
+functions = ["AnmInterp<float>::SetStart"]
+symbol = "?SetStart@?$AnmInterp@M@@QAEXABM@Z"
+target_address = 0x0045DA80
+size = 5
+linkages = []
+
+[units.anm-interp-float-set-goal]
+artifact_kind = "linked-pe"
+source = "src/AnmInterp.cpp"
+inputs = ["src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmVmTransitions.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmInterp"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
+functions = ["AnmInterp<float>::SetGoal"]
+symbol = "?SetGoal@?$AnmInterp@M@@QAEXABM@Z"
+target_address = 0x0045DA90
+size = 6
+linkages = []
+
+[units.anm-interp-float-set-vel1]
+artifact_kind = "linked-pe"
+source = "src/AnmInterp.cpp"
+inputs = ["src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmVmTransitions.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmInterp"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
+functions = ["AnmInterp<float>::SetVel1"]
+symbol = "?SetVel1@?$AnmInterp@M@@QAEXABM@Z"
+target_address = 0x0045DAA0
+size = 6
+linkages = []
+
+[units.anm-interp-float-set-vel2]
+artifact_kind = "linked-pe"
+source = "src/AnmInterp.cpp"
+inputs = ["src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmVmTransitions.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmInterp"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
+functions = ["AnmInterp<float>::SetVel2"]
+symbol = "?SetVel2@?$AnmInterp@M@@QAEXABM@Z"
+target_address = 0x0045DAB0
+size = 6
+linkages = []
+
+[units.anm-interp-float-set-duration]
+artifact_kind = "linked-pe"
+source = "src/AnmInterp.cpp"
+inputs = ["src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmVmTransitions.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmInterp"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
+functions = ["AnmInterp<float>::SetDuration"]
+symbol = "?SetDuration@?$AnmInterp@M@@QAEXH@Z"
+target_address = 0x0045DAC0
+size = 4
+linkages = []
+
+[units.anm-interp-float-get-duration]
+artifact_kind = "linked-pe"
+source = "src/AnmInterp.cpp"
+inputs = ["src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmVmTransitions.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmInterp"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
+functions = ["AnmInterp<float>::GetDuration"]
+symbol = "?GetDuration@?$AnmInterp@M@@QBEHXZ"
+target_address = 0x0045DB10
+size = 4
+linkages = []
+
+[units.anm-interp-vec2-get-duration]
+artifact_kind = "linked-pe"
+source = "src/AnmInterp.cpp"
+inputs = ["src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmVmTransitions.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmInterp"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
+functions = ["AnmInterp<ZunVec2>::GetDuration"]
+symbol = "?GetDuration@?$AnmInterp@UZunVec2@@@@QBEHXZ"
+target_address = 0x0045DD80
+size = 4
+linkages = []
+
+[units.anm-interp-color3-eval-progress]
+artifact_kind = "linked-pe"
+source = "src/AnmInterp.cpp"
+inputs = ["src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmVmTransitions.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmInterp"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
+functions = ["AnmInterp<AnmColor3>::EvalProgress"]
+symbol = "?EvalProgress@?$AnmInterp@UAnmColor3@@@@QAEMXZ"
+target_address = 0x0045DD90
+size = 44
+linkages = [
+  { offset = 30, type = "REL32", symbol = "?EaseTransition@@YGMIM@Z", target = 0x0046B190 },
+]
+
+[units.anm-interp-float-eval-progress]
+artifact_kind = "linked-pe"
+source = "src/AnmInterp.cpp"
+inputs = ["src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmVmTransitions.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmInterp"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
+functions = ["AnmInterp<float>::EvalProgress"]
+symbol = "?EvalProgress@?$AnmInterp@M@@QAEMXZ"
+target_address = 0x0045DDC0
+size = 44
+linkages = [
+  { offset = 30, type = "REL32", symbol = "?EaseTransition@@YGMIM@Z", target = 0x0046B190 },
+]
+
+[units.anm-interp-int-eval-progress]
+artifact_kind = "linked-pe"
+source = "src/AnmInterp.cpp"
+inputs = ["src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmVmTransitions.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmInterp"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
+functions = ["AnmInterp<int>::EvalProgress"]
+symbol = "?EvalProgress@?$AnmInterp@H@@QAEMXZ"
+target_address = 0x0045DDF0
+size = 44
+linkages = [
+  { offset = 30, type = "REL32", symbol = "?EaseTransition@@YGMIM@Z", target = 0x0046B190 },
+]
+
+[units.anm-interp-float-clear-duration]
+artifact_kind = "linked-pe"
+source = "src/AnmInterp.cpp"
+inputs = ["src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmVmTransitions.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmInterp"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
+functions = ["AnmInterp<float>::ClearDuration"]
+symbol = "?ClearDuration@?$AnmInterp@M@@QAEXXZ"
+target_address = 0x0045DE20
+size = 8
+linkages = []
+
+[units.anm-interp-vec2-eval-progress]
+artifact_kind = "linked-pe"
+source = "src/AnmInterp.cpp"
+inputs = ["src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmVmTransitions.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmInterp"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
+functions = ["AnmInterp<ZunVec2>::EvalProgress"]
+symbol = "?EvalProgress@?$AnmInterp@UZunVec2@@@@QAEMXZ"
+target_address = 0x0045DE30
+size = 44
+linkages = [
+  { offset = 30, type = "REL32", symbol = "?EaseTransition@@YGMIM@Z", target = 0x0046B190 },
+]
+
+[units.anm-interp-vec2-sub]
+artifact_kind = "linked-pe"
+source = "src/AnmInterp.cpp"
+inputs = ["src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmVmTransitions.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmInterp"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
+functions = ["AnmInterpHelpers::Vec2Sub"]
+symbol = "?Vec2Sub@AnmInterpHelpers@@YGPAUZunVec2@@PAU2@PBU2@1@Z"
+target_address = 0x0045DE60
+size = 16
+linkages = []
+
+[units.anm-interp-vec2-scale]
+artifact_kind = "linked-pe"
+source = "src/AnmInterp.cpp"
+inputs = ["src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmVmTransitions.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmInterp"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
+functions = ["AnmInterpHelpers::Vec2Scale"]
+symbol = "?Vec2Scale@AnmInterpHelpers@@YGPAUZunVec2@@PAU2@PBU2@M@Z"
+target_address = 0x0045DE70
+size = 26
+linkages = []
+
+[units.anm-interp-shortest-angle-diff3]
+artifact_kind = "linked-pe"
+source = "src/AnmInterp.cpp"
+inputs = ["src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmVmTransitions.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmInterp"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
+functions = ["AnmInterpHelpers::ShortestAngleDifference3"]
+symbol = "?ShortestAngleDifference3@AnmInterpHelpers@@YGMMM@Z"
+target_address = 0x0045DEA0
+size = 99
+linkages = [
+  { offset = 17, type = "DIR32", symbol = "__real@400921fb60000000", target = 0x004A6580 },
+  { offset = 36, type = "DIR32", symbol = "__real@401921fb60000000", target = 0x004A6578 },
+  { offset = 69, type = "DIR32", symbol = "__real@401921fb60000000", target = 0x004A6578 },
+]
+
+[units.anm-interp-angle-scale-norm]
+artifact_kind = "linked-pe"
+source = "src/AnmInterp.cpp"
+inputs = ["src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmVmTransitions.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmInterp"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
+functions = ["AnmInterpHelpers::AngleScaleNorm"]
+symbol = "?AngleScaleNorm@AnmInterpHelpers@@YGPAMPAMPBMM@Z"
+target_address = 0x0045DF10
+size = 31
+linkages = [
+  { offset = 19, type = "REL32", symbol = "?NormalizeAngle@@YGMM@Z", target = 0x0046A700 },
+]
+
+[units.anm-interp-angle-add-norm]
+artifact_kind = "linked-pe"
+source = "src/AnmInterp.cpp"
+inputs = ["src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmVmTransitions.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmInterp"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
+functions = ["AnmInterpHelpers::AngleAddNorm"]
+symbol = "?AngleAddNorm@AnmInterpHelpers@@YGPAMPAMPBM1@Z"
+target_address = 0x0045DF30
+size = 31
+linkages = [
+  { offset = 19, type = "REL32", symbol = "?NormalizeAngle@@YGMM@Z", target = 0x0046A700 },
+]
+
+[units.anm-interp-vec2-set-duration]
+artifact_kind = "linked-pe"
+source = "src/AnmInterp.cpp"
+inputs = ["src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmVmTransitions.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmInterp"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
+functions = ["AnmInterp<ZunVec2>::SetDuration"]
+symbol = "?SetDuration@?$AnmInterp@UZunVec2@@@@QAEXH@Z"
+target_address = 0x0045E110
+size = 4
+linkages = []
+
+[units.anm-interp-vec2-set-start]
+artifact_kind = "linked-pe"
+source = "src/AnmInterp.cpp"
+inputs = ["src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmVmTransitions.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmInterp"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
+functions = ["AnmInterp<ZunVec2>::SetStart"]
+symbol = "?SetStart@?$AnmInterp@UZunVec2@@@@QAEXABUZunVec2@@@Z"
+target_address = 0x0045E130
+size = 11
+linkages = []
+
+[units.anm-interp-vec2-set-goal]
+artifact_kind = "linked-pe"
+source = "src/AnmInterp.cpp"
+inputs = ["src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmVmTransitions.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmInterp"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
+functions = ["AnmInterp<ZunVec2>::SetGoal"]
+symbol = "?SetGoal@?$AnmInterp@UZunVec2@@@@QAEXABUZunVec2@@@Z"
+target_address = 0x0045E140
+size = 12
+linkages = []
+
+[units.anm-interp-vec2-reset-timer]
+artifact_kind = "linked-pe"
+source = "src/AnmInterp.cpp"
+inputs = ["src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmVmTransitions.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmInterp"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
+functions = ["AnmInterp<ZunVec2>::ResetTimer"]
+symbol = "?ResetTimer@?$AnmInterp@UZunVec2@@@@QAEXXZ"
+target_address = 0x0045E150
+size = 52
+linkages = [
+  { offset = 31, type = "DIR32", symbol = "?g_TimeScale@@3MA", target = 0x004B6F58 },
+]
+
+[units.anm-interp-vec2-set]
+artifact_kind = "linked-pe"
+source = "src/AnmInterp.cpp"
+inputs = ["src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmVmTransitions.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmInterp"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
+functions = ["AnmInterpHelpers::Vec2Set"]
+symbol = "?Vec2Set@AnmInterpHelpers@@YGXPAUZunVec2@@MM@Z"
+target_address = 0x0045E220
+size = 18
+linkages = []
+
+[units.anm-interp-color3-set-duration]
+artifact_kind = "linked-pe"
+source = "src/AnmInterp.cpp"
+inputs = ["src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmVmTransitions.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmInterp"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
+functions = ["AnmInterp<AnmColor3>::SetDuration"]
+symbol = "?SetDuration@?$AnmInterp@UAnmColor3@@@@QAEXH@Z"
+target_address = 0x0045E3B0
+size = 4
+linkages = []
+
+[units.anm-interp-color3-set]
+artifact_kind = "linked-pe"
+source = "src/AnmInterp.cpp"
+inputs = ["src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmVmTransitions.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmInterp"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
+functions = ["AnmInterpHelpers::Color3Set"]
+symbol = "?Color3Set@AnmInterpHelpers@@YGXPAUAnmColor3@@HHH@Z"
+target_address = 0x0045E3C0
+size = 18
+linkages = []
+
+[units.anm-interp-color3-set-vel1]
+artifact_kind = "linked-pe"
+source = "src/AnmInterp.cpp"
+inputs = ["src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmVmTransitions.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmInterp"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
+functions = ["AnmInterp<AnmColor3>::SetVel1"]
+symbol = "?SetVel1@?$AnmInterp@UAnmColor3@@@@QAEXABUAnmColor3@@@Z"
+target_address = 0x0045E3E0
+size = 18
+linkages = []
+
+[units.anm-interp-color3-set-vel2]
+artifact_kind = "linked-pe"
+source = "src/AnmInterp.cpp"
+inputs = ["src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmVmTransitions.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmInterp"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
+functions = ["AnmInterp<AnmColor3>::SetVel2"]
+symbol = "?SetVel2@?$AnmInterp@UAnmColor3@@@@QAEXABUAnmColor3@@@Z"
+target_address = 0x0045E400
+size = 18
+linkages = []
+
+[units.anm-interp-color3-set-start]
+artifact_kind = "linked-pe"
+source = "src/AnmInterp.cpp"
+inputs = ["src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmVmTransitions.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmInterp"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
+functions = ["AnmInterp<AnmColor3>::SetStart"]
+symbol = "?SetStart@?$AnmInterp@UAnmColor3@@@@QAEXABUAnmColor3@@@Z"
+target_address = 0x0045E450
+size = 17
+linkages = []
+
+[units.anm-interp-color3-set-goal]
+artifact_kind = "linked-pe"
+source = "src/AnmInterp.cpp"
+inputs = ["src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmVmTransitions.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmInterp"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
+functions = ["AnmInterp<AnmColor3>::SetGoal"]
+symbol = "?SetGoal@?$AnmInterp@UAnmColor3@@@@QAEXABUAnmColor3@@@Z"
+target_address = 0x0045E470
+size = 18
+linkages = []
+
+[units.anm-interp-color3-reset-timer]
+artifact_kind = "linked-pe"
+source = "src/AnmInterp.cpp"
+inputs = ["src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmVmTransitions.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmInterp"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
+functions = ["AnmInterp<AnmColor3>::ResetTimer"]
+symbol = "?ResetTimer@?$AnmInterp@UAnmColor3@@@@QAEXXZ"
+target_address = 0x0045E490
+size = 52
+linkages = [
+  { offset = 31, type = "DIR32", symbol = "?g_TimeScale@@3MA", target = 0x004B6F58 },
+]
+
+[units.anm-interp-rgb-bytes-set]
+artifact_kind = "linked-pe"
+source = "src/AnmInterp.cpp"
+inputs = ["src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmVmTransitions.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmInterp"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
+functions = ["AnmInterpHelpers::RgbBytesSet"]
+symbol = "?RgbBytesSet@AnmInterpHelpers@@YGXPAUAnmRgbBytes@@EEE@Z"
+target_address = 0x0045E5C0
+size = 18
+linkages = []
+
+[units.anm-interp-int-set-duration]
+artifact_kind = "linked-pe"
+source = "src/AnmInterp.cpp"
+inputs = ["src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmVmTransitions.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmInterp"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
+functions = ["AnmInterp<int>::SetDuration"]
+symbol = "?SetDuration@?$AnmInterp@H@@QAEXH@Z"
+target_address = 0x0045E620
+size = 4
+linkages = []
+
+[units.anm-interp-int-set-vel1]
+artifact_kind = "linked-pe"
+source = "src/AnmInterp.cpp"
+inputs = ["src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmVmTransitions.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmInterp"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
+functions = ["AnmInterp<int>::SetVel1"]
+symbol = "?SetVel1@?$AnmInterp@H@@QAEXABH@Z"
+target_address = 0x0045E630
+size = 6
+linkages = []
+
+[units.anm-interp-int-set-vel2]
+artifact_kind = "linked-pe"
+source = "src/AnmInterp.cpp"
+inputs = ["src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmVmTransitions.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmInterp"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
+functions = ["AnmInterp<int>::SetVel2"]
+symbol = "?SetVel2@?$AnmInterp@H@@QAEXABH@Z"
+target_address = 0x0045E640
+size = 6
+linkages = []
+
+[units.anm-interp-int-set-start]
+artifact_kind = "linked-pe"
+source = "src/AnmInterp.cpp"
+inputs = ["src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmVmTransitions.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmInterp"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
+functions = ["AnmInterp<int>::SetStart"]
+symbol = "?SetStart@?$AnmInterp@H@@QAEXABH@Z"
+target_address = 0x0045E660
+size = 5
+linkages = []
+
+[units.anm-interp-int-set-goal]
+artifact_kind = "linked-pe"
+source = "src/AnmInterp.cpp"
+inputs = ["src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmVmTransitions.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmInterp"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
+functions = ["AnmInterp<int>::SetGoal"]
+symbol = "?SetGoal@?$AnmInterp@H@@QAEXABH@Z"
+target_address = 0x0045E670
+size = 6
+linkages = []
+
+[units.anm-interp-int-reset-timer]
+artifact_kind = "linked-pe"
+source = "src/AnmInterp.cpp"
+inputs = ["src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmVmTransitions.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmInterp"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
+functions = ["AnmInterp<int>::ResetTimer"]
+symbol = "?ResetTimer@?$AnmInterp@H@@QAEXXZ"
+target_address = 0x0045E680
+size = 52
+linkages = [
+  { offset = 31, type = "DIR32", symbol = "?g_TimeScale@@3MA", target = 0x004B6F58 },
+]
+
+[units.anm-interp-blend-color-channel]
+artifact_kind = "linked-pe"
+source = "src/AnmInterp.cpp"
+inputs = ["src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmVmTransitions.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmInterp"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
+functions = ["AnmInterpHelpers::BlendColorChannel"]
+symbol = "?BlendColorChannel@AnmInterpHelpers@@YGIEE@Z"
+target_address = 0x0045E750
+size = 25
+linkages = []
+
+[units.anm-vm-set-secondary-scale-transition-linked]
+artifact_kind = "linked-pe"
+source = "src/AnmVmTransitions.cpp"
+inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp", "src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp"]
+support_sources = ["src/AnmInterp.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmVmTransitions"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
+functions = ["AnmVm::SetSecondaryScaleTransition"]
+symbol = "?SetSecondaryScaleTransition@AnmVm@@QAEXPBM0HE@Z"
+target_address = 0x0045E080
+size = 140
+linkages = [
+  { offset = 104, type = "DIR32", symbol = "?g_TimeScale@@3MA", target = 0x004B6F58 },
+]
+
+[units.anm-vm-set-scale-transition-linked]
+artifact_kind = "linked-pe"
+source = "src/AnmVmTransitions.cpp"
+inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp", "src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp"]
+support_sources = ["src/AnmInterp.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmVmTransitions"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
+functions = ["AnmVm::SetScaleTransition"]
+symbol = "?SetScaleTransition@AnmVm@@QAEXPBM0HE@Z"
+target_address = 0x0045E190
+size = 140
+linkages = [
+  { offset = 104, type = "DIR32", symbol = "?g_TimeScale@@3MA", target = 0x004B6F58 },
+]
+
+[units.anm-vm-set-secondary-effect-state-linked]
+artifact_kind = "linked-pe"
+source = "src/AnmVmTransitions.cpp"
+inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp", "src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp"]
+support_sources = ["src/AnmInterp.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmVmTransitions"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
+functions = ["AnmVm::SetSecondaryEffectState"]
+symbol = "?SetSecondaryEffectState@AnmVm@@QAEXIEEE@Z"
+target_address = 0x0045E240
+size = 120
+linkages = [
+  { offset = 84, type = "DIR32", symbol = "?g_TimeScale@@3MA", target = 0x004B6F58 },
+]

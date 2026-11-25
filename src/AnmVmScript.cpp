@@ -257,6 +257,7 @@ namespace
         AnmVm *child = AllocateAnmVm();
         child->stateFlags |= 2U;
         child->scriptState = parent->scriptState;
+        resource->BindVmScript(child, scriptIndex);
         const unsigned int *sourcePosition =
             reinterpret_cast<const unsigned int *>(&parent->position);
         unsigned int *destinationPosition =
@@ -264,7 +265,6 @@ namespace
         destinationPosition[0] = sourcePosition[0];
         destinationPosition[1] = sourcePosition[1];
         destinationPosition[2] = sourcePosition[2];
-        resource->BindVmScript(child, scriptIndex);
         const unsigned int *sourceScriptFloats =
             reinterpret_cast<const unsigned int *>(&parent->unknown024);
         unsigned int *destinationScriptFloats =
@@ -2031,7 +2031,7 @@ AnmVmUpdateScriptLoop:
         const float current[2] = { scaleX, scaleY };
         const int duration = IntegerSource(*this, instruction, 8, 1U);
         const unsigned char mode = InstructionBytes(instruction)[12];
-        SetScaleTransition(target, current, duration, mode);
+        SetScaleTransition(current, target, duration, mode);
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
@@ -2043,8 +2043,8 @@ AnmVmUpdateScriptLoop:
         const float target[2] = {targetX, targetY};
         const float current[2] = {unknown058, unknown05C};
         SetSecondaryScaleTransition(
-            target,
             current,
+            target,
             IntegerSource(*this, instruction, 8, 1U),
             InstructionBytes(instruction)[12]);
         flags |= 0x10U;

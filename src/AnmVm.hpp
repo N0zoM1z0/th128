@@ -152,7 +152,7 @@ struct AnmVm
     int (__fastcall *extraDataUpdateCallback)(AnmVm *); // +0x4BC
     void (__fastcall *extraDataDrawCallback)(AnmVm *);   // +0x4C0
     void (__fastcall *onDestroyCallback)(AnmVm *);       // +0x4C4
-    void (__fastcall *stopCallback)(AnmVm *, short);     // +0x4C8
+    void (__fastcall *stopCallback)(AnmVm *, int);       // +0x4C8
     unsigned char unknown4CC[0x4DC - 0x4CC];
     int (__thiscall *frameCallback)(AnmVm *); // +0x4DC, can terminate this update
     int (__fastcall *anmFileResolver)(AnmVm *, int fileIndex); // +0x4E0
@@ -165,7 +165,7 @@ struct AnmVm
     unsigned int *RegisterUiVmAtTail(unsigned int *outId);
     unsigned int *RegisterUiVmAtHead(unsigned int *outId);
     int BindAnmFile(AnmResource *resource, int fileIndex);
-    void SetEffectState(unsigned int duration, unsigned char mode, unsigned char parameter0, unsigned char parameter1);
+    void SetEffectState(unsigned int duration, unsigned int mode, unsigned char parameter0, unsigned char parameter1);
     void StartEffect10();
     void SetColorTransition(
         const unsigned char *target,
@@ -173,13 +173,13 @@ struct AnmVm
         int duration,
         unsigned char mode);
     void SetScaleTransition(
-        const float *target,
         const float *current,
+        const float *target,
         int duration,
         unsigned char mode);
     void SetSecondaryScaleTransition(
-        const float *target,
         const float *current,
+        const float *target,
         int duration,
         unsigned char mode);
     void SetSecondaryColorTransition(
@@ -187,7 +187,7 @@ struct AnmVm
         const unsigned char *current,
         int duration,
         unsigned char mode);
-    void SetSecondaryEffectState(unsigned int duration, unsigned int mode, unsigned char parameter0, unsigned char parameter1);
+    void SetSecondaryEffectState(unsigned int duration, unsigned char mode, unsigned char parameter0, unsigned char parameter1);
     bool ExecuteWaitCommand(bool clearActiveFlag);
     void UpdateTextureRectFromView();
     void UpdateWorldMatrix(float matrix[4][4], bool applyAlignment);

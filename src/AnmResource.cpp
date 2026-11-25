@@ -1,41 +1,87 @@
 #include "AnmResource.hpp"
 
 #include "AnmManager.hpp"
+#include "Supervisor.hpp"
 
+#include <stdlib.h>
 #include <string.h>
-#include <windows.h>
 
-class AnmVmCreationLock
+struct AnmD3DTextureView
 {
-public:
-    AnmVmCreationLock()
-    {
-        flags = reinterpret_cast<volatile unsigned int *>(0x004D33F8);
-        depth = reinterpret_cast<volatile unsigned char *>(0x004D37A1);
-        criticalSection = reinterpret_cast<CRITICAL_SECTION *>(0x004D3750);
-        locked = ((*flags & 0x8000) != 0);
-        if (locked)
-        {
-            EnterCriticalSection(criticalSection);
-            ++(*depth);
-        }
-    }
-
-    ~AnmVmCreationLock()
-    {
-        if (locked)
-        {
-            LeaveCriticalSection(criticalSection);
-            --(*depth);
-        }
-    }
-
-private:
-    volatile unsigned int *flags;
-    volatile unsigned char *depth;
-    CRITICAL_SECTION *criticalSection;
-    bool locked;
+    virtual HRESULT __stdcall QueryInterface(const void *, void **) = 0;
+    virtual ULONG __stdcall AddRef() = 0;
+    virtual ULONG __stdcall Release() = 0;
 };
+
+void AnmTextureEntry::Release()
+{
+    if (texture != 0)
+    {
+        reinterpret_cast<AnmD3DTextureView *>(texture)->Release();
+        texture = 0;
+    }
+    if (rawData != 0)
+    {
+        free(rawData);
+        rawData = 0;
+    }
+}
+
+AnmResource::AnmResource()
+{
+    memset(this, 0, sizeof(AnmResource));
+}
+
+void AnmResource::Release()
+{
+    if (anmFileHeader == 0)
+    {
+        return;
+    }
+
+    g_AnmManager->MarkResourceVmsForDelete(this);
+
+    for (int i = 0; i < textureCount; ++i)
+    {
+        AnmTextureEntry *entry = &textures[i];
+        if (entry->texture != 0)
+        {
+            reinterpret_cast<AnmD3DTextureView *>(entry->texture)->Release();
+            entry->texture = 0;
+        }
+        if (entry->rawData != 0)
+        {
+            free(entry->rawData);
+            entry->rawData = 0;
+        }
+    }
+
+    if (textures != 0)
+    {
+        free(textures);
+        textures = 0;
+    }
+    if (anmFiles != 0)
+    {
+        free(anmFiles);
+        anmFiles = 0;
+    }
+    if (scriptOffsets != 0)
+    {
+        free((void *)scriptOffsets);
+        scriptOffsets = 0;
+    }
+    if (extraData134 != 0)
+    {
+        free(extraData134);
+        extraData134 = 0;
+    }
+    if (anmFileHeader != 0)
+    {
+        free(anmFileHeader);
+        anmFileHeader = 0;
+    }
+}
 
 unsigned int *AnmResource::CreateVm(
     const ZunVec3 *position,
@@ -44,16 +90,10 @@ unsigned int *AnmResource::CreateVm(
     int initialState,
     unsigned int flags)
 {
-    AnmVmCreationLock lock;
+    g_Supervisor.EnterCriticalSection(9);
     ++activeVmCount;
 
     AnmVm *vm = AllocateAnmVm();
-    if (vm == 0)
-    {
-        *outId = 0;
-        return outId;
-    }
-
     if (initialState >= 0)
     {
         vm->scriptState = initialState;
@@ -62,19 +102,21 @@ unsigned int *AnmResource::CreateVm(
 
     if (position == 0 && (flags & 8U) == 0)
     {
-        vm->position.x = 0.0f;
-        vm->position.y = 0.0f;
-        vm->position.z = 0.0f;
+        ZunVec3 zero;
+        zero.x = 0.0f;
+        zero.y = 0.0f;
+        zero.z = 0.0f;
+        vm->position = zero;
     }
-    else if ((flags & 1U) == 0)
+    else if ((flags & 1U) != 0)
     {
-        vm->position = *position;
+        vm->position.x = (float)(position->x + 128.0 + 192.0);
+        vm->position.y = (float)(position->y + 16.0);
+        vm->position.z = position->z;
     }
     else
     {
-        vm->position.x = position->x + 320.0f;
-        vm->position.y = position->y + 16.0f;
-        vm->position.z = position->z;
+        vm->position = *position;
     }
 
     if ((flags & 8U) == 0)
@@ -86,21 +128,31 @@ unsigned int *AnmResource::CreateVm(
         BindVmAtPosition(vm, scriptIndex, position);
     }
 
-    if ((flags & 4U) == 0)
+    unsigned int id;
+    if ((flags & 4U) != 0 && (flags & 2U) != 0)
     {
-        if ((flags & 2U) == 0)
-            vm->RegisterWorldVmAtTail(outId);
-        else
-            vm->RegisterWorldVmAtHead(outId);
+        unsigned int tmp;
+        id = *vm->RegisterUiVmAtHead(&tmp);
+        vm->stateFlags &= ~0xC0U;
+    }
+    else if ((flags & 4U) != 0)
+    {
+        unsigned int tmp;
+        id = *vm->RegisterUiVmAtTail(&tmp);
+        vm->stateFlags &= ~0xC0U;
+    }
+    else if ((flags & 2U) != 0)
+    {
+        unsigned int tmp;
+        id = *vm->RegisterWorldVmAtHead(&tmp);
     }
     else
     {
-        if ((flags & 2U) == 0)
-            vm->RegisterUiVmAtTail(outId);
-        else
-            vm->RegisterUiVmAtHead(outId);
-        vm->stateFlags &= ~0xC0U;
+        unsigned int tmp;
+        id = *vm->RegisterWorldVmAtTail(&tmp);
     }
 
+    *outId = id;
+    g_Supervisor.LeaveCriticalSection(9);
     return outId;
 }

@@ -27,19 +27,36 @@ struct AnmFileEntry
 typedef char AnmFileEntrySize[(sizeof(AnmFileEntry) == 0x48) ? 1 : -1];
 typedef char AnmFileEntryTextureOffset[(offsetof(AnmFileEntry, texture) == 0x08) ? 1 : -1];
 
+struct AnmTextureEntry
+{
+    void *texture;        // +0x00 (IDirect3DTexture9 *)
+    void *rawData;        // +0x04
+    unsigned int field08; // +0x08
+    unsigned int field0C; // +0x0C
+    unsigned int field10; // +0x10
+
+    void Release();
+};
+typedef char AnmTextureEntrySize[(sizeof(AnmTextureEntry) == 0x14) ? 1 : -1];
+
 struct AnmResource
 {
     unsigned short fileId;                  // +0x000
     unsigned char unknown002[0x108 - 2];
     void *anmFileHeader;                    // +0x108, required for binding
-    unsigned char unknown10C[0x118 - 0x10C];
+    int textureCount;                       // +0x10C
+    unsigned char unknown110[0x118 - 0x110];
     AnmFileEntry *anmFiles;                 // +0x118
     const unsigned int *scriptOffsets;      // +0x11C
-    unsigned int unknown120;
+    AnmTextureEntry *textures;              // +0x120
     unsigned int isInvalid;                 // +0x124
-    unsigned char unknown128[8];
+    unsigned int loadPending;               // +0x128
+    unsigned int unknown12C;                // +0x12C
     int activeVmCount;                      // +0x130
+    void *extraData134;                     // +0x134
 
+    AnmResource();
+    void Release();
     void BindVmScript(AnmVm *vm, int scriptIndex);
     void BindVmAtPosition(AnmVm *vm, int scriptIndex, const ZunVec3 *position);
     unsigned int *CreateVm(
