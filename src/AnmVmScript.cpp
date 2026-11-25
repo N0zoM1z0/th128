@@ -933,6 +933,9 @@ int AnmVm::Update()
             (*reinterpret_cast<const unsigned char *>(
                 reinterpret_cast<const unsigned char *>(stageState) + 0x60) & 2U) != 0)
         {
+            // The target's frozen-stage edge exits through the common speed
+            // restoration epilogue rather than returning from the gate.
+            g_TimeScale = savedGameSpeed;
             return 0;
         }
     }
