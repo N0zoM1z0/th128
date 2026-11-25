@@ -14,34 +14,6 @@ namespace
 {
     typedef void (__stdcall *AnmVmChildCriticalSectionRoutine)(void *);
 
-    class AnmVmChildCreationLock
-    {
-    public:
-        AnmVmChildCreationLock()
-        {
-            if ((*reinterpret_cast<volatile unsigned int *>(0x004D33F8) & 0x8000U) != 0)
-            {
-                AnmVmChildCriticalSectionRoutine enter =
-                    *reinterpret_cast<AnmVmChildCriticalSectionRoutine *>(0x0049A088);
-                enter(reinterpret_cast<void *>(0x004D3750));
-                ++*reinterpret_cast<volatile unsigned char *>(0x004D37A1);
-            }
-        }
-
-        ~AnmVmChildCreationLock()
-        {
-            // The original child-creation routines re-read the global flag
-            // at the exit edge rather than remembering the entry decision.
-            if ((*reinterpret_cast<volatile unsigned int *>(0x004D33F8) & 0x8000U) != 0)
-            {
-                AnmVmChildCriticalSectionRoutine leave =
-                    *reinterpret_cast<AnmVmChildCriticalSectionRoutine *>(0x0049A08C);
-                leave(reinterpret_cast<void *>(0x004D3750));
-                --*reinterpret_cast<volatile unsigned char *>(0x004D37A1);
-            }
-        }
-    };
-
     __forceinline const unsigned char *InstructionBytes(const AnmVmInstructionHeader *instruction)
     {
         return reinterpret_cast<const unsigned char *>(instruction);
@@ -204,19 +176,26 @@ namespace
         AnmVm *parent,
         volatile unsigned int listMode)
     {
-        AnmVmChildCreationLock lock;
-        ++resource->activeVmCount;
+        register unsigned int increment = 1;
+        if ((*reinterpret_cast<volatile unsigned int *>(0x004D33F8) & 0x8000U) != 0)
+        {
+            AnmVmChildCriticalSectionRoutine enter =
+                *reinterpret_cast<AnmVmChildCriticalSectionRoutine *>(0x0049A088);
+            enter(reinterpret_cast<void *>(0x004D3750));
+            *reinterpret_cast<volatile unsigned char *>(0x004D37A1) +=
+                static_cast<unsigned char>(increment);
+        }
+        resource->activeVmCount += increment;
 
         AnmVm *child = AllocateAnmVm();
+        const ZunVec3 initialPosition = {0.0f, 0.0f, 0.0f};
         child->stateFlags |= 2U;
-        child->position.x = 0.0f;
-        child->position.y = 0.0f;
-        child->position.z = 0.0f;
+        child->position.x = initialPosition.x;
         child->scriptState = parent->scriptState;
+        child->position.y = initialPosition.y;
+        child->position.z = initialPosition.z;
         resource->BindVmScript(child, scriptIndex);
         child->parentVm = parent;
-
-        AnmVm *parentForChildren = parent;
         unsigned int *registeredId;
         if ((listMode & 4U) != 0)
         {
@@ -238,15 +217,23 @@ namespace
         }
         *childId = *registeredId;
 
-        AnmVmListNode *head = &parentForChildren->childNode;
+        AnmVmListNode *head = &parent->childNode;
         AnmVmListNode *node = &child->childNode;
-        node->previous = head;
         node->next = head->next;
-        if (head->next != 0)
+        if (node->next != 0)
         {
-            head->next->previous = node;
+            node->next->previous = node;
         }
         head->next = node;
+        node->previous = head;
+
+        if ((*reinterpret_cast<volatile unsigned int *>(0x004D33F8) & 0x8000U) != 0)
+        {
+            AnmVmChildCriticalSectionRoutine leave =
+                *reinterpret_cast<AnmVmChildCriticalSectionRoutine *>(0x0049A08C);
+            leave(reinterpret_cast<void *>(0x004D3750));
+            --*reinterpret_cast<volatile unsigned char *>(0x004D37A1);
+        }
         return childId;
     }
 
@@ -256,8 +243,16 @@ namespace
         int scriptIndex,
         AnmVm *parent)
     {
-        AnmVmChildCreationLock lock;
-        ++resource->activeVmCount;
+        register unsigned int increment = 1;
+        if ((*reinterpret_cast<volatile unsigned int *>(0x004D33F8) & 0x8000U) != 0)
+        {
+            AnmVmChildCriticalSectionRoutine enter =
+                *reinterpret_cast<AnmVmChildCriticalSectionRoutine *>(0x0049A088);
+            enter(reinterpret_cast<void *>(0x004D3750));
+            *reinterpret_cast<volatile unsigned char *>(0x004D37A1) +=
+                static_cast<unsigned char>(increment);
+        }
+        resource->activeVmCount += increment;
 
         AnmVm *child = AllocateAnmVm();
         child->stateFlags |= 2U;
@@ -270,13 +265,25 @@ namespace
         destinationPosition[1] = sourcePosition[1];
         destinationPosition[2] = sourcePosition[2];
         resource->BindVmScript(child, scriptIndex);
-        child->unknown024 = parent->unknown024;
-        child->unknown028 = parent->unknown028;
-        child->unknown02C = parent->unknown02C;
+        const unsigned int *sourceScriptFloats =
+            reinterpret_cast<const unsigned int *>(&parent->unknown024);
+        unsigned int *destinationScriptFloats =
+            reinterpret_cast<unsigned int *>(&child->unknown024);
+        destinationScriptFloats[0] = sourceScriptFloats[0];
+        destinationScriptFloats[1] = sourceScriptFloats[1];
+        destinationScriptFloats[2] = sourceScriptFloats[2];
         child->alternatePosition = parent->secondaryPosition;
         unsigned int *registeredId = child->RegisterWorldVmAtTail(
             reinterpret_cast<unsigned int *>(&parent));
         *childId = *registeredId;
+
+        if ((*reinterpret_cast<volatile unsigned int *>(0x004D33F8) & 0x8000U) != 0)
+        {
+            AnmVmChildCriticalSectionRoutine leave =
+                *reinterpret_cast<AnmVmChildCriticalSectionRoutine *>(0x0049A08C);
+            leave(reinterpret_cast<void *>(0x004D3750));
+            --*reinterpret_cast<volatile unsigned char *>(0x004D37A1);
+        }
         return childId;
     }
 
@@ -1307,7 +1314,7 @@ unsigned int *AnmVm::RegisterUiVmAtHead(unsigned int *outId)
 // branches, ordering and side effects still require full control-flow review.
 int AnmVm::Update()
 {
-    register AnmVm *const vm = this;
+    AnmVm *const vm = this;
     // Keep one child-id output slot per target spawn opcode. Their distinct
     // addresses prevent LTCG from folding five original callsites together.
     unsigned int childSpawnId88;
