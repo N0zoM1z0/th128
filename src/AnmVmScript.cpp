@@ -1298,7 +1298,6 @@ AnmVmUpdateScriptLoop:
     case 102:
     {
         flags |= 1U;
-        int fileIndex;
         if (anmFileResolver == 0)
         {
             const int firstIndex = IntegerSource(*this, instruction, 8, 1U);
@@ -1306,26 +1305,32 @@ AnmVmUpdateScriptLoop:
                 (unsigned int)IntegerSource(*this, instruction, 12, 2U);
             const unsigned int randomValue =
                 reinterpret_cast<Rng *>(0x004D2AE0)->GetU32();
-            fileIndex = firstIndex + (int)(randomValue % variantCount);
-        }
-        else
-        {
-            const int firstIndex = IntegerSource(*this, instruction, 8, 1U);
-            const unsigned int variantCount =
-                (unsigned int)IntegerSource(*this, instruction, 12, 2U);
-            const unsigned int randomValue =
-                reinterpret_cast<Rng *>(0x004D2AE0)->GetU32();
-            fileIndex = firstIndex + (int)(randomValue % variantCount);
-            fileIndex = anmFileResolver(this, fileIndex);
+            int fileIndex = firstIndex + (int)(randomValue % variantCount);
+            AnmResource *fileResource = resource;
+            if (fileIndex < 0)
+            {
+                fileIndex = 0x139;
+                fileResource = GetDefaultAnmResource();
+            }
+            BindAnmFile(fileIndex, fileResource);
+            lastScriptFrame = timer070.current;
+            scriptDataOffsetCopy = NextInstructionAddress(instruction);
+            continue;
         }
 
+        const int firstIndex = IntegerSource(*this, instruction, 8, 1U);
+        const unsigned int variantCount =
+            (unsigned int)IntegerSource(*this, instruction, 12, 2U);
+        const unsigned int randomValue =
+            reinterpret_cast<Rng *>(0x004D2AE0)->GetU32();
+        int fileIndex = firstIndex + (int)(randomValue % variantCount);
+        fileIndex = anmFileResolver(this, fileIndex);
         AnmResource *fileResource = resource;
         if (fileIndex < 0)
         {
             fileIndex = 0x139;
             fileResource = GetDefaultAnmResource();
         }
-
         BindAnmFile(fileIndex, fileResource);
         lastScriptFrame = timer070.current;
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
@@ -2043,23 +2048,23 @@ AnmVmUpdateScriptLoop:
 
     case 40:
     {
-        unsigned int value;
         if ((stateFlags & 2U) != 0)
         {
             const unsigned int limit =
                 (unsigned int)IntegerSource(*this, instruction, 12, 2U);
-            value = limit == 0
+            const unsigned int value = limit == 0
                 ? 0
                 : reinterpret_cast<Rng *>(0x004D2AD8)->GetU32() % limit;
+            *IntegerDestination(*this, instruction) = (int)value;
+            scriptDataOffsetCopy = NextInstructionAddress(instruction);
+            continue;
         }
-        else
-        {
-            const unsigned int limit =
-                (unsigned int)IntegerSource(*this, instruction, 12, 2U);
-            value = limit == 0
-                ? 0
-                : reinterpret_cast<Rng *>(0x004D2AE0)->GetU32() % limit;
-        }
+
+        const unsigned int limit =
+            (unsigned int)IntegerSource(*this, instruction, 12, 2U);
+        const unsigned int value = limit == 0
+            ? 0
+            : reinterpret_cast<Rng *>(0x004D2AE0)->GetU32() % limit;
         *IntegerDestination(*this, instruction) = (int)value;
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
