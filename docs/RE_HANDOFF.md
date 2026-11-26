@@ -1,6 +1,6 @@
 # TH128 reconstruction handoff
 
-Snapshot: 2026-11-26 (real frame entries, 2D camera source and float-tangent exact owner). Read this first, then AGENTS.md.
+Snapshot: 2026-11-26 (both device-loss ANM texture passes exact; +289 authored bytes). Read this first, then AGENTS.md.
 
 ## Resume safely
 
@@ -36,12 +36,12 @@ canonical ledgers. At this snapshot:
 | Boundary reviewed / provisional | 3,452 / 64 |
 | Origin rows pending | 21 |
 | Authored / excluded / indeterminate | 2,226 / 1,269 / 0 |
-| Source-present mappings | 407 |
-| Source-present with authored origin | 398 |
+| Source-present mappings | 409 |
+| Source-present with authored origin | 400 |
 | Authored source-present exact backlog | 76 |
-| Canonical exact functions | 331 |
-| Canonical exact codegen bytes | 20,204 |
-| Canonical exact authored bytes | 19,844 |
+| Canonical exact functions | 333 |
+| Canonical exact codegen bytes | 20,493 |
+| Canonical exact authored bytes | 20,133 |
 
 The candidate inventory is not proven complete. The 21 remaining pending origin
 rows are unreferenced `d3dx9math.inl` candidates (all 16 CRT-band boundary-review
@@ -78,6 +78,24 @@ are not over-inlined; address-taken probe pointers prevent interprocedural
 `and esp, -8` hoisting; struct copies unlock `fldz` hoisting in transition setters.
 
 ## Latest advance (2026-11-26)
+
+`SupervisorDevice.cpp/.hpp` now maintains both device-loss texture passes:
+ReleaseAnmRenderTargets (`0x004536A0`, 124B / one field) and
+RecreateAnmRenderTargets (`0x00453720`, 165B / six fields). Both pass the
+complete cold linked Oracle, adding two authored exact owners / 289 bytes.
+They walk all 38 slots; release rereads the slot/array after COM calls,
+while recreation uses current back-buffer dimensions/format and preserves
+the flag and HRESULT behavior. Slot advance before count decrement and
+direct field expressions recover the target without hints or fake callees.
+
+The new TU/header/probe do not change any existing exact unit's inputs.
+Only their one new context was cold-built; both complete comparisons pass.
+The existing standalone CreateRenderTarget remains unchanged. See the
+[finding](KNOWLEDGE_BASE.md#render-target-release-and-recreation-2026-11-26),
+[full comparisons](../.analysis/device-target-final-results.json) and
+[affected scope](../.analysis/device-target-final-scope.json).
+
+Previous frame/camera checkpoint (`daee2ac`):
 
 `SupervisorFrame.cpp` now maintains the three real calc/draw frame entries
 at `0x004547D0/0x00454BD0/0x00454E50`. Their receiver is the view rooted at
@@ -629,6 +647,7 @@ Primary evidence:
 | src/AnmDraw.cpp | draw dispatch, position, fog/state, sprite submission/append, rectangles/borders and buffer reset | fog Enable/Disable, ApplyState and AppendSprite exact (662B); remaining owners frontier |
 | src/AnmViewport.cpp | 2D camera matrices and float tangent | compiler/header tangent exact (31B, excluded from authored totals); camera frontier |
 | src/SupervisorFrame.cpp | adaptive, timed and vsync calc/draw entry points | 3 frontiers; real presentation boundaries remain external |
+| src/SupervisorDevice.cpp | release/recreate render-target textures across all 38 ANM slots | 2 exact (289B) |
 | src/AnmResource.cpp | `Release`, `AnmTextureEntry::Release`, `CreateVm` | 2 exact (linked PE); `CreateVm` frontier |
 | src/AnmVmUpdateWrapper.cpp | manager binding update wrapper (`0x00407080`) | 20-byte target frontier; 5-byte GL body, 15-byte normal-COFF body |
 | src/AnmHelpers.cpp | `ResolveAnmVmId` and 31 `AnmId`/VM/child/rotation/draw helpers (`0x00467570..0x00468100`) | 31 exact (linked PE); DrawSingleVm credit withdrawn; `ClearD3DTexture*` frontiers |
@@ -671,9 +690,9 @@ callers remain frontiers as well.
 ## Next useful work (Phase 3+)
 
 1. **Continue the real frame/draw context**: the three calc/draw frame
-   entries and 2D camera now have source. Start with the 124/165-byte
-   render-target release/recreate walkers at `0x004536A0/0x00453720`, then
-   their presentation callers (`0x00454940/0x00454D90/0x00454F70`), preserving
+   entries and 2D camera now have source; both render-target texture walkers
+   are exact. Reconstruct the 217-byte surface/VM restoration at `0x00435D20`,
+   then the presentation callers (`0x00454940/0x00454D90/0x00454F70`), preserving
    screenshot handling at `0x004550B0` as its own boundary. The sleep-capable
    314-byte present is the next bounded owner. The reviewed mode-17 polar
    line strip at `0x00462D60` is another useful scope. Sprite/rectangle
@@ -713,7 +732,7 @@ callers remain frontiers as well.
 5. **Next useful command after the session identity checks**:
 
    ~~~bash
-   sed -n '1,166p' .analysis/presentation-loss-leaf-review.txt
+   sed -n '169,266p' .analysis/presentation-loss-leaf-review.txt
    ~~~
 
    The new dispatcher and small sprite wrappers are reviewed in

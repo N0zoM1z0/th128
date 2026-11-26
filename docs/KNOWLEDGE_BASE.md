@@ -2279,6 +2279,52 @@ at **322 owners / 19,844 bytes**.
 [existing exact selection](../.analysis/frame-current-selected.json),
 [affected contexts](../.analysis/frame-current-contexts.json).
 
+## Render-target release and recreation (2026-11-26)
+
+The original Japanese TH12.8 v1.00a device-loss ANM passes now reproduce
+both complete VC10 RTM `/O2 /Ob1 /Oy- /GL` owners: ReleaseAnmRenderTargets
+at `0x004536A0` (124B) and RecreateAnmRenderTargets at `0x00453720` (165B).
+They add **two authored exact functions / 289 bytes** in
+`SupervisorDevice.cpp`. Each has four reviewed main-loop/presentation
+callers, no interior references or owned tail table. The complete comparison
+includes loop alignment and all 1/6 DIR32 fields.
+[Target review](../.analysis/presentation-loss-leaf-review.txt),
+[complete comparisons](../.analysis/device-target-final-results.json),
+[source](../src/SupervisorDevice.cpp).
+
+Both walk exactly 38 loaded ANM slots and use signed texture counts.
+Release skips null resources and unflagged/null texture pointers. After
+the COM Release call it rereads the resource slot and texture array before
+clearing the pointer; caching an entry across that call would change the
+observed access contract. Recreate processes every entry with flag bit 0,
+sets that bit again, and calls SDK CreateTexture with current back-buffer
+width/height/format, one level, render-target usage and default pool. It
+ignores HRESULT and rereads format after the call: format 22 records four
+bytes per pixel, all others record two. It does not clear the render-target
+flag during release or test the existing texture pointer during recreation.
+
+In this pinned context, the first natural source emitted 130/179 bytes.
+Advancing the slot **before** decrementing the remaining count recovers the
+target's memory-decrement loop tail. Direct slot/array expressions also
+recover the release owner's COM input and post-call reloads. Recreation
+with a cached entry remained 173 bytes even after factoring the real texture
+creation into an inline helper. Testing the slot expression directly and
+passing its entry address to that helper recovers the separate byte test,
+DWORD flag update, private registers and complete 165-byte owner. The
+compiler profile stayed fixed throughout these source probes.
+[First candidates](../.analysis/device-target-first-supervisor-recreate-anm-render-targets.json),
+[cached-entry candidate](../.analysis/device-target-inline-supervisor-recreate-anm-render-targets.json),
+[final recreation](../.analysis/device-target-direct-access-supervisor-recreate-anm-render-targets.json).
+
+The existing standalone CreateRenderTarget owner and all shared headers
+are unchanged. The new device TU, header and probe do not change any
+existing exact unit's inputs, so no existing exact unit needs rebuilding. Both new owners
+pass from the final cold context. Canonical totals are **409 source mappings /
+333 exact functions / 20,493 exact bytes**, including **324 authored exact
+functions / 20,133 authored bytes**.
+[Affected scope](../.analysis/device-target-final-scope.json),
+[cold build](../.analysis/device-target-direct-access-link.log).
+
 ## Open questions
 
 - Per-unit flags, the TU partition, which objects were `/GL`, the library set

@@ -334,6 +334,8 @@ Pbg::MemFile::`scalar deleting destructor'
 Pbg::MemFile::~MemFile
 Pbg::ParseArchiveDirectory
 PollKeyboardState
+RecreateAnmRenderTargets
+ReleaseAnmRenderTargets
 ResetScalarTransitionTimer
 ResetTransitionTimer
 ResetViewTransitionTimer
