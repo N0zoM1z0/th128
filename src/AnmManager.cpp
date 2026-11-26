@@ -539,7 +539,7 @@ int AnmManager::AreAllAnmsLoaded()
         AnmResource *res = loadedAnms[i];
         if (res != 0)
         {
-            if (res->loadPending != 0 || res->isInvalid != 0)
+            if (res->releaseRequested != 0 || res->finalizeCursor != 0)
             {
                 return 0;
             }
@@ -578,7 +578,7 @@ AnmResource *AnmManager::PreloadAnm(int slot, const char *filename)
         return 0;
     }
 
-    res->isInvalid = 1;
+    res->finalizeCursor = 1;
     do
     {
         if ((g_Supervisor.flags & 0x180U) != 0)
@@ -586,7 +586,7 @@ AnmResource *AnmManager::PreloadAnm(int slot, const char *filename)
             break;
         }
         Sleep(1);
-    } while (res->isInvalid != 0);
+    } while (res->finalizeCursor != 0);
 
     ChainDebugLog("::preloadAnimEnd : %s\n", filename);
     return res;

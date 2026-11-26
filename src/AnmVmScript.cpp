@@ -925,7 +925,7 @@ AnmId AnmResource::SpawnChildVmAtPosition(
 
 void AnmResource::BindVmScript(AnmVm *vm, int scriptIndex)
 {
-    if (scriptOffsets[scriptIndex] == 0 || isInvalid != 0)
+    if (scriptOffsets[scriptIndex] == 0 || finalizeCursor != 0)
     {
         memset(vm, 0, sizeof(AnmVm));
         return;
@@ -960,7 +960,7 @@ void AnmResource::BindVmAtPosition(
     int scriptIndex,
     const ZunVec3 *position)
 {
-    if (scriptOffsets[scriptIndex] == 0 || isInvalid != 0)
+    if (scriptOffsets[scriptIndex] == 0 || finalizeCursor != 0)
     {
         memset(vm, 0, sizeof(AnmVm));
         return;
@@ -994,7 +994,7 @@ __declspec(noinline) int AnmVm::BindAnmFile(
     int fileIndex)
 {
     AnmVm *vm = this;
-    if (resource->anmFileHeader == 0 || resource->isInvalid != 0)
+    if (resource->anmFileHeader == 0 || resource->finalizeCursor != 0)
     {
         return -1;
     }
@@ -1004,21 +1004,21 @@ __declspec(noinline) int AnmVm::BindAnmFile(
     vm->anmFileEntry = entry;
     register AnmFileEntry *entryForLaterFields = entry;
 
-    const float left = entry->field024;
+    const float left = entry->uvLeft;
     vm->textureRect[1][0] = left;
     vm->textureRect[0][0] = left;
-    const float bottom = entry->field02C;
+    const float bottom = entry->uvRight;
     vm->textureRect[1][2] = bottom;
     vm->textureRect[0][2] = bottom;
-    const float top = entryForLaterFields->field028;
+    const float top = entryForLaterFields->uvTop;
     vm->textureRect[0][3] = top;
     vm->textureRect[0][1] = top;
-    const float right = entry->field030;
+    const float right = entry->uvBottom;
     vm->textureRect[1][3] = right;
     vm->textureRect[1][1] = right;
 
-    vm->uvScrollX = entryForLaterFields->field038;
-    vm->uvScrollY = entry->field034;
+    vm->uvScrollX = entryForLaterFields->spriteWidth;
+    vm->uvScrollY = entry->spriteHeight;
 
     float *transformMatrix = vm->transformMatrix[0];
     transformMatrix[14] = 0.0f;
@@ -1060,10 +1060,10 @@ __declspec(noinline) int AnmVm::BindAnmFile(
     vm->transformMatrix[1][1] = vm->uvScrollY * (1.0f / 256.0f);
 
     vm->spriteScaleMatrix[0][0] =
-        (vm->uvScrollX / scaleEntry->field020) * scaleEntry->field03C;
+        (vm->uvScrollX / scaleEntry->textureWidth) * scaleEntry->scaleX;
     memcpy(vm->textureTransformMatrix, transformMatrix, sizeof(vm->textureTransformMatrix));
     vm->spriteScaleMatrix[1][1] =
-        (vm->uvScrollY / scaleEntry->field01C) * scaleEntry->field040;
+        (vm->uvScrollY / scaleEntry->textureHeight) * scaleEntry->scaleY;
 
     return 0;
 }

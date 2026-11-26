@@ -62,7 +62,7 @@ struct AnmD3DTextureSurfaceView
     virtual HRESULT __stdcall Slot14() = 0;
     virtual HRESULT __stdcall Slot15() = 0;
     virtual HRESULT __stdcall Slot16() = 0;
-    virtual HRESULT __stdcall Slot17() = 0;
+    virtual HRESULT __stdcall GetLevelDesc(UINT level, AnmD3DSurfaceDesc *desc) = 0; // +0x44
     virtual HRESULT __stdcall GetSurfaceLevel(UINT level, AnmD3DSurfaceView **out) = 0; // +0x48
 };
 

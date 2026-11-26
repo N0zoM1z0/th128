@@ -103,6 +103,7 @@ AnmManager::MarkResourceVmsForDelete
 AnmManager::OnTickUiCallback
 AnmManager::OnTickWorldCallback
 AnmManager::PreloadAnm
+AnmManager::ProcessPendingAnms
 AnmManager::ReleaseAnm
 AnmManager::SetInterruptAndUpdate
 AnmManager::StopVmById
@@ -114,7 +115,9 @@ AnmResource::BindVmAtPosition
 AnmResource::BindVmScript
 AnmResource::CacheExternalTexture
 AnmResource::CreateVm
+AnmResource::FinalizeNextEntry
 AnmResource::Release
+AnmResource::SetSprite
 AnmResource::SpawnChildVm
 AnmResource::SpawnChildVmAtPosition
 AnmTextureEntry::Release

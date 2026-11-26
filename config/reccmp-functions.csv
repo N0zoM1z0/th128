@@ -191,10 +191,13 @@ AnmVmEffect10Vertex::SetPolar,0x00463700,function
 AnmManager::LoadAnm,0x004653F0,function
 AnmManager::PreloadAnm,0x00465600,function
 AnmResource::CacheExternalTexture,0x00465680,function
+AnmResource::FinalizeNextEntry,0x00465770,function
+AnmManager::ProcessPendingAnms,0x00465E50,function
 AnmManager::AreAllAnmsLoaded,0x00465EE0,function
 AnmManager::ReleaseAnm,0x00465F20,function
 AnmResource::Release,0x00465F60,function
 AnmTextureEntry::Release,0x00466060,function
+AnmResource::SetSprite,0x00466090,function
 AnmManager::OnTickWorldCallback,0x00466690,function
 AnmManager::OnTickUiCallback,0x004666C0,function
 AnmManager::DrawLayer0,0x004666D0,function

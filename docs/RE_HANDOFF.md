@@ -1,6 +1,6 @@
 # TH128 reconstruction handoff
 
-Snapshot: 2026-11-26 (ANM preload exact; real first-stage resource loading). Read this first, then AGENTS.md.
+Snapshot: 2026-11-26 (resolved ANM sprites exact; finalization and scheduler source). Read this first, then AGENTS.md.
 
 ## Resume safely
 
@@ -36,12 +36,12 @@ canonical ledgers. At this snapshot:
 | Boundary reviewed / provisional | 3,452 / 64 |
 | Origin rows pending | 21 |
 | Authored / excluded / indeterminate | 2,226 / 1,269 / 0 |
-| Source-present mappings | 359 |
-| Source-present with authored origin | 351 |
-| Authored source-present exact backlog | 46 |
-| Canonical exact functions | 313 |
-| Canonical exact codegen bytes | 18,888 |
-| Canonical exact authored bytes | 18,559 |
+| Source-present mappings | 362 |
+| Source-present with authored origin | 354 |
+| Authored source-present exact backlog | 48 |
+| Canonical exact functions | 314 |
+| Canonical exact codegen bytes | 19,033 |
+| Canonical exact authored bytes | 18,704 |
 
 The candidate inventory is not proven complete. The 21 remaining pending origin
 rows are unreferenced `d3dx9math.inl` candidates (all 16 CRT-band boundary-review
@@ -135,6 +135,14 @@ mixed wrapper consumer also builds. See the [binding finding](KNOWLEDGE_BASE.md#
 
 Current focused frontiers:
 
+- `FinalizeNextEntry` (`0x00465770`): complete target 1,000 bytes, current
+  source 831 bytes. Its integer-only log call disappears, stack alignment
+  differs, and the source receives the resource in ESI instead of ECX.
+  Implement the four reviewed texture operations before closing this context.
+- `ProcessPendingAnms` (`0x00465E50`): complete 140-byte owner and all four
+  fields replay; one ordinary-byte difference at `+0x73`, ESI instead of
+  ECX when forwarding the finalizer's resource. The signed slot / unsigned
+  array-count bound now reproduces both target range checks.
 - `LoadAnm` (`0x004653F0`): the real 515-byte first-stage loader now has
   source and a linked frontier unit. The candidate is 511 bytes; the
   target retains a loop-top null test instead of the candidate's rotated
@@ -183,16 +191,28 @@ the version-7 external texture cache, preserving the target error paths.
 The resource's 32-bit file ID, filename and count fields are now named.
 Its inline constructor retains the existing exact 19-byte owner in the
 primary loading context; this adds no constructor credit. The first-stage
-loader and texture cache above remain frontiers, and GPU/table finalization
-at `0x00465770` remains unimplemented.
+loader and texture cache above remain frontiers. GPU/table finalization
+at `0x00465770` now has the frontier implementation described below.
 See the [loading finding](KNOWLEDGE_BASE.md#anm-first-stage-loading-release-logging-and-preload-wait-2026-11-26)
 and [affected replay](../.analysis/anm-loading-final-replay.log)
-(161/161 exact units passed in 12 contexts). The next-stage review shows
-that `+0x124` is a one-based finalization cursor, and `+0x128` is a release
-request; the legacy source names `isInvalid`/`loadPending` remain to be
-renamed with that implementation. Scheduler `0x00465E50` advances only
+(161/161 exact units passed in 12 contexts). Resource fields `+0x124` and
+`+0x128` are now named `finalizeCursor` and `releaseRequested`.
+Scheduler `0x00465E50` advances only
 one archive entry per invocation. See the loading finding for its apparent
 null reload on the release branch; preserve the observed ordering.
+
+`AnmResource::SetSprite` (`0x00466090`, 145 bytes) is now exact
+(+1 function, +145 bytes). A fixed-size 72-byte `memcpy` and six float
+assignments reproduce its complete owner with no address fields. The raw
+and resolved sprite layouts now name pixel bounds, actual texture sizes,
+UV bounds, logical sizes and scaling ratios. Both `FinalizeNextEntry` and
+`ProcessPendingAnms` have maintained source in `AnmFinalization.cpp`.
+The four texture methods at `0x00464FD0`, `0x004651D0`, `0x00465300`
+and `0x00465350` are still
+declarations, and the separate 746-byte entry finalizer remains unimplemented.
+See the [resolved-sprite finding](KNOWLEDGE_BASE.md#anm-resolved-sprites-and-finalization-array-bounds-2026-11-26)
+and [final comparison](../.analysis/anm-finalization-current-input-final.log)
+(130/130 exact units passed in ten cold-built contexts).
 
 Replay the recent ANM exact owners with:
 
@@ -203,7 +223,7 @@ scripts/repo-python scripts/replay-exact-units.py \
   --unit anm-manager-update-ui-vms --unit anm-manager-stop-vm-by-id \
   --unit anm-vm-spawn-child-at-position --unit anm-manager-get-vm-by-id \
   --unit anm-resource-bind-vm-script --unit anm-resource-bind-vm-at-position \
-  --unit anm-manager-preload-anm
+  --unit anm-manager-preload-anm --unit anm-resource-set-sprite
 ```
 
 ## Active reconstruction: AnmVm
@@ -318,6 +338,7 @@ Primary evidence:
 | src/AnmVmResource.cpp | `NormalizeAnmCoordinates` (`0x00459D50`) | exact (linked PE) |
 | src/AnmManager.cpp | VM lookup, allocation, list cleanup, draw grouping, tick callbacks, `FlushSpriteBatch`, preload, 23 `DrawLayer*` callbacks | 36 exact (linked PE), including `UpdateUiVms`, `StopVmById` and `PreloadAnm`; `UpdateWorldVms`/`SetInterruptAndUpdate` frontiers |
 | src/AnmLoading.cpp | first-stage ANM load, external texture caching, inline resource constructor contribution | constructor exact (linked PE); loader/cache frontiers |
+| src/AnmFinalization.cpp | resolved sprite installation, one-entry finalization and pending-resource scheduler | `SetSprite` exact (145B); finalization/scheduler frontiers; GPU callees not implemented |
 | src/AnmResource.cpp | `Release`, `AnmTextureEntry::Release`, `CreateVm` | 2 exact (linked PE); `CreateVm` frontier |
 | src/AnmVmUpdateWrapper.cpp | manager binding update wrapper (`0x00407080`) | 20-byte target frontier; 5-byte GL body, 15-byte normal-COFF body |
 | src/AnmHelpers.cpp | `ResolveAnmVmId` and 31 `AnmId`/VM/child/rotation/draw helpers (`0x00467570..0x00468100`) | 32 exact (linked PE); `ClearD3DTexture*` frontiers |
@@ -336,10 +357,10 @@ has an accepted exact owner replay yet.
 
 ### Exact ANM owners
 
-`config/matches.csv` now contains **139 exact ANM-area owners** across the
+`config/matches.csv` now contains **140 exact ANM-area owners** across the
 modules above (6 setters/ctor, 5 effect-table owners, 4 operand resolvers,
 `NormalizeAnmCoordinates`, 8 script/binding/child/easing/timer owners, 36 `AnmManager`,
-3 `AnmResource`/`AnmTextureEntry`, 32 `AnmHelpers`, 39 `AnmInterp`, and
+4 `AnmResource`/`AnmTextureEntry`, 32 `AnmHelpers`, 39 `AnmInterp`, and
 5 `AnmVmTransitions`). Do not expand this list from source presence or
 successful compilation; only accepted rows in `config/matches.csv` count as
 exact.
@@ -355,9 +376,14 @@ callers remain frontiers as well.
 
 ## Next useful work (Phase 3+)
 
-1. **Close remaining ANM medium functions**: finish the loader/cache pair
-   (`0x004653F0`, 515B / `0x00465680`, 231B), then review finalization at
-   `0x00465770` (1,000B). Other focused frontiers are `UpdateWorldVms` (`0x00466AF0`),
+1. **Close ANM finalization dependencies**: reconstruct `CreateEmptyTexture`
+   (`0x00465300`, 70B), `CreateRenderTarget` (`0x00465350`, 69B), external
+   decoding (`0x00464FD0`, 511B) and embedded upload (`0x004651D0`, 296B).
+   Their target/decompiler evidence and format-table addresses are linked
+   in the resolved-sprite finding. Then revisit the 1,000-byte finalizer
+   and one-byte scheduler frontier, plus the loader/cache pair
+   (`0x004653F0`, 515B / `0x00465680`, 231B).
+   Other focused frontiers are `UpdateWorldVms` (`0x00466AF0`),
    the binding update wrapper (`0x00407080`, 20B), `CreateVm` (`0x004670B0`),
    `SetInterruptAndUpdate` (`0x004674F0`, 128B), `SetEffectState` (`0x0045E6C0`, 133B),
    `ClearD3DTexture` (`0x00467BD0`) and the
@@ -370,12 +396,11 @@ callers remain frontiers as well.
 3. **Phase 4 — Gameplay modules (`0x00401000..0x0044F500`)**: `AsciiInf`, `Bullet`,
    `Ice`/`Card`, `EnemyInf`, `Gui`, `Laser*Inf`, `Player`, `Stage`, `GameManager`,
    `Replay`/`Title`/`Score`.
-4. **Next useful command after the session identity checks** (expected
-   two-byte mismatch, no exact credit):
+4. **Next useful command after the session identity checks**:
 
    ~~~bash
-   scripts/repo-python scripts/build-match-unit.py --unit anm-resource-cache-external-texture
-   scripts/repo-python scripts/compare-linked-function.py --unit anm-resource-cache-external-texture
+   scripts/repo-python scripts/ghidra.py query \
+     .analysis/anm-next-texture-creation-review.txt review 0x00465300 0x00465350
    ~~~
 
 ## Workflow and constraints

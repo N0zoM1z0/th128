@@ -86,6 +86,7 @@ struct AnmManager
     bool IsPoolVm(AnmVm *vm);
     AnmResource *LoadAnm(int slot, const char *filename);
     static AnmResource *PreloadAnm(int slot, const char *filename);
+    static int ProcessPendingAnms();
     void FlushSpriteBatch();
 };
 

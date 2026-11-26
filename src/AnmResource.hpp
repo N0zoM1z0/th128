@@ -6,38 +6,59 @@
 
 void NormalizeAnmCoordinates(float *normalized, const float *pixels);
 
-// Observed prefix of an ANM v7 entry. Entries link through nextOffset;
-// the prefix size does not determine the complete record size.
+// The v7 entry header is followed by sprite offsets and eight-byte script
+// descriptors. Entries link through nextOffset, not through sizeof(header).
 struct AnmArchiveEntry
 {
     unsigned int version;                  // +0x00
     unsigned short spriteCount;            // +0x04
     unsigned short scriptCount;            // +0x06
-    unsigned char unknown008[8];
+    unsigned short unknown008;
+    unsigned short width;                  // +0x0A
+    unsigned short height;                 // +0x0C
+    unsigned short format;                 // +0x0E
     unsigned int nameOffset;               // +0x10
-    unsigned char unknown014[12];
+    short offsetX;                         // +0x14
+    short offsetY;                         // +0x16
+    unsigned int unknown018;
+    unsigned int textureOffset;            // +0x1C
     unsigned char hasEmbeddedTexture;      // +0x20
     unsigned char unknown021[3];
     unsigned int nextOffset;               // +0x24
+    unsigned char unknown028[0x18];
 };
 
-// One animation-file entry occupies 0x48 bytes. The dimension/rectangle
-// values used by VM binding are observed directly at +0x1C..+0x40.
+struct AnmArchiveSprite
+{
+    unsigned int id;
+    float x;
+    float y;
+    float width;
+    float height;
+};
+
+struct AnmEmbeddedTexture;
+
+// One resolved sprite occupies 0x48 bytes.
 struct AnmFileEntry
 {
-    unsigned char unknown000[8];
+    int fileId;                            // +0x00
+    int textureIndex;                      // +0x04
     void **texture;                         // +0x08, address of the D3D texture slot
-    unsigned char unknown00C[0x1C - 0x0C];
-    float field01C;                         // +0x1C
-    float field020;                         // +0x20
-    float field024;                         // +0x24
-    float field028;                         // +0x28
-    float field02C;                         // +0x2C
-    float field030;                         // +0x30
-    float field034;                         // +0x34
-    float field038;                         // +0x38
-    float field03C;                         // +0x3C
-    float field040;                         // +0x40
+    float left;                            // +0x0C
+    float top;                             // +0x10
+    float right;                           // +0x14
+    float bottom;                          // +0x18
+    float textureHeight;                   // +0x1C
+    float textureWidth;                    // +0x20
+    float uvLeft;                          // +0x24
+    float uvTop;                           // +0x28
+    float uvRight;                         // +0x2C
+    float uvBottom;                        // +0x30
+    float spriteHeight;                    // +0x34
+    float spriteWidth;                     // +0x38
+    float scaleX;                          // +0x3C
+    float scaleY;                          // +0x40
     unsigned int unknown044;                // +0x44
 };
 typedef char AnmFileEntrySize[(sizeof(AnmFileEntry) == 0x48) ? 1 : -1];
@@ -52,6 +73,10 @@ struct AnmTextureEntry
     unsigned int field10; // +0x10
 
     void Release();
+    int LoadExternalTexture(int format, int width, int height, int offsetX, int offsetY);
+    int LoadEmbeddedTexture(const AnmEmbeddedTexture *data, int format, int width, int height);
+    int CreateEmptyTexture(int width, int height, int format);
+    int CreateRenderTarget();
 };
 typedef char AnmTextureEntrySize[(sizeof(AnmTextureEntry) == 0x14) ? 1 : -1];
 
@@ -64,17 +89,19 @@ struct AnmResource
     int scriptCount;                        // +0x110
     int spriteCount;                        // +0x114
     AnmFileEntry *anmFiles;                 // +0x118
-    const unsigned int *scriptOffsets;      // +0x11C
+    unsigned int *scriptOffsets;            // +0x11C, absolute script addresses
     AnmTextureEntry *textures;              // +0x120
-    unsigned int isInvalid;                 // +0x124
-    unsigned int loadPending;               // +0x128
-    unsigned int unknown12C;                // +0x12C
+    unsigned int finalizeCursor;            // +0x124, one-based entry index; zero when idle
+    unsigned int releaseRequested;          // +0x128
+    unsigned int textureMemoryBytes;        // +0x12C
     int activeVmCount;                      // +0x130
     void *extraData134;                     // +0x134
 
     AnmResource() { memset(this, 0, sizeof(AnmResource)); }
     void Release();
     int CacheExternalTexture(const AnmArchiveEntry *entry, int textureIndex);
+    AnmResource *FinalizeNextEntry();
+    void SetSprite(int spriteIndex, const AnmFileEntry *sprite);
     AnmId SpawnChildVm(int scriptIndex, AnmVm *parent, unsigned int listMode);
     AnmId SpawnChildVmAtPosition(int scriptIndex, AnmVm *parent);
     void BindVmScript(AnmVm *vm, int scriptIndex);
@@ -94,8 +121,8 @@ typedef char AnmResourceFilesOffset[
 typedef char AnmResourceScriptTableOffset[
     (offsetof(AnmResource, scriptOffsets) == 0x11C) ? 1 : -1
 ];
-typedef char AnmResourceInvalidFlagOffset[
-    (offsetof(AnmResource, isInvalid) == 0x124) ? 1 : -1
+typedef char AnmResourceFinalizeCursorOffset[
+    (offsetof(AnmResource, finalizeCursor) == 0x124) ? 1 : -1
 ];
 typedef char AnmResourceActiveCountOffset[
     (offsetof(AnmResource, activeVmCount) == 0x130) ? 1 : -1

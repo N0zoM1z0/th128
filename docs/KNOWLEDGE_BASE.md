@@ -1116,6 +1116,115 @@ owner-boundary evidence.
 [unmapped](../.analysis/anm-read-bytes-unmapped.log),
 [crossing](../.analysis/anm-read-bytes-section-crossing.log).
 
+## ANM resolved sprites and finalization array bounds (2026-11-26)
+
+For Japanese TH128 v1.00a and pinned VC10 RTM `/O2 /Ob1 /Oy- /GL`,
+`AnmResource::SetSprite` at `0x00466090` now reproduces all 145 bytes of
+its complete primary-TU contribution, with no address fields. A fixed-size
+72-byte `memcpy` followed by six float assignments naturally gives the
+target's index in EAX, resource in EDX and input record in EBX. Its source
+return type is void: EAX retaining the byte stride is an incidental result,
+not evidence for the decompiler's integer return hypothesis.
+[Current exact replay](../.analysis/anm-set-sprite-memcpy-final-exact.json),
+[target/helper review](../.analysis/anm-sprite-and-texture-helpers-review.txt).
+
+The finalization caller settles the resolved sprite layout:
+
+| Offset | Observed role |
+| --- | --- |
+| `+0/+4` | file ID / texture index |
+| `+8` | address of the texture slot |
+| `+0x0C..+0x18` | pixel left, top, right, bottom |
+| `+0x1C/+0x20` | actual texture height / width, as floats |
+| `+0x24..+0x30` | normalized left, top, right, bottom |
+| `+0x34/+0x38` | logical sprite height / width |
+| `+0x3C/+0x40` | actual/archive width and height scale ratios |
+
+The helper normalizes horizontal bounds by texture width and vertical
+bounds by texture height. Logical width is `(right-left)/input.scaleX`;
+height is `(bottom-top)/input.scaleY`. The caller first multiplies archive
+coordinates by those scale ratios, so the resulting logical sizes recover
+the archive sprite dimensions subject to float rounding. It initializes
+the source record's input fields, copies the complete record, then
+overwrites the six derived fields; zero-initializing the whole local would
+add behavior absent from the target. The unrelated `+0x44` field remains
+unknown. Existing VM binding uses the newly named fields at the same offsets.
+
+The archive header's sprite-offset table starts at `+0x40`. Width, height
+and format are unsigned 16-bit fields at `+0x0A/+0x0C/+0x0E`, texture origin
+offsets are signed 16-bit fields at `+0x14/+0x16`, and embedded texture data
+is at the relative offset `+0x1C`. The sprite record has an unused first
+word followed by four floats; the maintained `id` label is provisional.
+This path uses contiguous resolved indices. Eight-byte script descriptors
+follow the sprite offsets; only
+their second word is installed, as an absolute address. The script-address
+array is therefore mutable. The legacy `isInvalid`/`loadPending` names are
+now `finalizeCursor`/`releaseRequested`; `+0x12C` accumulates texture byte
+counts as `textureMemoryBytes`.
+[Complete finalization span](../.analysis/anm-finalize-textures-complete-span.txt).
+
+`ProcessPendingAnms` initially compiled to 136 vs 140 bytes because
+`slot >= 0 && slot < 38` folded into one unsigned range comparison.
+Comparing the signed slot against the actual array's unsigned `sizeof`
+count retains the target's separate negative and upper-bound checks. The
+result is the complete 140-byte owner and all four fields replay. Its one
+remaining ordinary-byte difference is `+0x73`: the source forwards the
+resource in ESI, while the target uses ECX. This is a calling-context
+frontier, not an address-field difference. The target's apparent null
+reload on release remains in the source.
+[Strict scheduler frontier](../.analysis/anm-process-pending-memcpy-frontier.json),
+[array-count diagnostic](../.analysis/anm-process-pending-array-count-diff.txt).
+
+`FinalizeNextEntry` now has maintained source, but its complete candidate
+is 831 vs the 1,000-byte target. The source's integer-only release-log call
+is eliminated, the eight-byte stack alignment is absent, the resource input
+is ESI instead of ECX, and its remaining codegen differs. The earlier
+ellipsis-only logger finding closes the preload caller, not this caller.
+The four texture operations below remain declarations with reviewed target
+identities; the diagnostic link anchors do not implement their behavior or
+settle the caller's original private ABI. Do not tune register hints or
+claim product closure from this build.
+[Complete candidate diagnostic](../.analysis/anm-finalize-next-flat-diff.txt),
+[extent rejection](../.analysis/anm-finalize-next-flat-frontier.stderr).
+
+| Declared texture operation | Target | Full size |
+| --- | --- | ---: |
+| `LoadExternalTexture` | `0x00464FD0` | 511 |
+| `LoadEmbeddedTexture` | `0x004651D0` | 296 |
+| `CreateEmptyTexture` | `0x00465300` | 70 |
+| `CreateRenderTarget` | `0x00465350` | 69 |
+
+The first two use D3DX to decode/copy texture data; empty textures use
+`D3DXCreateTexture`, and render targets use device slot `+0x5C`. Their
+format and bytes-per-pixel tables begin at `0x004A4884/+0x24`; Supervisor
+addresses `0x004D2F5C/60/64` provide render dimensions/format, and bit 0 at
+`0x004D3068` selects a format fallback. Reconstruct those callees before
+drawing conclusions about the finalizer's linked context. The separate
+746-byte entry finalizer at `0x00465B60` is still unimplemented; it shares
+the sprite and texture operations but returns 1/-1 instead of advancing
+the one-based cursor.
+[Texture hypotheses](../.analysis/anm-finalize-and-texture-hypotheses.txt),
+[entry-finalizer target review](../.analysis/anm-finalize-entry-review.txt).
+
+The nine observed format-table entries are `(0,21,25,23,20,26,29,28,27)`;
+their byte counts are `(4,4,2,2,3,2,2,1,1)`. With the fallback bit set,
+format values 0/21 select index 5, and value 20 selects index 3. These are
+target data observations, not imported from an adjacent game's headers.
+[Attested table reads](../.analysis/anm-texture-format-tables.txt),
+[decoded values](../.analysis/anm-texture-format-table-values.txt).
+
+The shared layout and caller changes affect 130 canonical exact units in
+ten compilation contexts. The nine existing contexts were cold-built, and
+the finalization family was rebuilt after selecting explicit byte copying.
+An interim comparison reached that family while its artifacts were being
+rebuilt; that incomplete-family rejection is retained. The final current-input
+comparison passes all 130 units, including both resource binders, preload,
+constructor, helpers and effect callbacks.
+[Cold builds/interim replay](../.analysis/anm-finalization-affected-replay.log),
+[finalization build](../.analysis/anm-finalization-memcpy-build.log),
+[final comparison](../.analysis/anm-finalization-current-input-final.log),
+[selected units](../.analysis/anm-finalization-affected-units.json).
+
 ## Open questions
 
 - Per-unit flags, the TU partition, which objects were `/GL`, the library set
