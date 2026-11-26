@@ -669,7 +669,58 @@ Verified against TH128 (`resources/th128.exe`, VC10 RTM `16.00.30319.01`, link `
 - **Remaining natural-C++ frontiers from Phases 1–2:**
   - `Chain::CutImpl` (`0x004686D0`) and its 4 callers (`RunCalcChain`, `RunDrawChain`, `CutList`, `Cut`): exact-size natural C++, differing only in VC10 `/GL` `ECX`/`EDX` private tie-breaker.
   - `ClearD3DTexture` (`0x00467BD0`, 133B) / `ClearD3DTextureBlack` (`0x00467C60`, 272B): exact-size natural C++, currently reserving an extra 4B slot above `__security_cookie` (`[ebp-8]` vs `[ebp-4]`).
-  - `AnmVm::Update` (`0x00459D90`, 13,604B), `SetColorTransition` (`0x0045E4D0`, 227B), `SetEffectState` (`0x0045E6C0`, 133B), `UpdateWorldVms` (`0x00466AF0`), `UpdateUiVms` (`0x00466BE0`), `CreateVm` (`0x004670B0`, 365 vs 364B), `PreloadAnm` (`0x00465600`, 124B), `StopVmById` (`0x00467480`, 103B).
+  - `AnmVm::Update` (`0x00459D90`, 13,604B), `SetEffectState` (`0x0045E6C0`, 133B), `UpdateWorldVms` (`0x00466AF0`), `UpdateUiVms` (`0x00466BE0`), `CreateVm` (`0x004670B0`, 365 vs 364B), `PreloadAnm` (`0x00465600`, 124B), `StopVmById` (`0x00467480`, 103B).
+
+## ANM color snapshot and parameter order (2026-11-26)
+
+Natural color snapshots plus a `(current, target, duration, mode)` API reproduce
+both complete **227-byte** TH128 Japanese v1.00a color setters with VC10 RTM
+`cl 16.00.30319.01`, `link 10.00.30319.01`, `/O2 /Ob1 /Oy- /GL`:
+`AnmVm::SetColorTransition` at `0x0045E4D0` and
+`SetSecondaryColorTransition` at `0x0045E2C0`. The canonical
+[units](../config/match-units.toml) and [exact rows](../config/matches.csv)
+cover each entire primary-TU PDB contribution and its only relocation,
+`DIR32 g_TimeScale` at owner `+185` -> `0x004B6F58`, with zero differences.
+
+[Hash-attested Ghidra review](../.analysis/anm-transitions-20261126-review.txt)
+shows contiguous bodies ending at `0x0045E5B2` / `0x0045E3A2`, `RET 8`, no
+external interior references or inline tables, and following INT3 padding.
+Both are called only by Update. The observed private ABI is VM in EAX,
+current bytes in EDX, target bytes in ECX, duration/mode on the stack.
+
+In [AnmVmTransitions.cpp](../src/AnmVmTransitions.cpp), a three-int color
+constructor reads byte components in 2/1/0 order. Constructing both endpoint
+snapshots before either assignment preserves the target's complete input
+loads before endpoint stores, including possible input aliases. Copying one
+zero color into both velocity triples also reproduces the three separate
+zero registers and the early x87 `fldz`. Construct current before target,
+then copy current before target; the recovered API order lets LTCG choose
+the target registers naturally. Update and probe calls were changed together
+to preserve which endpoint is current and which is the goal.
+
+The former scalar interleaving compiled to 197 bytes. Snapshot variants with
+the former `(target, current)` API reached 227 bytes but differed in pointer
+register allocation and endpoint store scheduling; reversing the constructor
+or copy order alone did not close them. These are compiler observations, not
+proof of the original C++ spelling. Separately, casting primary-effect mode
+to a byte and moving its zero-velocity stores preserved 133 bytes but did not
+match its prologue; those changes were reverted.
+Its mode formal is still `unsigned int` in the maintained header/source,
+while the inventory signature uses `unsigned char`. The target consumes the
+low stack byte; testing a byte formal is the next ABI hypothesis, not yet
+compiler evidence.
+
+Validation scope is the two new owners and the 81 existing exact units whose
+build contexts compile the changed transition source, Update caller or probe
+([selected units](../.analysis/anm-transitions-20261126-affected-units.json),
+[cold replay](../.analysis/anm-transitions-20261126-affected-replay.log)).
+All 83 cold replays passed with zero differences.
+The header changes only parameter names, retaining the same C++ function
+types and layout. In the shared normalization build, the Update support-TU
+contribution is 13,688 bytes versus the 13,604-byte target
+([diagnostic](../.analysis/anm-transitions-20261126-update-consumer.json));
+this is a different context from `AnmVmUpdateBinding`. Update remains a
+frontier; these matches do not establish a runnable product.
 
 ## Open questions
 

@@ -915,17 +915,20 @@ size = 242
 relocations = []
 
 [units.anm-vm-set-color-transition]
-frontier = true # Color transition setup: copies current and target RGB bytes into the six transition slots, clears six interpolation offsets, records duration/mode, and resets timer120.
-artifact_kind = "coff"
+artifact_kind = "linked-pe"
 source = "src/AnmVmTransitions.cpp"
-inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp"]
-object = "build/match/AnmVmTransitions.obj"
-profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp", "src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp"]
+support_sources = ["src/AnmInterp.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmVmTransitions"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
 functions = ["AnmVm::SetColorTransition"]
 symbol = "?SetColorTransition@AnmVm@@QAEXPBE0HE@Z"
 target_address = 0x0045E4D0
 size = 227
-relocations = []
+linkages = [
+  { offset = 185, type = "DIR32", symbol = "?g_TimeScale@@3MA", target = 0x004B6F58 },
+]
 
 [units.anm-vm-set-scale-transition]
 frontier = true # Scale transition setup: copies the current and target XY values, stores duration/mode, and resets timer200.
@@ -954,17 +957,20 @@ size = 140
 relocations = []
 
 [units.anm-vm-set-secondary-color-transition]
-frontier = true # Secondary color transition setup: copies current and target RGB bytes, clears six interpolation offsets, stores duration/mode, and resets timer288.
-artifact_kind = "coff"
+artifact_kind = "linked-pe"
 source = "src/AnmVmTransitions.cpp"
-inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp"]
-object = "build/match/AnmVmTransitions.obj"
-profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp", "src/AngleMath.hpp", "src/AnmInterp.hpp", "src/AnmManager.hpp", "src/AnmResource.hpp"]
+support_sources = ["src/AnmInterp.cpp", "src/ZunTimer.cpp", "probes/anm-interp-context.cpp"]
+output_dir = "build/match-linked/AnmVmTransitions"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmInterpProbe@112"
 functions = ["AnmVm::SetSecondaryColorTransition"]
 symbol = "?SetSecondaryColorTransition@AnmVm@@QAEXPBE0HE@Z"
 target_address = 0x0045E2C0
 size = 227
-relocations = []
+linkages = [
+  { offset = 185, type = "DIR32", symbol = "?g_TimeScale@@3MA", target = 0x004B6F58 },
+]
 
 [units.anm-vm-set-effect-state]
 frontier = true # Primary effect transition setup stores duration/mode and the current/target alpha values, then resets timer14C.

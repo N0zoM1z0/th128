@@ -168,8 +168,8 @@ struct AnmVm
     void SetEffectState(unsigned int duration, unsigned int mode, unsigned char parameter0, unsigned char parameter1);
     void StartEffect10();
     void SetColorTransition(
-        const unsigned char *target,
         const unsigned char *current,
+        const unsigned char *target,
         int duration,
         unsigned char mode);
     void SetScaleTransition(
@@ -183,8 +183,8 @@ struct AnmVm
         int duration,
         unsigned char mode);
     void SetSecondaryColorTransition(
-        const unsigned char *target,
         const unsigned char *current,
+        const unsigned char *target,
         int duration,
         unsigned char mode);
     void SetSecondaryEffectState(unsigned int duration, unsigned char mode, unsigned char parameter0, unsigned char parameter1);

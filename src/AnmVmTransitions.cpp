@@ -2,26 +2,42 @@
 #include "AngleMath.hpp"
 
 
+namespace
+{
+struct AnmTransitionColor
+{
+    int r;
+    int g;
+    int b;
+
+    AnmTransitionColor(int red, int green, int blue)
+        : r(red), g(green), b(blue) {}
+
+    AnmTransitionColor(const unsigned char *rgb)
+    {
+        b = rgb[2];
+        g = rgb[1];
+        r = rgb[0];
+    }
+};
+}
+
 void AnmVm::SetColorTransition(
-    const unsigned char *target,
     const unsigned char *current,
+    const unsigned char *target,
     int duration,
     unsigned char mode)
 {
     colorTransition.duration = duration;
-    colorTransition.values[6] = 0;
-    colorTransition.values[9] = 0;
-    colorTransition.values[7] = 0;
-    colorTransition.values[10] = 0;
-    colorTransition.values[8] = 0;
-    colorTransition.values[11] = 0;
+    AnmTransitionColor zero(0, 0, 0);
+    *(AnmTransitionColor *)&colorTransition.values[6] = zero;
+    *(AnmTransitionColor *)&colorTransition.values[9] = zero;
     colorTransition.mode = mode;
-    colorTransition.values[0] = current[0];
-    colorTransition.values[3] = target[0];
-    colorTransition.values[1] = current[1];
-    colorTransition.values[4] = target[1];
-    colorTransition.values[2] = current[2];
-    colorTransition.values[5] = target[2];
+    // Snapshot both byte triples before writing either endpoint.
+    AnmTransitionColor start(current);
+    AnmTransitionColor goal(target);
+    *(AnmTransitionColor *)&colorTransition.values[0] = start;
+    *(AnmTransitionColor *)&colorTransition.values[3] = goal;
     colorTransition.timer.Initialize();
     colorTransition.timer.currentF = 0.0f;
     colorTransition.timer.current = 0;
@@ -107,25 +123,21 @@ void AnmVm::SetSecondaryEffectState(
 
 
 void AnmVm::SetSecondaryColorTransition(
-    const unsigned char *target,
     const unsigned char *current,
+    const unsigned char *target,
     int duration,
     unsigned char mode)
 {
     secondaryColorTransition.duration = duration;
-    secondaryColorTransition.values[6] = 0;
-    secondaryColorTransition.values[9] = 0;
-    secondaryColorTransition.values[7] = 0;
-    secondaryColorTransition.values[10] = 0;
-    secondaryColorTransition.values[8] = 0;
-    secondaryColorTransition.values[11] = 0;
+    AnmTransitionColor zero(0, 0, 0);
+    *(AnmTransitionColor *)&secondaryColorTransition.values[6] = zero;
+    *(AnmTransitionColor *)&secondaryColorTransition.values[9] = zero;
     secondaryColorTransition.mode = mode;
-    secondaryColorTransition.values[0] = current[0];
-    secondaryColorTransition.values[3] = target[0];
-    secondaryColorTransition.values[1] = current[1];
-    secondaryColorTransition.values[4] = target[1];
-    secondaryColorTransition.values[2] = current[2];
-    secondaryColorTransition.values[5] = target[2];
+    // Snapshot both byte triples before writing either endpoint.
+    AnmTransitionColor start(current);
+    AnmTransitionColor goal(target);
+    *(AnmTransitionColor *)&secondaryColorTransition.values[0] = start;
+    *(AnmTransitionColor *)&secondaryColorTransition.values[3] = goal;
     secondaryColorTransition.timer.Initialize();
     secondaryColorTransition.timer.currentF = 0.0f;
     secondaryColorTransition.timer.current = 0;

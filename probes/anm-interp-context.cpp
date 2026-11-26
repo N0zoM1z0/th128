@@ -106,10 +106,10 @@ extern "C" float __stdcall AnmInterpProbe(
     vm2->SetScaleTransition(f2, f1, d2, m2);
     vm1->SetSecondaryEffectState((unsigned int)d1, m1, b1[0], b2[0]);
     vm2->SetSecondaryEffectState((unsigned int)d2, m2, b2[0], b1[0]);
-    vm1->SetSecondaryColorTransition(b1, b2, d1, m1);
-    vm2->SetSecondaryColorTransition(b2, b1, d2, m2);
-    vm1->SetColorTransition(b1, b2, d1, m1);
-    vm2->SetColorTransition(b2, b1, d2, m2);
+    vm1->SetSecondaryColorTransition(b2, b1, d1, m1);
+    vm2->SetSecondaryColorTransition(b1, b2, d2, m2);
+    vm1->SetColorTransition(b2, b1, d1, m1);
+    vm2->SetColorTransition(b1, b2, d2, m2);
     vm1->SetEffectState((unsigned int)d1, (unsigned int)m1, b1[0], b2[0]);
     vm2->SetEffectState((unsigned int)d2, (unsigned int)m2, b2[0], b1[0]);
     return r;

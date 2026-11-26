@@ -1,6 +1,6 @@
 # TH128 reconstruction handoff
 
-Snapshot: 2026-11-25 (Phases 0–2 complete). Read this first, then AGENTS.md.
+Snapshot: 2026-11-26 (Phases 0–2 complete; ANM color transitions closed). Read this first, then AGENTS.md.
 
 ## Resume safely
 
@@ -38,10 +38,10 @@ canonical ledgers. At this snapshot:
 | Authored / excluded / indeterminate | 2,226 / 1,269 / 0 |
 | Source-present mappings | 350 |
 | Source-present with authored origin | 342 |
-| Authored source-present exact backlog | 47 |
-| Canonical exact functions | 303 |
-| Canonical exact codegen bytes | 17,121 |
-| Canonical exact authored bytes | 16,792 |
+| Authored source-present exact backlog | 45 |
+| Canonical exact functions | 305 |
+| Canonical exact codegen bytes | 17,575 |
+| Canonical exact authored bytes | 17,246 |
 
 The candidate inventory is not proven complete. The 21 remaining pending origin
 rows are unreferenced `d3dx9math.inl` candidates (all 16 CRT-band boundary-review
@@ -76,6 +76,30 @@ by-value naturally reproduces `GetVmById` (`0x00467420`) and 30+ callers without
 any unused-`ECX` shim; `/Ob1` is required on ANM `/GL` units so out-of-line helpers
 are not over-inlined; address-taken probe pointers prevent interprocedural
 `and esp, -8` hoisting; struct copies unlock `fldz` hoisting in transition setters.
+
+## Latest advance (2026-11-26)
+
+`AnmVm::SetColorTransition` (`0x0045E4D0`) and
+`SetSecondaryColorTransition` (`0x0045E2C0`) now replay exact as complete
+227-byte VC10 RTM `/GL /Ob1` owners (+2 functions, +454 bytes). Each has one
+reviewed `DIR32 g_TimeScale` field at `+185`, resolving to `0x004B6F58`.
+The natural source uses a `(current, target, duration, mode)` API and local
+three-integer color snapshots; both Update callers and the probe preserve
+their endpoint roles. The two new owners and 81 existing dependent exact
+units all passed cold replay. See the [color snapshot finding](KNOWLEDGE_BASE.md#anm-color-snapshot-and-parameter-order-2026-11-26).
+
+Next useful scope: `SetEffectState` (`0x0045E6C0`, 133 bytes), whose remaining
+frontier is the mode/endpoint prologue scheduling. Byte casts and moving the
+zero velocity stores did not close it; those experiments were reverted.
+Next hypothesis: its mode formal is still `unsigned int`, whereas the target
+consumes a stack byte and the inventory signature already uses `unsigned char`.
+`AnmVm::Update` remains a frontier.
+
+Replay the new owners with:
+
+```bash
+scripts/repo-python scripts/replay-exact-units.py --unit anm-vm-set-color-transition --unit anm-vm-set-secondary-color-transition
+```
 
 ## Active reconstruction: AnmVm
 
@@ -182,7 +206,7 @@ Primary evidence:
 | Source | Scope | Status |
 | --- | --- | --- |
 | src/AnmVmScript.cpp | wait commands, opcode dispatcher, ready-instruction loop, view corners, easing and timer reset helpers | 5 helpers exact (`EaseTransition`, 3 timer resets, `SetUpdateTimerCurrent`); `AnmVm::Update` frontier |
-| src/AnmVmTransitions.cpp | transition setup (`SetScaleTransition`, `SetSecondaryScaleTransition`, `SetSecondaryEffectState`, color/effect setup) | 3 exact (`0x0045E080`, `0x0045E190`, `0x0045E240`); color/primary-effect frontiers |
+| src/AnmVmTransitions.cpp | transition setup (`SetScaleTransition`, `SetSecondaryScaleTransition`, `SetSecondaryEffectState`, color/effect setup) | 5 exact (`0x0045E080`, `0x0045E190`, `0x0045E240`, `0x0045E2C0`, `0x0045E4D0`); primary-effect frontier |
 | src/AnmVmEffects.cpp | render-state sync, world matrices, sprite/fog/primitive draw paths, effect 10 | 5 exact normal-COFF owners; renderer paths frontier |
 | src/AnmVmOperands.cpp | four operand resolver owners (`0x00459900..0x00459CE0`) | 4/4 exact (linked PE) |
 | src/AnmVmResource.cpp | `NormalizeAnmCoordinates` (`0x00459D50`) | exact (linked PE) |
@@ -204,11 +228,11 @@ has an accepted exact owner replay yet.
 
 ### Exact ANM owners
 
-`config/matches.csv` now contains **129 exact ANM-area owners** across the
+`config/matches.csv` now contains **131 exact ANM-area owners** across the
 modules above (6 setters/ctor, 5 effect-table owners, 4 operand resolvers,
 `NormalizeAnmCoordinates`, 5 script/easing/timer helpers, 31 `AnmManager`,
 3 `AnmResource`/`AnmTextureEntry`, 32 `AnmHelpers`, 39 `AnmInterp`, and
-3 `AnmVmTransitions`). Do not expand this list from source presence or
+5 `AnmVmTransitions`). Do not expand this list from source presence or
 successful compilation; only accepted rows in `config/matches.csv` count as
 exact.
 
@@ -226,7 +250,7 @@ callers remain frontiers as well.
 1. **Close remaining ANM medium functions**: finish `UpdateWorldVms` (`0x00466AF0`),
    `UpdateUiVms` (`0x00466BE0`), `CreateVm` (`0x004670B0`, 365 vs 364B), `PreloadAnm`
    (`0x00465600`, 124B), `StopVmById` (`0x00467480`, 103B), `SetEffectState` (`0x0045E6C0`, 133B),
-   `SetColorTransition` (`0x0045E4D0`, 227B), `ClearD3DTexture` (`0x00467BD0`), and the
+   `ClearD3DTexture` (`0x00467BD0`) and the
    four `AnmInterp<T>::Step` functions (`0x0045D3D0..0x0045DB20`), plus `AnmVm::Update`
    (`0x00459D90`, 13,604B).
 2. **Phase 3 — D3D9/Window/Supervisor (`0x00451300..0x00458400`) & ECL/SPT Engine

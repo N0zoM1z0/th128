@@ -1932,7 +1932,7 @@ AnmVmUpdateScriptLoop:
         const unsigned char target[3] = {targetAlpha, targetGreen, targetBlue};
         const unsigned char current[3] = {sourceBlue, sourceGreen, sourceRed};
         SetColorTransition(
-            target, current,
+            current, target,
             IntegerSource(*this, instruction, 8, 1U),
             InstructionBytes(instruction)[12]);
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
@@ -1965,7 +1965,7 @@ AnmVmUpdateScriptLoop:
         const unsigned char target[3] = {targetAlpha, targetGreen, targetBlue};
         const unsigned char current[3] = {sourceBlue, sourceGreen, sourceRed};
         SetSecondaryColorTransition(
-            target, current,
+            current, target,
             IntegerSource(*this, instruction, 8, 1U),
             InstructionBytes(instruction)[12]);
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
