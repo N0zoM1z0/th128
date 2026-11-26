@@ -120,6 +120,7 @@ RecreateAnmRenderTargets,0x00453720,function
 FlushAnmSurfaceCopies,0x004537D0,function
 WindowProc,0x00454420,function
 RunAdaptiveFrame,0x004547D0,function
+SupervisorFrame::PresentAdaptive,0x00454940,function
 RunTimedFrame,0x00454BD0,function
 SupervisorFrame::PresentImmediate,0x00454D90,function
 RunVsyncFrame,0x00454E50,function

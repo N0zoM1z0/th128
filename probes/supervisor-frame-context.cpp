@@ -4,6 +4,12 @@
 
 float (__stdcall *g_ProbeViewportTan)(float) = AnmViewportTan;
 
+LARGE_INTEGER g_QpcFrequency;
+LARGE_INTEGER g_QpcStart;
+double g_TimeOrigin = 0.0;
+double __cdecl GetElapsedSeconds();
+double (__cdecl *g_ProbeFrameElapsed)() = GetElapsedSeconds;
+
 extern "C" int __stdcall SupervisorFrameProbe(
     SupervisorFrame *frame, AnmSpriteViewport *viewport, float angle)
 {

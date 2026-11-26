@@ -2579,6 +2579,89 @@ bytes**, including **328 authored exact functions / 22,024 authored bytes**.
 [Present support ownership](../.analysis/screenshot-final-present-support-owners.json),
 [final cold build](../.analysis/screenshot-final-link.log).
 
+## Real frame/Present closure and adaptive pacing (2026-11-26)
+
+Original Japanese TH12.8 v1.00a **PresentImmediate** (`0x00454D90`,
+**190B / 21 fields**) and **PresentWithSleep** (`0x00454F70`,
+**314B / 30 fields**) now pass complete pinned VC10 RTM
+`/O2 /Ob1 /Oy- /GL` primary-TU comparisons. The maintained frame entries,
+camera, screenshots, ANM surface/texture recovery and state initialization
+are all present in the linked family. This closes the former 189/190 and
+323/314 frontiers with genuine callees and callers, preserving GetElapsedSeconds'
+independent 266-byte body. No Present owner flags or ABI declarations changed.
+[Twelve-owner final comparison](../.analysis/adaptive-family-final-results.json),
+[retained source family/profiles](../.analysis/adaptive-present-family.json),
+[source](../src/SupervisorPresent.cpp).
+
+Frame, viewport and Present contexts now use the same 35 maintained source
+inputs, with their own primary TU and entry. Duplicate probe-owned globals
+were removed from the configured source lists. The existing frame probe
+supplies the QPC globals/time origin and exposes the real timer's address;
+the ANM/load probes retain the Supervisor/manager/error-context definitions.
+Timer, FileSystem and GameErrorContext support keep their canonical profiles;
+the release logger stays normal COFF. The prior timer normal-COFF diagnostic
+was not reused.
+
+`PresentAdaptive` (`0x00454940`) now has natural source for the complete
+**653-byte** owner. It estimates `(lastPresent + 1/60 - current)*1000 - 2.5`,
+lowers a profile's sleep immediately when the estimate falls, and otherwise
+increments its stable-frame counter. After 15 stable frames, sleep can rise
+by one up to the profile maximum; the counter resets. Negative estimates
+are clamped to zero. Clock rollback resets the raster timestamp. An interval
+below **1/59 seconds** enters Sleep(1) polling until 13ms, then GetRasterStatus
+polling until scan-line wrap, line zero, vertical blank or nonzero HRESULT.
+A longer/unordered interval lowers a positive profile sleep by one. The
+function records the raster time, performs real screenshot/Present/recovery,
+runs optional hooks, takes the target's discarded clock sample, sleeps the
+positive profile budget and records last-present time.
+[Complete physical span](../.analysis/adaptive-present-complete-span.txt),
+[attested constants](../.analysis/frame-timing-constants.txt).
+
+The frame's estimate/index are `+0x2074/+0x2078`. Four 12-byte profile
+records begin at `+0x207C`, each maximum/current milliseconds/stable count.
+CreateGameWindow initializes them to `(15,15,0)`, `(12,12,0)`, `(12,12,0)`,
+`(8,8,0)`, then selects index zero. This identifies the old opaque WindowState
+fields at `+0x44..+0x70`; it does not assign scene names to the profiles.
+[Initialization](../.analysis/adaptive-profile-window-create.txt),
+[index references](../.analysis/adaptive-profiles-xrefs.txt),
+[partial frame layout](../src/SupervisorFrame.hpp).
+
+The first adaptive source was 655B. Placing GetRasterStatus in the loop
+condition reproduces the target's rotation and its three-byte LEA alignment
+at `+333`, yielding 653B. All 39 address fields replay, but ordinary bytes
+**+90/+92** still differ: the saturation result stays in EAX instead of EDX.
+Both normal Windows max argument orders were tested in isolated links;
+`max(0, estimate)` leaves those two differences, and the other order adds
+one. Neither was adopted. Reversing the equivalent frame deadline comparison
+operands also emits unchanged code. Adaptive receives no exact credit.
+[Complete two-byte rejection](../.analysis/adaptive-current-canonical.json),
+[max-zero negative](../.analysis/adaptive-max-zero-supervisor-present-adaptive.json),
+[max-value negative](../.analysis/adaptive-max-value-supervisor-present-adaptive.json),
+[frame-expression negative](../.analysis/adaptive-frame-order-observations.txt).
+
+Primary-object placement still changes LTCG observations despite the same
+source family and fixed profiles. The Present-primary image has WithSleep
+314B and tangent support 21B; Frame/viewport-primary images have WithSleep
+support 323B and tangent 31B. The existing tangent's own 31B canonical owner
+passes. Frame owners remain 360/453/288B versus 360/443/288B targets; the
+adaptive entry fails exhaustive field layout and vsync has 12 ordinary-byte
+differences in its two early-return epilogues. Camera remains 339/343B.
+These results establish per-unit matches, not a single closed native image;
+original TU/link order remains a concrete reconstruction question.
+[Present-primary observations](../.analysis/adaptive-present-final-observations.txt),
+[Frame-primary observations](../.analysis/adaptive-frame-current-observations.txt),
+[viewport-primary observations](../.analysis/adaptive-viewport-current-observations.txt).
+
+The changed frame header affects three existing exact owners: capture,
+writer and tangent. All pass their complete current-input canonical replay;
+the screenshot handler and copy consumer remain frontiers. The bounded
+affected scope covers twelve owners in five contexts. Totals are **418
+source mappings / 339 exact functions / 22,888 exact bytes**, including
+**330 authored exact functions / 22,528 authored bytes**.
+[Affected scope](../.analysis/adaptive-family-final-scope.json),
+[cold family build](../.analysis/adaptive-family-current-link.log),
+[copy consumer build](../.analysis/adaptive-copy-consumer-link.log).
+
 ## Open questions
 
 - Per-unit flags, the TU partition, which objects were `/GL`, the library set

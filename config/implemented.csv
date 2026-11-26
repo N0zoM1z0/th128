@@ -389,6 +389,7 @@ StartAnmVmEffect06
 Stub46C240
 Stub46C270
 SupervisorFrame::HandleScreenshot
+SupervisorFrame::PresentAdaptive
 SupervisorFrame::PresentImmediate
 SupervisorFrame::PresentWithSleep
 ThreadInf::Resume
