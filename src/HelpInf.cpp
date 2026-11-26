@@ -7,9 +7,11 @@
 #include "FileSystem.hpp"
 #include "GameErrorContext.hpp"
 #include "Input.hpp"
+#include "UpdateTimer.hpp"
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 HelpInf *g_HelpInf = 0;
 
@@ -18,10 +20,85 @@ namespace
     inline void ResetHelpTimer(ZunTimer &timer)
     {
         timer.Initialize();
-        timer.current = 0;
         timer.currentF = 0.0f;
+        timer.current = 0;
         timer.previous = -1;
     }
+}
+
+HelpInf *HelpInf::Create()
+{
+    HelpInf *help = new HelpInf;
+    if (Initialize(help) != 0)
+    {
+        if (help != 0)
+        {
+            help->Shutdown();
+            delete help;
+        }
+        return 0;
+    }
+    return help;
+}
+
+void HelpInf::Destroy()
+{
+    HelpInf *help = g_HelpInf;
+    if (help != 0)
+    {
+        help->Shutdown();
+        delete help;
+    }
+}
+
+int __stdcall HelpInf::Initialize(HelpInf *help)
+{
+    ChainElem *element = new ChainElem;
+    element->SetCallback(OnTick);
+    element->arg = help;
+    element->flags = (element->flags & ~2U) | 1U;
+    g_Chain->RegisterCalc(element, 10);
+    help->calcElement = element;
+
+    element = new ChainElem;
+    element->SetCallback(OnDraw);
+    element->arg = help;
+    element->flags = (element->flags & ~2U) | 1U;
+    g_Chain->RegisterDraw(element, 64);
+    help->drawElement = element;
+
+    QueueHelpWorker(LoadResourcesWorker);
+    ResetHelpTimer(help->timer);
+    help->state = 0;
+    return 0;
+}
+
+void HelpInf::Shutdown()
+{
+    ChainElem *element = calcElement;
+    Chain *chain = g_Chain;
+    if (element != 0)
+    {
+        g_Supervisor.EnterCriticalSection(0);
+        chain->CutImpl(element);
+        g_Supervisor.LeaveCriticalSection(0);
+    }
+    element = drawElement;
+    chain = g_Chain;
+    if (element != 0)
+    {
+        g_Supervisor.EnterCriticalSection(0);
+        chain->CutImpl(element);
+        g_Supervisor.LeaveCriticalSection(0);
+    }
+    AnmManager *manager = g_AnmManager;
+    if (manager->loadedAnms[31] != 0)
+    {
+        manager->loadedAnms[31]->Release();
+        delete manager->loadedAnms[31];
+        manager->loadedAnms[31] = 0;
+    }
+    g_HelpInf = 0;
 }
 
 AnmId AnmResource::CreateUiVm(const ZunVec3 *position, int scriptIndex)
@@ -146,7 +223,7 @@ int __stdcall HelpInf::Update(HelpInf *help)
                 help->resource->textures[1].texture)->PreLoad();
             help->CreateVm(9, &position);
             help->pageState = 4;
-            help->timer.SetCurrent(0);
+            SetUpdateTimerCurrent(&help->timer, 0);
             // The page starts with the same twenty-frame input gate.
         case 4:
             if (help->timer.current < 20)
@@ -169,7 +246,7 @@ int __stdcall HelpInf::Update(HelpInf *help)
             {
                 g_SoundManager.PlaySfx(9);
                 help->pageState = 1;
-                help->timer.SetCurrent(0);
+                SetUpdateTimerCurrent(&help->timer, 0);
                 g_AnmManager->StopVmById(help->vmIds[9], 1);
                 for (int i = 0; i < 9; ++i)
                 {

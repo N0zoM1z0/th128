@@ -38,6 +38,10 @@ SptResourceInf::LoadIncludes,0x00414680,function
 HelpInf::CreateVm,0x00427880,function
 HelpInf::LoadResourcesWorker,0x00427960,function
 HelpInf::LoadPageWorker,0x004279C0,function
+HelpInf::Initialize,0x00427A10,function
+HelpInf::Shutdown,0x00427B20,function
+HelpInf::Create,0x00427C00,function
+HelpInf::Destroy,0x00427CB0,function
 HelpInf::Update,0x00427CD0,function
 HelpInf::Draw,0x00428170,function
 HelpInf::OnTick,0x00428180,function

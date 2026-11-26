@@ -231,12 +231,16 @@ GameErrorContext::Fatal
 GameErrorContext::Log
 GetElapsedSeconds
 GetWindowsVersionCode
+HelpInf::Create
 HelpInf::CreateVm
+HelpInf::Destroy
 HelpInf::Draw
+HelpInf::Initialize
 HelpInf::LoadPageWorker
 HelpInf::LoadResourcesWorker
 HelpInf::OnDraw
 HelpInf::OnTick
+HelpInf::Shutdown
 HelpInf::Update
 InitDefaultTimeScale
 InitJoypad

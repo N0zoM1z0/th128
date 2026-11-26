@@ -6,6 +6,7 @@
 #include "AngleMath.hpp"
 #include "Rng.hpp"
 #include "Supervisor.hpp"
+#include "UpdateTimer.hpp"
 
 #include <math.h>
 #include <stdlib.h>
@@ -155,18 +156,6 @@ namespace
         timer->previous = -1;
     }
 
-    // Update has a second target copy of SetCurrent at 0x00403280. Keep the
-    // private EAX/stack ABI as a separate natural C++ call boundary.
-    __declspec(noinline) void __stdcall SetUpdateTimerCurrent(
-        ZunTimer *timer,
-        int value)
-    {
-        timer->Initialize();
-        timer->current = value;
-        timer->previous = value - 1;
-        timer->currentF = (float)value;
-    }
-
     inline void ResetBindingTimer(ZunTimer &timer)
     {
         timer.Initialize();
@@ -209,6 +198,14 @@ namespace
         return *reinterpret_cast<AnmResource **>(
             reinterpret_cast<unsigned char *>(globalState) + 0x1C894);
     }
+}
+
+void __stdcall SetUpdateTimerCurrent(ZunTimer *timer, int value)
+{
+    timer->Initialize();
+    timer->current = value;
+    timer->previous = value - 1;
+    timer->currentF = (float)value;
 }
 
 __forceinline void AnmVm::UpdateTextureRectFromView()

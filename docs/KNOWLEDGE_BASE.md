@@ -1556,7 +1556,7 @@ the caller at `0x00427CD0` is the nine-page help viewer. The target contains
 `help.anm`, `help_%.2d.png`, and `src\game\help.cpp:92 HelpInf`; creation
 allocates `0x1C0` bytes and publishes the object at `0x004B8A58`.
 `HelpInf.hpp/.cpp` now maintain its physical layout, complete update flow,
-page/resource worker bodies, VM creation and Chain callbacks.
+page/resource worker bodies, VM creation, Chain callbacks and lifecycle.
 [Target strings](../.analysis/manual-asset-strings.txt),
 [viewer dispatch disassembly](../.analysis/anm-upload-image-caller-complete.txt),
 [local creation/helper review](../.analysis/manual-local-helpers-review.txt).
@@ -1617,25 +1617,24 @@ binder register input/result-lifetime differences are linked-context questions,
 not grounds for register hints or a different ABI declaration.
 [Measured final context](../.analysis/help-core-context-observations.txt).
 
-The full update remains 1,092 vs 1,184 bytes. Its complete target extent
-includes seven bytes of internal alignment, a final alignment byte, and five
-absolute dispatch entries at `0x0042815C..0x0042816F`; sparse analyzer ranges
+The full update is now 1,104 vs 1,184 bytes (initially 1,092). Its complete
+target extent includes seven bytes of internal alignment, a final alignment
+byte, and five absolute dispatch entries at `0x0042815C..0x0042816F`; sparse analyzer ranges
 alone omit these bytes. Source still differs in stack alignment/register
-allocation, directory cursor clamping, opaque task-launch calls, and the two
-timer-setter edges: target calls the separate `0x00403280` copy while this
-initial implementation calls the public `ZunTimer::SetCurrent`.
+allocation, directory cursor clamping and the opaque task-launch calls.
+The initial implementation's two public `ZunTimer::SetCurrent` edges are
+now repaired through the maintained separate `0x00403280` copy; this fixes
+call identity without closing the update owner.
 [Body review](../.analysis/manual-update-body-and-tail-review.txt),
 [owned table read](../.analysis/manual-dispatch-table.txt).
 
-The shared task launcher at `0x00434CB0` starts a CRT thread, but the two
-worker bodies have plain RET tails and no consumed stack arguments. Only
-those zero-argument bodies are modeled here; the thread-entry adaptation
-stays external. No incompatible callback cast or fabricated wrapper was
-introduced, and the worker-owner comparison does not close native thread
-startup or the runnable product.
+The shared task launcher at `0x00434CB0` starts a CRT thread; both HelpInf
+worker bodies have plain RET tails and no consumed stack arguments.
+The direct CRT path and source callback type boundary are reviewed in the
+[lifecycle finding below](#helpinf-lifecycle-and-shared-update-setter-2026-11-26).
 
-Five complete primary-TU owners are now exact, adding 122 bytes and seven
-reviewed relocation fields:
+The initial HelpInf checkpoint matched five complete primary-TU owners,
+adding 122 bytes and seven reviewed relocation fields:
 
 | Target | Owner | Bytes | Fields |
 | --- | --- | ---: | ---: |
@@ -1656,12 +1655,12 @@ reject all three owners at the complete-contribution size check.
 [tick callback replay](../.analysis/help-final-help-on-tick-replay.json),
 [draw callback replay](../.analysis/help-final-help-on-draw-replay.json).
 
-All 138 previously exact consumers of the changed resource header were
-cold-built in 11 contexts; the new HelpInf context had already been cold-built
-and receipt-verified. The final current-input comparison passed all 143
+For that initial checkpoint, all 138 previously exact consumers of the changed
+resource header were cold-built in 11 contexts; the new HelpInf context had
+already been cold-built and receipt-verified. The final current-input comparison passed all 143
 affected/new exact owners across these 12 contexts, including full owned
-extents and relocation/call identities. No HelpInf initialization, launcher
-adaptation or runtime closure is claimed.
+extents and relocation/call identities. That checkpoint did not implement
+initialization or close launcher adaptation or runtime behavior.
 [Final comparison](../.analysis/help-final-replay.log),
 [selected owners](../.analysis/help-final-affected-units.json).
 
@@ -1672,6 +1671,93 @@ Adding the real caller alone did not explain those remaining GS/alignment
 differences in this measured context.
 [Texture consumer](../.analysis/help-texture-consumer-observations.txt),
 [upload observations](../.analysis/help-upload-consumer-observations.txt).
+
+## HelpInf lifecycle and shared update setter (2026-11-26)
+
+For the same Japanese TH128 target and VC10 RTM `/GL /Ob1 /Oy-` context,
+`HelpInf::Destroy` at `0x00427CB0` now reproduces its complete 29-byte
+primary-TU owner and three reviewed fields: global pointer `+3`, Shutdown
+call `+14` and operator delete call `+20`. It snapshots `g_HelpInf`, calls
+Shutdown when nonnull, then deletes the cached pointer after Shutdown has
+cleared the global. The larger Shutdown owner remains a frontier.
+[Target review](../.analysis/help-shared-timer-and-shutdown-callback-review.txt),
+[canonical replay](../.analysis/help-lifecycle-closure-help-destroy.json).
+
+The setter at `0x00403280` is shared far beyond ANM: the analyzer's reviewed
+xrefs identify 20 caller functions, including four ANM Update calls and the
+two HelpInf calls at `0x00427F65/0x00428094`. `UpdateTimer.hpp` exposes the
+existing natural implementation, still owned by `AnmVmScript.cpp`, without
+aliasing the separate byte-identical public setter at `0x00403240`. Its
+complete 61-byte canonical replay and `g_TimeScale` field at `+38` remain
+exact after changing the anonymous symbol to a shared one. The original TU
+partition is not established by this API.
+[Setter replay](../.analysis/help-shared-timer-canonical-first.json),
+[HelpInf call observation](../.analysis/help-shared-timer-first-Update.json).
+
+Creation, initialization and shutdown now have maintained source and full
+linked frontier units. Creation's target initializes the embedded timer bit
+and MenuCursor defaults before clearing all `0x1C0` bytes and publishing the
+object. The inline MenuCursor constructor preserves those ordinary defaults:
+stack depth/value/disabled count zero, wrapping one and count 999.
+Initialization allocates two Chain elements, installs callbacks, registers
+priorities 10/64 with execution disabled, queues resource loading, resets
+the timer and returns zero. Making the existing default ChainElem constructor
+inline enables its actual body under `/Ob1`; its separate 27-byte canonical
+owner still replays exactly.
+[Lifecycle target review](../.analysis/manual-local-helpers-review.txt),
+[constructor replay](../.analysis/help-lifecycle-chain-ctor-first.json).
+
+Shutdown snapshots each element and Chain pointer before entering Supervisor
+lock 0, cuts the elements, releases/deletes ANM slot 31 and clears the slot
+and global. The first implementation reread each element after locking;
+review corrected that ordering. The target does not free pending `pageData`
+or stop the shared worker in this function.
+
+The latest complete candidates remain 138/135 bytes for Create, 265/267 for
+Initialize and 229/222 for Shutdown. Initialize's candidate promotes its
+HelpInf argument into EDI and has a plain RET, while the target consumes a
+stack pointer and returns with `RET 4`; Create consequently saves/restores
+EDI around that call. Shutdown still has the known private CutImpl receiver
+differences and a split zero-store epilogue. Resetting the timer in the usual
+float/current/previous order did not close those differences. No artificial
+function-pointer escape or ABI shim was added to force the target frame.
+[Initial observations](../.analysis/help-lifecycle-first-observations.txt),
+[current observations](../.analysis/help-lifecycle-closure-observations.txt).
+The current-input strict comparisons reject all six HelpInf frontiers at
+the complete-owner size check; none receives exact credit.
+[Frontier rejections](../.analysis/help-lifecycle-closure-frontier-rejections.json).
+
+The launcher's third caller, `0x00426910`, supplies entry `0x00426420`.
+That five-byte entry jumps to `0x00425E60`; its complete 1,467-byte body
+consumes no stack argument and both return paths have plain RET tails.
+Thus this other call does not supply a conventional `RET 4` adapter either.
+[Third caller](../.analysis/shared-task-launcher-third-caller-review.txt),
+[entry jump](../.analysis/shared-task-launcher-third-entry-span.txt),
+[complete worker](../.analysis/shared-task-launcher-third-worker-complete.txt).
+
+The pinned target CRT stores the unmodified entry and argument in per-thread
+fields `+0x54/+0x58`. It has no normal-path adapter: `__callthreadstartex`
+pushes its stored argument at `0x004742CD`, calls the stored entry directly
+at `0x004742D0`, then immediately pushes EAX and calls `_endthreadex`.
+That function calls `ExitThread`. This explains why a plain-RET worker can
+leave the unused argument on the stack without a subsequent normal return
+depending on ESP; that is an inference from these instructions, not a runtime
+validation or a recovered C++ callback declaration. The binary path is now
+understood; the source type bridge remains external rather than inventing an
+adapter or using an incompatible callback cast to obtain an exact launcher.
+[CRT start review](../.analysis/shared-task-launcher-crt-start-review.txt),
+[CRT call/exit review](../.analysis/shared-task-launcher-crt-entry-review.txt).
+
+The final current-input comparison passed **174/174** affected/new exact
+owners across 15 cold-built contexts. After placing the inline HelpInf
+constructor definition in its header, only its two consuming contexts needed
+another cold build; the other 13 current contexts were reused. The shared
+setter and ChainElem constructor retain their existing credit. Only Destroy
+adds credit here: one function and 29 bytes, bringing the canonical totals
+to 328 functions and 19,658 bytes. Product and runtime closure remain later work.
+[Final comparison](../.analysis/help-lifecycle-closure-replay.log),
+[selected owners](../.analysis/help-lifecycle-closure-selected.json),
+[current setter replay](../.analysis/help-lifecycle-closure-anm-vm-update-timer-set-current.json).
 
 ## Open questions
 

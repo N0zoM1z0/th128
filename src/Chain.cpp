@@ -6,18 +6,6 @@ void __cdecl ChainDebugLog(...)
 {
 }
 
-ChainElem::ChainElem()
-{
-    flags &= ~1u;
-    callback = 0;
-    onRegistration = 0;
-    onDeletion = 0;
-    priority = 0;
-    node.owner = this;
-    node.next = 0;
-    node.prev = 0;
-}
-
 ChainElem::ChainElem(ChainCallback fn)
 {
     flags &= ~1u;

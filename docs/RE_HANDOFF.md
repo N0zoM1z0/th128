@@ -1,6 +1,6 @@
 # TH128 reconstruction handoff
 
-Snapshot: 2026-11-26 (HelpInf viewer source; five new exact owners; main update and UI creation remain frontiers). Read this first, then AGENTS.md.
+Snapshot: 2026-11-26 (HelpInf lifecycle source, exact global destroy and shared update setter; six HelpInf frontiers remain). Read this first, then AGENTS.md.
 
 ## Resume safely
 
@@ -36,12 +36,12 @@ canonical ledgers. At this snapshot:
 | Boundary reviewed / provisional | 3,452 / 64 |
 | Origin rows pending | 21 |
 | Authored / excluded / indeterminate | 2,226 / 1,269 / 0 |
-| Source-present mappings | 383 |
-| Source-present with authored origin | 375 |
-| Authored source-present exact backlog | 56 |
-| Canonical exact functions | 327 |
-| Canonical exact codegen bytes | 19,629 |
-| Canonical exact authored bytes | 19,300 |
+| Source-present mappings | 387 |
+| Source-present with authored origin | 379 |
+| Authored source-present exact backlog | 59 |
+| Canonical exact functions | 328 |
+| Canonical exact codegen bytes | 19,658 |
+| Canonical exact authored bytes | 19,329 |
 
 The candidate inventory is not proven complete. The 21 remaining pending origin
 rows are unreferenced `d3dx9math.inl` candidates (all 16 CRT-band boundary-review
@@ -79,6 +79,39 @@ are not over-inlined; address-taken probe pointers prevent interprocedural
 
 ## Latest advance (2026-11-26)
 
+HelpInf now has maintained construction, creation, registration and cleanup.
+`Destroy` (`0x00427CB0`, 29B) is newly exact, including its global pointer,
+Shutdown and operator-delete fields. It deletes a cached pointer after
+Shutdown clears the global. Create (138/135B), Initialize (265/267B) and
+Shutdown (229/222B) remain complete-owner frontiers with all 6/9/24 target
+fields declared. Initialize's private EDI argument differs from the target's
+stack argument; Shutdown retains the CutImpl register and epilogue differences.
+Its element/Chain snapshots now precede each lock as in the target.
+
+`UpdateTimer.hpp` shares the actual setter at `0x00403280` between ANM and
+HelpInf. Its 61-byte canonical owner remains exact; the public `0x00403240`
+setter remains a separate function. The reviewed xrefs span 20 caller
+functions. Both HelpInf timer edges now use the correct maintained copy;
+Update is 1,104/1,184 bytes and still differs elsewhere. The target's
+embedded MenuCursor defaults and inline ChainElem construction now have
+source; the latter's existing 27-byte standalone owner remains exact.
+The shared launcher's third worker also has plain-RET tails. Target CRT
+review shows a direct worker call followed immediately by `_endthreadex`
+and `ExitThread`, with no normal-path adapter. The source callback type
+bridge remains external; see the finding for the reviewed instructions.
+See the [lifecycle/setter finding](KNOWLEDGE_BASE.md#helpinf-lifecycle-and-shared-update-setter-2026-11-26).
+All 174 affected/new exact owners passed the final current-input comparison
+across 15 cold-built contexts. The final constructor-header move required
+only the HelpInf and texture contexts to be rebuilt again; the other 13
+current contexts were reused. All six HelpInf frontiers were rejected
+separately at the complete-owner size check. See the
+[final comparison](../.analysis/help-lifecycle-closure-replay.log),
+[selected owners](../.analysis/help-lifecycle-closure-selected.json) and
+[current observations](../.analysis/help-lifecycle-closure-observations.txt).
+
+The preceding HelpInf checkpoint (`cedc55d`) supplied the viewer and its
+first five exact owners:
+
 `HelpInf.hpp/.cpp` now reconstruct the nine-page help viewer at `0x00427CD0`,
 its `0x1C0` layout, page/resource worker bodies, UI VM creation and callbacks.
 Five complete owners are newly exact (+122 bytes, seven reviewed fields):
@@ -89,16 +122,16 @@ probe preserve the generic ID-store helper without an ABI shim. The upload
 caller owns and frees its CPU image; the following D3D slot `+0x24` is
 `PreLoad`, confirmed against the pinned SDK.
 
-Three HelpInf owners remain frontiers: Update is 1,092/1,184 bytes,
-`AnmResource::CreateUiVm` is 202/204, and `LoadResourcesWorker` is 92/90.
-Update still differs in frame/register layout, cursor clamping, launcher
-edges and two timer calls: the target uses `SetUpdateTimerCurrent`
-(`0x00403280`), while current source uses the public setter (`0x00403240`).
+At that checkpoint, three HelpInf owners remained frontiers: Update was
+1,092/1,184 bytes, `AnmResource::CreateUiVm` was 202/204, and
+`LoadResourcesWorker` was 92/90.
+Update differed in frame/register layout, cursor clamping, launcher
+edges and the two timer calls fixed above.
 The UI helper's binder input/result lifetimes differ; the resource worker's
 private Fatal receiver is EDI rather than ECX. Worker bodies consume no
-stack arguments and end in plain RET; CRT thread-entry adaptation at the
-external launcher remains unresolved. Initialization and native runtime
-closure are not implemented by this checkpoint.
+stack arguments and end in plain RET; the launcher's source callback type
+bridge remains unresolved. Initialization was not implemented
+until the lifecycle work above; native runtime closure is still unproved.
 
 The resource-header change required 11 existing contexts to be cold-built;
 the new HelpInf context was already cold-built and receipt-verified. All
@@ -438,7 +471,7 @@ Primary evidence:
 | src/AnmLoading.cpp | first-stage ANM load, external texture caching, inline resource constructor contribution | constructor exact (linked PE); loader/cache frontiers |
 | src/AnmFinalization.cpp | resolved sprite installation, one-entry finalization and pending-resource scheduler | `SetSprite` (145B) and scheduler (140B) exact; finalizer frontier |
 | src/AnmTextureLoading.cpp | seven texture creation/loading/upload methods, format fallback, neighbor accumulation and transparent RGB repair | 7 owners exact (334B); 6 frontiers including the full 1,774B repair |
-| src/HelpInf.cpp | help viewer update, UI VM creation, page/resource worker bodies and Chain callbacks | 5 owners exact (122B); Update, UI helper and resource worker frontiers |
+| src/HelpInf.cpp | help viewer lifecycle/update, UI VM creation, page/resource worker bodies and Chain callbacks | 6 owners exact (151B); Create, Initialize, Shutdown, Update, UI helper and resource worker frontiers |
 | src/AnmResource.cpp | `Release`, `AnmTextureEntry::Release`, `CreateVm` | 2 exact (linked PE); `CreateVm` frontier |
 | src/AnmVmUpdateWrapper.cpp | manager binding update wrapper (`0x00407080`) | 20-byte target frontier; 5-byte GL body, 15-byte normal-COFF body |
 | src/AnmHelpers.cpp | `ResolveAnmVmId` and 31 `AnmId`/VM/child/rotation/draw helpers (`0x00467570..0x00468100`) | 32 exact (linked PE); `ClearD3DTexture*` frontiers |
@@ -483,9 +516,9 @@ callers remain frontiers as well.
    stack/register layout. All four direct callers now have source. The
    remaining upload paths are listed above; the real HelpInf caller at
    `0x00427CD0` is now present without closing the uploader's GS/alignment
-   differences. First resolve its two timer-call identities by sharing the
-   maintained `SetUpdateTimerCurrent` implementation through an honest API;
-   do not bind the public setter to the byte-identical private copy.
+   differences. Its two timer-call identities are now repaired through the
+   shared maintained setter. The six HelpInf frontiers remain listed above;
+   retain the real lifecycle bodies when investigating their linked context.
    The pixel, upload and GPU findings retain failed probes.
    Then revisit the
    1,000-byte finalizer and the loader/cache pair
@@ -506,10 +539,15 @@ callers remain frontiers as well.
 4. **Next useful command after the session identity checks**:
 
    ~~~bash
-   rg -n 'SetUpdateTimerCurrent|SetCurrent\(0\)' src/AnmVmScript.cpp src/HelpInf.cpp
+   scripts/repo-python scripts/compare-linked-function.py --unit help-initialize
    ~~~
 
-   The HelpInf owner's complete 1,184 bytes through `0x0042816F`, including
+   This is an expected complete-owner rejection, not an exact claim. Compare
+   `.analysis/help-lifecycle-closure-Initialize-source.asm` with the target
+   review in `.analysis/manual-local-helpers-review.txt`; preserve the actual
+   stack contract through real context rather than manufacturing a function
+   pointer escape to change the candidate's EDI argument.
+   The HelpInf update owner's complete 1,184 bytes through `0x0042816F`, including
    alignment and five dispatch entries, are reviewed in
    `.analysis/manual-update-body-and-tail-review.txt` and
    `.analysis/manual-dispatch-table.txt`. Preserve the separate setter

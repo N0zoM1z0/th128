@@ -13,6 +13,15 @@ struct MenuCursor
     int wraps;                  // +0xD0
     int disabledCount;          // +0xD4
 
+    MenuCursor()
+    {
+        stackDepth = 0;
+        value = 0;
+        disabledCount = 0;
+        wraps = 1;
+        count = 999;
+    }
+
     void Push();
     void Pop();
     int Move(int delta);

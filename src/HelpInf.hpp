@@ -5,6 +5,8 @@
 #include "MenuCursor.hpp"
 #include "Chain.hpp"
 
+#include <string.h>
+
 // TH128 HelpInf, identified by help.anm/help_%.2d.png and help.cpp strings.
 struct HelpInf
 {
@@ -24,6 +26,11 @@ struct HelpInf
     char pageFilename[128];          // +0x13C
     int pageSize;                    // +0x1BC
 
+    HelpInf();
+    static HelpInf *Create();
+    static void Destroy();
+    static int __stdcall Initialize(HelpInf *help);
+    void Shutdown();
     void CreateVm(int scriptIndex, const ZunVec3 *position);
     int Draw() { return 1; }
     static int __stdcall Update(HelpInf *help);
@@ -40,7 +47,14 @@ typedef char HelpInfPageSizeOffset[(offsetof(HelpInf, pageSize) == 0x1BC) ? 1 : 
 
 extern HelpInf *g_HelpInf;
 
-// Reviewed launcher at 0x00434CB0. Its thread-entry adaptation remains open;
-// the worker bodies have no consumed stack arguments and plain RET tails.
+inline HelpInf::HelpInf()
+{
+    memset(this, 0, sizeof(*this));
+    flags |= 2U;
+    g_HelpInf = this;
+}
+
+// Reviewed launcher at 0x00434CB0. The target CRT calls these plain-RET,
+// zero-argument bodies directly; the C++ callback type bridge remains open.
 typedef void(__cdecl *HelpWorkerEntry)();
 int __stdcall QueueHelpWorker(HelpWorkerEntry worker);
