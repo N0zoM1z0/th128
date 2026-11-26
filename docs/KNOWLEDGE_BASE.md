@@ -3107,6 +3107,160 @@ inline. These are target observations only, with no new source or exact credit.
 [complete activation instruction listing](../.analysis/card-start-complete-code-next.txt),
 [table reads](../.analysis/card-start-owned-tables-next.txt).
 
+## Card activation, notification dispatch and VM text (2026-11-26)
+
+Original Japanese TH12.8 v1.00a now has complete maintained source for the
+CardInf activation/termination entries, the shared score increment, the
+notification dispatcher and all four directly related VM-text routines.
+These eight target owners total 3,751 bytes. The shared AddScore helper now
+passes its complete 54B / three-field pinned VC10 RTM `/O2 /Ob1 /Oy- /GL`
+primary-TU comparison. The other seven owners remain source frontiers; their
+bytes receive no exact credit.
+[Actions](../src/CardInfActions.cpp), [notification source](../src/PopupNotifications.cpp),
+[text source](../src/AnmText.cpp),
+[complete target fields](../.analysis/card-activity-target-fields.json).
+
+| Target owner | Address | Complete extent / address fields |
+| --- | --- | --- |
+| CardInfActions::Start | 0x0040DD70 | 1496B / 63 |
+| CardInfActions::Finish | 0x0040E350 | 398B / 20 |
+| AddScore | 0x0040E4E0 | 54B / 3 |
+| PopupNotifications::Show | 0x00424B80 | 1072B / 56 |
+| RenderAnmSpriteText | 0x00466130 | 210B / 9 |
+| AnmTextVmView::DrawTextAt | 0x00466210 | 132B / 4 |
+| AnmTextVmView::DrawCenteredText | 0x004662A0 | 196B / 6 |
+| AnmTextVmView::DrawTextAtHalfCenter | 0x00466370 | 193B / 5 |
+
+Activation's 1496B owner includes 1417 Ghidra instruction bytes, 69 table
+bytes and ten physical filler bytes. Its two byte-dispatch tables are 17B
+at +1440 and 16B at +1480; those are raw-compared data spans. Four-entry and five-entry
+absolute tables and both byte-table address operands remain explicit
+local relocations. The dispatcher at 0x00424B80 is only 15B in Ghidra's
+function body, but independent span review covers 1032B of code/alignment
+and its 40B table through 0x00424FAF. The ten table references stay inside
+the complete owner. Neither sparse auto-analysis body may crop a comparison.
+[Activation bytes](../.analysis/card-start-owned-extent.txt),
+[activation instructions](../.analysis/card-start-complete-code-next.txt),
+[dispatcher code](../.analysis/card-message-code-complete.txt),
+[dispatcher table](../.analysis/card-message-owned-table.txt).
+
+Start resets the timer, stores card index at +0x78, copies the name, writes
+`(flags & ~0x30) | 7`, captures the observed gate flag, clears the clock bit
+and sets active frames to one. It creates scripts 1/2 from AsciiInf's resource
+at +0x1C894 and script 0x4A from Supervisor +0x590. Resource views at global
+0x004B8930 +0x8A7F9C and actor-manager +0x8C supply the other effects.
+It tracks the actor position, writes the duration into child scripts 0x9C/0x9D,
+and installs the stage-dependent bonus. Only initialBonus is capped at
+99999999; the simultaneously assigned current bonus is not reclamped.
+
+The history root is 0x004B8A88, records begin at +0x37A0, and stride is 0x98.
+The name begins at record +0; its capacity is unresolved. The four observed
+counters are +0x80/+0x84/+0x88/+0x8C and stop incrementing at 99999. Start
+updates +0x8C when replay-storage +0x10 is not 1. Finish always updates +0x88
+on an active exit, updates +0x80 on flag 2 when mode is not 1, and updates
++0x84 on the flag-2/flag-4 path. These are distinct operations. The partial
+views do not establish complete owning classes or a record-array capacity.
+[Views](../src/CardActivityViews.hpp),
+[activation/termination review](../.analysis/card-start-stop-next-review.txt).
+
+The first Start source cached a particular history record and emitted 1500B.
+The target instead caches the storage root and reloads card index after each
+child binding. Correcting that real data flow emitted 1516B in the private
+candidate; the shorter first body was not accepted. Position-VM resolution
+likewise reuses the captured ANM manager for its last two lookups. Both fixes
+are retained; the final primary Start contribution is 1504B vs target 1496B. The first
+field inventory missed the two indexed byte-table address operands; both
+were added before acceptance. A cold build was stopped to apply these
+corrections, leaving no receipt for that interrupted construction.
+[First source observation](../.analysis/card-activity-first-start.json),
+[history-root observation](../.analysis/card-activity-history-root-start.json),
+[interrupted build](../.analysis/card-activity-before-manager-cache-aborted-build.log).
+
+Finish sends interrupt 1 to the three UI VMs, clears active state, deletes
+auxiliary/position IDs and clears the gate flag. The flag-2 paths play sound
+0x30, show kind 7 or 8 and add bonus / 10 to score. The other path shows kind
+9 without adding score. The separate AddScore helper takes a signed amount,
+adds amount / 10 to global 0x004B4CC4 and caps it at 999999999, with no lower
+clamp. Other gameplay callers use this helper too; the source namespace
+is a grouping, not proof of original class ownership.
+
+The notification view at 0x004B8950 has digits at +0x5860, separators at
++0x5880/+0x5884, primary/secondary labels at +0x5888/+0x588C, a marker at
++0x58D4, its active flag at +0x58D8 and resource at +0x5A34. Kinds 0/1 use
+scripts 0x2D/0x2E; kinds 2/3/4 use secondary scripts 0x2F/0x30/0x31; 5 is
+empty; 6 uses 0x32; 7/8 use 0xAA/0xAB; 9 uses 0xAC. Kinds 0/7/8 build eight
+digits with scripts 9..16 and bind files 0xF3 + digit. Leading zero VMs are
+hidden until a nonzero digit. Separators use scripts 17/18 at values >= one
+million/one thousand and bind file 0xFD. Kinds 0/1/7/8/9 also create marker
+script 0x50. The target dispatch has no bounds check. Four reviewed non-card
+call sites encode kinds 3/4/4/2, without source credit. The 278B score-display
+caller physically retains a Show(3, 0) edge after OR 4 / TEST AL,4; the branch
+appears unreachable and must not disappear from a claimed complete extent.
+[Real callers](../.analysis/card-popup-real-callers-review.txt).
+
+A probe using only the global notification pointer let LTCG eliminate the
+receiver; Finish became 347B and Show 1024B. A generic receiver preserved
+the object interface but produced 374B/1020B, still differing from target
+EDI receiver/EAX kind plus kind/value stack slots and RET 8. Keep the ordinary
+member interface rather than inventing a custom register declaration. The
+probe now uses the observed constant notification kinds and both other text
+interfaces. Those changes did not close the private candidate.
+[Global-only observation](../.analysis/card-activity-first-popup.json),
+[generic observation](../.analysis/card-activity-generic-popup.json).
+
+The text routines use VM font byte +0x4D0 and set VM flag 1 after rendering.
+The sprite helper converts four rectangle floats to integers, defaults
+nonpositive font widths to 17, skips widths 1..8 and selects the two observed
+fastcall texture-text boundaries at 0x00452840/0x00452B00. Those backend bodies
+remain external declarations, with ECX/EDX texture/text and seven/six stack
+arguments respectively; no substitute implementations were added.
+[Sprite helper and conversion](../.analysis/card-text-raster-dependency-review.txt),
+[backend ABI review](../.analysis/card-text-backend-abi-review.txt),
+[first backend return](../.analysis/card-text-first-backend-return.txt).
+
+DrawTextAt forwards the caller X. Centered text converts
+` spriteWidth - unsignedGlyphSpan / 2 ` to int; half-center first converts
+spriteWidth to signed int and divides by two, then subtracts unsignedGlyphSpan
+/ 4. The rounding order is distinct. All wrappers use vsprintf and preserve
+cookie calls. A 132-byte decompiler buffer hypothesis and the 128-byte source
+both emitted a 215B centered wrapper; frame displacement alone does not prove
+capacity. The maintained 128-byte capacity remains a source hypothesis. The
+sprite helper emits 194B vs 210B: target ESP alignment/cookie accesses differ
+from source EBP accesses. Scalar vs aggregate RECT initialization did not
+resolve it. Do not insert alignment hints or padding to close these gaps.
+[Other wrapper review](../.analysis/anm-text-three-wrapper-review.txt),
+[text-family observations](../.analysis/card-activity-text-family-center-text.json),
+[sprite observation](../.analysis/card-activity-text-family-sprite-text.json).
+
+A private scoped-lock version of AnmResource::CreateVm did not fix caller
+codegen. Both the maintained and scoped-lock bodies already write the return
+ID before unlock through return-value optimization; both emit 363B with the same ordinary bytes and 18-field layout
+in this context. The hypothesis that lexical unlock-before-return caused
+the mismatch was falsified. The shared factory source and its 81 previously exact dependent
+units were left unchanged. This experiment grants no exact credit.
+[Scoped-lock observation](../.analysis/card-activity-lock-vm-create.json),
+[factory target](../.analysis/card-create-vm-return-review.txt),
+[private recipe](../.analysis/card-activity-lock-relink.py).
+
+
+
+Final comparisons cover **eight complete target owners in three cold
+44-source primary contexts**: AddScore is exact (54B / three fields), and
+seven other owners are rejected. Candidate/target extents are Start
+1504/1496, Finish 374/398, Show 1020/1072, sprite text 194/210, explicit-X text
+142/132, centered text 215/196 and half-center text 201/193. These size gaps
+are not ordinary-byte difference counts, and no cropped comparison is used.
+Only new source/context inputs changed; existing shared sources, headers,
+profiles and their canonical units were left intact. No broad replay or
+Oracle infrastructure tests were needed. The ledgers now contain **440
+source mappings / 352 exact functions / 24,938 exact bytes**, including
+**343 authored exact functions / 24,578 authored bytes**. Native product and
+runtime closure remain unproved.
+[Cold construction](../.analysis/card-activity-final-build.log),
+[complete results](../.analysis/card-activity-final-results.json),
+[sources and profiles](../.analysis/card-activity-final-scope.json).
+
+
 ## Open questions
 
 - Per-unit flags, the TU partition, which objects were `/GL`, the library set

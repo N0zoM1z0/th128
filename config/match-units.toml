@@ -8129,3 +8129,305 @@ linkages = [
   { offset = 61, type = "REL32", symbol = "?CreateText@AsciiInf@@QAE?AUAsciiTextId@@PBUZunVec3@@PBD@Z", target = 0x004015F0 },
   { offset = 77, type = "REL32", symbol = "@__security_check_cookie@4", target = 0x004728FD },
 ]
+
+[units.card-start]
+frontier = true
+artifact_kind = "linked-pe"
+source = "src/CardInfActions.cpp"
+support_sources = ["src/CardInf.cpp", "src/SupervisorPresent.cpp", "src/SupervisorFrame.cpp", "src/AnmViewport.cpp", "src/AnmDraw.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "src/AnmLoading.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmInterp.cpp", "src/SupervisorTime.cpp", "probes/supervisor-frame-context.cpp", "probes/anm-core-context.cpp", "src/SupervisorRenderState.cpp", "src/SupervisorSurfaces.cpp", "probes/anm-vm-update-context.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "probes/supervisor-surfaces-context.cpp", "src/SupervisorDevice.cpp", "probes/supervisor-present-context.cpp", "src/SupervisorScreenshot.cpp", "src/SupervisorSurfaceCopies.cpp", "src/FileSystem.cpp", "src/DebugLog.cpp", "src/PostPresentUpdates.cpp", "src/AnmHelpers.cpp", "src/AsciiInf.cpp", "src/SoundManager.cpp", "src/AnmText.cpp", "src/PopupNotifications.cpp", "probes/card-activity-context.cpp"]
+normal_support_sources = ["src/DebugLog.cpp"]
+support_profiles = { "src/SupervisorTime.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/FileSystem.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/GameErrorContext.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/SoundManager.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"] }
+output_dir = "build/match-linked/CardInfActions"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardActivityProbe@20"
+functions = ["CardInfActions::Start"]
+symbol = "?Start@CardInfActions@@YGXHPBDH@Z"
+target_address = 0x0040DD70
+size = 1496
+linkages = [
+  { offset = 16, type = "DIR32", symbol = "?g_CardInf@@3PAUCardInf@@A", target = 0x004B8934 },
+  { offset = 52, type = "DIR32", symbol = "?g_TimeScale@@3MA", target = 0x004B6F58 },
+  { offset = 101, type = "DIR32", symbol = "?g_ReplayPauseStorage@@3PAXA", target = 0x004B8A84 },
+  { offset = 124, type = "DIR32", symbol = "?g_CardHistoryStorage@@3PAXA", target = 0x004B8A88 },
+  { offset = 185, type = "DIR32", symbol = "?g_CardGateState@@3PAUCardGateStateView@@A", target = 0x004B892C },
+  { offset = 206, type = "DIR32", symbol = "?g_AsciiInf@@3PAUAsciiInf@@A", target = 0x004B8920 },
+  { offset = 242, type = "REL32", symbol = "?CreateVm@AnmResource@@QAE?AUAnmId@@PBUZunVec3@@HHI@Z", target = 0x004670B0 },
+  { offset = 262, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1424 },
+  { offset = 270, type = "REL32", symbol = "?CreateVm@AnmResource@@QAE?AUAnmId@@PBUZunVec3@@HHI@Z", target = 0x004670B0 },
+  { offset = 285, type = "DIR32", symbol = "?g_AsciiInf@@3PAUAsciiInf@@A", target = 0x004B8920 },
+  { offset = 304, type = "REL32", symbol = "?CreateVm@AnmResource@@QAE?AUAnmId@@PBUZunVec3@@HHI@Z", target = 0x004670B0 },
+  { offset = 322, type = "DIR32", symbol = "?g_CardHistoryStorage@@3PAXA", target = 0x004B8A88 },
+  { offset = 341, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+  { offset = 346, type = "REL32", symbol = "?GetVmById@AnmManager@@QAEPAUAnmVm@@UAnmId@@@Z", target = 0x00467420 },
+  { offset = 409, type = "REL32", symbol = "?BindAnmFile@AnmVm@@QAEHPAUAnmResource@@H@Z", target = 0x00459220 },
+  { offset = 436, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+  { offset = 442, type = "REL32", symbol = "?GetVmById@AnmManager@@QAEPAUAnmVm@@UAnmId@@@Z", target = 0x00467420 },
+  { offset = 505, type = "REL32", symbol = "?BindAnmFile@AnmVm@@QAEHPAUAnmResource@@H@Z", target = 0x00459220 },
+  { offset = 532, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+  { offset = 538, type = "REL32", symbol = "?GetVmById@AnmManager@@QAEPAUAnmVm@@UAnmId@@@Z", target = 0x00467420 },
+  { offset = 601, type = "REL32", symbol = "?BindAnmFile@AnmVm@@QAEHPAUAnmResource@@H@Z", target = 0x00459220 },
+  { offset = 610, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+  { offset = 616, type = "REL32", symbol = "?GetVmById@AnmManager@@QAEPAUAnmVm@@UAnmId@@@Z", target = 0x00467420 },
+  { offset = 645, type = "REL32", symbol = "?DrawCenteredText@AnmTextVmView@@QAAXKKHHPBDZZ", target = 0x004662A0 },
+  { offset = 658, type = "REL32", symbol = "?PlaySfx@SoundManager@@QAEXH@Z", target = 0x00458410 },
+  { offset = 664, type = "DIR32", symbol = "?g_CardEffectResources@@3PAUCardEffectResourceView@@A", target = 0x004B8930 },
+  { offset = 690, type = "REL32", symbol = "?CreateVm@AnmResource@@QAE?AUAnmId@@PBUZunVec3@@HHI@Z", target = 0x004670B0 },
+  { offset = 699, type = "DIR32", symbol = "?g_CardTrackedActorManager@@3PAUCardTrackedActorManagerView@@A", target = 0x004B8948 },
+  { offset = 705, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+  { offset = 755, type = "REL32", symbol = "?GetVmById@AnmManager@@QAEPAUAnmVm@@UAnmId@@@Z", target = 0x00467420 },
+  { offset = 771, type = "DIR32", symbol = "__real@4060000000000000", target = 0x004A65F8 },
+  { offset = 777, type = "DIR32", symbol = "__real@4068000000000000", target = 0x004A65D8 },
+  { offset = 795, type = "DIR32", symbol = "__real@4030000000000000", target = 0x004A6610 },
+  { offset = 824, type = "REL32", symbol = "?GetVmById@AnmManager@@QAEPAUAnmVm@@UAnmId@@@Z", target = 0x00467420 },
+  { offset = 893, type = "REL32", symbol = "?GetVmById@AnmManager@@QAEPAUAnmVm@@UAnmId@@@Z", target = 0x00467420 },
+  { offset = 950, type = "DIR32", symbol = "?g_CurrentReplayStage@@3HA", target = 0x004B4D14 },
+  { offset = 962, type = "DIR32", local = true, target = 0x0040E310 },
+  { offset = 969, type = "DIR32", local = true, target = 0x0040E300 },
+  { offset = 1003, type = "DIR32", symbol = "?g_Difficulty@@3HA", target = 0x004B4D0C },
+  { offset = 1017, type = "DIR32", symbol = "?g_Difficulty@@3HA", target = 0x004B4D0C },
+  { offset = 1033, type = "DIR32", symbol = "?g_Difficulty@@3HA", target = 0x004B4D0C },
+  { offset = 1089, type = "DIR32", symbol = "?g_CardEffectResources@@3PAUCardEffectResourceView@@A", target = 0x004B8930 },
+  { offset = 1115, type = "REL32", symbol = "?CreateVm@AnmResource@@QAE?AUAnmId@@PBUZunVec3@@HHI@Z", target = 0x004670B0 },
+  { offset = 1121, type = "DIR32", symbol = "?g_CurrentReplayStage@@3HA", target = 0x004B4D14 },
+  { offset = 1147, type = "REL32", symbol = "?CreateVm@AnmResource@@QAE?AUAnmId@@PBUZunVec3@@HHI@Z", target = 0x004670B0 },
+  { offset = 1161, type = "DIR32", symbol = "?g_CardTrackedActorManager@@3PAUCardTrackedActorManagerView@@A", target = 0x004B8948 },
+  { offset = 1180, type = "REL32", symbol = "?CreateVm@AnmResource@@QAE?AUAnmId@@PBUZunVec3@@HHI@Z", target = 0x004670B0 },
+  { offset = 1191, type = "DIR32", symbol = "?g_CurrentReplayStage@@3HA", target = 0x004B4D14 },
+  { offset = 1208, type = "DIR32", local = true, target = 0x0040E338 },
+  { offset = 1215, type = "DIR32", local = true, target = 0x0040E324 },
+  { offset = 1221, type = "DIR32", symbol = "?g_CardTrackedActorManager@@3PAUCardTrackedActorManagerView@@A", target = 0x004B8948 },
+  { offset = 1244, type = "REL32", symbol = "?CreateVm@AnmResource@@QAE?AUAnmId@@PBUZunVec3@@HHI@Z", target = 0x004670B0 },
+  { offset = 1397, type = "DIR32", symbol = "?g_CardTrackedActorManager@@3PAUCardTrackedActorManagerView@@A", target = 0x004B8948 },
+  { offset = 1410, type = "REL32", symbol = "?CreateVm@AnmResource@@QAE?AUAnmId@@PBUZunVec3@@HHI@Z", target = 0x004670B0 },
+  { offset = 1424, type = "DIR32", local = true, target = 0x0040E15A },
+  { offset = 1428, type = "DIR32", local = true, target = 0x0040E168 },
+  { offset = 1432, type = "DIR32", local = true, target = 0x0040E178 },
+  { offset = 1436, type = "DIR32", local = true, target = 0x0040E188 },
+  { offset = 1460, type = "DIR32", local = true, target = 0x0040E259 },
+  { offset = 1464, type = "DIR32", local = true, target = 0x0040E268 },
+  { offset = 1468, type = "DIR32", local = true, target = 0x0040E270 },
+  { offset = 1472, type = "DIR32", local = true, target = 0x0040E233 },
+  { offset = 1476, type = "DIR32", local = true, target = 0x0040E2D9 },
+]
+data_spans = [{ offset = 1440, size = 17 }, { offset = 1480, size = 16 }]
+
+[units.card-finish]
+frontier = true
+artifact_kind = "linked-pe"
+source = "src/CardInfActions.cpp"
+support_sources = ["src/CardInf.cpp", "src/SupervisorPresent.cpp", "src/SupervisorFrame.cpp", "src/AnmViewport.cpp", "src/AnmDraw.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "src/AnmLoading.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmInterp.cpp", "src/SupervisorTime.cpp", "probes/supervisor-frame-context.cpp", "probes/anm-core-context.cpp", "src/SupervisorRenderState.cpp", "src/SupervisorSurfaces.cpp", "probes/anm-vm-update-context.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "probes/supervisor-surfaces-context.cpp", "src/SupervisorDevice.cpp", "probes/supervisor-present-context.cpp", "src/SupervisorScreenshot.cpp", "src/SupervisorSurfaceCopies.cpp", "src/FileSystem.cpp", "src/DebugLog.cpp", "src/PostPresentUpdates.cpp", "src/AnmHelpers.cpp", "src/AsciiInf.cpp", "src/SoundManager.cpp", "src/AnmText.cpp", "src/PopupNotifications.cpp", "probes/card-activity-context.cpp"]
+normal_support_sources = ["src/DebugLog.cpp"]
+support_profiles = { "src/SupervisorTime.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/FileSystem.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/GameErrorContext.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/SoundManager.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"] }
+output_dir = "build/match-linked/CardInfActions"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardActivityProbe@20"
+functions = ["CardInfActions::Finish"]
+symbol = "?Finish@CardInfActions@@YAXXZ"
+target_address = 0x0040E350
+size = 398
+linkages = [
+  { offset = 9, type = "DIR32", symbol = "?g_CardInf@@3PAUCardInf@@A", target = 0x004B8934 },
+  { offset = 31, type = "DIR32", symbol = "?g_CardAuxiliaryState@@3PAUCardAuxiliaryStateView@@A", target = 0x004B8928 },
+  { offset = 46, type = "REL32", symbol = "?StopVmById@AnmManager@@QAEXUAnmId@@F@Z", target = 0x00467480 },
+  { offset = 55, type = "REL32", symbol = "?StopVmById@AnmManager@@QAEXUAnmId@@F@Z", target = 0x00467480 },
+  { offset = 64, type = "REL32", symbol = "?StopVmById@AnmManager@@QAEXUAnmId@@F@Z", target = 0x00467480 },
+  { offset = 76, type = "REL32", symbol = "?DeleteVmByIdPtr@AnmHelpers@@YGXPAUAnmId@@@Z", target = 0x004679B0 },
+  { offset = 88, type = "REL32", symbol = "?DeleteVmByIdPtr@AnmHelpers@@YGXPAUAnmId@@@Z", target = 0x004679B0 },
+  { offset = 97, type = "DIR32", symbol = "?g_CardHistoryStorage@@3PAXA", target = 0x004B8A88 },
+  { offset = 148, type = "DIR32", symbol = "?g_ReplayPauseStorage@@3PAXA", target = 0x004B8A84 },
+  { offset = 201, type = "REL32", symbol = "?PlaySfx@SoundManager@@QAEXH@Z", target = 0x00458410 },
+  { offset = 219, type = "DIR32", symbol = "?g_PopupNotifications@@3PAUPopupNotifications@@A", target = 0x004B8950 },
+  { offset = 232, type = "REL32", symbol = "?Show@PopupNotifications@@QAEXHH@Z", target = 0x00424B80 },
+  { offset = 244, type = "DIR32", symbol = "?g_CardHistoryStorage@@3PAXA", target = 0x004B8A88 },
+  { offset = 292, type = "DIR32", symbol = "?g_PopupNotifications@@3PAUPopupNotifications@@A", target = 0x004B8950 },
+  { offset = 305, type = "REL32", symbol = "?Show@PopupNotifications@@QAEXHH@Z", target = 0x00424B80 },
+  { offset = 326, type = "DIR32", symbol = "?g_Score@@3HA", target = 0x004B4CC4 },
+  { offset = 343, type = "DIR32", symbol = "?g_Score@@3HA", target = 0x004B4CC4 },
+  { offset = 356, type = "DIR32", symbol = "?g_Score@@3HA", target = 0x004B4CC4 },
+  { offset = 373, type = "DIR32", symbol = "?g_PopupNotifications@@3PAUPopupNotifications@@A", target = 0x004B8950 },
+  { offset = 387, type = "REL32", symbol = "?Show@PopupNotifications@@QAEXHH@Z", target = 0x00424B80 },
+]
+
+[units.score-add]
+artifact_kind = "linked-pe"
+source = "src/CardInfActions.cpp"
+support_sources = ["src/CardInf.cpp", "src/SupervisorPresent.cpp", "src/SupervisorFrame.cpp", "src/AnmViewport.cpp", "src/AnmDraw.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "src/AnmLoading.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmInterp.cpp", "src/SupervisorTime.cpp", "probes/supervisor-frame-context.cpp", "probes/anm-core-context.cpp", "src/SupervisorRenderState.cpp", "src/SupervisorSurfaces.cpp", "probes/anm-vm-update-context.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "probes/supervisor-surfaces-context.cpp", "src/SupervisorDevice.cpp", "probes/supervisor-present-context.cpp", "src/SupervisorScreenshot.cpp", "src/SupervisorSurfaceCopies.cpp", "src/FileSystem.cpp", "src/DebugLog.cpp", "src/PostPresentUpdates.cpp", "src/AnmHelpers.cpp", "src/AsciiInf.cpp", "src/SoundManager.cpp", "src/AnmText.cpp", "src/PopupNotifications.cpp", "probes/card-activity-context.cpp"]
+normal_support_sources = ["src/DebugLog.cpp"]
+support_profiles = { "src/SupervisorTime.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/FileSystem.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/GameErrorContext.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/SoundManager.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"] }
+output_dir = "build/match-linked/CardInfActions"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardActivityProbe@20"
+functions = ["AddScore"]
+symbol = "?AddScore@CardInfActions@@YGXH@Z"
+target_address = 0x0040E4E0
+size = 54
+linkages = [
+  { offset = 12, type = "DIR32", symbol = "?g_Score@@3HA", target = 0x004B4CC4 },
+  { offset = 29, type = "DIR32", symbol = "?g_Score@@3HA", target = 0x004B4CC4 },
+  { offset = 42, type = "DIR32", symbol = "?g_Score@@3HA", target = 0x004B4CC4 },
+]
+
+[units.popup-show]
+frontier = true
+artifact_kind = "linked-pe"
+source = "src/PopupNotifications.cpp"
+support_sources = ["src/CardInfActions.cpp", "src/CardInf.cpp", "src/SupervisorPresent.cpp", "src/SupervisorFrame.cpp", "src/AnmViewport.cpp", "src/AnmDraw.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "src/AnmLoading.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmInterp.cpp", "src/SupervisorTime.cpp", "probes/supervisor-frame-context.cpp", "probes/anm-core-context.cpp", "src/SupervisorRenderState.cpp", "src/SupervisorSurfaces.cpp", "probes/anm-vm-update-context.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "probes/supervisor-surfaces-context.cpp", "src/SupervisorDevice.cpp", "probes/supervisor-present-context.cpp", "src/SupervisorScreenshot.cpp", "src/SupervisorSurfaceCopies.cpp", "src/FileSystem.cpp", "src/DebugLog.cpp", "src/PostPresentUpdates.cpp", "src/AnmHelpers.cpp", "src/AsciiInf.cpp", "src/SoundManager.cpp", "src/AnmText.cpp", "probes/card-activity-context.cpp"]
+normal_support_sources = ["src/DebugLog.cpp"]
+support_profiles = { "src/SupervisorTime.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/FileSystem.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/GameErrorContext.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/SoundManager.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"] }
+output_dir = "build/match-linked/PopupNotifications"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardActivityProbe@20"
+functions = ["PopupNotifications::Show"]
+symbol = "?Show@PopupNotifications@@QAEXHH@Z"
+target_address = 0x00424B80
+size = 1072
+linkages = [
+  { offset = 11, type = "DIR32", local = true, target = 0x00424F88 },
+  { offset = 22, type = "REL32", symbol = "?DeleteVmByIdPtr@AnmHelpers@@YGXPAUAnmId@@@Z", target = 0x004679B0 },
+  { offset = 46, type = "REL32", symbol = "?CreateVm@AnmResource@@QAE?AUAnmId@@PBUZunVec3@@HHI@Z", target = 0x004670B0 },
+  { offset = 83, type = "REL32", symbol = "?DeleteVmByIdPtr@AnmHelpers@@YGXPAUAnmId@@@Z", target = 0x004679B0 },
+  { offset = 100, type = "DIR32", symbol = "?g_AsciiInf@@3PAUAsciiInf@@A", target = 0x004B8920 },
+  { offset = 117, type = "REL32", symbol = "?CreateVm@AnmResource@@QAE?AUAnmId@@PBUZunVec3@@HHI@Z", target = 0x004670B0 },
+  { offset = 151, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+  { offset = 157, type = "REL32", symbol = "?GetVmById@AnmManager@@QAEPAUAnmVm@@UAnmId@@@Z", target = 0x00467420 },
+  { offset = 181, type = "REL32", symbol = "?BindAnmFile@AnmVm@@QAEHPAUAnmResource@@H@Z", target = 0x00459220 },
+  { offset = 194, type = "REL32", symbol = "?ClearVisibleBitByIdPtr@AnmHelpers@@YGXPAUAnmId@@@Z", target = 0x004678B0 },
+  { offset = 201, type = "REL32", symbol = "?SetVisibleBitByIdPtr@AnmHelpers@@YGXPAUAnmId@@@Z", target = 0x00467870 },
+  { offset = 254, type = "REL32", symbol = "?DeleteVmByIdPtr@AnmHelpers@@YGXPAUAnmId@@@Z", target = 0x004679B0 },
+  { offset = 271, type = "DIR32", symbol = "?g_AsciiInf@@3PAUAsciiInf@@A", target = 0x004B8920 },
+  { offset = 294, type = "REL32", symbol = "?CreateVm@AnmResource@@QAE?AUAnmId@@PBUZunVec3@@HHI@Z", target = 0x004670B0 },
+  { offset = 303, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+  { offset = 311, type = "REL32", symbol = "?GetVmById@AnmManager@@QAEPAUAnmVm@@UAnmId@@@Z", target = 0x00467420 },
+  { offset = 331, type = "REL32", symbol = "?BindAnmFile@AnmVm@@QAEHPAUAnmResource@@H@Z", target = 0x00459220 },
+  { offset = 342, type = "REL32", symbol = "?DeleteVmByIdPtr@AnmHelpers@@YGXPAUAnmId@@@Z", target = 0x004679B0 },
+  { offset = 356, type = "DIR32", symbol = "?g_AsciiInf@@3PAUAsciiInf@@A", target = 0x004B8920 },
+  { offset = 379, type = "REL32", symbol = "?CreateVm@AnmResource@@QAE?AUAnmId@@PBUZunVec3@@HHI@Z", target = 0x004670B0 },
+  { offset = 388, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+  { offset = 396, type = "REL32", symbol = "?GetVmById@AnmManager@@QAEPAUAnmVm@@UAnmId@@@Z", target = 0x00467420 },
+  { offset = 416, type = "REL32", symbol = "?BindAnmFile@AnmVm@@QAEHPAUAnmResource@@H@Z", target = 0x00459220 },
+  { offset = 449, type = "REL32", symbol = "?CreateVm@AnmResource@@QAE?AUAnmId@@PBUZunVec3@@HHI@Z", target = 0x004670B0 },
+  { offset = 477, type = "REL32", symbol = "?DeleteVmByIdPtr@AnmHelpers@@YGXPAUAnmId@@@Z", target = 0x004679B0 },
+  { offset = 499, type = "REL32", symbol = "?DeleteVmByIdPtr@AnmHelpers@@YGXPAUAnmId@@@Z", target = 0x004679B0 },
+  { offset = 522, type = "REL32", symbol = "?CreateVm@AnmResource@@QAE?AUAnmId@@PBUZunVec3@@HHI@Z", target = 0x004670B0 },
+  { offset = 546, type = "REL32", symbol = "?DeleteVmByIdPtr@AnmHelpers@@YGXPAUAnmId@@@Z", target = 0x004679B0 },
+  { offset = 569, type = "REL32", symbol = "?CreateVm@AnmResource@@QAE?AUAnmId@@PBUZunVec3@@HHI@Z", target = 0x004670B0 },
+  { offset = 593, type = "REL32", symbol = "?DeleteVmByIdPtr@AnmHelpers@@YGXPAUAnmId@@@Z", target = 0x004679B0 },
+  { offset = 616, type = "REL32", symbol = "?CreateVm@AnmResource@@QAE?AUAnmId@@PBUZunVec3@@HHI@Z", target = 0x004670B0 },
+  { offset = 640, type = "REL32", symbol = "?DeleteVmByIdPtr@AnmHelpers@@YGXPAUAnmId@@@Z", target = 0x004679B0 },
+  { offset = 663, type = "REL32", symbol = "?CreateVm@AnmResource@@QAE?AUAnmId@@PBUZunVec3@@HHI@Z", target = 0x004670B0 },
+  { offset = 687, type = "REL32", symbol = "?DeleteVmByIdPtr@AnmHelpers@@YGXPAUAnmId@@@Z", target = 0x004679B0 },
+  { offset = 725, type = "REL32", symbol = "?CreateVm@AnmResource@@QAE?AUAnmId@@PBUZunVec3@@HHI@Z", target = 0x004670B0 },
+  { offset = 769, type = "REL32", symbol = "?DeleteVmByIdPtr@AnmHelpers@@YGXPAUAnmId@@@Z", target = 0x004679B0 },
+  { offset = 778, type = "DIR32", symbol = "?g_AsciiInf@@3PAUAsciiInf@@A", target = 0x004B8920 },
+  { offset = 803, type = "REL32", symbol = "?CreateVm@AnmResource@@QAE?AUAnmId@@PBUZunVec3@@HHI@Z", target = 0x004670B0 },
+  { offset = 837, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+  { offset = 843, type = "REL32", symbol = "?GetVmById@AnmManager@@QAEPAUAnmVm@@UAnmId@@@Z", target = 0x00467420 },
+  { offset = 867, type = "REL32", symbol = "?BindAnmFile@AnmVm@@QAEHPAUAnmResource@@H@Z", target = 0x00459220 },
+  { offset = 880, type = "REL32", symbol = "?ClearVisibleBitByIdPtr@AnmHelpers@@YGXPAUAnmId@@@Z", target = 0x004678B0 },
+  { offset = 887, type = "REL32", symbol = "?SetVisibleBitByIdPtr@AnmHelpers@@YGXPAUAnmId@@@Z", target = 0x00467870 },
+  { offset = 945, type = "REL32", symbol = "?DeleteVmByIdPtr@AnmHelpers@@YGXPAUAnmId@@@Z", target = 0x004679B0 },
+  { offset = 971, type = "REL32", symbol = "?CreateVm@AnmResource@@QAE?AUAnmId@@PBUZunVec3@@HHI@Z", target = 0x004670B0 },
+  { offset = 1009, type = "REL32", symbol = "?CreateVm@AnmResource@@QAE?AUAnmId@@PBUZunVec3@@HHI@Z", target = 0x004670B0 },
+  { offset = 1032, type = "DIR32", local = true, target = 0x00424B8F },
+  { offset = 1036, type = "DIR32", local = true, target = 0x00424D56 },
+  { offset = 1040, type = "DIR32", local = true, target = 0x00424D6C },
+  { offset = 1044, type = "DIR32", local = true, target = 0x00424D9B },
+  { offset = 1048, type = "DIR32", local = true, target = 0x00424DCA },
+  { offset = 1052, type = "DIR32", local = true, target = 0x00424F7E },
+  { offset = 1056, type = "DIR32", local = true, target = 0x00424DF9 },
+  { offset = 1060, type = "DIR32", local = true, target = 0x00424E28 },
+  { offset = 1064, type = "DIR32", local = true, target = 0x00424E28 },
+  { offset = 1068, type = "DIR32", local = true, target = 0x00424F2A },
+]
+
+[units.anm-text-render-sprite]
+frontier = true
+artifact_kind = "linked-pe"
+source = "src/AnmText.cpp"
+support_sources = ["src/CardInfActions.cpp", "src/CardInf.cpp", "src/SupervisorPresent.cpp", "src/SupervisorFrame.cpp", "src/AnmViewport.cpp", "src/AnmDraw.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "src/AnmLoading.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmInterp.cpp", "src/SupervisorTime.cpp", "probes/supervisor-frame-context.cpp", "probes/anm-core-context.cpp", "src/SupervisorRenderState.cpp", "src/SupervisorSurfaces.cpp", "probes/anm-vm-update-context.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "probes/supervisor-surfaces-context.cpp", "src/SupervisorDevice.cpp", "probes/supervisor-present-context.cpp", "src/SupervisorScreenshot.cpp", "src/SupervisorSurfaceCopies.cpp", "src/FileSystem.cpp", "src/DebugLog.cpp", "src/PostPresentUpdates.cpp", "src/AnmHelpers.cpp", "src/AsciiInf.cpp", "src/SoundManager.cpp", "src/PopupNotifications.cpp", "probes/card-activity-context.cpp"]
+normal_support_sources = ["src/DebugLog.cpp"]
+support_profiles = { "src/SupervisorTime.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/FileSystem.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/GameErrorContext.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/SoundManager.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"] }
+output_dir = "build/match-linked/AnmText"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardActivityProbe@20"
+functions = ["RenderAnmSpriteText"]
+symbol = "?RenderAnmSpriteText@@YGXHPAXPBDPBUAnmFileEntry@@HKKHHH@Z"
+target_address = 0x00466130
+size = 210
+linkages = [
+  { offset = 10, type = "DIR32", symbol = "___security_cookie", target = 0x004B01F4 },
+  { offset = 54, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 70, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 86, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 102, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 147, type = "REL32", symbol = "?DrawTextToTexture@@YIXPAXPBDPBUtagRECT@@HHKKHH@Z", target = 0x00452840 },
+  { offset = 159, type = "REL32", symbol = "@__security_check_cookie@4", target = 0x004728FD },
+  { offset = 188, type = "REL32", symbol = "?DrawAlternateTextToTexture@@YIXPAXPBDPBUtagRECT@@HHKHH@Z", target = 0x00452B00 },
+  { offset = 200, type = "REL32", symbol = "@__security_check_cookie@4", target = 0x004728FD },
+]
+
+[units.anm-text-draw-at]
+frontier = true
+artifact_kind = "linked-pe"
+source = "src/AnmText.cpp"
+support_sources = ["src/CardInfActions.cpp", "src/CardInf.cpp", "src/SupervisorPresent.cpp", "src/SupervisorFrame.cpp", "src/AnmViewport.cpp", "src/AnmDraw.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "src/AnmLoading.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmInterp.cpp", "src/SupervisorTime.cpp", "probes/supervisor-frame-context.cpp", "probes/anm-core-context.cpp", "src/SupervisorRenderState.cpp", "src/SupervisorSurfaces.cpp", "probes/anm-vm-update-context.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "probes/supervisor-surfaces-context.cpp", "src/SupervisorDevice.cpp", "probes/supervisor-present-context.cpp", "src/SupervisorScreenshot.cpp", "src/SupervisorSurfaceCopies.cpp", "src/FileSystem.cpp", "src/DebugLog.cpp", "src/PostPresentUpdates.cpp", "src/AnmHelpers.cpp", "src/AsciiInf.cpp", "src/SoundManager.cpp", "src/PopupNotifications.cpp", "probes/card-activity-context.cpp"]
+normal_support_sources = ["src/DebugLog.cpp"]
+support_profiles = { "src/SupervisorTime.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/FileSystem.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/GameErrorContext.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/SoundManager.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"] }
+output_dir = "build/match-linked/AnmText"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardActivityProbe@20"
+functions = ["AnmTextVmView::DrawTextAt"]
+symbol = "?DrawTextAt@AnmTextVmView@@QAAXKKHHHPBDZZ"
+target_address = 0x00466210
+size = 132
+linkages = [
+  { offset = 10, type = "DIR32", symbol = "___security_cookie", target = 0x004B01F4 },
+  { offset = 44, type = "REL32", symbol = "_vsprintf", target = 0x00472A7B },
+  { offset = 105, type = "REL32", symbol = "?RenderAnmSpriteText@@YGXHPAXPBDPBUAnmFileEntry@@HKKHHH@Z", target = 0x00466130 },
+  { offset = 124, type = "REL32", symbol = "@__security_check_cookie@4", target = 0x004728FD },
+]
+
+[units.anm-text-draw-centered]
+frontier = true
+artifact_kind = "linked-pe"
+source = "src/AnmText.cpp"
+support_sources = ["src/CardInfActions.cpp", "src/CardInf.cpp", "src/SupervisorPresent.cpp", "src/SupervisorFrame.cpp", "src/AnmViewport.cpp", "src/AnmDraw.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "src/AnmLoading.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmInterp.cpp", "src/SupervisorTime.cpp", "probes/supervisor-frame-context.cpp", "probes/anm-core-context.cpp", "src/SupervisorRenderState.cpp", "src/SupervisorSurfaces.cpp", "probes/anm-vm-update-context.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "probes/supervisor-surfaces-context.cpp", "src/SupervisorDevice.cpp", "probes/supervisor-present-context.cpp", "src/SupervisorScreenshot.cpp", "src/SupervisorSurfaceCopies.cpp", "src/FileSystem.cpp", "src/DebugLog.cpp", "src/PostPresentUpdates.cpp", "src/AnmHelpers.cpp", "src/AsciiInf.cpp", "src/SoundManager.cpp", "src/PopupNotifications.cpp", "probes/card-activity-context.cpp"]
+normal_support_sources = ["src/DebugLog.cpp"]
+support_profiles = { "src/SupervisorTime.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/FileSystem.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/GameErrorContext.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/SoundManager.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"] }
+output_dir = "build/match-linked/AnmText"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardActivityProbe@20"
+functions = ["AnmTextVmView::DrawCenteredText"]
+symbol = "?DrawCenteredText@AnmTextVmView@@QAAXKKHHPBDZZ"
+target_address = 0x004662A0
+size = 196
+linkages = [
+  { offset = 10, type = "DIR32", symbol = "___security_cookie", target = 0x004B01F4 },
+  { offset = 55, type = "REL32", symbol = "_vsprintf", target = 0x00472A7B },
+  { offset = 142, type = "DIR32", symbol = "__real@4f800000", target = 0x004A6660 },
+  { offset = 149, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 169, type = "REL32", symbol = "?RenderAnmSpriteText@@YGXHPAXPBDPBUAnmFileEntry@@HKKHHH@Z", target = 0x00466130 },
+  { offset = 188, type = "REL32", symbol = "@__security_check_cookie@4", target = 0x004728FD },
+]
+
+[units.anm-text-draw-half-center]
+frontier = true
+artifact_kind = "linked-pe"
+source = "src/AnmText.cpp"
+support_sources = ["src/CardInfActions.cpp", "src/CardInf.cpp", "src/SupervisorPresent.cpp", "src/SupervisorFrame.cpp", "src/AnmViewport.cpp", "src/AnmDraw.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "src/AnmLoading.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmInterp.cpp", "src/SupervisorTime.cpp", "probes/supervisor-frame-context.cpp", "probes/anm-core-context.cpp", "src/SupervisorRenderState.cpp", "src/SupervisorSurfaces.cpp", "probes/anm-vm-update-context.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "probes/supervisor-surfaces-context.cpp", "src/SupervisorDevice.cpp", "probes/supervisor-present-context.cpp", "src/SupervisorScreenshot.cpp", "src/SupervisorSurfaceCopies.cpp", "src/FileSystem.cpp", "src/DebugLog.cpp", "src/PostPresentUpdates.cpp", "src/AnmHelpers.cpp", "src/AsciiInf.cpp", "src/SoundManager.cpp", "src/PopupNotifications.cpp", "probes/card-activity-context.cpp"]
+normal_support_sources = ["src/DebugLog.cpp"]
+support_profiles = { "src/SupervisorTime.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/FileSystem.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/GameErrorContext.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/SoundManager.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"] }
+output_dir = "build/match-linked/AnmText"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardActivityProbe@20"
+functions = ["AnmTextVmView::DrawTextAtHalfCenter"]
+symbol = "?DrawTextAtHalfCenter@AnmTextVmView@@QAAXKKHHPBDZZ"
+target_address = 0x00466370
+size = 193
+linkages = [
+  { offset = 10, type = "DIR32", symbol = "___security_cookie", target = 0x004B01F4 },
+  { offset = 61, type = "REL32", symbol = "_vsprintf", target = 0x00472A7B },
+  { offset = 135, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 166, type = "REL32", symbol = "?RenderAnmSpriteText@@YGXHPAXPBDPBUAnmFileEntry@@HKKHHH@Z", target = 0x00466130 },
+  { offset = 185, type = "REL32", symbol = "@__security_check_cookie@4", target = 0x004728FD },
+]

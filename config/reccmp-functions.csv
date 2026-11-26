@@ -34,6 +34,9 @@ UpdatePostPresentReplay,0x0040DA50,function
 CardInf::Draw,0x0040DBF0,function
 CardInf::OnTick,0x0040DD50,function
 CardInf::OnDraw,0x0040DD60,function
+CardInfActions::Start,0x0040DD70,function
+CardInfActions::Finish,0x0040E350,function
+AddScore,0x0040E4E0,function
 ZunTimer::operator>,0x00410CD0,function
 AnmVmEffectNoop412B30,0x00412B30,function
 AnmVmEffectNoop412B40,0x00412B40,function
@@ -49,6 +52,7 @@ SptInf::Slot04,0x004144D0,function
 SptInf::`scalar deleting destructor',0x00414630,function
 SptResourceInf::LoadIncludes,0x00414680,function
 UpdatePostPresentTiming,0x0041F990,function
+PopupNotifications::Show,0x00424B80,function
 HelpInf::CreateVm,0x00427880,function
 HelpInf::LoadResourcesWorker,0x00427960,function
 HelpInf::LoadPageWorker,0x004279C0,function
@@ -268,6 +272,10 @@ AnmManager::ReleaseAnm,0x00465F20,function
 AnmResource::Release,0x00465F60,function
 AnmTextureEntry::Release,0x00466060,function
 AnmResource::SetSprite,0x00466090,function
+RenderAnmSpriteText,0x00466130,function
+AnmTextVmView::DrawTextAt,0x00466210,function
+AnmTextVmView::DrawCenteredText,0x004662A0,function
+AnmTextVmView::DrawTextAtHalfCenter,0x00466370,function
 AnmManager::OnTickWorldCallback,0x00466690,function
 AnmManager::OnTickUiCallback,0x004666C0,function
 AnmManager::DrawLayer0,0x004666D0,function

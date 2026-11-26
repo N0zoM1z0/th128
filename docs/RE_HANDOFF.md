@@ -1,6 +1,6 @@
 # TH128 reconstruction handoff
 
-Snapshot: 2026-11-26 (CardInf drawing/callbacks and AsciiInf text queue exact; complete Update frontier). Read this first, then AGENTS.md.
+Snapshot: 2026-11-26 (Card activation/termination, notification and VM-text source; shared AddScore exact). Read this first, then AGENTS.md.
 
 ## Resume safely
 
@@ -36,12 +36,12 @@ canonical ledgers. At this snapshot:
 | Boundary reviewed / provisional | 3,452 / 64 |
 | Origin rows pending | 21 |
 | Authored / excluded / indeterminate | 2,226 / 1,269 / 0 |
-| Source-present mappings | 432 |
-| Source-present with authored origin | 423 |
-| Authored source-present exact backlog | 81 |
-| Canonical exact functions | 351 |
-| Canonical exact codegen bytes | 24,884 |
-| Canonical exact authored bytes | 24,524 |
+| Source-present mappings | 440 |
+| Source-present with authored origin | 431 |
+| Authored source-present exact backlog | 88 |
+| Canonical exact functions | 352 |
+| Canonical exact codegen bytes | 24,938 |
+| Canonical exact authored bytes | 24,578 |
 
 The candidate inventory is not proven complete. The 21 remaining pending origin
 rows are unreferenced `d3dx9math.inl` candidates (all 16 CRT-band boundary-review
@@ -79,62 +79,71 @@ are not over-inlined; address-taken probe pointers prevent interprocedural
 
 ## Latest advance (2026-11-26)
 
-Five new complete VC10 RTM `/O2 /Ob1 /Oy- /GL` exact owners add **834B**:
+Eight target owners now have maintained source in CardInfActions.cpp,
+PopupNotifications.cpp and AnmText.cpp, covering 3,751 target bytes. The
+shared **AddScore** entry at **0x0040E4E0** is newly exact: its whole **54B**
+primary PDB contribution and all **three DIR32 score fields** replay with zero
+differences under unchanged pinned VC10 RTM `/O2 /Ob1 /Oy- /GL` flags.
+It adds signed amount / 10 and caps score at 999999999.
 
-| Owner | Target | Complete extent / address fields |
-| --- | --- | --- |
-| CardInf::Draw | 0x0040DBF0 | 322B / 13 |
-| CardInf::OnTick | 0x0040DD50 | 10B / 1 |
-| CardInf::OnDraw | 0x0040DD60 | 10B / 1 |
-| AsciiInf::CreateText | 0x004015F0 | 407B / 1 |
-| AsciiInf::CreateTextF | 0x00401790 | 85B / 4 |
+The seven other owners remain frontiers. These are complete candidate/target
+extents, not byte-difference counts:
 
-Each new owner passes in its own primary TU's 40-source cold context.
-Draw's invalid-ID reset belongs to the inline resolver before common cleanup.
-AsciiInf returns a distinct small AsciiTextId by value; the formatter assigns
-its result locally before returning. A direct return emits only 75B, and
-the first Draw shape emitted 338B. Keep the successful natural source and
-fixed profiles. The callback bytes match, while explicit source bridge vs
-compiler-emitted convention adapter remains unsettled at source-origin level.
-[Finding and failed approaches](KNOWLEDGE_BASE.md#cardinf-drawing-and-asciiinf-text-queue-2026-11-26),
-[primary CardInf results](../.analysis/card-callbacks-primary-results.json),
-[primary AsciiInf results](../.analysis/card-callbacks-ascii-results.json).
+| Owner / target | Candidate / target bytes |
+| --- | ---: |
+| Start / 0x0040DD70 | 1504 / 1496 |
+| Finish / 0x0040E350 | 374 / 398 |
+| Popup Show / 0x00424B80 | 1020 / 1072 |
+| Sprite text / 0x00466130 | 194 / 210 |
+| Explicit-X text / 0x00466210 | 142 / 132 |
+| Centered text / 0x004662A0 | 215 / 196 |
+| Half-center text / 0x00466370 | 201 / 193 |
 
-**CardInf::Update** now has complete source for **507B / 16 fields** but is
-unmatched at ordinary bytes **+375..+382 / +390..+397**, the Y/Z floating-add
-operand order. Scalar expansion, a vector-by-value sum and a pointer-output
-helper did not close it. Keep these failures; do not change shared vector
-code or flags without a target-supported source hypothesis. **Shutdown**
-remains the 249B / 27-field frontier at **+118/+120/+202/+204**, where the real
-CutImpl call context selects different argument registers.
+Three new cold contexts have 44 inputs each and use real maintained CardInf,
+AsciiInf, ANM, notification, text and sound bodies. Existing shared inputs and
+canonical contexts were not changed. Only AddScore receives exact credit.
+[Finding and failed hypotheses](KNOWLEDGE_BASE.md#card-activation-notification-dispatch-and-vm-text-2026-11-26),
+[complete results](../.analysis/card-activity-final-results.json),
+[affected scope](../.analysis/card-activity-final-scope.json).
 
-The CardInf layout now names bonus +0x80, initial bonus +0x84 and bonus duration
-+0x88. AsciiInf is a partial queue view: 320 checked entries of 0x164 bytes,
-count +0x1C848 and next text ID +0x1C888. The extra 0x164-byte gap before count
-and the four observed gameplay global owners remain unclassified. Avoid
-turning either into an invented full class layout.
+Start has 63 address fields, two byte tables and nine absolute table entries
+inside the full 1496B extent. Ghidra lists 1417 instruction bytes. Show has
+56 fields and its ten-entry table inside 1072B, while Ghidra's function body
+lists only 15B. Keep the complete physical extents. Start caches history
+storage and reloads card index after child binding; it also reuses the ANM
+manager for both final position-ID resolutions. The tempting first 1500B
+source cached the wrong history-record address and was not accepted.
 
-The complete affected replay covers **22 owners in six cold contexts**:
-**15 exact passes** (all ten retained matches and five new) and seven rejected
-frontiers. CardInf/AsciiInf primary contexts have 40 source inputs; the three
-frame/viewport/Present contexts share 39; the post-Present primary has four.
-Immediate/sleep Present, all three post-Present owners and the viewport tangent
-retain their complete matches. Adaptive Present still differs only at +90/+92;
-the frame and camera frontiers remain rejected. Native product and runtime
-closure remain unproved.
-[Complete affected results](../.analysis/card-callbacks-final-results.json),
-[affected sources and profiles](../.analysis/card-callbacks-final-scope.json).
+New resource/history/font layouts are partial views; original class identities
+and history-name capacity remain unresolved. The ordinary Show member interface
+still differs from target EDI receiver/EAX kind plus kind/value stack slots.
+The sprite helper lacks target ESP alignment, and the text wrappers retain
+stack/register frontiers. Both 128B and 132B buffer hypotheses emitted 215B
+centered wrappers; do not infer capacity from the decompiler alone or add
+alignment hints to force equality.
 
-Next source work is the referenced activation `0x0040DD70` (1496B including
-physical tables) and termination `0x0040E350` (398B), called at
-`0x0041B4AE/0x0041B4E1` inside the same script owner. Ghidra lists only 1417
-instruction bytes for activation. The complete instruction listing and table
-reads are retained; capture/review its whole physical extent before coding.
-The nearby 54B score-add helper `0x0040E4E0` is also reviewed, without source
-or exact credit.
-[Next-entry review](../.analysis/card-start-stop-next-review.txt),
-[complete activation instructions](../.analysis/card-start-complete-code-next.txt),
-[table reads](../.analysis/card-start-owned-tables-next.txt).
+The scoped-lock CreateVm experiment was falsified: the maintained body already
+writes the result before unlock through return-value optimization. Both versions
+emit 363B with the same ordinary bytes and 18-field layout in this context.
+**AnmResource.cpp remains unchanged**; do not repeat a broad replay of its 81
+previously exact dependents for this rejected hypothesis.
+[Comparison](../.analysis/card-activity-lock-body-comparison.json).
+
+The earlier CardInf::Update 507B/16-field frontier still differs at ordinary
++375..+382 / +390..+397, and Shutdown 249B/27 fields still differs at
++118/+120/+202/+204. Their source and existing exact neighbors were unchanged.
+
+Next useful work is the real texture-text backends `0x00452840` (696B) and
+`0x00452B00` (584B), with font/DIB helpers `0x004519C0/0x00451D00`. They remain
+reviewed external declarations in the new text source; full backend definitions
+may settle the caller's stack/clobber context. Capture their physical tables
+as well as instructions before implementation. The other real notification
+callers at `0x00424A60/0x00426FE0/0x00427260/0x00427300` are reviewed, without
+source credit; their call sites encode kinds 3/4/4/2. The score-display owner
+physically retains an apparently unreachable Show(3, 0) edge after OR 4 / TEST
+AL,4, so do not let a decompiler crop it.
+[Backend ABI review](../.analysis/card-text-backend-abi-review.txt),
+[notification callers](../.analysis/card-popup-real-callers-review.txt).
 
 ## Active reconstruction: AnmVm
 
@@ -301,13 +310,12 @@ callers remain frontiers as well.
 
 ## Next useful work (Phase 3+)
 
-1. **Continue the real CardInf/frame context**: reconstruct the referenced
-   activation and termination entries at `0x0040DD70/0x0040E350`. Draw and both
-   callbacks now match through real AsciiInf text callees. Update's 16-byte
-   floating-add frontier and Shutdown's four-byte CutImpl frontier remain
-   separate; preserve their natural interfaces and fixed profiles. The name
-   buffer is +0x38, frame count +0x90, tracked position +0xAC and ANM resource
-   +0xB8.
+1. **Continue the real CardInf/text context**: Start/Finish, notification
+   dispatch and the four text routines have complete source candidates. Recover
+   the real texture-text backends at `0x00452840/0x00452B00` and font/DIB helpers
+   before changing private caller interfaces. Preserve the full switch tables
+   and rounding order. Keep the earlier Update floating-add and Shutdown CutImpl
+   frontiers separate, with their natural interfaces and fixed profiles.
    The three calc/draw frame
    entries, 2D camera and all three Present paths now have source. Both texture
    walkers, the 217-byte surface restoration and 802-byte D3D state setup
@@ -359,7 +367,7 @@ callers remain frontiers as well.
 5. **Next useful command after the session identity checks**:
 
    ~~~bash
-   scripts/repo-python scripts/ghidra.py query .analysis/card-start-owned-extent.txt read_bytes 1496 0x0040DD70
+   scripts/repo-python scripts/ghidra.py query .analysis/texture-text-first-owned.txt read_bytes 696 0x00452840
    ~~~
 
    The new dispatcher and small sprite wrappers are reviewed in
