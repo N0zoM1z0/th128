@@ -3,6 +3,14 @@
 Verified findings, current blockers and failed approaches worth avoiding.
 Facts here are TH128-local unless marked as a hypothesis.
 
+Historical private artifacts were pruned at the operator's request on
+2026-11-26. Inline `.analysis/` or `build/` filenames identify past work and
+may no longer exist; only a small active subset is retained. The findings,
+failed approaches, source history and canonical unit recipes remain.
+Regenerate a relevant query or selected cold comparison when needed; see
+[the handoff](RE_HANDOFF.md#retained-state-and-storage-cleanup) for retained
+state and rebuild commands.
+
 ## Target
 
 - `resources/th128.exe` is the original Japanese v1.00a: 752,640 bytes,
@@ -681,7 +689,7 @@ both complete **227-byte** TH128 Japanese v1.00a color setters with VC10 RTM
 cover each entire primary-TU PDB contribution and its only relocation,
 `DIR32 g_TimeScale` at owner `+185` -> `0x004B6F58`, with zero differences.
 
-[Hash-attested Ghidra review](../.analysis/anm-transitions-20261126-review.txt)
+Hash-attested Ghidra review (`.analysis/anm-transitions-20261126-review.txt`)
 shows contiguous bodies ending at `0x0045E5B2` / `0x0045E3A2`, `RET 8`, no
 external interior references or inline tables, and following INT3 padding.
 Both are called only by Update. The observed private ABI is VM in EAX,
@@ -707,20 +715,20 @@ match its prologue; those changes were reverted.
 A subsequent byte-formal probe was rejected: VC10 promotes mode to DL,
 producing a 132-byte owner ending in `RET 8`, whereas the target has three
 stack slots and `RET 12`. The maintained `unsigned int` formal and low-byte
-mask were restored. See the [byte-formal diagnostic](../.analysis/anm-effect-byte-formal-diff.txt).
+mask were restored. See the byte-formal diagnostic (`.analysis/anm-effect-byte-formal-diff.txt`).
 The inventory signature and frontier symbol now agree with the maintained
 `unsigned int` declaration; low-byte consumption alone does not prove the
 original formal type.
 
 Validation scope is the two new owners and the 81 existing exact units whose
 build contexts compile the changed transition source, Update caller or probe
-([selected units](../.analysis/anm-transitions-20261126-affected-units.json),
-[cold replay](../.analysis/anm-transitions-20261126-affected-replay.log)).
+(selected units (`.analysis/anm-transitions-20261126-affected-units.json`),
+cold replay (`.analysis/anm-transitions-20261126-affected-replay.log`)).
 All 83 cold replays passed with zero differences.
 The header changes only parameter names, retaining the same C++ function
 types and layout. In the shared normalization build, the Update support-TU
 contribution is 13,688 bytes versus the 13,604-byte target
-([diagnostic](../.analysis/anm-transitions-20261126-update-consumer.json));
+(diagnostic (`.analysis/anm-transitions-20261126-update-consumer.json`));
 this is a different context from `AnmVmUpdateBinding`. Update remains a
 frontier; these matches do not establish a runnable product.
 
@@ -736,10 +744,10 @@ without ABI annotations or unused arguments. Both callbacks now have exact
 linked-PE owner replays: the world owner has a DIR32 global-state field at
 `+3` -> `0x004B8954` and a REL32 tail jump at `+42` -> `0x00466AF0`;
 the UI owner has a REL32 tail jump at `+3` -> `0x00466BE0`. All 74 affected
-units passed [cold replay](../.analysis/anm-tick-callbacks-affected-replay.log)
-([selected units](../.analysis/anm-tick-callbacks-affected-units.json)).
+units passed cold replay (`.analysis/anm-tick-callbacks-affected-replay.log`)
+(selected units (`.analysis/anm-tick-callbacks-affected-units.json`)).
 
-The [hash-attested span review](../.analysis/anm-tick-callbacks-20261126-span.txt)
+The hash-attested span review (`.analysis/anm-tick-callbacks-20261126-span.txt`)
 includes both callbacks and their intervening INT3 gap. The two external data
 references land exactly at the entries (`0x004638FD` -> `0x00466690`,
 `0x00463943` -> `0x004666C0`); neither callback has an external interior
@@ -749,7 +757,7 @@ and flags at object `+0x60`. With a non-null state, it returns 1 without updatin
 update. The UI callback always tail-calls UI update. `AnmPauseStateView` is
 only a view of these observed fields, not a recovered full game class.
 
-The [update-owner review](../.analysis/anm-manager-update-20261126-review.txt)
+The update-owner review (`.analysis/anm-manager-update-20261126-review.txt`)
 shows contiguous 229/246-byte bodies, no tables or external interior entries,
 and INT3 following both. World update uses an extra-data callback's nonzero
 return to delete the VM; UI update ignores that return and still calls the
@@ -764,9 +772,9 @@ schedules initial list-head clears and local tail stores differently. Aggregate
 array initialization and caching the initial list node did not help; clearing
 heads indirectly produced 240 bytes. Those UI experiments were reverted.
 At that checkpoint both frontier units declared every reviewed address field for full owner replay:
-the [world result](../.analysis/anm-manager-update-world-frontier.json) replays
+the world result (`.analysis/anm-manager-update-world-frontier.json`) replays
 12 fields and differs only at `+8`; the
-[UI result](../.analysis/anm-manager-update-ui-frontier.json) replays 11 fields
+UI result (`.analysis/anm-manager-update-ui-frontier.json`) replays 11 fields
 and had 31 raw differences in `+43..+75`. Those historical mismatch records
 are unchanged; UI update was subsequently closed by the loop below.
 
@@ -777,12 +785,12 @@ A two-iteration head-initialization loop reproduces the entire 246-byte
 including all 11 reviewed address fields. Unlike the previous scalar and
 aggregate-initializer attempts, VC10 unrolls this loop into the target's
 head clears, tail addresses and local stores in the original order.
-[Initial complete replay](../.analysis/anm-ui-two-head-loop-final.json). All
+Initial complete replay (`.analysis/anm-ui-two-head-loop-final.json`). All
 75 affected exact units also passed the current
-[cold replay](../.analysis/anm-id-return-affected-replay.log)
-([selected units](../.analysis/anm-id-return-affected-units.json)).
+cold replay (`.analysis/anm-id-return-affected-replay.log`)
+(selected units (`.analysis/anm-id-return-affected-units.json`)).
 
-The [factory/register/child review](../.analysis/anm-id-return-review.txt)
+The factory/register/child review (`.analysis/anm-id-return-review.txt`)
 exposes an incorrect source interpretation of stack reuse. In the target
 `SpawnChildVm` at `0x00467220`, the parent is cached in EDI at `0x0046729D`
 before its old argument slot at `[ebp+0x10]` is reused for registration
@@ -793,8 +801,8 @@ source now receives an independent `AnmId` value, preserving the parent
 through child-list insertion. The positioned child path likewise receives
 its registration result as a local value.
 
-A [pinned compiler ABI probe](../.analysis/anm-id-return-type-probe.cpp)
-([normal-COFF output](../.analysis/anm-id-return-member-type.asm)) distinguishes
+A pinned compiler ABI probe (`.analysis/anm-id-return-type-probe.cpp`)
+(normal-COFF output (`.analysis/anm-id-return-member-type.asm`)) distinguishes
 free functions from members: a free function returns a four-byte POD in EAX,
 but a member returning that same POD uses a hidden stack result pointer and
 `RET 4`. No constructor is needed. The four registration methods and
@@ -814,12 +822,12 @@ the linked script context). Aggregate node-reset probes did not close them
 and were reverted. At that checkpoint the child helper owners were
 264 vs 266 bytes and 250 vs 230 bytes, without exact credit. The subsequent member-return
 reconstruction below supersedes these measurements.
-[Earlier observations](../.analysis/anm-id-return-frontier-observations.txt).
+Earlier observations (`.analysis/anm-id-return-frontier-observations.txt`).
 `CreateVm` remains 359 vs 364 bytes in its primary resource context. The
 small child-owner size gap still hides many control/ABI differences
-([complete diagnostic](../.analysis/anm-child-after-id-return-diff.txt)).
+(complete diagnostic (`.analysis/anm-child-after-id-return-diff.txt`)).
 The world update remains a one-byte frontier after these changes
-([current replay](../.analysis/anm-world-after-id-return.json)).
+(current replay (`.analysis/anm-world-after-id-return.json`)).
 Seven affected factory/registration/child units now retain `/GL` as linked
 frontiers with the maintained symbols instead of stale normal-COFF prototypes.
 
@@ -831,9 +839,9 @@ For the original Japanese TH128 v1.00a and pinned VC10 RTM
 11 address fields) and `AnmManager::StopVmById` at `0x00467480`
 (103 bytes, two fields). The native `AnmManager::GetVmById(AnmId)`
 replaces the old shim's canonical 89-byte row without adding byte credit.
-[Positioned-child replay](../.analysis/anm-child-position-final.json),
-[stop replay](../.analysis/anm-stop-final.json),
-[native lookup replay](../.analysis/anm-lookup-native-final.json).
+Positioned-child replay (`.analysis/anm-child-position-final.json`),
+stop replay (`.analysis/anm-stop-final.json`),
+native lookup replay (`.analysis/anm-lookup-native-final.json`).
 
 Both child creators are resource members returning the four-byte POD `AnmId`.
 This naturally supplies the hidden stack result pointer; the resource is
@@ -843,8 +851,8 @@ differences in the positioned creator. The member-return form permits the
 target's flags load before the result store and closes the complete owner.
 The creators now call the existing typed Supervisor section-9 lock methods;
 their old absolute-address volatile lock implementation is removed.
-[Complete target review](../.analysis/anm-id-return-review.txt),
-[rejected output-pointer diagnostic](../.analysis/anm-child-value-position-diff.txt).
+Complete target review (`.analysis/anm-id-return-review.txt`),
+rejected output-pointer diagnostic (`.analysis/anm-child-value-position-diff.txt`).
 
 The parent main position is copied **before** `BindVmScript`; the three
 script-variable words and the alternate position are copied afterwards.
@@ -864,8 +872,8 @@ second argument is a signed 16-bit interrupt in BX: it calls the optional
 callback and writes the interrupt to `currentFrame` on the VM and children;
 it does not clear callbacks. The unused-ECX shim, scalar lookup overload and
 probe pointer keeping that shim alive are all removed.
-[Consumer/interrupt review](../.analysis/anm-native-id-consumers-review.txt),
-[stop target review](../.analysis/anm-vm-factory-review.txt).
+Consumer/interrupt review (`.analysis/anm-native-id-consumers-review.txt`),
+stop target review (`.analysis/anm-vm-factory-review.txt`).
 
 Remaining measured frontiers: normal child creation is 293 vs 266 bytes,
 with registration return-pointer promotion and control-flow differences;
@@ -873,13 +881,13 @@ with registration return-pointer promotion and control-flow differences;
 The latter now has a source mapping and linked frontier unit.
 `BindVmScript` and `BindVmAtPosition` units now point to their actual
 `AnmVmScript.cpp` definitions and retain `/GL`; both remain frontiers.
-[Normal-child diagnostic](../.analysis/anm-child-member-flat-diff.txt).
+Normal-child diagnostic (`.analysis/anm-child-member-flat-diff.txt`).
 The same current script link has a 262-byte `BindVmScript` with three
 ordinary register-byte differences (DL vs CL), a 294-byte positioned binder
 vs 295 target, and a 13,604-byte `Update` with extensive byte differences.
 Equal owner sizes supply no exact credit.
-[Bounded observations](../.analysis/anm-member-current-frontier-observations.txt),
-[binder diagnostic](../.analysis/anm-bind-script-current-diff.txt).
+Bounded observations (`.analysis/anm-member-current-frontier-observations.txt`),
+binder diagnostic (`.analysis/anm-bind-script-current-diff.txt`).
 
 The binders' shared callee at `0x00407080` is a complete 20-byte wrapper:
 align ESP to eight bytes, load the stack VM into ECX, call `Update`, return
@@ -888,13 +896,13 @@ member taking only the VM could explain the binders' ECX singleton load;
 this remains a hypothesis to compile before replacing their legacy volatile
 singleton read and flag cast. The existing unimplemented `UpdateVm`
 declaration's extra `stateFlags` parameter has no supporting evidence here.
-[Wrapper review](../.analysis/anm-binding-update-boundary-review.txt).
+Wrapper review (`.analysis/anm-binding-update-boundary-review.txt`).
 
 The initial affected cold replay exposed five missing effect callbacks:
 `14aee6d` had replaced their source while expanding effect-10, leaving their
 canonical rows behind. The other 121 comparisons passed in a bounded audit.
-[Failed replay](../.analysis/anm-member-affected-replay.log),
-[failure audit](../.analysis/anm-member-comparison-audit.json).
+Failed replay (`.analysis/anm-member-affected-replay.log`),
+failure audit (`.analysis/anm-member-comparison-audit.json`).
 The five callbacks are restored from their earlier natural source. Calling
 the now-out-of-line shared `ZunTimer::Reset` produced 139 vs 187 bytes;
 flattening the reset into the callback reached 187 bytes but moved the scale
@@ -902,9 +910,9 @@ constant field from target `+120` to `+115`. A local inline reset helper
 restores the original nested inline operation: all 187 bytes and seven
 relocations now match, as do the four complete three-byte empty callbacks.
 This recovers existing claims and adds no exact credit.
-[Recovered COFF replay](../.analysis/anm-effect-callbacks-reset-helper-replay.log),
-[target review](../.analysis/anm-effect-callbacks-recovery-review.txt),
-[explicit callback span](../.analysis/anm-effect-callbacks-recovery-span.txt).
+Recovered COFF replay (`.analysis/anm-effect-callbacks-reset-helper-replay.log`),
+target review (`.analysis/anm-effect-callbacks-recovery-review.txt`),
+explicit callback span (`.analysis/anm-effect-callbacks-recovery-span.txt`).
 The four script timer-helper contexts had identical executable contracts to
 `AnmVmColorInterpolation`; only their output directories differed. Their four
 `output_dir` entries now share that existing cold-link family. All six owners
@@ -914,10 +922,10 @@ link settings and without adding build machinery. After callback recovery,
 the 45 linked consumers are covered by four cold-linked contexts; the five
 COFF callbacks are freshly rebuilt and the other contexts' inputs are unchanged.
 The final current-input comparison passed all 126 affected exact units.
-[Final replay](../.analysis/anm-member-consolidated-final-replay.log),
-[selected units](../.analysis/anm-member-affected-units.json).
+Final replay (`.analysis/anm-member-consolidated-final-replay.log`),
+selected units (`.analysis/anm-member-affected-units.json`).
 The current world owner still has only the frame-size byte difference at `+8`:
-[complete frontier replay](../.analysis/anm-world-after-callback-recovery.json).
+complete frontier replay (`.analysis/anm-world-after-callback-recovery.json`).
 
 ## Natural ANM binding calls and inline timer resets (2026-11-26)
 
@@ -927,9 +935,9 @@ For the original Japanese TH128 v1.00a and pinned VC10 RTM
 replay exactly as complete primary-script contributions. Each has six
 reviewed address fields: VM reset, `g_TimeScale`, two singleton loads,
 manager update and the failure-path `memset`.
-[Script replay](../.analysis/anm-bind-script-natural-exact.json),
-[positioned replay](../.analysis/anm-bind-position-natural-exact.json),
-[complete target review](../.analysis/anm-binding-natural-target-review.txt).
+Script replay (`.analysis/anm-bind-script-natural-exact.json`),
+positioned replay (`.analysis/anm-bind-position-natural-exact.json`),
+complete target review (`.analysis/anm-binding-natural-target-review.txt`).
 
 The binders call the ordinary `AnmManager::UpdateVm(AnmVm *)` member.
 This explains the target singleton load into ECX as a real receiver input;
@@ -945,8 +953,8 @@ two integer timer stores. The local inline `ResetBindingTimer` helper
 preserves the reset operation as an inline call, reproducing all six fields
 and every remaining byte. No additional timer state, stack slots or volatile
 accesses were needed.
-[Rejected flat reset](../.analysis/anm-bind-natural-member-diff.txt),
-[helper diagnostic](../.analysis/anm-bind-reset-helper-diff.txt).
+Rejected flat reset (`.analysis/anm-bind-natural-member-diff.txt`),
+helper diagnostic (`.analysis/anm-bind-reset-helper-diff.txt`).
 
 The target update wrapper at `0x00407080` remains a separate 20-byte frontier.
 The earlier free stdcall body produces 15 bytes as normal COFF; the natural
@@ -957,24 +965,24 @@ stack-argument boundary. The source mapping and explicit linked frontier now cov
 20-byte owner; its TU/ABI context remains open. The binder matches use the
 reviewed symbolic wrapper binding in the existing diagnostic link family;
 they do not establish closure with the real wrapper body or a native product.
-[Normal-COFF observation](../.analysis/anm-binding-wrapper-normal-diff.txt),
-[complete COFF extents](../.analysis/anm-binding-wrapper-complete-extents.txt),
-[wrapper target review](../.analysis/anm-binding-update-boundary-review.txt),
-[GL build](../.analysis/anm-binding-wrapper-native-gl-build.log),
-[extent rejection](../.analysis/anm-binding-wrapper-gl-frontier.err).
+Normal-COFF observation (`.analysis/anm-binding-wrapper-normal-diff.txt`),
+complete COFF extents (`.analysis/anm-binding-wrapper-complete-extents.txt`),
+wrapper target review (`.analysis/anm-binding-update-boundary-review.txt`),
+GL build (`.analysis/anm-binding-wrapper-native-gl-build.log`),
+extent rejection (`.analysis/anm-binding-wrapper-gl-frontier.err`).
 
 The mixed COFF/GL consumer also builds with the natural member symbol; its
 normal member wrapper is 15 bytes and its 13,604-byte `Update` remains a
 codegen frontier.
-[Mixed build](../.analysis/anm-binding-mixed-wrapper-build.log),
-[bounded observations](../.analysis/anm-binding-mixed-wrapper-observations.txt).
+Mixed build (`.analysis/anm-binding-mixed-wrapper-build.log`),
+bounded observations (`.analysis/anm-binding-mixed-wrapper-observations.txt`).
 
 The affected scope is 128 exact units across the existing eight compilation
 contexts. The script family was already freshly cold-built for this source
 and supplies eight of those owners; only the seven other contexts need
 another cold build. All 128 current-input exact comparisons passed.
-[Affected replay](../.analysis/anm-binding-affected-replay.log),
-[selected units](../.analysis/anm-binding-affected-units.json).
+Affected replay (`.analysis/anm-binding-affected-replay.log`),
+selected units (`.analysis/anm-binding-affected-units.json`).
 
 ## ANM first-stage loading, release logging and preload wait (2026-11-26)
 
@@ -985,9 +993,9 @@ The physical owner includes six internal alignment bytes omitted from the
 sparse Ghidra body. It holds a manager snapshot across the cache-hit log,
 calls the real `LoadAnm` member on a miss, sets resource `+0x124`, and waits
 with `Sleep(1)` until that flag clears or Supervisor flags `0x180` are set.
-[Exact preload replay](../.analysis/anm-preload-final-exact.json),
-[target boundary and references](../.analysis/anm-load-slot-review.txt),
-[snapshot diagnostic](../.analysis/anm-preload-manager-snapshot-diff.txt).
+Exact preload replay (`.analysis/anm-preload-final-exact.json`),
+target boundary and references (`.analysis/anm-load-slot-review.txt`),
+snapshot diagnostic (`.analysis/anm-preload-manager-snapshot-diff.txt`).
 
 The loader at `0x004653F0` owns all 515 bytes through `0x004655F2`.
 Ghidra's initial 96-byte function and apparent entry at `0x00465450` are
@@ -999,8 +1007,8 @@ their tables, and cache external texture data. It does not yet populate
 the sprite/script tables or create GPU textures; the later stage at
 `0x00465770` remains unimplemented. Allocation and cache assignment precede
 the null-blob test in the target, and the slot check has no lower-bound test.
-[Complete loader span](../.analysis/anm-load-slot-complete-span.txt),
-[loading-family hypotheses](../.analysis/anm-load-family-decomp.txt).
+Complete loader span (`.analysis/anm-load-slot-complete-span.txt`),
+loading-family hypotheses (`.analysis/anm-load-family-decomp.txt`).
 
 The target settles several resource fields: a **32-bit** file ID at `+0`,
 a 260-byte filename at `+4`, the archive pointer at `+0x108`, texture count
@@ -1019,7 +1027,7 @@ owner with one loader caller. It requires version 7; names beginning with
 stores size then raw pointer, and returns 1. Version/read failures call the
 193-byte `GameErrorContext::Fatal` at `0x0046A320` and return -1, rather than
 the separate log method at `0x0046A250`.
-[Complete cache review](../.analysis/anm-load-entry-review.txt).
+Complete cache review (`.analysis/anm-load-entry-review.txt`).
 
 The release logger at `0x00468130` is a one-byte `RET`. Its natural
 ellipsis-only declaration `void __cdecl ChainDebugLog(...)` preserves the
@@ -1029,9 +1037,9 @@ shortened the preload caller. The old probe's artificial volatile character
 read is removed along with its fake load-slot implementation. This is a
 source-shape explanation supported by compiler output, not recovery of an
 original C++ declaration.
-[Logger target review](../.analysis/anm-debug-log-review.txt),
-[logger exact replay](../.analysis/anm-release-logger-final-exact.json),
-[named-format failure](../.analysis/anm-preload-first-diff.txt).
+Logger target review (`.analysis/anm-debug-log-review.txt`),
+logger exact replay (`.analysis/anm-release-logger-final-exact.json`),
+named-format failure (`.analysis/anm-preload-first-diff.txt`).
 
 The resource constructor is now inline in the class so the real loader can
 inline its 312-byte zero initialization under `/Ob1`. Its separately emitted
@@ -1040,40 +1048,40 @@ The public contribution moved to the primary `AnmLoading` TU; the Oracle
 correctly rejected the old resource-primary context where the constructor
 belonged to a support object. The canonical constructor unit now follows
 the actual primary contribution, without additional exact credit.
-[Constructor replay](../.analysis/anm-inline-ctor-final-exact.json).
+Constructor replay (`.analysis/anm-inline-ctor-final-exact.json`).
 
 Two loading owners remain frontiers. `LoadAnm` is 511 vs 515 bytes: the
 compiler rotates the target's loop-top null test into its backedge check.
 Initializing `textureIndex` before allocation and inlining the constructor
 fixed the earlier local lifetime and call differences. Rewriting the traversal as an explicit
 infinite loop did not retain the missing physical test.
-[Current loader diagnostic](../.analysis/anm-load-slot-explicit-loop-diff.txt).
+Current loader diagnostic (`.analysis/anm-load-slot-explicit-loop-diff.txt`).
 The strict unit also rejects its short primary contribution before comparing
-fields ([extent rejection](../.analysis/anm-load-slot-final-frontier.stderr)).
+fields (extent rejection (`.analysis/anm-load-slot-final-frontier.stderr`)).
 A controlled cold build using a pointer-width integer address sum in
 `NextAnmEntry` still emits the same 511-byte candidate; pointer arithmetic
 versus integer wraparound does not explain this loop shape.
-[Integer-address probe](../.analysis/anm-load-integer-address-probe.py),
-[observations](../.analysis/anm-load-integer-address-final-observations.txt).
+Integer-address probe (`.analysis/anm-load-integer-address-probe.py`),
+observations (`.analysis/anm-load-integer-address-final-observations.txt`).
 The texture cache has the full 231-byte extent and all 13 address fields
 replay, but raw SIB bytes at `+0xC4/+0xCE` are `0x0A` instead of target
 `0x11`: `[edx+ecx+disp]` vs `[ecx+edx+disp]`. Equivalent addresses still
 fail exact comparison. Typed/index-first and byte-offset accessors did not
 change those bytes and were removed. The source retains direct typed stores;
 no address normalization or padding was added.
-[Strict cache frontier](../.analysis/anm-cache-texture-final-frontier.json),
-[cache diagnostic](../.analysis/anm-cache-texture-conditional-diff.txt),
-[rejected byte-offset accessor](../.analysis/anm-cache-texture-byte-offset-diff.txt).
+Strict cache frontier (`.analysis/anm-cache-texture-final-frontier.json`),
+cache diagnostic (`.analysis/anm-cache-texture-conditional-diff.txt`),
+rejected byte-offset accessor (`.analysis/anm-cache-texture-byte-offset-diff.txt`).
 
 The affected scope is 161 exact units in 12 compilation contexts, including
 the Chain, ThreadInf and CoreMath consumers of the logging declaration.
 The current preload, loader-primary constructor and Chain families already
 had fresh cold builds; the other nine contexts were rebuilt for the changed
-inputs. See the [final replay](../.analysis/anm-loading-final-replay.log) and
-[selected units](../.analysis/anm-loading-final-affected-units.json): all
+inputs. See the final replay (`.analysis/anm-loading-final-replay.log`) and
+selected units (`.analysis/anm-loading-final-affected-units.json`): all
 161 current-input comparisons passed. The current world-update frontier
 also retains only its frame-size byte difference at `+8`
-([strict replay](../.analysis/anm-world-after-loading.json)).
+(strict replay (`.analysis/anm-world-after-loading.json`)).
 
 The next-stage target review also settles that resource `+0x124`, currently
 named `isInvalid`, is a **one-based finalization cursor**, not a boolean.
@@ -1088,8 +1096,8 @@ the embedded-data helper with `entry + *(entry+0x1C)`; `@` names take separate
 texture-creation paths. This is target behavior for the next reconstruction,
 not new source or exact credit. The source field name is retained for this
 checkpoint; rename it when implementing that stage and replay its consumers.
-[Full finalization span](../.analysis/anm-finalize-textures-complete-span.txt),
-[entry/caller review](../.analysis/anm-finalize-textures-review.txt).
+Full finalization span (`.analysis/anm-finalize-textures-complete-span.txt`),
+entry/caller review (`.analysis/anm-finalize-textures-review.txt`).
 
 The 140-byte scheduler at `0x00465E50` scans the 38 resource slots and
 returns immediately after finalizing the first resource with a nonzero
@@ -1101,7 +1109,7 @@ target ordering when reconstructing it:
 the ordinary in-range release branch clears the manager slot and then
 reloads that slot before the `+0x128` clear. Do not silently repair this
 apparent null dereference from a decompiler interpretation.
-[Scheduler disassembly and caller](../.analysis/anm-load-scheduler-review.txt).
+Scheduler disassembly and caller (`.analysis/anm-load-scheduler-review.txt`).
 
 The bounded Ghidra `read_bytes` query was added to recover undefined CP932
 diagnostics through the attested local route; see its
@@ -1110,11 +1118,11 @@ read agree with the original target. Zero/oversized counts, unmapped starts
 and a mapped range crossing its memory block are rejected. A short read
 inside mapped section padding is allowed, so this operation supplies no
 owner-boundary evidence.
-[Target-byte smoke](../.analysis/anm-read-bytes-target-smoke.txt),
-[zero](../.analysis/anm-read-bytes-zero.log),
-[oversized](../.analysis/anm-read-bytes-oversized.log),
-[unmapped](../.analysis/anm-read-bytes-unmapped.log),
-[crossing](../.analysis/anm-read-bytes-section-crossing.log).
+Target-byte smoke (`.analysis/anm-read-bytes-target-smoke.txt`),
+zero (`.analysis/anm-read-bytes-zero.log`),
+oversized (`.analysis/anm-read-bytes-oversized.log`),
+unmapped (`.analysis/anm-read-bytes-unmapped.log`),
+crossing (`.analysis/anm-read-bytes-section-crossing.log`).
 
 ## ANM resolved sprites and finalization array bounds (2026-11-26)
 
@@ -1125,8 +1133,8 @@ its complete primary-TU contribution, with no address fields. A fixed-size
 target's index in EAX, resource in EDX and input record in EBX. Its source
 return type is void: EAX retaining the byte stride is an incidental result,
 not evidence for the decompiler's integer return hypothesis.
-[Current exact replay](../.analysis/anm-set-sprite-memcpy-final-exact.json),
-[target/helper review](../.analysis/anm-sprite-and-texture-helpers-review.txt).
+Current exact replay (`.analysis/anm-set-sprite-memcpy-final-exact.json`),
+target/helper review (`.analysis/anm-sprite-and-texture-helpers-review.txt`).
 
 The finalization caller settles the resolved sprite layout:
 
@@ -1161,7 +1169,7 @@ their second word is installed, as an absolute address. The script-address
 array is therefore mutable. The legacy `isInvalid`/`loadPending` names are
 now `finalizeCursor`/`releaseRequested`; `+0x12C` accumulates texture byte
 counts as `textureMemoryBytes`.
-[Complete finalization span](../.analysis/anm-finalize-textures-complete-span.txt).
+Complete finalization span (`.analysis/anm-finalize-textures-complete-span.txt`).
 
 `ProcessPendingAnms` initially compiled to 136 vs 140 bytes because
 `slot >= 0 && slot < 38` folded into one unsigned range comparison.
@@ -1172,8 +1180,8 @@ remaining ordinary-byte difference is `+0x73`: the source forwards the
 resource in ESI, while the target uses ECX. This is a calling-context
 frontier, not an address-field difference. The target's apparent null
 reload on release remains in the source.
-[Strict scheduler frontier](../.analysis/anm-process-pending-memcpy-frontier.json),
-[array-count diagnostic](../.analysis/anm-process-pending-array-count-diff.txt).
+Strict scheduler frontier (`.analysis/anm-process-pending-memcpy-frontier.json`),
+array-count diagnostic (`.analysis/anm-process-pending-array-count-diff.txt`).
 
 `FinalizeNextEntry` now has maintained source, but its complete candidate
 is 831 vs the 1,000-byte target. The source's integer-only release-log call
@@ -1184,8 +1192,8 @@ The four texture operations below remain declarations with reviewed target
 identities; the diagnostic link anchors do not implement their behavior or
 settle the caller's original private ABI. Do not tune register hints or
 claim product closure from this build.
-[Complete candidate diagnostic](../.analysis/anm-finalize-next-flat-diff.txt),
-[extent rejection](../.analysis/anm-finalize-next-flat-frontier.stderr).
+Complete candidate diagnostic (`.analysis/anm-finalize-next-flat-diff.txt`),
+extent rejection (`.analysis/anm-finalize-next-flat-frontier.stderr`).
 
 | Declared texture operation | Target | Full size |
 | --- | --- | ---: |
@@ -1203,15 +1211,15 @@ drawing conclusions about the finalizer's linked context. The separate
 746-byte entry finalizer at `0x00465B60` is still unimplemented; it shares
 the sprite and texture operations but returns 1/-1 instead of advancing
 the one-based cursor.
-[Texture hypotheses](../.analysis/anm-finalize-and-texture-hypotheses.txt),
-[entry-finalizer target review](../.analysis/anm-finalize-entry-review.txt).
+Texture hypotheses (`.analysis/anm-finalize-and-texture-hypotheses.txt`),
+entry-finalizer target review (`.analysis/anm-finalize-entry-review.txt`).
 
 The nine observed format-table entries are `(0,21,25,23,20,26,29,28,27)`;
 their byte counts are `(4,4,2,2,3,2,2,1,1)`. With the fallback bit set,
 format values 0/21 select index 5, and value 20 selects index 3. These are
 target data observations, not imported from an adjacent game's headers.
-[Attested table reads](../.analysis/anm-texture-format-tables.txt),
-[decoded values](../.analysis/anm-texture-format-table-values.txt).
+Attested table reads (`.analysis/anm-texture-format-tables.txt`),
+decoded values (`.analysis/anm-texture-format-table-values.txt`).
 
 The shared layout and caller changes affect 130 canonical exact units in
 ten compilation contexts. The nine existing contexts were cold-built, and
@@ -1220,10 +1228,10 @@ An interim comparison reached that family while its artifacts were being
 rebuilt; that incomplete-family rejection is retained. The final current-input
 comparison passes all 130 units, including both resource binders, preload,
 constructor, helpers and effect callbacks.
-[Cold builds/interim replay](../.analysis/anm-finalization-affected-replay.log),
-[finalization build](../.analysis/anm-finalization-memcpy-build.log),
-[final comparison](../.analysis/anm-finalization-current-input-final.log),
-[selected units](../.analysis/anm-finalization-affected-units.json).
+Cold builds/interim replay (`.analysis/anm-finalization-affected-replay.log`),
+finalization build (`.analysis/anm-finalization-memcpy-build.log`),
+final comparison (`.analysis/anm-finalization-current-input-final.log`),
+selected units (`.analysis/anm-finalization-affected-units.json`).
 
 ## ANM GPU texture loading and shared graphics state (2026-11-26)
 
@@ -1231,10 +1239,10 @@ For Japanese TH128 v1.00a and pinned VC10 RTM `/O2 /Ob1 /Oy- /GL`,
 `AnmTextureLoading.cpp` now implements the four reviewed texture operations.
 Empty-texture and render-target creation now replay exactly as complete
 70/69-byte primary-TU owners, each with five reviewed address fields.
-[Empty-texture replay](../.analysis/anm-texture-create-empty-final-exact.json),
-[render-target replay](../.analysis/anm-texture-create-render-target-final-exact.json).
-[Initial observations](../.analysis/anm-gpu-textures-first-observations.txt),
-[complete creation/target review](../.analysis/anm-texture-creation-and-cpu-release-review.txt).
+Empty-texture replay (`.analysis/anm-texture-create-empty-final-exact.json`),
+render-target replay (`.analysis/anm-texture-create-render-target-final-exact.json`).
+Initial observations (`.analysis/anm-gpu-textures-first-observations.txt`),
+complete creation/target review (`.analysis/anm-texture-creation-and-cpu-release-review.txt`).
 
 Empty texture creation clears flag bit 0, requests one managed mip level
 through `D3DXCreateTexture`, ignores HRESULT, stores the format byte count,
@@ -1260,7 +1268,7 @@ use the configured fallback. The same rectangle is supplied as source and
 destination bounds. Only texture-creation failure returns -1; the upload
 HRESULT is ignored. The texture fields at `+0x0C/+0x10` are now named
 `bytesPerPixel` and `flags`.
-[Complete loader review](../.analysis/anm-sprite-and-texture-helpers-review.txt).
+Complete loader review (`.analysis/anm-sprite-and-texture-helpers-review.txt`).
 
 The Windows 7.0A SDK already present in the pinned toolchain supplies the
 actual D3D9 interfaces. Four D3DX declarations are maintained separately;
@@ -1287,8 +1295,8 @@ signature this identifies a `D3DPRESENT_PARAMETERS` block there. Its
 `Windowed` field is at `+0x20`, or `0x004D2F7C`, matching the maintained
 Supervisor field formerly described as cursor visibility/windowed mode.
 Recover the whole parameter block when continuing Supervisor work.
-[Exact call-site review](../.analysis/anm-presentation-parameters-exact-call-review.txt),
-[field references](../.analysis/anm-graphics-presentation-field-xrefs.txt).
+Exact call-site review (`.analysis/anm-presentation-parameters-exact-call-review.txt`),
+field references (`.analysis/anm-graphics-presentation-field-xrefs.txt`).
 
 Two loader owners remain frontiers. The external decoder is 477 vs 511
 bytes. The embedded uploader has all 296 bytes and 13 address fields, but
@@ -1298,11 +1306,11 @@ expanding the release helper and spelling out the size accumulator all
 generated the same remaining differences. The API-facing dimensions are
 maintained as unsigned; this does not recover the original source types.
 The final source keeps the concise release helper and product expression.
-[Signed baseline](../.analysis/anm-gpu-textures-first-observations.txt),
-[unsigned control](../.analysis/anm-gpu-unsigned-dimensions-observations.txt),
-[flat-release control](../.analysis/anm-gpu-flat-release-observations.txt),
-[accumulator control](../.analysis/anm-gpu-size-accumulator-observations.txt),
-[embedded diagnostic](../.analysis/anm-texture-load-embedded-first-diff.txt).
+Signed baseline (`.analysis/anm-gpu-textures-first-observations.txt`),
+unsigned control (`.analysis/anm-gpu-unsigned-dimensions-observations.txt`),
+flat-release control (`.analysis/anm-gpu-flat-release-observations.txt`),
+accumulator control (`.analysis/anm-gpu-size-accumulator-observations.txt`),
+embedded diagnostic (`.analysis/anm-texture-load-embedded-first-diff.txt`).
 
 The external candidate also promotes the X origin into ECX and returns
 with `RET 12`, while the target leaves both origins on the stack and uses
@@ -1310,8 +1318,8 @@ with `RET 12`, while the target leaves both origins on the stack and uses
 the effective format in EBX, where the candidate keeps the promoted origin.
 A separate cold probe that mutates the format formal directly still emits
 477 bytes, the same promotion and `RET 12`. The verified source is retained.
-[In-place-format probe](../.analysis/anm-gpu-inplace-format-probe.py),
-[observations](../.analysis/anm-gpu-inplace-format-observations.txt).
+In-place-format probe (`.analysis/anm-gpu-inplace-format-probe.py`),
+observations (`.analysis/anm-gpu-inplace-format-observations.txt`).
 
 The external decoder calls `0x004645F0` after GPU creation. This is a
 1,774-byte transparent-pixel RGB repair operation, not CPU buffer release:
@@ -1320,8 +1328,8 @@ from nontransparent orthogonal neighbors in several packed formats, then
 unlocks and releases the surface. The embedded path does not call it.
 `FillTransparentTextureColors` now has maintained source and a complete
 frontier unit; see the transparent-pixel finding below for its current status.
-[Postprocess hypothesis](../.analysis/anm-texture-postprocess-hypothesis.txt),
-[entry/callers](../.analysis/anm-texture-creation-and-cpu-release-review.txt).
+Postprocess hypothesis (`.analysis/anm-texture-postprocess-hypothesis.txt`),
+entry/callers (`.analysis/anm-texture-creation-and-cpu-release-review.txt`).
 
 With the four real texture definitions in the link, `FinalizeNextEntry`
 is now 887 vs 1,000 bytes and its resource input is naturally ECX.
@@ -1330,17 +1338,17 @@ including the previously differing receiver-forwarding byte at `+0x73`.
 This adds a third exact owner (+140 bytes) without a register hint or ABI
 shim. The exact sprite installer stays unchanged. The finalizer still has
 extensive differences; the postprocess implementation is tracked below.
-[Scheduler replay](../.analysis/anm-scheduler-with-real-gpu-frontier.json),
-[owner observations](../.analysis/anm-finalization-with-real-gpu-observations.txt).
+Scheduler replay (`.analysis/anm-scheduler-with-real-gpu-frontier.json`),
+owner observations (`.analysis/anm-finalization-with-real-gpu-observations.txt`).
 
 The Supervisor header, device-use changes and real texture definitions
 affect 186 existing exact units. They and the two creation candidates all
 passed in 19 cold compilation contexts. The newly closed scheduler is
 included in the final canonical comparison: all 189 units passed. No further
 cold build is needed for unchanged executable inputs.
-[Cold comparison](../.analysis/anm-gpu-final-replay.log),
-[canonical comparison](../.analysis/anm-gpu-canonical-final-compare.log),
-[selected units](../.analysis/anm-gpu-canonical-affected-units.json).
+Cold comparison (`.analysis/anm-gpu-final-replay.log`),
+canonical comparison (`.analysis/anm-gpu-canonical-final-compare.log`),
+selected units (`.analysis/anm-gpu-canonical-affected-units.json`).
 
 ## ANM transparent-pixel repair and inline neighbor helpers (2026-11-26)
 
@@ -1350,9 +1358,9 @@ neighbors. The complete 1,774-byte owner now has natural C++ source in
 `AnmTextureLoading.cpp`, including all four packed-format paths. This closes
 the missing source dependency of the external-file texture loader without
 claiming exactness for the larger repair function.
-[Executable-body review](../.analysis/anm-transparent-colors-body-review.txt),
-[physical tables](../.analysis/anm-transparent-colors-tables.txt),
-[table references](../.analysis/anm-transparent-colors-tail-refs.txt).
+Executable-body review (`.analysis/anm-transparent-colors-body-review.txt`),
+physical tables (`.analysis/anm-transparent-colors-tables.txt`),
+table references (`.analysis/anm-transparent-colors-tail-refs.txt`).
 
 | D3D format | Alpha bits | Red / green / blue bits |
 | --- | ---: | --- |
@@ -1383,8 +1391,8 @@ three four-byte sums and increment a four-byte count. The packed 16-bit
 values are snapshotted before any sum writes. Their bodies explain the
 repeated instruction sequences in the repair owner; explicit small inline
 functions naturally retain complete out-of-line copies under VC10.
-[TH128 helper review](../.analysis/anm-color-neighbor-complete-review.txt),
-[initial whole-owner diagnostics](../.analysis/anm-colors-chained-family.txt).
+TH128 helper review (`.analysis/anm-color-neighbor-complete-review.txt`),
+initial whole-owner diagnostics (`.analysis/anm-colors-chained-family.txt`).
 TH10 and TH11 sources were consulted only for possible source shapes; their
 addresses, compilers and exact claims are not used as TH128 evidence.
 
@@ -1392,8 +1400,8 @@ addresses, compilers and exact claims are not used as TH128 evidence.
 `+0x208` bit 0 enables UNKNOWN/A8R8G8B8 to index 5 and R8G8B8 to index 3;
 otherwise it returns the input index. Both maintained texture-loading paths
 now use its real inline definition instead of duplicating the branch.
-[Complete TH128 review](../.analysis/anm-texture-normalize-format-review.txt),
-[initial 40-byte/two-field diagnostic](../.analysis/anm-colors-normalize-format-observation.json).
+Complete TH128 review (`.analysis/anm-texture-normalize-format-review.txt`),
+initial 40-byte/two-field diagnostic (`.analysis/anm-colors-normalize-format-observation.json`).
 
 The repair's physical tail belongs to its complete owner: executable code
 ends at `0x00464CA9`, compiler alignment occupies two bytes, five absolute
@@ -1409,17 +1417,17 @@ Useful rejected approaches:
 
 - A shared inline template containing the entire pixel loop was not inlined
   by `/Ob1`: the selected repair owner became 250 bytes with four separate
-  loop owners. [Observation](../.analysis/anm-colors-template-observations.txt).
+  loop owners. Observation (`.analysis/anm-colors-template-observations.txt`).
 - Expanding four loops with independent scalar sums gave 1,790 bytes and a
   `0x40` frame. An array aggregate initializer changed the frame to `0x48`
-  without closing the extent. [Scalar observation](../.analysis/anm-colors-expanded-observations.txt),
-  [array observation](../.analysis/anm-colors-array-observations.txt).
+  without closing the extent. Scalar observation (`.analysis/anm-colors-expanded-observations.txt`),
+  array observation (`.analysis/anm-colors-array-observations.txt`).
 - Real small neighbor accumulators and chained initialization of the three
   sums restored the complete 1,774-byte extent. That alone did not restore
   the target's `0x50` frame, register-save placement or every branch target.
   A shared array outside the switch retained the same remaining scope.
-  [Chained-initialization observation](../.analysis/anm-colors-chained-observations.txt),
-  [shared-array observation](../.analysis/anm-colors-shared-sums-format-observations.txt).
+  Chained-initialization observation (`.analysis/anm-colors-chained-observations.txt`),
+  shared-array observation (`.analysis/anm-colors-shared-sums-format-observations.txt`).
 
 Five complete owners are now canonical exact matches (+195 bytes): the
 40-byte normalizer with both reviewed `DIR32` fields and the four neighbor
@@ -1428,9 +1436,9 @@ references remain absent, so boundary confidence stays medium. All nine
 affected exact comparisons passed after two cold builds: these five owners,
 both creation methods, `SetSprite`, and `ProcessPendingAnms`. No shared header,
 tool, profile or other compilation context changed.
-[Cold construction](../.analysis/anm-colors-final-build.log),
-[strict comparison](../.analysis/anm-colors-final-compare.log),
-[selected owners](../.analysis/anm-colors-final-selected-units.json).
+Cold construction (`.analysis/anm-colors-final-build.log`),
+strict comparison (`.analysis/anm-colors-final-compare.log`),
+selected owners (`.analysis/anm-colors-final-selected-units.json`).
 
 The large repair remains a frontier despite equal 1,774-byte extents. Its
 frame is `0x4C` instead of `0x50`; the cookie and description are four bytes
@@ -1439,8 +1447,8 @@ differ. Its byte-map address field is at `+87` instead of target `+89`, so
 the exhaustive-field check rejects it before raw-byte acceptance. Original
 source lifetimes and the relevant linked context remain unresolved; equal
 size and matching small helpers do not settle this owner.
-[Final owner/fields](../.analysis/anm-colors-final-observations.txt),
-[strict rejection](../.analysis/anm-colors-final-repair-frontier.json).
+Final owner/fields (`.analysis/anm-colors-final-observations.txt`),
+strict rejection (`.analysis/anm-colors-final-repair-frontier.json`).
 
 The real repair and its neighbor helpers also change the external loader's
 private ABI naturally. Before format normalization was factored, the owner
@@ -1452,9 +1460,9 @@ four. Embedded upload remains 296 bytes with the same 16 raw differences
 and 13 fields. `FinalizeNextEntry` is now 903 vs 1,000 bytes;
 the scheduler and sprite installer remain exact. These observations update
 the earlier GPU snapshot without adding credit to any larger frontier.
-[Interim loader diagnostics](../.analysis/anm-colors-inline-neighbors-family.txt),
-[final loader diagnostics](../.analysis/anm-colors-final-family.txt),
-[current finalization owners](../.analysis/anm-colors-final-finalization-owners.json).
+Interim loader diagnostics (`.analysis/anm-colors-inline-neighbors-family.txt`),
+final loader diagnostics (`.analysis/anm-colors-final-family.txt`),
+current finalization owners (`.analysis/anm-colors-final-finalization-owners.json`).
 
 ## ANM file-backed creation and existing-texture uploads (2026-11-26)
 
@@ -1465,8 +1473,8 @@ source: file-backed creation at `0x00464CE0` (245 bytes), image upload at
 the existing decoder at `0x00464FD0`, all four direct caller definitions are
 present in the texture-loading linked context. All three new owners remain
 frontiers; source presence grants no new exact credit.
-[Complete target owners/references](../.analysis/anm-additional-texture-creation-review.txt),
-[final owner diagnostics](../.analysis/anm-additional-final-observations.txt).
+Complete target owners/references (`.analysis/anm-additional-texture-creation-review.txt`),
+final owner diagnostics (`.analysis/anm-additional-final-observations.txt`).
 
 `LoadTextureFile` normalizes the destination format, copies the path through
 `sprintf(path, "%s", filename)`, and opens external file bytes. Failure to
@@ -1476,8 +1484,8 @@ bit 0, repairs transparent RGB, stores byte accounting and retains the new
 CPU buffer in `rawData`, returning zero. The extra caller-supplied argument
 is the 32-bit color key, not an image-info pointer: its push is the fourth
 argument from the end of `D3DXCreateTextureFromFileInMemoryEx`.
-[Path-format bytes](../.analysis/anm-additional-texture-path-format.txt),
-[complete 245-byte/14-field comparison](../.analysis/anm-additional-final-load-file-replay.json).
+Path-format bytes (`.analysis/anm-additional-texture-path-format.txt`),
+complete 245-byte/14-field comparison (`.analysis/anm-additional-final-load-file-replay.json`).
 
 `UploadTextureImage` operates on an existing texture's level zero. It records
 the supplied size, clears flag bit 0, loads the in-memory image with filter
@@ -1486,7 +1494,7 @@ RGB and records format-index 1/5 byte accounting. Upload HRESULT is ignored
 and the return value is zero. It does not store the input pointer. The
 caller at `0x00427F09` selects `resource->textures[1]` and frees its image
 buffer after this call, confirming that input ownership stays with the caller.
-[Call-site review](../.analysis/anm-upload-texture-image-caller-review.txt).
+Call-site review (`.analysis/anm-upload-texture-image-caller-review.txt`).
 
 `UploadTextureRegion` also changes existing level zero and records the input
 size without taking CPU ownership. The external-image path gets actual
@@ -1512,17 +1520,17 @@ and then normalizing the format formal in place produced the same eight
 differences. The maintained API puts format first, consistent with the
 existing format-led loader. Do not treat API ordering as the resolved cause
 of this remaining private ABI difference.
-[Initial observation](../.analysis/anm-additional-first-observations.txt),
-[format-first control](../.analysis/anm-additional-format-first-observations.txt),
-[final comparison](../.analysis/anm-additional-final-load-file-replay.json).
+Initial observation (`.analysis/anm-additional-first-observations.txt`),
+format-first control (`.analysis/anm-additional-format-first-observations.txt`),
+final comparison (`.analysis/anm-additional-final-load-file-replay.json`).
 
 Image upload is 116 vs 156 bytes: the target's eight-byte stack alignment,
 GS setup and size register are not reproduced. Region upload is 329 vs 330
 bytes with ten fields and different format/data promotion, frame and return
 stack count. Each has a full linked frontier unit with the target's six/ten
 reviewed fields; no shortened comparison or ABI shim is used.
-[Image rejection](../.analysis/anm-additional-final-upload-image-replay.json),
-[region rejection](../.analysis/anm-additional-final-upload-region-replay.json).
+Image rejection (`.analysis/anm-additional-final-upload-image-replay.json`),
+region rejection (`.analysis/anm-additional-final-upload-region-replay.json`).
 
 Two bounded source-shape controls did not settle the larger repair either.
 Sharing the loop indices and neighbor count changed a few spills but left
@@ -1533,9 +1541,9 @@ Both controls are retained privately; the simpler prior loop/view declarations
 remain. Adding the three real caller definitions also leaves the repair's
 frame unresolved, so absent caller bodies alone were not the explanation
 in this measured context.
-[Shared-counter control](../.analysis/anm-colors-shared-counters-observations.txt),
-[union control](../.analysis/anm-colors-union-view-observations.txt),
-[complete-caller context](../.analysis/anm-colors-complete-callers-final-observations.txt).
+Shared-counter control (`.analysis/anm-colors-shared-counters-observations.txt`),
+union control (`.analysis/anm-colors-union-view-observations.txt`),
+complete-caller context (`.analysis/anm-colors-complete-callers-final-observations.txt`).
 
 The shared entry declarations and local D3DX header change affect 138
 existing canonical exact owners across 11 compilation contexts, selected
@@ -1545,9 +1553,9 @@ honestly. `SetSprite` remains 145 bytes, the pending scheduler 140, and the
 full finalizer stays at 903 vs 1,000. No compiler profile or comparison tool
 changed. Tracking now records 375 mappings and 322 exact functions; the
 three new source mappings do not increase the exact count.
-[Cold build/comparison](../.analysis/anm-additional-final-replay.log),
-[selected owners](../.analysis/anm-additional-final-selected-units.json),
-[finalization observations](../.analysis/anm-additional-final-finalization-owners.json).
+Cold build/comparison (`.analysis/anm-additional-final-replay.log`),
+selected owners (`.analysis/anm-additional-final-selected-units.json`),
+finalization observations (`.analysis/anm-additional-final-finalization-owners.json`).
 
 ## HelpInf viewer, returned ANM IDs and page ownership (2026-11-26)
 
@@ -1557,9 +1565,9 @@ the caller at `0x00427CD0` is the nine-page help viewer. The target contains
 allocates `0x1C0` bytes and publishes the object at `0x004B8A58`.
 `HelpInf.hpp/.cpp` now maintain its physical layout, complete update flow,
 page/resource worker bodies, VM creation, Chain callbacks and lifecycle.
-[Target strings](../.analysis/manual-asset-strings.txt),
-[viewer dispatch disassembly](../.analysis/anm-upload-image-caller-complete.txt),
-[local creation/helper review](../.analysis/manual-local-helpers-review.txt).
+Target strings (`.analysis/manual-asset-strings.txt`),
+viewer dispatch disassembly (`.analysis/anm-upload-image-caller-complete.txt`),
+local creation/helper review (`.analysis/manual-local-helpers-review.txt`).
 
 | Physical field | TH128 offset |
 | --- | --- |
@@ -1587,8 +1595,8 @@ the CPU image if nonnull, clears that pointer again, calls texture
 `PreLoad()`, creates script 9, and enters page state 4. The viewing gate is
 again timer 20. Up/down step only within pages 0..8; returning to the
 directory recreates its nine VMs. No extra null/failure behavior was added.
-[Worker bodies](../.analysis/manual-worker-callback-spans.txt),
-[caller upload/free](../.analysis/anm-upload-texture-image-caller-review.txt).
+Worker bodies (`.analysis/manual-worker-callback-spans.txt`),
+caller upload/free (`.analysis/anm-upload-texture-image-caller-review.txt`).
 
 The post-upload virtual call at `0x00427F44` uses slot `+0x24`, which the
 pinned Windows SDK identifies as `IDirect3DResource9::PreLoad`. It is not
@@ -1605,9 +1613,9 @@ dynamic in the callback probe
 also preserves the generic `HelpInf::CreateVm` instead of specializing its
 only visible direct call to script 9. The complete 35-byte caller now has
 zero differences and its one call field binds to this actual resource member.
-[Free-function observation](../.analysis/help-first-observations.txt),
-[member observation](../.analysis/help-member-observations.txt),
-[canonical caller replay](../.analysis/help-final-help-create-vm-replay.json).
+Free-function observation (`.analysis/help-first-observations.txt`),
+member observation (`.analysis/help-member-observations.txt`),
+canonical caller replay (`.analysis/help-final-help-create-vm-replay.json`).
 
 The helper remains 202 vs 204 bytes. Fixed-size position `memcpy` preserves
 the target's integer word copies; individual float assignments instead emit
@@ -1615,7 +1623,7 @@ x87 loads/stores. Snapshotting the registered ID's integer before constructing
 the returned wrapper retains a separate registration temporary. The remaining
 binder register input/result-lifetime differences are linked-context questions,
 not grounds for register hints or a different ABI declaration.
-[Measured final context](../.analysis/help-core-context-observations.txt).
+Measured final context (`.analysis/help-core-context-observations.txt`).
 
 The full update is now 1,104 vs 1,184 bytes (initially 1,092). Its complete
 target extent includes seven bytes of internal alignment, a final alignment
@@ -1625,8 +1633,8 @@ allocation, directory cursor clamping and the opaque task-launch calls.
 The initial implementation's two public `ZunTimer::SetCurrent` edges are
 now repaired through the maintained separate `0x00403280` copy; this fixes
 call identity without closing the update owner.
-[Body review](../.analysis/manual-update-body-and-tail-review.txt),
-[owned table read](../.analysis/manual-dispatch-table.txt).
+Body review (`.analysis/manual-update-body-and-tail-review.txt`),
+owned table read (`.analysis/manual-dispatch-table.txt`).
 
 The shared task launcher at `0x00434CB0` starts a CRT thread; both HelpInf
 worker bodies have plain RET tails and no consumed stack arguments.
@@ -1650,10 +1658,10 @@ callback. The resource worker remains 92 vs 90 bytes: its candidate private
 `Fatal` receiver uses EDI rather than target ECX, adding an EDI save/restore.
 The update and UI helper above also remain frontiers. Strict comparisons
 reject all three owners at the complete-contribution size check.
-[Page worker replay](../.analysis/help-final-help-load-page-worker-replay.json),
-[Draw replay](../.analysis/help-final-help-draw-replay.json),
-[tick callback replay](../.analysis/help-final-help-on-tick-replay.json),
-[draw callback replay](../.analysis/help-final-help-on-draw-replay.json).
+Page worker replay (`.analysis/help-final-help-load-page-worker-replay.json`),
+Draw replay (`.analysis/help-final-help-draw-replay.json`),
+tick callback replay (`.analysis/help-final-help-on-tick-replay.json`),
+draw callback replay (`.analysis/help-final-help-on-draw-replay.json`).
 
 For that initial checkpoint, all 138 previously exact consumers of the changed
 resource header were cold-built in 11 contexts; the new HelpInf context had
@@ -1661,16 +1669,16 @@ already been cold-built and receipt-verified. The final current-input comparison
 affected/new exact owners across these 12 contexts, including full owned
 extents and relocation/call identities. That checkpoint did not implement
 initialization or close launcher adaptation or runtime behavior.
-[Final comparison](../.analysis/help-final-replay.log),
-[selected owners](../.analysis/help-final-affected-units.json).
+Final comparison (`.analysis/help-final-replay.log`),
+selected owners (`.analysis/help-final-affected-units.json`).
 
 The existing texture context now includes the real HelpInf caller, MenuCursor,
 sound operations and its callback probe. It still gives 116 vs 156 bytes for
 image upload and 1,774 bytes with the same unresolved frame for RGB repair.
 Adding the real caller alone did not explain those remaining GS/alignment
 differences in this measured context.
-[Texture consumer](../.analysis/help-texture-consumer-observations.txt),
-[upload observations](../.analysis/help-upload-consumer-observations.txt).
+Texture consumer (`.analysis/help-texture-consumer-observations.txt`),
+upload observations (`.analysis/help-upload-consumer-observations.txt`).
 
 ## HelpInf lifecycle and shared update setter (2026-11-26)
 
@@ -1680,8 +1688,8 @@ primary-TU owner and three reviewed fields: global pointer `+3`, Shutdown
 call `+14` and operator delete call `+20`. It snapshots `g_HelpInf`, calls
 Shutdown when nonnull, then deletes the cached pointer after Shutdown has
 cleared the global. The larger Shutdown owner remains a frontier.
-[Target review](../.analysis/help-shared-timer-and-shutdown-callback-review.txt),
-[canonical replay](../.analysis/help-lifecycle-closure-help-destroy.json).
+Target review (`.analysis/help-shared-timer-and-shutdown-callback-review.txt`),
+canonical replay (`.analysis/help-lifecycle-closure-help-destroy.json`).
 
 The setter at `0x00403280` is shared far beyond ANM: the analyzer's reviewed
 xrefs identify 20 caller functions, including four ANM Update calls and the
@@ -1691,8 +1699,8 @@ aliasing the separate byte-identical public setter at `0x00403240`. Its
 complete 61-byte canonical replay and `g_TimeScale` field at `+38` remain
 exact after changing the anonymous symbol to a shared one. The original TU
 partition is not established by this API.
-[Setter replay](../.analysis/help-shared-timer-canonical-first.json),
-[HelpInf call observation](../.analysis/help-shared-timer-first-Update.json).
+Setter replay (`.analysis/help-shared-timer-canonical-first.json`),
+HelpInf call observation (`.analysis/help-shared-timer-first-Update.json`).
 
 Creation, initialization and shutdown now have maintained source and full
 linked frontier units. Creation's target initializes the embedded timer bit
@@ -1704,8 +1712,8 @@ priorities 10/64 with execution disabled, queues resource loading, resets
 the timer and returns zero. Making the existing default ChainElem constructor
 inline enables its actual body under `/Ob1`; its separate 27-byte canonical
 owner still replays exactly.
-[Lifecycle target review](../.analysis/manual-local-helpers-review.txt),
-[constructor replay](../.analysis/help-lifecycle-chain-ctor-first.json).
+Lifecycle target review (`.analysis/manual-local-helpers-review.txt`),
+constructor replay (`.analysis/help-lifecycle-chain-ctor-first.json`).
 
 Shutdown snapshots each element and Chain pointer before entering Supervisor
 lock 0, cuts the elements, releases/deletes ANM slot 31 and clears the slot
@@ -1721,19 +1729,19 @@ EDI around that call. Shutdown still has the known private CutImpl receiver
 differences and a split zero-store epilogue. Resetting the timer in the usual
 float/current/previous order did not close those differences. No artificial
 function-pointer escape or ABI shim was added to force the target frame.
-[Initial observations](../.analysis/help-lifecycle-first-observations.txt),
-[current observations](../.analysis/help-lifecycle-closure-observations.txt).
+Initial observations (`.analysis/help-lifecycle-first-observations.txt`),
+current observations (`.analysis/help-lifecycle-closure-observations.txt`).
 The current-input strict comparisons reject all six HelpInf frontiers at
 the complete-owner size check; none receives exact credit.
-[Frontier rejections](../.analysis/help-lifecycle-closure-frontier-rejections.json).
+Frontier rejections (`.analysis/help-lifecycle-closure-frontier-rejections.json`).
 
 The launcher's third caller, `0x00426910`, supplies entry `0x00426420`.
 That five-byte entry jumps to `0x00425E60`; its complete 1,467-byte body
 consumes no stack argument and both return paths have plain RET tails.
 Thus this other call does not supply a conventional `RET 4` adapter either.
-[Third caller](../.analysis/shared-task-launcher-third-caller-review.txt),
-[entry jump](../.analysis/shared-task-launcher-third-entry-span.txt),
-[complete worker](../.analysis/shared-task-launcher-third-worker-complete.txt).
+Third caller (`.analysis/shared-task-launcher-third-caller-review.txt`),
+entry jump (`.analysis/shared-task-launcher-third-entry-span.txt`),
+complete worker (`.analysis/shared-task-launcher-third-worker-complete.txt`).
 
 The pinned target CRT stores the unmodified entry and argument in per-thread
 fields `+0x54/+0x58`. It has no normal-path adapter: `__callthreadstartex`
@@ -1745,8 +1753,8 @@ depending on ESP; that is an inference from these instructions, not a runtime
 validation or a recovered C++ callback declaration. The binary path is now
 understood; the source type bridge remains external rather than inventing an
 adapter or using an incompatible callback cast to obtain an exact launcher.
-[CRT start review](../.analysis/shared-task-launcher-crt-start-review.txt),
-[CRT call/exit review](../.analysis/shared-task-launcher-crt-entry-review.txt).
+CRT start review (`.analysis/shared-task-launcher-crt-start-review.txt`),
+CRT call/exit review (`.analysis/shared-task-launcher-crt-entry-review.txt`).
 
 The final current-input comparison passed **174/174** affected/new exact
 owners across 15 cold-built contexts. After placing the inline HelpInf
@@ -1755,9 +1763,9 @@ another cold build; the other 13 current contexts were reused. The shared
 setter and ChainElem constructor retain their existing credit. Only Destroy
 adds credit here: one function and 29 bytes, bringing the canonical totals
 to 328 functions and 19,658 bytes. Product and runtime closure remain later work.
-[Final comparison](../.analysis/help-lifecycle-closure-replay.log),
-[selected owners](../.analysis/help-lifecycle-closure-selected.json),
-[current setter replay](../.analysis/help-lifecycle-closure-anm-vm-update-timer-set-current.json).
+Final comparison (`.analysis/help-lifecycle-closure-replay.log`),
+selected owners (`.analysis/help-lifecycle-closure-selected.json`),
+current setter replay (`.analysis/help-lifecycle-closure-anm-vm-update-timer-set-current.json`).
 
 ## Natural ANM draw dispatch and probe callee cleanup (2026-11-26)
 
@@ -1768,9 +1776,9 @@ implementation in `AnmDraw.cpp`. Its complete target owner is 1,392 bytes:
 tables at `0x00461FFC/0x00462054`. All 29 apparent outside-body references
 come from those owned tables. The frontier declares all 58 target fields:
 26 calls, two table pointers, 29 entries and the graphics-state view.
-[Target review](../.analysis/anm-render-dispatch-review.txt),
-[complete instructions](../.analysis/anm-render-dispatch-complete.txt),
-[owned tables](../.analysis/anm-render-dispatch-tables.txt).
+Target review (`.analysis/anm-render-dispatch-review.txt`),
+complete instructions (`.analysis/anm-render-dispatch-complete.txt`),
+owned tables (`.analysis/anm-render-dispatch-tables.txt`).
 
 Both `anm-core-context.cpp` and `anm-helpers-context.cpp` previously defined
 a synthetic `DrawAnmVmWithManager` returning `flags ^ nextVmId` through a
@@ -1800,9 +1808,9 @@ the SDK `SetRenderState(D3DRS_FOGENABLE, value)`. They return its HRESULT,
 or zero when the cache already has the requested state. Both complete
 54-byte primary-TU owners reproduce with two fields each: `g_AnmManager`
 at `+12` and the real `FlushSpriteBatch` edge at `+17`.
-[Leaf target review](../.analysis/anm-render-leaves-review.txt),
-[enable replay](../.analysis/anm-fog-enable-current-canonical.json),
-[disable replay](../.analysis/anm-fog-disable-current-canonical.json).
+Leaf target review (`.analysis/anm-render-leaves-review.txt`),
+enable replay (`.analysis/anm-fog-enable-current-canonical.json`),
+disable replay (`.analysis/anm-fog-disable-current-canonical.json`).
 
 The draw-position helper at `0x004630F0` first rounds secondary + position
 to three floats, then adds alternate position. A flat aggregate emitted
@@ -1812,9 +1820,9 @@ ordinary bytes still differ at `+52..+59`: the X addition's memory-operand
 order. Reversing the outer vector operands instead introduced a GS cookie,
 a stack result argument, `RET 4` and a 133-byte owner; that hypothesis is
 rejected without disabling GS. The retained helper remains a frontier.
-[First observation](../.analysis/anm-draw-first-observations.txt),
-[nested-vector observation](../.analysis/anm-draw-direct-gates-observations.txt),
-[rejected reverse](../.analysis/anm-draw-member-observations.txt).
+First observation (`.analysis/anm-draw-first-observations.txt`),
+nested-vector observation (`.analysis/anm-draw-direct-gates-observations.txt`),
+rejected reverse (`.analysis/anm-draw-member-observations.txt`).
 
 The free-function draw hypothesis emitted 1,324 bytes; the natural VM member
 retains that size after restoring the position helper. Its 58 fields are
@@ -1823,8 +1831,8 @@ target. The former transparency helper stayed out of line under `/Ob1`,
 adding ten calls; direct per-case source checks remove those unsupported
 boundaries. No function-pointer escape, register hint or inert frame storage
 was introduced to force the target ABI.
-[Current observations](../.analysis/anm-draw-current-observations.txt),
-[direct caller review](../.analysis/anm-render-direct-callers-review.txt).
+Current observations (`.analysis/anm-draw-current-observations.txt`),
+direct caller review (`.analysis/anm-render-direct-callers-review.txt`).
 
 The next relevant real callees include the small sprite wrappers at
 `0x0045F5D0/0x0045FA10/0x0045FD40/0x0045FD70/0x00460240/0x00460B50`.
@@ -1832,7 +1840,7 @@ Their review distinguishes stack-manager paths from the two-stack-pointer
 paths; the latter pass manager before VM in the physical call frame.
 Their real definitions, rather than a synthetic callee, are needed to settle
 the dispatcher/caller private ABI.
-[Sprite wrapper review](../.analysis/anm-render-sprite-wrappers-review.txt).
+Sprite wrapper review (`.analysis/anm-render-sprite-wrappers-review.txt`).
 
 The complete affected comparison cold-built 16 contexts and checked all
 154 formerly exact owners plus four new candidates. Of the old rows, 129
@@ -1845,9 +1853,9 @@ For example, the layer-0 wrapper becomes 7 vs 12 bytes; DrawVmGroup becomes
 argument's address through a volatile pointer; its resulting private ABI
 cannot be treated as the real renderer's ABI. Recover these callers through
 real leaf definitions rather than restoring the probe body.
-[Full current-input results](../.analysis/anm-draw-current-input-results.json),
-[withdrawn rows](../.analysis/anm-draw-withdrawn-conditional-rows.json),
-[core extents](../.analysis/anm-draw-core-current-owner-sizes.json).
+Full current-input results (`.analysis/anm-draw-current-input-results.json`),
+withdrawn rows (`.analysis/anm-draw-withdrawn-conditional-rows.json`),
+core extents (`.analysis/anm-draw-core-current-owner-sizes.json`).
 
 The two fog owners add 108 bytes. All **131 currently accepted affected
 owners** (129 retained and two new) have zero-difference comparisons in the
@@ -1855,8 +1863,8 @@ same full run; the dispatcher and position helper remain rejected frontiers.
 The canonical totals are now **305 functions / 19,277 bytes**. Historical
 logs retain the former conditional results; they were not rewritten into
 passes. This is exact per-owner evidence, not native rendering closure.
-[Comparison log](../.analysis/anm-draw-current-input-replay.log),
-[final scope](../.analysis/anm-draw-final-scope.json).
+Comparison log (`.analysis/anm-draw-current-input-replay.log`),
+final scope (`.analysis/anm-draw-final-scope.json`).
 
 ## ANM sprite state, quad append and real corner wrappers (2026-11-26)
 
@@ -1871,7 +1879,7 @@ sampler filtering**: the target calls device vtable `+0x114`,
 clear and point for bit 2 set. The former one-VM approximation incorrectly
 called `SetTextureStageState` at `+0x10C`; it now delegates to the real
 explicit-manager implementation.
-[Target helper review](../.analysis/anm-sprite-batch-helpers-review.txt).
+Target helper review (`.analysis/anm-sprite-batch-helpers-review.txt`).
 
 The state owner's full extent is 416 bytes: 387 code bytes, one alignment
 byte and seven DIR32 dispatch entries through `0x0045E90F`. Its 21 fields
@@ -1881,9 +1889,9 @@ order emitted 392 bytes and shared the source-blend call across cases
 0/4/6. Target layout instead places case 6 before case 5. That natural
 switch order produces the target's duplicated first calls and shared case
 3/5 tail; no compiler flag or ABI hint is needed.
-[Owned table read](../.analysis/anm-state-and-batch-owned-tables.txt),
-[ascending-order observation](../.analysis/anm-sprite-delegated-state-state.json),
-[target-order observation](../.analysis/anm-sprite-case-order-state.json).
+Owned table read (`.analysis/anm-state-and-batch-owned-tables.txt`),
+ascending-order observation (`.analysis/anm-sprite-delegated-state-state.json`),
+target-order observation (`.analysis/anm-sprite-case-order-state.json`).
 
 The append owner at `0x0045F040` copies six 28-byte transformed vertices
 in TL/TR/BL, TR/BL/BR order. Six ordinary struct assignments, each using
@@ -1892,17 +1900,17 @@ REP MOVSD sequences and cursor reloads. It then advances the cursor by
 168, increments `+0x4E96EC` and returns zero. The complete 138-byte owner
 has no address fields. Caching a destination pointer would assert a
 stronger alias relationship than the observed reloads.
-[Complete append review](../.analysis/anm-sprite-batch-helpers-review.txt),
-[initial compiler observation](../.analysis/anm-sprite-first-append.json).
+Complete append review (`.analysis/anm-sprite-batch-helpers-review.txt`),
+initial compiler observation (`.analysis/anm-sprite-first-append.json`).
 
 Both owners pass the canonical complete-primary-TU comparison: 416 bytes / 21 fields and 138 bytes / no
 fields, including physical tails and all local table destinations.
-[State canonical replay](../.analysis/anm-sprite-state-canonical.json),
-[append canonical replay](../.analysis/anm-sprite-append-canonical.json). The separate
+State canonical replay (`.analysis/anm-sprite-state-canonical.json`),
+append canonical replay (`.analysis/anm-sprite-append-canonical.json`). The separate
 five-byte entry at `0x0045E910` jumps to the state **entry**, so it does
 not create an unowned interior entry. It has no reviewed callers and
 receives no source or exact credit in this checkpoint.
-[Following jump review](../.analysis/anm-state-following-jump-review.txt).
+Following jump review (`.analysis/anm-state-following-jump-review.txt`).
 
 Four small sprite wrappers now call the maintained mode-0, mode-2/3 or
 mode-1 corner builder and the external real submission boundary at
@@ -1913,8 +1921,8 @@ four 28-byte elements; the attested target data is initially all zero.
 The two rotated entries remain separate natural functions. None of these
 four wrappers has exact credit while its corner/submission private ABI
 still differs.
-[Wrapper review](../.analysis/anm-render-sprite-wrappers-review.txt),
-[quad data](../.analysis/anm-sprite-quad-data-and-state-table.txt).
+Wrapper review (`.analysis/anm-render-sprite-wrappers-review.txt`),
+quad data (`.analysis/anm-sprite-quad-data-and-state-table.txt`).
 
 The complete submission extent is 1,532 bytes through `0x0045EF1B`,
 including three alignment bytes and four table entries. It adds the passed
@@ -1929,9 +1937,9 @@ when manager color modulation is enabled, it uses the existing 25-byte
 `AnmInterpHelpers::BlendColorChannel` owner (`0x0045E750`) for all four
 channels: multiply, shift right by 7, saturate to 255. The viewport pointer
 at `0x004D33B4` is read unconditionally.
-[Complete submission disassembly](../.analysis/anm-sprite-batch-complete.txt),
-[boundary and xrefs](../.analysis/anm-sprite-batch-owner-review.txt),
-[table and constants](../.analysis/anm-batch-table-and-round-constants.txt).
+Complete submission disassembly (`.analysis/anm-sprite-batch-complete.txt`),
+boundary and xrefs (`.analysis/anm-sprite-batch-owner-review.txt`),
+table and constants (`.analysis/anm-batch-table-and-round-constants.txt`).
 
 The submission's FRNDINT operations follow the ambient x87 rounding mode
 before subtracting `0.5f`. The pinned VC10 headers do not declare
@@ -1949,10 +1957,10 @@ Draw is 1,348/1,392 bytes. Draw-position retains its eight X-addition
 operand-order differences. No former caller credit was restored. Canonical
 totals are **307 functions / 19,831 bytes**, including 299 authored exact
 functions / 19,502 bytes. Native rendering closure remains separate.
-[Complete results](../.analysis/anm-sprite-deps-current-results.json),
-[replay log](../.analysis/anm-sprite-deps-current-replay.log),
-[final scope](../.analysis/anm-sprite-deps-final-scope.json),
-[current owner observations](../.analysis/anm-sprite-canonical-draw.json).
+Complete results (`.analysis/anm-sprite-deps-current-results.json`),
+replay log (`.analysis/anm-sprite-deps-current-replay.log`),
+final scope (`.analysis/anm-sprite-deps-final-scope.json`),
+current owner observations (`.analysis/anm-sprite-canonical-draw.json`).
 
 
 ## Maintained sprite submission and ambient rounding (2026-11-26)
@@ -1964,8 +1972,8 @@ color layouts and the real state/append calls. Under pinned VC10 RTM
 `/O2 /Ob1 /Oy- /GL`, the candidate is **1,660 / 1,532 bytes** and remains
 a complete-owner frontier. Its private VM `EAX`, manager `ECX`, flags on
 the stack and `RET 4` now agree with the observed target entry.
-[Current candidate](../.analysis/anm-submit-direct-colors-submit.json),
-[target review](../.analysis/anm-sprite-batch-complete.txt).
+Current candidate (`.analysis/anm-submit-direct-colors-submit.json`),
+target review (`.analysis/anm-sprite-batch-complete.txt`).
 
 The viewport slot at `0x004D33B4` has a named external data declaration,
 with a partial D3DVIEWPORT9 view at pointee `+0xCC`. Texture slot cache
@@ -1975,7 +1983,7 @@ after XYZ and UV writes but before any rendering-state or color updates.
 Flag 2 preserves all four existing quad colors. Color selection is read
 after the state-changing calls. No null-pointer fallback was added to
 these unconditional target accesses.
-[Target paths](../.analysis/anm-sprite-batch-complete.txt),
+Target paths (`.analysis/anm-sprite-batch-complete.txt`),
 [maintained source](../src/AnmDraw.cpp).
 
 A first inline `ModulateSpriteColor` helper stayed out of line under
@@ -1987,9 +1995,9 @@ the target manager/VM register assignment. All linked draw contexts now
 include its real `AnmInterp.cpp` definition. The helper's complete 25-byte
 code also agrees in this new support context; this diagnostic observation
 adds no separate exact credit.
-[Rejected helper observation](../.analysis/anm-submit-first-submit.json),
-[direct-color observation](../.analysis/anm-submit-direct-colors-submit.json),
-[blend support observation](../.analysis/anm-submit-direct-colors-blend-support.json).
+Rejected helper observation (`.analysis/anm-submit-first-submit.json`),
+direct-color observation (`.analysis/anm-submit-direct-colors-submit.json`),
+blend support observation (`.analysis/anm-submit-direct-colors-blend-support.json`).
 
 The target owner declares **100 exhaustive address fields**: 69 shared
 quad references, four half-pixel constants, one viewport slot, four
@@ -2000,19 +2008,19 @@ must be reviewed explicitly. The candidate's PE HIGHLOW fields are still
 fully enumerated by the Oracle. The early relocation-directory-only draft
 found just sixteen calls and was incomplete; it was replaced before any
 comparison by the attested-instruction/table inventory.
-[Complete target fields](../.analysis/anm-submit-target-fields-complete.json),
-[reviewed table/constants](../.analysis/anm-batch-table-and-round-constants.txt).
+Complete target fields (`.analysis/anm-submit-target-fields-complete.json`),
+reviewed table/constants (`.analysis/anm-batch-table-and-round-constants.txt`).
 
 The compiler rejects `rint`, `nearbyint` and `_frnd` as intrinsics (C4163).
 It accepts `floor` in the pragma but still emits a 22-byte function with a
 real floor call in this fixed profile. None of those declarations yields
 FRNDINT. The probe kept `/GL` and the existing optimization/FP profile;
 no alternative profile or forced ABI was used.
-[Compiler diagnostics](../.analysis/anm-round-intrinsic-probe.log),
-[linked observations](../.analysis/anm-round-intrinsic-owner-observations.txt).
+Compiler diagnostics (`.analysis/anm-round-intrinsic-probe.log`),
+linked observations (`.analysis/anm-round-intrinsic-owner-observations.txt`).
 The separate mode-0 corner builder still calls the actual CRT floor at
 `0x0048FDF0`; its floor operation must remain distinct from submission's
-ambient FRNDINT. [Attested mode-0 callee](../.analysis/anm-submit-mode0-floor-edge.txt).
+ambient FRNDINT. Attested mode-0 callee (`.analysis/anm-submit-mode0-floor-edge.txt`).
 
 
 `AnmSpriteRounding.hpp` now expresses the mathematical edge result for
@@ -2023,8 +2031,8 @@ linked against the selected real static CRT passed 24 mode/value checks
 and a value above the signed-int range; it also checked that rounding
 control was preserved. This does **not** establish floating-point
 exception equivalence or whole-game runtime behavior.
-[Bounded rounding smoke](../.analysis/anm-sprite-rounding-smoke-linked.log),
-[smoke source](../.analysis/anm-sprite-rounding-smoke.cpp).
+Bounded rounding smoke (`.analysis/anm-sprite-rounding-smoke-linked.log`),
+smoke source (`.analysis/anm-sprite-rounding-smoke.cpp`).
 
 The remaining physical differences are explicit: the candidate adds a
 control-mode query and four real rounding-helper calls instead of the
@@ -2035,8 +2043,8 @@ include one extra load when copying the last snapped edge. No barriers,
 register hints, fake callees or alignment escapes were introduced to erase
 these differences. Exact acceptance still requires the entire 1,532-byte
 owner and all 100 fields.
-[Candidate assembly](../.analysis/anm-submit-direct-colors-submit.asm),
-[canonical rejection](../.analysis/anm-submit-current-results.json).
+Candidate assembly (`.analysis/anm-submit-direct-colors-submit.asm`),
+canonical rejection (`.analysis/anm-submit-current-results.json`).
 
 The final current-input replay cold-built **10 affected linked contexts**
 and compared **106 owners**. All **74 existing exact owners** remain
@@ -2044,10 +2052,10 @@ exact, including state and append. All 32 frontiers remain rejected,
 including all 23 maintained DrawLayer callers; no caller credit was
 restored. This checkpoint adds one authored source mapping and no exact
 rows: **397 mappings / 307 exact functions / 19,831 exact bytes**.
-[Full results](../.analysis/anm-submit-current-results.json),
-[replay log](../.analysis/anm-submit-current-replay.log),
-[selected exact owners](../.analysis/anm-submit-current-selected.json),
-[cold contexts](../.analysis/anm-submit-current-contexts.json).
+Full results (`.analysis/anm-submit-current-results.json`),
+replay log (`.analysis/anm-submit-current-replay.log`),
+selected exact owners (`.analysis/anm-submit-current-selected.json`),
+cold contexts (`.analysis/anm-submit-current-contexts.json`).
 
 
 ## Rectangle drawing and paired vertex buffers (2026-11-26)
@@ -2058,8 +2066,8 @@ under pinned VC10 RTM `/O2 /Ob1 /Oy- /GL`. These are the real mode
 15/19/20/21 callees. Their logical return type is int: every target ends
 with zero in EAX. Draw's four call bindings now name those int-returning
 definitions. All five new owners, including buffer reset, remain frontiers.
-[Rectangle target review](../.analysis/anm-rectangle-family-review.txt),
-[border/reset review](../.analysis/anm-outline-and-primitive-submit-review.txt).
+Rectangle target review (`.analysis/anm-rectangle-family-review.txt`),
+border/reset review (`.analysis/anm-outline-and-primitive-submit-review.txt`).
 
 | Owner | Target bytes | Current candidate bytes | Target fields |
 | --- | ---: | ---: | ---: |
@@ -2078,7 +2086,7 @@ manager and disable Z writes. Texture-stage mode is cached globally;
 vertex-format mode, vertex cursor and draw count belong to the **passed**
 manager. They select diffuse color, set FVF `0x44`, draw two triangle-strip
 primitives, reread/advance the cursor by 80 bytes and increment draw count.
-[Half constant](../.analysis/anm-rectangle-half-constant.txt),
+Half constant (`.analysis/anm-rectangle-half-constant.txt`),
 [maintained functions](../src/AnmDraw.cpp).
 
 Borders draw an expanded rectangle first: width + 1, height + 1, RGB
@@ -2089,8 +2097,8 @@ The target rectangle uses FSINCOS, while the current natural source emits
 real sin/cos calls. Those calls add two fields and change private color
 registers and stack alignment in the callers; trigonometric/range/exception
 equivalence is unverified. The candidates retain those differences.
-[Current rectangle observations](../.analysis/anm-rectangle-common-view-solid.json),
-[border candidate](../.analysis/anm-rectangle-common-view-outlined.json).
+Current rectangle observations (`.analysis/anm-rectangle-common-view-solid.json`),
+border candidate (`.analysis/anm-rectangle-common-view-outlined.json`).
 
 ResetBuffers has three reviewed render-pass callers. Its
 stores establish two fixed vertex regions in the manager:
@@ -2111,17 +2119,17 @@ stores; the target prepares EDX earlier. Separate arena views, earlier
 primitive-head values and chained count assignments changed scheduling or
 registers without matching. The complete Oracle grants no credit for the
 same size or field offsets.
-[Target reset](../.analysis/anm-outline-and-primitive-submit-review.txt),
-[current reset observation](../.analysis/anm-rectangle-common-view-reset.json),
-[head-lifetime observation](../.analysis/anm-rectangle-reset-lifetime-reset.json).
+Target reset (`.analysis/anm-outline-and-primitive-submit-review.txt`),
+current reset observation (`.analysis/anm-rectangle-common-view-reset.json`),
+head-lifetime observation (`.analysis/anm-rectangle-reset-lifetime-reset.json`).
 The three callers reset after BeginScene and before the draw chain. A
 separate diagnostic probe invoking the real reset body before DrawVmGroup
 retained the same 23 differences, so that probe change was not adopted.
-[Render-pass callers](../.analysis/anm-buffer-reset-graphics-callers-review.txt),
-[modeled frame-caller observation](../.analysis/anm-rectangle-frame-caller-reset.json).
+Render-pass callers (`.analysis/anm-buffer-reset-graphics-callers-review.txt`),
+modeled frame-caller observation (`.analysis/anm-rectangle-frame-caller-reset.json`).
 A separate zero-argument default-calling-convention probe emitted the same
 56 bytes and 23 differences; the maintained declaration remains stdcall.
-[Default-convention observation](../.analysis/anm-rectangle-default-reset-reset.json).
+Default-convention observation (`.analysis/anm-rectangle-default-reset-reset.json`).
 
 Five bounded vector-source probes also leave the position helper open:
 copy-plus-`+=` emits 144/108 bytes; a free operator+, named intermediate,
@@ -2129,15 +2137,15 @@ component assignments and a value-construction helper each reproduce the
 108-byte size but retain the same eight differences at +52..+59. The
 original source is retained. These observations give no exact credit and
 avoid repeating equivalent spellings as new hypotheses.
-[Copy/add probe](../.analysis/anm-draw-position-copy-add-position.json),
-[operator probe](../.analysis/anm-draw-position-operator-plus-position.json),
-[value-construction probe](../.analysis/anm-draw-position-value-construction-position.json).
+Copy/add probe (`.analysis/anm-draw-position-copy-add-position.json`),
+operator probe (`.analysis/anm-draw-position-operator-plus-position.json`),
+value-construction probe (`.analysis/anm-draw-position-value-construction-position.json`).
 
 The reviewed mode-17 entry `0x00462D60` generates count + 1 polar vertices
 at `2*pi/count` angular steps and draws a D3DPT_LINESTRIP. Its capacity
 check also supports the primitive-store end at `+0x8B96FC`; the polar
 helper at `0x004630A0` is another FSINCOS frontier to reconstruct later.
-[Line-strip target](../.analysis/anm-outline-and-primitive-submit-review.txt).
+Line-strip target (`.analysis/anm-outline-and-primitive-submit-review.txt`).
 
 The real rectangle/border bodies also recover the target private caller
 ABI for **23 unchanged DrawLayer wrappers**: Layer0 is 12 bytes and the
@@ -2152,10 +2160,10 @@ The final current-input replay cold-built 11 contexts and compared all
 recovered callbacks pass the full linked Oracle; 14 frontiers are rejected.
 The current draw dispatcher is 1,452/1,392 bytes. Canonical totals are
 **402 source mappings / 330 exact functions / 20,173 exact bytes**.
-[Full results](../.analysis/anm-rectangle-current-results.json),
-[replay log](../.analysis/anm-rectangle-current-replay.log),
-[existing exact selection](../.analysis/anm-rectangle-current-selected.json),
-[cold contexts](../.analysis/anm-rectangle-current-contexts.json).
+Full results (`.analysis/anm-rectangle-current-results.json`),
+replay log (`.analysis/anm-rectangle-current-replay.log`),
+existing exact selection (`.analysis/anm-rectangle-current-selected.json`),
+cold contexts (`.analysis/anm-rectangle-current-contexts.json`).
 
 ## Frame entry points and the 2D viewport (2026-11-26)
 
@@ -2165,8 +2173,8 @@ source in `SupervisorFrame.cpp` under pinned VC10 RTM `/O2 /Ob1 /Oy- /GL`.
 They receive a stack pointer to the main-window/frame-clock view rooted at
 `0x004D3970`, which is Supervisor `+0xB10`. This is distinct from the camera
 view rooted at `0x004D3184`. The primary loop passes that exact frame base.
-[Complete frame bodies](../.analysis/anm-buffer-reset-graphics-callers-review.txt),
-[primary-loop call sites](../.analysis/frame-root-instructions.txt).
+Complete frame bodies (`.analysis/anm-buffer-reset-graphics-callers-review.txt`),
+primary-loop call sites (`.analysis/frame-root-instructions.txt`).
 
 The common path flushes sprites, selects the default camera, updates its
 matrices and D3D viewport, sets the mode at `0x004D33B8` to 1 and runs the
@@ -2204,16 +2212,16 @@ the clock, resets its deadline on rollback, sleeps once when at least 1.5ms
 early, and performs no frame work until current time is greater than the
 deadline. It then catches up the deadline in 1/60 steps. The source retains
 the ordered `>` guard, including its unordered no-work case.
-[Clock constants](../.analysis/frame-timing-constants.txt),
-[primary-loop decompiler hypothesis](../.analysis/frame-root-and-present-hypotheses.txt).
+Clock constants (`.analysis/frame-timing-constants.txt`),
+primary-loop decompiler hypothesis (`.analysis/frame-root-and-present-hypotheses.txt`).
 
 The float tangent boundary at `0x00435EC0` reproduces all 31 bytes and its
 one REL32 identity to CRT `__CItan` at `0x0048FD00`, including the float
 round-trip and stack cleanup. Its existing `vc10-math-wrapper-review`
 compiler/header exclusion is preserved: the pinned `math.h` has the same
 float-rounded tan expression. This is no new authored exact credit.
-[Complete linked comparison](../.analysis/frame-tangent-cached-manager-canonical.json),
-[existing origin review](../.analysis/origin-review/NOTES.md).
+Complete linked comparison (`.analysis/frame-tangent-cached-manager-canonical.json`),
+existing origin review (`.analysis/origin-review/NOTES.md`).
 
 `AnmSpriteViewport::Set2DView` (`0x00435090`, 343B / 17 target fields) now
 has source in `AnmViewport.cpp`. The shared view names its matrices at
@@ -2224,7 +2232,7 @@ and up = (0, -1, 0). Projection uses FoV pi/10, width/height aspect, near 1
 and far 10000. The two D3DX9_42 imports and D3D SetTransform slots are
 reviewed. After those calls it snapshots the manager and copies both view
 offsets, retaining that pointer across the two stores.
-[Complete camera and presentation review](../.analysis/frame-present-and-viewport-review.txt),
+Complete camera and presentation review (`.analysis/frame-present-and-viewport-review.txt`),
 [camera source](../src/AnmViewport.cpp).
 
 The maintained camera remains 339/343 bytes with all 17 fields. Component
@@ -2234,10 +2242,10 @@ differences; that variant was not adopted. Float temporary lifetimes,
 aspect division scheduling, local vectors and the GS frame remain open.
 The real frame context also leaves ResetBuffers at 56 bytes / 23 ordinary
 differences; adding real callers alone did not close it.
-[Maintained camera](../.analysis/frame-cached-manager-anm-viewport-set-2d.json),
-[component probe](../.analysis/frame-components-anm-viewport-set-2d.json),
-[dimensions probe](../.analysis/frame-dimensions-anm-viewport-set-2d.json),
-[reset in real frame context](../.analysis/frame-cached-manager-anm-draw-reset-buffers.json).
+Maintained camera (`.analysis/frame-cached-manager-anm-viewport-set-2d.json`),
+component probe (`.analysis/frame-components-anm-viewport-set-2d.json`),
+dimensions probe (`.analysis/frame-dimensions-anm-viewport-set-2d.json`),
+reset in real frame context (`.analysis/frame-cached-manager-anm-draw-reset-buffers.json`).
 
 The three presentation functions at `0x00454940`, `0x00454D90` and
 `0x00454F70` are reviewed real external boundaries, not fabricated bodies.
@@ -2246,8 +2254,8 @@ They handle adaptive raster/sleep waits, Present and device-loss recovery;
 private receivers and the full pacing bodies are the next useful source
 context. The 653-byte adaptive present owner includes a three-byte physical
 alignment hole inside the reviewed extent; a future comparison must retain it.
-[Presentation and screenshot reviews](../.analysis/frame-timing-data-review.txt),
-[full adaptive present](../.analysis/frame-present-and-viewport-review.txt).
+Presentation and screenshot reviews (`.analysis/frame-timing-data-review.txt`),
+full adaptive present (`.analysis/frame-present-and-viewport-review.txt`).
 
 The next device-loss dependencies are bounded. `0x004536A0` (124B) walks
 all 38 loaded ANM slots, releases nonnull texture pointers whose entry
@@ -2260,11 +2268,11 @@ exact CreateRenderTarget owner, with no call to that owner in the target.
 scripts through the exact BindVmScript boundary. The conditional
 post-Present hooks at `0x0041F990/0x0040DA50` sample the clock and update
 counters; they are separate from these reset helpers.
-[Dependency target review](../.analysis/presentation-loss-leaf-review.txt).
+Dependency target review (`.analysis/presentation-loss-leaf-review.txt`).
 The 802-byte D3D state setup at `0x00455A70` finishes by invalidating the
 manager's texture/format caches; this is separate from per-frame buffer
 reset. Its first 250 instructions are in that review and its complete
-remaining tail is [reviewed separately](../.analysis/presentation-state-reset-tail.txt).
+remaining tail is reviewed separately (`.analysis/presentation-state-reset-tail.txt`).
 
 The final current-input comparison covers 116 owners: all 97 affected
 existing exact owners pass, the excluded tangent wrapper adds one pass,
@@ -2274,10 +2282,10 @@ and its current receipt passed the Oracle again. Canonical totals are
 **407 source mappings / 331 exact functions / 20,204 exact bytes**. The four
 new authored mappings remain frontiers; authored exact totals are unchanged
 at **322 owners / 19,844 bytes**.
-[Full results](../.analysis/frame-current-results.json),
-[replay log](../.analysis/frame-current-replay.log),
-[existing exact selection](../.analysis/frame-current-selected.json),
-[affected contexts](../.analysis/frame-current-contexts.json).
+Full results (`.analysis/frame-current-results.json`),
+replay log (`.analysis/frame-current-replay.log`),
+existing exact selection (`.analysis/frame-current-selected.json`),
+affected contexts (`.analysis/frame-current-contexts.json`).
 
 ## Render-target release and recreation (2026-11-26)
 
@@ -2288,8 +2296,8 @@ They add **two authored exact functions / 289 bytes** in
 `SupervisorDevice.cpp`. Each has four reviewed main-loop/presentation
 callers, no interior references or owned tail table. The complete comparison
 includes loop alignment and all 1/6 DIR32 fields.
-[Target review](../.analysis/presentation-loss-leaf-review.txt),
-[complete comparisons](../.analysis/device-target-final-results.json),
+Target review (`.analysis/presentation-loss-leaf-review.txt`),
+complete comparisons (`.analysis/device-target-final-results.json`),
 [source](../src/SupervisorDevice.cpp).
 
 Both walk exactly 38 loaded ANM slots and use signed texture counts.
@@ -2312,9 +2320,9 @@ creation into an inline helper. Testing the slot expression directly and
 passing its entry address to that helper recovers the separate byte test,
 DWORD flag update, private registers and complete 165-byte owner. The
 compiler profile stayed fixed throughout these source probes.
-[First candidates](../.analysis/device-target-first-supervisor-recreate-anm-render-targets.json),
-[cached-entry candidate](../.analysis/device-target-inline-supervisor-recreate-anm-render-targets.json),
-[final recreation](../.analysis/device-target-direct-access-supervisor-recreate-anm-render-targets.json).
+First candidates (`.analysis/device-target-first-supervisor-recreate-anm-render-targets.json`),
+cached-entry candidate (`.analysis/device-target-inline-supervisor-recreate-anm-render-targets.json`),
+final recreation (`.analysis/device-target-direct-access-supervisor-recreate-anm-render-targets.json`).
 
 The existing standalone CreateRenderTarget owner and all shared headers
 are unchanged. The new device TU, header and probe do not change any
@@ -2322,8 +2330,8 @@ existing exact unit's inputs, so no existing exact unit needs rebuilding. Both n
 pass from the final cold context. Canonical totals are **409 source mappings /
 333 exact functions / 20,493 exact bytes**, including **324 authored exact
 functions / 20,133 authored bytes**.
-[Affected scope](../.analysis/device-target-final-scope.json),
-[cold build](../.analysis/device-target-direct-access-link.log).
+Affected scope (`.analysis/device-target-final-scope.json`),
+cold build (`.analysis/device-target-direct-access-link.log`).
 
 ## Surface restoration and maintained Present paths (2026-11-26)
 
@@ -2333,8 +2341,8 @@ owner and three real BindVmScript REL32 fields, adding one authored exact
 function. The first natural source matched, including the `0x118`-byte
 runtime state copy and RET 4. Its linked context contains the maintained
 BindVmScript body; the source does not simulate its register effects.
-[Complete target](../.analysis/presentation-loss-leaf-review.txt),
-[complete linked results](../.analysis/surfaces-present-preserved-timer-final-results.json),
+Complete target (`.analysis/presentation-loss-leaf-review.txt`),
+complete linked results (`.analysis/surfaces-present-preserved-timer-final-results.json`),
 [source](../src/SupervisorSurfaces.cpp).
 
 The receiver is the graphics view rooted at Supervisor `+8`. If its first
@@ -2359,7 +2367,7 @@ The middle range at `+0x31C` begins at the default 2D camera's
 viewport class remains opaque beyond its reviewed fields. The fifth
 caller at `0x004334B0` is flag-controlled and also reenables four callback
 records after restoring surfaces.
-[Wrapper review](../.analysis/surface-restore-wrapper-review.txt),
+Wrapper review (`.analysis/surface-restore-wrapper-review.txt`),
 [partial view](../src/SupervisorSurfaces.hpp).
 
 `SupervisorPresent.cpp` now maintains Immediate and WithSleep at
@@ -2373,7 +2381,7 @@ WithSleep additionally samples the clock, conditionally sleeps a positive
 integer budget `(lastPresent + 1/60 - now)*1000 - 3.5`, and records the two
 presentation timestamps. The branch requires config byte `0x004D3053 == 1`
 and elapsed time strictly between zero and 1/60.
-[Present target review](../.analysis/frame-present-and-viewport-review.txt),
+Present target review (`.analysis/frame-present-and-viewport-review.txt`),
 [maintained source](../src/SupervisorPresent.cpp).
 
 Render-state setup at `0x00455A70` has no live incoming argument: its
@@ -2402,14 +2410,14 @@ was rejected and removed from the maintained context.** A closer caller
 alone does not settle the callee ABI or original TU boundary. The final
 context preserves the timer's canonical profiles and all-LTCG ownership;
 neither Present receives exact credit. No Present owner flags were varied.
-[First timer frame](../.analysis/present-first-time-frame.txt),
-[all-LTCG timer frame](../.analysis/present-known-timer-time-frame.txt),
-[rejected mixed timer frame](../.analysis/present-mixed-current-time-frame.txt),
-[final retained timer frame](../.analysis/present-preserved-timer-final-time-frame.txt),
-[canonical timer settings reused](../.analysis/present-canonical-timer-profile-inputs.json),
-[direct-condition negative](../.analysis/present-direct-time-supervisor-present-with-sleep.json),
-[mixed-boundary settings](../.analysis/present-mixed-timer-context.json),
-[rejected mixed Present observations](../.analysis/present-mixed-current-supervisor-present-with-sleep.json).
+First timer frame (`.analysis/present-first-time-frame.txt`),
+all-LTCG timer frame (`.analysis/present-known-timer-time-frame.txt`),
+rejected mixed timer frame (`.analysis/present-mixed-current-time-frame.txt`),
+final retained timer frame (`.analysis/present-preserved-timer-final-time-frame.txt`),
+canonical timer settings reused (`.analysis/present-canonical-timer-profile-inputs.json`),
+direct-condition negative (`.analysis/present-direct-time-supervisor-present-with-sleep.json`),
+mixed-boundary settings (`.analysis/present-mixed-timer-context.json`),
+rejected mixed Present observations (`.analysis/present-mixed-current-supervisor-present-with-sleep.json`).
 
 Final comparison covers the three new owners and the one existing exact
 unit affected by the frame header, AnmViewportTan. Surface restoration and
@@ -2418,8 +2426,8 @@ Only those three contexts were cold-built, with current receipts reused
 when inputs remained unchanged. Canonical totals are **412 source mappings /
 334 exact functions / 20,710 exact bytes**, including **325 authored exact
 functions / 20,350 authored bytes**.
-[Affected scope](../.analysis/surfaces-present-preserved-timer-final-scope.json),
-[final results](../.analysis/surfaces-present-preserved-timer-final-results.json).
+Affected scope (`.analysis/surfaces-present-preserved-timer-final-scope.json`),
+final results (`.analysis/surfaces-present-preserved-timer-final-results.json`).
 
 ## Initial D3D9 state and ANM cache reset (2026-11-26)
 
@@ -2431,9 +2439,9 @@ SetRenderState calls, eight stage-zero SetTextureStageState calls, six
 sampler-zero SetSamplerState calls and a conditional ANM cache reset.
 HRESULTs are ignored. There are five direct callers, no interior references,
 no owned tables, and the return is at `0x00455D91`.
-[Target review](../.analysis/presentation-loss-leaf-review.txt),
-[complete final tail](../.analysis/presentation-state-reset-tail.txt),
-[complete exact comparison](../.analysis/state-reset-first-canonical.json),
+Target review (`.analysis/presentation-loss-leaf-review.txt`),
+complete final tail (`.analysis/presentation-state-reset-tail.txt`),
+complete exact comparison (`.analysis/state-reset-first-canonical.json`),
 [source](../src/SupervisorRenderState.cpp).
 
 The setup enables Z buffering, alpha blending/testing and vertex fog,
@@ -2451,8 +2459,8 @@ FLD/FSTP bit reinterpretation through that slot for the three fog values,
 including FLD1 for density. The binary32 start/end constants at
 `0x004A66CC/0x004A66C8` are 1000/5000. The helper is inlined under the fixed
 owner profile, so no fake parameter or conversion body is necessary.
-[Attested constant bytes](../.analysis/state-reset-fog-bytes.txt),
-[first complete disassembly comparison](../.analysis/state-reset-first-diff.txt).
+Attested constant bytes (`.analysis/state-reset-fog-bytes.txt`),
+first complete disassembly comparison (`.analysis/state-reset-first-diff.txt`).
 
 When the global manager exists, the function sets byte `+0x4E968C` to 7,
 bytes `+0x4E968D/+0x4E968E/+0x4E9690` to `0xFF`, and pointer `+0x4E9688`
@@ -2461,7 +2469,7 @@ target's word store `0xFF07`. Only the blend/vertex-format/texture cache
 roles are currently named; the other two byte meanings remain unknown.
 The source uses a partial view instead of expanding the shared manager
 layout. No existing exact context consumes the changed inputs.
-[Affected scope](../.analysis/state-reset-final-scope.json).
+Affected scope (`.analysis/state-reset-final-scope.json`).
 
 Both Present contexts now link this real initializer. They still produce
 189/190 and 323/314 bytes, so completing this callee does not close their
@@ -2472,10 +2480,10 @@ observed complete lengths and ordinary bytes. These support observations
 grant no additional exact credit. Only two affected contexts were built.
 Canonical totals are **413 source mappings / 335 exact functions / 21,512
 exact bytes**, including **326 authored exact functions / 21,152 bytes**.
-[Final three-owner comparisons](../.analysis/state-reset-final-results.json),
-[Present observations](../.analysis/present-state-reset-final-supervisor-present-with-sleep.json),
-[support ownership](../.analysis/state-reset-present-support-owners.json),
-[Present cold build](../.analysis/state-reset-present-link.log).
+Final three-owner comparisons (`.analysis/state-reset-final-results.json`),
+Present observations (`.analysis/present-state-reset-final-supervisor-present-with-sleep.json`),
+support ownership (`.analysis/state-reset-present-support-owners.json`),
+Present cold build (`.analysis/state-reset-present-link.log`).
 
 ## Screenshot capture, writer and pending surface copies (2026-11-26)
 
@@ -2488,11 +2496,11 @@ pass the canonical comparator. The capture's source cdecl filename
 parameter naturally becomes the target's private EAX receiver. The writer
 uses the legal cdecl CRT thread-callback signature with an unused pointer;
 the target does not read an incoming argument.
-[Capture comparison](../.analysis/screenshot-capture-final-canonical.json),
-[writer comparison](../.analysis/screenshot-writer-final-canonical.json),
+Capture comparison (`.analysis/screenshot-capture-final-canonical.json`),
+writer comparison (`.analysis/screenshot-writer-final-canonical.json`),
 [source](../src/SupervisorScreenshot.cpp),
-[complete target leaves](../.analysis/screenshot-leaves-review.txt),
-[complete writer target](../.analysis/screenshot-worker-review.txt).
+complete target leaves (`.analysis/screenshot-leaves-review.txt`),
+complete writer target (`.analysis/screenshot-worker-review.txt`).
 
 Screenshot state begins at Supervisor `+0x6D8`: worker handle `+0`, packed
 14-byte BITMAPFILEHEADER `+4`, BITMAPINFO pointer `+0x14`, pixel pointer
@@ -2505,9 +2513,9 @@ source pitch and a 1,920-byte destination row stride. It unlocks, starts
 the actual writer via `_beginthread`, stores its return and releases the
 surface. The separate empty logger at `0x004360F0` remains a reviewed
 varargs boundary, without a fabricated body or new exact credit.
-[Logger target](../.analysis/screenshot-logger-review.txt),
-[attested capture strings](../.analysis/screenshot-capture-data.txt),
-[remaining error text](../.analysis/screenshot-error-data.txt).
+Logger target (`.analysis/screenshot-logger-review.txt`),
+attested capture strings (`.analysis/screenshot-capture-data.txt`),
+remaining error text (`.analysis/screenshot-error-data.txt`).
 
 The R5G6B5 path logs refusal, releases the surface and returns zero; other
 unsupported formats log and return one before surface release. A failed
@@ -2526,9 +2534,9 @@ pointer additions; initializing the destination pointer first closed them.
 Only these natural source expressions changed; owner profiles stayed fixed.
 The private relink predicted the result, then a canonical cold build
 accepted the full owner and all 39 fields.
-[First capture](../.analysis/screenshot-first-supervisor-capture-screenshot.json),
-[full-size four-byte mismatch](../.analysis/screenshot-capture-real-fs-canonical.json),
-[isolated pointer-order diagnostic](../.analysis/screenshot-destination-first-supervisor-capture-screenshot.json).
+First capture (`.analysis/screenshot-first-supervisor-capture-screenshot.json`),
+full-size four-byte mismatch (`.analysis/screenshot-capture-real-fs-canonical.json`),
+isolated pointer-order diagnostic (`.analysis/screenshot-destination-first-supervisor-capture-screenshot.json`).
 
 The 168-byte screenshot handler now has source. It always flushes pending
 surface copies, then tests InputState zero's trigger mask bit `0x40000`.
@@ -2538,8 +2546,8 @@ and scans indices 000..999 through FileExists. It captures only when a name
 is free and restores the global directory at `0x004D4999`, including when
 all names exist. Global directory pointers and the dynamic receiver string
 are distinct source accesses.
-[Handler target](../.analysis/frame-timing-data-review.txt),
-[literal strings](../.analysis/screenshot-text-data.txt).
+Handler target (`.analysis/frame-timing-data-review.txt`),
+literal strings (`.analysis/screenshot-text-data.txt`).
 
 `FlushAnmSurfaceCopies` at `0x004537D0` is a four-entry copy queue, not input
 polling. The manager's first `0xA0` bytes are four `0x28`-byte records:
@@ -2552,7 +2560,7 @@ filter 2, dirty the texture only on D3D_OK, release acquired surfaces and
 consume the slot by writing -1, including failed attempts. The queue
 assumes that active resource slots are valid.
 [Copy source](../src/SupervisorSurfaceCopies.cpp),
-[complete copy target](../.analysis/screenshot-leaves-review.txt).
+complete copy target (`.analysis/screenshot-leaves-review.txt`).
 
 The handler and copy owners remain frontiers at **301/168** and **369/371**
 bytes. FileExists is inlined into the handler, which also has an extra
@@ -2562,8 +2570,8 @@ is not established by these builds; preserve the fixed owner profiles
 and inspect real call/ABI evidence before changing a boundary. The copy
 owner differs in its initial signed-slot load/test and local/control-flow
 layout. Neither owner is cropped or granted exact credit.
-[Final copy-context observations](../.analysis/screenshot-final-copies-supervisor-flush-surface-copies.json),
-[unchanged handler after Fs context reuse](../.analysis/screenshot-real-fs-supervisor-screenshot-handler.json).
+Final copy-context observations (`.analysis/screenshot-final-copies-supervisor-flush-surface-copies.json`),
+unchanged handler after Fs context reuse (`.analysis/screenshot-real-fs-supervisor-screenshot-handler.json`).
 
 Both Present contexts now link the actual screenshot/copy/FileSystem
 bodies and still produce 189/190 and 323/314 bytes. Their timer and state
@@ -2574,10 +2582,10 @@ and that existing compiler/header wrapper pass. The affected scope spans
 four contexts; unchanged current receipts were reused after their cold
 builds. Totals are **417 source mappings / 337 exact functions / 22,384
 bytes**, including **328 authored exact functions / 22,024 authored bytes**.
-[Seven-owner results](../.analysis/screenshot-final-results.json),
-[affected scope](../.analysis/screenshot-final-scope.json),
-[Present support ownership](../.analysis/screenshot-final-present-support-owners.json),
-[final cold build](../.analysis/screenshot-final-link.log).
+Seven-owner results (`.analysis/screenshot-final-results.json`),
+affected scope (`.analysis/screenshot-final-scope.json`),
+Present support ownership (`.analysis/screenshot-final-present-support-owners.json`),
+final cold build (`.analysis/screenshot-final-link.log`).
 
 ## Real frame/Present closure and adaptive pacing (2026-11-26)
 
@@ -2589,8 +2597,8 @@ camera, screenshots, ANM surface/texture recovery and state initialization
 are all present in the linked family. This closes the former 189/190 and
 323/314 frontiers with genuine callees and callers, preserving GetElapsedSeconds'
 independent 266-byte body. No Present owner flags or ABI declarations changed.
-[Twelve-owner final comparison](../.analysis/adaptive-family-final-results.json),
-[retained source family/profiles](../.analysis/adaptive-present-family.json),
+Twelve-owner final comparison (`.analysis/adaptive-family-final-results.json`),
+retained source family/profiles (`.analysis/adaptive-present-family.json`),
 [source](../src/SupervisorPresent.cpp).
 
 Frame, viewport and Present contexts now use the same 35 maintained source
@@ -2614,16 +2622,16 @@ A longer/unordered interval lowers a positive profile sleep by one. The
 function records the raster time, performs real screenshot/Present/recovery,
 runs optional hooks, takes the target's discarded clock sample, sleeps the
 positive profile budget and records last-present time.
-[Complete physical span](../.analysis/adaptive-present-complete-span.txt),
-[attested constants](../.analysis/frame-timing-constants.txt).
+Complete physical span (`.analysis/adaptive-present-complete-span.txt`),
+attested constants (`.analysis/frame-timing-constants.txt`).
 
 The frame's estimate/index are `+0x2074/+0x2078`. Four 12-byte profile
 records begin at `+0x207C`, each maximum/current milliseconds/stable count.
 CreateGameWindow initializes them to `(15,15,0)`, `(12,12,0)`, `(12,12,0)`,
 `(8,8,0)`, then selects index zero. This identifies the old opaque WindowState
 fields at `+0x44..+0x70`; it does not assign scene names to the profiles.
-[Initialization](../.analysis/adaptive-profile-window-create.txt),
-[index references](../.analysis/adaptive-profiles-xrefs.txt),
+Initialization (`.analysis/adaptive-profile-window-create.txt`),
+index references (`.analysis/adaptive-profiles-xrefs.txt`),
 [partial frame layout](../src/SupervisorFrame.hpp).
 
 The first adaptive source was 655B. Placing GetRasterStatus in the loop
@@ -2634,10 +2642,10 @@ Both normal Windows max argument orders were tested in isolated links;
 `max(0, estimate)` leaves those two differences, and the other order adds
 one. Neither was adopted. Reversing the equivalent frame deadline comparison
 operands also emits unchanged code. Adaptive receives no exact credit.
-[Complete two-byte rejection](../.analysis/adaptive-current-canonical.json),
-[max-zero negative](../.analysis/adaptive-max-zero-supervisor-present-adaptive.json),
-[max-value negative](../.analysis/adaptive-max-value-supervisor-present-adaptive.json),
-[frame-expression negative](../.analysis/adaptive-frame-order-observations.txt).
+Complete two-byte rejection (`.analysis/adaptive-current-canonical.json`),
+max-zero negative (`.analysis/adaptive-max-zero-supervisor-present-adaptive.json`),
+max-value negative (`.analysis/adaptive-max-value-supervisor-present-adaptive.json`),
+frame-expression negative (`.analysis/adaptive-frame-order-observations.txt`).
 
 Primary-object placement still changes LTCG observations despite the same
 source family and fixed profiles. The Present-primary image has WithSleep
@@ -2648,9 +2656,9 @@ adaptive entry fails exhaustive field layout and vsync has 12 ordinary-byte
 differences in its two early-return epilogues. Camera remains 339/343B.
 These results establish per-unit matches, not a single closed native image;
 original TU/link order remains a concrete reconstruction question.
-[Present-primary observations](../.analysis/adaptive-present-final-observations.txt),
-[Frame-primary observations](../.analysis/adaptive-frame-current-observations.txt),
-[viewport-primary observations](../.analysis/adaptive-viewport-current-observations.txt).
+Present-primary observations (`.analysis/adaptive-present-final-observations.txt`),
+Frame-primary observations (`.analysis/adaptive-frame-current-observations.txt`),
+viewport-primary observations (`.analysis/adaptive-viewport-current-observations.txt`).
 
 The changed frame header affects three existing exact owners: capture,
 writer and tangent. All pass their complete current-input canonical replay;
@@ -2658,9 +2666,9 @@ the screenshot handler and copy consumer remain frontiers. The bounded
 affected scope covers twelve owners in five contexts. Totals are **418
 source mappings / 339 exact functions / 22,888 exact bytes**, including
 **330 authored exact functions / 22,528 authored bytes**.
-[Affected scope](../.analysis/adaptive-family-final-scope.json),
-[cold family build](../.analysis/adaptive-family-current-link.log),
-[copy consumer build](../.analysis/adaptive-copy-consumer-link.log).
+Affected scope (`.analysis/adaptive-family-final-scope.json`),
+cold family build (`.analysis/adaptive-family-current-link.log`),
+copy consumer build (`.analysis/adaptive-copy-consumer-link.log`).
 
 ## Post-Present frame accounting and replay pause timing (2026-11-26)
 
@@ -2674,8 +2682,8 @@ Original Japanese TH12.8 v1.00a `UpdatePostPresentTiming` (`0x0041F990`,
 `/O2 /Ob1 /Oy- /GL` primary-TU comparisons. The real replay callback at
 `0x0040DA50` also has maintained source, but remains a frontier at
 **389/382B**. No owner flags or ABI shims were introduced.
-[Timing comparison](../.analysis/post-present-timing-final-canonical.json),
-[checksum comparison](../.analysis/post-present-code-final-canonical.json),
+Timing comparison (`.analysis/post-present-timing-final-canonical.json`),
+checksum comparison (`.analysis/post-present-code-final-canonical.json`),
 [source](../src/PostPresentUpdates.cpp),
 [partial layouts](../src/PostPresentUpdates.hpp).
 
@@ -2684,8 +2692,8 @@ globals `0x004B894C` (frame accounting) and `0x004B8934` (replay). The
 callbacks read those globals themselves and take no stack arguments.
 The complete timing/replay spans have no external interior entries or owned
 tables; the checksum's only caller is the replay callback.
-[Attested complete owners and references](../.analysis/post-present-hooks-review.txt),
-[checksum boundary and body](../.analysis/post-present-hook-related-review.txt).
+Attested complete owners and references (`.analysis/post-present-hooks-review.txt`),
+checksum boundary and body (`.analysis/post-present-hook-related-review.txt`).
 
 The frame-accounting object's doubles are aligned to four-byte member
 boundaries: window start `+0x14`, consecutive over-65 windows `+0x1C`,
@@ -2700,7 +2708,7 @@ float-rounded rate. The gameplay flag `0x80` is cleared whenever that
 object exists at window completion. The count resets and then increases by
 `g_Supervisor.configFlag304E + 1`; it includes configured frame skips and
 is not simply the number of physical Presents. The callback returns 1.
-[Constants, including 2^32 for the unsigned conversion](../.analysis/post-present-hook-constants.txt).
+Constants, including 2^32 for the unsigned conversion (`.analysis/post-present-hook-constants.txt`).
 
 The replay object's observed fields are flags `+0x7C`, sample index
 `+0x8C`, current/previous markers `+0x90/+0x94`, pause start `+0x98`,
@@ -2747,10 +2755,10 @@ the index, encoded value and storage together happened to be 382B while
 failing exhaustive field placement and ordinary bytes; equal size was not
 accepted. Do not add clobbers or pretend that the pure checksum mutates the
 index to force a reload.
-[Direct-table observation](../.analysis/post-present-direct-tables-post-present-replay-update.json),
-[common-storage observation](../.analysis/post-present-common-storage-post-present-replay-update.json),
-[389B rejection](../.analysis/post-present-replay-common-storage-canonical.err),
-[382B rejection](../.analysis/post-present-replay-caller-types-canonical.err).
+Direct-table observation (`.analysis/post-present-direct-tables-post-present-replay-update.json`),
+common-storage observation (`.analysis/post-present-common-storage-post-present-replay-update.json`),
+389B rejection (`.analysis/post-present-replay-common-storage-canonical.err`),
+382B rejection (`.analysis/post-present-replay-caller-types-canonical.err`).
 
 The new primary context uses the existing real timer and timer probe, with
 their canonical no-`/Ob1` support profile. Its small entry calls the two
@@ -2768,9 +2776,9 @@ frame header changed, so screenshot capture/writer contexts are unaffected.
 The ledgers now contain **421 source mappings / 341 exact functions /
 23,225 exact bytes**, including **332 authored exact functions / 22,865
 authored bytes**. The net exact gain is two functions / 337 bytes.
-[Complete final results](../.analysis/post-present-final-results.json),
-[affected scope](../.analysis/post-present-final-scope.json),
-[three-context cold build](../.analysis/post-present-integrated-link.log).
+Complete final results (`.analysis/post-present-final-results.json`),
+affected scope (`.analysis/post-present-final-scope.json`),
+three-context cold build (`.analysis/post-present-integrated-link.log`).
 
 ## CardInf identity and exact active-duration update (2026-11-26)
 
@@ -2784,9 +2792,9 @@ and nearby target strings name `shutdown CardInf` (`0x004A21A8`) and
 allocates **0xC0 bytes** and stores the singleton. The earlier generic
 `ReplayPauseState` name described only the pause/replay fields and is
 superseded; it did not identify the owning game module.
-[Attested literal bytes](../.analysis/replay-pause-resource-strings.txt),
-[singleton references](../.analysis/replay-pause-stage-storage-xrefs.txt),
-[lifecycle owners](../.analysis/replay-pause-lifecycle-review.txt),
+Attested literal bytes (`.analysis/replay-pause-resource-strings.txt`),
+singleton references (`.analysis/replay-pause-stage-storage-xrefs.txt`),
+lifecycle owners (`.analysis/replay-pause-lifecycle-review.txt`),
 [current layout](../src/CardInf.hpp).
 
 The earlier **pause** interpretation is also superseded. The card-start
@@ -2798,8 +2806,8 @@ the displayed bonus. The measured interval is CardInf activity. Legacy
 this checkpoint; rename them with the next lifecycle source edit. They
 are not evidence of a game-pause state. The unimplemented update also
 exposes a VM ID at `+0x20` and three floats at `+0xAC/+0xB0/+0xB4`.
-[Card start/end paths](../.analysis/replay-pause-lifecycle-review.txt),
-[complete 507B active update](../.analysis/card-update-active-interval-review.txt).
+Card start/end paths (`.analysis/replay-pause-lifecycle-review.txt`),
+complete 507B active update (`.analysis/card-update-active-interval-review.txt`).
 
 The post-Present active-duration callback `UpdatePostPresentReplay`
 (`0x0040DA50`) now passes its complete **382-byte owner and all 16 address
@@ -2808,13 +2816,13 @@ profile. `CardInf::EnableChains` (`0x0040D680`) is newly reconstructed and
 exact at **35B / one global field**. It ORs flag 2 into each existing
 calc/draw ChainElem, with no additional singleton guard. Both callsites
 in `0x004269D0` overwrite EAX without consuming a result, supporting the
-void declaration. [Callsite ABI evidence](../.analysis/card-enable-call-sites.txt).
+void declaration. Callsite ABI evidence (`.analysis/card-enable-call-sites.txt`).
 The prior FPS
 256B/8-field and renamed integer-checksum 81B/0-field owners also replay.
-[Pause update](../.analysis/card-pause-update-first-canonical.json),
-[chain activation](../.analysis/card-enable-first-canonical.json),
-[renamed checksum](../.analysis/card-code-first-canonical.json),
-[FPS](../.analysis/card-fps-first-canonical.json).
+Pause update (`.analysis/card-pause-update-first-canonical.json`),
+chain activation (`.analysis/card-enable-first-canonical.json`),
+renamed checksum (`.analysis/card-code-first-canonical.json`),
+FPS (`.analysis/card-fps-first-canonical.json`).
 
 The duration update closes through ordinary C++ control flow: read the sample
 index once, use direct record/playback table accesses in the two branches,
@@ -2825,7 +2833,7 @@ keeps the common index in ECX only while needed, and emits an in-memory
 increment after the checksum call. All CRT and checksum call identities
 remain intact.
 [Source](../src/PostPresentUpdates.cpp),
-[matching isolated observation](../.analysis/post-present-shared-index-direct-post-present-replay-update.json).
+matching isolated observation (`.analysis/post-present-shared-index-direct-post-present-replay-update.json`).
 
 The bounded intermediate probes explain why isolated edits did not close
 the old source. Unifying the increment alone yields **388B** and fixes
@@ -2837,9 +2845,9 @@ naturally and closes the complete target. These are different observations
 from the earlier 382B version that cached the encoded value as well; equal
 length alone was never accepted. Private candidate links reused attested
 support objects for diagnostics; acceptance used fresh canonical cold builds.
-[Unified increment](../.analysis/post-present-unified-advance-post-present-replay-update.json),
-[shared-index negative](../.analysis/post-present-shared-index-post-present-replay-update.json),
-[cold build](../.analysis/card-pause-first-canonical-link.log).
+Unified increment (`.analysis/post-present-unified-advance-post-present-replay-update.json`),
+shared-index negative (`.analysis/post-present-shared-index-post-present-replay-update.json`),
+cold build (`.analysis/card-pause-first-canonical-link.log`).
 
 Lifecycle evidence extends the layout without claiming those functions as
 reconstructed source. Calc/draw elements are at `+0x08/+0x0C`, three VM
@@ -2852,8 +2860,8 @@ elements at priorities **26 / 10**, and resets the timer to current 0,
 previous -1. It installs callback wrappers `0x0040DD50/0x0040DD60`, which
 bridge the real Chain callback receiver in ECX to the update/draw bodies'
 private EDI/EBX receivers.
-[Initialization](../.analysis/replay-pause-registration-review.txt),
-[wrapper spans](../.analysis/card-lifecycle-and-callback-spans.txt).
+Initialization (`.analysis/replay-pause-registration-review.txt`),
+wrapper spans (`.analysis/card-lifecycle-and-callback-spans.txt`).
 
 The 249B shutdown owner `0x0040D6B0` releases/deletes ANM slot 37,
 deletes the three VMs, cuts both ChainElems under Supervisor critical
@@ -2864,8 +2872,8 @@ These three and the 285B initializer are the next source scopes. The
 unreferenced 19B delete-and-return-pointer body at `0x0040D810` remains
 unclassified at source level; do not assume its compiler-generated origin
 from its shape alone.
-[Shutdown and factory](../.analysis/replay-pause-lifecycle-review.txt),
-[complete undeclared wrapper bytes](../.analysis/replay-pause-delete-wrapper-span.txt).
+Shutdown and factory (`.analysis/replay-pause-lifecycle-review.txt`),
+complete undeclared wrapper bytes (`.analysis/replay-pause-delete-wrapper-span.txt`).
 
 Final replay covers **twelve owners in five cold contexts**: all seven
 exact owners pass, including five retained matches and the two new ones.
@@ -2875,9 +2883,9 @@ source mappings / 343 exact functions / 23,642 exact bytes**, including
 **334 authored exact functions / 23,282 authored bytes**. The net exact
 gain is two functions / 417 bytes. Native product and runtime closure
 remain unproved.
-[Complete results](../.analysis/card-pause-final-results.json),
-[affected sources, owners and profiles](../.analysis/card-pause-final-scope.json),
-[family cold build](../.analysis/card-pause-family-cold-link.log).
+Complete results (`.analysis/card-pause-final-results.json`),
+affected sources, owners and profiles (`.analysis/card-pause-final-scope.json`),
+family cold build (`.analysis/card-pause-family-cold-link.log`).
 
 ## CardInf lifecycle and ordinary error logging (2026-11-26)
 
@@ -2887,7 +2895,7 @@ and **Destroy** (`0x0040D830`, **29B / 3 fields**) now pass complete pinned
 VC10 RTM `/O2 /Ob1 /Oy- /GL` primary-TU comparisons. The current cold
 CardInf context has 39 sources and uses real maintained ANM, Chain and
 error-log bodies. The existing 35-byte EnableChains also passes there.
-[Complete primary comparisons](../.analysis/card-lifecycle-primary-results.json),
+Complete primary comparisons (`.analysis/card-lifecycle-primary-results.json`),
 [source](../src/CardInf.cpp), [layout and constructor](../src/CardInf.hpp).
 
 The ordinary **Log** call at **0x0046A250** is decisive. The independent
@@ -2900,9 +2908,9 @@ naturally selects the target's private EDI receiver for Initialize and
 restores the factory's EDI save/restore around the call. Both complete
 owners then match. No source calling-convention change or register hint
 was needed.
-[Initial observation](../.analysis/card-lifecycle-first-initialize.json),
-[corrected diagnostic](../.analysis/card-lifecycle-log-initialize.json),
-[factory diagnostic](../.analysis/card-lifecycle-log-create.json),
+Initial observation (`.analysis/card-lifecycle-first-initialize.json`),
+corrected diagnostic (`.analysis/card-lifecycle-log-initialize.json`),
+factory diagnostic (`.analysis/card-lifecycle-log-create.json`),
 [ordinary logger source](../src/GameErrorContext.cpp).
 
 Diagnostic relinking checked the retained support objects against their
@@ -2912,9 +2920,9 @@ credit. The accepted results came from a new complete cold construction.
 The `card.anm` and CP932 error literals were read through attested Ghidra
 and their candidate bytes and public literal symbols checked before
 declaring the target bindings. The error string includes CR/LF.
-[Literal evidence](../.analysis/replay-pause-resource-strings.txt),
-[diagnostic recipe](../.analysis/card-lifecycle-log-relink.py),
-[cold recipe output](../.analysis/card-lifecycle-final-cold-link.log).
+Literal evidence (`.analysis/replay-pause-resource-strings.txt`),
+diagnostic recipe (`.analysis/card-lifecycle-log-relink.py`),
+cold recipe output (`.analysis/card-lifecycle-final-cold-link.log`).
 
 The natural inline constructor lets the embedded ZunTimer clear its
 initialization bit first, then zeroes all 0xC0 bytes, sets lifecycle flag
@@ -2924,8 +2932,8 @@ Create invokes Initialize, and on a nonzero result performs Shutdown and
 delete when the allocated pointer exists. Destroy guards the singleton,
 then performs Shutdown/delete. Target ordering and failure behavior are
 retained without an added allocation-failure policy.
-[Factory and shutdown target](../.analysis/replay-pause-lifecycle-review.txt),
-[bounded global-destroy span](../.analysis/replay-pause-delete-wrapper-span.txt).
+Factory and shutdown target (`.analysis/replay-pause-lifecycle-review.txt`),
+bounded global-destroy span (`.analysis/replay-pause-delete-wrapper-span.txt`).
 
 Initialization preloads ANM slot 37 and returns -1 after ordinary logging
 if the resource is absent. Otherwise it constructs two ChainElems, clears
@@ -2936,8 +2944,8 @@ current 0 and previous -1. The callback wrappers `0x0040DD50/0x0040DD60`
 still have only reviewed declarations in this source context; their actual
 update/draw bodies remain future reconstruction work. Undefined boundaries
 use the Oracle's existing data anchors in a non-runnable diagnostic image.
-[Complete initialization target](../.analysis/replay-pause-registration-review.txt),
-[callback ABI evidence](../.analysis/card-lifecycle-and-callback-spans.txt).
+Complete initialization target (`.analysis/replay-pause-registration-review.txt`),
+callback ABI evidence (`.analysis/card-lifecycle-and-callback-spans.txt`).
 
 Shutdown now has maintained source for all **249 bytes / 27 fields**.
 It reads the current manager's slot 37, releases and deletes that entry,
@@ -2950,8 +2958,8 @@ the compiled real Chain body currently receives them in EAX/EDX. All 27
 fields replay, but the four register-transfer bytes reject the whole owner.
 Original Chain linked ownership/call context remains unsettled; no ABI
 shim or altered compiler profile was introduced.
-[Complete rejection](../.analysis/card-lifecycle-primary-results.json),
-[corrected-source disassembly](../.analysis/card-lifecycle-log-shutdown.asm).
+Complete rejection (`.analysis/card-lifecycle-primary-results.json`),
+corrected-source disassembly (`.analysis/card-lifecycle-log-shutdown.asm`).
 
 The CardInf header now uses typed AnmIds, the observed name buffer and
 tracked position, and replaces `pause*` fields with active-interval names.
@@ -2969,8 +2977,8 @@ integration. The ledgers now contain **426 source mappings / 346 exact
 functions / 24,050 exact bytes**, including **337 authored exact functions /
 23,690 authored bytes**. The net exact gain is three functions / 408 bytes;
 Shutdown receives no partial byte credit.
-[Complete affected results](../.analysis/card-lifecycle-final-results.json),
-[sources and profiles](../.analysis/card-lifecycle-final-scope.json).
+Complete affected results (`.analysis/card-lifecycle-final-results.json`),
+sources and profiles (`.analysis/card-lifecycle-final-scope.json`).
 
 ## CardInf drawing and AsciiInf text queue (2026-11-26)
 
@@ -2980,9 +2988,9 @@ and CreateTextF (85B), a gain of 834B. Each passes pinned VC10 RTM
 `/O2 /Ob1 /Oy- /GL` in its own primary TU's 40-source cold context, with
 complete PDB ownership and every address field replayed. CardInf::Update
 has complete source but remains a 507B frontier.
-[Target field declarations](../.analysis/card-callbacks-target-fields.json),
-[complete affected results](../.analysis/card-callbacks-final-results.json),
-[scope and profiles](../.analysis/card-callbacks-final-scope.json).
+Target field declarations (`.analysis/card-callbacks-target-fields.json`),
+complete affected results (`.analysis/card-callbacks-final-results.json`),
+scope and profiles (`.analysis/card-callbacks-final-scope.json`).
 
 CardInf::Draw (`0x0040DBF0`, 322B / 13 fields) resolves `vmIds[2]`, clearing
 that ID if lookup fails. It searches the root's child list for script 3 and
@@ -2994,8 +3002,8 @@ alpha, then clears 0x100 even on an inactive or invalid-VM path. The target
 assumes child script 3 exists after a successful root lookup; no extra null
 check was added. The singleton is reloaded after text submission, as in the
 target, rather than resetting an earlier cached pointer.
-[Complete Draw review](../.analysis/card-draw-complete-review.txt),
-[positions and literals](../.analysis/card-draw-data.txt),
+Complete Draw review (`.analysis/card-draw-complete-review.txt`),
+positions and literals (`.analysis/card-draw-data.txt`),
 [source](../src/CardInf.cpp).
 
 The first Draw body was 338B: it cached flags and duplicated early cleanup,
@@ -3005,10 +3013,10 @@ Separating ID resolution into a natural inline helper, before the shared
 cleanup, reproduces the target's ID-store/flag-clear order. A structured
 positive-root branch instead produced 328B. Equal length alone was not
 accepted, and no manual padding or register hints were introduced.
-[Initial diagnostic](../.analysis/card-callbacks-first-draw.json),
-[shared cleanup diagnostic](../.analysis/card-callbacks-refined-draw.json),
-[structured branch diagnostic](../.analysis/card-callbacks-structured-draw.json),
-[resolved-ID diagnostic](../.analysis/card-callbacks-value-draw.json).
+Initial diagnostic (`.analysis/card-callbacks-first-draw.json`),
+shared cleanup diagnostic (`.analysis/card-callbacks-refined-draw.json`),
+structured branch diagnostic (`.analysis/card-callbacks-structured-draw.json`),
+resolved-ID diagnostic (`.analysis/card-callbacks-value-draw.json`).
 
 AsciiInf::CreateText (`0x004015F0`, 407B / 1 field) has a signed capacity
 check at 320. Each queued entry is 0x164 bytes, beginning at manager +0x9E4;
@@ -3022,7 +3030,7 @@ untouched +0x124 field. It resets the embedded timer, increments a distinct
 text-ID counter, changes a wrapped zero to 1, stores the new ID and returns
 it. Ordinary `strcpy` under the fixed owner flags naturally emits the target
 copy loop and its alignment.
-[Complete core review](../.analysis/ascii-text-core-review.txt),
+Complete core review (`.analysis/ascii-text-core-review.txt`),
 [partial queue layout](../src/AsciiInf.hpp), [source](../src/AsciiInf.cpp).
 
 Both text methods return a small `AsciiTextId` structure by value, rather
@@ -3036,9 +3044,9 @@ result buffer. Assigning the real returned ID to a local result, then
 returning that value, restores the target's distinct temporary and copy in
 85B. No ABI misdeclaration or support profile change was used. The bounded
 AsciiInf probe consumes both returned IDs through the real methods.
-[Wrapper review](../.analysis/card-text-create-review.txt),
-[direct-return diagnostic](../.analysis/card-callbacks-first-text-format.json),
-[local-assignment diagnostic](../.analysis/card-callbacks-refined-text-format.json),
+Wrapper review (`.analysis/card-text-create-review.txt`),
+direct-return diagnostic (`.analysis/card-callbacks-first-text-format.json`),
+local-assignment diagnostic (`.analysis/card-callbacks-refined-text-format.json`),
 [probe](../probes/ascii-inf-context.cpp).
 
 The two callback extents are individually 10B, at 0x0040DD50 and 0x0040DD60,
@@ -3048,7 +3056,7 @@ existing medium-confidence authored classifications are retained: matching
 explicit C++ callbacks does not settle whether the original source wrote
 these bridges or LTCG emitted convention adapters. The padding between
 the two entries belongs to neither accepted extent.
-[Independent entry/span review](../.analysis/card-lifecycle-and-callback-spans.txt).
+Independent entry/span review (`.analysis/card-lifecycle-and-callback-spans.txt`).
 
 CardInf::Update (`0x0040D850`) now has a complete 507B / 16-field frontier.
 It advances active frames, clears an auxiliary flag at pre-increment
@@ -3061,8 +3069,8 @@ actor position is smoothed through separate rounded delta and step vectors,
 using float 0.05 widened to double (`3FA99999A0000000`). A successful position
 VM lookup receives the game-to-screen offsets; the observed gate state can
 clear flag 0x40.
-[Complete Update review](../.analysis/card-update-active-interval-review.txt),
-[constant reads](../.analysis/card-update-constants.txt).
+Complete Update review (`.analysis/card-update-active-interval-review.txt`),
+constant reads (`.analysis/card-update-constants.txt`).
 
 Capturing the ANM manager before vector arithmetic restores its target load
 position. The remaining ordinary differences are +375..+382 and +390..+397:
@@ -3074,10 +3082,10 @@ helper returned to 507B with the same 16-byte mismatch. These natural source
 shapes did not resolve the operand-order frontier. The four accessed global
 roots are represented only as observed partial views; their original class
 identities remain unresolved.
-[Scalar diagnostic](../.analysis/card-callbacks-structured-update.json),
-[value diagnostic](../.analysis/card-callbacks-value-update.json),
-[pointer diagnostic](../.analysis/card-callbacks-pointer-update.json),
-[global writer review](../.analysis/card-global-writers-review.txt).
+Scalar diagnostic (`.analysis/card-callbacks-structured-update.json`),
+value diagnostic (`.analysis/card-callbacks-value-update.json`),
+pointer diagnostic (`.analysis/card-callbacks-pointer-update.json`),
+global writer review (`.analysis/card-global-writers-review.txt`).
 
 Final replay covers **22 complete owners in six cold contexts**: all ten
 retained exact owners and the five new ones pass, while seven frontiers are
@@ -3090,8 +3098,8 @@ frontiers retain their previous rejection modes. The ledgers now contain
 partial credit, so authored source-present backlog grows by one to 81. Native
 product and runtime closure remain unproved. No compiler profiles or Oracle
 tools changed; only the affected contexts were cold-built.
-[Cold construction](../.analysis/card-callbacks-final-build.log),
-[complete current comparisons](../.analysis/card-callbacks-final-results.json).
+Cold construction (`.analysis/card-callbacks-final-build.log`),
+complete current comparisons (`.analysis/card-callbacks-final-results.json`).
 
 The next referenced activation and termination entries are 0x0040DD70 and
 0x0040E350, called at 0x0041B4AE / 0x0041B4E1 inside the same large script
@@ -3103,9 +3111,9 @@ Review the whole physical extent before implementing or accepting that unit.
 The nearby 54B helper at 0x0040E4E0 adds signed amount / 10 to global
 0x004B4CC4 and caps it at 999999999; termination contains the same arithmetic
 inline. These are target observations only, with no new source or exact credit.
-[Entry, callers and termination review](../.analysis/card-start-stop-next-review.txt),
-[complete activation instruction listing](../.analysis/card-start-complete-code-next.txt),
-[table reads](../.analysis/card-start-owned-tables-next.txt).
+Entry, callers and termination review (`.analysis/card-start-stop-next-review.txt`),
+complete activation instruction listing (`.analysis/card-start-complete-code-next.txt`),
+table reads (`.analysis/card-start-owned-tables-next.txt`).
 
 ## Card activation, notification dispatch and VM text (2026-11-26)
 
@@ -3118,7 +3126,7 @@ primary-TU comparison. The other seven owners remain source frontiers; their
 bytes receive no exact credit.
 [Actions](../src/CardInfActions.cpp), [notification source](../src/PopupNotifications.cpp),
 [text source](../src/AnmText.cpp),
-[complete target fields](../.analysis/card-activity-target-fields.json).
+complete target fields (`.analysis/card-activity-target-fields.json`).
 
 | Target owner | Address | Complete extent / address fields |
 | --- | --- | --- |
@@ -3139,10 +3147,10 @@ local relocations. The dispatcher at 0x00424B80 is only 15B in Ghidra's
 function body, but independent span review covers 1032B of code/alignment
 and its 40B table through 0x00424FAF. The ten table references stay inside
 the complete owner. Neither sparse auto-analysis body may crop a comparison.
-[Activation bytes](../.analysis/card-start-owned-extent.txt),
-[activation instructions](../.analysis/card-start-complete-code-next.txt),
-[dispatcher code](../.analysis/card-message-code-complete.txt),
-[dispatcher table](../.analysis/card-message-owned-table.txt).
+Activation bytes (`.analysis/card-start-owned-extent.txt`),
+activation instructions (`.analysis/card-start-complete-code-next.txt`),
+dispatcher code (`.analysis/card-message-code-complete.txt`),
+dispatcher table (`.analysis/card-message-owned-table.txt`).
 
 Start resets the timer, stores card index at +0x78, copies the name, writes
 `(flags & ~0x30) | 7`, captures the observed gate flag, clears the clock bit
@@ -3161,7 +3169,7 @@ on an active exit, updates +0x80 on flag 2 when mode is not 1, and updates
 +0x84 on the flag-2/flag-4 path. These are distinct operations. The partial
 views do not establish complete owning classes or a record-array capacity.
 [Views](../src/CardActivityViews.hpp),
-[activation/termination review](../.analysis/card-start-stop-next-review.txt).
+activation/termination review (`.analysis/card-start-stop-next-review.txt`).
 
 The first Start source cached a particular history record and emitted 1500B.
 The target instead caches the storage root and reloads card index after each
@@ -3172,9 +3180,9 @@ are retained; the final primary Start contribution is 1504B vs target 1496B. The
 field inventory missed the two indexed byte-table address operands; both
 were added before acceptance. A cold build was stopped to apply these
 corrections, leaving no receipt for that interrupted construction.
-[First source observation](../.analysis/card-activity-first-start.json),
-[history-root observation](../.analysis/card-activity-history-root-start.json),
-[interrupted build](../.analysis/card-activity-before-manager-cache-aborted-build.log).
+First source observation (`.analysis/card-activity-first-start.json`),
+history-root observation (`.analysis/card-activity-history-root-start.json`),
+interrupted build (`.analysis/card-activity-before-manager-cache-aborted-build.log`).
 
 Finish sends interrupt 1 to the three UI VMs, clears active state, deletes
 auxiliary/position IDs and clears the gate flag. The flag-2 paths play sound
@@ -3196,7 +3204,7 @@ script 0x50. The target dispatch has no bounds check. Four reviewed non-card
 call sites encode kinds 3/4/4/2, without source credit. The 278B score-display
 caller physically retains a Show(3, 0) edge after OR 4 / TEST AL,4; the branch
 appears unreachable and must not disappear from a claimed complete extent.
-[Real callers](../.analysis/card-popup-real-callers-review.txt).
+Real callers (`.analysis/card-popup-real-callers-review.txt`).
 
 A probe using only the global notification pointer let LTCG eliminate the
 receiver; Finish became 347B and Show 1024B. A generic receiver preserved
@@ -3205,8 +3213,8 @@ EDI receiver/EAX kind plus kind/value stack slots and RET 8. Keep the ordinary
 member interface rather than inventing a custom register declaration. The
 probe now uses the observed constant notification kinds and both other text
 interfaces. Those changes did not close the private candidate.
-[Global-only observation](../.analysis/card-activity-first-popup.json),
-[generic observation](../.analysis/card-activity-generic-popup.json).
+Global-only observation (`.analysis/card-activity-first-popup.json`),
+generic observation (`.analysis/card-activity-generic-popup.json`).
 
 The text routines use VM font byte +0x4D0 and set VM flag 1 after rendering.
 The sprite helper converts four rectangle floats to integers, defaults
@@ -3214,9 +3222,9 @@ nonpositive font widths to 17, skips widths 1..8 and selects the two observed
 fastcall texture-text boundaries at 0x00452840/0x00452B00. Those backend bodies
 remain external declarations, with ECX/EDX texture/text and seven/six stack
 arguments respectively; no substitute implementations were added.
-[Sprite helper and conversion](../.analysis/card-text-raster-dependency-review.txt),
-[backend ABI review](../.analysis/card-text-backend-abi-review.txt),
-[first backend return](../.analysis/card-text-first-backend-return.txt).
+Sprite helper and conversion (`.analysis/card-text-raster-dependency-review.txt`),
+backend ABI review (`.analysis/card-text-backend-abi-review.txt`),
+first backend return (`.analysis/card-text-first-backend-return.txt`).
 
 DrawTextAt forwards the caller X. Centered text converts
 ` spriteWidth - unsignedGlyphSpan / 2 ` to int; half-center first converts
@@ -3228,9 +3236,9 @@ capacity. The maintained 128-byte capacity remains a source hypothesis. The
 sprite helper emits 194B vs 210B: target ESP alignment/cookie accesses differ
 from source EBP accesses. Scalar vs aggregate RECT initialization did not
 resolve it. Do not insert alignment hints or padding to close these gaps.
-[Other wrapper review](../.analysis/anm-text-three-wrapper-review.txt),
-[text-family observations](../.analysis/card-activity-text-family-center-text.json),
-[sprite observation](../.analysis/card-activity-text-family-sprite-text.json).
+Other wrapper review (`.analysis/anm-text-three-wrapper-review.txt`),
+text-family observations (`.analysis/card-activity-text-family-center-text.json`),
+sprite observation (`.analysis/card-activity-text-family-sprite-text.json`).
 
 A private scoped-lock version of AnmResource::CreateVm did not fix caller
 codegen. Both the maintained and scoped-lock bodies already write the return
@@ -3238,9 +3246,9 @@ ID before unlock through return-value optimization; both emit 363B with the same
 in this context. The hypothesis that lexical unlock-before-return caused
 the mismatch was falsified. The shared factory source and its 81 previously exact dependent
 units were left unchanged. This experiment grants no exact credit.
-[Scoped-lock observation](../.analysis/card-activity-lock-vm-create.json),
-[factory target](../.analysis/card-create-vm-return-review.txt),
-[private recipe](../.analysis/card-activity-lock-relink.py).
+Scoped-lock observation (`.analysis/card-activity-lock-vm-create.json`),
+factory target (`.analysis/card-create-vm-return-review.txt`),
+private recipe (`.analysis/card-activity-lock-relink.py`).
 
 
 
@@ -3256,9 +3264,9 @@ Oracle infrastructure tests were needed. The ledgers now contain **440
 source mappings / 352 exact functions / 24,938 exact bytes**, including
 **343 authored exact functions / 24,578 authored bytes**. Native product and
 runtime closure remain unproved.
-[Cold construction](../.analysis/card-activity-final-build.log),
-[complete results](../.analysis/card-activity-final-results.json),
-[sources and profiles](../.analysis/card-activity-final-scope.json).
+Cold construction (`.analysis/card-activity-final-build.log`),
+complete results (`.analysis/card-activity-final-results.json`),
+sources and profiles (`.analysis/card-activity-final-scope.json`).
 
 
 ## Open questions
@@ -3297,7 +3305,7 @@ for reviewing those fields. [Complete draw instructions](../.analysis/texture-te
 [alternate raw owner](../.analysis/texture-text-remaining-owned.txt),
 [helper instructions](../.analysis/texture-text-helper-complete.txt),
 [helper references and alpha inversion](../.analysis/texture-text-helper-review.txt),
-[field inventory](../.analysis/texture-text-target-fields.json).
+field inventory (`.analysis/texture-text-target-fields.json`).
 
 `0x00451D00` is alpha inversion, rather than a font/DIB allocation helper.
 It processes signed `pitch * rows` bytes: complements each A8R8G8B8 alpha
@@ -3325,8 +3333,8 @@ initialization/destruction writes support this contiguous view; original
 object identity and initialization ownership remain open. Font selection
 uses default `0x004D2ACC`, IDs 1..5 at `0x004D2AC8/C4/C0/BC/B8`, ID 6 at
 `0x004D0AB4`, and ID 7 at `0x004B8AA4`.
-[State references](../.analysis/texture-text-global-refs.txt),
-[destructor review](../.analysis/texture-text-initialization-review.txt).
+State references (`.analysis/texture-text-global-refs.txt`),
+destructor review (`.analysis/texture-text-initialization-review.txt`).
 
 Both draw functions receive texture in ECX and text in EDX, with seven/six
 stack arguments and `RET 28/24`. They select a font, clamp font width to at
@@ -3354,11 +3362,11 @@ addresses in a temporary probe instead emitted 700B and did not close the
 owner; that probe experiment was removed. The alternate remains affected
 by compiler recognition of its fill loop as REP STOS and by register/stack
 allocation. Do not add volatile stores, dummy calls or padding to suppress it.
-[First diagnostic](../.analysis/texture-text-first-observations.json),
-[scope experiment](../.analysis/texture-text-scopes-observations.json),
-[typed pixels](../.analysis/texture-text-pixels-observations.json),
-[reused state/temporary](../.analysis/texture-text-state-observations.json),
-[rejected address-taking probe](../.analysis/texture-text-abi-observations.json).
+First diagnostic (`.analysis/texture-text-first-observations.json`),
+scope experiment (`.analysis/texture-text-scopes-observations.json`),
+typed pixels (`.analysis/texture-text-pixels-observations.json`),
+reused state/temporary (`.analysis/texture-text-state-observations.json`),
+rejected address-taking probe (`.analysis/texture-text-abi-observations.json`).
 
 The canonical TextTexture cold comparison confirms the ordinary draw owner is
 **696B with all 42 fields replayed**, but ordinary bytes **+533/+580** still
@@ -3367,8 +3375,8 @@ but its three-field offset set differs and is rejected before byte comparison.
 Fill is 823/817B and alternate drawing 592/584B. The alternate target has
 **37** fields (including a repeated byte-count load), whereas the candidate
 has 36. None of these four receives an exact row.
-[Canonical backend results](../.analysis/texture-text-backend-results.json),
-[cold owner/field diagnostics](../.analysis/texture-text-cold-observations.json).
+Canonical backend results (`.analysis/texture-text-backend-results.json`),
+cold owner/field diagnostics (`.analysis/texture-text-cold-observations.json`).
 
 The next real dependencies are already reviewed at `0x00451740` (413B,
 scratch-image creation) and `0x004525D0` (516B, image/font/noise setup).
@@ -3396,8 +3404,8 @@ DIR32 fields. Start and Finish remain 1504/1496B and 374/398B. The sprite-text
 helper changes from the former external-backend context's 194B to 214B
 against 210B; the explicit-X, centered and half-center wrappers remain
 142/132B, 215/196B and 201/193B. These are full owner sizes, not byte-difference
-counts. [Card and score replay](../.analysis/texture-text-card-results.json),
-[VM-text replay](../.analysis/texture-text-vm-results.json).
+counts. Card and score replay (`.analysis/texture-text-card-results.json`),
+VM-text replay (`.analysis/texture-text-vm-results.json`).
 
 The typed-texture hypothesis was subsequently tested and falsified: using
 IDirect3DTexture9* still emits the same ordinary +533/+580 differences.
@@ -3408,8 +3416,8 @@ owners have complete strict results: AddScore remains exact, and the eleven
 frontiers are rejected. Popup Show remains 1020/1072B. No previous result was
 rewritten, and none of the four new source mappings entered matches.csv.
 [Final comparison set](../.analysis/texture-text-final-results.json),
-[affected source graph](../.analysis/texture-text-affected-scope.json),
-[cold build log](../.analysis/texture-text-cold-build.log).
+affected source graph (`.analysis/texture-text-affected-scope.json`),
+cold build log (`.analysis/texture-text-cold-build.log`).
 
 ## Scratch-image lifetime and font setup (2026-11-26)
 
@@ -3435,8 +3443,8 @@ calls GetU16 and owns only 405B. Allowing ordinary inlining on the RNG support
 reproduces the target's 516B and all 32 address fields. The established RNG
 primary context and source were not changed. This proves a reproducible
 linked context, not the original TU partition or compiler settings.
-[Initial out-of-line RNG candidate](../.analysis/text-image-lifetime-first-observations.json),
-[inlined support candidate](../.analysis/text-image-lifetime-inline-observations.json).
+Initial out-of-line RNG candidate (`.analysis/text-image-lifetime-first-observations.json`),
+inlined support candidate (`.analysis/text-image-lifetime-inline-observations.json`).
 
 Creation first calls destruction, clears a 108-byte BITMAPV4HEADER and
 searches the mutable 24-byte format records. The lookup returns null only
@@ -3459,7 +3467,7 @@ branch layout. The earlier early-return spelling had the same full size
 but the opposite branch layout and field positions. In creation, assigning
 byte count before format produces the observed EDX size / EAX format
 writeback and closes the initial ordinary +328/+351 and field-binding gap.
-[Destructor review](../.analysis/texture-text-initialization-review.txt).
+Destructor review (`.analysis/texture-text-initialization-review.txt`).
 
 The unreferenced 22B wrapper tries A4R4G4B4, returns true on success and
 otherwise returns the A8R8G8B8 result. Its boundary remains reviewed at
@@ -3487,7 +3495,7 @@ It has no incoming/interior references and keeps medium boundary confidence.
 [Default wrapper](../.analysis/text-image-default-init-span.txt),
 [font names](../.analysis/text-image-font-names.txt),
 [font cleanup](../.analysis/text-fonts-destroy-owned-span.txt),
-[real startup/shutdown callers](../.analysis/text-image-lifetime-callers.txt).
+real startup/shutdown callers (`.analysis/text-image-lifetime-callers.txt`).
 
 The proposed typed-texture experiment was falsified: using
 IDirect3DTexture9* for the two drawing parameters still emits 696B with the
@@ -3495,4 +3503,4 @@ same ordinary +533/+580 differences; other observed owner sizes and field
 layouts are unchanged. Only decorated symbols differ. The experiment stayed
 private, so TextTexture/AnmText source, their four canonical contexts and
 AddScore's evidence remain unchanged. Do not retry this type hypothesis.
-[Typed-texture result](../.analysis/texture-text-typed-observations.json).
+Typed-texture result (`.analysis/texture-text-typed-observations.json`).

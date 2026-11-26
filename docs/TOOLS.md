@@ -44,6 +44,12 @@ Session recovery uses `verify-toolchain.py --check`. Use `--execute` for a
 bounded toolchain smoke when setup/tool changes require execution, rather
 than for ordinary notes or every checkpoint.
 
+Build outputs are disposable and were cleared during the 2026-11-26
+storage cleanup. A strict comparison needs a newly built selected context;
+`build-match-unit.py --unit NAME` recreates it, while
+`replay-exact-units.py --unit NAME` builds and compares it. Historical private
+experiment scripts/logs are not required inputs.
+
 ## Local tool selection
 
 | Ignored path | Role |

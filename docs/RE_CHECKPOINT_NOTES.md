@@ -8,6 +8,11 @@ are historical. Use [the current handoff](RE_HANDOFF.md),
 [progress](PROGRESS.md) and canonical ledgers for current state.
 [The knowledge base](KNOWLEDGE_BASE.md) records findings and failed approaches.
 
+Historical private logs, dumps and probe outputs were pruned on 2026-11-26.
+Inline private filenames below are provenance labels, not retained artifacts.
+Use the current unit recipe or a relevant Ghidra query to regenerate what
+is needed; do not restore whole historical artifact trees.
+
 ## Archived advance from e3e2036 (2026-11-26)
 
 `SupervisorScreenshot.cpp` now has two complete VC10 RTM `/GL /Ob1 /Oy-`
@@ -27,11 +32,11 @@ coordinates, established by the D3DX call arguments. FileExists is inlined
 into the handler; reusing the existing FsErrUtil call probe did not help.
 The header's one existing exact consumer, AnmViewportTan, passed cold replay.
 See the [finding](KNOWLEDGE_BASE.md#screenshot-capture-writer-and-pending-surface-copies-2026-11-26)
-and [affected scope](../.analysis/screenshot-final-scope.json).
+and affected scope (`.analysis/screenshot-final-scope.json`).
 
 Present now links the real screenshot/copy/FileSystem bodies, retaining
 189/190 and 323/314 bytes; its timer/state support owners remain 266/802B.
-The [final seven-owner comparisons](../.analysis/screenshot-final-results.json)
+The final seven-owner comparisons (`.analysis/screenshot-final-results.json`)
 accept capture, writer and the existing tangent wrapper, and reject the
 four complete frontiers. The affected scope spans four contexts; current
 receipts are valid for the retained sources and profiles. Frame-entry
@@ -57,8 +62,8 @@ Only the initializer and Present contexts required cold builds. No changed
 input is consumed by an existing exact context; the one new exact owner and
 two affected frontiers received complete comparisons. See the
 [finding](KNOWLEDGE_BASE.md#initial-d3d9-state-and-anm-cache-reset-2026-11-26),
-[final results](../.analysis/state-reset-final-results.json) and
-[affected scope](../.analysis/state-reset-final-scope.json).
+final results (`.analysis/state-reset-final-results.json`) and
+affected scope (`.analysis/state-reset-final-scope.json`).
 
 Previous surface/Present checkpoint (`b2a0df4`):
 
@@ -88,8 +93,8 @@ passes complete replay. Final comparison covers that wrapper plus the
 three new owners across three cold contexts: surface restoration passes,
 both Present frontiers are rejected. See the
 [finding](KNOWLEDGE_BASE.md#surface-restoration-and-maintained-present-paths-2026-11-26),
-[final results](../.analysis/surfaces-present-preserved-timer-final-results.json) and
-[affected scope](../.analysis/surfaces-present-preserved-timer-final-scope.json).
+final results (`.analysis/surfaces-present-preserved-timer-final-results.json`) and
+affected scope (`.analysis/surfaces-present-preserved-timer-final-scope.json`).
 
 Previous device-texture checkpoint (`60017e8`):
 
@@ -106,8 +111,8 @@ The new TU/header/probe do not change any existing exact unit's inputs.
 Only their one new context was cold-built; both complete comparisons pass.
 The existing standalone CreateRenderTarget remains unchanged. See the
 [finding](KNOWLEDGE_BASE.md#render-target-release-and-recreation-2026-11-26),
-[full comparisons](../.analysis/device-target-final-results.json) and
-[affected scope](../.analysis/device-target-final-scope.json).
+full comparisons (`.analysis/device-target-final-results.json`) and
+affected scope (`.analysis/device-target-final-scope.json`).
 
 Previous frame/camera checkpoint (`daee2ac`):
 
@@ -138,10 +143,10 @@ wrapper) and rejects 18 frontiers. Eleven contexts were cold-built; the
 unchanged final-input AnmViewport context from the preceding cold build was
 reused with its receipt rechecked. This adds four authored mappings and one
 excluded compiler/header mapping. Authored exact totals remain 322 owners /
-19,844 bytes. See the [full results](../.analysis/frame-current-results.json),
-[replay log](../.analysis/frame-current-replay.log),
-[existing exact selection](../.analysis/frame-current-selected.json) and
-[affected contexts](../.analysis/frame-current-contexts.json).
+19,844 bytes. See the full results (`.analysis/frame-current-results.json`),
+replay log (`.analysis/frame-current-replay.log`),
+existing exact selection (`.analysis/frame-current-selected.json`) and
+affected contexts (`.analysis/frame-current-contexts.json`).
 
 Previous rectangle checkpoint (`b46df32`):
 
@@ -170,10 +175,10 @@ The complete 116-owner comparison passes 102 owners (79 retained + 23
 restored) and rejects 14 frontiers. Draw's current candidate is 1,452/1,392
 bytes. This checkpoint adds five authored source mappings and restores
 23 exact rows / 342 bytes. See the
-[full results](../.analysis/anm-rectangle-current-results.json),
-[replay log](../.analysis/anm-rectangle-current-replay.log),
-[selected existing exact owners](../.analysis/anm-rectangle-current-selected.json)
-and [cold contexts](../.analysis/anm-rectangle-current-contexts.json).
+full results (`.analysis/anm-rectangle-current-results.json`),
+replay log (`.analysis/anm-rectangle-current-replay.log`),
+selected existing exact owners (`.analysis/anm-rectangle-current-selected.json`)
+and cold contexts (`.analysis/anm-rectangle-current-contexts.json`).
 
 Previous submission checkpoint (`4ab71e2`):
 
@@ -193,14 +198,14 @@ unverified. Pinned compiler probes reject rint/nearbyint/_frnd intrinsics;
 even an accepted floor pragma retains a real call. Do not repeat those
 probes or force alignment/registers to hide the mismatch. See the
 [submission finding](KNOWLEDGE_BASE.md#maintained-sprite-submission-and-ambient-rounding-2026-11-26)
-and [canonical rejection](../.analysis/anm-submit-current-results.json).
+and canonical rejection (`.analysis/anm-submit-current-results.json`).
 
 All 74 affected existing exact owners pass after 10 cold linked builds.
 All 106 selected owners were compared; the 32 frontiers, including the
 23 DrawLayer callers, remain rejected. This checkpoint adds one authored
 source mapping and no exact credit. See the
-[complete replay](../.analysis/anm-submit-current-results.json) and
-[affected contexts](../.analysis/anm-submit-current-contexts.json).
+complete replay (`.analysis/anm-submit-current-results.json`) and
+affected contexts (`.analysis/anm-submit-current-contexts.json`).
 
 Previous state/append checkpoint (`2d2cdee`):
 
@@ -220,16 +225,16 @@ then VM. All four wrappers remain rejected frontiers; submission at
 paths and four-entry table are reviewed. FRNDINT follows the ambient x87
 rounding mode, so neither floor nor a fixed nearest-even replacement closes
 that source contract. See the [state/append finding](KNOWLEDGE_BASE.md#anm-sprite-state-quad-append-and-real-corner-wrappers-2026-11-26),
-[state replay](../.analysis/anm-sprite-state-canonical.json) and
-[append replay](../.analysis/anm-sprite-append-canonical.json).
+state replay (`.analysis/anm-sprite-state-canonical.json`) and
+append replay (`.analysis/anm-sprite-append-canonical.json`).
 
 All 77 existing affected exact owners and the two new exact owners pass
 after 11 cold context builds. All 87 selected owners were compared; the
 remaining eight candidates still fail the complete-owner check (seven
 extent rejections and the draw-position helper's eight byte differences).
 No former caller credit was restored. See the
-[full results](../.analysis/anm-sprite-deps-current-results.json) and
-[final scope](../.analysis/anm-sprite-deps-final-scope.json).
+full results (`.analysis/anm-sprite-deps-current-results.json`) and
+final scope (`.analysis/anm-sprite-deps-final-scope.json`).
 
 Previous draw checkpoint (`2263a9f`):
 
@@ -259,9 +264,9 @@ fog owners add 108 bytes; the current affected exact set is 131 passing units.
 Historical comparisons below retain their original scope; their former
 renderer-dependent credit is superseded by this correction.
 See the [draw finding](KNOWLEDGE_BASE.md#natural-anm-draw-dispatch-and-probe-callee-cleanup-2026-11-26),
-[full comparison](../.analysis/anm-draw-current-input-replay.log),
-[withdrawn rows](../.analysis/anm-draw-withdrawn-conditional-rows.json) and
-[final scope](../.analysis/anm-draw-final-scope.json).
+full comparison (`.analysis/anm-draw-current-input-replay.log`),
+withdrawn rows (`.analysis/anm-draw-withdrawn-conditional-rows.json`) and
+final scope (`.analysis/anm-draw-final-scope.json`).
 
 Previous HelpInf checkpoint (`e311d8f`):
 
@@ -291,9 +296,9 @@ across 15 cold-built contexts. The final constructor-header move required
 only the HelpInf and texture contexts to be rebuilt again; the other 13
 current contexts were reused. All six HelpInf frontiers were rejected
 separately at the complete-owner size check. See the
-[final comparison](../.analysis/help-lifecycle-closure-replay.log),
-[selected owners](../.analysis/help-lifecycle-closure-selected.json) and
-[current observations](../.analysis/help-lifecycle-closure-observations.txt).
+final comparison (`.analysis/help-lifecycle-closure-replay.log`),
+selected owners (`.analysis/help-lifecycle-closure-selected.json`) and
+current observations (`.analysis/help-lifecycle-closure-observations.txt`).
 
 The preceding HelpInf checkpoint (`cedc55d`) supplied the viewer and its
 first five exact owners:
@@ -325,8 +330,8 @@ the new HelpInf context was already cold-built and receipt-verified. All
 The expanded texture context includes the real HelpInf caller, but image
 upload remains 116/156 bytes and RGB repair retains its `0x4C`/`0x50`
 frame difference. See the [HelpInf finding](KNOWLEDGE_BASE.md#helpinf-viewer-returned-anm-ids-and-page-ownership-2026-11-26),
-[comparison](../.analysis/help-final-replay.log) and
-[selected units](../.analysis/help-final-affected-units.json).
+comparison (`.analysis/help-final-replay.log`) and
+selected units (`.analysis/help-final-affected-units.json`).
 
 `AnmVm::SetColorTransition` (`0x0045E4D0`) and
 `SetSecondaryColorTransition` (`0x0045E2C0`) now replay exact as complete
@@ -372,7 +377,7 @@ callbacks each reproduce three bytes. These restore existing credit.
 The four timer-helper units now share the identical script compilation
 context instead of repeating it in four additional output directories.
 All 126 affected exact units passed the final current-input comparison
-([replay](../.analysis/anm-member-consolidated-final-replay.log)).
+(replay (`.analysis/anm-member-consolidated-final-replay.log`)).
 
 `AnmResource::BindVmScript` (`0x004593B0`, 262 bytes) and
 `BindVmAtPosition` (`0x004594C0`, 295 bytes) now replay exact
@@ -461,7 +466,7 @@ primary loading context; this adds no constructor credit. The first-stage
 loader and texture cache above remain frontiers. GPU/table finalization
 at `0x00465770` now has the frontier implementation described below.
 See the [loading finding](KNOWLEDGE_BASE.md#anm-first-stage-loading-release-logging-and-preload-wait-2026-11-26)
-and [affected replay](../.analysis/anm-loading-final-replay.log)
+and affected replay (`.analysis/anm-loading-final-replay.log`)
 (161/161 exact units passed in 12 contexts). Resource fields `+0x124` and
 `+0x128` are now named `finalizeCursor` and `releaseRequested`.
 Scheduler `0x00465E50` advances only
@@ -477,7 +482,7 @@ UV bounds, logical sizes and scaling ratios. Both `FinalizeNextEntry` and
 The texture methods have maintained source in `AnmTextureLoading.cpp`.
 The separate 746-byte entry finalizer remains unimplemented.
 See the [resolved-sprite finding](KNOWLEDGE_BASE.md#anm-resolved-sprites-and-finalization-array-bounds-2026-11-26)
-and [final comparison](../.analysis/anm-finalization-current-input-final.log)
+and final comparison (`.analysis/anm-finalization-current-input-final.log`)
 (130/130 exact units passed in ten cold-built contexts).
 
 `CreateEmptyTexture` (`0x00465300`, 70 bytes) and `CreateRenderTarget`
@@ -489,7 +494,7 @@ With all four texture definitions present, `ProcessPendingAnms`
 (`0x00465E50`, 140 bytes, four fields) also becomes exact naturally.
 These add three functions and 279 bytes. `SetSprite` remains exact.
 See the [GPU/state finding](KNOWLEDGE_BASE.md#anm-gpu-texture-loading-and-shared-graphics-state-2026-11-26)
-and [canonical comparison](../.analysis/anm-gpu-canonical-final-compare.log)
+and canonical comparison (`.analysis/anm-gpu-canonical-final-compare.log`)
 (189 units across 19 cold-built contexts).
 
 External texture loading now calls the maintained 1,774-byte
@@ -509,8 +514,8 @@ inlined by `/Ob1`, while aggregate initialization retained a larger owner.
 All nine affected exact comparisons passed in two cold contexts; no shared
 header or other compilation context changed. See the
 [pixel finding](KNOWLEDGE_BASE.md#anm-transparent-pixel-repair-and-inline-neighbor-helpers-2026-11-26),
-[final comparison](../.analysis/anm-colors-final-compare.log), and
-[current frontier observations](../.analysis/anm-colors-final-observations.txt).
+final comparison (`.analysis/anm-colors-final-compare.log`), and
+current frontier observations (`.analysis/anm-colors-final-observations.txt`).
 
 `LoadTextureFile`, `UploadTextureImage` and `UploadTextureRegion` now have
 complete target-reviewed implementations and full linked frontier units.
@@ -526,8 +531,8 @@ for the retained controls and caller-ownership evidence.
 The changed entry/D3DX declarations required 11 cold contexts; all 138
 affected canonical exact comparisons passed. The three new owners were
 rejected separately and add source mappings only. See the
-[affected replay](../.analysis/anm-additional-final-replay.log) and
-[selected units](../.analysis/anm-additional-final-selected-units.json).
+affected replay (`.analysis/anm-additional-final-replay.log`) and
+selected units (`.analysis/anm-additional-final-selected-units.json`).
 
 Replay the recent ANM exact owners with:
 

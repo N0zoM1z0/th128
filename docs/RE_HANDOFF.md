@@ -121,24 +121,44 @@ font/image lifetime source already exist.
 
 ## Retained state and storage cleanup
 
-Kept the original target/data, title capture, `.tools/msvc1000`, the game's
-Wine prefix, Ghidra project, Factory selectors/settings and all `.analysis/`
-target reviews, result JSONs, logs and useful source variants.
+The operator requested a second, more aggressive cleanup on 2026-11-26.
+This pass freed **113.84 MiB**, in addition to the earlier approximately
+37 MiB. `build/` is empty; `.build/` did not exist. All generated objects,
+executables, MAP/PDB files and receipts can be recreated from the unit recipes.
 
-Removed about **37 MiB** of generated output: unconfigured probe/retired
-context directories, old binary files absent from current context receipts,
-and Python caches. Current recipe/receipt artifacts were retained unchanged.
-[Private removal record](../.analysis/handoff-cleanup.txt).
-Old cached private relink scripts may reference removed probe objects; use
-canonical build recipes for a new comparison rather than assuming those
-old caches still exist. Never use `git clean -fdx`.
+Removed 3,006 old files from the `.analysis/` root, seven historical analysis
+and experiment directories, Ghidra application/script logs and generated
+compiled-script caches. Old compiler snapshots, one-off relink scripts,
+probe matrices and historical result logs are no longer kept as required
+evidence. Their useful findings and failed approaches remain in the knowledge
+base and Git history.
 
-This cleanup corrects only a stale comment in TextTexture.hpp; executable
-statements, layouts, profiles and ledgers are unchanged from `c1419af`.
-Receipt source hashes bind raw header text, so affected retained receipts
-still describe that code checkpoint, not a fresh comparison of the comment
-edit. They were not rewritten. Cold-build the selected context when a new
-strict comparison is needed; do not replay all units merely for this cleanup.
+Kept only 15 active text-component files: the latest lifetime final results,
+scope/build summary/field inventory, the text-family final comparisons and
+small target reviews needed by the current work. Also kept the architecture
+index used by function-context.py and the isolated Ghidra user settings.
+The original target/data, compiler payload, Wine prefix, Factory selectors
+and Ghidra project are untouched.
+
+Deleted historical private-file links in the knowledge base/archive now
+appear as inline filenames. They identify past work and are not promises
+that the artifact still exists. Do not restore old log trees merely to satisfy
+those historical references. Regenerate a target query when it is relevant.
+
+The last executable-code verification remains `c1419af`; source statements,
+layouts, profiles and ledgers were not changed by cleanup. For a new strict
+comparison, first rebuild the selected context. For example, to reproduce
+only the five lifetime owners:
+
+~~~bash
+scripts/repo-python scripts/replay-exact-units.py \
+  --unit text-image-destroy --unit text-image-initialize-default \
+  --unit text-image-initialize --unit text-fonts-initialize \
+  --unit text-fonts-destroy
+~~~
+
+No comparison receipts were rewritten and no compilation was run merely for
+cleanup. Never use `git clean -fdx`.
 
 Historical phase/checkpoint detail is in [RE_CHECKPOINT_NOTES.md](RE_CHECKPOINT_NOTES.md).
 Current target/compiler conclusions and useful failures are in
