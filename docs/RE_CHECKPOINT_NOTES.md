@@ -1,12 +1,14 @@
 # Historical reconstruction checkpoint notes
 
-These notes preserve the previous handoff advance section verbatim from local
-checkpoint `e3e2036`. Counts, frontiers and receipts describe those historical
-snapshots; use [the current handoff](RE_HANDOFF.md) and canonical ledgers for
-current state. [The knowledge base](KNOWLEDGE_BASE.md) holds the corresponding
-findings and failed approaches.
+Historical handoff material is retained here for research context. The first
+advance section comes from local checkpoint `e3e2036`; the later ANM detail
+and phase summary were archived from `c1419af` during the 2026-11-26 handoff
+cleanup. Counts, measurements and next-step language inside these snapshots
+are historical. Use [the current handoff](RE_HANDOFF.md),
+[progress](PROGRESS.md) and canonical ledgers for current state.
+[The knowledge base](KNOWLEDGE_BASE.md) records findings and failed approaches.
 
-## Latest advance (2026-11-26)
+## Archived advance from e3e2036 (2026-11-26)
 
 `SupervisorScreenshot.cpp` now has two complete VC10 RTM `/GL /Ob1 /Oy-`
 matches: CaptureSupervisorScreenshot (`0x004343D0`, **520B / 39 fields**)
@@ -540,3 +542,202 @@ scripts/repo-python scripts/replay-exact-units.py \
   --unit anm-manager-process-pending-anms --unit anm-texture-create-empty \
   --unit anm-texture-create-render-target
 ```
+
+## Phase summary archived from c1419af
+
+### Completed Phases 0–2 summary (2026-11-25)
+
+Four local checkpoints (`a56cce6`, `c46e1f8`, `d8e26b4`, `c8c11fd`) advanced the
+canonical ledger from **102 exact / 6,620 B** to **303 exact / 17,121 B** (+201
+cold-replayed exact functions, +10,501 exact bytes):
+
+- **Phase 0 (`a56cce6`)**: Closed 16 CRT-band and 12 LTCG-entry-adapter pending
+  origins; documented whole-binary VC10 RTM flags (`/O2 /Oy- /fp:precise /GS /GL /OPT:NOICF`)
+  and coarse engine/gameplay map in `docs/KNOWLEDGE_BASE.md`.
+- **Phase 1A (`c46e1f8`, +52 exact / +4,180 B)**: `SupervisorTime` (1/1),
+  `SoundManager` (17/17), `MenuCursor` (3/3), `ThreadInf` (8/8), `Chain` (13/19),
+  `FileSystem` (7/8), `GameErrorContext` (2/2), `EngineUtil` (2/5).
+- **Phase 1B (`d8e26b4`, +42 exact / +2,148 B)**: `Input` (6/8), `CoreMath` (11/14),
+  `CSoundManager` / `CSoundView` / `CWaveFileView` (25/29).
+- **Phase 2 (`c8c11fd`, +107 exact / +4,173 B)**: `AnmManager` core + 23 `DrawLayer`
+  callbacks + `DrawVmGroup` + `CleanupVm` + `FlushSpriteBatch` + `AreAllAnmsLoaded` +
+  `ReleaseAnm` (30), `AnmResource` / `AnmTextureEntry` (3), `AnmHelpers` (32,
+  including `ResolveAnmVmId` `0x00467780` via natural `struct AnmId` by-value ABI),
+  `AnmInterp<T>` template + vector/angle/color helpers (39), and `AnmVmTransitions`
+  (`SetScaleTransition`, `SetSecondaryScaleTransition`, `SetSecondaryEffectState`, 3).
+
+Key compiler discoveries recorded in `docs/KNOWLEDGE_BASE.md`: `struct AnmId`
+by-value naturally reproduces `GetVmById` (`0x00467420`) and 30+ callers without
+any unused-`ECX` shim; `/Ob1` is required on ANM `/GL` units so out-of-line helpers
+are not over-inlined; address-taken probe pointers prevent interprocedural
+`and esp, -8` hoisting; struct copies unlock `fldz` hoisting in transition setters.
+
+
+## ANM frontier detail archived from c1419af
+
+These measurements were retained before the documentation cleanup. They are
+not fresh comparisons of the cleaned tree; use the linked retained evidence
+and current unit recipes before making a new exact claim.
+
+### AnmVm and related source
+
+Recent local work has focused on AnmVm rendering, world matrices, fog,
+primitives, transitions, per-VM update behavior and the operand resolver
+family. Exact counts below come only from the canonical ledger and replay
+receipts, not from commit count or source presence.
+
+### Main boss: AnmVm::Update
+
+- Target entry: 0x00459D90
+- Target extent: 13,604 bytes, through 0x0045D2B3
+- Source: src/AnmVmScript.cpp
+- Ledger: source mapping exists; no accepted exact match in
+  config/matches.csv
+- State: partial C++ reconstruction, not exact
+
+Current source covers script gating/termination, game-speed save/restore,
+continuous angle/scale/texture motion, view-rectangle refresh, render-state
+synchronization, transition updates, custom geometry, frame callback and timer
+advancement. The latest selected VC10 `/GL` PDB contribution is 13,764 bytes
+versus the 13,604-byte target (160 bytes larger), with 284 direct calls versus
+286 in the target; it is still not an exact replay. Effect-10 geometry keeps
+the signed count and mode-specific ordering: mode 9 loads its raw angle before
+the divisor conversion; modes 13/14 normalize first, then compute the angle/V
+steps; mode 14 normalizes again after local-center composition and before the
+parent-center contribution. The ring closes through its advanced vertex
+cursor, including the no-loop case. The Update-specific `SetPolarForUpdate`
+leaf at 0x0045E010 remains a natural-C++ frontier: target FSINCOS versus source
+cos/sin calls; do not use inline assembly. The view-corner helpers now preserve
+the target's anchor-3 no-write path in modes 0 and 2/3, per-corner parent
+translation order, and transient parent-Z additions before the final child-Z
+store. Their LTCG frontiers are 834/1209 bytes (mode 0), 799/1020 (mode 2/3),
+and 537/623 (mode 1); the target's private register ABI is not reproduced by
+the natural C++ probe. The separate `InterpolateColorVector`
+frontier is 719 bytes versus its 721-byte target;
+its mode-8 path now uses target-style float time and 12 individually converted
+Hermite terms in target basis order, but its private register ABI and x87
+scheduling still differ. `EaseTransition` at 0x0046B190 now has a separate
+linked-PE replay: 728-byte owner, 35 mapped relocation fields, and zero
+normalized byte differences. Its 16 jump-table entries, handler order and
+natural C++ easing expressions now reproduce the target. `ZunTimer::Increment`
+is now an exact 88-byte out-of-line leaf, preserving the timer call edge inside
+transition interpolation. `ResetTransitionTimer(void *)` now exactly replays
+the 52-byte `FUN_00406F80` owner-relative reset helper: it receives a transition
+owner and resets the embedded timer at `+0x30`, including lazy initialization
+and the `g_TimeScale` relocation. Update opcodes 56, 100 and 59 now share this
+natural C++ helper (three target and candidate call edges). Texture-offset
+opcodes 107 and 108 now use the separate exact 52-byte `ResetScalarTransitionTimer`
+helper at `0x0040CEA0`, resetting the timer at owner `+0x10`; both original
+call edges are retained. Opcode 113 uses a third byte-identical 52-byte
+`ResetViewTransitionTimer` copy at `0x0045DAD0`, also owner `+0x10`, and keeps
+its separate target call edge. The four Update timer-frame writes now call
+the exact 61-byte `SetUpdateTimerCurrent` copy at `0x00403280`, distinct from
+`ZunTimer::SetCurrent` at `0x00403240`. `AnmManager::GetVmById` (`0x00467420`, 89 bytes) and `ResolveAnmVmId`
+(`0x00467780`, 21 bytes) are both now exact via natural `struct AnmId` by-value
+(`AnmManager::GetVmById(AnmId)` in `src/AnmManager.cpp` and
+`AnmHelpers::ResolveVmIdPtr` in `src/AnmHelpers.cpp`). The old unused-ECX
+shim unit has been removed; `anm-manager-get-vm-by-id` is the canonical lookup.
+Opcode 45 is confirmed as `acos` by the target `__CIacos` call.
+An earlier retained `AnmVm::Update` measurement, before the child member-return changes, was
+13,628 bytes vs 13,604 target (3,721 vs 3,769 instructions; 286 vs 289 calls,
+283 vs 286 direct). The opcode-40 world/UI branches now preserve both target
+`Rng::GetU32` calls, and opcode 102 preserves both target `BindAnmFile` calls.
+The remaining three direct-call deficit is `SpawnChildVm`: target has five
+callsites while LTCG folds the four list-mode handlers (88/91/90/92) into one
+candidate call, leaving two total. `SpawnChildVmAtPosition` remains 2/2. The
+float/integer operand-address helper counts are 11/14 candidate vs 12/13
+target. The random-float call is the exact 52-byte `Rng::GetFloat(float scale)`
+leaf at `0x0040D130` (target inventory label `Rng::GetFloatScaled`);
+`Rng::GetU32` is an exact 149-byte leaf with eight mapped relocations. The
+`SpawnChildVm` member is now 293 bytes vs the complete 266-byte target
+in the script context; its registration return ABI and control flow remain frontiers. Opcodes 40 and 41
+select the world/UI RNG in separate branches; opcode 41 uses the exact
+`Rng::GetFloat(float scale)` leaf at 0x0040D130. Opcodes 17, 27 and 42..46
+share the target float-result store, opcode 47 uses `AddAngles(angle, 0)`, and
+opcode 113 plus mode-13/14 geometry preserve the target angle-normalization
+call paths. `NormalizeAngle` (144 bytes) and `AddAngles` (153 bytes) now both
+replay exact as natural C++ normal-COFF leaves, including the float-rounded
+negative-pi bound and x87-preserved initial sum in `AddAngles`. The integer/float
+source and destination resolver call counts now match the target (82/93 and
+13/12). Opcode 98 retains four calls to the exact
+coordinate helper; the per-frame view-mode refresh uses inline coordinate
+divisions and lower-bound clamps, as in the target. The view-mode interpolation
+now retains the target's two world/UI call sites plus the position-transition
+call (three `InterpolateVector` calls). Two timer-reset call sites remain
+coalesced by the candidate compiler, leaving 284 direct calls versus 286 in
+the target. The separately tracked `InterpolateColorVector` mode-8 helper now
+uses a float-rounded normalized time and materializes its twelve converted
+Hermite terms in target basis order; its current candidate is 650 bytes versus
+the 721-byte target and remains a frontier. `ZunTimer::Increment` has been
+moved out of line and replayed exact as an 88-byte linked-PE leaf. Continue
+comparing the full control flow, branch ordering and side effects; do not mark
+the boss exact from source presence or code size.
+
+Primary evidence:
+- .analysis/anm-vm-update-target.txt
+- .analysis/anm-vm-update-full.asm
+- .analysis/anm-vm-update-boss.asm
+- .analysis/anm-vm-update-helpers.txt
+- .analysis/anm-vm-update-leaves.txt
+
+### Related ANM source
+
+| Source | Scope | Status |
+| --- | --- | --- |
+| src/AnmVmScript.cpp | wait commands, opcode dispatcher, ready-instruction loop, view corners, easing and timer reset helpers | 8 owners exact (`EaseTransition`, 3 timer resets, `SetUpdateTimerCurrent`, positioned child creation, both resource binders); `AnmVm::Update` frontier |
+| src/AnmVmTransitions.cpp | transition setup (`SetScaleTransition`, `SetSecondaryScaleTransition`, `SetSecondaryEffectState`, color/effect setup) | 5 exact (`0x0045E080`, `0x0045E190`, `0x0045E240`, `0x0045E2C0`, `0x0045E4D0`); primary-effect frontier |
+| src/AnmVmEffects.cpp | render-state sync, world matrices, sprite/fog/primitive draw paths, effect 10 | 5 exact normal-COFF owners; renderer paths frontier |
+| src/AnmVmOperands.cpp | four operand resolver owners (`0x00459900..0x00459CE0`) | 4/4 exact (linked PE) |
+| src/AnmVmResource.cpp | `NormalizeAnmCoordinates` (`0x00459D50`) | exact (linked PE) |
+| src/AnmManager.cpp | VM lookup, allocation, list cleanup, draw grouping, tick callbacks, `FlushSpriteBatch`, preload, 23 `DrawLayer*` callbacks | 35 exact (linked PE); DrawVmGroup, world update and interrupt frontiers remain |
+| src/AnmLoading.cpp | first-stage ANM load, external texture caching, inline resource constructor contribution | constructor exact (linked PE); loader/cache frontiers |
+| src/AnmFinalization.cpp | resolved sprite installation, one-entry finalization and pending-resource scheduler | `SetSprite` (145B) and scheduler (140B) exact; finalizer frontier |
+| src/AnmTextureLoading.cpp | seven texture creation/loading/upload methods, format fallback, neighbor accumulation and transparent RGB repair | 7 owners exact (334B); 6 frontiers including the full 1,774B repair |
+| src/HelpInf.cpp | help viewer lifecycle/update, UI VM creation, page/resource worker bodies and Chain callbacks | 6 owners exact (151B); Create, Initialize, Shutdown, Update, UI helper and resource worker frontiers |
+| src/AnmDraw.cpp | draw dispatch, position, fog/state, sprite submission/append, rectangles/borders and buffer reset | fog Enable/Disable, ApplyState and AppendSprite exact (662B); remaining owners frontier |
+| src/AnmViewport.cpp | 2D camera matrices and float tangent | compiler/header tangent exact (31B, excluded from authored totals); camera frontier |
+| src/SupervisorFrame.cpp | adaptive, timed and vsync calc/draw entry points | 3 frontiers; real Present/screenshot/recovery family linked |
+| src/SupervisorDevice.cpp | release/recreate render-target textures across all 38 ANM slots | 2 exact (289B) |
+| src/SupervisorSurfaces.cpp | level-zero surface acquisition, three VM bindings and fallback viewport copy | exact (217B) |
+| src/SupervisorPresent.cpp | adaptive/immediate/sleep presentation and device-loss recovery | immediate/sleep exact (504B); adaptive frontier (653B / two ordinary bytes) |
+| src/SupervisorRenderState.cpp | initial D3D9 render/stage/sampler states and ANM cache invalidation | exact (802B) |
+| src/SupervisorScreenshot.cpp | screenshot trigger, BMP pixel capture and asynchronous stream writer | capture/writer exact (872B); handler frontier |
+| src/SupervisorSurfaceCopies.cpp | four queued back-buffer rectangle copies into ANM textures | frontier (369/371B) |
+| src/AnmResource.cpp | `Release`, `AnmTextureEntry::Release`, `CreateVm` | 2 exact (linked PE); `CreateVm` frontier |
+| src/AnmVmUpdateWrapper.cpp | manager binding update wrapper (`0x00407080`) | 20-byte target frontier; 5-byte GL body, 15-byte normal-COFF body |
+| src/AnmHelpers.cpp | `ResolveAnmVmId` and 31 `AnmId`/VM/child/rotation/draw helpers (`0x00467570..0x00468100`) | 31 exact (linked PE); DrawSingleVm credit withdrawn; `ClearD3DTexture*` frontiers |
+| src/AnmInterp.cpp | `AnmInterp<T>` template (`AnmColor3`/`float`/`int`/`ZunVec2`) and vector/angle/color helpers (`0x0045D330..0x0045E76F`) | 39 exact (linked PE) + frontiers |
+| src/Rng.cpp | RNG primitives and scaled overloads | exact (linked PE) |
+
+The two world-matrix paths are deliberately separate in
+AnmVm::UpdateWorldMatrix:
+- applyAlignment == true: anchor-adjusted path associated with target
+  FUN_00460DD0 (0x00460DD0).
+- applyAlignment == false: copy cached matrix then add VM translation,
+  associated with target FUN_004609C0 (0x004609C0).
+
+These are reverse-engineering hypotheses implemented in C++; neither path
+has an accepted exact owner replay yet.
+
+### Exact ANM owners
+
+`config/matches.csv` now contains **149 exact owners with an ANM module**:
+39 `AnmInterp`, 36 `AnmHelpers`, 16 `AnmVm`, 36 `AnmManager`,
+9 `AnmResource`, 5 `AnmVmEffects`, 4 `AnmVmScript`, and 4 `AnmGraphics`, counted
+through the maintained module in `config/functions.csv`. Do not expand this list
+from source presence or successful compilation; only accepted rows in
+`config/matches.csv` count as exact.
+
+### Natural-source cleanup decision (archived)
+
+The synthetic renderer and binding probe bodies are removed. The resulting
+25 caller mismatches are retained as source frontiers rather than restoring
+volatile argument-address tricks or fake returns to regain credit. Recover
+their actual private ABI through the real draw leaves and link context.
+
+The target helper ZunVec3::SetPolarXY at 0x00432E20 uses x87 FSINCOS. Its
+former inline-assembly implementation has been replaced with natural C++
+cos/sin calls, and its exact ledger row was withdrawn. This deliberately
+reduces the exact count; do not restore inline assembly to recover that count.
+The target codegen mismatch is an honest frontier. The four laser slot-0
+callers remain frontiers as well.

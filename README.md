@@ -42,7 +42,7 @@ timestamp is 2010-08-03, before the game's August 2010 release.
 ```bash
 scripts/repo-python scripts/verify-target.py
 scripts/repo-python scripts/validate-tracking.py --require-target
-scripts/repo-python scripts/verify-toolchain.py --execute
+scripts/repo-python scripts/verify-toolchain.py --check
 ```
 
 PE linker 10.0 and Rich build-30319 records identify **Visual C++ 2010 RTM**
@@ -75,13 +75,15 @@ runtime-validated.
 
 Only rebuild and compare affected complete owners and their dependencies.
 Create coherent local checkpoints with the required format
-`gpt-web: <English summary>` and preserve existing dirty/untracked work.
+`gpt-6.1-sol: <English summary>` and preserve existing dirty/untracked work.
 `config/build.toml` records open whole-product questions; exact functions do
 not establish that graph.
 
-Use `python3 scripts/ci.py` for fast syntax/public-file, ledger, build
-declaration and whitespace checks. This is also the GitHub Actions command.
-`python3 scripts/ci.py --full` adds the synthetic Oracle suites.
+`python3 scripts/ci.py` is the GitHub Actions syntax/public-file, ledger,
+build-declaration and whitespace check; `--full` adds the synthetic Oracle
+suites. These broad commands are available for relevant repository/tooling
+changes or an explicit request. Ordinary documentation cleanup needs diff
+review only; reconstruction uses affected complete-owner comparisons.
 
 ## Required phase order
 

@@ -19,20 +19,30 @@ compiler or Capstone.
 | Attest Ghidra project | `scripts/repo-python scripts/ghidra.py check` |
 | Query Ghidra | `scripts/repo-python scripts/ghidra.py query .analysis/q.txt OPERATION ARGS...` |
 | Decompile | `scripts/repo-python scripts/ghidra.py decompile .analysis/f.c 0x0047460E` |
-| Compile a probe | `scripts/compile-probe.sh SOURCE build/probes/x.obj /TP /O2 /Isrc` |
+| Compile a probe | `scripts/compile-probe.sh SOURCE build/probe/x.obj /TP /O2 /Ob1 /Oy- /Gy /MT /Isrc /GL` |
 | Build exact unit | `scripts/repo-python scripts/build-match-unit.py --unit NAME` |
 | Compare normal COFF unit | `scripts/repo-python scripts/compare-coff-function.py --unit NAME --json` |
 | Compare linked unit | `scripts/repo-python scripts/compare-linked-function.py --unit NAME` |
 | Cold-replay affected units | `scripts/repo-python scripts/replay-exact-units.py --source PATH` |
 | Classify CRT/STL code | `scripts/repo-python scripts/scan-library-code.py` |
-| Record a source mapping / exact claim | `python3 scripts/record-source.py UNIT --module M --convention C --signature S --notes N --boundary B [--exact EVIDENCE]` |
+| Record a source mapping / exact claim | `scripts/repo-python scripts/record-source.py UNIT --module M --convention C --signature S --notes N --boundary B [--exact EVIDENCE]` |
 | Side-by-side COFF diff (diagnostic) | `scripts/repo-python scripts/diff-coff-target.py OBJ SYMBOL ADDR SIZE` |
 | Side-by-side linked-PE diff (diagnostic) | `scripts/repo-python scripts/diff-linked-target.py BUILD_DIR SYMBOL ADDR SIZE` |
-| Name import slots | `python3 scripts/import-slots.py 0x0049A254 ...` |
+| Name import slots | `scripts/repo-python scripts/import-slots.py 0x0049A254 ...` |
 | List a linked owner's fields (for `linkages`) | `scripts/repo-python scripts/linked-fields.py BUILD_DIR SYMBOL SIZE` |
-| Callers and strings of a function | `python3 scripts/function-context.py ADDR...` (needs `ghidra.py architecture`) |
+| Callers and strings of a function | `scripts/repo-python scripts/function-context.py ADDR...` (needs `ghidra.py architecture`) |
 | Capture original title screen | `scripts/capture-title-screen.sh [OUTPUT.png]` |
 | Public checks | `python3 scripts/ci.py` (`--full` adds the synthetic Oracle suites) |
+
+Use the selected unit's full profile and support profiles when compiling;
+the probe example is a game-code `/GL` profile, not a replacement for every
+owner's recipe. `--source` selects exact owners by primary source; name
+frontiers and other affected consumers explicitly with `--unit`. Record an
+exact claim only after its strict comparator has passed.
+
+Session recovery uses `verify-toolchain.py --check`. Use `--execute` for a
+bounded toolchain smoke when setup/tool changes require execution, rather
+than for ordinary notes or every checkpoint.
 
 ## Local tool selection
 
@@ -96,5 +106,7 @@ deleted afterwards). It answers the first-start display dialog
 with *window 640×480*, and crops the client area to `resources/title-screen.png`.
 It uses the separate `.tools/wineprefix-runtime` prefix and a scratch
 directory of links under `.analysis/runtime/`, so game configuration and
-scores never land in `resources/` or the compiler prefix. Wine 9.0's D3D9 and
-builtin `d3dx9_42` render the title and attract demo correctly.
+scores never land in `resources/` or the compiler prefix. The retained
+title/attract capture used Wine 9.0's D3D9 and builtin
+`d3dx9_42`; this is historical runtime evidence for the original, not proof
+that the reconstructed native product runs.

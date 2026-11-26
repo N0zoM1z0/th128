@@ -5,7 +5,7 @@
 #include <stddef.h>
 
 // Partial view of the contiguous scratch-image state at 0x004B4ED0.
-// The GDI initialization and destruction owners remain unreconstructed.
+// GDI image/font lifetime is maintained separately in TextImageLifetime.cpp.
 struct TextImageState
 {
     D3DFORMAT format;

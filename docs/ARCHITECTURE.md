@@ -44,42 +44,26 @@ mode dialog (fullscreen 640×480, window 640×480, 960×720, 1280×960).
 
 ## Maintained source
 
-| Source | Owners | State |
-| --- | --- | --- |
-| `src/TimeScale.cpp` | `SetTimeScale` `0x00407310` | exact (linked PE) |
-| `src/ZunTimer.cpp` | `ZunTimerModulo` `0x00402B20`; `SetCurrent` `0x00403240`, `SetCurrentF` `0x00432C40`, `Increment` `0x00402AC0`; comparison operators `<` `0x00402C40`, `<=` `0x00407130`, `>=` `0x004073B0`, `==` `0x00407E70`, `>` `0x00410CD0` | exact (linked PE) |
-| `src/AnmVmSetters.cpp` | `AnmVmSetScale` `0x00402C20`, `SetScaleX` `0x00407040`, `SetScaleY` `0x00407020`, `SetScale2` `0x00402C00`, `SetUvScroll` `0x00402B60` | exact (linked PE) |
-| `src/PbgFile.cpp` | `Pbg::File` Open `0x0044FE00`, Close/Read/Write/Tell/GetSize/Seek `0x0044FFB0..0x004500D5`, ReadWhole `0x004500E0`, `~File` `0x0044FDD0`, scalar deleting destructors of `File` `0x0044FD80` and `IFile` `0x00450210` | exact (normal COFF) |
-| `src/PbgMemFile.cpp` | `Pbg::MemFile` Close/Read/Write/Tell/GetSize, `~MemFile` `0x00450EC0`, scalar deleting destructor `0x00450E70` | exact (normal COFF); `Seek` `0x00450FE0` frontier |
-| `src/AnmVm.cpp` | `AnmVm::AnmVm` `0x004031A0` | exact (normal COFF) |
-| `src/PbgArchive.cpp` | `Pbg::ArchiveEntry` constructor `0x0044FD20` and destructor `0x0044FCB0`, `Pbg::Archive::Open` `0x0044F5F0`, `Close` `0x0044F730`, `~Archive` `0x0044F5E0`, `ParseArchiveDirectory` `0x0044FB20` | exact (linked PE) |
-| `src/DebugLog.cpp` | `DebugPrint` `0x0044FD30` | exact (normal COFF) |
-| `src/BlockCipher.cpp`, `src/Lzss.cpp` | `DecryptBlocks` `0x00469A00`, `DecompressLzss` `0x00450860` | frontiers (linked PE, archive context) |
-| `src/WindowProc.cpp` | `WindowProc` `0x00454420` | exact (normal COFF) |
-| `src/GameWindow.cpp` | `CreateGameWindow` `0x00455320` | frontier (normal COFF) |
-| `src/LaserData.cpp` | `LaserDataInf` 24 virtual defaults `0x004299D0..0x00429B52` | exact (normal COFF) |
-| `src/LaserPoint.cpp` | `ZunVec3::SetPolarXY` `0x00432E20` (natural C++ frontier); four laser slot-0 point methods `0x00429BF0..0x00429D59` | target FSINCOS codegen unmatched; slot 0 frontiers |
-| `src/Spt.cpp` | `SptInf` five defaults and the scalar deleting destructor `0x00414630` | exact (normal COFF) |
-| `src/AngleMath.cpp` | `NormalizeAngle` `0x0046A700`, `AddAngles` `0x0046A660` | exact (normal COFF) |
-| `src/MenuCursor.cpp` | `MenuCursor::Push` `0x0046A900`, `Pop` `0x0046A940`, `Move` `0x0046A970` | exact (linked PE, 3/3) |
-| `src/Rng.cpp` | `Rng::GetU16` `0x0046A3F0`, `GetU32` `0x0046A460`, `GetFloat`/`GetFloatSigned`/`GetAngle` `0x0046A5D0..0x0046A65E`, `GetFloat(float)` `0x0040D130` | exact (linked PE) |
-| `src/SupervisorTime.cpp` | `GetElapsedSeconds` `0x00455160` | exact (linked PE, 1/1) |
-| `src/SoundManager.cpp` | `SoundManager` / `SfxChannel` `0x00458410..0x0045921F` (17 functions) | exact (linked PE, 17/17) |
-| `src/ThreadInf.cpp` | `ThreadInf` / `Supervisor` lock helpers `0x0046AC80..0x0046ADF3` (8 functions) | exact (linked PE, 8/8) |
-| `src/Chain.cpp` | `Chain` / `ChainElem` list and registration helpers `0x00468130..0x004688EC` (13 exact) | mixed (13 exact, 5 `CutImpl`/caller frontiers) |
-| `src/FileSystem.cpp` | `FileSystem` read/write/path helpers (7 exact) | mixed (7/8 exact, linked PE) |
-| `src/GameErrorContext.cpp` | `GameErrorContext` logging helpers (2 exact) | exact (linked PE, 2/2) |
-| `src/EngineUtil.cpp` | engine utility leaves (2 exact) | mixed (2/5 exact, linked PE) |
-| `src/Input.cpp` | `InitJoypad`, `MapJoyButtonByte`/`Bit`, `UpdateInputSlot`, `PollKeyboardState`, `ClearKeyboardState` (6 exact) | mixed (6/8 exact, linked PE) |
-| `src/CoreMath.cpp` | `Vec2LengthSq`, `ShortestAngleDifference2`, `SetGlobalMatrix4x4`, time-scale/chain leaves (11 exact) | mixed (11/14 exact, linked PE) |
-| `src/CSoundManager.cpp` | `CSoundManager`, `CSoundView`, `CWaveFileView` DirectSound layer (25 exact) | mixed (25/29 exact, linked PE) |
-| `src/EclResource.cpp` | `SptResourceInf::LoadIncludes` `0x00414680` (exact), `Load` `0x004703F0` (frontier) | normal COFF |
-| `src/AnmManager.cpp` | `GetVmById` `0x00467420`, `FlushSpriteBatch` `0x0045EF60`, `CleanupVm` `0x00466F60`, `DrawVmGroup` `0x00466CE0`, `MarkResourceVmsForDelete` `0x00467710`, `AreAllAnmsLoaded`, `ReleaseAnm`, `IsPoolVm`, 23 `DrawLayer*` callbacks (31 exact) | mixed (31 exact linked PE + frontiers) |
-| `src/AnmResource.cpp` | `AnmResource::AnmResource` `0x00468110`, `Release` `0x00465F60`, `AnmTextureEntry::Release` `0x00466060` | mixed (3 exact linked PE + `CreateVm` frontier) |
-| `src/AnmHelpers.cpp` | `ResolveAnmVmId` `0x00467780` and 31 `AnmId`/VM/child/rotation/draw helpers `0x00467570..0x00468100` | mixed (32 exact linked PE + `ClearD3DTexture*` frontiers) |
-| `src/AnmInterp.cpp` | `AnmInterp<T>` (`AnmColor3`/`float`/`int`/`ZunVec2`) methods + vector/angle/color helpers `0x0045D330..0x0045E76F` | mixed (39 exact linked PE + frontiers) |
-| `src/AnmVmOperands.cpp` | four operand resolvers `0x00459900..0x00459CE0` | exact (linked PE, 4/4) |
-| `src/AnmVmResource.cpp` | `NormalizeAnmCoordinates` `0x00459D50` | exact (linked PE) |
-| `src/AnmVmEffects.cpp` | `StartAnmVmEffect06` `0x00412C80`, four empty effect-table slots `0x00412B30..0x00412E00`, plus `ApplyAnmVmRenderState` / world-matrix / draw paths | mixed (5 exact normal COFF + frontiers) |
-| `src/AnmVmScript.cpp` | `EaseTransition` `0x0046B190`, `ResetTransitionTimer` `0x00406F80`, `ResetScalarTransitionTimer` `0x0040CEA0`, `ResetViewTransitionTimer` `0x0045DAD0`, `SetUpdateTimerCurrent` `0x00403280`; `AnmVm::Update` `0x00459D90` (13,604B) | mixed (5 exact linked PE; `Update` frontier) |
-| `src/AnmVmTransitions.cpp` | `SetScaleTransition` `0x0045E190`, `SetSecondaryScaleTransition` `0x0045E080`, `SetSecondaryEffectState` `0x0045E240`; `SetColorTransition`/`SetEffectState` | mixed (3 exact linked PE + frontiers) |
+The current source mappings and signatures are in
+[functions.csv](../config/functions.csv), exact acceptance is in
+[matches.csv](../config/matches.csv), and build/comparison recipes are in
+[match-units.toml](../config/match-units.toml). These ledgers supersede older
+per-file totals. [PROGRESS.md](PROGRESS.md) is the generated aggregate.
+The handoff carries the current work and next command; the knowledge base
+retains target/compiler findings and failed hypotheses.
+
+The active families at the 2026-11-26 handoff are:
+
+| Source family | Current evidence |
+| --- | --- |
+| `TextImageLifetime.cpp` | Five exact image/font creation and destruction owners, 1,139B / 80 fields |
+| `TextTexture.cpp`, `AnmText.cpp` | Four scratch-image/text backend candidates and four VM-text candidates; all remain frontiers |
+| `CardInf.cpp`, `CardInfActions.cpp`, `AsciiInf.cpp`, `PopupNotifications.cpp` | Mixed lifecycle/drawing/score exact owners and activation/notification frontiers; see current handoff |
+| `SupervisorFrame.cpp`, `SupervisorPresent.cpp`, screenshot/surface/device owners | Mixed exact helpers and complete frame/camera/Present frontiers; retained findings are in the knowledge base |
+| `AnmVmScript.cpp`, `AnmManager.cpp`, ANM helper/resource/draw owners | Exact leaves and callbacks alongside larger unresolved owners; archived ANM frontier detail is in RE_CHECKPOINT_NOTES.md |
+
+This is a navigation map. Source presence and an exact subset do not prove
+native product closure or runtime behavior. Historical phase totals and
+older per-owner measurements remain in
+[RE_CHECKPOINT_NOTES.md](RE_CHECKPOINT_NOTES.md); use current ledgers before
+turning them into a present-tense status claim.

@@ -18,13 +18,14 @@ For each coherent subsystem:
    or incorrect calling conventions.
 4. For a linked owner, configure a `linked-pe` unit with the complete public
    contribution and every reviewed field. For a normal-COFF owner, recover the
-   decorated symbol's complete extent and exhaustive relocation list. Add a
-   canonical unit only when its complete zero-difference replay reproduces.
+   decorated symbol's complete extent and exhaustive relocation list.
+   Source candidates may have `frontier = true` recipes. Remove that flag
+   and enter `matches.csv` only after the complete zero-difference replay.
 5. Replay only affected canonical exact units and directly impacted
    dependencies; do not run a full cold replay for routine changes. Update
    ledgers and generated progress only when those inputs change, review the
    diff, and checkpoint substantive work as
-   `gpt-web: <English summary>`.
+   `gpt-6.1-sol: <English summary>`.
 
 Static CRT and STL code (`libcmt.lib`, `libcpmt.lib`) is classified with
 `scan-library-code.py` against the pinned VC10 archives rather than

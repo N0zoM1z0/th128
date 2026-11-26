@@ -122,7 +122,7 @@ output, credentials or private endpoints. Do not run `git clean -fdx`: it
 deletes the ignored target, prefix and project.
 
 Create concise local commits after substantive advances using the required
-format `gpt-web: <English summary>`. Cold-replay only changed exact units and
+format `gpt-6.1-sol: <English summary>`. Cold-replay only changed exact units and
 directly affected dependencies; never run a full cold replay for routine
 source work. Refresh tracking/progress only when the relevant ledgers change,
 and finish with `git diff --check`. Report local checkpoints separately from
