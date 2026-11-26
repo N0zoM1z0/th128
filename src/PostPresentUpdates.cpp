@@ -75,7 +75,7 @@ void __cdecl UpdatePostPresentReplay()
     {
         if ((state->flags & 0x80U) == 0)
         {
-            state->pauseStarted = GetElapsedSeconds();
+            state->activeStartedAt = GetElapsedSeconds();
             state->flags |= 0x80U;
         }
         return;
@@ -83,8 +83,8 @@ void __cdecl UpdatePostPresentReplay()
     if ((state->flags & 0x80U) == 0)
         return;
 
-    state->previousFrameMarker = state->frameMarker;
-    const double elapsed = GetElapsedSeconds() - state->pauseStarted;
+    state->completedFrameCount = state->activeFrameCount;
+    const double elapsed = GetElapsedSeconds() - state->activeStartedAt;
     state->duration = elapsed;
     const double remainder = fmod(elapsed, 0.0167);
     state->duration = elapsed - remainder;
@@ -100,7 +100,7 @@ void __cdecl UpdatePostPresentReplay()
     state->encodedDuration = ((seconds + hundredths + 22) * 1000 + (seconds + 66) % 1000) * 100
         + (hundredths + 33) % 100;
 
-    const int sampleIndex = state->pauseSampleIndex;
+    const int sampleIndex = state->durationSampleIndex;
     if (GameplayState()->replayMode == 0)
     {
         unsigned char *stream = reinterpret_cast<unsigned char **>(
@@ -115,5 +115,5 @@ void __cdecl UpdatePostPresentReplay()
         if (state->HasInvalidDurationCode())
             state->encodedDuration = 0x06AD1584; // Encoded 999.99-second fallback.
     }
-    ++state->pauseSampleIndex;
+    ++state->durationSampleIndex;
 }

@@ -1,6 +1,6 @@
 # TH128 reconstruction handoff
 
-Snapshot: 2026-11-26 (CardInf identified; active-duration update and chain activation exact). Read this first, then AGENTS.md.
+Snapshot: 2026-11-26 (CardInf Initialize/Create/Destroy exact; complete lifecycle source and active-interval fields). Read this first, then AGENTS.md.
 
 ## Resume safely
 
@@ -36,12 +36,12 @@ canonical ledgers. At this snapshot:
 | Boundary reviewed / provisional | 3,452 / 64 |
 | Origin rows pending | 21 |
 | Authored / excluded / indeterminate | 2,226 / 1,269 / 0 |
-| Source-present mappings | 422 |
-| Source-present with authored origin | 413 |
-| Authored source-present exact backlog | 79 |
-| Canonical exact functions | 343 |
-| Canonical exact codegen bytes | 23,642 |
-| Canonical exact authored bytes | 23,282 |
+| Source-present mappings | 426 |
+| Source-present with authored origin | 417 |
+| Authored source-present exact backlog | 80 |
+| Canonical exact functions | 346 |
+| Canonical exact codegen bytes | 24,050 |
+| Canonical exact authored bytes | 23,690 |
 
 The candidate inventory is not proven complete. The 21 remaining pending origin
 rows are unreferenced `d3dx9math.inl` candidates (all 16 CRT-band boundary-review
@@ -79,44 +79,41 @@ are not over-inlined; address-taken probe pointers prevent interprocedural
 
 ## Latest advance (2026-11-26)
 
-The singleton at `0x004B8934` is **CardInf**, identified by `card.anm`,
-`shutdown CardInf` and `src\game\card.cpp` target strings. Its factory
-allocates 0xC0 bytes. `CardInf.hpp` replaces the old `ReplayPauseState`
-layout hypothesis and exposes the observed chains, VM IDs, embedded timer,
-active-interval timing fields and slot-37 ANM resource. The typed global is now
-`g_CardInf`; current bindings and source mappings use that identity.
+CardInf now has source for Initialize, Shutdown, Create and Destroy.
+**Initialize** (`0x0040D540`, **285B / 12 fields**), **Create**
+(`0x0040D7B0`, **94B / 6 fields**) and **Destroy** (`0x0040D830`,
+**29B / 3 fields**) are newly exact under unchanged VC10 RTM
+`/GL /Ob1 /Oy-` owner flags. The constructor naturally emits the timer-bit
+clear, 0xC0-byte memset, lifecycle flag 2 and singleton publication inside
+Create; no separate constructor extent is claimed.
 
-`UpdatePostPresentReplay` (`0x0040DA50`, **382B / 16 fields**) is newly
-exact with the unchanged VC10 RTM `/GL /Ob1 /Oy-` primary profile.
-The successful source shares the sample index, keeps direct table accesses
-inside record/playback branches and increments the object field once after
-the join. The compiler naturally increments memory after the pure
-integer checksum; no fake effects or clobbers are used. Unifying only the
-increment gives 388B; retaining a common storage local with the shared
-index gives a wrong 382B. Keep the complete successful pattern and the
->= 0.00835 quantization tie.
+The missing-resource path calls ordinary **Log at 0x0046A250**, not Fatal
+at 0x0046A320. The first source used Fatal and emitted 290B/92B Init/Create.
+Correcting the actual callee alone restores the private EDI receiver and
+factory EDI save/restore, closing both owners without an ABI declaration
+change. Preserve this call identity and the CP932 error literal.
 
-`CardInf::EnableChains` (`0x0040D680`, **35B / 1 field**) is also newly
-exact. It enables each non-null calc/draw element with flag 2, assuming the
-singleton exists. FPS 256B and renamed CardInf checksum 81B also pass.
-The affected scope is twelve owners in five cold contexts. Screenshot
-capture/writer contexts have no changed inputs.
-All seven exact owners pass (five retained and two new); the other five
-remain rejected frontiers. Adaptive Present still differs at +90/+92.
-See the [finding](KNOWLEDGE_BASE.md#cardinf-identity-and-exact-active-duration-update-2026-11-26),
-[complete results](../.analysis/card-pause-final-results.json) and
-[affected scope](../.analysis/card-pause-final-scope.json).
-Earlier source hypotheses and negative probes remain in the
-[prior checkpoint](KNOWLEDGE_BASE.md#post-present-frame-accounting-and-replay-pause-timing-2026-11-26).
+**Shutdown** (`0x0040D6B0`) covers the full 249B / 27 fields but remains
+unmatched at ordinary bytes **+118/+120/+202/+204**. The target CutImpl
+calls use element/chain in EDX/ECX; the real compiled Chain body currently
+expects EAX/EDX. All fields replay. Investigate real Chain call context
+and ownership; keep the natural interface and fixed profiles.
 
-The next CardInf source owners are Initialize `0x0040D540` (285B),
-Shutdown `0x0040D6B0` (249B), Create `0x0040D7B0` (94B) and Destroy
-`0x0040D830` (29B). Their target bodies and callbacks are already reviewed;
-these four do not yet have maintained source or exact credit. The timed
-interval is CardInf activity: the start/end paths set/clear flag 1 and
-the 507B update advances its frame count and bonus. The legacy `pause*`
-member names and old flag comment still need renaming with that header edit;
-do not infer a game-pause state from those labels.
+The CardInf header now has typed IDs, name/position fields and neutral
+active-interval names; the old pause member names and flag comment are
+removed. Card primary has 39 source inputs; the three frame/viewport/Present
+contexts share 38. The complete affected replay covers sixteen owners in
+five cold contexts: ten exact passes (seven retained and three new), six
+rejected frontiers. Native product closure remains unproved.
+[Finding](KNOWLEDGE_BASE.md#cardinf-lifecycle-and-ordinary-error-logging-2026-11-26),
+[complete results](../.analysis/card-lifecycle-final-results.json),
+[affected scope](../.analysis/card-lifecycle-final-scope.json).
+
+The next CardInf source scopes are Update `0x0040D850` (507B) and Draw
+`0x0040DBF0` (322B), with the two 10B Chain callback bridges at
+`0x0040DD50/0x0040DD60`. They are reviewed declarations, not maintained
+callback bodies. Update's complete target is saved; review Draw before
+implementing it. Keep Shutdown's four-byte ABI frontier separate.
 
 ## Active reconstruction: AnmVm
 
@@ -283,12 +280,13 @@ callers remain frontiers as well.
 
 ## Next useful work (Phase 3+)
 
-1. **Continue the real CardInf/frame context**: reconstruct CardInf setup,
-   shutdown and factory/destroy from the reviewed lifecycle bodies. Retain
-   the exact active-duration update, chain activation, FPS and checksum
-   owners. Initialization uses ANM slot 37, calc/draw priorities 26/10,
-   disabled chain flags and an embedded timer reset. Shutdown releases the
-   resource, deletes three VMs, cuts both elements and clears the singleton.
+1. **Continue the real CardInf/frame context**: implement the active Update,
+   Draw and genuine Chain callback bridges from their complete target
+   extents. Initialize/Create/Destroy, chain activation and post-Present
+   active-duration accounting are exact. Shutdown is a four-byte CutImpl
+   argument-register frontier; do not substitute a fake callee or change
+   an ABI declaration to hide it. The name buffer is +0x38, frame count
+   +0x90, tracked position +0xAC and ANM resource +0xB8.
    The three calc/draw frame
    entries, 2D camera and all three Present paths now have source. Both texture
    walkers, the 217-byte surface restoration and 802-byte D3D state setup
@@ -340,7 +338,7 @@ callers remain frontiers as well.
 5. **Next useful command after the session identity checks**:
 
    ~~~bash
-   scripts/repo-python scripts/ghidra.py decompile .analysis/card-lifecycle-hypotheses.txt 0x0040D540 0x0040D6B0 0x0040D7B0
+   scripts/repo-python scripts/ghidra.py query .analysis/card-draw-complete-review.txt review 0x0040DBF0
    ~~~
 
    The new dispatcher and small sprite wrappers are reviewed in

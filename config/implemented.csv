@@ -212,8 +212,12 @@ CWaveFileView::OpenFromMemory
 CWaveFileView::SaveFilePos
 CWaveFileView::~CWaveFileView
 CaptureSupervisorScreenshot
+CardInf::Create
+CardInf::Destroy
 CardInf::EnableChains
 CardInf::HasInvalidDurationCode
+CardInf::Initialize
+CardInf::Shutdown
 Chain::CreateAndRegisterCalc
 Chain::CreateAndRegisterCalcImmediate
 Chain::CreateAndRegisterDraw

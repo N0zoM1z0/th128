@@ -2,5 +2,10 @@
 
 extern "C" void __stdcall CardInfProbe()
 {
-    CardInf::EnableChains();
+    CardInf *card = CardInf::Create();
+    if (card != 0)
+    {
+        CardInf::EnableChains();
+        CardInf::Destroy();
+    }
 }

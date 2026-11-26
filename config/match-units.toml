@@ -7208,7 +7208,7 @@ linkages = [
 frontier = true
 artifact_kind = "linked-pe"
 source = "src/SupervisorFrame.cpp"
-support_sources = ["src/SupervisorPresent.cpp", "src/AnmViewport.cpp", "src/AnmDraw.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "src/AnmLoading.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmInterp.cpp", "src/SupervisorTime.cpp", "probes/supervisor-frame-context.cpp", "probes/anm-core-context.cpp", "src/SupervisorRenderState.cpp", "src/SupervisorSurfaces.cpp", "probes/anm-vm-update-context.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "probes/supervisor-surfaces-context.cpp", "src/SupervisorDevice.cpp", "probes/supervisor-present-context.cpp", "src/SupervisorScreenshot.cpp", "src/SupervisorSurfaceCopies.cpp", "src/FileSystem.cpp", "src/DebugLog.cpp", "src/PostPresentUpdates.cpp"]
+support_sources = ["src/SupervisorPresent.cpp", "src/AnmViewport.cpp", "src/AnmDraw.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "src/AnmLoading.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmInterp.cpp", "src/SupervisorTime.cpp", "probes/supervisor-frame-context.cpp", "probes/anm-core-context.cpp", "src/SupervisorRenderState.cpp", "src/SupervisorSurfaces.cpp", "probes/anm-vm-update-context.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "probes/supervisor-surfaces-context.cpp", "src/SupervisorDevice.cpp", "probes/supervisor-present-context.cpp", "src/SupervisorScreenshot.cpp", "src/SupervisorSurfaceCopies.cpp", "src/FileSystem.cpp", "src/DebugLog.cpp", "src/PostPresentUpdates.cpp", "src/CardInf.cpp", "src/AnmHelpers.cpp"]
 normal_support_sources = ["src/DebugLog.cpp"]
 support_profiles = { "src/SupervisorTime.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/FileSystem.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/GameErrorContext.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"] }
 output_dir = "build/match-linked/SupervisorFrame"
@@ -7255,7 +7255,7 @@ linkages = [
 frontier = true
 artifact_kind = "linked-pe"
 source = "src/SupervisorFrame.cpp"
-support_sources = ["src/SupervisorPresent.cpp", "src/AnmViewport.cpp", "src/AnmDraw.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "src/AnmLoading.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmInterp.cpp", "src/SupervisorTime.cpp", "probes/supervisor-frame-context.cpp", "probes/anm-core-context.cpp", "src/SupervisorRenderState.cpp", "src/SupervisorSurfaces.cpp", "probes/anm-vm-update-context.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "probes/supervisor-surfaces-context.cpp", "src/SupervisorDevice.cpp", "probes/supervisor-present-context.cpp", "src/SupervisorScreenshot.cpp", "src/SupervisorSurfaceCopies.cpp", "src/FileSystem.cpp", "src/DebugLog.cpp", "src/PostPresentUpdates.cpp"]
+support_sources = ["src/SupervisorPresent.cpp", "src/AnmViewport.cpp", "src/AnmDraw.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "src/AnmLoading.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmInterp.cpp", "src/SupervisorTime.cpp", "probes/supervisor-frame-context.cpp", "probes/anm-core-context.cpp", "src/SupervisorRenderState.cpp", "src/SupervisorSurfaces.cpp", "probes/anm-vm-update-context.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "probes/supervisor-surfaces-context.cpp", "src/SupervisorDevice.cpp", "probes/supervisor-present-context.cpp", "src/SupervisorScreenshot.cpp", "src/SupervisorSurfaceCopies.cpp", "src/FileSystem.cpp", "src/DebugLog.cpp", "src/PostPresentUpdates.cpp", "src/CardInf.cpp", "src/AnmHelpers.cpp"]
 normal_support_sources = ["src/DebugLog.cpp"]
 support_profiles = { "src/SupervisorTime.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/FileSystem.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/GameErrorContext.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"] }
 output_dir = "build/match-linked/SupervisorFrame"
@@ -7305,7 +7305,7 @@ linkages = [
 frontier = true
 artifact_kind = "linked-pe"
 source = "src/SupervisorFrame.cpp"
-support_sources = ["src/SupervisorPresent.cpp", "src/AnmViewport.cpp", "src/AnmDraw.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "src/AnmLoading.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmInterp.cpp", "src/SupervisorTime.cpp", "probes/supervisor-frame-context.cpp", "probes/anm-core-context.cpp", "src/SupervisorRenderState.cpp", "src/SupervisorSurfaces.cpp", "probes/anm-vm-update-context.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "probes/supervisor-surfaces-context.cpp", "src/SupervisorDevice.cpp", "probes/supervisor-present-context.cpp", "src/SupervisorScreenshot.cpp", "src/SupervisorSurfaceCopies.cpp", "src/FileSystem.cpp", "src/DebugLog.cpp", "src/PostPresentUpdates.cpp"]
+support_sources = ["src/SupervisorPresent.cpp", "src/AnmViewport.cpp", "src/AnmDraw.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "src/AnmLoading.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmInterp.cpp", "src/SupervisorTime.cpp", "probes/supervisor-frame-context.cpp", "probes/anm-core-context.cpp", "src/SupervisorRenderState.cpp", "src/SupervisorSurfaces.cpp", "probes/anm-vm-update-context.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "probes/supervisor-surfaces-context.cpp", "src/SupervisorDevice.cpp", "probes/supervisor-present-context.cpp", "src/SupervisorScreenshot.cpp", "src/SupervisorSurfaceCopies.cpp", "src/FileSystem.cpp", "src/DebugLog.cpp", "src/PostPresentUpdates.cpp", "src/CardInf.cpp", "src/AnmHelpers.cpp"]
 normal_support_sources = ["src/DebugLog.cpp"]
 support_profiles = { "src/SupervisorTime.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/FileSystem.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/GameErrorContext.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"] }
 output_dir = "build/match-linked/SupervisorFrame"
@@ -7350,7 +7350,7 @@ linkages = [
 frontier = true
 artifact_kind = "linked-pe"
 source = "src/AnmViewport.cpp"
-support_sources = ["src/SupervisorFrame.cpp", "src/SupervisorPresent.cpp", "src/AnmDraw.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "src/AnmLoading.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmInterp.cpp", "src/SupervisorTime.cpp", "probes/supervisor-frame-context.cpp", "probes/anm-core-context.cpp", "src/SupervisorRenderState.cpp", "src/SupervisorSurfaces.cpp", "probes/anm-vm-update-context.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "probes/supervisor-surfaces-context.cpp", "src/SupervisorDevice.cpp", "probes/supervisor-present-context.cpp", "src/SupervisorScreenshot.cpp", "src/SupervisorSurfaceCopies.cpp", "src/FileSystem.cpp", "src/DebugLog.cpp", "src/PostPresentUpdates.cpp"]
+support_sources = ["src/SupervisorFrame.cpp", "src/SupervisorPresent.cpp", "src/AnmDraw.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "src/AnmLoading.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmInterp.cpp", "src/SupervisorTime.cpp", "probes/supervisor-frame-context.cpp", "probes/anm-core-context.cpp", "src/SupervisorRenderState.cpp", "src/SupervisorSurfaces.cpp", "probes/anm-vm-update-context.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "probes/supervisor-surfaces-context.cpp", "src/SupervisorDevice.cpp", "probes/supervisor-present-context.cpp", "src/SupervisorScreenshot.cpp", "src/SupervisorSurfaceCopies.cpp", "src/FileSystem.cpp", "src/DebugLog.cpp", "src/PostPresentUpdates.cpp", "src/CardInf.cpp", "src/AnmHelpers.cpp"]
 normal_support_sources = ["src/DebugLog.cpp"]
 support_profiles = { "src/SupervisorTime.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/FileSystem.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/GameErrorContext.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"] }
 output_dir = "build/match-linked/AnmViewport"
@@ -7383,7 +7383,7 @@ linkages = [
 [units.anm-viewport-tangent]
 artifact_kind = "linked-pe"
 source = "src/AnmViewport.cpp"
-support_sources = ["src/SupervisorFrame.cpp", "src/SupervisorPresent.cpp", "src/AnmDraw.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "src/AnmLoading.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmInterp.cpp", "src/SupervisorTime.cpp", "probes/supervisor-frame-context.cpp", "probes/anm-core-context.cpp", "src/SupervisorRenderState.cpp", "src/SupervisorSurfaces.cpp", "probes/anm-vm-update-context.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "probes/supervisor-surfaces-context.cpp", "src/SupervisorDevice.cpp", "probes/supervisor-present-context.cpp", "src/SupervisorScreenshot.cpp", "src/SupervisorSurfaceCopies.cpp", "src/FileSystem.cpp", "src/DebugLog.cpp", "src/PostPresentUpdates.cpp"]
+support_sources = ["src/SupervisorFrame.cpp", "src/SupervisorPresent.cpp", "src/AnmDraw.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "src/AnmLoading.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmInterp.cpp", "src/SupervisorTime.cpp", "probes/supervisor-frame-context.cpp", "probes/anm-core-context.cpp", "src/SupervisorRenderState.cpp", "src/SupervisorSurfaces.cpp", "probes/anm-vm-update-context.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "probes/supervisor-surfaces-context.cpp", "src/SupervisorDevice.cpp", "probes/supervisor-present-context.cpp", "src/SupervisorScreenshot.cpp", "src/SupervisorSurfaceCopies.cpp", "src/FileSystem.cpp", "src/DebugLog.cpp", "src/PostPresentUpdates.cpp", "src/CardInf.cpp", "src/AnmHelpers.cpp"]
 normal_support_sources = ["src/DebugLog.cpp"]
 support_profiles = { "src/SupervisorTime.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/FileSystem.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/GameErrorContext.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"] }
 output_dir = "build/match-linked/AnmViewport"
@@ -7452,7 +7452,7 @@ linkages = [
 [units.supervisor-present-immediate]
 artifact_kind = "linked-pe"
 source = "src/SupervisorPresent.cpp"
-support_sources = ["src/SupervisorFrame.cpp", "src/AnmViewport.cpp", "src/AnmDraw.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "src/AnmLoading.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmInterp.cpp", "src/SupervisorTime.cpp", "probes/supervisor-frame-context.cpp", "probes/anm-core-context.cpp", "src/SupervisorRenderState.cpp", "src/SupervisorSurfaces.cpp", "probes/anm-vm-update-context.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "probes/supervisor-surfaces-context.cpp", "src/SupervisorDevice.cpp", "probes/supervisor-present-context.cpp", "src/SupervisorScreenshot.cpp", "src/SupervisorSurfaceCopies.cpp", "src/FileSystem.cpp", "src/DebugLog.cpp", "src/PostPresentUpdates.cpp"]
+support_sources = ["src/SupervisorFrame.cpp", "src/AnmViewport.cpp", "src/AnmDraw.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "src/AnmLoading.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmInterp.cpp", "src/SupervisorTime.cpp", "probes/supervisor-frame-context.cpp", "probes/anm-core-context.cpp", "src/SupervisorRenderState.cpp", "src/SupervisorSurfaces.cpp", "probes/anm-vm-update-context.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "probes/supervisor-surfaces-context.cpp", "src/SupervisorDevice.cpp", "probes/supervisor-present-context.cpp", "src/SupervisorScreenshot.cpp", "src/SupervisorSurfaceCopies.cpp", "src/FileSystem.cpp", "src/DebugLog.cpp", "src/PostPresentUpdates.cpp", "src/CardInf.cpp", "src/AnmHelpers.cpp"]
 normal_support_sources = ["src/DebugLog.cpp"]
 support_profiles = { "src/SupervisorTime.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/FileSystem.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/GameErrorContext.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"] }
 output_dir = "build/match-linked/SupervisorPresent"
@@ -7489,7 +7489,7 @@ linkages = [
 [units.supervisor-present-with-sleep]
 artifact_kind = "linked-pe"
 source = "src/SupervisorPresent.cpp"
-support_sources = ["src/SupervisorFrame.cpp", "src/AnmViewport.cpp", "src/AnmDraw.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "src/AnmLoading.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmInterp.cpp", "src/SupervisorTime.cpp", "probes/supervisor-frame-context.cpp", "probes/anm-core-context.cpp", "src/SupervisorRenderState.cpp", "src/SupervisorSurfaces.cpp", "probes/anm-vm-update-context.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "probes/supervisor-surfaces-context.cpp", "src/SupervisorDevice.cpp", "probes/supervisor-present-context.cpp", "src/SupervisorScreenshot.cpp", "src/SupervisorSurfaceCopies.cpp", "src/FileSystem.cpp", "src/DebugLog.cpp", "src/PostPresentUpdates.cpp"]
+support_sources = ["src/SupervisorFrame.cpp", "src/AnmViewport.cpp", "src/AnmDraw.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "src/AnmLoading.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmInterp.cpp", "src/SupervisorTime.cpp", "probes/supervisor-frame-context.cpp", "probes/anm-core-context.cpp", "src/SupervisorRenderState.cpp", "src/SupervisorSurfaces.cpp", "probes/anm-vm-update-context.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "probes/supervisor-surfaces-context.cpp", "src/SupervisorDevice.cpp", "probes/supervisor-present-context.cpp", "src/SupervisorScreenshot.cpp", "src/SupervisorSurfaceCopies.cpp", "src/FileSystem.cpp", "src/DebugLog.cpp", "src/PostPresentUpdates.cpp", "src/CardInf.cpp", "src/AnmHelpers.cpp"]
 normal_support_sources = ["src/DebugLog.cpp"]
 support_profiles = { "src/SupervisorTime.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/FileSystem.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/GameErrorContext.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"] }
 output_dir = "build/match-linked/SupervisorPresent"
@@ -7746,7 +7746,7 @@ linkages = [
 frontier = true
 artifact_kind = "linked-pe"
 source = "src/SupervisorPresent.cpp"
-support_sources = ["src/SupervisorFrame.cpp", "src/AnmViewport.cpp", "src/AnmDraw.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "src/AnmLoading.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmInterp.cpp", "src/SupervisorTime.cpp", "probes/supervisor-frame-context.cpp", "probes/anm-core-context.cpp", "src/SupervisorRenderState.cpp", "src/SupervisorSurfaces.cpp", "probes/anm-vm-update-context.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "probes/supervisor-surfaces-context.cpp", "src/SupervisorDevice.cpp", "probes/supervisor-present-context.cpp", "src/SupervisorScreenshot.cpp", "src/SupervisorSurfaceCopies.cpp", "src/FileSystem.cpp", "src/DebugLog.cpp", "src/PostPresentUpdates.cpp"]
+support_sources = ["src/SupervisorFrame.cpp", "src/AnmViewport.cpp", "src/AnmDraw.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "src/AnmLoading.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmInterp.cpp", "src/SupervisorTime.cpp", "probes/supervisor-frame-context.cpp", "probes/anm-core-context.cpp", "src/SupervisorRenderState.cpp", "src/SupervisorSurfaces.cpp", "probes/anm-vm-update-context.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "probes/supervisor-surfaces-context.cpp", "src/SupervisorDevice.cpp", "probes/supervisor-present-context.cpp", "src/SupervisorScreenshot.cpp", "src/SupervisorSurfaceCopies.cpp", "src/FileSystem.cpp", "src/DebugLog.cpp", "src/PostPresentUpdates.cpp", "src/CardInf.cpp", "src/AnmHelpers.cpp"]
 normal_support_sources = ["src/DebugLog.cpp"]
 support_profiles = { "src/SupervisorTime.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/FileSystem.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/GameErrorContext.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"] }
 output_dir = "build/match-linked/SupervisorPresent"
@@ -7870,7 +7870,9 @@ linkages = [
 [units.card-enable-chains]
 artifact_kind = "linked-pe"
 source = "src/CardInf.cpp"
-support_sources = ["probes/card-inf-context.cpp"]
+support_sources = ["src/SupervisorPresent.cpp", "src/SupervisorFrame.cpp", "src/AnmViewport.cpp", "src/AnmDraw.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "src/AnmLoading.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmInterp.cpp", "src/SupervisorTime.cpp", "probes/supervisor-frame-context.cpp", "probes/anm-core-context.cpp", "src/SupervisorRenderState.cpp", "src/SupervisorSurfaces.cpp", "probes/anm-vm-update-context.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "probes/supervisor-surfaces-context.cpp", "src/SupervisorDevice.cpp", "probes/supervisor-present-context.cpp", "src/SupervisorScreenshot.cpp", "src/SupervisorSurfaceCopies.cpp", "src/FileSystem.cpp", "src/DebugLog.cpp", "src/PostPresentUpdates.cpp", "src/AnmHelpers.cpp", "probes/card-inf-context.cpp"]
+normal_support_sources = ["src/DebugLog.cpp"]
+support_profiles = { "src/SupervisorTime.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/FileSystem.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/GameErrorContext.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"] }
 output_dir = "build/match-linked/CardInf"
 profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
 entry = "CardInfProbe@0"
@@ -7880,4 +7882,117 @@ target_address = 0x0040D680
 size = 35
 linkages = [
   { offset = 1, type = "DIR32", symbol = "?g_CardInf@@3PAUCardInf@@A", target = 0x004B8934 },
+]
+
+[units.card-initialize]
+artifact_kind = "linked-pe"
+source = "src/CardInf.cpp"
+support_sources = ["src/SupervisorPresent.cpp", "src/SupervisorFrame.cpp", "src/AnmViewport.cpp", "src/AnmDraw.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "src/AnmLoading.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmInterp.cpp", "src/SupervisorTime.cpp", "probes/supervisor-frame-context.cpp", "probes/anm-core-context.cpp", "src/SupervisorRenderState.cpp", "src/SupervisorSurfaces.cpp", "probes/anm-vm-update-context.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "probes/supervisor-surfaces-context.cpp", "src/SupervisorDevice.cpp", "probes/supervisor-present-context.cpp", "src/SupervisorScreenshot.cpp", "src/SupervisorSurfaceCopies.cpp", "src/FileSystem.cpp", "src/DebugLog.cpp", "src/PostPresentUpdates.cpp", "src/AnmHelpers.cpp", "probes/card-inf-context.cpp"]
+normal_support_sources = ["src/DebugLog.cpp"]
+support_profiles = { "src/SupervisorTime.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/FileSystem.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/GameErrorContext.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"] }
+output_dir = "build/match-linked/CardInf"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardInfProbe@0"
+functions = ["CardInf::Initialize"]
+symbol = "?Initialize@CardInf@@QAEHXZ"
+target_address = 0x0040D540
+size = 285
+linkages = [
+  { offset = 2, type = "DIR32", symbol = "??_C@_08OHLKIIJI@card?4anm?$AA@", target = 0x004A216C },
+  { offset = 12, type = "REL32", symbol = "?PreloadAnm@AnmManager@@SAPAUAnmResource@@HPBD@Z", target = 0x00465600 },
+  { offset = 29, type = "DIR32", symbol = "??_C@_0CP@OGEHNBIB@?$IDf?$IB?$FL?$ID?$FO?$IC?$KK?$IM?$KJ?$IC?B?$IC?$KJ?$IC?h?$IC?$NM?$IC?$LJ?$IC?q?$IBB?$IDf?$IB?$FL?$ID?$FO?$IC?$KK@", target = 0x004A2178 },
+  { offset = 34, type = "DIR32", symbol = "?g_GameErrorContext@@3UGameErrorContext@@A", target = 0x004B4F50 },
+  { offset = 39, type = "REL32", symbol = "?Log@GameErrorContext@@QAAPBDPBDZZ", target = 0x0046A250 },
+  { offset = 55, type = "REL32", symbol = "??2@YAPAXI@Z", target = 0x0047296C },
+  { offset = 119, type = "DIR32", symbol = "?OnTick@CardInf@@SIHPAX@Z", target = 0x0040DD50 },
+  { offset = 130, type = "REL32", symbol = "?RegisterCalc@Chain@@QAEHPAUChainElem@@H@Z", target = 0x004681D0 },
+  { offset = 140, type = "REL32", symbol = "??2@YAPAXI@Z", target = 0x0047296C },
+  { offset = 206, type = "DIR32", symbol = "?OnDraw@CardInf@@SIHPAX@Z", target = 0x0040DD60 },
+  { offset = 217, type = "REL32", symbol = "?RegisterDraw@Chain@@QAEHPAUChainElem@@H@Z", target = 0x00468270 },
+  { offset = 257, type = "DIR32", symbol = "?g_TimeScale@@3MA", target = 0x004B6F58 },
+]
+
+[units.card-shutdown]
+frontier = true
+artifact_kind = "linked-pe"
+source = "src/CardInf.cpp"
+support_sources = ["src/SupervisorPresent.cpp", "src/SupervisorFrame.cpp", "src/AnmViewport.cpp", "src/AnmDraw.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "src/AnmLoading.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmInterp.cpp", "src/SupervisorTime.cpp", "probes/supervisor-frame-context.cpp", "probes/anm-core-context.cpp", "src/SupervisorRenderState.cpp", "src/SupervisorSurfaces.cpp", "probes/anm-vm-update-context.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "probes/supervisor-surfaces-context.cpp", "src/SupervisorDevice.cpp", "probes/supervisor-present-context.cpp", "src/SupervisorScreenshot.cpp", "src/SupervisorSurfaceCopies.cpp", "src/FileSystem.cpp", "src/DebugLog.cpp", "src/PostPresentUpdates.cpp", "src/AnmHelpers.cpp", "probes/card-inf-context.cpp"]
+normal_support_sources = ["src/DebugLog.cpp"]
+support_profiles = { "src/SupervisorTime.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/FileSystem.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/GameErrorContext.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"] }
+output_dir = "build/match-linked/CardInf"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardInfProbe@0"
+functions = ["CardInf::Shutdown"]
+symbol = "?Shutdown@CardInf@@QAEXXZ"
+target_address = 0x0040D6B0
+size = 249
+linkages = [
+  { offset = 4, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+  { offset = 22, type = "REL32", symbol = "?Release@AnmResource@@QAEXXZ", target = 0x00465F60 },
+  { offset = 34, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+  { offset = 55, type = "REL32", symbol = "?DeleteVmByIdPtr@AnmHelpers@@YGXPAUAnmId@@@Z", target = 0x004679B0 },
+  { offset = 63, type = "REL32", symbol = "?DeleteVmByIdPtr@AnmHelpers@@YGXPAUAnmId@@@Z", target = 0x004679B0 },
+  { offset = 71, type = "REL32", symbol = "?DeleteVmByIdPtr@AnmHelpers@@YGXPAUAnmId@@@Z", target = 0x004679B0 },
+  { offset = 80, type = "DIR32", symbol = "?g_Chain@@3PAVChain@@A", target = 0x004D2E14 },
+  { offset = 90, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1432 },
+  { offset = 101, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 2072 },
+  { offset = 107, type = "DIR32", symbol = "__imp__EnterCriticalSection@4", target = 0x0049A088 },
+  { offset = 113, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 2360 },
+  { offset = 122, type = "REL32", symbol = "?CutImpl@Chain@@QAEXPAUChainElem@@@Z", target = 0x004686D0 },
+  { offset = 133, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1432 },
+  { offset = 140, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 2072 },
+  { offset = 146, type = "DIR32", symbol = "__imp__LeaveCriticalSection@4", target = 0x0049A08C },
+  { offset = 152, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 2360 },
+  { offset = 168, type = "DIR32", symbol = "?g_Chain@@3PAVChain@@A", target = 0x004D2E14 },
+  { offset = 178, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1432 },
+  { offset = 185, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 2072 },
+  { offset = 191, type = "DIR32", symbol = "__imp__EnterCriticalSection@4", target = 0x0049A088 },
+  { offset = 197, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 2360 },
+  { offset = 206, type = "REL32", symbol = "?CutImpl@Chain@@QAEXPAUChainElem@@@Z", target = 0x004686D0 },
+  { offset = 212, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1432 },
+  { offset = 219, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 2072 },
+  { offset = 225, type = "DIR32", symbol = "__imp__LeaveCriticalSection@4", target = 0x0049A08C },
+  { offset = 231, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 2360 },
+  { offset = 239, type = "DIR32", symbol = "?g_CardInf@@3PAUCardInf@@A", target = 0x004B8934 },
+]
+
+[units.card-create]
+artifact_kind = "linked-pe"
+source = "src/CardInf.cpp"
+support_sources = ["src/SupervisorPresent.cpp", "src/SupervisorFrame.cpp", "src/AnmViewport.cpp", "src/AnmDraw.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "src/AnmLoading.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmInterp.cpp", "src/SupervisorTime.cpp", "probes/supervisor-frame-context.cpp", "probes/anm-core-context.cpp", "src/SupervisorRenderState.cpp", "src/SupervisorSurfaces.cpp", "probes/anm-vm-update-context.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "probes/supervisor-surfaces-context.cpp", "src/SupervisorDevice.cpp", "probes/supervisor-present-context.cpp", "src/SupervisorScreenshot.cpp", "src/SupervisorSurfaceCopies.cpp", "src/FileSystem.cpp", "src/DebugLog.cpp", "src/PostPresentUpdates.cpp", "src/AnmHelpers.cpp", "probes/card-inf-context.cpp"]
+normal_support_sources = ["src/DebugLog.cpp"]
+support_profiles = { "src/SupervisorTime.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/FileSystem.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/GameErrorContext.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"] }
+output_dir = "build/match-linked/CardInf"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardInfProbe@0"
+functions = ["CardInf::Create"]
+symbol = "?Create@CardInf@@SAPAU1@XZ"
+target_address = 0x0040D7B0
+size = 94
+linkages = [
+  { offset = 7, type = "REL32", symbol = "??2@YAPAXI@Z", target = 0x0047296C },
+  { offset = 33, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+  { offset = 45, type = "DIR32", symbol = "?g_CardInf@@3PAUCardInf@@A", target = 0x004B8934 },
+  { offset = 57, type = "REL32", symbol = "?Initialize@CardInf@@QAEHXZ", target = 0x0040D540 },
+  { offset = 73, type = "REL32", symbol = "?Shutdown@CardInf@@QAEXXZ", target = 0x0040D6B0 },
+  { offset = 79, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+]
+
+[units.card-destroy]
+artifact_kind = "linked-pe"
+source = "src/CardInf.cpp"
+support_sources = ["src/SupervisorPresent.cpp", "src/SupervisorFrame.cpp", "src/AnmViewport.cpp", "src/AnmDraw.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "src/AnmLoading.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmInterp.cpp", "src/SupervisorTime.cpp", "probes/supervisor-frame-context.cpp", "probes/anm-core-context.cpp", "src/SupervisorRenderState.cpp", "src/SupervisorSurfaces.cpp", "probes/anm-vm-update-context.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "probes/supervisor-surfaces-context.cpp", "src/SupervisorDevice.cpp", "probes/supervisor-present-context.cpp", "src/SupervisorScreenshot.cpp", "src/SupervisorSurfaceCopies.cpp", "src/FileSystem.cpp", "src/DebugLog.cpp", "src/PostPresentUpdates.cpp", "src/AnmHelpers.cpp", "probes/card-inf-context.cpp"]
+normal_support_sources = ["src/DebugLog.cpp"]
+support_profiles = { "src/SupervisorTime.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/FileSystem.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/GameErrorContext.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"] }
+output_dir = "build/match-linked/CardInf"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardInfProbe@0"
+functions = ["CardInf::Destroy"]
+symbol = "?Destroy@CardInf@@SAXXZ"
+target_address = 0x0040D830
+size = 29
+linkages = [
+  { offset = 3, type = "DIR32", symbol = "?g_CardInf@@3PAUCardInf@@A", target = 0x004B8934 },
+  { offset = 14, type = "REL32", symbol = "?Shutdown@CardInf@@QAEXXZ", target = 0x0040D6B0 },
+  { offset = 20, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
 ]

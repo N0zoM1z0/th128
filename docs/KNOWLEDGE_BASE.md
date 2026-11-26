@@ -2774,6 +2774,9 @@ authored bytes**. The net exact gain is two functions / 337 bytes.
 
 ## CardInf identity and exact active-duration update (2026-11-26)
 
+This section records checkpoint `9bae018`. The lifecycle finding below
+supersedes the remaining legacy field names and source-presence status.
+
 The singleton at **0x004B8934 is CardInf** in original Japanese TH12.8
 v1.00a. The loader at `0x0040D540` requests `card.anm` (`0x004A216C`),
 and nearby target strings name `shutdown CardInf` (`0x004A21A8`) and
@@ -2875,6 +2878,99 @@ remain unproved.
 [Complete results](../.analysis/card-pause-final-results.json),
 [affected sources, owners and profiles](../.analysis/card-pause-final-scope.json),
 [family cold build](../.analysis/card-pause-family-cold-link.log).
+
+## CardInf lifecycle and ordinary error logging (2026-11-26)
+
+Original Japanese TH12.8 v1.00a **CardInf::Initialize** (`0x0040D540`,
+**285B / 12 address fields**), **Create** (`0x0040D7B0`, **94B / 6 fields**)
+and **Destroy** (`0x0040D830`, **29B / 3 fields**) now pass complete pinned
+VC10 RTM `/O2 /Ob1 /Oy- /GL` primary-TU comparisons. The current cold
+CardInf context has 39 sources and uses real maintained ANM, Chain and
+error-log bodies. The existing 35-byte EnableChains also passes there.
+[Complete primary comparisons](../.analysis/card-lifecycle-primary-results.json),
+[source](../src/CardInf.cpp), [layout and constructor](../src/CardInf.hpp).
+
+The ordinary **Log** call at **0x0046A250** is decisive. The independent
+exact logger is 200B; **Fatal** is the separate 193B owner at
+**0x0046A320**, which sets the context's fatal flag. The first lifecycle
+source incorrectly used Fatal on a missing `card.anm`. It produced a 290B
+initializer with an EAX receiver and a 92B factory. Correcting that call
+to Log, with the member interface and all compiler flags unchanged,
+naturally selects the target's private EDI receiver for Initialize and
+restores the factory's EDI save/restore around the call. Both complete
+owners then match. No source calling-convention change or register hint
+was needed.
+[Initial observation](../.analysis/card-lifecycle-first-initialize.json),
+[corrected diagnostic](../.analysis/card-lifecycle-log-initialize.json),
+[factory diagnostic](../.analysis/card-lifecycle-log-create.json),
+[ordinary logger source](../src/GameErrorContext.cpp).
+
+Diagnostic relinking checked the retained support objects against their
+prior receipt hashes and changed only the primary source's logging call;
+the header differed only in whitespace. Those diagnostics did not grant
+credit. The accepted results came from a new complete cold construction.
+The `card.anm` and CP932 error literals were read through attested Ghidra
+and their candidate bytes and public literal symbols checked before
+declaring the target bindings. The error string includes CR/LF.
+[Literal evidence](../.analysis/replay-pause-resource-strings.txt),
+[diagnostic recipe](../.analysis/card-lifecycle-log-relink.py),
+[cold recipe output](../.analysis/card-lifecycle-final-cold-link.log).
+
+The natural inline constructor lets the embedded ZunTimer clear its
+initialization bit first, then zeroes all 0xC0 bytes, sets lifecycle flag
+2 and publishes `g_CardInf`. These instructions belong to the factory's
+complete 94-byte contribution; no separate constructor extent is claimed.
+Create invokes Initialize, and on a nonzero result performs Shutdown and
+delete when the allocated pointer exists. Destroy guards the singleton,
+then performs Shutdown/delete. Target ordering and failure behavior are
+retained without an added allocation-failure policy.
+[Factory and shutdown target](../.analysis/replay-pause-lifecycle-review.txt),
+[bounded global-destroy span](../.analysis/replay-pause-delete-wrapper-span.txt).
+
+Initialization preloads ANM slot 37 and returns -1 after ordinary logging
+if the resource is absent. Otherwise it constructs two ChainElems, clears
+their enabled bit, sets their heap-owned bit, assigns `this` and installs
+the reviewed calc/draw callback identities. Calc priority is 26 and draw
+priority 10. It then initializes the embedded timer and writes currentF 0,
+current 0 and previous -1. The callback wrappers `0x0040DD50/0x0040DD60`
+still have only reviewed declarations in this source context; their actual
+update/draw bodies remain future reconstruction work. Undefined boundaries
+use the Oracle's existing data anchors in a non-runnable diagnostic image.
+[Complete initialization target](../.analysis/replay-pause-registration-review.txt),
+[callback ABI evidence](../.analysis/card-lifecycle-and-callback-spans.txt).
+
+Shutdown now has maintained source for all **249 bytes / 27 fields**.
+It reads the current manager's slot 37, releases and deletes that entry,
+clears the slot, deletes the three VM IDs, cuts both chain elements under
+Supervisor critical section 0 and clears `g_CardInf`. The destructor work
+uses the manager's slot, rather than the stored resource member, as in the
+target. It remains a frontier: only ordinary bytes **+118/+120/+202/+204**
+differ. At both CutImpl calls, the target passes element/chain in EDX/ECX;
+the compiled real Chain body currently receives them in EAX/EDX. All 27
+fields replay, but the four register-transfer bytes reject the whole owner.
+Original Chain linked ownership/call context remains unsettled; no ABI
+shim or altered compiler profile was introduced.
+[Complete rejection](../.analysis/card-lifecycle-primary-results.json),
+[corrected-source disassembly](../.analysis/card-lifecycle-log-shutdown.asm).
+
+The CardInf header now uses typed AnmIds, the observed name buffer and
+tracked position, and replaces `pause*` fields with active-interval names.
+The active flag and clock-started flag are documented separately. Existing
+post-Present source uses the renamed members with unchanged control flow.
+CardInf and its direct VM-ID helper source are added to the three real
+frame/viewport/Present contexts, which now share 38 inputs. This extends
+the affected scope to sixteen owners in five contexts; it does not close
+the native product or settle the original TU partition.
+
+Final comparisons cover **sixteen complete owners in five cold contexts**:
+ten exact passes (seven retained and three new) and six rejected frontiers.
+All existing affected exact owners survive the actual lifecycle/VM-helper
+integration. The ledgers now contain **426 source mappings / 346 exact
+functions / 24,050 exact bytes**, including **337 authored exact functions /
+23,690 authored bytes**. The net exact gain is three functions / 408 bytes;
+Shutdown receives no partial byte credit.
+[Complete affected results](../.analysis/card-lifecycle-final-results.json),
+[sources and profiles](../.analysis/card-lifecycle-final-scope.json).
 
 ## Open questions
 
