@@ -2662,6 +2662,112 @@ source mappings / 339 exact functions / 22,888 exact bytes**, including
 [cold family build](../.analysis/adaptive-family-current-link.log),
 [copy consumer build](../.analysis/adaptive-copy-consumer-link.log).
 
+## Post-Present frame accounting and replay pause timing (2026-11-26)
+
+Original Japanese TH12.8 v1.00a `UpdatePostPresentTiming` (`0x0041F990`,
+**256B / 8 address fields**) and `ReplayPauseState::HasInvalidDurationCode`
+(`0x0040D340`, **81B / no address fields**) pass complete pinned VC10 RTM
+`/O2 /Ob1 /Oy- /GL` primary-TU comparisons. The real replay callback at
+`0x0040DA50` also has maintained source, but remains a frontier at
+**389/382B**. No owner flags or ABI shims were introduced.
+[Timing comparison](../.analysis/post-present-timing-final-canonical.json),
+[checksum comparison](../.analysis/post-present-code-final-canonical.json),
+[source](../src/PostPresentUpdates.cpp),
+[partial layouts](../src/PostPresentUpdates.hpp).
+
+All three Present owners call both callbacks conditionally through the
+globals `0x004B894C` (frame accounting) and `0x004B8934` (replay). The
+callbacks read those globals themselves and take no stack arguments.
+The complete timing/replay spans have no external interior entries or owned
+tables; the checksum's only caller is the replay callback.
+[Attested complete owners and references](../.analysis/post-present-hooks-review.txt),
+[checksum boundary and body](../.analysis/post-present-hook-related-review.txt).
+
+The frame-accounting object's doubles are aligned to four-byte member
+boundaries: window start `+0x14`, consecutive over-65 windows `+0x1C`,
+unsigned frame count `+0x20`, effective/nominal frame totals `+0x24/+0x2C`,
+and float FPS `+0x34`. Clock rollback resets the window start. After at
+least one second, the callback advances that start by the measured interval,
+converts the **unsigned** count to float FPS, and increments or resets the
+over-65 counter. If the gameplay object at `0x004B8954` exists and its
+`+0x60` flags lack `0x14`, nominal frames increase by 60 and effective
+frames increase by 60 for rates strictly above 57, otherwise by the
+float-rounded rate. The gameplay flag `0x80` is cleared whenever that
+object exists at window completion. The count resets and then increases by
+`g_Supervisor.configFlag304E + 1`; it includes configured frame skips and
+is not simply the number of physical Presents. The callback returns 1.
+[Constants, including 2^32 for the unsigned conversion](../.analysis/post-present-hook-constants.txt).
+
+The replay object's observed fields are flags `+0x7C`, sample index
+`+0x8C`, current/previous markers `+0x90/+0x94`, pause start `+0x98`,
+temporary duration `+0xA0` and encoded duration `+0xA8`. Flag bit 0 starts
+pause timing once, guarded by bit `0x80`. On resume, the callback copies
+the marker, subtracts the saved clock and quantizes to the target's decimal
+**0.0167-second** period using `fmod`. A remainder **greater than or equal
+to 0.00835** rounds upward; the assembly's `TEST AH,0x41` establishes the
+tie case. These constants are not exact 1/60 and 1/120. Whole seconds come
+from `floor`, capped at 999 only on the upper side; hundredths come from
+the remaining fraction times 100, truncated to int. The temporary duration
+is cleared and bit `0x80` is reset before record/playback.
+
+For seconds `s` and hundredths `h`, the code is:
+
+```cpp
+((s + h + 22) * 1000 + (s + 66) % 1000) * 100 + (h + 33) % 100
+```
+
+The integer checksum rejects a code `c` when
+`c/100000 - 22 != ((c/100)%1000 + 934)%1000 + (c%100 + 67)%100`.
+All divisions and remainders are signed. Natural C++ emits the target's
+IDIVs and optimized `/100000`; no handwritten reciprocal multiply is
+needed. The body zeroes EAX before `SETNZ AL`, and its caller tests all
+of EAX. A first `bool` declaration reproduced the leaf but incorrectly
+made the caller test AL. The accepted interface returns `int`; LTCG
+naturally passes its receiver in EAX.
+
+The gameplay object's `+0x74 == 0` selects recording. The storage global
+at `0x004B8A84` contains record stream pointers at `+0x20 + stage*4`, and
+playback stream pointers at `+0x148 + stage*36`; stage is the int at
+`0x004B4D14`. Samples are ints at stream `+0x30 + index*4`. Playback
+replaces a failed checksum with **0x06AD1584**, the encoded **999.99-second**
+fallback. Both paths advance the sample index once. Source preserves the
+target's pointer assumptions and CRT call identities (`_CIfmod`, `floor`,
+`__ftol2_sse`); this is not runtime validation.
+
+The first replay source was 402B. Direct branch-local table accesses yielded
+395B and duplicated a global address field. Sharing the storage pointer
+before the mode branch yields 389B / 16 fields. Its arithmetic register
+assignment now agrees with the target, but the table/index load scheduling
+and index caching across the checksum call still differ. A version caching
+the index, encoded value and storage together happened to be 382B while
+failing exhaustive field placement and ordinary bytes; equal size was not
+accepted. Do not add clobbers or pretend that the pure checksum mutates the
+index to force a reload.
+[Direct-table observation](../.analysis/post-present-direct-tables-post-present-replay-update.json),
+[common-storage observation](../.analysis/post-present-common-storage-post-present-replay-update.json),
+[389B rejection](../.analysis/post-present-replay-common-storage-canonical.err),
+[382B rejection](../.analysis/post-present-replay-caller-types-canonical.err).
+
+The new primary context uses the existing real timer and timer probe, with
+their canonical no-`/Ob1` support profile. Its small entry calls the two
+real callbacks. Undefined external state uses the existing Oracle's distinct
+normal-COFF data anchors in a non-runnable diagnostic image. The actual
+callback source is also added to the three frame/viewport/Present contexts,
+which now share 36 source inputs. These remain per-unit comparisons and
+do not establish a runnable native product or the original TU partition.
+
+The final bounded replay covers **eleven owners in four cold contexts**:
+the two new exact owners plus the existing immediate/sleep Present and
+viewport tangent all pass. The other six owners remain rejected frontiers;
+adaptive Present still differs only at ordinary bytes +90/+92. No shared
+frame header changed, so screenshot capture/writer contexts are unaffected.
+The ledgers now contain **421 source mappings / 341 exact functions /
+23,225 exact bytes**, including **332 authored exact functions / 22,865
+authored bytes**. The net exact gain is two functions / 337 bytes.
+[Complete final results](../.analysis/post-present-final-results.json),
+[affected scope](../.analysis/post-present-final-scope.json),
+[three-context cold build](../.analysis/post-present-integrated-link.log).
+
 ## Open questions
 
 - Per-unit flags, the TU partition, which objects were `/GL`, the library set

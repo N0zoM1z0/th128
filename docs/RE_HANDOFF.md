@@ -1,6 +1,6 @@
 # TH128 reconstruction handoff
 
-Snapshot: 2026-11-26 (immediate/sleep Present exact; real frame/Present closure and adaptive source). Read this first, then AGENTS.md.
+Snapshot: 2026-11-26 (post-Present FPS accounting and replay pause checksum exact; real pause callback integrated). Read this first, then AGENTS.md.
 
 ## Resume safely
 
@@ -36,12 +36,12 @@ canonical ledgers. At this snapshot:
 | Boundary reviewed / provisional | 3,452 / 64 |
 | Origin rows pending | 21 |
 | Authored / excluded / indeterminate | 2,226 / 1,269 / 0 |
-| Source-present mappings | 418 |
-| Source-present with authored origin | 409 |
-| Authored source-present exact backlog | 79 |
-| Canonical exact functions | 339 |
-| Canonical exact codegen bytes | 22,888 |
-| Canonical exact authored bytes | 22,528 |
+| Source-present mappings | 421 |
+| Source-present with authored origin | 412 |
+| Authored source-present exact backlog | 80 |
+| Canonical exact functions | 341 |
+| Canonical exact codegen bytes | 23,225 |
+| Canonical exact authored bytes | 22,865 |
 
 The candidate inventory is not proven complete. The 21 remaining pending origin
 rows are unreferenced `d3dx9math.inl` candidates (all 16 CRT-band boundary-review
@@ -79,36 +79,35 @@ are not over-inlined; address-taken probe pointers prevent interprocedural
 
 ## Latest advance (2026-11-26)
 
-PresentImmediate (`0x00454D90`, **190B / 21 fields**) and PresentWithSleep
-(`0x00454F70`, **314B / 30 fields**) are newly exact under the fixed VC10
-RTM `/GL /Ob1 /Oy-` owner profile. Frame, camera, screenshot, recovery and
-state bodies now share a real 35-source linked family. The canonical timer
-profile and independent 266-byte body are preserved. No fake callee or
-normal-COFF timer workaround is used.
+The real post-Present callbacks now have source in `PostPresentUpdates.cpp`.
+`UpdatePostPresentTiming` (`0x0041F990`, **256B / 8 fields**) and
+`ReplayPauseState::HasInvalidDurationCode` (`0x0040D340`, **81B / 0 fields**)
+are newly exact with the fixed VC10 RTM `/GL /Ob1 /Oy-` primary profile.
+The timing count is unsigned and includes the configured skip weight. Its
+one-second window updates float FPS, nominal/effective totals and the
+observed gameplay flags.
 
-PresentAdaptive (`0x00454940`) now has natural source for its complete
-653-byte extent, including the three-byte physical LEA alignment. All 39
-address fields replay; ordinary bytes +90/+92 still select EAX instead of
-EDX for the nonnegative clamp result. It remains a frontier. Both Windows
-max argument orders failed to close it and were not adopted. The reversed
-frame-deadline comparison expression also emitted unchanged code.
+`UpdatePostPresentReplay` (`0x0040DA50`) records pause entry and quantizes
+resume duration to **0.0167 seconds**, with a **>= 0.00835** upward tie.
+It records/replays stage-indexed samples and checks their decimal redundancy;
+invalid playback codes fall back to encoded 999.99 seconds. The source
+returns an integer checksum predicate because the target caller tests EAX.
+The replay owner remains **389/382B**: table/index load scheduling and
+index caching across that call differ. An earlier 382B source still failed
+field placement and ordinary bytes. Do not manufacture checksum clobbers
+or repeat the failed direct-table/cached-index probes.
 
-The partial frame header now exposes the estimate/index at +0x2074/+0x2078
-and four 12-byte sleep records at +0x207C, initialized to 15/12/12/8ms.
-The three frame-entry owners remain 360/453/288B against 360/443/288B targets;
-vsync differs in its two early-return epilogues. Camera remains 339/343B.
-Primary TU placement still changes LTCG results: Present-primary has sleep
-314B/tangent support 21B, while Frame/viewport-primary has sleep support
-323B/tangent 31B. These are per-unit matches, not native product closure.
-
-The shared header's three existing exact consumers (capture, writer and
-tangent) all pass their complete canonical replay. Final comparison covers
-12 owners in five bounded contexts: five exact passes and seven rejected
-frontiers. See the [finding](KNOWLEDGE_BASE.md#real-framepresent-closure-and-adaptive-pacing-2026-11-26),
-[complete results](../.analysis/adaptive-family-final-results.json) and
-[affected scope](../.analysis/adaptive-family-final-scope.json).
-Earlier advance notes and their negative probes are retained in
-[historical checkpoint notes](RE_CHECKPOINT_NOTES.md).
+The real callback TU is integrated into all three frame/viewport/Present
+contexts (36 source inputs), preserving the timer's canonical support
+profile. The affected scope is eleven owners in four contexts; no shared
+frame header changed and screenshot capture/writer contexts are unaffected.
+All five exact owners pass (two new and three retained); the other six
+remain rejected frontiers. Adaptive Present still differs at +90/+92.
+See the [finding](KNOWLEDGE_BASE.md#post-present-frame-accounting-and-replay-pause-timing-2026-11-26),
+[complete results](../.analysis/post-present-final-results.json) and
+[affected scope](../.analysis/post-present-final-scope.json).
+The prior [frame/Present findings](KNOWLEDGE_BASE.md#real-framepresent-closure-and-adaptive-pacing-2026-11-26)
+and [historical notes](RE_CHECKPOINT_NOTES.md) retain earlier negative probes.
 
 ## Active reconstruction: AnmVm
 
@@ -275,7 +274,11 @@ callers remain frontiers as well.
 
 ## Next useful work (Phase 3+)
 
-1. **Continue the real frame/draw context**: the three calc/draw frame
+1. **Continue the real frame/draw context**: the post-Present replay callback
+   now has semantically reviewed 389/382B source, with the quantization tie
+   and integer checksum interface corrected. Investigate its table/index
+   lifetimes and the original TU closure; retain the exact FPS/checksum
+   bodies. The three calc/draw frame
    entries, 2D camera and all three Present paths now have source. Both texture
    walkers, the 217-byte surface restoration and 802-byte D3D state setup
    are exact, as are screenshot capture (520B) and its BMP writer (352B).
@@ -326,7 +329,7 @@ callers remain frontiers as well.
 5. **Next useful command after the session identity checks**:
 
    ~~~bash
-   scripts/repo-python scripts/diff-linked-target.py build/match-linked/SupervisorPresent '?PresentAdaptive@SupervisorFrame@@QAEXXZ' 0x00454940 653
+   scripts/repo-python scripts/diff-linked-target.py build/match-linked/PostPresentUpdates '?UpdatePostPresentReplay@@YAXXZ' 0x0040DA50 382
    ~~~
 
    The new dispatcher and small sprite wrappers are reviewed in

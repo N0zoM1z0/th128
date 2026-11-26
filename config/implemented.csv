@@ -339,6 +339,7 @@ Pbg::ParseArchiveDirectory
 PollKeyboardState
 RecreateAnmRenderTargets
 ReleaseAnmRenderTargets
+ReplayPauseState::HasInvalidDurationCode
 ResetScalarTransitionTimer
 ResetTransitionTimer
 ResetViewTransitionTimer
@@ -400,6 +401,8 @@ ThreadInf::ThreadInf
 ThreadInf::~ThreadInf
 UpdateAnmVmEffect10
 UpdateInputSlot
+UpdatePostPresentReplay
+UpdatePostPresentTiming
 Vec2LengthSq
 WaveDebugLog
 WindowProc

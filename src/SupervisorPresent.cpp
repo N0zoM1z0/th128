@@ -3,16 +3,11 @@
 #include "SupervisorDevice.hpp"
 #include "SupervisorSurfaces.hpp"
 #include "SupervisorRenderState.hpp"
+#include "PostPresentUpdates.hpp"
 
 #include <d3d9.h>
 
-// Reviewed boundaries: screenshot handling uses ECX; state setup has no
-// live input parameter. The two post-Present hooks read their own globals.
-int __cdecl UpdatePostPresentTiming();                        // 0x0041F990
-void __cdecl UpdatePostPresentReplay();                       // 0x0040DA50
 double __cdecl GetElapsedSeconds();
-extern void *g_PostPresentTimingState;                        // 0x004B894C
-extern void *g_PostPresentReplayState;                        // 0x004B8934
 
 namespace
 {

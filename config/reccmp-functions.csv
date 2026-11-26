@@ -21,6 +21,8 @@ ZunTimer::operator==,0x00407E70,function
 InterpolateLinearScalar,0x0040CCF0,function
 ResetScalarTransitionTimer,0x0040CEA0,function
 Rng::GetFloatScaled,0x0040D130,function
+ReplayPauseState::HasInvalidDurationCode,0x0040D340,function
+UpdatePostPresentReplay,0x0040DA50,function
 ZunTimer::operator>,0x00410CD0,function
 AnmVmEffectNoop412B30,0x00412B30,function
 AnmVmEffectNoop412B40,0x00412B40,function
@@ -35,6 +37,7 @@ SptInf::Slot03,0x004144C0,function
 SptInf::Slot04,0x004144D0,function
 SptInf::`scalar deleting destructor',0x00414630,function
 SptResourceInf::LoadIncludes,0x00414680,function
+UpdatePostPresentTiming,0x0041F990,function
 HelpInf::CreateVm,0x00427880,function
 HelpInf::LoadResourcesWorker,0x00427960,function
 HelpInf::LoadPageWorker,0x004279C0,function
