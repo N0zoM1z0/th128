@@ -27,12 +27,21 @@ extern AnmVmEffect10Vertex g_AnmSpriteVertices[4];
 
 namespace AnmDrawLeaf
 {
+    void __stdcall ResetBuffers();
     void __stdcall ApplyState(AnmVm *vm, AnmManager *manager);
     int __stdcall AppendSprite(AnmManager *manager, const AnmVmEffect10Vertex *vertices);
     int __stdcall PixelAlignedSprite(AnmVm *vm, AnmManager *manager);
     int __stdcall UnrotatedSprite(AnmManager *manager, AnmVm *vm);
     int __stdcall RotatedSprite(AnmVm *vm, AnmManager *manager);
     int __stdcall AlternateRotatedSprite(AnmVm *vm, AnmManager *manager);
+    int __stdcall Rectangle(AnmManager *manager, float x, float y, float width,
+        float height, float angle, unsigned int color);
+    int __stdcall GradientRectangle(AnmManager *manager, float x, float y, float width,
+        float height, float angle, unsigned int leftColor, unsigned int rightColor);
+    int __stdcall OutlinedRectangle(AnmManager *manager, float x, float y, float width,
+        float height, float angle, unsigned int color);
+    int __stdcall OutlinedGradientRectangle(AnmManager *manager, float x, float y, float width,
+        float height, float angle, unsigned int leftColor, unsigned int rightColor);
 
     // 0x0045E920: private register assignment remains an LTCG hypothesis.
     int __stdcall SubmitSprite(AnmManager *manager, AnmVm *vm, unsigned int flags);

@@ -19,10 +19,6 @@ namespace AnmDrawLeaf
     int __stdcall WorldMatrixSprite(AnmVm *, AnmManager *);        // 0x00460DD0
     int __stdcall TriangleStrip(AnmVm *, AnmManager *, const void *, int); // 0x004615A0
     int __stdcall TriangleFan(AnmVm *, AnmManager *, const void *, int);   // 0x00461A00
-    void __stdcall Rectangle(AnmManager *, float, float, float, float, float, unsigned int); // 0x004620E0
-    void __stdcall GradientRectangle(AnmManager *, float, float, float, float, float, unsigned int, unsigned int); // 0x004626B0
-    void __stdcall OutlinedRectangle(AnmManager *, float, float, float, float, float, unsigned int); // 0x004628D0
-    void __stdcall OutlinedGradientRectangle(AnmManager *, float, float, float, float, float, unsigned int, unsigned int); // 0x00462960
     void __stdcall Circle(AnmManager *, float, float, float, float, int, unsigned int, unsigned int); // 0x00462A00
     void __stdcall Line(AnmManager *, float, float, float, float, int, unsigned int); // 0x00462D60
 }
@@ -39,6 +35,27 @@ extern AnmSpriteViewport *g_AnmSpriteViewport;
 
 namespace
 {
+    struct AnmPrimitiveVertex
+    {
+        float x, y, z, reciprocalW;
+        unsigned int color;
+    };
+
+    // The two vertex stores and their counters/cursors are one manager
+    // region. Sizes follow the observed reset bases and cursor offsets.
+    struct AnmDrawBuffers
+    {
+        unsigned char unknown000[0x4E96EC];
+        int spriteCount;
+        AnmVmEffect10Vertex spriteVertices[0x20000];
+        AnmVmEffect10Vertex *spriteCursor;
+        AnmVmEffect10Vertex *spriteStart;
+        int primitiveCount;
+        AnmPrimitiveVertex primitiveVertices[0x4000];
+        AnmPrimitiveVertex *primitiveCursor;
+        AnmPrimitiveVertex *primitiveStart;
+    };
+
     // Partial view of the manager's render-state cache. The receiver is the
     // manager supplied by the caller, including when it differs from the global.
     struct AnmSpriteState
@@ -70,6 +87,17 @@ namespace
         };
         return result;
     }
+}
+
+void __stdcall AnmDrawLeaf::ResetBuffers()
+{
+    AnmDrawBuffers *buffers = reinterpret_cast<AnmDrawBuffers *>(g_AnmManager);
+    buffers->spriteCursor = buffers->spriteVertices;
+    buffers->spriteStart = buffers->spriteVertices;
+    buffers->spriteCount = 0;
+    buffers->primitiveCount = 0;
+    buffers->primitiveCursor = buffers->primitiveVertices;
+    buffers->primitiveStart = buffers->primitiveVertices;
 }
 
 void __stdcall AnmDrawLeaf::ApplyState(AnmVm *vm, AnmManager *manager)
@@ -316,6 +344,138 @@ int __stdcall AnmDrawLeaf::AlternateRotatedSprite(AnmVm *vm, AnmManager *manager
     BuildAnmVmViewCornersMode1(vm, &g_AnmSpriteVertices[0].x,
         &g_AnmSpriteVertices[1].x, &g_AnmSpriteVertices[2].x, &g_AnmSpriteVertices[3].x);
     return SubmitSprite(manager, vm, 0);
+}
+
+int __stdcall AnmDrawLeaf::Rectangle(AnmManager *manager,
+    float x, float y, float width, float height, float angle, unsigned int color)
+{
+    AnmDrawBuffers *buffers = reinterpret_cast<AnmDrawBuffers *>(manager);
+    AnmPrimitiveVertex *vertices = buffers->primitiveCursor;
+    float cosine = 1.0f;
+    float sine = 0.0f;
+    if (angle != 0.0f)
+    {
+        cosine = (float)cos((double)angle);
+        sine = (float)sin((double)angle);
+    }
+    width = (float)(width * 0.5);
+    height = (float)(height * 0.5);
+    vertices[0].x = (width * cosine - height * sine) + x;
+    vertices[0].y = (width * sine + height * cosine) + y;
+    vertices[0].z = 0.0f;
+    vertices[1].x = x - (width * cosine + height * sine);
+    vertices[1].y = (height * cosine - width * sine) + y;
+    vertices[1].z = 0.0f;
+    vertices[2].x = (width * cosine + height * sine) + x;
+    vertices[2].y = (width * sine - height * cosine) + y;
+    vertices[2].z = 0.0f;
+    vertices[3].x = (height * sine - width * cosine) + x;
+    vertices[3].y = y - (width * sine + height * cosine);
+    vertices[3].z = 0.0f;
+    vertices[3].color = color;
+    vertices[2].color = color;
+    vertices[1].color = color;
+    vertices[0].color = color;
+    vertices[3].reciprocalW = vertices[2].reciprocalW =
+        vertices[1].reciprocalW = vertices[0].reciprocalW = 1.0f;
+
+    g_AnmManager->FlushSpriteBatch();
+    g_Supervisor.d3dDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
+    if (g_AnmManager->spriteStageMode != 0)
+    {
+        g_Supervisor.d3dDevice->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_SELECTARG2);
+        g_Supervisor.d3dDevice->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG2);
+        g_AnmManager->spriteStageMode = 0;
+    }
+    AnmSpriteState *state = reinterpret_cast<AnmSpriteState *>(manager);
+    if (state->vertexFormatMode != 1)
+    {
+        g_Supervisor.d3dDevice->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
+        g_Supervisor.d3dDevice->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
+        state->vertexFormatMode = 1;
+    }
+    g_Supervisor.d3dDevice->SetFVF(D3DFVF_XYZRHW | D3DFVF_DIFFUSE);
+    g_Supervisor.d3dDevice->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2,
+        buffers->primitiveCursor, sizeof(AnmPrimitiveVertex));
+    buffers->primitiveCursor += 4;
+    ++manager->drawCallCount;
+    return 0;
+}
+
+int __stdcall AnmDrawLeaf::GradientRectangle(AnmManager *manager,
+    float x, float y, float width, float height, float angle, unsigned int leftColor, unsigned int rightColor)
+{
+    AnmDrawBuffers *buffers = reinterpret_cast<AnmDrawBuffers *>(manager);
+    AnmPrimitiveVertex *vertices = buffers->primitiveCursor;
+    float cosine = 1.0f;
+    float sine = 0.0f;
+    if (angle != 0.0f)
+    {
+        cosine = (float)cos((double)angle);
+        sine = (float)sin((double)angle);
+    }
+    width = (float)(width * 0.5);
+    height = (float)(height * 0.5);
+    vertices[0].x = (width * cosine - height * sine) + x;
+    vertices[0].y = (width * sine + height * cosine) + y;
+    vertices[0].z = 0.0f;
+    vertices[1].x = x - (width * cosine + height * sine);
+    vertices[1].y = (height * cosine - width * sine) + y;
+    vertices[1].z = 0.0f;
+    vertices[2].x = (width * cosine + height * sine) + x;
+    vertices[2].y = (width * sine - height * cosine) + y;
+    vertices[2].z = 0.0f;
+    vertices[3].x = (height * sine - width * cosine) + x;
+    vertices[3].y = y - (width * sine + height * cosine);
+    vertices[3].z = 0.0f;
+    vertices[2].color = leftColor;
+    vertices[0].color = leftColor;
+    vertices[3].color = rightColor;
+    vertices[1].color = rightColor;
+    vertices[3].reciprocalW = vertices[2].reciprocalW =
+        vertices[1].reciprocalW = vertices[0].reciprocalW = 1.0f;
+
+    g_AnmManager->FlushSpriteBatch();
+    g_Supervisor.d3dDevice->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
+    if (g_AnmManager->spriteStageMode != 0)
+    {
+        g_Supervisor.d3dDevice->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_SELECTARG2);
+        g_Supervisor.d3dDevice->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_SELECTARG2);
+        g_AnmManager->spriteStageMode = 0;
+    }
+    AnmSpriteState *state = reinterpret_cast<AnmSpriteState *>(manager);
+    if (state->vertexFormatMode != 1)
+    {
+        g_Supervisor.d3dDevice->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
+        g_Supervisor.d3dDevice->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
+        state->vertexFormatMode = 1;
+    }
+    g_Supervisor.d3dDevice->SetFVF(D3DFVF_XYZRHW | D3DFVF_DIFFUSE);
+    g_Supervisor.d3dDevice->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2,
+        buffers->primitiveCursor, sizeof(AnmPrimitiveVertex));
+    buffers->primitiveCursor += 4;
+    ++manager->drawCallCount;
+    return 0;
+}
+
+int __stdcall AnmDrawLeaf::OutlinedRectangle(AnmManager *manager,
+    float x, float y, float width, float height, float angle, unsigned int color)
+{
+    const unsigned int borderColor = (color & 0x00FFFFFFU) | ((color >> 1) & 0x7F000000U);
+    Rectangle(manager, x, y, width + 1.0f, height + 1.0f, angle, borderColor);
+    Rectangle(manager, x, y, width, height, angle, color);
+    return 0;
+}
+
+int __stdcall AnmDrawLeaf::OutlinedGradientRectangle(AnmManager *manager,
+    float x, float y, float width, float height, float angle,
+    unsigned int leftColor, unsigned int rightColor)
+{
+    const unsigned int borderLeft = (leftColor & 0x00FFFFFFU) | ((leftColor >> 1) & 0x7F000000U);
+    const unsigned int borderRight = (rightColor & 0x00FFFFFFU) | ((rightColor >> 1) & 0x7F000000U);
+    GradientRectangle(manager, x, y, width + 1.0f, height + 1.0f, angle, borderLeft, borderRight);
+    GradientRectangle(manager, x, y, width, height, angle, leftColor, rightColor);
+    return 0;
 }
 
 ZunVec3 __stdcall GetAnmVmDrawPosition(const AnmVm *vm)

@@ -3,7 +3,12 @@ AllocateAnmVm
 AnmDrawLeaf::AlternateRotatedSprite
 AnmDrawLeaf::AppendSprite
 AnmDrawLeaf::ApplyState
+AnmDrawLeaf::GradientRectangle
+AnmDrawLeaf::OutlinedGradientRectangle
+AnmDrawLeaf::OutlinedRectangle
 AnmDrawLeaf::PixelAlignedSprite
+AnmDrawLeaf::Rectangle
+AnmDrawLeaf::ResetBuffers
 AnmDrawLeaf::RotatedSprite
 AnmDrawLeaf::SubmitSprite
 AnmDrawLeaf::UnrotatedSprite

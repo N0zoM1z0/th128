@@ -1,6 +1,6 @@
 # TH128 reconstruction handoff
 
-Snapshot: 2026-11-26 (complete ANM sprite submission source; ambient-rounding codegen frontier). Read this first, then AGENTS.md.
+Snapshot: 2026-11-26 (rectangle/border source, paired vertex buffers and 23 recovered exact DrawLayer callbacks). Read this first, then AGENTS.md.
 
 ## Resume safely
 
@@ -36,12 +36,12 @@ canonical ledgers. At this snapshot:
 | Boundary reviewed / provisional | 3,452 / 64 |
 | Origin rows pending | 21 |
 | Authored / excluded / indeterminate | 2,226 / 1,269 / 0 |
-| Source-present mappings | 397 |
-| Source-present with authored origin | 389 |
-| Authored source-present exact backlog | 90 |
-| Canonical exact functions | 307 |
-| Canonical exact codegen bytes | 19,831 |
-| Canonical exact authored bytes | 19,502 |
+| Source-present mappings | 402 |
+| Source-present with authored origin | 394 |
+| Authored source-present exact backlog | 72 |
+| Canonical exact functions | 330 |
+| Canonical exact codegen bytes | 20,173 |
+| Canonical exact authored bytes | 19,844 |
 
 The candidate inventory is not proven complete. The 21 remaining pending origin
 rows are unreferenced `d3dx9math.inl` candidates (all 16 CRT-band boundary-review
@@ -78,6 +78,38 @@ are not over-inlined; address-taken probe pointers prevent interprocedural
 `and esp, -8` hoisting; struct copies unlock `fldz` hoisting in transition setters.
 
 ## Latest advance (2026-11-26)
+
+The real rectangle/border definitions restore all 23 DrawLayer callbacks
+to canonical exact status: 342 bytes, each with one real DrawVmGroup REL32
+identity. Their forwarding source is unchanged. DrawVmGroup and DrawSingleVm
+still fail their complete-owner checks. The synthetic renderer remains removed.
+
+Solid/gradient rectangles, both border wrappers and ResetBuffers now have
+maintained source and full linked units. The rectangle path uses the
+passed manager's cursor/format cache but flushes the global sprite manager
+and uses its stage cache. Borders halve alpha, expand width/height by one,
+then draw the original shape. All five remain frontiers: 517/533, 520/535,
+141/139, 163/160 and reset 56/56 with 23 ordinary differences. Real sin/cos
+calls still differ from target FSINCOS and affect caller registers/alignment.
+
+`AnmDrawBuffers` records the two observed storage regions: 131,072 × 28-byte
+sprite vertices and 16,384 × 20-byte primitive vertices, with two counters
+and two cursor/start pairs. Reset's zero-materialization schedule remains
+unmatched. Five position-vector source probes also failed; the original
+108-byte/eight-difference helper is retained. See the
+[rectangle/buffer finding](KNOWLEDGE_BASE.md#rectangle-drawing-and-paired-vertex-buffers-2026-11-26).
+
+All 79 affected existing exact owners pass after 11 cold context builds.
+The complete 116-owner comparison passes 102 owners (79 retained + 23
+restored) and rejects 14 frontiers. Draw's current candidate is 1,452/1,392
+bytes. This checkpoint adds five authored source mappings and restores
+23 exact rows / 342 bytes. See the
+[full results](../.analysis/anm-rectangle-current-results.json),
+[replay log](../.analysis/anm-rectangle-current-replay.log),
+[selected existing exact owners](../.analysis/anm-rectangle-current-selected.json)
+and [cold contexts](../.analysis/anm-rectangle-current-contexts.json).
+
+Previous submission checkpoint (`4ab71e2`):
 
 `AnmDrawLeaf::SubmitSprite` (`0x0045E920`) now has complete natural source
 and a 100-field linked unit. The real path covers offset/snap/cache/UV,
@@ -602,13 +634,15 @@ callers remain frontiers as well.
 
 ## Next useful work (Phase 3+)
 
-1. **Close draw leaf boundaries and recover natural caller matches**: start
-   with the reviewed 52/55/48/48/40/48-byte sprite wrappers and their real
-   dependencies. `BuildAnmVmViewCornersMode0` already has source; the
-   shared batch path at `0x0045E920` (1,532 bytes) needs focused review.
+1. **Continue the real draw context**: the sprite submission and four small
+   wrappers now have maintained source, as do the rectangles and borders.
+   Their remaining differences include ambient rounding and FSINCOS.
+   Review the three render-pass callers of ResetBuffers at `0x004547D0`,
+   `0x00454BD0` and `0x00454E50`, or the reviewed mode-17 polar line strip
+   at `0x00462D60`, before repeating exhausted vector/zero-lifetime probes.
    Preserve the 58-field dispatcher, two float-rounding stages and genuine
-   manager/VM inputs. Do not restore the synthetic renderer for its former
-   private ABI.
+   manager/VM inputs. DrawLayer is exact again under real callees;
+   DrawVmGroup and DrawSingleVm remain frontiers.
 2. **Close ANM finalization dependencies**: resolve the transparent-color
    repair frontier (`0x004645F0`, 1,774B, including physical tables) and
    the external decoder (`0x00464FD0`, 511B) / embedded uploader
@@ -640,7 +674,7 @@ callers remain frontiers as well.
 5. **Next useful command after the session identity checks**:
 
    ~~~bash
-   sed -n '1,180p' .analysis/anm-submit-canonical-submit.asm
+   sed -n '1,175p' .analysis/anm-buffer-reset-graphics-callers-review.txt
    ~~~
 
    The new dispatcher and small sprite wrappers are reviewed in

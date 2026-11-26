@@ -2049,6 +2049,114 @@ rows: **397 mappings / 307 exact functions / 19,831 exact bytes**.
 [selected exact owners](../.analysis/anm-submit-current-selected.json),
 [cold contexts](../.analysis/anm-submit-current-contexts.json).
 
+
+## Rectangle drawing and paired vertex buffers (2026-11-26)
+
+The original Japanese TH12.8 v1.00a solid/gradient rectangles and their
+two border wrappers now have maintained natural source in `AnmDraw.cpp`,
+under pinned VC10 RTM `/O2 /Ob1 /Oy- /GL`. These are the real mode
+15/19/20/21 callees. Their logical return type is int: every target ends
+with zero in EAX. Draw's four call bindings now name those int-returning
+definitions. All five new owners, including buffer reset, remain frontiers.
+[Rectangle target review](../.analysis/anm-rectangle-family-review.txt),
+[border/reset review](../.analysis/anm-outline-and-primitive-submit-review.txt).
+
+| Owner | Target bytes | Current candidate bytes | Target fields |
+| --- | ---: | ---: | ---: |
+| ResetBuffers `0x0045EF20` | 56 | 56 | 1 |
+| Rectangle `0x004620E0` | 533 | 517 | 12 |
+| GradientRectangle `0x004626B0` | 535 | 520 | 12 |
+| OutlinedRectangle `0x004628D0` | 139 | 141 | 2 |
+| OutlinedGradientRectangle `0x00462960` | 160 | 163 | 2 |
+
+The rectangle functions halve width and height using the target's double
+`0.5` at `0x004A65A8`, then form four rotated XYZRHW/color vertices.
+Products are combined before adding the center; preserving those
+parentheses matters for floating-point results. Gradient colors are left
+on vertices 0/2 and right on 1/3. The functions flush the **global** sprite
+manager and disable Z writes. Texture-stage mode is cached globally;
+vertex-format mode, vertex cursor and draw count belong to the **passed**
+manager. They select diffuse color, set FVF `0x44`, draw two triangle-strip
+primitives, reread/advance the cursor by 80 bytes and increment draw count.
+[Half constant](../.analysis/anm-rectangle-half-constant.txt),
+[maintained functions](../src/AnmDraw.cpp).
+
+Borders draw an expanded rectangle first: width + 1, height + 1, RGB
+unchanged and each alpha channel shifted right once. They then draw the
+original rectangle and color(s). Both
+real calls are declared as REL32 identities in each complete owner.
+The target rectangle uses FSINCOS, while the current natural source emits
+real sin/cos calls. Those calls add two fields and change private color
+registers and stack alignment in the callers; trigonometric/range/exception
+equivalence is unverified. The candidates retain those differences.
+[Current rectangle observations](../.analysis/anm-rectangle-common-view-solid.json),
+[border candidate](../.analysis/anm-rectangle-common-view-outlined.json).
+
+ResetBuffers has three reviewed render-pass callers. Its
+stores establish two fixed vertex regions in the manager:
+
+| Region/field | Manager offset | Extent or role |
+| --- | --- | --- |
+| Sprite counter | `+0x4E96EC` | cleared on reset |
+| Sprite storage | `+0x4E96F0` | `0x380000` bytes = 131,072 × 28-byte vertices |
+| Sprite cursor/start | `+0x8696F0/+0x8696F4` | both point to sprite storage |
+| Primitive counter | `+0x8696F8` | cleared on reset |
+| Primitive storage | `+0x8696FC` | `0x50000` bytes = 16,384 × 20-byte vertices |
+| Primitive cursor/start | `+0x8B96FC/+0x8B9700` | both point to primitive storage |
+
+A partial `AnmDrawBuffers` view now expresses that region as one object.
+The reset candidate has the target offsets and 56-byte extent but 23
+ordinary differences: it materializes zero in ECX after the sprite-pointer
+stores; the target prepares EDX earlier. Separate arena views, earlier
+primitive-head values and chained count assignments changed scheduling or
+registers without matching. The complete Oracle grants no credit for the
+same size or field offsets.
+[Target reset](../.analysis/anm-outline-and-primitive-submit-review.txt),
+[current reset observation](../.analysis/anm-rectangle-common-view-reset.json),
+[head-lifetime observation](../.analysis/anm-rectangle-reset-lifetime-reset.json).
+The three callers reset after BeginScene and before the draw chain. A
+separate diagnostic probe invoking the real reset body before DrawVmGroup
+retained the same 23 differences, so that probe change was not adopted.
+[Render-pass callers](../.analysis/anm-buffer-reset-graphics-callers-review.txt),
+[modeled frame-caller observation](../.analysis/anm-rectangle-frame-caller-reset.json).
+A separate zero-argument default-calling-convention probe emitted the same
+56 bytes and 23 differences; the maintained declaration remains stdcall.
+[Default-convention observation](../.analysis/anm-rectangle-default-reset-reset.json).
+
+Five bounded vector-source probes also leave the position helper open:
+copy-plus-`+=` emits 144/108 bytes; a free operator+, named intermediate,
+component assignments and a value-construction helper each reproduce the
+108-byte size but retain the same eight differences at +52..+59. The
+original source is retained. These observations give no exact credit and
+avoid repeating equivalent spellings as new hypotheses.
+[Copy/add probe](../.analysis/anm-draw-position-copy-add-position.json),
+[operator probe](../.analysis/anm-draw-position-operator-plus-position.json),
+[value-construction probe](../.analysis/anm-draw-position-value-construction-position.json).
+
+The reviewed mode-17 entry `0x00462D60` generates count + 1 polar vertices
+at `2*pi/count` angular steps and draws a D3DPT_LINESTRIP. Its capacity
+check also supports the primitive-store end at `+0x8B96FC`; the polar
+helper at `0x004630A0` is another FSINCOS frontier to reconstruct later.
+[Line-strip target](../.analysis/anm-outline-and-primitive-submit-review.txt).
+
+The real rectangle/border bodies also recover the target private caller
+ABI for **23 unchanged DrawLayer wrappers**: Layer0 is 12 bytes and the
+other 22 are 15 bytes each, restoring **342 exact bytes**. Each complete
+owner has one REL32 field to the real DrawVmGroup at `0x00466CE0` (offset
+6 for Layer0, 9 for the others). DrawVmGroup and DrawSingleVm themselves
+remain complete-owner frontiers. No synthetic renderer or probe was
+restored; the earlier withdrawal was valid for that earlier input context.
+
+The final current-input replay cold-built 11 contexts and compared all
+116 selected owners. All 79 affected existing exact owners and all 23
+recovered callbacks pass the full linked Oracle; 14 frontiers are rejected.
+The current draw dispatcher is 1,452/1,392 bytes. Canonical totals are
+**402 source mappings / 330 exact functions / 20,173 exact bytes**.
+[Full results](../.analysis/anm-rectangle-current-results.json),
+[replay log](../.analysis/anm-rectangle-current-replay.log),
+[existing exact selection](../.analysis/anm-rectangle-current-selected.json),
+[cold contexts](../.analysis/anm-rectangle-current-contexts.json).
+
 ## Open questions
 
 - Per-unit flags, the TU partition, which objects were `/GL`, the library set

@@ -193,6 +193,7 @@ AnmVm::SetEffectState,0x0045E6C0,function
 AnmInterpHelpers::BlendColorChannel,0x0045E750,function
 AnmDrawLeaf::ApplyState,0x0045E770,function
 AnmDrawLeaf::SubmitSprite,0x0045E920,function
+AnmDrawLeaf::ResetBuffers,0x0045EF20,function
 FlushAnmSpriteBatch,0x0045EF60,function
 AnmDrawLeaf::AppendSprite,0x0045F040,function
 BuildAnmVmViewCornersMode0,0x0045F110,function
@@ -205,6 +206,10 @@ AnmDrawLeaf::AlternateRotatedSprite,0x0045FD70,function
 DrawAnmVmVertices,0x00461A00,function
 AnmVm::Draw,0x00461B00,function
 BuildAnmVmViewCorners,0x00462070,function
+AnmDrawLeaf::Rectangle,0x004620E0,function
+AnmDrawLeaf::GradientRectangle,0x004626B0,function
+AnmDrawLeaf::OutlinedRectangle,0x004628D0,function
+AnmDrawLeaf::OutlinedGradientRectangle,0x00462960,function
 GetAnmVmDrawPosition,0x004630F0,function
 AnmVm::StartEffect10,0x004631A0,function
 UpdateAnmVmEffect10,0x004634A0,function
