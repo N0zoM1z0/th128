@@ -130,12 +130,11 @@ call edges are retained. Opcode 113 uses a third byte-identical 52-byte
 `ResetViewTransitionTimer` copy at `0x0045DAD0`, also owner `+0x10`, and keeps
 its separate target call edge. The four Update timer-frame writes now call
 the exact 61-byte `SetUpdateTimerCurrent` copy at `0x00403280`, distinct from
-`ZunTimer::SetCurrent` at `0x00403240`. `AnmManager::GetVmById` now has an
-exact 89-byte target-ABI helper replay: manager in EDX, ID on the stack, unused
-ECX slot retained by an address-taken probe reference. The 21-byte
-`ResolveAnmVmId` wrapper is a 23-byte natural-C++ candidate because the caller
-materializes zero into that unused ECX slot; both Update call edges and the
-exact lookup helper are retained. Opcode 45 is confirmed as `acos` by the
+`ZunTimer::SetCurrent` at `0x00403240`. `AnmManager::GetVmById` (`0x00467420`, 89 bytes) and `ResolveAnmVmId`
+(`0x00467780`, 21 bytes) are both now exact via natural `struct AnmId` by-value
+(`AnmManager::GetVmById(AnmId)` in `src/AnmManager.cpp` and
+`AnmHelpers::ResolveVmIdPtr` in `src/AnmHelpers.cpp`; the older
+`anm-manager-get-vm-by-id-target-abi` unit also remains exact). Opcode 45 is confirmed as `acos` by the
 target `__CIacos` call. The latest targeted `AnmVm::Update` candidate is
 13,628 bytes vs 13,604 target (3,721 vs 3,769 instructions; 286 vs 289 calls,
 283 vs 286 direct). The opcode-40 world/UI branches now preserve both target
@@ -178,17 +177,20 @@ Primary evidence:
 - .analysis/anm-vm-update-helpers.txt
 - .analysis/anm-vm-update-leaves.txt
 
-### Related source
+### Related ANM source
 
 | Source | Scope | Status |
 | --- | --- | --- |
-| src/AnmVmScript.cpp | wait commands, opcode dispatcher, ready-instruction loop, view corners and texture rectangle | source-present; not exact |
-| src/AnmVmTransitions.cpp | transition setup and interpolation | source-present; not exact |
-| src/AnmVmEffects.cpp | render-state sync, world matrices, sprite/fog/primitive draw paths, effect 10 | mixed exact and frontier owners; check each ledger row |
-| src/AnmVmOperands.cpp | four operand resolver owners | four complete linked-PE owners exact; replay affected owners after edits |
-| src/Rng.cpp | RNG primitives and scaled overloads | unsigned/signed scaled helpers exact; opcode 41 uses unsigned scaled overload |
-| src/AnmVmResource.cpp | VM resource binding and coordinate normalization | check each ledger row |
-| src/AnmManager.cpp | VM allocation, lists, update and draw grouping | check each ledger row |
+| src/AnmVmScript.cpp | wait commands, opcode dispatcher, ready-instruction loop, view corners, easing and timer reset helpers | 5 helpers exact (`EaseTransition`, 3 timer resets, `SetUpdateTimerCurrent`); `AnmVm::Update` frontier |
+| src/AnmVmTransitions.cpp | transition setup (`SetScaleTransition`, `SetSecondaryScaleTransition`, `SetSecondaryEffectState`, color/effect setup) | 3 exact (`0x0045E080`, `0x0045E190`, `0x0045E240`); color/primary-effect frontiers |
+| src/AnmVmEffects.cpp | render-state sync, world matrices, sprite/fog/primitive draw paths, effect 10 | 5 exact normal-COFF owners; renderer paths frontier |
+| src/AnmVmOperands.cpp | four operand resolver owners (`0x00459900..0x00459CE0`) | 4/4 exact (linked PE) |
+| src/AnmVmResource.cpp | `NormalizeAnmCoordinates` (`0x00459D50`) | exact (linked PE) |
+| src/AnmManager.cpp | VM lookup, allocation, list cleanup, draw grouping, `FlushSpriteBatch`, 23 `DrawLayer*` callbacks | 31 exact (linked PE); `UpdateWorldVms`/`UpdateUiVms`/`PreloadAnm`/`StopVmById` frontiers |
+| src/AnmResource.cpp | `AnmResource::AnmResource`, `Release`, `AnmTextureEntry::Release`, `CreateVm` | 3 exact (linked PE); `CreateVm` frontier |
+| src/AnmHelpers.cpp | `ResolveAnmVmId` and 31 `AnmId`/VM/child/rotation/draw helpers (`0x00467570..0x00468100`) | 32 exact (linked PE); `ClearD3DTexture*` frontiers |
+| src/AnmInterp.cpp | `AnmInterp<T>` template (`AnmColor3`/`float`/`int`/`ZunVec2`) and vector/angle/color helpers (`0x0045D330..0x0045E76F`) | 39 exact (linked PE) + frontiers |
+| src/Rng.cpp | RNG primitives and scaled overloads | exact (linked PE) |
 
 The two world-matrix paths are deliberately separate in
 AnmVm::UpdateWorldMatrix:
@@ -202,18 +204,13 @@ has an accepted exact owner replay yet.
 
 ### Exact ANM owners
 
-The current config/matches.csv contains 16 exact ANM owners:
-
-- Setters: 0x00402B60, 0x00402C00, 0x00402C20, 0x00407020,
-  0x00407040
-- AnmVm::AnmVm: 0x004031A0
-- Effect no-ops: 0x00412B30, 0x00412B40, 0x00412DF0, 0x00412E00
-- StartAnmVmEffect06: 0x00412C80
-- Operand resolvers: 0x00459900, 0x00459B50, 0x00459C30, 0x00459CE0
-- NormalizeAnmCoordinates: 0x00459D50 (52 bytes; Update LTCG caller context)
-
-Do not expand this list from source presence or successful compilation. Only
-accepted rows in config/matches.csv count as exact.
+`config/matches.csv` now contains **129 exact ANM-area owners** across the
+modules above (6 setters/ctor, 5 effect-table owners, 4 operand resolvers,
+`NormalizeAnmCoordinates`, 5 script/easing/timer helpers, 31 `AnmManager`,
+3 `AnmResource`/`AnmTextureEntry`, 32 `AnmHelpers`, 39 `AnmInterp`, and
+3 `AnmVmTransitions`). Do not expand this list from source presence or
+successful compilation; only accepted rows in `config/matches.csv` count as
+exact.
 
 ## Natural-source cleanup decision
 

@@ -168,25 +168,16 @@ loaders and the cipher key table.
   after the search loop; `continue`/nested-`if` forms both put it after the
   error path, and an indexed `entries[i]` loop changed the convention.
 
-## Current AnmVm reconstruction status (2026-11-24)
+## Historical AnmVm reconstruction notes (2026-11-24, superseded totals)
 
-The recent local work has concentrated on the large AnmVm update, operand
-resolution and rendering subsystem. Treat implementations without accepted
-rows in the canonical ledger as source frontiers, not as exact codegen or
-runtime proof. The canonical ledger currently has 95 exact functions overall;
-16 exact owners are in the ANM area:
-
-- Setters: 0x00402B60, 0x00402C00, 0x00402C20, 0x00407020, 0x00407040
-- AnmVm::AnmVm at 0x004031A0
-- Effect table no-ops: 0x00412B30, 0x00412B40, 0x00412DF0, 0x00412E00
-- StartAnmVmEffect06 at 0x00412C80
-- Operand resolvers: 0x00459900 (588 bytes), 0x00459B50 (211 bytes),
-  0x00459C30 (162 bytes), 0x00459CE0 (104 bytes)
-- NormalizeAnmCoordinates at 0x00459D50 (52 bytes), recovered with its
-  real AnmVm::Update caller in the LTCG context.
-
-All other ANM source mappings are not exact unless a matching row is added to
-config/matches.csv.
+> [!NOTE]
+> The counts in this section (`95 exact overall`, `16 exact ANM owners`, and the
+> `ResolveAnmVmId` 23-byte frontier) are from the 2026-11-24 snapshot prior to
+> Phases 0–2. Current totals (`303 exact overall`, `17,121 exact bytes`, and
+> exact 21-byte `ResolveAnmVmId` via `struct AnmId`) are tracked in
+> `docs/PROGRESS.md`, `docs/RE_HANDOFF.md`, and the 2026-11-25 VC10 `/GL`
+> section below. The `AnmVm::Update` opcode and geometry findings below remain
+> valid reference notes.
 
 ### Main update owner
 
@@ -607,7 +598,9 @@ construction: thirteen embedded `ZunTimer`s at +0x70, +0xD4, +0x120, +0x14C,
 +0x198, +0x1C4, +0x200, +0x23C, +0x288, +0x2B4, +0x2E0, +0x30C and +0x3FC
 each clear bit 0 of their +0x10 flag word (`ZunTimer() { initialized = 0; }`),
 which VC10 emits as thirteen `AND [ESI+off], EAX` with `EAX = ~1`. The
-timers sit inside interpolator members whose layout is still open.
+timers sit inside `AnmInterp<T>` interpolator members (`start, goal, vel1,
+vel2, ZunTimer timer, int duration, unsigned int mode`; verified in
+`src/AnmInterp.hpp`/`src/AnmInterp.cpp`).
 `AsciiInf` embeds two AnmVms at +0x14 and +0x4FC.
 
 ## Pbg file streams

@@ -26,11 +26,13 @@ A `std::string` instantiation cluster from the VC10 headers sits at
 
 The gap-classification pass accounts for every byte in the game band;
 this is not a claim that every candidate boundary or origin is closed. The
-current ledger still has 64 provisional candidate boundaries and 49 origin
-rows awaiting review. The 3,516-candidate denominator remains provisional;
-see [PROGRESS](PROGRESS.md) for generated counts and the knowledge base for
-the historical review evidence. Most of the 1,038 added game functions are
-small callbacks and unreferenced dead copies.
+current ledger has 64 provisional candidate boundaries (all in the CRT band) and
+21 origin rows awaiting review (unreferenced `d3dx9math.inl` candidates; all
+16 CRT-band boundary-review rows and all 12 LTCG-entry-adapter rows were closed
+in Phase 0). The 3,516-candidate denominator remains provisional; see
+[PROGRESS](PROGRESS.md) for generated counts and the knowledge base for the
+historical review evidence. Most of the 1,038 added game functions are small
+callbacks and unreferenced dead copies.
 
 ## Runtime dependencies
 
@@ -59,12 +61,25 @@ mode dialog (fullscreen 640×480, window 640×480, 960×720, 1280×960).
 | `src/LaserPoint.cpp` | `ZunVec3::SetPolarXY` `0x00432E20` (natural C++ frontier); four laser slot-0 point methods `0x00429BF0..0x00429D59` | target FSINCOS codegen unmatched; slot 0 frontiers |
 | `src/Spt.cpp` | `SptInf` five defaults and the scalar deleting destructor `0x00414630` | exact (normal COFF) |
 | `src/AngleMath.cpp` | `NormalizeAngle` `0x0046A700`, `AddAngles` `0x0046A660` | exact (normal COFF) |
-| `src/MenuCursor.cpp` | `MenuCursor::Move` `0x0046A970` | exact (linked PE) |
-| `src/Rng.cpp` | `Rng::GetU16` `0x0046A3F0`, `GetU32` `0x0046A460`, `GetFloat`/`GetFloatSigned`/`GetAngle` `0x0046A5D0..0x0046A65E` | exact (linked PE) |
+| `src/MenuCursor.cpp` | `MenuCursor::Push` `0x0046A900`, `Pop` `0x0046A940`, `Move` `0x0046A970` | exact (linked PE, 3/3) |
+| `src/Rng.cpp` | `Rng::GetU16` `0x0046A3F0`, `GetU32` `0x0046A460`, `GetFloat`/`GetFloatSigned`/`GetAngle` `0x0046A5D0..0x0046A65E`, `GetFloat(float)` `0x0040D130` | exact (linked PE) |
+| `src/SupervisorTime.cpp` | `GetElapsedSeconds` `0x00455160` | exact (linked PE, 1/1) |
+| `src/SoundManager.cpp` | `SoundManager` / `SfxChannel` `0x00458410..0x0045921F` (17 functions) | exact (linked PE, 17/17) |
+| `src/ThreadInf.cpp` | `ThreadInf` / `Supervisor` lock helpers `0x0046AC80..0x0046ADF3` (8 functions) | exact (linked PE, 8/8) |
+| `src/Chain.cpp` | `Chain` / `ChainElem` list and registration helpers `0x00468130..0x004688EC` (13 exact) | mixed (13 exact, 5 `CutImpl`/caller frontiers) |
+| `src/FileSystem.cpp` | `FileSystem` read/write/path helpers (7 exact) | mixed (7/8 exact, linked PE) |
+| `src/GameErrorContext.cpp` | `GameErrorContext` logging helpers (2 exact) | exact (linked PE, 2/2) |
+| `src/EngineUtil.cpp` | engine utility leaves (2 exact) | mixed (2/5 exact, linked PE) |
+| `src/Input.cpp` | `InitJoypad`, `MapJoyButtonByte`/`Bit`, `UpdateInputSlot`, `PollKeyboardState`, `ClearKeyboardState` (6 exact) | mixed (6/8 exact, linked PE) |
+| `src/CoreMath.cpp` | `Vec2LengthSq`, `ShortestAngleDifference2`, `SetGlobalMatrix4x4`, time-scale/chain leaves (11 exact) | mixed (11/14 exact, linked PE) |
+| `src/CSoundManager.cpp` | `CSoundManager`, `CSoundView`, `CWaveFileView` DirectSound layer (25 exact) | mixed (25/29 exact, linked PE) |
 | `src/EclResource.cpp` | `SptResourceInf::LoadIncludes` `0x00414680` (exact), `Load` `0x004703F0` (frontier) | normal COFF |
-| `src/AnmVmEffects.cpp` | `StartAnmVmEffect06` `0x00412C80` | exact (normal COFF) |
-| `src/AnmVmUpdate.cpp` | `AnmVm::Update` `0x00459D90` (13,604-byte target extent) | source-present, incomplete; not exact |
-| `src/AnmVmScript.cpp` | wait handling, instruction dispatch, ready-instruction loop, view-corner/texture-rect helpers | source-present; not exact |
-| `src/AnmVmTransitions.cpp` | transition setup and `UpdateTransitions` | source-present; not exact |
-| `src/AnmVmEffects.cpp` | `ApplyAnmVmRenderState` `0x0045E770`, world-matrix paths `0x004609C0`/`0x00460DD0`, sprite/fog/primitive draw paths | source-present; not exact except the exact owner listed above |
-| `src/AnmVmEffects.cpp` (stubs) | four empty effect-table slots `0x00412B30`, `0x00412B40`, `0x00412DF0`, `0x00412E00` | exact (normal COFF) |
+| `src/AnmManager.cpp` | `GetVmById` `0x00467420`, `FlushSpriteBatch` `0x0045EF60`, `CleanupVm` `0x00466F60`, `DrawVmGroup` `0x00466CE0`, `MarkResourceVmsForDelete` `0x00467710`, `AreAllAnmsLoaded`, `ReleaseAnm`, `IsPoolVm`, 23 `DrawLayer*` callbacks (31 exact) | mixed (31 exact linked PE + frontiers) |
+| `src/AnmResource.cpp` | `AnmResource::AnmResource` `0x00468110`, `Release` `0x00465F60`, `AnmTextureEntry::Release` `0x00466060` | mixed (3 exact linked PE + `CreateVm` frontier) |
+| `src/AnmHelpers.cpp` | `ResolveAnmVmId` `0x00467780` and 31 `AnmId`/VM/child/rotation/draw helpers `0x00467570..0x00468100` | mixed (32 exact linked PE + `ClearD3DTexture*` frontiers) |
+| `src/AnmInterp.cpp` | `AnmInterp<T>` (`AnmColor3`/`float`/`int`/`ZunVec2`) methods + vector/angle/color helpers `0x0045D330..0x0045E76F` | mixed (39 exact linked PE + frontiers) |
+| `src/AnmVmOperands.cpp` | four operand resolvers `0x00459900..0x00459CE0` | exact (linked PE, 4/4) |
+| `src/AnmVmResource.cpp` | `NormalizeAnmCoordinates` `0x00459D50` | exact (linked PE) |
+| `src/AnmVmEffects.cpp` | `StartAnmVmEffect06` `0x00412C80`, four empty effect-table slots `0x00412B30..0x00412E00`, plus `ApplyAnmVmRenderState` / world-matrix / draw paths | mixed (5 exact normal COFF + frontiers) |
+| `src/AnmVmScript.cpp` | `EaseTransition` `0x0046B190`, `ResetTransitionTimer` `0x00406F80`, `ResetScalarTransitionTimer` `0x0040CEA0`, `ResetViewTransitionTimer` `0x0045DAD0`, `SetUpdateTimerCurrent` `0x00403280`; `AnmVm::Update` `0x00459D90` (13,604B) | mixed (5 exact linked PE; `Update` frontier) |
+| `src/AnmVmTransitions.cpp` | `SetScaleTransition` `0x0045E190`, `SetSecondaryScaleTransition` `0x0045E080`, `SetSecondaryEffectState` `0x0045E240`; `SetColorTransition`/`SetEffectState` | mixed (3 exact linked PE + frontiers) |
