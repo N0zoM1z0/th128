@@ -12,13 +12,13 @@ struct AnmTextVmView
     unsigned char fontWidth;
 
     void __cdecl DrawTextAt(COLORREF foreground, COLORREF background,
-        int option, int x, int font, const char *format, ...);
+        int font, int x, int spacing, const char *format, ...);
     void __cdecl DrawTextAtHalfCenter(COLORREF foreground, COLORREF background,
-        int option, int font, const char *format, ...);
+        int font, int spacing, const char *format, ...);
     void __cdecl DrawCenteredText(COLORREF foreground, COLORREF background,
-        int option, int font, const char *format, ...);
+        int font, int spacing, const char *format, ...);
 };
 
 void __stdcall RenderAnmSpriteText(int fontWidth, void *texture, const char *text,
     const AnmFileEntry *sprite, int x, COLORREF foreground, COLORREF background,
-    int alternate, int option, int font);
+    int alternate, int font, int spacing);

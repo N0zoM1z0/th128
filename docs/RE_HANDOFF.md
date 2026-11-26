@@ -1,6 +1,6 @@
 # TH128 reconstruction handoff
 
-Snapshot: 2026-11-26 (Card activation/termination, notification and VM-text source; shared AddScore exact). Read this first, then AGENTS.md.
+Snapshot: 2026-11-26 (Texture-text backends and alpha/color source; four new frontiers).
 
 ## Resume safely
 
@@ -36,9 +36,9 @@ canonical ledgers. At this snapshot:
 | Boundary reviewed / provisional | 3,452 / 64 |
 | Origin rows pending | 21 |
 | Authored / excluded / indeterminate | 2,226 / 1,269 / 0 |
-| Source-present mappings | 440 |
-| Source-present with authored origin | 431 |
-| Authored source-present exact backlog | 88 |
+| Source-present mappings | 444 |
+| Source-present with authored origin | 435 |
+| Authored source-present exact backlog | 92 |
 | Canonical exact functions | 352 |
 | Canonical exact codegen bytes | 24,938 |
 | Canonical exact authored bytes | 24,578 |
@@ -79,71 +79,79 @@ are not over-inlined; address-taken probe pointers prevent interprocedural
 
 ## Latest advance (2026-11-26)
 
-Eight target owners now have maintained source in CardInfActions.cpp,
-PopupNotifications.cpp and AnmText.cpp, covering 3,751 target bytes. The
-shared **AddScore** entry at **0x0040E4E0** is newly exact: its whole **54B**
-primary PDB contribution and all **three DIR32 score fields** replay with zero
-differences under unchanged pinned VC10 RTM `/O2 /Ob1 /Oy- /GL` flags.
-It adds signed amount / 10 and caps score at 999999999.
+Four complete target owners now have natural source in TextTexture.cpp and
+a partial scratch-image view in TextTexture.hpp, covering 2,263 target bytes.
+The texture-text declarations in AnmText.cpp now call these real maintained
+bodies. The last two text parameters are named **font, spacing**, as settled
+by the backend switch and two-byte TextOutA loop; their order/types are unchanged.
+No new exact row is claimed. Totals remain **352 exact / 24,938B**.
 
-The seven other owners remain frontiers. These are complete candidate/target
-extents, not byte-difference counts:
+| New owner / target | Cold candidate / target | Current rejection |
+| --- | ---: | --- |
+| FillTransparentTextColors / 0x004519C0 | 823 / 817B | Complete owner size |
+| InvertTextImageAlpha / 0x00451D00 | 166 / 166B | Three-field offset set |
+| DrawTextToTexture / 0x00452840 | 696 / 696B | Ordinary +533/+580 after all 42 fields replay |
+| DrawAlternateTextToTexture / 0x00452B00 | 592 / 584B | Complete owner size |
 
-| Owner / target | Candidate / target bytes |
-| --- | ---: |
-| Start / 0x0040DD70 | 1504 / 1496 |
-| Finish / 0x0040E350 | 374 / 398 |
-| Popup Show / 0x00424B80 | 1020 / 1072 |
-| Sprite text / 0x00466130 | 194 / 210 |
-| Explicit-X text / 0x00466210 | 142 / 132 |
-| Centered text / 0x004662A0 | 215 / 196 |
-| Half-center text / 0x00466370 | 201 / 193 |
+Both draw owners include seven absolute table entries. The alternate also
+owns the two alignment bytes before its table. Keep the full 696/584B scopes,
+not Ghidra's 668/554 instruction-byte ranges. Alpha inversion has a real bool
+AL result and RET 4; logical negation of a typed 1555 pixel's alpha reproduces
+the unusual NOT/XOR/AND sequence, but register/load order remains different.
+[Finding, source hypotheses and failed experiments](KNOWLEDGE_BASE.md#texture-text-rendering-and-scratch-image-alpha-passes-2026-11-26),
+[canonical backend comparison](../.analysis/texture-text-backend-results.json).
 
-Three new cold contexts have 44 inputs each and use real maintained CardInf,
-AsciiInf, ANM, notification, text and sound bodies. Existing shared inputs and
-canonical contexts were not changed. Only AddScore receives exact credit.
-[Finding and failed hypotheses](KNOWLEDGE_BASE.md#card-activation-notification-dispatch-and-vm-text-2026-11-26),
-[complete results](../.analysis/card-activity-final-results.json),
-[affected scope](../.analysis/card-activity-final-scope.json).
+The ordinary draw owner reuses one API temporary for the previous GDI font
+and the COM surface. Separate locals gave 16 ordinary stack-slot differences;
+a GDI-only lexical scope did not help. Reusing the temporary leaves two
+texture/RECT private-LTCG location differences. Taking both draw addresses
+in a temporary probe instead gave 700B and was removed. The alternate's
+fill loop becomes REP STOS, with 36 candidate fields versus 37 in the target.
+Do not add padding, volatile stores, ABI shims or new profile guesses.
 
-Start has 63 address fields, two byte tables and nine absolute table entries
-inside the full 1496B extent. Ghidra lists 1417 instruction bytes. Show has
-56 fields and its ten-entry table inside 1072B, while Ghidra's function body
-lists only 15B. Keep the complete physical extents. Start caches history
-storage and reloads card index after child binding; it also reuses the ANM
-manager for both final position-ID resolutions. The tempting first 1500B
-source cached the wrong history-record address and was not accepted.
-
-New resource/history/font layouts are partial views; original class identities
-and history-name capacity remain unresolved. The ordinary Show member interface
-still differs from target EDI receiver/EAX kind plus kind/value stack slots.
-The sprite helper lacks target ESP alignment, and the text wrappers retain
-stack/register frontiers. Both 128B and 132B buffer hypotheses emitted 215B
-centered wrappers; do not infer capacity from the decompiler alone or add
-alignment hints to force equality.
-
-The scoped-lock CreateVm experiment was falsified: the maintained body already
-writes the result before unlock through return-value optimization. Both versions
-emit 363B with the same ordinary bytes and 18-field layout in this context.
-**AnmResource.cpp remains unchanged**; do not repeat a broad replay of its 81
-previously exact dependents for this rejected hypothesis.
-[Comparison](../.analysis/card-activity-lock-body-comparison.json).
+Validation completed: four 45-source contexts cold-built, and all twelve
+affected owners were strictly compared (four new owners plus eight
+CardInfActions/AnmText/Popup consumers). AddScore remains exact at 54B with
+all three DIR32 fields; the eleven frontiers remain rejected. Start/Finish
+are 1504/1496B and 374/398B; Popup Show is 1020/1072B. The sprite-text
+helper is now 214/210B with real backends; wrappers remain 142/132B,
+215/196B and 201/193B. These are whole owner sizes.
+[Complete results](../.analysis/texture-text-final-results.json),
+[build log](../.analysis/texture-text-cold-build.log),
+[affected input scope](../.analysis/texture-text-affected-scope.json).
+Existing common ANM, frame and CardInf source/headers were not changed.
+Tracking validation and final diff review passed. No push was performed.
 
 The earlier CardInf::Update 507B/16-field frontier still differs at ordinary
 +375..+382 / +390..+397, and Shutdown 249B/27 fields still differs at
-+118/+120/+202/+204. Their source and existing exact neighbors were unchanged.
++118/+120/+202/+204. AnmResource.cpp is unchanged: the prior scoped-lock
+experiment was falsified, so do not replay its 81 old exact dependents for it.
+[Comparison](../.analysis/card-activity-lock-body-comparison.json).
+The preceding checkpoint added exact AddScore (0x0040E4E0, 54B/3 score fields)
+and seven activation/notification/VM-text frontiers.
+[Earlier finding](KNOWLEDGE_BASE.md#card-activation-notification-dispatch-and-vm-text-2026-11-26).
 
-Next useful work is the real texture-text backends `0x00452840` (696B) and
-`0x00452B00` (584B), with font/DIB helpers `0x004519C0/0x00451D00`. They remain
-reviewed external declarations in the new text source; full backend definitions
-may settle the caller's stack/clobber context. Capture their physical tables
-as well as instructions before implementation. The other real notification
-callers at `0x00424A60/0x00426FE0/0x00427260/0x00427300` are reviewed, without
-source credit; their call sites encode kinds 3/4/4/2. The score-display owner
-physically retains an apparently unreachable Show(3, 0) edge after OR 4 / TEST
-AL,4, so do not let a decompiler crop it.
-[Backend ABI review](../.analysis/card-text-backend-abi-review.txt),
-[notification callers](../.analysis/card-popup-real-callers-review.txt).
+For the two-byte ordinary frontier, first inspect the natural texture type:
+the current backend parameter is opaque void *, but target vtable +0x48 is
+IDirect3DTexture9::GetSurfaceLevel. A typed texture pointer has not been tried;
+use a bounded source probe before replaying the four contexts again.
+
+The next real scratch-image creation/destruction and font setup owners are: 0x00451740 (413B), 0x004516B0 (105B), 0x004525D0 (516B).
+Their complete instruction/reference review is retained. Creation uses a
+108B BITMAPV4HEADER, width 1024, physical height **-129**, logical stored height
+128 and byte count pitch * 128; preserve that one-row difference. Setup tries
+format 26 then 21, fills 256 RNG noise bytes and creates eight fonts.
+[Next dependency review](../.analysis/text-image-init-font-next-review.txt).
+The six 24-byte format/mask records at 0x004B1960 plus their -1 terminator
+are captured through 0x004B1A07: formats 22/21/24/23/25/26/-1, fields format,
+bpp, alpha/red/green/blue masks. The 192B query also includes 24B of unrelated
+following data; do not claim those bytes as table ownership.
+[Format data](../.analysis/text-image-format-records.txt).
+A useful next query is the missing Ghidra function's 22B default-format wrapper:
+
+~~~bash
+scripts/repo-python scripts/ghidra.py query .analysis/text-image-default-init-span.txt review_span 0x00451720 0x00451735
+~~~
 
 ## Active reconstruction: AnmVm
 

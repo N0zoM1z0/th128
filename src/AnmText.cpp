@@ -1,19 +1,13 @@
 #include "AnmText.hpp"
+#include "TextTexture.hpp"
 
 #include <stdarg.h>
 #include <stdio.h>
 #include <string.h>
 
-// Reviewed external boundaries: ECX texture, EDX text and seven/six stack
-// arguments, respectively. Their GDI/D3D bodies are not reconstructed here.
-void __fastcall DrawTextToTexture(void *texture, const char *text, const RECT *rect,
-    int x, int fontWidth, COLORREF foreground, COLORREF background, int option, int font);
-void __fastcall DrawAlternateTextToTexture(void *texture, const char *text, const RECT *rect,
-    int x, int fontWidth, COLORREF foreground, int option, int font);
-
 void __stdcall RenderAnmSpriteText(int fontWidth, void *texture, const char *text,
     const AnmFileEntry *sprite, int x, COLORREF foreground, COLORREF background,
-    int alternate, int option, int font)
+    int alternate, int font, int spacing)
 {
     if (fontWidth <= 0)
         fontWidth = 17;
@@ -23,13 +17,13 @@ void __stdcall RenderAnmSpriteText(int fontWidth, void *texture, const char *tex
     RECT rect = { (int)sprite->left, (int)sprite->top,
         (int)sprite->right, (int)sprite->bottom };
     if (alternate == 0)
-        DrawTextToTexture(texture, text, &rect, x, fontWidth, foreground, background, option, font);
+        DrawTextToTexture(texture, text, &rect, x, fontWidth, foreground, background, font, spacing);
     else
-        DrawAlternateTextToTexture(texture, text, &rect, x, fontWidth, foreground, option, font);
+        DrawAlternateTextToTexture(texture, text, &rect, x, fontWidth, foreground, font, spacing);
 }
 
 void __cdecl AnmTextVmView::DrawCenteredText(COLORREF foreground, COLORREF background,
-    int option, int font, const char *format, ...)
+    int font, int spacing, const char *format, ...)
 {
     int width = 17;
     if (fontWidth != 0)
@@ -44,12 +38,12 @@ void __cdecl AnmTextVmView::DrawCenteredText(COLORREF foreground, COLORREF backg
     AnmFileEntry *sprite = vm->anmFileEntry;
     const int x = (int)(sprite->spriteWidth - ((width - 1) * length >> 1));
     RenderAnmSpriteText(width, *sprite->texture, buffer, sprite, x,
-        foreground, background, (vm->stateFlags >> 4) & 1U, option, font);
+        foreground, background, (vm->stateFlags >> 4) & 1U, font, spacing);
     vm->flags |= 1U;
 }
 
 void __cdecl AnmTextVmView::DrawTextAt(COLORREF foreground, COLORREF background,
-    int option, int x, int font, const char *format, ...)
+    int font, int x, int spacing, const char *format, ...)
 {
     const int width = fontWidth;
     char buffer[0x80];
@@ -60,12 +54,12 @@ void __cdecl AnmTextVmView::DrawTextAt(COLORREF foreground, COLORREF background,
     AnmVm *vm = reinterpret_cast<AnmVm *>(this);
     AnmFileEntry *sprite = vm->anmFileEntry;
     RenderAnmSpriteText(width, *sprite->texture, buffer, sprite, x,
-        foreground, background, (vm->stateFlags >> 4) & 1U, option, font);
+        foreground, background, (vm->stateFlags >> 4) & 1U, font, spacing);
     vm->flags |= 1U;
 }
 
 void __cdecl AnmTextVmView::DrawTextAtHalfCenter(COLORREF foreground, COLORREF background,
-    int option, int font, const char *format, ...)
+    int font, int spacing, const char *format, ...)
 {
     int width = 17;
     if (fontWidth != 0)
@@ -80,6 +74,6 @@ void __cdecl AnmTextVmView::DrawTextAtHalfCenter(COLORREF foreground, COLORREF b
     AnmFileEntry *sprite = vm->anmFileEntry;
     const int x = (int)sprite->spriteWidth / 2 - ((width - 1) * length >> 2);
     RenderAnmSpriteText(width, *sprite->texture, buffer, sprite, x,
-        foreground, background, (vm->stateFlags >> 4) & 1U, option, font);
+        foreground, background, (vm->stateFlags >> 4) & 1U, font, spacing);
     vm->flags |= 1U;
 }

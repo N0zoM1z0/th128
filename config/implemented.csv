@@ -249,8 +249,10 @@ DebugLog46C320
 DebugPrint
 DecTimeScaleRef
 DecryptBlocks
+DrawAlternateTextToTexture
 DrawAnmVmEffect10
 DrawAnmVmVertices
+DrawTextToTexture
 EaseTransition
 EclDebugLog
 FileSystem::CloseStream
@@ -260,6 +262,7 @@ FileSystem::OpenWriteStream
 FileSystem::ReadStream
 FileSystem::WriteDataToFile
 FileSystem::WriteStream
+FillTransparentTextColors
 FindChainNodeByOwner
 FlushAnmSpriteBatch
 FlushAnmSurfaceCopies
@@ -288,6 +291,7 @@ InterpolateInteger
 InterpolateLinearScalar
 InterpolateScale
 InterpolateVector
+InvertTextImageAlpha
 IsWindowMinimized
 LaserBeamInf::Slot00
 LaserCurveInf::Slot00

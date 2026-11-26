@@ -3271,3 +3271,144 @@ runtime closure remain unproved.
   (`0x00467BD0`), two extra 4-byte slots in `CreateGameWindow` (`0x00455320`),
   keeps values in memory across stores (`ZunTimer::Add`, `LaserInfiniteInf::Slot01`),
   and swaps `ECX`/`EDX` in `Chain::CutImpl` (`0x004686D0`).
+
+## Texture-text rendering and scratch-image alpha passes (2026-11-26)
+
+The Japanese v1.00a target's two texture-text backends share one scratch
+image for the GDI work. Four complete owners
+now have natural source in [TextTexture.cpp](../src/TextTexture.cpp), compiled
+with pinned VC10 RTM `/O2 /Ob1 /Oy- /GL`. Source presence does not grant exact
+credit. The full target scopes are:
+
+| Owner | Target extent | Address fields |
+| --- | --- | ---: |
+| FillTransparentTextColors | 0x004519C0..0x00451CF0, 817B | 14 |
+| InvertTextImageAlpha | 0x00451D00..0x00451DA5, 166B | 3 |
+| DrawTextToTexture | 0x00452840..0x00452AF7, 696B | 42 |
+| DrawAlternateTextToTexture | 0x00452B00..0x00452D47, 584B | 37 |
+
+The two draw owners include seven absolute switch-table entries each. The
+alternate owner additionally owns two alignment bytes before its table; its
+554 instruction bytes are not the complete 584B owner. The field ledger comes
+from complete attested instruction/raw-byte queries, including every table
+entry. The target has no PE base-relocation entries to use as a substitute
+for reviewing those fields. [Complete draw instructions](../.analysis/texture-text-backends-code.txt),
+[primary raw owner](../.analysis/texture-text-first-owned.txt),
+[alternate raw owner](../.analysis/texture-text-remaining-owned.txt),
+[helper instructions](../.analysis/texture-text-helper-complete.txt),
+[helper references and alpha inversion](../.analysis/texture-text-helper-review.txt),
+[field inventory](../.analysis/texture-text-target-fields.json).
+
+`0x00451D00` is alpha inversion, rather than a font/DIB allocation helper.
+It processes signed `pitch * rows` bytes: complements each A8R8G8B8 alpha
+byte, toggles the A4R4G4B4 alpha nibble, or flips the one-bit A1R5G5B5 alpha
+and clears RGB when the result is transparent. Other formats return false.
+The natural typed 1555 pixel iterator plus logical alpha negation reproduces
+the target's unusual NOT/XOR/AND bitfield sequence; byte-offset iteration and
+bitwise field complement initially emitted 182B, then 169B with the typed
+iterator. The final diagnostic owner has the full 166B but still differs in
+register allocation/load order. No register hints or profile changes were used.
+
+`0x004519C0` fills zero-alpha pixels from the left, right, previous-row and
+next-row neighbors whose alpha is nonzero. It averages each RGB sum only
+when more than one neighbor contributes. A8R8G8B8 writes those averages;
+A4R4G4B4 halves them before assigning the bitfields. The scan pointer advances
+continuously by pixel size across `width * rows`, while vertical neighbor
+addresses use signed pitch / pixel size. Bottom-neighbor eligibility uses
+full scratch-image height, not the requested row count. Unsupported formats
+still return true. The maintained source retains these distinctions.
+
+The partial [TextImageState view](../src/TextTexture.hpp) starts at
+`0x004B4ED0`: format +0, width +4, height +8, byte count +0xC, signed pitch
++0x10, HDC +0x14, unknown eight bytes +0x18, and pixel pointer +0x20. The
+initialization/destruction writes support this contiguous view; original
+object identity and initialization ownership remain open. Font selection
+uses default `0x004D2ACC`, IDs 1..5 at `0x004D2AC8/C4/C0/BC/B8`, ID 6 at
+`0x004D0AB4`, and ID 7 at `0x004B8AA4`.
+[State references](../.analysis/texture-text-global-refs.txt),
+[destructor review](../.analysis/texture-text-initialization-review.txt).
+
+Both draw functions receive texture in ECX and text in EDX, with seven/six
+stack arguments and `RET 28/24`. They select a font, clamp font width to at
+least 17, invert alpha for `fontWidth * 2 + 6` rows, draw with transparent GDI
+background mode, invert alpha again and fill transparent RGB. The ordinary
+backend first clears the scratch image and draws four outline offsets plus
+foreground; the alternate fills 16-bit pixels from the observed COLORREF
+nibbles and draws foreground alone. Nonzero spacing draws two-byte pairs,
+advancing X by spacing; zero spacing sends the whole string to TextOutA.
+The last two parameters throughout AnmText are therefore **font, spacing**;
+prior `option, font` parameter names were wrong, although argument order and
+types were unchanged.
+
+After drawing, the target selects the old font a second time and reuses the
+same API temporary for `GetSurfaceLevel(0, &object)`. It uploads source
+`{0, 0, min((rect.right - rect.left) * 2 + 22, 1024), fontWidth * 2 + 2}`
+through D3DXLoadSurfaceFromMemory with filter 4 and color key 0, then releases
+a nonnull surface. The code does not test GetSurfaceLevel's HRESULT or invent
+a fallback surface. Separate font/surface locals emitted the correct 696B
+but 16 ordinary stack-slot differences. Giving the GDI phase a separate
+scope did not change the bytes. Reusing the observed temporary reduced the
+diagnostic ordinary differences to two, both associated with a private
+LTCG exchange of texture/RECT argument locations. Taking both backend
+addresses in a temporary probe instead emitted 700B and did not close the
+owner; that probe experiment was removed. The alternate remains affected
+by compiler recognition of its fill loop as REP STOS and by register/stack
+allocation. Do not add volatile stores, dummy calls or padding to suppress it.
+[First diagnostic](../.analysis/texture-text-first-observations.json),
+[scope experiment](../.analysis/texture-text-scopes-observations.json),
+[typed pixels](../.analysis/texture-text-pixels-observations.json),
+[reused state/temporary](../.analysis/texture-text-state-observations.json),
+[rejected address-taking probe](../.analysis/texture-text-abi-observations.json).
+
+The canonical TextTexture cold comparison confirms the ordinary draw owner is
+**696B with all 42 fields replayed**, but ordinary bytes **+533/+580** still
+differ; it remains a frontier. Alpha inversion has the target's full 166B,
+but its three-field offset set differs and is rejected before byte comparison.
+Fill is 823/817B and alternate drawing 592/584B. The alternate target has
+**37** fields (including a repeated byte-count load), whereas the candidate
+has 36. None of these four receives an exact row.
+[Canonical backend results](../.analysis/texture-text-backend-results.json),
+[cold owner/field diagnostics](../.analysis/texture-text-cold-observations.json).
+
+The next real dependencies are already reviewed at `0x00451740` (413B,
+scratch-image creation) and `0x004525D0` (516B, image/font/noise setup).
+Creation uses a 108B BITMAPV4HEADER, width 1024, physical DIB height **-129**,
+logical stored height 128, and byte count `pitch * 128`. Keep that one-row
+difference. Setup tries format 26, then 21 only if the first attempt fails.
+It fills a 256-byte noise table from the existing protected RNG path and
+creates the eight observed fonts. GDI old bitmap / owned bitmap are at
+scratch-state +0x18/+0x1C; the current rendering view leaves them unknown
+because their source owners are not yet implemented. The format-mask table
+at `0x004B1960` has 24-byte records, resolved by the data query below.
+[Next dependency review](../.analysis/text-image-init-font-next-review.txt).
+
+The attested format query resolves the complete table: six 24-byte records,
+then one all-zero record with format -1, ending at `0x004B1A07`. Record fields
+are format, bits per pixel, alpha mask, red mask, green mask, blue mask.
+The format order is **22, 21, 24, 23, 25, 26, -1**; bit depths are 32, 32,
+16, 16, 16, 16. Format 26 uses masks F000/F00/F0/F; format 21 uses
+FF000000/FF0000/FF00/FF. The extra 24 bytes in the 192-byte query belong
+to following data, not this table. [Format records](../.analysis/text-image-format-records.txt).
+
+The caller contexts now include the real texture-text and alpha/color bodies
+as a 45th source. Scoped cold comparisons retain AddScore's exact 54B / three
+DIR32 fields. Start and Finish remain 1504/1496B and 374/398B. The sprite-text
+helper changes from the former external-backend context's 194B to 214B
+against 210B; the explicit-X, centered and half-center wrappers remain
+142/132B, 215/196B and 201/193B. These are full owner sizes, not byte-difference
+counts. [Card and score replay](../.analysis/texture-text-card-results.json),
+[VM-text replay](../.analysis/texture-text-vm-results.json).
+
+An untested source-type question for the two-byte ordinary frontier is the
+texture parameter: the current interface retains the earlier opaque `void *`,
+while target vtable +0x48 is GetSurfaceLevel on IDirect3DTexture9. A typed
+IDirect3DTexture9 pointer is a natural candidate to inspect before another
+caller/probe experiment; no compiler result is claimed for it.
+
+All four 45-source contexts cold-built successfully. The twelve affected
+owners have complete strict results: AddScore remains exact, and the eleven
+frontiers are rejected. Popup Show remains 1020/1072B. No previous result was
+rewritten, and none of the four new source mappings entered matches.csv.
+[Final comparison set](../.analysis/texture-text-final-results.json),
+[affected source graph](../.analysis/texture-text-affected-scope.json),
+[cold build log](../.analysis/texture-text-cold-build.log).
