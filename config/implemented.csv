@@ -141,6 +141,7 @@ AnmResource::Release
 AnmResource::SetSprite
 AnmResource::SpawnChildVm
 AnmResource::SpawnChildVmAtPosition
+AnmSpriteViewport::Set2DView
 AnmTextureEntry::CreateEmptyTexture
 AnmTextureEntry::CreateRenderTarget
 AnmTextureEntry::LoadEmbeddedTexture
@@ -149,6 +150,7 @@ AnmTextureEntry::LoadTextureFile
 AnmTextureEntry::Release
 AnmTextureEntry::UploadTextureImage
 AnmTextureEntry::UploadTextureRegion
+AnmViewportTan
 AnmVm::AnmVm
 AnmVm::BindAnmFile
 AnmVm::Draw
@@ -343,6 +345,9 @@ Rng::GetFloatSigned
 Rng::GetFloatSignedScaled
 Rng::GetU16
 Rng::GetU32
+RunAdaptiveFrame
+RunTimedFrame
+RunVsyncFrame
 SetChainElemCallback46C3A0
 SetGlobalMatrix4x4
 SetThreadFlagBit2

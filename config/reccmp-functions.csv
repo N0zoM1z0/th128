@@ -81,6 +81,8 @@ ShortestAngleDifference,0x00432CC0,function
 ZunVec3::SetPolarXY,0x00432E20,function
 AnmFogState::Enable,0x00434A70,function
 AnmFogState::Disable,0x00434AB0,function
+AnmSpriteViewport::Set2DView,0x00435090,function
+AnmViewportTan,0x00435EC0,function
 Pbg::Archive::~Archive,0x0044F5E0,function
 Pbg::Archive::Open,0x0044F5F0,function
 Pbg::Archive::Close,0x0044F730,function
@@ -111,6 +113,9 @@ Pbg::MemFile::Tell,0x00450FC0,function
 Pbg::MemFile::GetSize,0x00450FD0,function
 Pbg::MemFile::Seek,0x00450FE0,function
 WindowProc,0x00454420,function
+RunAdaptiveFrame,0x004547D0,function
+RunTimedFrame,0x00454BD0,function
+RunVsyncFrame,0x00454E50,function
 GetElapsedSeconds,0x00455160,function
 CreateGameWindow,0x00455320,function
 SoundManager::PlaySfx,0x00458410,function

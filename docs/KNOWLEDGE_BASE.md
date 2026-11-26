@@ -2157,6 +2157,128 @@ The current draw dispatcher is 1,452/1,392 bytes. Canonical totals are
 [existing exact selection](../.analysis/anm-rectangle-current-selected.json),
 [cold contexts](../.analysis/anm-rectangle-current-contexts.json).
 
+## Frame entry points and the 2D viewport (2026-11-26)
+
+Original Japanese TH12.8 v1.00a has three reviewed frame entry points at
+`0x004547D0`, `0x00454BD0` and `0x00454E50`. They now have maintained natural
+source in `SupervisorFrame.cpp` under pinned VC10 RTM `/O2 /Ob1 /Oy- /GL`.
+They receive a stack pointer to the main-window/frame-clock view rooted at
+`0x004D3970`, which is Supervisor `+0xB10`. This is distinct from the camera
+view rooted at `0x004D3184`. The primary loop passes that exact frame base.
+[Complete frame bodies](../.analysis/anm-buffer-reset-graphics-callers-review.txt),
+[primary-loop call sites](../.analysis/frame-root-instructions.txt).
+
+The common path flushes sprites, selects the default camera, updates its
+matrices and D3D viewport, sets the mode at `0x004D33B8` to 1 and runs the
+calc chain.
+Calc result zero stops the Supervisor thread and returns 1; result -1 stops
+it and returns 2. The frame counter is **signed byte** `+0x14`; it increments
+before comparison with unsigned config byte `0x004D304E` plus one. When due,
+the path calls BeginScene, ResetBuffers, DisableFog, the draw chain, sprite
+flush, SetTexture(0, NULL), EndScene and the mode's presentation boundary.
+It resets the counter before presenting and finally stores elapsed work
+time at `0x004D3820`.
+
+The write of `0xFF` to `0x004D37F8` is **fog-cache invalidation**, immediately
+before DisableFog; it aliases Supervisor `+0x998`, or AnmFogState `+0x990`.
+It forces the real fog path to flush and issue SetRenderState even if fog
+was previously off. It is not a draw-color field. The first source probe
+had that partial-view field four bytes too high; it was corrected before
+the maintained-source replay.
+[Fog implementation](../src/AnmDraw.cpp),
+[frame source](../src/SupervisorFrame.cpp).
+
+| Frame-clock field | Offset from `0x004D3970` | Absolute address |
+| --- | --- | --- |
+| Frames since draw | `+0x14` | `0x004D3984` |
+| Current / previous sample | `+0x2040/+0x2048` | `0x004D59B0/0x004D59B8` |
+| Next tick deadline | `+0x2050` | `0x004D59C0` |
+| Existing GetElapsedSeconds time origin | `+0x2058` | `0x004D59C8` |
+| Last present / raster sample | `+0x2060/+0x2068` | `0x004D59D0/0x004D59D8` |
+
+Window flag `0x10` selects the adaptive entry, which advances the deadline
+while current time is greater, using the attested double `1/60`. Without
+that flag, presentation interval 1 and config byte `0x004D304E == 0` select
+the vsync entry; the other cases select the timed entry. Timed entry samples
+the clock, resets its deadline on rollback, sleeps once when at least 1.5ms
+early, and performs no frame work until current time is greater than the
+deadline. It then catches up the deadline in 1/60 steps. The source retains
+the ordered `>` guard, including its unordered no-work case.
+[Clock constants](../.analysis/frame-timing-constants.txt),
+[primary-loop decompiler hypothesis](../.analysis/frame-root-and-present-hypotheses.txt).
+
+The float tangent boundary at `0x00435EC0` reproduces all 31 bytes and its
+one REL32 identity to CRT `__CItan` at `0x0048FD00`, including the float
+round-trip and stack cleanup. Its existing `vc10-math-wrapper-review`
+compiler/header exclusion is preserved: the pinned `math.h` has the same
+float-rounded tan expression. This is no new authored exact credit.
+[Complete linked comparison](../.analysis/frame-tangent-cached-manager-canonical.json),
+[existing origin review](../.analysis/origin-review/NOTES.md).
+
+`AnmSpriteViewport::Set2DView` (`0x00435090`, 343B / 17 target fields) now
+has source in `AnmViewport.cpp`. The shared view names its matrices at
+`+0x4C/+0x8C`, SDK viewport at `+0xCC`, and view offsets at `+0xE8/+0xEC`.
+It flushes a nonnull manager, converts unsigned width/height to float,
+builds a centered camera with Z = half-height / tan(pi/20), target Z = 0,
+and up = (0, -1, 0). Projection uses FoV pi/10, width/height aspect, near 1
+and far 10000. The two D3DX9_42 imports and D3D SetTransform slots are
+reviewed. After those calls it snapshots the manager and copies both view
+offsets, retaining that pointer across the two stores.
+[Complete camera and presentation review](../.analysis/frame-present-and-viewport-review.txt),
+[camera source](../src/AnmViewport.cpp).
+
+The maintained camera remains 339/343 bytes with all 17 fields. Component
+assignments instead of vector aggregates produce the same candidate. A
+separate dimensions-vector probe emits 343 bytes but still has ordinary
+differences; that variant was not adopted. Float temporary lifetimes,
+aspect division scheduling, local vectors and the GS frame remain open.
+The real frame context also leaves ResetBuffers at 56 bytes / 23 ordinary
+differences; adding real callers alone did not close it.
+[Maintained camera](../.analysis/frame-cached-manager-anm-viewport-set-2d.json),
+[component probe](../.analysis/frame-components-anm-viewport-set-2d.json),
+[dimensions probe](../.analysis/frame-dimensions-anm-viewport-set-2d.json),
+[reset in real frame context](../.analysis/frame-cached-manager-anm-draw-reset-buffers.json).
+
+The three presentation functions at `0x00454940`, `0x00454D90` and
+`0x00454F70` are reviewed real external boundaries, not fabricated bodies.
+They handle adaptive raster/sleep waits, Present and device-loss recovery;
+`0x004550B0` is screenshot handling, not a timing-statistics update. Their
+private receivers and the full pacing bodies are the next useful source
+context. The 653-byte adaptive present owner includes a three-byte physical
+alignment hole inside the reviewed extent; a future comparison must retain it.
+[Presentation and screenshot reviews](../.analysis/frame-timing-data-review.txt),
+[full adaptive present](../.analysis/frame-present-and-viewport-review.txt).
+
+The next device-loss dependencies are bounded. `0x004536A0` (124B) walks
+all 38 loaded ANM slots, releases nonnull texture pointers whose entry
+flags contain bit 0, and clears each released pointer. `0x00453720` (165B)
+walks the same slots and recreates those entries from the Supervisor
+back-buffer dimensions/format, recording four bytes per pixel for format
+22 and two otherwise. The latter contains the same work as the existing
+exact CreateRenderTarget owner, with no call to that owner in the target.
+`0x00435D20` (217B) reacquires level-zero surfaces and binds three real VM
+scripts through the exact BindVmScript boundary. The conditional
+post-Present hooks at `0x0041F990/0x0040DA50` sample the clock and update
+counters; they are separate from these reset helpers.
+[Dependency target review](../.analysis/presentation-loss-leaf-review.txt).
+The 802-byte D3D state setup at `0x00455A70` finishes by invalidating the
+manager's texture/format caches; this is separate from per-frame buffer
+reset. Its first 250 instructions are in that review and its complete
+remaining tail is [reviewed separately](../.analysis/presentation-state-reset-tail.txt).
+
+The final current-input comparison covers 116 owners: all 97 affected
+existing exact owners pass, the excluded tangent wrapper adds one pass,
+and 18 frontiers are rejected. Eleven affected contexts were cold-built;
+the final-input AnmViewport cold context was reused without source changes
+and its current receipt passed the Oracle again. Canonical totals are
+**407 source mappings / 331 exact functions / 20,204 exact bytes**. The four
+new authored mappings remain frontiers; authored exact totals are unchanged
+at **322 owners / 19,844 bytes**.
+[Full results](../.analysis/frame-current-results.json),
+[replay log](../.analysis/frame-current-replay.log),
+[existing exact selection](../.analysis/frame-current-selected.json),
+[affected contexts](../.analysis/frame-current-contexts.json).
+
 ## Open questions
 
 - Per-unit flags, the TU partition, which objects were `/GL`, the library set

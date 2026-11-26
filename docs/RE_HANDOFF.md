@@ -1,6 +1,6 @@
 # TH128 reconstruction handoff
 
-Snapshot: 2026-11-26 (rectangle/border source, paired vertex buffers and 23 recovered exact DrawLayer callbacks). Read this first, then AGENTS.md.
+Snapshot: 2026-11-26 (real frame entries, 2D camera source and float-tangent exact owner). Read this first, then AGENTS.md.
 
 ## Resume safely
 
@@ -36,11 +36,11 @@ canonical ledgers. At this snapshot:
 | Boundary reviewed / provisional | 3,452 / 64 |
 | Origin rows pending | 21 |
 | Authored / excluded / indeterminate | 2,226 / 1,269 / 0 |
-| Source-present mappings | 402 |
-| Source-present with authored origin | 394 |
-| Authored source-present exact backlog | 72 |
-| Canonical exact functions | 330 |
-| Canonical exact codegen bytes | 20,173 |
+| Source-present mappings | 407 |
+| Source-present with authored origin | 398 |
+| Authored source-present exact backlog | 76 |
+| Canonical exact functions | 331 |
+| Canonical exact codegen bytes | 20,204 |
 | Canonical exact authored bytes | 19,844 |
 
 The candidate inventory is not proven complete. The 21 remaining pending origin
@@ -78,6 +78,40 @@ are not over-inlined; address-taken probe pointers prevent interprocedural
 `and esp, -8` hoisting; struct copies unlock `fldz` hoisting in transition setters.
 
 ## Latest advance (2026-11-26)
+
+`SupervisorFrame.cpp` now maintains the three real calc/draw frame entries
+at `0x004547D0/0x00454BD0/0x00454E50`. Their receiver is the view rooted at
+Supervisor `+0xB10`, not the camera. Signed frame-skip counting, clock rollback,
+the timed 1.5ms sleep threshold, 60Hz deadline catch-up and the real
+BeginScene/reset/fog/draw/EndScene sequence are present. The `0xFF` store
+invalidates the fog cache at `0x004D37F8`; it is not a color. The three
+presentation bodies remain external reviewed boundaries. Frame entries
+remain frontiers at 360/360, 453/443 and 288/288 bytes, including private
+presentation-receiver and return-scheduling differences.
+
+`AnmViewport.cpp/.hpp` maintains the default 2D camera, both D3DX imports,
+D3D transforms and manager view offsets. The camera remains 339/343 bytes.
+The float tangent wrapper at `0x00435EC0` passes its complete 31-byte owner
+and real `__CItan` call identity. Its existing compiler/header exclusion
+remains; these bytes do not add authored exact credit. Component-wise
+vector statements and a 343-byte dimensions-vector variant did not close
+the camera; neither was
+adopted. The actual frame callers still leave ResetBuffers with its same
+23 ordinary differences. See the
+[frame/viewport finding](KNOWLEDGE_BASE.md#frame-entry-points-and-the-2d-viewport-2026-11-26).
+
+All 97 affected existing exact owners pass the final current-input replay.
+The 116-owner comparison passes 98 owners (97 retained + the compiler
+wrapper) and rejects 18 frontiers. Eleven contexts were cold-built; the
+unchanged final-input AnmViewport context from the preceding cold build was
+reused with its receipt rechecked. This adds four authored mappings and one
+excluded compiler/header mapping. Authored exact totals remain 322 owners /
+19,844 bytes. See the [full results](../.analysis/frame-current-results.json),
+[replay log](../.analysis/frame-current-replay.log),
+[existing exact selection](../.analysis/frame-current-selected.json) and
+[affected contexts](../.analysis/frame-current-contexts.json).
+
+Previous rectangle checkpoint (`b46df32`):
 
 The real rectangle/border definitions restore all 23 DrawLayer callbacks
 to canonical exact status: 342 bytes, each with one real DrawVmGroup REL32
@@ -587,12 +621,14 @@ Primary evidence:
 | src/AnmVmEffects.cpp | render-state sync, world matrices, sprite/fog/primitive draw paths, effect 10 | 5 exact normal-COFF owners; renderer paths frontier |
 | src/AnmVmOperands.cpp | four operand resolver owners (`0x00459900..0x00459CE0`) | 4/4 exact (linked PE) |
 | src/AnmVmResource.cpp | `NormalizeAnmCoordinates` (`0x00459D50`) | exact (linked PE) |
-| src/AnmManager.cpp | VM lookup, allocation, list cleanup, draw grouping, tick callbacks, `FlushSpriteBatch`, preload, 23 `DrawLayer*` callbacks | 12 exact (linked PE); 24 renderer-dependent rows withdrawn; world update/interrupt frontiers remain |
+| src/AnmManager.cpp | VM lookup, allocation, list cleanup, draw grouping, tick callbacks, `FlushSpriteBatch`, preload, 23 `DrawLayer*` callbacks | 35 exact (linked PE); DrawVmGroup, world update and interrupt frontiers remain |
 | src/AnmLoading.cpp | first-stage ANM load, external texture caching, inline resource constructor contribution | constructor exact (linked PE); loader/cache frontiers |
 | src/AnmFinalization.cpp | resolved sprite installation, one-entry finalization and pending-resource scheduler | `SetSprite` (145B) and scheduler (140B) exact; finalizer frontier |
 | src/AnmTextureLoading.cpp | seven texture creation/loading/upload methods, format fallback, neighbor accumulation and transparent RGB repair | 7 owners exact (334B); 6 frontiers including the full 1,774B repair |
 | src/HelpInf.cpp | help viewer lifecycle/update, UI VM creation, page/resource worker bodies and Chain callbacks | 6 owners exact (151B); Create, Initialize, Shutdown, Update, UI helper and resource worker frontiers |
-| src/AnmDraw.cpp | complete draw dispatch, two-stage vector position and cached fog transitions | fog Enable/Disable exact (108B); Draw and position helper frontiers; real leaf definitions incomplete |
+| src/AnmDraw.cpp | draw dispatch, position, fog/state, sprite submission/append, rectangles/borders and buffer reset | fog Enable/Disable, ApplyState and AppendSprite exact (662B); remaining owners frontier |
+| src/AnmViewport.cpp | 2D camera matrices and float tangent | compiler/header tangent exact (31B, excluded from authored totals); camera frontier |
+| src/SupervisorFrame.cpp | adaptive, timed and vsync calc/draw entry points | 3 frontiers; real presentation boundaries remain external |
 | src/AnmResource.cpp | `Release`, `AnmTextureEntry::Release`, `CreateVm` | 2 exact (linked PE); `CreateVm` frontier |
 | src/AnmVmUpdateWrapper.cpp | manager binding update wrapper (`0x00407080`) | 20-byte target frontier; 5-byte GL body, 15-byte normal-COFF body |
 | src/AnmHelpers.cpp | `ResolveAnmVmId` and 31 `AnmId`/VM/child/rotation/draw helpers (`0x00467570..0x00468100`) | 31 exact (linked PE); DrawSingleVm credit withdrawn; `ClearD3DTexture*` frontiers |
@@ -611,9 +647,9 @@ has an accepted exact owner replay yet.
 
 ### Exact ANM owners
 
-`config/matches.csv` now contains **124 exact owners with an ANM module**:
-39 `AnmInterp`, 36 `AnmHelpers`, 16 `AnmVm`, 13 `AnmManager`,
-9 `AnmResource`, 5 `AnmVmEffects`, 4 `AnmVmScript`, and 2 `AnmGraphics`, counted
+`config/matches.csv` now contains **149 exact owners with an ANM module**:
+39 `AnmInterp`, 36 `AnmHelpers`, 16 `AnmVm`, 36 `AnmManager`,
+9 `AnmResource`, 5 `AnmVmEffects`, 4 `AnmVmScript`, and 4 `AnmGraphics`, counted
 through the maintained module in `config/functions.csv`. Do not expand this list
 from source presence or successful compilation; only accepted rows in
 `config/matches.csv` count as exact.
@@ -634,12 +670,15 @@ callers remain frontiers as well.
 
 ## Next useful work (Phase 3+)
 
-1. **Continue the real draw context**: the sprite submission and four small
-   wrappers now have maintained source, as do the rectangles and borders.
-   Their remaining differences include ambient rounding and FSINCOS.
-   Review the three render-pass callers of ResetBuffers at `0x004547D0`,
-   `0x00454BD0` and `0x00454E50`, or the reviewed mode-17 polar line strip
-   at `0x00462D60`, before repeating exhausted vector/zero-lifetime probes.
+1. **Continue the real frame/draw context**: the three calc/draw frame
+   entries and 2D camera now have source. Start with the 124/165-byte
+   render-target release/recreate walkers at `0x004536A0/0x00453720`, then
+   their presentation callers (`0x00454940/0x00454D90/0x00454F70`), preserving
+   screenshot handling at `0x004550B0` as its own boundary. The sleep-capable
+   314-byte present is the next bounded owner. The reviewed mode-17 polar
+   line strip at `0x00462D60` is another useful scope. Sprite/rectangle
+   frontiers still include ambient rounding and FSINCOS; avoid repeating
+   the documented vector/zero-lifetime probes.
    Preserve the 58-field dispatcher, two float-rounding stages and genuine
    manager/VM inputs. DrawLayer is exact again under real callees;
    DrawVmGroup and DrawSingleVm remain frontiers.
@@ -674,7 +713,7 @@ callers remain frontiers as well.
 5. **Next useful command after the session identity checks**:
 
    ~~~bash
-   sed -n '1,175p' .analysis/anm-buffer-reset-graphics-callers-review.txt
+   sed -n '1,166p' .analysis/presentation-loss-leaf-review.txt
    ~~~
 
    The new dispatcher and small sprite wrappers are reviewed in

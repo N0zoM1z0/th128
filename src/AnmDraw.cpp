@@ -4,6 +4,7 @@
 #include "AnmInterp.hpp"
 #include "AnmSpriteRounding.hpp"
 #include "AnmVmView.hpp"
+#include "AnmViewport.hpp"
 #include "Supervisor.hpp"
 
 #include <d3d9.h>
@@ -24,14 +25,6 @@ namespace AnmDrawLeaf
 }
 
 AnmVmEffect10Vertex g_AnmSpriteVertices[4];
-
-struct AnmSpriteViewport
-{
-    unsigned char unknown000[0xCC];
-    D3DVIEWPORT9 viewport;
-};
-
-extern AnmSpriteViewport *g_AnmSpriteViewport;
 
 namespace
 {

@@ -7203,3 +7203,186 @@ linkages = [
   { offset = 101, type = "REL32", symbol = "?GradientRectangle@AnmDrawLeaf@@YGHPAUAnmManager@@MMMMMII@Z", target = 0x004626B0 },
   { offset = 147, type = "REL32", symbol = "?GradientRectangle@AnmDrawLeaf@@YGHPAUAnmManager@@MMMMMII@Z", target = 0x004626B0 },
 ]
+
+[units.supervisor-frame-adaptive]
+frontier = true
+artifact_kind = "linked-pe"
+source = "src/SupervisorFrame.cpp"
+support_sources = ["src/AnmDraw.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "src/AnmLoading.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmInterp.cpp", "src/AnmViewport.cpp", "src/SupervisorTime.cpp", "probes/supervisor-frame-context.cpp", "probes/anm-core-context.cpp"]
+output_dir = "build/match-linked/SupervisorFrame"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorFrameProbe@12"
+functions = ["RunAdaptiveFrame"]
+symbol = "?RunAdaptiveFrame@@YGHPAUSupervisorFrame@@@Z"
+target_address = 0x004547D0
+size = 360
+linkages = [
+  { offset = 5, type = "DIR32", symbol = "?g_WindowFlags@@3IA", target = 0x004D59A8 },
+  { offset = 39, type = "DIR32", symbol = "__real@3f91111111111111", target = 0x004A66D0 },
+  { offset = 80, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+  { offset = 85, type = "REL32", symbol = "?FlushSpriteBatch@AnmManager@@QAEXXZ", target = 0x0045EF60 },
+  { offset = 90, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 804 },
+  { offset = 96, type = "DIR32", symbol = "?g_AnmSpriteViewport@@3PAUAnmSpriteViewport@@A", target = 0x004D33B4 },
+  { offset = 101, type = "REL32", symbol = "?Set2DView@AnmSpriteViewport@@QAEXXZ", target = 0x00435090 },
+  { offset = 107, type = "DIR32", symbol = "?g_AnmSpriteViewport@@3PAUAnmSpriteViewport@@A", target = 0x004D33B4 },
+  { offset = 112, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 16 },
+  { offset = 136, type = "DIR32", symbol = "?g_Chain@@3PAVChain@@A", target = 0x004D2E14 },
+  { offset = 142, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1368 },
+  { offset = 151, type = "REL32", symbol = "?RunCalcChain@Chain@@QAEHXZ", target = 0x00468310 },
+  { offset = 160, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 2040 },
+  { offset = 165, type = "REL32", symbol = "?Stop@ThreadInf@@QAEXXZ", target = 0x0046ACF0 },
+  { offset = 187, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 2040 },
+  { offset = 192, type = "REL32", symbol = "?Stop@ThreadInf@@QAEXXZ", target = 0x0046ACF0 },
+  { offset = 217, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 494 },
+  { offset = 231, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 16 },
+  { offset = 247, type = "REL32", symbol = "?ResetBuffers@AnmDrawLeaf@@YGXXZ", target = 0x0045EF20 },
+  { offset = 252, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 8 },
+  { offset = 258, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 2456 },
+  { offset = 267, type = "REL32", symbol = "?Disable@AnmFogState@@QAEJXZ", target = 0x00434AB0 },
+  { offset = 272, type = "REL32", symbol = "?RunDrawChain@Chain@@QAEHXZ", target = 0x00468460 },
+  { offset = 278, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+  { offset = 283, type = "REL32", symbol = "?FlushSpriteBatch@AnmManager@@QAEXXZ", target = 0x0045EF60 },
+  { offset = 288, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 16 },
+  { offset = 308, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 16 },
+  { offset = 330, type = "REL32", symbol = "?PresentAdaptive@SupervisorFrame@@QAEXXZ", target = 0x00454940 },
+  { offset = 335, type = "REL32", symbol = "?GetElapsedSeconds@@YANXZ", target = 0x00455160 },
+  { offset = 349, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 2496 },
+]
+
+[units.supervisor-frame-timed]
+frontier = true
+artifact_kind = "linked-pe"
+source = "src/SupervisorFrame.cpp"
+support_sources = ["src/AnmDraw.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "src/AnmLoading.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmInterp.cpp", "src/AnmViewport.cpp", "src/SupervisorTime.cpp", "probes/supervisor-frame-context.cpp", "probes/anm-core-context.cpp"]
+output_dir = "build/match-linked/SupervisorFrame"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorFrameProbe@12"
+functions = ["RunTimedFrame"]
+symbol = "?RunTimedFrame@@YGHPAUSupervisorFrame@@@Z"
+target_address = 0x00454BD0
+size = 443
+linkages = [
+  { offset = 7, type = "REL32", symbol = "?GetElapsedSeconds@@YANXZ", target = 0x00455160 },
+  { offset = 53, type = "DIR32", symbol = "__real@408f400000000000", target = 0x004A65E0 },
+  { offset = 59, type = "DIR32", symbol = "__real@3ff8000000000000", target = 0x004A68F8 },
+  { offset = 74, type = "DIR32", symbol = "__imp__Sleep@4", target = 0x0049A084 },
+  { offset = 122, type = "DIR32", symbol = "__real@3f91111111111111", target = 0x004A66D0 },
+  { offset = 163, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+  { offset = 168, type = "REL32", symbol = "?FlushSpriteBatch@AnmManager@@QAEXXZ", target = 0x0045EF60 },
+  { offset = 173, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 804 },
+  { offset = 179, type = "DIR32", symbol = "?g_AnmSpriteViewport@@3PAUAnmSpriteViewport@@A", target = 0x004D33B4 },
+  { offset = 184, type = "REL32", symbol = "?Set2DView@AnmSpriteViewport@@QAEXXZ", target = 0x00435090 },
+  { offset = 190, type = "DIR32", symbol = "?g_AnmSpriteViewport@@3PAUAnmSpriteViewport@@A", target = 0x004D33B4 },
+  { offset = 195, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 16 },
+  { offset = 219, type = "DIR32", symbol = "?g_Chain@@3PAVChain@@A", target = 0x004D2E14 },
+  { offset = 225, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1368 },
+  { offset = 234, type = "REL32", symbol = "?RunCalcChain@Chain@@QAEHXZ", target = 0x00468310 },
+  { offset = 243, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 2040 },
+  { offset = 248, type = "REL32", symbol = "?Stop@ThreadInf@@QAEXXZ", target = 0x0046ACF0 },
+  { offset = 270, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 2040 },
+  { offset = 275, type = "REL32", symbol = "?Stop@ThreadInf@@QAEXXZ", target = 0x0046ACF0 },
+  { offset = 300, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 494 },
+  { offset = 314, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 16 },
+  { offset = 330, type = "REL32", symbol = "?ResetBuffers@AnmDrawLeaf@@YGXXZ", target = 0x0045EF20 },
+  { offset = 335, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 8 },
+  { offset = 341, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 2456 },
+  { offset = 350, type = "REL32", symbol = "?Disable@AnmFogState@@QAEJXZ", target = 0x00434AB0 },
+  { offset = 355, type = "REL32", symbol = "?RunDrawChain@Chain@@QAEHXZ", target = 0x00468460 },
+  { offset = 361, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+  { offset = 366, type = "REL32", symbol = "?FlushSpriteBatch@AnmManager@@QAEXXZ", target = 0x0045EF60 },
+  { offset = 371, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 16 },
+  { offset = 391, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 16 },
+  { offset = 413, type = "REL32", symbol = "?PresentImmediate@SupervisorFrame@@QAEXXZ", target = 0x00454D90 },
+  { offset = 418, type = "REL32", symbol = "?GetElapsedSeconds@@YANXZ", target = 0x00455160 },
+  { offset = 430, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 2496 },
+]
+
+[units.supervisor-frame-vsync]
+frontier = true
+artifact_kind = "linked-pe"
+source = "src/SupervisorFrame.cpp"
+support_sources = ["src/AnmDraw.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "src/AnmLoading.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmInterp.cpp", "src/AnmViewport.cpp", "src/SupervisorTime.cpp", "probes/supervisor-frame-context.cpp", "probes/anm-core-context.cpp"]
+output_dir = "build/match-linked/SupervisorFrame"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorFrameProbe@12"
+functions = ["RunVsyncFrame"]
+symbol = "?RunVsyncFrame@@YGHPAUSupervisorFrame@@@Z"
+target_address = 0x00454E50
+size = 288
+linkages = [
+  { offset = 7, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+  { offset = 13, type = "REL32", symbol = "?FlushSpriteBatch@AnmManager@@QAEXXZ", target = 0x0045EF60 },
+  { offset = 18, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 804 },
+  { offset = 24, type = "DIR32", symbol = "?g_AnmSpriteViewport@@3PAUAnmSpriteViewport@@A", target = 0x004D33B4 },
+  { offset = 29, type = "REL32", symbol = "?Set2DView@AnmSpriteViewport@@QAEXXZ", target = 0x00435090 },
+  { offset = 35, type = "DIR32", symbol = "?g_AnmSpriteViewport@@3PAUAnmSpriteViewport@@A", target = 0x004D33B4 },
+  { offset = 40, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 16 },
+  { offset = 64, type = "DIR32", symbol = "?g_Chain@@3PAVChain@@A", target = 0x004D2E14 },
+  { offset = 70, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1368 },
+  { offset = 79, type = "REL32", symbol = "?RunCalcChain@Chain@@QAEHXZ", target = 0x00468310 },
+  { offset = 88, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 2040 },
+  { offset = 93, type = "REL32", symbol = "?Stop@ThreadInf@@QAEXXZ", target = 0x0046ACF0 },
+  { offset = 115, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 2040 },
+  { offset = 120, type = "REL32", symbol = "?Stop@ThreadInf@@QAEXXZ", target = 0x0046ACF0 },
+  { offset = 145, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 494 },
+  { offset = 159, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 16 },
+  { offset = 175, type = "REL32", symbol = "?ResetBuffers@AnmDrawLeaf@@YGXXZ", target = 0x0045EF20 },
+  { offset = 180, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 8 },
+  { offset = 186, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 2456 },
+  { offset = 195, type = "REL32", symbol = "?Disable@AnmFogState@@QAEJXZ", target = 0x00434AB0 },
+  { offset = 200, type = "REL32", symbol = "?RunDrawChain@Chain@@QAEHXZ", target = 0x00468460 },
+  { offset = 206, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+  { offset = 211, type = "REL32", symbol = "?FlushSpriteBatch@AnmManager@@QAEXXZ", target = 0x0045EF60 },
+  { offset = 216, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 16 },
+  { offset = 236, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 16 },
+  { offset = 258, type = "REL32", symbol = "?PresentWithSleep@SupervisorFrame@@QAEXXZ", target = 0x00454F70 },
+  { offset = 263, type = "REL32", symbol = "?GetElapsedSeconds@@YANXZ", target = 0x00455160 },
+  { offset = 277, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 2496 },
+]
+
+[units.anm-viewport-set-2d]
+frontier = true
+artifact_kind = "linked-pe"
+source = "src/AnmViewport.cpp"
+support_sources = ["src/AnmDraw.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "src/AnmLoading.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmInterp.cpp", "src/SupervisorFrame.cpp", "src/SupervisorTime.cpp", "probes/supervisor-frame-context.cpp", "probes/anm-core-context.cpp"]
+output_dir = "build/match-linked/AnmViewport"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorFrameProbe@12"
+functions = ["AnmSpriteViewport::Set2DView"]
+symbol = "?Set2DView@AnmSpriteViewport@@QAEXXZ"
+target_address = 0x00435090
+size = 343
+linkages = [
+  { offset = 7, type = "DIR32", symbol = "___security_cookie", target = 0x004B01F4 },
+  { offset = 20, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+  { offset = 29, type = "REL32", symbol = "?FlushSpriteBatch@AnmManager@@QAEXXZ", target = 0x0045EF60 },
+  { offset = 51, type = "DIR32", symbol = "__real@4f800000", target = 0x004A6660 },
+  { offset = 71, type = "DIR32", symbol = "__real@3fe0000000000000", target = 0x004A65A8 },
+  { offset = 94, type = "DIR32", symbol = "__real@4f800000", target = 0x004A6660 },
+  { offset = 136, type = "DIR32", symbol = "__real@3e20d97c", target = 0x004A6708 },
+  { offset = 144, type = "REL32", symbol = "?AnmViewportTan@@YGMM@Z", target = 0x00435EC0 },
+  { offset = 192, type = "DIR32", symbol = "__real@bf800000", target = 0x004A6688 },
+  { offset = 204, type = "DIR32", symbol = "__imp__D3DXMatrixLookAtLH@16", target = 0x0049A2D0 },
+  { offset = 210, type = "DIR32", symbol = "__real@461c4000", target = 0x004A6704 },
+  { offset = 242, type = "DIR32", symbol = "__real@3ea0d97c", target = 0x004A6700 },
+  { offset = 252, type = "DIR32", symbol = "__imp__D3DXMatrixPerspectiveFovLH@20", target = 0x0049A2CC },
+  { offset = 257, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 16 },
+  { offset = 276, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 16 },
+  { offset = 295, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+  { offset = 335, type = "REL32", symbol = "@__security_check_cookie@4", target = 0x004728FD },
+]
+
+[units.anm-viewport-tangent]
+artifact_kind = "linked-pe"
+source = "src/AnmViewport.cpp"
+support_sources = ["src/AnmDraw.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "src/AnmLoading.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmInterp.cpp", "src/SupervisorFrame.cpp", "src/SupervisorTime.cpp", "probes/supervisor-frame-context.cpp", "probes/anm-core-context.cpp"]
+output_dir = "build/match-linked/AnmViewport"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorFrameProbe@12"
+functions = ["AnmViewportTan"]
+symbol = "?AnmViewportTan@@YGMM@Z"
+target_address = 0x00435EC0
+size = 31
+linkages = [
+  { offset = 13, type = "REL32", symbol = "__CItan", target = 0x0048FD00 },
+]
