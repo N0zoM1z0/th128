@@ -97,6 +97,6 @@ extern "C" void __stdcall AnmCoreProbe(
     tmpRes.Release();
     r1->Release();
     r2->Release();
-    r1->CreateVm(pos, id1, slot, 0, 1);
-    r2->CreateVm(0, id2, slot + 1, -1, 4);
+    *id1 = r1->CreateVm(pos, slot, 0, 1).id;
+    *id2 = r2->CreateVm(0, slot + 1, -1, 4).id;
 }

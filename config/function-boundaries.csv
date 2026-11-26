@@ -2037,7 +2037,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x00466A10,0x00466A59,reviewed,high,bnew-referenced,found by padded-aligned; start padding; refs immx1; descent body 0x00466A10..0x00466A59 (74 bytes) ends with ret; then padding-then-start 0x00466A60
 0x00466A60,0x00466AE4,reviewed,high,bnew-referenced,found by padded-aligned; start padding; refs immx1; descent body 0x00466A60..0x00466AE4 (133 bytes) ends with ret; then padding-then-start 0x00466AF0
 0x00466AF0,0x00466BD4,reviewed,high,anm-manager-update-world-vms-boundary,"Complete hash-attested contiguous owner 0x00466AF0..0x00466BD4 (229 bytes), no external interior references or tables, following INT3 padding, reached by world callback tail jump."
-0x00466BE0,0x00466CD5,reviewed,high,anm-manager-update-ui-vms-boundary,"Complete hash-attested contiguous owner 0x00466BE0..0x00466CD5 (246 bytes), no external interior references or tables, following INT3 padding, reached by UI callback tail jump."
+0x00466BE0,0x00466CD5,reviewed,high,anm-manager-update-ui-vms-boundary,"Complete hash-attested contiguous owner 0x00466BE0..0x00466CD5 (246 bytes), no external interior references or tables, following INT3 padding, reached by the UI callback tail jump."
 0x00466CE0,0x00466D5D,reviewed,high,bdesc-exact,start padding; refs callx33; descent body 0x00466CE0..0x00466D5D (126 bytes) ends with ret; then padding-then-start 0x00466D60
 0x00466D60,0x00466DDB,reviewed,high,anm-manager-register-world-tail-boundary,Hash-attested 124-byte body at 0x00466D60..0x00466DDB; 15 direct callers; RET before 0x00466DE0.
 0x00466DE0,0x00466E56,reviewed,high,anm-manager-register-world-head-boundary,Hash-attested 119-byte body at 0x00466DE0..0x00466E56; 5 direct callers; RET before 0x00466E60.

@@ -487,56 +487,72 @@ size = 345
 relocations = []
 
 [units.anm-vm-register-world-tail]
-frontier = true # The target carries AnmVm in EBX, obtains the global manager internally, and returns the output-id pointer.
-artifact_kind = "coff"
+frontier = true
+artifact_kind = "linked-pe"
 source = "src/AnmVmScript.cpp"
-inputs = ["src/AnmVm.hpp", "src/AnmManager.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
-object = "build/match/AnmVmScriptWorldTail.obj"
-profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp", "src/AnmManager.hpp", "src/AngleMath.hpp", "src/ZunTimer.hpp", "src/AnmVmGeometry.hpp", "src/AnmVmView.hpp"]
+support_sources = ["probes/anm-vm-update-context.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVmEffects.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "src/ZunTimer.cpp", "src/AnmVmView.cpp"]
+output_dir = "build/match-linked/AnmVmColorInterpolation"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmVmUpdateProbe@4"
 functions = ["AnmVm::RegisterWorldVmAtTail"]
-symbol = "?RegisterWorldVmAtTail@AnmVm@@QAEPAIPAI@Z"
+symbol = "?RegisterWorldVmAtTail@AnmVm@@QAE?AUAnmId@@XZ"
 target_address = 0x00466D60
 size = 124
-relocations = []
+linkages = [
+  { offset = 5, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+]
 
 [units.anm-vm-register-world-head]
-frontier = true # The target carries AnmVm in EBX, obtains the global manager internally, and returns the output-id pointer.
-artifact_kind = "coff"
+frontier = true
+artifact_kind = "linked-pe"
 source = "src/AnmVmScript.cpp"
-inputs = ["src/AnmVm.hpp", "src/AnmManager.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
-object = "build/match/AnmVmScriptWorldHead.obj"
-profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp", "src/AnmManager.hpp", "src/AngleMath.hpp", "src/ZunTimer.hpp", "src/AnmVmGeometry.hpp", "src/AnmVmView.hpp"]
+support_sources = ["probes/anm-vm-update-context.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVmEffects.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "src/ZunTimer.cpp", "src/AnmVmView.cpp"]
+output_dir = "build/match-linked/AnmVmColorInterpolation"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmVmUpdateProbe@4"
 functions = ["AnmVm::RegisterWorldVmAtHead"]
-symbol = "?RegisterWorldVmAtHead@AnmVm@@QAEPAIPAI@Z"
+symbol = "?RegisterWorldVmAtHead@AnmVm@@QAE?AUAnmId@@XZ"
 target_address = 0x00466DE0
 size = 119
-relocations = []
+linkages = [
+  { offset = 5, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+]
 
 [units.anm-vm-register-ui-tail]
-frontier = true # The target helper appends the embedded managerNode to the UI list tail and assigns a nonzero VM ID. The C++ member form is a semantic frontier because the target carries the VM through EBX.
-artifact_kind = "coff"
+frontier = true
+artifact_kind = "linked-pe"
 source = "src/AnmVmScript.cpp"
-inputs = ["src/AnmVm.hpp", "src/AnmManager.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
-object = "build/match/AnmVmScriptUiTail.obj"
-profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp", "src/AnmManager.hpp", "src/AngleMath.hpp", "src/ZunTimer.hpp", "src/AnmVmGeometry.hpp", "src/AnmVmView.hpp"]
+support_sources = ["probes/anm-vm-update-context.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVmEffects.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "src/ZunTimer.cpp", "src/AnmVmView.cpp"]
+output_dir = "build/match-linked/AnmVmColorInterpolation"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmVmUpdateProbe@4"
 functions = ["AnmVm::RegisterUiVmAtTail"]
-symbol = "?RegisterUiVmAtTail@AnmVm@@QAEPAIPAI@Z"
+symbol = "?RegisterUiVmAtTail@AnmVm@@QAE?AUAnmId@@XZ"
 target_address = 0x00466E60
 size = 124
-relocations = []
+linkages = [
+  { offset = 5, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+]
 
 [units.anm-vm-register-ui-head]
-frontier = true # The target carries AnmVm in EBX, obtains the global manager internally, and returns the output-id pointer.
-artifact_kind = "coff"
+frontier = true
+artifact_kind = "linked-pe"
 source = "src/AnmVmScript.cpp"
-inputs = ["src/AnmVm.hpp", "src/AnmManager.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
-object = "build/match/AnmVmScriptUiHead.obj"
-profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp", "src/AnmManager.hpp", "src/AngleMath.hpp", "src/ZunTimer.hpp", "src/AnmVmGeometry.hpp", "src/AnmVmView.hpp"]
+support_sources = ["probes/anm-vm-update-context.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVmEffects.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "src/ZunTimer.cpp", "src/AnmVmView.cpp"]
+output_dir = "build/match-linked/AnmVmColorInterpolation"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmVmUpdateProbe@4"
 functions = ["AnmVm::RegisterUiVmAtHead"]
-symbol = "?RegisterUiVmAtHead@AnmVm@@QAEPAIPAI@Z"
+symbol = "?RegisterUiVmAtHead@AnmVm@@QAE?AUAnmId@@XZ"
 target_address = 0x00466EE0
 size = 119
-relocations = []
+linkages = [
+  { offset = 5, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+]
 
 [units.anm-manager-allocate-vm]
 frontier = true # Reconstructs the 0x1000-entry VM pool allocator, rotating cursor, used-byte table, reuse reset, and heap fallback. The source is semantic frontier pending exact global/register call-shape recovery.
@@ -578,17 +594,19 @@ size = 295
 relocations = []
 
 [units.anm-resource-create-vm]
-frontier = true # Reconstructs the VM creation transaction: optional critical-section lock, resource refcount, pool acquisition, initial script state, position transform, resource binding, world/UI head/tail registration, and output ID. Target passes position in EAX; source is semantic frontier.
-artifact_kind = "coff"
+frontier = true
+artifact_kind = "linked-pe"
 source = "src/AnmResource.cpp"
-inputs = ["src/AnmResource.hpp", "src/AnmManager.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/ZunMath.hpp"]
-object = "build/match/AnmResourceCreateVm.obj"
-profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+inputs = ["src/AnmResource.hpp", "src/AnmManager.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmManager.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp"]
+output_dir = "build/match-linked/AnmResource"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
 functions = ["AnmResource::CreateVm"]
-symbol = "?CreateVm@AnmResource@@QAEPAIPBUZunVec3@@PAIHHI@Z"
+symbol = "?CreateVm@AnmResource@@QAE?AUAnmId@@PBUZunVec3@@HHI@Z"
 target_address = 0x004670B0
 size = 364
-relocations = []
+linkages = []
 
 [units.anm-manager-stop-vm-by-id]
 frontier = true # source-level method; target uses a private manager/VM register convention
@@ -2428,29 +2446,33 @@ relocations = []
 
 [units.anm-vm-spawn-child]
 frontier = true
-artifact_kind = "coff"
+artifact_kind = "linked-pe"
 source = "src/AnmVmScript.cpp"
-inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp", "src/AnmManager.hpp", "src/ZunTimer.hpp"]
-object = "build/match/AnmVmUpdate.obj"
-profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp", "src/AnmManager.hpp", "src/AngleMath.hpp", "src/ZunTimer.hpp", "src/AnmVmGeometry.hpp", "src/AnmVmView.hpp"]
+support_sources = ["probes/anm-vm-update-context.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVmEffects.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "src/ZunTimer.cpp", "src/AnmVmView.cpp"]
+output_dir = "build/match-linked/AnmVmColorInterpolation"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmVmUpdateProbe@4"
 functions = ["SpawnChildVm"]
-symbol = "?SpawnChildVm@?A0xcccfbf55@@YAIPAUAnmVm@@HI@Z"
+symbol = "?SpawnChildVm@?A0xcccfbf55@@YGPAIPAUAnmResource@@PAIHPAUAnmVm@@I@Z"
 target_address = 0x00467220
 size = 266
-relocations = []
+linkages = []
 
 [units.anm-vm-spawn-child-at-position]
 frontier = true
-artifact_kind = "coff"
+artifact_kind = "linked-pe"
 source = "src/AnmVmScript.cpp"
-inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp", "src/AnmManager.hpp", "src/ZunTimer.hpp"]
-object = "build/match/AnmVmUpdate.obj"
-profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
+inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp", "src/AnmManager.hpp", "src/AngleMath.hpp", "src/ZunTimer.hpp", "src/AnmVmGeometry.hpp", "src/AnmVmView.hpp"]
+support_sources = ["probes/anm-vm-update-context.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVmEffects.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "src/ZunTimer.cpp", "src/AnmVmView.cpp"]
+output_dir = "build/match-linked/AnmVmColorInterpolation"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmVmUpdateProbe@4"
 functions = ["SpawnChildVmAtPosition"]
-symbol = "?SpawnChildVmAtPosition@?A0xcccfbf55@@YAIPAUAnmVm@@H@Z"
+symbol = "?SpawnChildVmAtPosition@?A0xcccfbf55@@YGPAIPAUAnmResource@@PAIHPAUAnmVm@@@Z"
 target_address = 0x00467330
 size = 230
-relocations = []
+linkages = []
 
 [units.anm-vm-view-corners-mode0-linked]
 frontier = true # LTCG probe for the target's private register convention in the mode-0 view helper.
@@ -6039,7 +6061,6 @@ linkages = [
 ]
 
 [units.anm-manager-update-ui-vms]
-frontier = true
 artifact_kind = "linked-pe"
 source = "src/AnmManager.cpp"
 inputs = ["src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp", "src/AngleMath.hpp"]

@@ -4,6 +4,7 @@
 #include "ZunMath.hpp"
 #include "ZunTimer.hpp"
 
+struct AnmId;
 struct AnmVm;
 struct AnmResource;
 struct AnmFileEntry;
@@ -160,10 +161,10 @@ struct AnmVm
 
     AnmVm();
     void ResetForReuse();
-    unsigned int *RegisterWorldVmAtTail(unsigned int *outId);
-    unsigned int *RegisterWorldVmAtHead(unsigned int *outId);
-    unsigned int *RegisterUiVmAtTail(unsigned int *outId);
-    unsigned int *RegisterUiVmAtHead(unsigned int *outId);
+    AnmId RegisterWorldVmAtTail();
+    AnmId RegisterWorldVmAtHead();
+    AnmId RegisterUiVmAtTail();
+    AnmId RegisterUiVmAtHead();
     int BindAnmFile(AnmResource *resource, int fileIndex);
     void SetEffectState(unsigned int duration, unsigned int mode, unsigned char parameter0, unsigned char parameter1);
     void StartEffect10();

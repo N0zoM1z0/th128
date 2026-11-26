@@ -83,9 +83,8 @@ void AnmResource::Release()
     }
 }
 
-unsigned int *AnmResource::CreateVm(
+AnmId AnmResource::CreateVm(
     const ZunVec3 *position,
-    unsigned int *outId,
     int scriptIndex,
     int initialState,
     unsigned int flags)
@@ -128,31 +127,26 @@ unsigned int *AnmResource::CreateVm(
         BindVmAtPosition(vm, scriptIndex, position);
     }
 
-    unsigned int id;
+    AnmId id;
     if ((flags & 4U) != 0 && (flags & 2U) != 0)
     {
-        unsigned int tmp;
-        id = *vm->RegisterUiVmAtHead(&tmp);
+        id = vm->RegisterUiVmAtHead();
         vm->stateFlags &= ~0xC0U;
     }
     else if ((flags & 4U) != 0)
     {
-        unsigned int tmp;
-        id = *vm->RegisterUiVmAtTail(&tmp);
+        id = vm->RegisterUiVmAtTail();
         vm->stateFlags &= ~0xC0U;
     }
     else if ((flags & 2U) != 0)
     {
-        unsigned int tmp;
-        id = *vm->RegisterWorldVmAtHead(&tmp);
+        id = vm->RegisterWorldVmAtHead();
     }
     else
     {
-        unsigned int tmp;
-        id = *vm->RegisterWorldVmAtTail(&tmp);
+        id = vm->RegisterWorldVmAtTail();
     }
 
-    *outId = id;
     g_Supervisor.LeaveCriticalSection(9);
-    return outId;
+    return id;
 }

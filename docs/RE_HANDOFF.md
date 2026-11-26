@@ -1,6 +1,6 @@
 # TH128 reconstruction handoff
 
-Snapshot: 2026-11-26 (Phases 0–2 complete; ANM color transitions and tick callbacks closed). Read this first, then AGENTS.md.
+Snapshot: 2026-11-26 (ANM UI update exact; ID return and parent lifetime repaired). Read this first, then AGENTS.md.
 
 ## Resume safely
 
@@ -38,10 +38,10 @@ canonical ledgers. At this snapshot:
 | Authored / excluded / indeterminate | 2,226 / 1,269 / 0 |
 | Source-present mappings | 354 |
 | Source-present with authored origin | 346 |
-| Authored source-present exact backlog | 47 |
-| Canonical exact functions | 307 |
-| Canonical exact codegen bytes | 17,628 |
-| Canonical exact authored bytes | 17,299 |
+| Authored source-present exact backlog | 46 |
+| Canonical exact functions | 308 |
+| Canonical exact codegen bytes | 17,874 |
+| Canonical exact authored bytes | 17,545 |
 
 The candidate inventory is not proven complete. The 21 remaining pending origin
 rows are unreferenced `d3dx9math.inl` candidates (all 16 CRT-band boundary-review
@@ -96,20 +96,33 @@ in the probe, instead of taking the internal updates' addresses, restores
 the target's private EAX manager input naturally. All 74 affected exact
 units passed cold replay. See the [tick callback finding](KNOWLEDGE_BASE.md#anm-tick-callbacks-and-internal-update-abi-2026-11-26).
 
+`UpdateUiVms` (`0x00466BE0`, 246 bytes) is now exact (+1 function,
++246 bytes). A two-iteration initialization loop reproduces the target's
+unrolled head-clear/tail-store order and all 11 reviewed address fields.
+All 75 affected exact units passed cold replay. The four registration
+methods and `CreateVm` now return `AnmId` by value; child registration uses
+independent ID locals instead of overwriting the live `parent` argument.
+These API and lifetime repairs grant no extra exact credit. See the
+[UI/ID finding](KNOWLEDGE_BASE.md#ui-update-initialization-and-value-returned-anm-ids-2026-11-26).
+
 Current focused frontiers:
 
 - `UpdateWorldVms`: complete 229-byte owner with all 12 address fields
   replayed; one raw difference at `+8` (`sub esp, 0x84` vs target `0x8C`).
   Resolve the frame/TU context without unused slots or padding.
-- `UpdateUiVms`: complete 246-byte owner, all 11 address fields replayed;
-  31 differing bytes in the initial head-clear/tail-store scheduling.
 - `SetEffectState`: the byte-formal hypothesis was rejected (132 bytes,
   mode in DL, `RET 8` vs target 133 bytes / three stack slots / `RET 12`).
   The unsigned-int formal and mask are retained; its frontier symbol and
   inventory signature now agree with the source.
 
-Both internal updates now have source mappings and explicit linked frontier
-units. Reproduce the world frontier (expected mismatch, no exact credit):
+The registration/creation family now has linked frontier units with its
+maintained symbols. Tail/head registration owners are 118/93 bytes vs target
+124/119 in the script context; `CreateVm` is 359 vs 364 in the resource
+context. `SpawnChildVm` is 264 vs its full 266-byte target, with broad control
+and ABI differences despite the small size gap. The positioned child owner
+is 250 vs 230. These are natural-source frontiers after removing forced
+volatile node reads and register hints. Reproduce the world frontier
+(expected mismatch, no exact credit):
 
 ```bash
 scripts/repo-python scripts/build-match-unit.py --unit anm-manager-update-world-vms
@@ -123,7 +136,8 @@ Replay the color and tick callback owners with:
 ```bash
 scripts/repo-python scripts/replay-exact-units.py \
   --unit anm-vm-set-color-transition --unit anm-vm-set-secondary-color-transition \
-  --unit anm-manager-on-tick-world-callback --unit anm-manager-on-tick-ui-callback
+  --unit anm-manager-on-tick-world-callback --unit anm-manager-on-tick-ui-callback \
+  --unit anm-manager-update-ui-vms
 ```
 
 ## Active reconstruction: AnmVm
@@ -195,8 +209,8 @@ float/integer operand-address helper counts are 11/14 candidate vs 12/13
 target. The random-float call is the exact 52-byte `Rng::GetFloat(float scale)`
 leaf at `0x0040D130` (target inventory label `Rng::GetFloatScaled`);
 `Rng::GetU32` is an exact 149-byte leaf with eight mapped relocations. The
-`SpawnChildVm` helper owner is 252 bytes vs 263 target and retains a private
-EAX-resource/stack-owner ABI frontier. Opcodes 40 and 41
+`SpawnChildVm` helper owner is now 264 bytes vs the complete 266-byte target
+in the script context; its private ABI and control flow remain frontiers. Opcodes 40 and 41
 select the world/UI RNG in separate branches; opcode 41 uses the exact
 `Rng::GetFloat(float scale)` leaf at 0x0040D130. Opcodes 17, 27 and 42..46
 share the target float-result store, opcode 47 uses `AddAngles(angle, 0)`, and
@@ -235,7 +249,7 @@ Primary evidence:
 | src/AnmVmEffects.cpp | render-state sync, world matrices, sprite/fog/primitive draw paths, effect 10 | 5 exact normal-COFF owners; renderer paths frontier |
 | src/AnmVmOperands.cpp | four operand resolver owners (`0x00459900..0x00459CE0`) | 4/4 exact (linked PE) |
 | src/AnmVmResource.cpp | `NormalizeAnmCoordinates` (`0x00459D50`) | exact (linked PE) |
-| src/AnmManager.cpp | VM lookup, allocation, list cleanup, draw grouping, tick callbacks, `FlushSpriteBatch`, 23 `DrawLayer*` callbacks | 33 exact (linked PE); `UpdateWorldVms`/`UpdateUiVms`/`PreloadAnm`/`StopVmById` frontiers |
+| src/AnmManager.cpp | VM lookup, allocation, list cleanup, draw grouping, tick callbacks, `FlushSpriteBatch`, 23 `DrawLayer*` callbacks | 34 exact (linked PE), including `UpdateUiVms`; `UpdateWorldVms`/`PreloadAnm`/`StopVmById` frontiers |
 | src/AnmResource.cpp | `AnmResource::AnmResource`, `Release`, `AnmTextureEntry::Release`, `CreateVm` | 3 exact (linked PE); `CreateVm` frontier |
 | src/AnmHelpers.cpp | `ResolveAnmVmId` and 31 `AnmId`/VM/child/rotation/draw helpers (`0x00467570..0x00468100`) | 32 exact (linked PE); `ClearD3DTexture*` frontiers |
 | src/AnmInterp.cpp | `AnmInterp<T>` template (`AnmColor3`/`float`/`int`/`ZunVec2`) and vector/angle/color helpers (`0x0045D330..0x0045E76F`) | 39 exact (linked PE) + frontiers |
@@ -253,9 +267,9 @@ has an accepted exact owner replay yet.
 
 ### Exact ANM owners
 
-`config/matches.csv` now contains **133 exact ANM-area owners** across the
+`config/matches.csv` now contains **134 exact ANM-area owners** across the
 modules above (6 setters/ctor, 5 effect-table owners, 4 operand resolvers,
-`NormalizeAnmCoordinates`, 5 script/easing/timer helpers, 33 `AnmManager`,
+`NormalizeAnmCoordinates`, 5 script/easing/timer helpers, 34 `AnmManager`,
 3 `AnmResource`/`AnmTextureEntry`, 32 `AnmHelpers`, 39 `AnmInterp`, and
 5 `AnmVmTransitions`). Do not expand this list from source presence or
 successful compilation; only accepted rows in `config/matches.csv` count as
@@ -273,7 +287,7 @@ callers remain frontiers as well.
 ## Next useful work (Phase 3+)
 
 1. **Close remaining ANM medium functions**: finish `UpdateWorldVms` (`0x00466AF0`),
-   `UpdateUiVms` (`0x00466BE0`), `CreateVm` (`0x004670B0`, 365 vs 364B), `PreloadAnm`
+   `CreateVm` (`0x004670B0`, frontier), `PreloadAnm`
    (`0x00465600`, 124B), `StopVmById` (`0x00467480`, 103B), `SetEffectState` (`0x0045E6C0`, 133B),
    `ClearD3DTexture` (`0x00467BD0`) and the
    four `AnmInterp<T>::Step` functions (`0x0045D3D0..0x0045DB20`), plus `AnmVm::Update`

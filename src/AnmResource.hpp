@@ -59,9 +59,8 @@ struct AnmResource
     void Release();
     void BindVmScript(AnmVm *vm, int scriptIndex);
     void BindVmAtPosition(AnmVm *vm, int scriptIndex, const ZunVec3 *position);
-    unsigned int *CreateVm(
+    AnmId CreateVm(
         const ZunVec3 *position,
-        unsigned int *outId,
         int scriptIndex,
         int initialState,
         unsigned int flags);

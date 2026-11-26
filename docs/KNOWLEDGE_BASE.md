@@ -764,11 +764,64 @@ No unused array slots or padding were added. The 246-byte UI candidate still
 schedules initial list-head clears and local tail stores differently. Aggregate
 array initialization and caching the initial list node did not help; clearing
 heads indirectly produced 240 bytes. Those UI experiments were reverted.
-Both frontier units declare every reviewed address field for full owner replay:
+At that checkpoint both frontier units declared every reviewed address field for full owner replay:
 the [world result](../.analysis/anm-manager-update-world-frontier.json) replays
 12 fields and differs only at `+8`; the
 [UI result](../.analysis/anm-manager-update-ui-frontier.json) replays 11 fields
-and has 31 raw differences in `+43..+75`. Neither grants exact credit.
+and had 31 raw differences in `+43..+75`. Those historical mismatch records
+are unchanged; UI update was subsequently closed by the loop below.
+
+## UI update initialization and value-returned ANM IDs (2026-11-26)
+
+A two-iteration head-initialization loop reproduces the entire 246-byte
+`UpdateUiVms` owner at `0x00466BE0` under VC10 RTM `/O2 /Ob1 /Oy- /GL`,
+including all 11 reviewed address fields. Unlike the previous scalar and
+aggregate-initializer attempts, VC10 unrolls this loop into the target's
+head clears, tail addresses and local stores in the original order.
+[Initial complete replay](../.analysis/anm-ui-two-head-loop-final.json). All
+75 affected exact units also passed the current
+[cold replay](../.analysis/anm-id-return-affected-replay.log)
+([selected units](../.analysis/anm-id-return-affected-units.json)).
+
+The [factory/register/child review](../.analysis/anm-id-return-review.txt)
+exposes an incorrect source interpretation of stack reuse. In the target
+`SpawnChildVm` at `0x00467220`, the parent is cached in EDI at `0x0046729D`
+before its old argument slot at `[ebp+0x10]` is reused for registration
+results. EDI still supplies the parent child-list head at `0x004672E5`.
+The old source explicitly passed `reinterpret_cast<unsigned int *>(&parent)`
+to registration, then dereferenced `parent` afterwards. The reconstructed
+source now receives an independent `AnmId` value, preserving the parent
+through child-list insertion. The positioned child path likewise receives
+its registration result as a local value.
+
+A [pinned compiler ABI probe](../.analysis/anm-id-return-type-probe.cpp)
+([normal-COFF output](../.analysis/anm-id-return-member-type.asm)) distinguishes
+free functions from members: a free function returns a four-byte POD in EAX,
+but a member returning that same POD uses a hidden stack result pointer and
+`RET 4`. No constructor is needed. The four registration methods and
+`AnmResource::CreateVm` therefore use ordinary `AnmId` returns. This supplies
+a natural source API, not an exact private LTCG calling convention: some
+hidden pointers are still promoted differently in candidate linked contexts.
+An experimental ID constructor did not resolve that and added unnecessary
+initialization; it was reverted.
+
+The registration methods use the typed `g_AnmManager` slot and an inline
+ordinary-pointer insertion helper. Forced volatile node reads, the child
+helper's register hint and its volatile mode formal were removed. The
+compiler now eliminates the empty-node insertion branch in head registration;
+the target retains physical dead-branch instructions. Whole registration
+owners remain frontiers (118 vs 124 bytes for tails, 93 vs 119 for heads in
+the linked script context). Aggregate node-reset probes did not close them
+and were reverted. The child helper owners in that same context are
+264 vs 266 bytes and 250 vs 230 bytes; these measurements grant no exact credit.
+[Bounded observations](../.analysis/anm-id-return-frontier-observations.txt).
+`CreateVm` remains 359 vs 364 bytes in its primary resource context. The
+small child-owner size gap still hides many control/ABI differences
+([complete diagnostic](../.analysis/anm-child-after-id-return-diff.txt)).
+The world update remains a one-byte frontier after these changes
+([current replay](../.analysis/anm-world-after-id-return.json)).
+Seven affected factory/registration/child units now retain `/GL` as linked
+frontiers with the maintained symbols instead of stale normal-COFF prototypes.
 
 ## Open questions
 

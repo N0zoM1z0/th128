@@ -174,9 +174,9 @@ namespace
         unsigned int *childId,
         int scriptIndex,
         AnmVm *parent,
-        volatile unsigned int listMode)
+        unsigned int listMode)
     {
-        register unsigned int increment = 1;
+        const unsigned int increment = 1;
         if ((*reinterpret_cast<volatile unsigned int *>(0x004D33F8) & 0x8000U) != 0)
         {
             AnmVmChildCriticalSectionRoutine enter =
@@ -196,26 +196,22 @@ namespace
         child->position.z = initialPosition.z;
         resource->BindVmScript(child, scriptIndex);
         child->parentVm = parent;
-        unsigned int *registeredId;
+        AnmId registeredId;
         if ((listMode & 4U) != 0)
         {
             if ((listMode & 2U) != 0)
-                registeredId = child->RegisterUiVmAtHead(
-                    reinterpret_cast<unsigned int *>(&parent));
+                registeredId = child->RegisterUiVmAtHead();
             else
-                registeredId = child->RegisterUiVmAtTail(
-                    reinterpret_cast<unsigned int *>(&parent));
+                registeredId = child->RegisterUiVmAtTail();
         }
         else
         {
             if ((listMode & 2U) != 0)
-                registeredId = child->RegisterWorldVmAtHead(
-                    reinterpret_cast<unsigned int *>(&parent));
+                registeredId = child->RegisterWorldVmAtHead();
             else
-                registeredId = child->RegisterWorldVmAtTail(
-                    reinterpret_cast<unsigned int *>(&parent));
+                registeredId = child->RegisterWorldVmAtTail();
         }
-        *childId = *registeredId;
+        *childId = registeredId.id;
 
         AnmVmListNode *head = &parent->childNode;
         AnmVmListNode *node = &child->childNode;
@@ -243,7 +239,7 @@ namespace
         int scriptIndex,
         AnmVm *parent)
     {
-        register unsigned int increment = 1;
+        const unsigned int increment = 1;
         if ((*reinterpret_cast<volatile unsigned int *>(0x004D33F8) & 0x8000U) != 0)
         {
             AnmVmChildCriticalSectionRoutine enter =
@@ -273,9 +269,8 @@ namespace
         destinationScriptFloats[1] = sourceScriptFloats[1];
         destinationScriptFloats[2] = sourceScriptFloats[2];
         child->alternatePosition = parent->secondaryPosition;
-        unsigned int *registeredId = child->RegisterWorldVmAtTail(
-            reinterpret_cast<unsigned int *>(&parent));
-        *childId = *registeredId;
+        const AnmId registeredId = child->RegisterWorldVmAtTail();
+        *childId = registeredId.id;
 
         if ((*reinterpret_cast<volatile unsigned int *>(0x004D33F8) & 0x8000U) != 0)
         {
@@ -1157,17 +1152,24 @@ namespace
 
 
 
-// Keep the frame owner in this translation unit with the script interpreter.
+// Keep the frame owner and its list helpers in the same translation unit.
 namespace
 {
-
-
-
+    inline void InsertAnmVmNodeAfter(AnmVmListNode *head, AnmVmListNode *node)
+    {
+        if (head->next != 0)
+        {
+            node->next = head->next;
+            head->next->previous = node;
+        }
+        head->next = node;
+        node->previous = head;
+    }
 }
 
-unsigned int *AnmVm::RegisterWorldVmAtTail(unsigned int *outId)
+AnmId AnmVm::RegisterWorldVmAtTail()
 {
-    AnmManager *manager = GetGlobalAnmManager();
+    AnmManager *manager = g_AnmManager;
     AnmVmListNode *node = &managerNode;
     node->vm = this;
     node->next = 0;
@@ -1179,14 +1181,8 @@ unsigned int *AnmVm::RegisterWorldVmAtTail(unsigned int *outId)
     }
     else
     {
-        volatile AnmVmListNode *tail = manager->worldVmsTail;
-        if (tail->next != 0)
-        {
-            node->next = tail->next;
-            tail->next->previous = node;
-        }
-        tail->next = node;
-        node->previous = const_cast<AnmVmListNode *>(tail);
+        AnmVmListNode *tail = manager->worldVmsTail;
+        InsertAnmVmNodeAfter(tail, node);
     }
     manager->worldVmsTail = node;
 
@@ -1196,34 +1192,26 @@ unsigned int *AnmVm::RegisterWorldVmAtTail(unsigned int *outId)
         ++manager->nextVmId;
     }
     id = manager->nextVmId;
-    *outId = manager->nextVmId;
-    return outId;
+    AnmId result = { manager->nextVmId };
+    return result;
 }
 
-unsigned int *AnmVm::RegisterWorldVmAtHead(unsigned int *outId)
+AnmId AnmVm::RegisterWorldVmAtHead()
 {
-    AnmManager *manager = GetGlobalAnmManager();
+    AnmManager *manager = g_AnmManager;
     AnmVmListNode *node = &managerNode;
     node->vm = this;
     node->next = 0;
     node->previous = 0;
 
-    volatile AnmVmListNode *head = manager->worldVms;
+    AnmVmListNode *head = manager->worldVms;
     if (head == 0)
     {
         manager->worldVmsTail = node;
     }
     else
     {
-        volatile AnmVmListNode *volatileNode = node;
-        AnmVmListNode *next = volatileNode->next;
-        if (next != 0)
-        {
-            head->next = next;
-            next->previous = const_cast<AnmVmListNode *>(head);
-        }
-        node->next = const_cast<AnmVmListNode *>(head);
-        head->previous = node;
+        InsertAnmVmNodeAfter(node, head);
     }
     manager->worldVms = node;
 
@@ -1233,13 +1221,13 @@ unsigned int *AnmVm::RegisterWorldVmAtHead(unsigned int *outId)
         ++manager->nextVmId;
     }
     id = manager->nextVmId;
-    *outId = manager->nextVmId;
-    return outId;
+    AnmId result = { manager->nextVmId };
+    return result;
 }
 
-unsigned int *AnmVm::RegisterUiVmAtTail(unsigned int *outId)
+AnmId AnmVm::RegisterUiVmAtTail()
 {
-    AnmManager *manager = GetGlobalAnmManager();
+    AnmManager *manager = g_AnmManager;
     AnmVmListNode *node = &managerNode;
     node->vm = this;
     node->next = 0;
@@ -1251,14 +1239,8 @@ unsigned int *AnmVm::RegisterUiVmAtTail(unsigned int *outId)
     }
     else
     {
-        volatile AnmVmListNode *tail = manager->uiVmsTail;
-        if (tail->next != 0)
-        {
-            node->next = tail->next;
-            tail->next->previous = node;
-        }
-        tail->next = node;
-        node->previous = const_cast<AnmVmListNode *>(tail);
+        AnmVmListNode *tail = manager->uiVmsTail;
+        InsertAnmVmNodeAfter(tail, node);
     }
     manager->uiVmsTail = node;
 
@@ -1268,34 +1250,26 @@ unsigned int *AnmVm::RegisterUiVmAtTail(unsigned int *outId)
         ++manager->nextVmId;
     }
     id = manager->nextVmId;
-    *outId = manager->nextVmId;
-    return outId;
+    AnmId result = { manager->nextVmId };
+    return result;
 }
 
-unsigned int *AnmVm::RegisterUiVmAtHead(unsigned int *outId)
+AnmId AnmVm::RegisterUiVmAtHead()
 {
-    AnmManager *manager = GetGlobalAnmManager();
+    AnmManager *manager = g_AnmManager;
     AnmVmListNode *node = &managerNode;
     node->vm = this;
     node->next = 0;
     node->previous = 0;
 
-    volatile AnmVmListNode *head = manager->uiVms;
+    AnmVmListNode *head = manager->uiVms;
     if (head == 0)
     {
         manager->uiVmsTail = node;
     }
     else
     {
-        volatile AnmVmListNode *volatileNode = node;
-        AnmVmListNode *next = volatileNode->next;
-        if (next != 0)
-        {
-            head->next = next;
-            next->previous = const_cast<AnmVmListNode *>(head);
-        }
-        node->next = const_cast<AnmVmListNode *>(head);
-        head->previous = node;
+        InsertAnmVmNodeAfter(node, head);
     }
     manager->uiVms = node;
 
@@ -1305,8 +1279,8 @@ unsigned int *AnmVm::RegisterUiVmAtHead(unsigned int *outId)
         ++manager->nextVmId;
     }
     id = manager->nextVmId;
-    *outId = manager->nextVmId;
-    return outId;
+    AnmId result = { manager->nextVmId };
+    return result;
 }
 
 // Partial reconstruction of the 13,604-byte per-VM update owner at

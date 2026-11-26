@@ -481,11 +481,12 @@ int AnmManager::UpdateUiVms()
 {
     g_Supervisor.EnterCriticalSection(9);
 
-    renderListHeads[31].drawListNext = 0;
-    renderListHeads[32].drawListNext = 0;
     AnmVm *tails[2];
-    tails[0] = &renderListHeads[31];
-    tails[1] = &renderListHeads[32];
+    for (int i = 0; i < 2; ++i)
+    {
+        tails[i] = &renderListHeads[31 + i];
+        renderListHeads[31 + i].drawListNext = 0;
+    }
     updateCount = 0;
 
     for (AnmVmListNode *node = uiVms; node != 0;)
