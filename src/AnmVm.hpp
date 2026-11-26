@@ -6,6 +6,7 @@
 
 struct AnmId;
 struct AnmVm;
+struct AnmManager;
 struct AnmResource;
 struct AnmFileEntry;
 
@@ -193,6 +194,7 @@ struct AnmVm
     void UpdateTextureRectFromView();
     void UpdateWorldMatrix(float matrix[4][4], bool applyAlignment);
     int Update();
+    int Draw(AnmManager *manager);
 
     int ResolveIntegerOperand(int operand);
     float ResolveFloatOperand(float operand);

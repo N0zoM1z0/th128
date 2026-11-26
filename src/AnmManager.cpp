@@ -9,7 +9,6 @@
 
 #include <d3d9.h>
 
-extern int __stdcall DrawAnmVmWithManager(AnmVm *vm, AnmManager *manager);
 
 struct AnmPauseStateView
 {
@@ -394,7 +393,7 @@ int AnmManager::DrawVmGroup(unsigned int group)
             {
                 vm->extraDataDrawCallback(vm);
             }
-            DrawAnmVmWithManager(vm, this);
+            vm->Draw(this);
         }
     }
 

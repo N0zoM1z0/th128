@@ -1,5 +1,7 @@
 AddAngles
 AllocateAnmVm
+AnmFogState::Disable
+AnmFogState::Enable
 AnmHelpers::AccumulateTextureColor1555
 AnmHelpers::AccumulateTextureColor4444
 AnmHelpers::AccumulateTextureColor8332
@@ -137,6 +139,7 @@ AnmTextureEntry::UploadTextureImage
 AnmTextureEntry::UploadTextureRegion
 AnmVm::AnmVm
 AnmVm::BindAnmFile
+AnmVm::Draw
 AnmVm::RegisterUiVmAtHead
 AnmVm::RegisterUiVmAtTail
 AnmVm::RegisterWorldVmAtHead
@@ -229,6 +232,7 @@ FindChainNodeByOwner
 FlushAnmSpriteBatch
 GameErrorContext::Fatal
 GameErrorContext::Log
+GetAnmVmDrawPosition
 GetElapsedSeconds
 GetWindowsVersionCode
 HelpInf::Create

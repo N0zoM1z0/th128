@@ -1,6 +1,6 @@
 # TH128 reconstruction handoff
 
-Snapshot: 2026-11-26 (HelpInf lifecycle source, exact global destroy and shared update setter; six HelpInf frontiers remain). Read this first, then AGENTS.md.
+Snapshot: 2026-11-26 (natural ANM draw dispatcher; two fog matches; 25 synthetic-context exact rows withdrawn). Read this first, then AGENTS.md.
 
 ## Resume safely
 
@@ -36,12 +36,12 @@ canonical ledgers. At this snapshot:
 | Boundary reviewed / provisional | 3,452 / 64 |
 | Origin rows pending | 21 |
 | Authored / excluded / indeterminate | 2,226 / 1,269 / 0 |
-| Source-present mappings | 387 |
-| Source-present with authored origin | 379 |
-| Authored source-present exact backlog | 59 |
-| Canonical exact functions | 328 |
-| Canonical exact codegen bytes | 19,658 |
-| Canonical exact authored bytes | 19,329 |
+| Source-present mappings | 391 |
+| Source-present with authored origin | 383 |
+| Authored source-present exact backlog | 86 |
+| Canonical exact functions | 305 |
+| Canonical exact codegen bytes | 19,277 |
+| Canonical exact authored bytes | 18,948 |
 
 The candidate inventory is not proven complete. The 21 remaining pending origin
 rows are unreferenced `d3dx9math.inl` candidates (all 16 CRT-band boundary-review
@@ -78,6 +78,37 @@ are not over-inlined; address-taken probe pointers prevent interprocedural
 `and esp, -8` hoisting; struct copies unlock `fldz` hoisting in transition setters.
 
 ## Latest advance (2026-11-26)
+
+`AnmVm::Draw` (`0x00461B00`) now has maintained source in `AnmDraw.cpp`,
+replacing the probes' volatile `flags ^ nextVmId` renderer. The helpers
+probe's fabricated binding results and the old unused one-argument draw
+approximation are also removed. Every linked manager/helper context now
+includes the real dispatcher; unknown leaf implementations stay external.
+Its 1,392-byte target includes 22/7-entry tables and 58 reviewed fields.
+The candidate is 1,324 bytes. The 108-byte draw-position helper still has
+eight ordinary X-addition operand-order differences; reversing its outer
+operands introduced GS and a 133-byte owner, so that variant was rejected.
+
+`AnmFogState::Enable/Disable` (`0x00434A70/0x00434AB0`) are newly exact:
+54 bytes and two fields each. The view aliases Supervisor `+8`, using the
+device at `+8` and cached fog at `+0x990`. Both flush before changing the
+cache and calling the SDK SetRenderState, returning HRESULT or zero.
+
+All 154 previously exact affected owners and four candidates were compared
+after cold-building 16 contexts. Of the old rows, 129 still match; 23
+DrawLayer wrappers, DrawVmGroup and DrawSingleVm no longer reproduce.
+Their 25 rows / 489 bytes are withdrawn, while their source and reviewed
+extents remain frontiers. The real draw's private ABI differs from the
+synthetic callee and changes complete caller extents and code. The two new
+fog owners add 108 bytes; the current affected exact set is 131 passing units.
+Historical comparisons below retain their original scope; their former
+renderer-dependent credit is superseded by this correction.
+See the [draw finding](KNOWLEDGE_BASE.md#natural-anm-draw-dispatch-and-probe-callee-cleanup-2026-11-26),
+[full comparison](../.analysis/anm-draw-current-input-replay.log),
+[withdrawn rows](../.analysis/anm-draw-withdrawn-conditional-rows.json) and
+[final scope](../.analysis/anm-draw-final-scope.json).
+
+Previous HelpInf checkpoint (`e311d8f`):
 
 HelpInf now has maintained construction, creation, registration and cleanup.
 `Destroy` (`0x00427CB0`, 29B) is newly exact, including its global pointer,
@@ -467,14 +498,15 @@ Primary evidence:
 | src/AnmVmEffects.cpp | render-state sync, world matrices, sprite/fog/primitive draw paths, effect 10 | 5 exact normal-COFF owners; renderer paths frontier |
 | src/AnmVmOperands.cpp | four operand resolver owners (`0x00459900..0x00459CE0`) | 4/4 exact (linked PE) |
 | src/AnmVmResource.cpp | `NormalizeAnmCoordinates` (`0x00459D50`) | exact (linked PE) |
-| src/AnmManager.cpp | VM lookup, allocation, list cleanup, draw grouping, tick callbacks, `FlushSpriteBatch`, preload, 23 `DrawLayer*` callbacks | 36 exact (linked PE), including `UpdateUiVms`, `StopVmById` and `PreloadAnm`; `UpdateWorldVms`/`SetInterruptAndUpdate` frontiers |
+| src/AnmManager.cpp | VM lookup, allocation, list cleanup, draw grouping, tick callbacks, `FlushSpriteBatch`, preload, 23 `DrawLayer*` callbacks | 12 exact (linked PE); 24 renderer-dependent rows withdrawn; world update/interrupt frontiers remain |
 | src/AnmLoading.cpp | first-stage ANM load, external texture caching, inline resource constructor contribution | constructor exact (linked PE); loader/cache frontiers |
 | src/AnmFinalization.cpp | resolved sprite installation, one-entry finalization and pending-resource scheduler | `SetSprite` (145B) and scheduler (140B) exact; finalizer frontier |
 | src/AnmTextureLoading.cpp | seven texture creation/loading/upload methods, format fallback, neighbor accumulation and transparent RGB repair | 7 owners exact (334B); 6 frontiers including the full 1,774B repair |
 | src/HelpInf.cpp | help viewer lifecycle/update, UI VM creation, page/resource worker bodies and Chain callbacks | 6 owners exact (151B); Create, Initialize, Shutdown, Update, UI helper and resource worker frontiers |
+| src/AnmDraw.cpp | complete draw dispatch, two-stage vector position and cached fog transitions | fog Enable/Disable exact (108B); Draw and position helper frontiers; real leaf definitions incomplete |
 | src/AnmResource.cpp | `Release`, `AnmTextureEntry::Release`, `CreateVm` | 2 exact (linked PE); `CreateVm` frontier |
 | src/AnmVmUpdateWrapper.cpp | manager binding update wrapper (`0x00407080`) | 20-byte target frontier; 5-byte GL body, 15-byte normal-COFF body |
-| src/AnmHelpers.cpp | `ResolveAnmVmId` and 31 `AnmId`/VM/child/rotation/draw helpers (`0x00467570..0x00468100`) | 32 exact (linked PE); `ClearD3DTexture*` frontiers |
+| src/AnmHelpers.cpp | `ResolveAnmVmId` and 31 `AnmId`/VM/child/rotation/draw helpers (`0x00467570..0x00468100`) | 31 exact (linked PE); DrawSingleVm credit withdrawn; `ClearD3DTexture*` frontiers |
 | src/AnmInterp.cpp | `AnmInterp<T>` template (`AnmColor3`/`float`/`int`/`ZunVec2`) and vector/angle/color helpers (`0x0045D330..0x0045E76F`) | 39 exact (linked PE) + frontiers |
 | src/Rng.cpp | RNG primitives and scaled overloads | exact (linked PE) |
 
@@ -490,14 +522,19 @@ has an accepted exact owner replay yet.
 
 ### Exact ANM owners
 
-`config/matches.csv` now contains **147 exact owners with an ANM module**:
-39 `AnmInterp`, 37 `AnmManager`, 37 `AnmHelpers`, 16 `AnmVm`,
-9 `AnmResource`, 5 `AnmVmEffects`, and 4 `AnmVmScript`, counted through
-the maintained module in `config/functions.csv`. Do not expand this list
+`config/matches.csv` now contains **124 exact owners with an ANM module**:
+39 `AnmInterp`, 36 `AnmHelpers`, 16 `AnmVm`, 13 `AnmManager`,
+9 `AnmResource`, 5 `AnmVmEffects`, 4 `AnmVmScript`, and 2 `AnmGraphics`, counted
+through the maintained module in `config/functions.csv`. Do not expand this list
 from source presence or successful compilation; only accepted rows in
 `config/matches.csv` count as exact.
 
 ## Natural-source cleanup decision
+
+The synthetic renderer and binding probe bodies are removed. The resulting
+25 caller mismatches are retained as source frontiers rather than restoring
+volatile argument-address tricks or fake returns to regain credit. Recover
+their actual private ABI through the real draw leaves and link context.
 
 The target helper ZunVec3::SetPolarXY at 0x00432E20 uses x87 FSINCOS. Its
 former inline-assembly implementation has been replaced with natural C++
@@ -508,7 +545,14 @@ callers remain frontiers as well.
 
 ## Next useful work (Phase 3+)
 
-1. **Close ANM finalization dependencies**: resolve the transparent-color
+1. **Close draw leaf boundaries and recover natural caller matches**: start
+   with the reviewed 52/55/48/48/40/48-byte sprite wrappers and their real
+   dependencies. `BuildAnmVmViewCornersMode0` already has source; the
+   shared batch path at `0x0045E920` (1,532 bytes) needs focused review.
+   Preserve the 58-field dispatcher, two float-rounding stages and genuine
+   manager/VM inputs. Do not restore the synthetic renderer for its former
+   private ABI.
+2. **Close ANM finalization dependencies**: resolve the transparent-color
    repair frontier (`0x004645F0`, 1,774B, including physical tables) and
    the external decoder (`0x00464FD0`, 511B) / embedded uploader
    (`0x004651D0`, 296B) frontiers. The five small helpers are exact; retain
@@ -529,24 +573,26 @@ callers remain frontiers as well.
    `ClearD3DTexture` (`0x00467BD0`) and the
    four `AnmInterp<T>::Step` functions (`0x0045D3D0..0x0045DB20`), plus `AnmVm::Update`
    (`0x00459D90`, 13,604B).
-2. **Phase 3 — D3D9/Window/Supervisor (`0x00451300..0x00458400`) & ECL/SPT Engine
+3. **Phase 3 — D3D9/Window/Supervisor (`0x00451300..0x00458400`) & ECL/SPT Engine
    (`0x00410000..0x0041FFFF`, `0x0046E100..0x004708BC`)**: reconstruct `Supervisor`
    initialization/main loop and the ECL VM / `SptInf` resource layer next, reusing
    the `/Ob1`, `struct`-by-value, and address-escape patterns proven in Phases 1–2.
-3. **Phase 4 — Gameplay modules (`0x00401000..0x0044F500`)**: `AsciiInf`, `Bullet`,
+4. **Phase 4 — Gameplay modules (`0x00401000..0x0044F500`)**: `AsciiInf`, `Bullet`,
    `Ice`/`Card`, `EnemyInf`, `Gui`, `Laser*Inf`, `Player`, `Stage`, `GameManager`,
    `Replay`/`Title`/`Score`.
-4. **Next useful command after the session identity checks**:
+5. **Next useful command after the session identity checks**:
 
    ~~~bash
-   scripts/repo-python scripts/compare-linked-function.py --unit help-initialize
+   scripts/repo-python scripts/ghidra.py query \
+     .analysis/anm-sprite-batch-owner-review.txt review 0x0045E920
    ~~~
 
-   This is an expected complete-owner rejection, not an exact claim. Compare
-   `.analysis/help-lifecycle-closure-Initialize-source.asm` with the target
-   review in `.analysis/manual-local-helpers-review.txt`; preserve the actual
-   stack contract through real context rather than manufacturing a function
-   pointer escape to change the candidate's EDI argument.
+   The new dispatcher and small sprite wrappers are reviewed in
+   `.analysis/anm-render-dispatch-complete.txt` and
+   `.analysis/anm-render-sprite-wrappers-review.txt`. For HelpInf Initialize,
+   compare `.analysis/help-lifecycle-closure-Initialize-source.asm` with
+   `.analysis/manual-local-helpers-review.txt`; its stack contract still
+   differs from the candidate's EDI input.
    The HelpInf update owner's complete 1,184 bytes through `0x0042816F`, including
    alignment and five dispatch entries, are reviewed in
    `.analysis/manual-update-body-and-tail-review.txt` and

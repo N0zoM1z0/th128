@@ -1759,6 +1759,105 @@ to 328 functions and 19,658 bytes. Product and runtime closure remain later work
 [selected owners](../.analysis/help-lifecycle-closure-selected.json),
 [current setter replay](../.analysis/help-lifecycle-closure-anm-vm-update-timer-set-current.json).
 
+## Natural ANM draw dispatch and probe callee cleanup (2026-11-26)
+
+For Japanese TH128 v1.00a and pinned VC10 RTM `/O2 /Ob1 /Oy- /GL`,
+the renderer at `0x00461B00` now has a maintained `AnmVm::Draw(manager)`
+implementation in `AnmDraw.cpp`. Its complete target owner is 1,392 bytes:
+1,276 bytes of instructions followed by 22-entry and 7-entry absolute jump
+tables at `0x00461FFC/0x00462054`. All 29 apparent outside-body references
+come from those owned tables. The frontier declares all 58 target fields:
+26 calls, two table pointers, 29 entries and the graphics-state view.
+[Target review](../.analysis/anm-render-dispatch-review.txt),
+[complete instructions](../.analysis/anm-render-dispatch-complete.txt),
+[owned tables](../.analysis/anm-render-dispatch-tables.txt).
+
+Both `anm-core-context.cpp` and `anm-helpers-context.cpp` previously defined
+a synthetic `DrawAnmVmWithManager` returning `flags ^ nextVmId` through a
+volatile pointer. The helpers probe also fabricated BindAnmFile results by
+summing arguments. Those bodies are removed. The real dispatcher is now in
+every linked context containing its manager/helper consumers; unreconstructed
+bind dependencies use the Oracle's explicit unresolved-symbol boundary.
+The old unused one-argument draw approximation is removed from
+`AnmVmEffects.cpp`, and the three `register` specifiers in the script source
+are removed. None of these spelling or source-presence changes grants credit.
+
+The dispatcher retains independent visibility tests for bits 0/1 and the
+delete flag `0x20000000`. Modes 0..8 and 18 reject only when both colors'
+alpha bytes are zero. Modes 1/3 call different rotated paths; modes
+9/12/13/14 share triangle strips and 11 uses a fan, each with twice the VM
+integer count. Mode 18 brackets world-matrix drawing with fog enable/disable
+and returns zero. The primitive families compose parent X/Y position, scale
+and angle only when state bit `0x100` is clear. They reread the mode after
+applying render state rather than dispatching from a cached pre-call value.
+Sprite/primitive leaf declarations remain source/API hypotheses; their
+private conventions and implementations are not closed by this dispatcher.
+
+`AnmFogState` is a partial view rooted at Supervisor `+8` (`0x004D2E68`),
+with the device at `+8` and cached fog state at `+0x990`. Enable/Disable at
+`0x00434A70/0x00434AB0` flush sprites before changing the cache and invoking
+the SDK `SetRenderState(D3DRS_FOGENABLE, value)`. They return its HRESULT,
+or zero when the cache already has the requested state. Both complete
+54-byte primary-TU owners reproduce with two fields each: `g_AnmManager`
+at `+12` and the real `FlushSpriteBatch` edge at `+17`.
+[Leaf target review](../.analysis/anm-render-leaves-review.txt),
+[enable replay](../.analysis/anm-fog-enable-current-canonical.json),
+[disable replay](../.analysis/anm-fog-disable-current-canonical.json).
+
+The draw-position helper at `0x004630F0` first rounds secondary + position
+to three floats, then adds alternate position. A flat aggregate emitted
+90 bytes and wrote directly to the result; nested value-returning vector
+addition restores the target's two temporaries and 108-byte owner. Eight
+ordinary bytes still differ at `+52..+59`: the X addition's memory-operand
+order. Reversing the outer vector operands instead introduced a GS cookie,
+a stack result argument, `RET 4` and a 133-byte owner; that hypothesis is
+rejected without disabling GS. The retained helper remains a frontier.
+[First observation](../.analysis/anm-draw-first-observations.txt),
+[nested-vector observation](../.analysis/anm-draw-direct-gates-observations.txt),
+[rejected reverse](../.analysis/anm-draw-member-observations.txt).
+
+The free-function draw hypothesis emitted 1,324 bytes; the natural VM member
+retains that size after restoring the position helper. Its 58 fields are
+present, but its frame and private VM/manager registers differ from the
+target. The former transparency helper stayed out of line under `/Ob1`,
+adding ten calls; direct per-case source checks remove those unsupported
+boundaries. No function-pointer escape, register hint or inert frame storage
+was introduced to force the target ABI.
+[Current observations](../.analysis/anm-draw-current-observations.txt),
+[direct caller review](../.analysis/anm-render-direct-callers-review.txt).
+
+The next relevant real callees include the small sprite wrappers at
+`0x0045F5D0/0x0045FA10/0x0045FD40/0x0045FD70/0x00460240/0x00460B50`.
+Their review distinguishes stack-manager paths from the two-stack-pointer
+paths; the latter pass manager before VM in the physical call frame.
+Their real definitions, rather than a synthetic callee, are needed to settle
+the dispatcher/caller private ABI.
+[Sprite wrapper review](../.analysis/anm-render-sprite-wrappers-review.txt).
+
+The complete affected comparison cold-built 16 contexts and checked all
+154 formerly exact owners plus four new candidates. Of the old rows, 129
+still match. The 23 DrawLayer wrappers, DrawVmGroup and DrawSingleVm fail
+the complete-contribution size check after the real draw replaces the
+synthetic callee. Those **25 rows / 489 bytes** are withdrawn from the
+canonical ledger, preserving their source mappings and reviewed boundaries.
+For example, the layer-0 wrapper becomes 7 vs 12 bytes; DrawVmGroup becomes
+127 vs 126 in its primary context. The previous probe took the manager
+argument's address through a volatile pointer; its resulting private ABI
+cannot be treated as the real renderer's ABI. Recover these callers through
+real leaf definitions rather than restoring the probe body.
+[Full current-input results](../.analysis/anm-draw-current-input-results.json),
+[withdrawn rows](../.analysis/anm-draw-withdrawn-conditional-rows.json),
+[core extents](../.analysis/anm-draw-core-current-owner-sizes.json).
+
+The two fog owners add 108 bytes. All **131 currently accepted affected
+owners** (129 retained and two new) have zero-difference comparisons in the
+same full run; the dispatcher and position helper remain rejected frontiers.
+The canonical totals are now **305 functions / 19,277 bytes**. Historical
+logs retain the former conditional results; they were not rewritten into
+passes. This is exact per-owner evidence, not native rendering closure.
+[Comparison log](../.analysis/anm-draw-current-input-replay.log),
+[final scope](../.analysis/anm-draw-final-scope.json).
+
 ## Open questions
 
 - Per-unit flags, the TU partition, which objects were `/GL`, the library set

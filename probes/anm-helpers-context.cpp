@@ -6,25 +6,6 @@ Supervisor g_Supervisor;
 AnmManager *g_AnmManager = 0;
 AnmManager **g_ProbeAnmMgrAddr = &g_AnmManager;
 
-int __stdcall DrawAnmVmWithManager(AnmVm *vm, AnmManager *manager)
-{
-    AnmManager *volatile *p = &manager;
-    unsigned int x = vm->flags;
-    return (int)(x ^ (*p)->nextVmId);
-}
-
-int AnmVm::BindAnmFile(AnmResource *resource, int scriptIndex)
-{
-    volatile int x = scriptIndex + (int)(size_t)resource + (int)id;
-    return x;
-}
-
-int __stdcall BindAnmFileKeepState(AnmVm *vm, AnmResource *resource, int scriptIndex)
-{
-    volatile int x = scriptIndex + (int)(size_t)resource + (int)vm->id;
-    return x;
-}
-
 void (__stdcall *g_ProbeClearTex)(AnmD3DTextureSurfaceView **) = AnmHelpers::ClearD3DTexture;
 void (__stdcall *g_ProbeClearTexBlack)(AnmD3DTextureSurfaceView **) = AnmHelpers::ClearD3DTextureBlack;
 void (__stdcall *g_ProbeDrawSingle)(AnmVm *) = AnmHelpers::DrawSingleVm;

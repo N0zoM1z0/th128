@@ -2,7 +2,6 @@
 
 #include <string.h>
 
-extern int __stdcall DrawAnmVmWithManager(AnmVm *vm, AnmManager *manager);
 extern int __stdcall BindAnmFileKeepState(AnmVm *vm, AnmResource *resource, int scriptIndex);
 
 namespace AnmHelpers
@@ -44,7 +43,7 @@ void __stdcall SetVmGamePosition2(AnmVm *vm, const ZunVec3 *pos)
 
 void __stdcall DrawSingleVm(AnmVm *vm)
 {
-    DrawAnmVmWithManager(vm, g_AnmManager);
+    vm->Draw(g_AnmManager);
 }
 
 void __stdcall SetVmRotX(AnmVm *vm, float v)

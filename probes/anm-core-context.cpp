@@ -10,13 +10,6 @@ AnmManager *g_AnmManager = 0;
 struct AnmPauseStateView;
 AnmPauseStateView *g_AnmPauseState = 0;
 
-int __stdcall DrawAnmVmWithManager(AnmVm *vm, AnmManager *manager)
-{
-    AnmManager *volatile *p = &manager;
-    unsigned int x = vm->flags;
-    return (int)(x ^ (*p)->nextVmId);
-}
-
 unsigned int *g_ProbeSupFlags = &g_Supervisor.flags;
 CRITICAL_SECTION *g_ProbeSupCs = g_Supervisor.criticalSections;
 unsigned char *g_ProbeSupDepth = g_Supervisor.lockDepths;

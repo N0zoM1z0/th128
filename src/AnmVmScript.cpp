@@ -997,9 +997,9 @@ __declspec(noinline) int AnmVm::BindAnmFile(
     }
 
     vm->anmFileIndex = (short)fileIndex;
-    register AnmFileEntry *entry = &resource->anmFiles[fileIndex];
+    AnmFileEntry *entry = &resource->anmFiles[fileIndex];
     vm->anmFileEntry = entry;
-    register AnmFileEntry *entryForLaterFields = entry;
+    AnmFileEntry *entryForLaterFields = entry;
 
     const float left = entry->uvLeft;
     vm->textureRect[1][0] = left;
@@ -1052,7 +1052,7 @@ __declspec(noinline) int AnmVm::BindAnmFile(
     vm->spriteScaleMatrix[0][2] = 0.0f;
     vm->spriteScaleMatrix[0][1] = 0.0f;
 
-    register AnmFileEntry *scaleEntry = vm->anmFileEntry;
+    AnmFileEntry *scaleEntry = vm->anmFileEntry;
     transformMatrix[0] = vm->uvScrollX * (1.0f / 256.0f);
     vm->transformMatrix[1][1] = vm->uvScrollY * (1.0f / 256.0f);
 

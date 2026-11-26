@@ -1779,72 +1779,7 @@ namespace
     }
 }
 
-int DrawAnmVm(AnmVm *vm)
-{
-    if (vm == 0 || (vm->flags & 3U) != 3U ||
-        (vm->flags & 0x20000000U) != 0)
-    {
-        return -1;
-    }
-
-    const unsigned int mode = (vm->flags >> 24) & 0x1FU;
-    const unsigned int vertexCount =
-        (unsigned int)vm->integerVariables[0] * 2U;
-    if (mode <= 8U &&
-        (vm->color & 0xFF000000U) == 0 &&
-        (vm->secondaryColor & 0xFF000000U) == 0)
-    {
-        return -1;
-    }
-
-    switch (mode)
-    {
-    case 0:
-        return DrawAnmVmSpriteQuad(vm, true, false);
-    case 1:
-    case 3:
-        return DrawAnmVmSpriteQuad(vm, false, true);
-    case 2:
-        return DrawAnmVmSpriteQuad(vm, false, false);
-    case 4:
-        return DrawAnmVmProjectedSprite(vm);
-    case 5:
-        return DrawAnmVmWorldMatrixBatchSprite(vm);
-    case 6:
-        return DrawAnmVmFogSprite(vm);
-    case 7:
-        return DrawAnmVmWorldFogSprite(vm);
-    case 8:
-        return DrawAnmVmWorldMatrixSprite(vm);
-    case 18:
-        if ((vm->color & 0xFF000000U) == 0 &&
-            (vm->secondaryColor & 0xFF000000U) == 0)
-        {
-            return -1;
-        }
-        return DrawAnmVmFogEnabledWorldMatrixSprite(vm);
-    case 9:
-    case 12:
-    case 13:
-    case 14:
-        return DrawAnmVmTriangleStrip(
-            vm, vm->extraData, vertexCount);
-
-    case 11:
-        return DrawAnmVmVertices(vm, vm->extraData, vertexCount);
-
-    case 15:
-    case 16:
-    case 17:
-    case 19:
-    case 20:
-    case 21:
-        return DrawAnmVmPrimitiveEffect(vm, mode);
-
-    default:
-        return 0;
-    }
-}
+// The complete draw dispatcher is maintained in AnmDraw.cpp.
 
 int __fastcall UpdateAnmVmEffect10(AnmVm *vm)
 {
