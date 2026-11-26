@@ -1,6 +1,6 @@
 # TH128 reconstruction handoff
 
-Snapshot: 2026-11-26 (exact ANM render state and quad append; four real sprite wrappers). Read this first, then AGENTS.md.
+Snapshot: 2026-11-26 (complete ANM sprite submission source; ambient-rounding codegen frontier). Read this first, then AGENTS.md.
 
 ## Resume safely
 
@@ -36,9 +36,9 @@ canonical ledgers. At this snapshot:
 | Boundary reviewed / provisional | 3,452 / 64 |
 | Origin rows pending | 21 |
 | Authored / excluded / indeterminate | 2,226 / 1,269 / 0 |
-| Source-present mappings | 396 |
-| Source-present with authored origin | 388 |
-| Authored source-present exact backlog | 89 |
+| Source-present mappings | 397 |
+| Source-present with authored origin | 389 |
+| Authored source-present exact backlog | 90 |
 | Canonical exact functions | 307 |
 | Canonical exact codegen bytes | 19,831 |
 | Canonical exact authored bytes | 19,502 |
@@ -78,6 +78,33 @@ are not over-inlined; address-taken probe pointers prevent interprocedural
 `and esp, -8` hoisting; struct copies unlock `fldz` hoisting in transition setters.
 
 ## Latest advance (2026-11-26)
+
+`AnmDrawLeaf::SubmitSprite` (`0x0045E920`) now has complete natural source
+and a 100-field linked unit. The real path covers offset/snap/cache/UV,
+viewport culling, texture and vertex-format state, all four color layouts,
+modulation, ApplyState and AppendSprite. All linked draw contexts include
+the actual BlendColorChannel definition. Direct color statements recover
+the target private manager ECX / VM EAX / stack flags ABI; an inline color
+helper had stayed out of line and was rejected.
+
+The complete owner remains a frontier at 1,660/1,532 bytes. Mathematical
+ambient-mode edge rounding passes 25 bounded scalar checks with the real
+selected CRT. Its control-mode query, four helper calls and stack alignment
+still differ from target FRNDINT; floating-point exception equivalence is
+unverified. Pinned compiler probes reject rint/nearbyint/_frnd intrinsics;
+even an accepted floor pragma retains a real call. Do not repeat those
+probes or force alignment/registers to hide the mismatch. See the
+[submission finding](KNOWLEDGE_BASE.md#maintained-sprite-submission-and-ambient-rounding-2026-11-26)
+and [canonical rejection](../.analysis/anm-submit-current-results.json).
+
+All 74 affected existing exact owners pass after 10 cold linked builds.
+All 106 selected owners were compared; the 32 frontiers, including the
+23 DrawLayer callers, remain rejected. This checkpoint adds one authored
+source mapping and no exact credit. See the
+[complete replay](../.analysis/anm-submit-current-results.json) and
+[affected contexts](../.analysis/anm-submit-current-contexts.json).
+
+Previous state/append checkpoint (`2d2cdee`):
 
 `AnmDrawLeaf::ApplyState` (`0x0045E770`, 416B) and `AppendSprite`
 (`0x0045F040`, 138B) now pass the canonical linked Oracle, adding two exact
@@ -613,7 +640,7 @@ callers remain frontiers as well.
 5. **Next useful command after the session identity checks**:
 
    ~~~bash
-   sed -n '1,260p' .analysis/anm-sprite-batch-decompile.txt
+   sed -n '1,180p' .analysis/anm-submit-canonical-submit.asm
    ~~~
 
    The new dispatcher and small sprite wrappers are reviewed in

@@ -1,5 +1,8 @@
 #include "AnmDraw.hpp"
 #include "AnmManager.hpp"
+#include "AnmResource.hpp"
+#include "AnmInterp.hpp"
+#include "AnmSpriteRounding.hpp"
 #include "AnmVmView.hpp"
 #include "Supervisor.hpp"
 
@@ -26,16 +29,36 @@ namespace AnmDrawLeaf
 
 AnmVmEffect10Vertex g_AnmSpriteVertices[4];
 
+struct AnmSpriteViewport
+{
+    unsigned char unknown000[0xCC];
+    D3DVIEWPORT9 viewport;
+};
+
+extern AnmSpriteViewport *g_AnmSpriteViewport;
+
 namespace
 {
     // Partial view of the manager's render-state cache. The receiver is the
     // manager supplied by the caller, including when it differs from the global.
     struct AnmSpriteState
     {
-        unsigned char unknown000[0x4E968C];
+        unsigned char unknown000[0x4E9688];
+        void **textureSlot;
         unsigned char blendMode;
-        unsigned char unknown4E968D[0x4E9692 - 0x4E968D];
+        unsigned char unknown4E968D;
+        unsigned char vertexFormatMode;
+        unsigned char unknown4E968F[3];
         unsigned char samplerPointFilter;
+    };
+
+    union AnmSpriteColor
+    {
+        unsigned int value;
+        struct
+        {
+            unsigned char blue, green, red, alpha;
+        } channels;
     };
 
     inline ZunVec3 AddDrawVectors(const ZunVec3 &left, const ZunVec3 &right)
@@ -128,6 +151,142 @@ int __stdcall AnmDrawLeaf::AppendSprite(
     manager->spriteVertexBufferBase =
         reinterpret_cast<AnmVmEffect10Vertex *>(manager->spriteVertexBufferBase) + 6;
     ++manager->spriteBatchCount;
+    return 0;
+}
+
+int __stdcall AnmDrawLeaf::SubmitSprite(AnmManager *manager, AnmVm *vm, unsigned int flags)
+{
+    g_AnmSpriteVertices[0].x = g_AnmSpriteVertices[0].x + manager->viewOffsetX;
+    g_AnmSpriteVertices[0].y = manager->viewOffsetY + g_AnmSpriteVertices[0].y;
+    g_AnmSpriteVertices[1].x = g_AnmSpriteVertices[1].x + manager->viewOffsetX;
+    g_AnmSpriteVertices[1].y = manager->viewOffsetY + g_AnmSpriteVertices[1].y;
+    g_AnmSpriteVertices[2].x = g_AnmSpriteVertices[2].x + manager->viewOffsetX;
+    g_AnmSpriteVertices[2].y = manager->viewOffsetY + g_AnmSpriteVertices[2].y;
+    g_AnmSpriteVertices[3].x = g_AnmSpriteVertices[3].x + manager->viewOffsetX;
+    g_AnmSpriteVertices[3].y = manager->viewOffsetY + g_AnmSpriteVertices[3].y;
+
+    if ((flags & 1U) != 0)
+    {
+        const unsigned int roundingMode = _control87(0, 0);
+        const float left = SnapAnmSpriteEdge(g_AnmSpriteVertices[0].x, roundingMode);
+        const float right = SnapAnmSpriteEdge(g_AnmSpriteVertices[1].x, roundingMode);
+        const float top = SnapAnmSpriteEdge(g_AnmSpriteVertices[0].y, roundingMode);
+        const float bottom = SnapAnmSpriteEdge(g_AnmSpriteVertices[2].y, roundingMode);
+        g_AnmSpriteVertices[2].y = g_AnmSpriteVertices[3].y = bottom;
+        g_AnmSpriteVertices[0].y = g_AnmSpriteVertices[1].y = top;
+        g_AnmSpriteVertices[1].x = g_AnmSpriteVertices[3].x = right;
+        g_AnmSpriteVertices[0].x = g_AnmSpriteVertices[2].x = left;
+    }
+
+    vm->drawVertices[0] = *reinterpret_cast<const ZunVec3 *>(&g_AnmSpriteVertices[0].x);
+    vm->drawVertices[1] = *reinterpret_cast<const ZunVec3 *>(&g_AnmSpriteVertices[1].x);
+    vm->drawVertices[2] = *reinterpret_cast<const ZunVec3 *>(&g_AnmSpriteVertices[2].x);
+    vm->drawVertices[3] = *reinterpret_cast<const ZunVec3 *>(&g_AnmSpriteVertices[3].x);
+
+    const float (*rect)[4] = vm->textureRect;
+    g_AnmSpriteVertices[0].u = rect[0][0] + vm->textureScrollX;
+    g_AnmSpriteVertices[0].v = rect[0][1] + vm->textureScrollY;
+    g_AnmSpriteVertices[1].u = (rect[0][2] - rect[0][0]) * vm->unknown058 +
+        (rect[0][0] + vm->textureScrollX);
+    g_AnmSpriteVertices[1].v = rect[0][3] + vm->textureScrollY;
+    g_AnmSpriteVertices[2].u = vm->textureScrollX + rect[1][0];
+    g_AnmSpriteVertices[2].v = (rect[1][1] - rect[0][1]) * vm->unknown05C +
+        (rect[0][1] + vm->textureScrollY);
+    g_AnmSpriteVertices[3].u = (rect[1][2] - rect[1][0]) * vm->unknown058 +
+        (vm->textureScrollX + rect[1][0]);
+    g_AnmSpriteVertices[3].v = (rect[1][3] - rect[0][3]) * vm->unknown05C +
+        (rect[0][3] + vm->textureScrollY);
+
+    float maxX = g_AnmSpriteVertices[1].x < g_AnmSpriteVertices[0].x
+        ? g_AnmSpriteVertices[0].x : g_AnmSpriteVertices[1].x;
+    if (maxX < g_AnmSpriteVertices[2].x) maxX = g_AnmSpriteVertices[2].x;
+    if (maxX < g_AnmSpriteVertices[3].x) maxX = g_AnmSpriteVertices[3].x;
+    float maxY = g_AnmSpriteVertices[1].y < g_AnmSpriteVertices[0].y
+        ? g_AnmSpriteVertices[0].y : g_AnmSpriteVertices[1].y;
+    if (maxY < g_AnmSpriteVertices[2].y) maxY = g_AnmSpriteVertices[2].y;
+    if (maxY < g_AnmSpriteVertices[3].y) maxY = g_AnmSpriteVertices[3].y;
+    float minX = g_AnmSpriteVertices[0].x < g_AnmSpriteVertices[1].x
+        ? g_AnmSpriteVertices[0].x : g_AnmSpriteVertices[1].x;
+    if (g_AnmSpriteVertices[2].x < minX) minX = g_AnmSpriteVertices[2].x;
+    if (g_AnmSpriteVertices[3].x < minX) minX = g_AnmSpriteVertices[3].x;
+    float minY = g_AnmSpriteVertices[0].y < g_AnmSpriteVertices[1].y
+        ? g_AnmSpriteVertices[0].y : g_AnmSpriteVertices[1].y;
+    if (g_AnmSpriteVertices[2].y < minY) minY = g_AnmSpriteVertices[2].y;
+    if (g_AnmSpriteVertices[3].y < minY) minY = g_AnmSpriteVertices[3].y;
+
+    const D3DVIEWPORT9 *viewport = &g_AnmSpriteViewport->viewport;
+    if (maxX < viewport->X || maxY < viewport->Y ||
+        (viewport->X + viewport->Width) < minX ||
+        (viewport->Y + viewport->Height) < minY)
+        return 0;
+
+    AnmSpriteState *state = reinterpret_cast<AnmSpriteState *>(manager);
+    if (state->textureSlot != vm->anmFileEntry->texture)
+    {
+        state->textureSlot = vm->anmFileEntry->texture;
+        manager->FlushSpriteBatch();
+        g_Supervisor.d3dDevice->SetTexture(0,
+            static_cast<IDirect3DBaseTexture9 *>(*state->textureSlot));
+    }
+    if (state->vertexFormatMode != 1)
+    {
+        manager->FlushSpriteBatch();
+        state->vertexFormatMode = 1;
+    }
+
+    if ((flags & 2U) == 0)
+    {
+        const unsigned int colorMode = (vm->flags >> 16) & 3U;
+        AnmSpriteColor primary, secondary;
+        switch (colorMode)
+        {
+        case 0:
+        case 1:
+            primary.value = colorMode == 0 ? vm->color : vm->secondaryColor;
+            if (manager->colorModulationEnabled != 0)
+            {
+                primary.channels.red = (unsigned char)AnmInterpHelpers::BlendColorChannel(primary.channels.red, manager->colorModulation[2]);
+                primary.channels.green = (unsigned char)AnmInterpHelpers::BlendColorChannel(primary.channels.green, manager->colorModulation[1]);
+                primary.channels.blue = (unsigned char)AnmInterpHelpers::BlendColorChannel(primary.channels.blue, manager->colorModulation[0]);
+                primary.channels.alpha = (unsigned char)AnmInterpHelpers::BlendColorChannel(primary.channels.alpha, manager->colorModulation[3]);
+            }
+            g_AnmSpriteVertices[2].color = primary.value;
+            g_AnmSpriteVertices[3].color = primary.value;
+            g_AnmSpriteVertices[1].color = primary.value;
+            g_AnmSpriteVertices[0].color = primary.value;
+            break;
+        case 2:
+        case 3:
+            primary.value = vm->color;
+            secondary.value = vm->secondaryColor;
+            if (manager->colorModulationEnabled != 0)
+            {
+                primary.channels.red = (unsigned char)AnmInterpHelpers::BlendColorChannel(primary.channels.red, manager->colorModulation[2]);
+                primary.channels.green = (unsigned char)AnmInterpHelpers::BlendColorChannel(primary.channels.green, manager->colorModulation[1]);
+                primary.channels.blue = (unsigned char)AnmInterpHelpers::BlendColorChannel(primary.channels.blue, manager->colorModulation[0]);
+                primary.channels.alpha = (unsigned char)AnmInterpHelpers::BlendColorChannel(primary.channels.alpha, manager->colorModulation[3]);
+                secondary.channels.red = (unsigned char)AnmInterpHelpers::BlendColorChannel(secondary.channels.red, manager->colorModulation[2]);
+                secondary.channels.green = (unsigned char)AnmInterpHelpers::BlendColorChannel(secondary.channels.green, manager->colorModulation[1]);
+                secondary.channels.blue = (unsigned char)AnmInterpHelpers::BlendColorChannel(secondary.channels.blue, manager->colorModulation[0]);
+                secondary.channels.alpha = (unsigned char)AnmInterpHelpers::BlendColorChannel(secondary.channels.alpha, manager->colorModulation[3]);
+            }
+            g_AnmSpriteVertices[3].color = secondary.value;
+            if (colorMode == 2)
+            {
+                g_AnmSpriteVertices[1].color = secondary.value;
+                g_AnmSpriteVertices[2].color = primary.value;
+            }
+            else
+            {
+                g_AnmSpriteVertices[2].color = secondary.value;
+                g_AnmSpriteVertices[1].color = primary.value;
+            }
+            g_AnmSpriteVertices[0].color = primary.value;
+            break;
+        }
+    }
+    ApplyState(vm, manager);
+    AppendSprite(manager, g_AnmSpriteVertices);
     return 0;
 }
 

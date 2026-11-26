@@ -192,6 +192,7 @@ AnmInterp<int>::ResetTimer,0x0045E680,function
 AnmVm::SetEffectState,0x0045E6C0,function
 AnmInterpHelpers::BlendColorChannel,0x0045E750,function
 AnmDrawLeaf::ApplyState,0x0045E770,function
+AnmDrawLeaf::SubmitSprite,0x0045E920,function
 FlushAnmSpriteBatch,0x0045EF60,function
 AnmDrawLeaf::AppendSprite,0x0045F040,function
 BuildAnmVmViewCornersMode0,0x0045F110,function

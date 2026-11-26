@@ -1954,6 +1954,101 @@ functions / 19,502 bytes. Native rendering closure remains separate.
 [final scope](../.analysis/anm-sprite-deps-final-scope.json),
 [current owner observations](../.analysis/anm-sprite-canonical-draw.json).
 
+
+## Maintained sprite submission and ambient rounding (2026-11-26)
+
+`AnmDrawLeaf::SubmitSprite` now supplies the complete natural source for
+original Japanese TH12.8 v1.00a `0x0045E920`, including offsets, snapping,
+XYZ cache, UVs, viewport rejection, texture/vertex-format caches, all four
+color layouts and the real state/append calls. Under pinned VC10 RTM
+`/O2 /Ob1 /Oy- /GL`, the candidate is **1,660 / 1,532 bytes** and remains
+a complete-owner frontier. Its private VM `EAX`, manager `ECX`, flags on
+the stack and `RET 4` now agree with the observed target entry.
+[Current candidate](../.analysis/anm-submit-direct-colors-submit.json),
+[target review](../.analysis/anm-sprite-batch-complete.txt).
+
+The viewport slot at `0x004D33B4` has a named external data declaration,
+with a partial D3DVIEWPORT9 view at pointee `+0xCC`. Texture slot cache
+`+0x4E9688` is assigned **before** flushing and reread for SetTexture;
+vertex-format cache `+0x4E968E` is set **after** flushing. Culling occurs
+after XYZ and UV writes but before any rendering-state or color updates.
+Flag 2 preserves all four existing quad colors. Color selection is read
+after the state-changing calls. No null-pointer fallback was added to
+these unconditional target accesses.
+[Target paths](../.analysis/anm-sprite-batch-complete.txt),
+[maintained source](../src/AnmDraw.cpp).
+
+A first inline `ModulateSpriteColor` helper stayed out of line under
+`/Ob1`, replacing the target's twelve channel calls with three helper
+calls. That 1,484-byte candidate had the manager in private EBX and
+unsupported boundaries. Direct channel statements restore all twelve
+calls to the existing 25-byte `AnmInterpHelpers::BlendColorChannel` and
+the target manager/VM register assignment. All linked draw contexts now
+include its real `AnmInterp.cpp` definition. The helper's complete 25-byte
+code also agrees in this new support context; this diagnostic observation
+adds no separate exact credit.
+[Rejected helper observation](../.analysis/anm-submit-first-submit.json),
+[direct-color observation](../.analysis/anm-submit-direct-colors-submit.json),
+[blend support observation](../.analysis/anm-submit-direct-colors-blend-support.json).
+
+The target owner declares **100 exhaustive address fields**: 69 shared
+quad references, four half-pixel constants, one viewport slot, four
+unsigned-conversion constants, one Supervisor device reference, sixteen
+real calls, and five local table fields. The original PE has no relocation
+directory; its absolute instruction operands and four owned table entries
+must be reviewed explicitly. The candidate's PE HIGHLOW fields are still
+fully enumerated by the Oracle. The early relocation-directory-only draft
+found just sixteen calls and was incomplete; it was replaced before any
+comparison by the attested-instruction/table inventory.
+[Complete target fields](../.analysis/anm-submit-target-fields-complete.json),
+[reviewed table/constants](../.analysis/anm-batch-table-and-round-constants.txt).
+
+The compiler rejects `rint`, `nearbyint` and `_frnd` as intrinsics (C4163).
+It accepts `floor` in the pragma but still emits a 22-byte function with a
+real floor call in this fixed profile. None of those declarations yields
+FRNDINT. The probe kept `/GL` and the existing optimization/FP profile;
+no alternative profile or forced ABI was used.
+[Compiler diagnostics](../.analysis/anm-round-intrinsic-probe.log),
+[linked observations](../.analysis/anm-round-intrinsic-owner-observations.txt).
+The separate mode-0 corner builder still calls the actual CRT floor at
+`0x0048FDF0`; its floor operation must remain distinct from submission's
+ambient FRNDINT. [Attested mode-0 callee](../.analysis/anm-submit-mode0-floor-edge.txt).
+
+
+`AnmSpriteRounding.hpp` now expresses the mathematical edge result for
+all four x87 rounding modes: floor, ceil, truncation, or nearest with ties
+to even, then subtract one half. Submit reads the current mode once via
+`_control87(0, 0)` and never changes it. A bounded VC10 `/GL` executable
+linked against the selected real static CRT passed 24 mode/value checks
+and a value above the signed-int range; it also checked that rounding
+control was preserved. This does **not** establish floating-point
+exception equivalence or whole-game runtime behavior.
+[Bounded rounding smoke](../.analysis/anm-sprite-rounding-smoke-linked.log),
+[smoke source](../.analysis/anm-sprite-rounding-smoke.cpp).
+
+The remaining physical differences are explicit: the candidate adds a
+control-mode query and four real rounding-helper calls instead of the
+target's four FRNDINT instructions and half-pixel references. Those math
+calls also introduce eight-byte stack alignment. It has 21 REL32 and
+81 DIR32 fields (102 total), versus target 16 and 84; its 70 quad references
+include one extra load when copying the last snapped edge. No barriers,
+register hints, fake callees or alignment escapes were introduced to erase
+these differences. Exact acceptance still requires the entire 1,532-byte
+owner and all 100 fields.
+[Candidate assembly](../.analysis/anm-submit-direct-colors-submit.asm),
+[canonical rejection](../.analysis/anm-submit-current-results.json).
+
+The final current-input replay cold-built **10 affected linked contexts**
+and compared **106 owners**. All **74 existing exact owners** remain
+exact, including state and append. All 32 frontiers remain rejected,
+including all 23 maintained DrawLayer callers; no caller credit was
+restored. This checkpoint adds one authored source mapping and no exact
+rows: **397 mappings / 307 exact functions / 19,831 exact bytes**.
+[Full results](../.analysis/anm-submit-current-results.json),
+[replay log](../.analysis/anm-submit-current-replay.log),
+[selected exact owners](../.analysis/anm-submit-current-selected.json),
+[cold contexts](../.analysis/anm-submit-current-contexts.json).
+
 ## Open questions
 
 - Per-unit flags, the TU partition, which objects were `/GL`, the library set

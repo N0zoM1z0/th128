@@ -5,6 +5,7 @@ AnmDrawLeaf::AppendSprite
 AnmDrawLeaf::ApplyState
 AnmDrawLeaf::PixelAlignedSprite
 AnmDrawLeaf::RotatedSprite
+AnmDrawLeaf::SubmitSprite
 AnmDrawLeaf::UnrotatedSprite
 AnmFogState::Disable
 AnmFogState::Enable
