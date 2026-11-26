@@ -14,7 +14,6 @@ extern const int g_AnmTextureBytesPerPixel[9] = { 4, 4, 2, 2, 3, 2, 2, 1, 1 };
 
 namespace AnmHelpers
 {
-    // Reviewed external dependency at 0x004645F0; implementation is pending.
     void __stdcall FillTransparentTextureColors(AnmTextureEntry *entry);
 }
 
@@ -29,6 +28,263 @@ namespace
             object = 0;
         }
     }
+}
+
+namespace AnmHelpers
+{
+    struct TextureColor8888
+    {
+        unsigned char blue, green, red, alpha;
+    };
+
+    struct TextureColor1555
+    {
+        unsigned short blue : 5;
+        unsigned short green : 5;
+        unsigned short red : 5;
+        unsigned short alpha : 1;
+    };
+
+    struct TextureColor4444
+    {
+        unsigned short blue : 4;
+        unsigned short green : 4;
+        unsigned short red : 4;
+        unsigned short alpha : 4;
+    };
+
+    struct TextureColor8332
+    {
+        unsigned short blue : 2;
+        unsigned short green : 3;
+        unsigned short red : 3;
+        unsigned short alpha : 8;
+    };
+
+inline int __stdcall NormalizeTextureFormat(int format)
+{
+    if ((g_Supervisor.textureFormatFlags & 1) != 0)
+    {
+        D3DFORMAT value = g_AnmTextureFormats[format];
+        if (value == D3DFMT_A8R8G8B8 || value == D3DFMT_UNKNOWN)
+            return 5;
+        if (value == D3DFMT_R8G8B8)
+            return 3;
+    }
+    return format;
+}
+
+inline void __stdcall AccumulateTextureColor8888(
+    unsigned int *sums, const TextureColor8888 *pixel, unsigned int *count)
+{
+    if (pixel->alpha != 0)
+    {
+        sums[0] += pixel->red;
+        sums[1] += pixel->green;
+        sums[2] += pixel->blue;
+        ++*count;
+    }
+}
+
+inline void __stdcall AccumulateTextureColor1555(
+    unsigned int *sums, const unsigned short *pixel, unsigned int *count)
+{
+    unsigned short value = *pixel;
+    if ((value & 0x8000) != 0)
+    {
+        sums[0] += (value >> 10) & 31;
+        sums[1] += (value >> 5) & 31;
+        sums[2] += value & 31;
+        ++*count;
+    }
+}
+
+inline void __stdcall AccumulateTextureColor4444(
+    unsigned int *sums, const unsigned short *pixel, unsigned int *count)
+{
+    unsigned short value = *pixel;
+    if ((value & 0xF000) != 0)
+    {
+        sums[0] += (value >> 8) & 15;
+        sums[1] += (value >> 4) & 15;
+        sums[2] += value & 15;
+        ++*count;
+    }
+}
+
+inline void __stdcall AccumulateTextureColor8332(
+    unsigned int *sums, const TextureColor8332 *pixel, unsigned int *count)
+{
+    if (pixel->alpha != 0)
+    {
+        unsigned short value = *reinterpret_cast<const unsigned short *>(pixel);
+        sums[0] += (value >> 5) & 7;
+        sums[1] += (value >> 2) & 7;
+        sums[2] += value & 3;
+        ++*count;
+    }
+}
+}
+
+void __stdcall AnmHelpers::FillTransparentTextureColors(AnmTextureEntry *entry)
+{
+    IDirect3DSurface9 *surface = 0;
+    reinterpret_cast<IDirect3DTexture9 *>(entry->texture)->GetSurfaceLevel(0, &surface);
+    D3DSURFACE_DESC desc;
+    surface->GetDesc(&desc);
+    D3DLOCKED_RECT locked;
+    surface->LockRect(&locked, 0, 0);
+    unsigned int sums[3];
+    switch (desc.Format)
+    {
+    case D3DFMT_UNKNOWN:
+    case D3DFMT_A8R8G8B8:
+    {
+        for (unsigned int y = 0; y < desc.Height; ++y)
+        {
+            TextureColor8888 *pixel = reinterpret_cast<TextureColor8888 *>(
+                static_cast<unsigned char *>(locked.pBits) + y * locked.Pitch);
+            for (unsigned int x = 0; x < desc.Width; ++x, ++pixel)
+            {
+                if (pixel->alpha == 0)
+                {
+                    sums[0] = sums[1] = sums[2] = 0;
+                    unsigned int count = 0;
+                    if (x > 0)
+                        AnmHelpers::AccumulateTextureColor8888(sums, pixel - 1, &count);
+                    if (x < desc.Width - 1)
+                        AnmHelpers::AccumulateTextureColor8888(sums, pixel + 1, &count);
+                    if (y > 0)
+                        AnmHelpers::AccumulateTextureColor8888(sums,
+                            pixel - locked.Pitch / 4, &count);
+                    if (y < desc.Height - 1)
+                        AnmHelpers::AccumulateTextureColor8888(sums,
+                            pixel + locked.Pitch / 4, &count);
+                    if (count > 1)
+                    {
+                        sums[0] /= count;
+                        sums[1] /= count;
+                        sums[2] /= count;
+                    }
+                    pixel->red = static_cast<unsigned char>(sums[0]);
+                    pixel->green = static_cast<unsigned char>(sums[1]);
+                    pixel->blue = static_cast<unsigned char>(sums[2]);
+                }
+            }
+        }
+        break;
+    }
+    case D3DFMT_A1R5G5B5:
+    {
+        for (unsigned int y = 0; y < desc.Height; ++y)
+        {
+            TextureColor1555 *pixel = reinterpret_cast<TextureColor1555 *>(
+                static_cast<unsigned char *>(locked.pBits) + y * locked.Pitch);
+            for (unsigned int x = 0; x < desc.Width; ++x, ++pixel)
+            {
+                if (pixel->alpha == 0)
+                {
+                    sums[0] = sums[1] = sums[2] = 0;
+                    unsigned int count = 0;
+                    if (x > 0)
+                        AnmHelpers::AccumulateTextureColor1555(sums, reinterpret_cast<const unsigned short *>(pixel - 1), &count);
+                    if (x < desc.Width - 1)
+                        AnmHelpers::AccumulateTextureColor1555(sums, reinterpret_cast<const unsigned short *>(pixel + 1), &count);
+                    if (y > 0)
+                        AnmHelpers::AccumulateTextureColor1555(sums,
+                            reinterpret_cast<const unsigned short *>(pixel - locked.Pitch / 2), &count);
+                    if (y < desc.Height - 1)
+                        AnmHelpers::AccumulateTextureColor1555(sums,
+                            reinterpret_cast<const unsigned short *>(pixel + locked.Pitch / 2), &count);
+                    if (count > 1)
+                    {
+                        sums[0] /= count;
+                        sums[1] /= count;
+                        sums[2] /= count;
+                    }
+                    pixel->red = static_cast<unsigned char>(sums[0]);
+                    pixel->green = static_cast<unsigned char>(sums[1]);
+                    pixel->blue = static_cast<unsigned char>(sums[2]);
+                }
+            }
+        }
+        break;
+    }
+    case D3DFMT_A4R4G4B4:
+    {
+        for (unsigned int y = 0; y < desc.Height; ++y)
+        {
+            TextureColor4444 *pixel = reinterpret_cast<TextureColor4444 *>(
+                static_cast<unsigned char *>(locked.pBits) + y * locked.Pitch);
+            for (unsigned int x = 0; x < desc.Width; ++x, ++pixel)
+            {
+                if (pixel->alpha == 0)
+                {
+                    sums[0] = sums[1] = sums[2] = 0;
+                    unsigned int count = 0;
+                    if (x > 0)
+                        AnmHelpers::AccumulateTextureColor4444(sums, reinterpret_cast<const unsigned short *>(pixel - 1), &count);
+                    if (x < desc.Width - 1)
+                        AnmHelpers::AccumulateTextureColor4444(sums, reinterpret_cast<const unsigned short *>(pixel + 1), &count);
+                    if (y > 0)
+                        AnmHelpers::AccumulateTextureColor4444(sums,
+                            reinterpret_cast<const unsigned short *>(pixel - locked.Pitch / 2), &count);
+                    if (y < desc.Height - 1)
+                        AnmHelpers::AccumulateTextureColor4444(sums,
+                            reinterpret_cast<const unsigned short *>(pixel + locked.Pitch / 2), &count);
+                    if (count > 1)
+                    {
+                        sums[0] /= count;
+                        sums[1] /= count;
+                        sums[2] /= count;
+                    }
+                    pixel->red = static_cast<unsigned char>(sums[0]);
+                    pixel->green = static_cast<unsigned char>(sums[1]);
+                    pixel->blue = static_cast<unsigned char>(sums[2]);
+                }
+            }
+        }
+        break;
+    }
+    case D3DFMT_A8R3G3B2:
+    {
+        for (unsigned int y = 0; y < desc.Height; ++y)
+        {
+            TextureColor8332 *pixel = reinterpret_cast<TextureColor8332 *>(
+                static_cast<unsigned char *>(locked.pBits) + y * locked.Pitch);
+            for (unsigned int x = 0; x < desc.Width; ++x, ++pixel)
+            {
+                if (pixel->alpha == 0)
+                {
+                    sums[0] = sums[1] = sums[2] = 0;
+                    unsigned int count = 0;
+                    if (x > 0)
+                        AnmHelpers::AccumulateTextureColor8332(sums, pixel - 1, &count);
+                    if (x < desc.Width - 1)
+                        AnmHelpers::AccumulateTextureColor8332(sums, pixel + 1, &count);
+                    if (y > 0)
+                        AnmHelpers::AccumulateTextureColor8332(sums,
+                            pixel - locked.Pitch / 2, &count);
+                    if (y < desc.Height - 1)
+                        AnmHelpers::AccumulateTextureColor8332(sums,
+                            pixel + locked.Pitch / 2, &count);
+                    if (count > 1)
+                    {
+                        sums[0] /= count;
+                        sums[1] /= count;
+                        sums[2] /= count;
+                    }
+                    pixel->red = static_cast<unsigned char>(sums[0]);
+                    pixel->green = static_cast<unsigned char>(sums[1]);
+                    pixel->blue = static_cast<unsigned char>(sums[2]);
+                }
+            }
+        }
+        break;
+    }
+    }
+    surface->UnlockRect();
+    surface->Release();
 }
 
 int AnmTextureEntry::CreateEmptyTexture(unsigned int width, unsigned int height, int format)
@@ -55,19 +311,7 @@ int AnmTextureEntry::CreateRenderTarget()
 
 int AnmTextureEntry::LoadExternalTexture(int format, unsigned int width, unsigned int height, int offsetX, int offsetY)
 {
-    int actualFormat = format;
-    if ((g_Supervisor.textureFormatFlags & 1) != 0)
-    {
-        if (g_AnmTextureFormats[format] == D3DFMT_A8R8G8B8 ||
-            g_AnmTextureFormats[format] == D3DFMT_UNKNOWN)
-        {
-            actualFormat = 5;
-        }
-        else if (g_AnmTextureFormats[format] == D3DFMT_R8G8B8)
-        {
-            actualFormat = 3;
-        }
-    }
+    int actualFormat = AnmHelpers::NormalizeTextureFormat(format);
 
     flags &= ~1U;
     IDirect3DTexture9 *sourceTexture;
@@ -128,18 +372,7 @@ int AnmTextureEntry::LoadExternalTexture(int format, unsigned int width, unsigne
 int AnmTextureEntry::LoadEmbeddedTexture(const AnmEmbeddedTexture *data, int format, unsigned int width, unsigned int height)
 {
     IDirect3DSurface9 *surface = 0;
-    if ((g_Supervisor.textureFormatFlags & 1) != 0)
-    {
-        if (g_AnmTextureFormats[format] == D3DFMT_A8R8G8B8 ||
-            g_AnmTextureFormats[format] == D3DFMT_UNKNOWN)
-        {
-            format = 5;
-        }
-        else if (g_AnmTextureFormats[format] == D3DFMT_R8G8B8)
-        {
-            format = 3;
-        }
-    }
+    format = AnmHelpers::NormalizeTextureFormat(format);
 
     flags &= ~1U;
     RECT rect;

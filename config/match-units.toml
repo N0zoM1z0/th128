@@ -6333,3 +6333,96 @@ linkages = [
   { offset = 246, type = "DIR32", symbol = "?g_AnmTextureBytesPerPixel@@3QBHB", target = 0x004A48A8 },
   { offset = 286, type = "REL32", symbol = "@__security_check_cookie@4", target = 0x004728FD },
 ]
+
+[units.anm-fill-transparent-texture-colors]
+frontier = true
+artifact_kind = "linked-pe"
+source = "src/AnmTextureLoading.cpp"
+support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp"]
+output_dir = "build/match-linked/AnmTextureLoading"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmHelpers::FillTransparentTextureColors"]
+symbol = "?FillTransparentTextureColors@AnmHelpers@@YGXPAUAnmTextureEntry@@@Z"
+target_address = 0x004645F0
+size = 1774
+data_spans = [{ offset = 1744, size = 30 }]
+linkages = [
+  { offset = 7, type = "DIR32", symbol = "___security_cookie", target = 0x004B01F4 },
+  { offset = 89, type = "DIR32", local = true, target = 0x00464CC0 },
+  { offset = 96, type = "DIR32", local = true, target = 0x00464CAC },
+  { offset = 1712, type = "REL32", symbol = "@__security_check_cookie@4", target = 0x004728FD },
+  { offset = 1724, type = "DIR32", local = true, target = 0x00464654 },
+  { offset = 1728, type = "DIR32", local = true, target = 0x004647A2 },
+  { offset = 1732, type = "DIR32", local = true, target = 0x0046493F },
+  { offset = 1736, type = "DIR32", local = true, target = 0x00464AE7 },
+  { offset = 1740, type = "DIR32", local = true, target = 0x00464C81 },
+]
+
+[units.anm-accumulate-texture-color-8888]
+artifact_kind = "linked-pe"
+source = "src/AnmTextureLoading.cpp"
+support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp"]
+output_dir = "build/match-linked/AnmTextureLoading"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmHelpers::AccumulateTextureColor8888"]
+symbol = "?AccumulateTextureColor8888@AnmHelpers@@YGXPAIPBUTextureColor8888@1@0@Z"
+target_address = 0x00464540
+size = 30
+linkages = []
+
+[units.anm-accumulate-texture-color-1555]
+artifact_kind = "linked-pe"
+source = "src/AnmTextureLoading.cpp"
+support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp"]
+output_dir = "build/match-linked/AnmTextureLoading"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmHelpers::AccumulateTextureColor1555"]
+symbol = "?AccumulateTextureColor1555@AnmHelpers@@YGXPAIPBG0@Z"
+target_address = 0x00464560
+size = 42
+linkages = []
+
+[units.anm-accumulate-texture-color-4444]
+artifact_kind = "linked-pe"
+source = "src/AnmTextureLoading.cpp"
+support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp"]
+output_dir = "build/match-linked/AnmTextureLoading"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmHelpers::AccumulateTextureColor4444"]
+symbol = "?AccumulateTextureColor4444@AnmHelpers@@YGXPAIPBG0@Z"
+target_address = 0x00464590
+size = 42
+linkages = []
+
+[units.anm-accumulate-texture-color-8332]
+artifact_kind = "linked-pe"
+source = "src/AnmTextureLoading.cpp"
+support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp"]
+output_dir = "build/match-linked/AnmTextureLoading"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmHelpers::AccumulateTextureColor8332"]
+symbol = "?AccumulateTextureColor8332@AnmHelpers@@YGXPAIPBUTextureColor8332@1@0@Z"
+target_address = 0x004645C0
+size = 41
+linkages = []
+
+[units.anm-normalize-texture-format]
+artifact_kind = "linked-pe"
+source = "src/AnmTextureLoading.cpp"
+support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp"]
+output_dir = "build/match-linked/AnmTextureLoading"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmHelpers::NormalizeTextureFormat"]
+symbol = "?NormalizeTextureFormat@AnmHelpers@@YGHH@Z"
+target_address = 0x00464510
+size = 40
+linkages = [
+  { offset = 2, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", addend = 520, target = 0x004D2E60 },
+  { offset = 12, type = "DIR32", symbol = "?g_AnmTextureFormats@@3QBW4_D3DFORMAT@@B", target = 0x004A4884 },
+]

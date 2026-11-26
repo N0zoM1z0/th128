@@ -188,6 +188,12 @@ AnmVm::StartEffect10,0x004631A0,function
 UpdateAnmVmEffect10,0x004634A0,function
 DrawAnmVmEffect10,0x004636E0,function
 AnmVmEffect10Vertex::SetPolar,0x00463700,function
+AnmHelpers::NormalizeTextureFormat,0x00464510,function
+AnmHelpers::AccumulateTextureColor8888,0x00464540,function
+AnmHelpers::AccumulateTextureColor1555,0x00464560,function
+AnmHelpers::AccumulateTextureColor4444,0x00464590,function
+AnmHelpers::AccumulateTextureColor8332,0x004645C0,function
+AnmHelpers::FillTransparentTextureColors,0x004645F0,function
 AnmTextureEntry::LoadExternalTexture,0x00464FD0,function
 AnmTextureEntry::LoadEmbeddedTexture,0x004651D0,function
 AnmTextureEntry::CreateEmptyTexture,0x00465300,function

@@ -1318,8 +1318,8 @@ The external decoder calls `0x004645F0` after GPU creation. This is a
 it locks texture level zero and fills transparent pixels' color channels
 from nontransparent orthogonal neighbors in several packed formats, then
 unlocks and releases the surface. The embedded path does not call it.
-`FillTransparentTextureColors` remains a declared dependency; no source
-mapping or exact credit is assigned to that helper yet.
+`FillTransparentTextureColors` now has maintained source and a complete
+frontier unit; see the transparent-pixel finding below for its current status.
 [Postprocess hypothesis](../.analysis/anm-texture-postprocess-hypothesis.txt),
 [entry/callers](../.analysis/anm-texture-creation-and-cpu-release-review.txt).
 
@@ -1329,7 +1329,7 @@ is now 887 vs 1,000 bytes and its resource input is naturally ECX.
 including the previously differing receiver-forwarding byte at `+0x73`.
 This adds a third exact owner (+140 bytes) without a register hint or ABI
 shim. The exact sprite installer stays unchanged. The finalizer still has
-extensive differences and the external postprocess dependency remains open.
+extensive differences; the postprocess implementation is tracked below.
 [Scheduler replay](../.analysis/anm-scheduler-with-real-gpu-frontier.json),
 [owner observations](../.analysis/anm-finalization-with-real-gpu-observations.txt).
 
@@ -1341,6 +1341,120 @@ cold build is needed for unchanged executable inputs.
 [Cold comparison](../.analysis/anm-gpu-final-replay.log),
 [canonical comparison](../.analysis/anm-gpu-canonical-final-compare.log),
 [selected units](../.analysis/anm-gpu-canonical-affected-units.json).
+
+## ANM transparent-pixel repair and inline neighbor helpers (2026-11-26)
+
+For Japanese TH128 v1.00a and pinned VC10 RTM `/O2 /Ob1 /Oy- /GL`,
+`0x004645F0` fills transparent texels' RGB from nontransparent cardinal
+neighbors. The complete 1,774-byte owner now has natural C++ source in
+`AnmTextureLoading.cpp`, including all four packed-format paths. This closes
+the missing source dependency of the external-file texture loader without
+claiming exactness for the larger repair function.
+[Executable-body review](../.analysis/anm-transparent-colors-body-review.txt),
+[physical tables](../.analysis/anm-transparent-colors-tables.txt),
+[table references](../.analysis/anm-transparent-colors-tail-refs.txt).
+
+| D3D format | Alpha bits | Red / green / blue bits |
+| --- | ---: | --- |
+| 0 or 21, UNKNOWN / A8R8G8B8 | 8 | 8 / 8 / 8 |
+| 25, A1R5G5B5 | 1 | 5 / 5 / 5 |
+| 26, A4R4G4B4 | 4 | 4 / 4 / 4 |
+| 29, A8R3G3B2 | 8 | 3 / 3 / 2 |
+
+Only alpha-zero pixels are changed. Neighbors are considered in left,
+right, up, down order and counted when alpha is nonzero, including partial
+alpha. Red, green and blue are summed separately and divided with unsigned
+integer truncation only when the count exceeds one. No qualifying neighbors
+means zero RGB; one means its unmodified color. Writes retain the original
+alpha. Consequently a repaired transparent pixel cannot become a contributing
+neighbor later in the pass. Rows use the locked byte pitch; vertical pixel
+offsets use signed division by four or two, rather than the image width.
+
+The helper obtains texture level zero, gets the surface description, locks
+with null rectangle and zero flags, then unlocks and releases unconditionally.
+None of those HRESULTs is checked. Unsupported formats still take this
+lock/unlock/release path. It does not free `rawData`, change the texture
+entry's accounting, or run on the embedded-texture upload path.
+
+The target retains four unreferenced helper copies immediately before the
+repair owner: `0x00464540` (30 bytes), `0x00464560` (42), `0x00464590`
+(42), and `0x004645C0` (41). They accumulate the same formats' RGB into
+three four-byte sums and increment a four-byte count. The packed 16-bit
+values are snapshotted before any sum writes. Their bodies explain the
+repeated instruction sequences in the repair owner; explicit small inline
+functions naturally retain complete out-of-line copies under VC10.
+[TH128 helper review](../.analysis/anm-color-neighbor-complete-review.txt),
+[initial whole-owner diagnostics](../.analysis/anm-colors-chained-family.txt).
+TH10 and TH11 sources were consulted only for possible source shapes; their
+addresses, compilers and exact claims are not used as TH128 evidence.
+
+`0x00464510` is a separate 40-byte format normalizer. Supervisor byte
+`+0x208` bit 0 enables UNKNOWN/A8R8G8B8 to index 5 and R8G8B8 to index 3;
+otherwise it returns the input index. Both maintained texture-loading paths
+now use its real inline definition instead of duplicating the branch.
+[Complete TH128 review](../.analysis/anm-texture-normalize-format-review.txt),
+[initial 40-byte/two-field diagnostic](../.analysis/anm-colors-normalize-format-observation.json).
+
+The repair's physical tail belongs to its complete owner: executable code
+ends at `0x00464CA9`, compiler alignment occupies two bytes, five absolute
+jump-table entries start at `0x00464CAC`, and a 30-byte format dispatch map
+occupies `0x00464CC0..0x00464CDD`. The manifest declares the map as inline
+data; every byte still participates in comparison, and all seven local
+address fields plus cookie/cookie-check fields remain explicit. The
+instruction-only `review_span` command cannot decode the complete byte map
+as instructions; the successful body review and raw table read cover the
+owner separately. No analyzer database or Oracle code was changed.
+
+Useful rejected approaches:
+
+- A shared inline template containing the entire pixel loop was not inlined
+  by `/Ob1`: the selected repair owner became 250 bytes with four separate
+  loop owners. [Observation](../.analysis/anm-colors-template-observations.txt).
+- Expanding four loops with independent scalar sums gave 1,790 bytes and a
+  `0x40` frame. An array aggregate initializer changed the frame to `0x48`
+  without closing the extent. [Scalar observation](../.analysis/anm-colors-expanded-observations.txt),
+  [array observation](../.analysis/anm-colors-array-observations.txt).
+- Real small neighbor accumulators and chained initialization of the three
+  sums restored the complete 1,774-byte extent. That alone did not restore
+  the target's `0x50` frame, register-save placement or every branch target.
+  A shared array outside the switch retained the same remaining scope.
+  [Chained-initialization observation](../.analysis/anm-colors-chained-observations.txt),
+  [shared-array observation](../.analysis/anm-colors-shared-sums-format-observations.txt).
+
+Five complete owners are now canonical exact matches (+195 bytes): the
+40-byte normalizer with both reviewed `DIR32` fields and the four neighbor
+accumulators totaling 155 bytes without address fields. Their original entry
+references remain absent, so boundary confidence stays medium. All nine
+affected exact comparisons passed after two cold builds: these five owners,
+both creation methods, `SetSprite`, and `ProcessPendingAnms`. No shared header,
+tool, profile or other compilation context changed.
+[Cold construction](../.analysis/anm-colors-final-build.log),
+[strict comparison](../.analysis/anm-colors-final-compare.log),
+[selected owners](../.analysis/anm-colors-final-selected-units.json).
+
+The large repair remains a frontier despite equal 1,774-byte extents. Its
+frame is `0x4C` instead of `0x50`; the cookie and description are four bytes
+higher, register saves move across COM calls, and local handler destinations
+differ. Its byte-map address field is at `+87` instead of target `+89`, so
+the exhaustive-field check rejects it before raw-byte acceptance. Original
+source lifetimes and the relevant linked context remain unresolved; equal
+size and matching small helpers do not settle this owner.
+[Final owner/fields](../.analysis/anm-colors-final-observations.txt),
+[strict rejection](../.analysis/anm-colors-final-repair-frontier.json).
+
+The real repair and its neighbor helpers also change the external loader's
+private ABI naturally. Before format normalization was factored, the owner
+had 511 bytes and `RET 16`, but 57 ordinary differences concentrated in
+cropping and register scheduling. The final real-normalizer context gives
+515 vs 511 bytes and 18 fields; it promotes the format input to ECX and
+returns with `RET 12`, leaving three stack arguments instead of the target's
+four. Embedded upload remains 296 bytes with the same 16 raw differences
+and 13 fields. `FinalizeNextEntry` is now 903 vs 1,000 bytes;
+the scheduler and sprite installer remain exact. These observations update
+the earlier GPU snapshot without adding credit to any larger frontier.
+[Interim loader diagnostics](../.analysis/anm-colors-inline-neighbors-family.txt),
+[final loader diagnostics](../.analysis/anm-colors-final-family.txt),
+[current finalization owners](../.analysis/anm-colors-final-finalization-owners.json).
 
 ## Open questions
 

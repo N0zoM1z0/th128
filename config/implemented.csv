@@ -1,10 +1,15 @@
 AddAngles
 AllocateAnmVm
+AnmHelpers::AccumulateTextureColor1555
+AnmHelpers::AccumulateTextureColor4444
+AnmHelpers::AccumulateTextureColor8332
+AnmHelpers::AccumulateTextureColor8888
 AnmHelpers::AnmVmIdEquals
 AnmHelpers::ClearChildVisibleByScript
 AnmHelpers::ClearVisibleBitByIdPtr
 AnmHelpers::DeleteVmByIdPtr
 AnmHelpers::DrawSingleVm
+AnmHelpers::FillTransparentTextureColors
 AnmHelpers::FindChildIdByIdPtr
 AnmHelpers::FindChildIdFromVm
 AnmHelpers::FindChildVmByIdPtr
@@ -13,6 +18,7 @@ AnmHelpers::GetVmPosById
 AnmHelpers::HideVmTreeByIdPtr
 AnmHelpers::MarkVmTreeForDeleteById
 AnmHelpers::NextVmId
+AnmHelpers::NormalizeTextureFormat
 AnmHelpers::SetChildVisibleByScript
 AnmHelpers::SetInterruptAndUpdateByIdPtr
 AnmHelpers::SetVisibleBitByIdPtr

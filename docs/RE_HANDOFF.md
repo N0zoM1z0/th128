@@ -1,6 +1,6 @@
 # TH128 reconstruction handoff
 
-Snapshot: 2026-11-26 (ANM texture creation and pending scheduler exact; shared D3D9 device view). Read this first, then AGENTS.md.
+Snapshot: 2026-11-26 (five ANM texture helpers exact; complete transparent-color repair source/frontier). Read this first, then AGENTS.md.
 
 ## Resume safely
 
@@ -36,12 +36,12 @@ canonical ledgers. At this snapshot:
 | Boundary reviewed / provisional | 3,452 / 64 |
 | Origin rows pending | 21 |
 | Authored / excluded / indeterminate | 2,226 / 1,269 / 0 |
-| Source-present mappings | 366 |
-| Source-present with authored origin | 358 |
-| Authored source-present exact backlog | 49 |
-| Canonical exact functions | 317 |
-| Canonical exact codegen bytes | 19,312 |
-| Canonical exact authored bytes | 18,983 |
+| Source-present mappings | 372 |
+| Source-present with authored origin | 364 |
+| Authored source-present exact backlog | 50 |
+| Canonical exact functions | 322 |
+| Canonical exact codegen bytes | 19,507 |
+| Canonical exact authored bytes | 19,178 |
 
 The candidate inventory is not proven complete. The 21 remaining pending origin
 rows are unreferenced `d3dx9math.inl` candidates (all 16 CRT-band boundary-review
@@ -136,12 +136,20 @@ mixed wrapper consumer also builds. See the [binding finding](KNOWLEDGE_BASE.md#
 Current focused frontiers:
 
 - `FinalizeNextEntry` (`0x00465770`): complete target 1,000 bytes, current
-  source 887 bytes with the real GPU definitions. Its resource input now
-  uses ECX, closing the scheduler below; the full finalizer still differs.
-- `LoadExternalTexture` (`0x00464FD0`): source 477 vs 511 bytes. Its format
-  lifetime, extra promoted origin input, frame and integer-only logging
-  differ. An in-place-format probe still gives 477 bytes and `RET 12`
-  instead of the target's `RET 16`; the verified source is retained.
+  source 903 bytes with the real GPU and pixel-helper definitions. Its
+  resource input uses ECX, closing the scheduler below; the full finalizer
+  still differs.
+- `FillTransparentTextureColors` (`0x004645F0`): complete 1,774-byte source
+  owner and nine fields, including both physical tables. Candidate frame
+  `0x4C` vs target `0x50`; cookie/local offsets, register-save placement and
+  dispatch destinations still differ. The strict comparison rejects the
+  field-position mismatch (`+87` vs target `+89`), granting no exact credit.
+- `LoadExternalTexture` (`0x00464FD0`): source 515 vs 511 bytes. With the
+  real repair and inline neighbor definitions, an interim owner had 511 bytes
+  and `RET 16`, but 57 ordinary differences. Using the real format normalizer
+  yields 515 bytes, promotes the format input to ECX and returns with `RET 12`.
+  ABI, cropping and register scheduling remain open. The earlier in-place-format
+  probe's 477-byte/`RET 12` result is also retained as historical evidence.
 - `LoadEmbeddedTexture` (`0x004651D0`): full 296-byte extent and 13 fields
   replay, with 16 raw differences in the failure epilogue and final product.
   Dimension signedness, release expansion and an accumulator did not close it.
@@ -227,11 +235,25 @@ See the [GPU/state finding](KNOWLEDGE_BASE.md#anm-gpu-texture-loading-and-shared
 and [canonical comparison](../.analysis/anm-gpu-canonical-final-compare.log)
 (189 units across 19 cold-built contexts).
 
-External texture loading still calls the unimplemented 1,774-byte
+External texture loading now calls the maintained 1,774-byte
 `FillTransparentTextureColors` at `0x004645F0`. It repairs transparent
 pixels' RGB from nontransparent neighbors; it does not free the CPU file buffer.
 The presentation block at `0x004D2F5C` is passed to device `Reset`; the
 legacy cursor/windowed field at `0x004D2F7C` corresponds to its `Windowed`.
+
+Five inline helper copies now replay exactly (+5 functions, +195 bytes):
+`NormalizeTextureFormat` (`0x00464510`, 40B, two fields) and
+`AccumulateTextureColor8888/1555/4444/8332`
+(`0x00464540/60/90/C0`, 30/42/42/41B, no fields). Their complete unreferenced
+copies survive under VC10 while real callers inline them. The large repair
+uses four explicit format loops, signed pitch division and chained reset of
+three unsigned sums; alpha remains unchanged. A full-loop template was not
+inlined by `/Ob1`, while aggregate initialization retained a larger owner.
+All nine affected exact comparisons passed in two cold contexts; no shared
+header or other compilation context changed. See the
+[pixel finding](KNOWLEDGE_BASE.md#anm-transparent-pixel-repair-and-inline-neighbor-helpers-2026-11-26),
+[final comparison](../.analysis/anm-colors-final-compare.log), and
+[current frontier observations](../.analysis/anm-colors-final-observations.txt).
 
 Replay the recent ANM exact owners with:
 
@@ -360,7 +382,7 @@ Primary evidence:
 | src/AnmManager.cpp | VM lookup, allocation, list cleanup, draw grouping, tick callbacks, `FlushSpriteBatch`, preload, 23 `DrawLayer*` callbacks | 36 exact (linked PE), including `UpdateUiVms`, `StopVmById` and `PreloadAnm`; `UpdateWorldVms`/`SetInterruptAndUpdate` frontiers |
 | src/AnmLoading.cpp | first-stage ANM load, external texture caching, inline resource constructor contribution | constructor exact (linked PE); loader/cache frontiers |
 | src/AnmFinalization.cpp | resolved sprite installation, one-entry finalization and pending-resource scheduler | `SetSprite` (145B) and scheduler (140B) exact; finalizer frontier |
-| src/AnmTextureLoading.cpp | external decoding/cropping, embedded upload, empty texture and render-target creation | creation owners exact (70B/69B); two loader frontiers; transparent-color repair still external |
+| src/AnmTextureLoading.cpp | texture creation/loading, format fallback, neighbor accumulation and transparent RGB repair | 7 owners exact (334B); two loader frontiers and full 1,774B repair frontier |
 | src/AnmResource.cpp | `Release`, `AnmTextureEntry::Release`, `CreateVm` | 2 exact (linked PE); `CreateVm` frontier |
 | src/AnmVmUpdateWrapper.cpp | manager binding update wrapper (`0x00407080`) | 20-byte target frontier; 5-byte GL body, 15-byte normal-COFF body |
 | src/AnmHelpers.cpp | `ResolveAnmVmId` and 31 `AnmId`/VM/child/rotation/draw helpers (`0x00467570..0x00468100`) | 32 exact (linked PE); `ClearD3DTexture*` frontiers |
@@ -379,13 +401,12 @@ has an accepted exact owner replay yet.
 
 ### Exact ANM owners
 
-`config/matches.csv` now contains **143 exact ANM-area owners** across the
-modules above (6 setters/ctor, 5 effect-table owners, 4 operand resolvers,
-`NormalizeAnmCoordinates`, 8 script/binding/child/easing/timer owners, 37 `AnmManager`,
-6 `AnmResource`/`AnmTextureEntry`, 32 `AnmHelpers`, 39 `AnmInterp`, and
-5 `AnmVmTransitions`). Do not expand this list from source presence or
-successful compilation; only accepted rows in `config/matches.csv` count as
-exact.
+`config/matches.csv` now contains **147 exact owners with an ANM module**:
+39 `AnmInterp`, 37 `AnmManager`, 37 `AnmHelpers`, 16 `AnmVm`,
+9 `AnmResource`, 5 `AnmVmEffects`, and 4 `AnmVmScript`, counted through
+the maintained module in `config/functions.csv`. Do not expand this list
+from source presence or successful compilation; only accepted rows in
+`config/matches.csv` count as exact.
 
 ## Natural-source cleanup decision
 
@@ -398,11 +419,13 @@ callers remain frontiers as well.
 
 ## Next useful work (Phase 3+)
 
-1. **Close ANM finalization dependencies**: reconstruct transparent-color
-   repair (`0x004645F0`, 1,774B, including physical tables) and resolve
+1. **Close ANM finalization dependencies**: resolve the transparent-color
+   repair frontier (`0x004645F0`, 1,774B, including physical tables) and
    the external decoder (`0x00464FD0`, 511B) / embedded uploader
-   (`0x004651D0`, 296B) frontiers. The format-parameter lifetime probe and
-   GPU/state finding retain useful measurements. Then revisit the
+   (`0x004651D0`, 296B) frontiers. The five small helpers are exact; retain
+   their real definitions while resolving the repair's local lifetimes and
+   stack/register layout. The pixel and GPU findings retain failed probes.
+   Then revisit the
    1,000-byte finalizer and the loader/cache pair
    (`0x004653F0`, 515B / `0x00465680`, 231B).
    Other focused frontiers are `UpdateWorldVms` (`0x00466AF0`),
@@ -421,9 +444,15 @@ callers remain frontiers as well.
 4. **Next useful command after the session identity checks**:
 
    ~~~bash
-   scripts/repo-python scripts/ghidra.py query \
-     .analysis/anm-transparent-colors-complete-span.txt review_span 0x004645F0 0x00464CDD
+   scripts/repo-python scripts/compare-linked-function.py \
+     --unit anm-fill-transparent-texture-colors
    ~~~
+
+   This currently rejects the complete owner's field positions. Compare
+   `.analysis/anm-colors-final-source.asm` with
+   `.analysis/anm-colors-target.asm`; rebuild the affected contexts after
+   source edits. The saved body review and separate raw table read cover the
+   full target; instruction-only review must stop at `0x00464CA9`.
 
 ## Workflow and constraints
 
