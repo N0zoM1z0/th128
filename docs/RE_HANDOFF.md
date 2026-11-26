@@ -1,6 +1,6 @@
 # TH128 reconstruction handoff
 
-Snapshot: 2026-11-26 (surface/VM restoration exact; two maintained Present frontiers). Read this first, then AGENTS.md.
+Snapshot: 2026-11-26 (D3D9 state initialization exact; real initializer linked into Present). Read this first, then AGENTS.md.
 
 ## Resume safely
 
@@ -36,12 +36,12 @@ canonical ledgers. At this snapshot:
 | Boundary reviewed / provisional | 3,452 / 64 |
 | Origin rows pending | 21 |
 | Authored / excluded / indeterminate | 2,226 / 1,269 / 0 |
-| Source-present mappings | 412 |
-| Source-present with authored origin | 403 |
+| Source-present mappings | 413 |
+| Source-present with authored origin | 404 |
 | Authored source-present exact backlog | 78 |
-| Canonical exact functions | 334 |
-| Canonical exact codegen bytes | 20,710 |
-| Canonical exact authored bytes | 20,350 |
+| Canonical exact functions | 335 |
+| Canonical exact codegen bytes | 21,512 |
+| Canonical exact authored bytes | 21,152 |
 
 The candidate inventory is not proven complete. The 21 remaining pending origin
 rows are unreferenced `d3dx9math.inl` candidates (all 16 CRT-band boundary-review
@@ -78,6 +78,29 @@ are not over-inlined; address-taken probe pointers prevent interprocedural
 `and esp, -8` hoisting; struct copies unlock `fldz` hoisting in transition setters.
 
 ## Latest advance (2026-11-26)
+
+`InitializeSupervisorRenderState` (`0x00455A70`) is newly exact at **802
+bytes / 37 DIR32 fields**, with the fixed VC10 RTM `/GL /Ob1 /Oy-` profile.
+The first natural implementation reproduces all 34 COM calls, three
+float-to-DWORD conversions and the conditional ANM cache reset. The entry
+PUSH ECX is a local float slot, not an incoming parameter. Adjacent byte
+assignments naturally produce the cache's `0xFF07` word store.
+
+Both Present contexts now include this maintained body. Complete comparison
+still rejects Immediate at 189/190 and WithSleep at 323/314 bytes; the real
+initializer does not explain those remaining layout differences. Its
+support owner stays 802 bytes and the canonical timer stays 266. Screenshot
+handling and the post-Present timing/replay hooks remain external. The old
+frame-entry contexts still omit Present bodies.
+
+Only the initializer and Present contexts required cold builds. No changed
+input is consumed by an existing exact context; the one new exact owner and
+two affected frontiers received complete comparisons. See the
+[finding](KNOWLEDGE_BASE.md#initial-d3d9-state-and-anm-cache-reset-2026-11-26),
+[final results](../.analysis/state-reset-final-results.json) and
+[affected scope](../.analysis/state-reset-final-scope.json).
+
+Previous surface/Present checkpoint (`b2a0df4`):
 
 `RestoreSupervisorSurfaces` (`0x00435D20`) is newly exact at 217 bytes,
 including all three real BindVmScript fields and the runtime viewport copy.
@@ -680,7 +703,8 @@ Primary evidence:
 | src/SupervisorFrame.cpp | adaptive, timed and vsync calc/draw entry points | 3 frontiers; real presentation boundaries remain external |
 | src/SupervisorDevice.cpp | release/recreate render-target textures across all 38 ANM slots | 2 exact (289B) |
 | src/SupervisorSurfaces.cpp | level-zero surface acquisition, three VM bindings and fallback viewport copy | exact (217B) |
-| src/SupervisorPresent.cpp | immediate/sleep presentation and device-loss recovery | 2 frontiers; screenshot/state/timing hooks remain external |
+| src/SupervisorPresent.cpp | immediate/sleep presentation and device-loss recovery | 2 frontiers; real state initializer linked; screenshot/timing hooks remain external |
+| src/SupervisorRenderState.cpp | initial D3D9 render/stage/sampler states and ANM cache invalidation | exact (802B) |
 | src/AnmResource.cpp | `Release`, `AnmTextureEntry::Release`, `CreateVm` | 2 exact (linked PE); `CreateVm` frontier |
 | src/AnmVmUpdateWrapper.cpp | manager binding update wrapper (`0x00407080`) | 20-byte target frontier; 5-byte GL body, 15-byte normal-COFF body |
 | src/AnmHelpers.cpp | `ResolveAnmVmId` and 31 `AnmId`/VM/child/rotation/draw helpers (`0x00467570..0x00468100`) | 31 exact (linked PE); DrawSingleVm credit withdrawn; `ClearD3DTexture*` frontiers |
@@ -724,9 +748,10 @@ callers remain frontiers as well.
 
 1. **Continue the real frame/draw context**: the three calc/draw frame
    entries, 2D camera and two Present paths now have source. Both texture
-   walkers and the 217-byte surface restoration are exact. Reconstruct
-   D3D state setup at `0x00455A70` (802B) and screenshot handling at
-   `0x004550B0` (168B), then the adaptive presentation owner `0x00454940`
+   walkers, the 217-byte surface restoration and 802-byte D3D state setup
+   are exact. Reconstruct screenshot handling at `0x004550B0` (168B),
+   reviewing its game callees at `0x004343D0` (520B) and `0x004537D0`
+   (371B), then the adaptive presentation owner `0x00454940`
    (653B including its physical hole). Integrate the real Present bodies
    into frame-entry contexts before revisiting their private caller ABI.
    The reviewed mode-17 polar
@@ -767,7 +792,7 @@ callers remain frontiers as well.
 5. **Next useful command after the session identity checks**:
 
    ~~~bash
-   sed -n '267,551p' .analysis/presentation-loss-leaf-review.txt
+   sed -n '1,88p' .analysis/frame-timing-data-review.txt
    ~~~
 
    The new dispatcher and small sprite wrappers are reviewed in

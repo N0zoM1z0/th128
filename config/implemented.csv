@@ -261,6 +261,7 @@ HelpInf::Shutdown
 HelpInf::Update
 InitDefaultTimeScale
 InitJoypad
+InitializeSupervisorRenderState
 InterpolateAngle
 InterpolateColorVector
 InterpolateInteger

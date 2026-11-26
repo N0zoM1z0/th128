@@ -2421,6 +2421,62 @@ functions / 20,350 authored bytes**.
 [Affected scope](../.analysis/surfaces-present-preserved-timer-final-scope.json),
 [final results](../.analysis/surfaces-present-preserved-timer-final-results.json).
 
+## Initial D3D9 state and ANM cache reset (2026-11-26)
+
+Original Japanese TH12.8 v1.00a `InitializeSupervisorRenderState` at
+`0x00455A70` now matches its complete **802-byte** VC10 RTM
+`/O2 /Ob1 /Oy- /GL` owner and **37 DIR32 fields**. The first natural C++
+implementation passed without changing the owner profile. It contains 20
+SetRenderState calls, eight stage-zero SetTextureStageState calls, six
+sampler-zero SetSamplerState calls and a conditional ANM cache reset.
+HRESULTs are ignored. There are five direct callers, no interior references,
+no owned tables, and the return is at `0x00455D91`.
+[Target review](../.analysis/presentation-loss-leaf-review.txt),
+[complete final tail](../.analysis/presentation-state-reset-tail.txt),
+[complete exact comparison](../.analysis/state-reset-first-canonical.json),
+[source](../src/SupervisorRenderState.cpp).
+
+The setup enables Z buffering, alpha blending/testing and vertex fog,
+disables lighting, culling and multisample antialiasing, uses Gouraud
+shading, SRCALPHA/INVSRCALPHA additive blending, ALWAYS Z comparison and
+GREATEREQUAL alpha comparison with reference 1. Fog is linear, colored
+`0xFFA0A0A0`, with density 1, start 1000 and end 5000. Both texture color
+and alpha modulate TEXTURE by TFACTOR. The texture transform uses COUNT2
+and coordinate set zero. Magnification/minification use LINEAR, mip
+filtering is NONE, U/V wrap and W clamps.
+
+The initial PUSH ECX reserves one local DWORD; it does not preserve a live
+input argument. `FloatState(float)` naturally generates the observed
+FLD/FSTP bit reinterpretation through that slot for the three fog values,
+including FLD1 for density. The binary32 start/end constants at
+`0x004A66CC/0x004A66C8` are 1000/5000. The helper is inlined under the fixed
+owner profile, so no fake parameter or conversion body is necessary.
+[Attested constant bytes](../.analysis/state-reset-fog-bytes.txt),
+[first complete disassembly comparison](../.analysis/state-reset-first-diff.txt).
+
+When the global manager exists, the function sets byte `+0x4E968C` to 7,
+bytes `+0x4E968D/+0x4E968E/+0x4E9690` to `0xFF`, and pointer `+0x4E9688`
+to null. Separate adjacent byte assignments naturally combine into the
+target's word store `0xFF07`. Only the blend/vertex-format/texture cache
+roles are currently named; the other two byte meanings remain unknown.
+The source uses a partial view instead of expanding the shared manager
+layout. No existing exact context consumes the changed inputs.
+[Affected scope](../.analysis/state-reset-final-scope.json).
+
+Both Present contexts now link this real initializer. They still produce
+189/190 and 323/314 bytes, so completing this callee does not close their
+branch/pop and alignment differences. Their strict comparisons reject
+both complete extents. The support initializer remains 802 bytes and the
+timer 266 bytes; the surface/texture recovery support owners retain their
+observed complete lengths and ordinary bytes. These support observations
+grant no additional exact credit. Only two affected contexts were built.
+Canonical totals are **413 source mappings / 335 exact functions / 21,512
+exact bytes**, including **326 authored exact functions / 21,152 bytes**.
+[Final three-owner comparisons](../.analysis/state-reset-final-results.json),
+[Present observations](../.analysis/present-state-reset-final-supervisor-present-with-sleep.json),
+[support ownership](../.analysis/state-reset-present-support-owners.json),
+[Present cold build](../.analysis/state-reset-present-link.log).
+
 ## Open questions
 
 - Per-unit flags, the TU partition, which objects were `/GL`, the library set

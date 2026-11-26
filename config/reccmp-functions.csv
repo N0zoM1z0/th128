@@ -123,6 +123,7 @@ RunVsyncFrame,0x00454E50,function
 SupervisorFrame::PresentWithSleep,0x00454F70,function
 GetElapsedSeconds,0x00455160,function
 CreateGameWindow,0x00455320,function
+InitializeSupervisorRenderState,0x00455A70,function
 SoundManager::PlaySfx,0x00458410,function
 SoundManager::PlaySfxWithPan,0x004584A0,function
 SoundManager::SetSfxPan,0x00458550,function
