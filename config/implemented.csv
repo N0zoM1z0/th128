@@ -182,6 +182,8 @@ AnmVmSetScale2
 AnmVmSetScaleX
 AnmVmSetScaleY
 AnmVmSetUvScroll
+AsciiInf::CreateText
+AsciiInf::CreateTextF
 BgmStreamView::HasField10
 BgmStreamView::SetFadeOut
 BuildAnmVmViewCorners
@@ -214,10 +216,14 @@ CWaveFileView::~CWaveFileView
 CaptureSupervisorScreenshot
 CardInf::Create
 CardInf::Destroy
+CardInf::Draw
 CardInf::EnableChains
 CardInf::HasInvalidDurationCode
 CardInf::Initialize
+CardInf::OnDraw
+CardInf::OnTick
 CardInf::Shutdown
+CardInf::Update
 Chain::CreateAndRegisterCalc
 Chain::CreateAndRegisterCalcImmediate
 Chain::CreateAndRegisterDraw

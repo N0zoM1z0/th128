@@ -1,4 +1,6 @@
 name,address,type
+AsciiInf::CreateText,0x004015F0,function
+AsciiInf::CreateTextF,0x00401790,function
 ZunTimer::Increment,0x00402AC0,function
 ZunTimerModulo,0x00402B20,function
 AnmVmSetUvScroll,0x00402B60,function
@@ -27,7 +29,11 @@ CardInf::EnableChains,0x0040D680,function
 CardInf::Shutdown,0x0040D6B0,function
 CardInf::Create,0x0040D7B0,function
 CardInf::Destroy,0x0040D830,function
+CardInf::Update,0x0040D850,function
 UpdatePostPresentReplay,0x0040DA50,function
+CardInf::Draw,0x0040DBF0,function
+CardInf::OnTick,0x0040DD50,function
+CardInf::OnDraw,0x0040DD60,function
 ZunTimer::operator>,0x00410CD0,function
 AnmVmEffectNoop412B30,0x00412B30,function
 AnmVmEffectNoop412B40,0x00412B40,function

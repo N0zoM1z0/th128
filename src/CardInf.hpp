@@ -22,7 +22,9 @@ struct CardInf
     char name[0x40];                  // +0x38
     int unknown078;
     unsigned int flags;                // +0x7C, bit 0 active / bit 7 clock started
-    unsigned char unknown080[0x0C];
+    int bonus;                        // +0x80
+    int initialBonus;                 // +0x84
+    int bonusDurationFrames;          // +0x88
     int durationSampleIndex;          // +0x8C
     int activeFrameCount;             // +0x90
     int completedFrameCount;           // +0x94
@@ -38,6 +40,8 @@ struct CardInf
     static void Destroy();
     int Initialize();
     void Shutdown();
+    int Update();
+    int Draw();
     static int __fastcall OnTick(void *card);
     static int __fastcall OnDraw(void *card);
     static void EnableChains();

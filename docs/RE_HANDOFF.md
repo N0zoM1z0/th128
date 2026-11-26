@@ -1,6 +1,6 @@
 # TH128 reconstruction handoff
 
-Snapshot: 2026-11-26 (CardInf Initialize/Create/Destroy exact; complete lifecycle source and active-interval fields). Read this first, then AGENTS.md.
+Snapshot: 2026-11-26 (CardInf drawing/callbacks and AsciiInf text queue exact; complete Update frontier). Read this first, then AGENTS.md.
 
 ## Resume safely
 
@@ -36,12 +36,12 @@ canonical ledgers. At this snapshot:
 | Boundary reviewed / provisional | 3,452 / 64 |
 | Origin rows pending | 21 |
 | Authored / excluded / indeterminate | 2,226 / 1,269 / 0 |
-| Source-present mappings | 426 |
-| Source-present with authored origin | 417 |
-| Authored source-present exact backlog | 80 |
-| Canonical exact functions | 346 |
-| Canonical exact codegen bytes | 24,050 |
-| Canonical exact authored bytes | 23,690 |
+| Source-present mappings | 432 |
+| Source-present with authored origin | 423 |
+| Authored source-present exact backlog | 81 |
+| Canonical exact functions | 351 |
+| Canonical exact codegen bytes | 24,884 |
+| Canonical exact authored bytes | 24,524 |
 
 The candidate inventory is not proven complete. The 21 remaining pending origin
 rows are unreferenced `d3dx9math.inl` candidates (all 16 CRT-band boundary-review
@@ -79,41 +79,62 @@ are not over-inlined; address-taken probe pointers prevent interprocedural
 
 ## Latest advance (2026-11-26)
 
-CardInf now has source for Initialize, Shutdown, Create and Destroy.
-**Initialize** (`0x0040D540`, **285B / 12 fields**), **Create**
-(`0x0040D7B0`, **94B / 6 fields**) and **Destroy** (`0x0040D830`,
-**29B / 3 fields**) are newly exact under unchanged VC10 RTM
-`/GL /Ob1 /Oy-` owner flags. The constructor naturally emits the timer-bit
-clear, 0xC0-byte memset, lifecycle flag 2 and singleton publication inside
-Create; no separate constructor extent is claimed.
+Five new complete VC10 RTM `/O2 /Ob1 /Oy- /GL` exact owners add **834B**:
 
-The missing-resource path calls ordinary **Log at 0x0046A250**, not Fatal
-at 0x0046A320. The first source used Fatal and emitted 290B/92B Init/Create.
-Correcting the actual callee alone restores the private EDI receiver and
-factory EDI save/restore, closing both owners without an ABI declaration
-change. Preserve this call identity and the CP932 error literal.
+| Owner | Target | Complete extent / address fields |
+| --- | --- | --- |
+| CardInf::Draw | 0x0040DBF0 | 322B / 13 |
+| CardInf::OnTick | 0x0040DD50 | 10B / 1 |
+| CardInf::OnDraw | 0x0040DD60 | 10B / 1 |
+| AsciiInf::CreateText | 0x004015F0 | 407B / 1 |
+| AsciiInf::CreateTextF | 0x00401790 | 85B / 4 |
 
-**Shutdown** (`0x0040D6B0`) covers the full 249B / 27 fields but remains
-unmatched at ordinary bytes **+118/+120/+202/+204**. The target CutImpl
-calls use element/chain in EDX/ECX; the real compiled Chain body currently
-expects EAX/EDX. All fields replay. Investigate real Chain call context
-and ownership; keep the natural interface and fixed profiles.
+Each new owner passes in its own primary TU's 40-source cold context.
+Draw's invalid-ID reset belongs to the inline resolver before common cleanup.
+AsciiInf returns a distinct small AsciiTextId by value; the formatter assigns
+its result locally before returning. A direct return emits only 75B, and
+the first Draw shape emitted 338B. Keep the successful natural source and
+fixed profiles. The callback bytes match, while explicit source bridge vs
+compiler-emitted convention adapter remains unsettled at source-origin level.
+[Finding and failed approaches](KNOWLEDGE_BASE.md#cardinf-drawing-and-asciiinf-text-queue-2026-11-26),
+[primary CardInf results](../.analysis/card-callbacks-primary-results.json),
+[primary AsciiInf results](../.analysis/card-callbacks-ascii-results.json).
 
-The CardInf header now has typed IDs, name/position fields and neutral
-active-interval names; the old pause member names and flag comment are
-removed. Card primary has 39 source inputs; the three frame/viewport/Present
-contexts share 38. The complete affected replay covers sixteen owners in
-five cold contexts: ten exact passes (seven retained and three new), six
-rejected frontiers. Native product closure remains unproved.
-[Finding](KNOWLEDGE_BASE.md#cardinf-lifecycle-and-ordinary-error-logging-2026-11-26),
-[complete results](../.analysis/card-lifecycle-final-results.json),
-[affected scope](../.analysis/card-lifecycle-final-scope.json).
+**CardInf::Update** now has complete source for **507B / 16 fields** but is
+unmatched at ordinary bytes **+375..+382 / +390..+397**, the Y/Z floating-add
+operand order. Scalar expansion, a vector-by-value sum and a pointer-output
+helper did not close it. Keep these failures; do not change shared vector
+code or flags without a target-supported source hypothesis. **Shutdown**
+remains the 249B / 27-field frontier at **+118/+120/+202/+204**, where the real
+CutImpl call context selects different argument registers.
 
-The next CardInf source scopes are Update `0x0040D850` (507B) and Draw
-`0x0040DBF0` (322B), with the two 10B Chain callback bridges at
-`0x0040DD50/0x0040DD60`. They are reviewed declarations, not maintained
-callback bodies. Update's complete target is saved; review Draw before
-implementing it. Keep Shutdown's four-byte ABI frontier separate.
+The CardInf layout now names bonus +0x80, initial bonus +0x84 and bonus duration
++0x88. AsciiInf is a partial queue view: 320 checked entries of 0x164 bytes,
+count +0x1C848 and next text ID +0x1C888. The extra 0x164-byte gap before count
+and the four observed gameplay global owners remain unclassified. Avoid
+turning either into an invented full class layout.
+
+The complete affected replay covers **22 owners in six cold contexts**:
+**15 exact passes** (all ten retained matches and five new) and seven rejected
+frontiers. CardInf/AsciiInf primary contexts have 40 source inputs; the three
+frame/viewport/Present contexts share 39; the post-Present primary has four.
+Immediate/sleep Present, all three post-Present owners and the viewport tangent
+retain their complete matches. Adaptive Present still differs only at +90/+92;
+the frame and camera frontiers remain rejected. Native product and runtime
+closure remain unproved.
+[Complete affected results](../.analysis/card-callbacks-final-results.json),
+[affected sources and profiles](../.analysis/card-callbacks-final-scope.json).
+
+Next source work is the referenced activation `0x0040DD70` (1496B including
+physical tables) and termination `0x0040E350` (398B), called at
+`0x0041B4AE/0x0041B4E1` inside the same script owner. Ghidra lists only 1417
+instruction bytes for activation. The complete instruction listing and table
+reads are retained; capture/review its whole physical extent before coding.
+The nearby 54B score-add helper `0x0040E4E0` is also reviewed, without source
+or exact credit.
+[Next-entry review](../.analysis/card-start-stop-next-review.txt),
+[complete activation instructions](../.analysis/card-start-complete-code-next.txt),
+[table reads](../.analysis/card-start-owned-tables-next.txt).
 
 ## Active reconstruction: AnmVm
 
@@ -280,13 +301,13 @@ callers remain frontiers as well.
 
 ## Next useful work (Phase 3+)
 
-1. **Continue the real CardInf/frame context**: implement the active Update,
-   Draw and genuine Chain callback bridges from their complete target
-   extents. Initialize/Create/Destroy, chain activation and post-Present
-   active-duration accounting are exact. Shutdown is a four-byte CutImpl
-   argument-register frontier; do not substitute a fake callee or change
-   an ABI declaration to hide it. The name buffer is +0x38, frame count
-   +0x90, tracked position +0xAC and ANM resource +0xB8.
+1. **Continue the real CardInf/frame context**: reconstruct the referenced
+   activation and termination entries at `0x0040DD70/0x0040E350`. Draw and both
+   callbacks now match through real AsciiInf text callees. Update's 16-byte
+   floating-add frontier and Shutdown's four-byte CutImpl frontier remain
+   separate; preserve their natural interfaces and fixed profiles. The name
+   buffer is +0x38, frame count +0x90, tracked position +0xAC and ANM resource
+   +0xB8.
    The three calc/draw frame
    entries, 2D camera and all three Present paths now have source. Both texture
    walkers, the 217-byte surface restoration and 802-byte D3D state setup
@@ -338,7 +359,7 @@ callers remain frontiers as well.
 5. **Next useful command after the session identity checks**:
 
    ~~~bash
-   scripts/repo-python scripts/ghidra.py query .analysis/card-draw-complete-review.txt review 0x0040DBF0
+   scripts/repo-python scripts/ghidra.py query .analysis/card-start-owned-extent.txt read_bytes 1496 0x0040DD70
    ~~~
 
    The new dispatcher and small sprite wrappers are reviewed in

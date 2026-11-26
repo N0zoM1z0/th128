@@ -2972,6 +2972,141 @@ Shutdown receives no partial byte credit.
 [Complete affected results](../.analysis/card-lifecycle-final-results.json),
 [sources and profiles](../.analysis/card-lifecycle-final-scope.json).
 
+## CardInf drawing and AsciiInf text queue (2026-11-26)
+
+Original Japanese TH12.8 v1.00a has five new complete exact owners:
+CardInf::Draw (322B), OnTick/OnDraw (10B each), AsciiInf::CreateText (407B)
+and CreateTextF (85B), a gain of 834B. Each passes pinned VC10 RTM
+`/O2 /Ob1 /Oy- /GL` in its own primary TU's 40-source cold context, with
+complete PDB ownership and every address field replayed. CardInf::Update
+has complete source but remains a 507B frontier.
+[Target field declarations](../.analysis/card-callbacks-target-fields.json),
+[complete affected results](../.analysis/card-callbacks-final-results.json),
+[scope and profiles](../.analysis/card-callbacks-final-scope.json).
+
+CardInf::Draw (`0x0040DBF0`, 322B / 13 fields) resolves `vmIds[2]`, clearing
+that ID if lookup fails. It searches the root's child list for script 3 and
+uses that VM's alpha. With flag 2 it submits the eight-column decimal bonus
+at (365, 61, 0); otherwise it submits `$` at (387, 61, 0). Flag 0x100 selects
+red for the bonus, followed by white restoration when the flag remains set
+after the call. It resets the current AsciiInf singleton's alignments and
+alpha, then clears 0x100 even on an inactive or invalid-VM path. The target
+assumes child script 3 exists after a successful root lookup; no extra null
+check was added. The singleton is reloaded after text submission, as in the
+target, rather than resetting an earlier cached pointer.
+[Complete Draw review](../.analysis/card-draw-complete-review.txt),
+[positions and literals](../.analysis/card-draw-data.txt),
+[source](../src/CardInf.cpp).
+
+The first Draw body was 338B: it cached flags and duplicated early cleanup,
+which also moved the compiler's automatic loop alignment. One shared cleanup
+restored the 322B extent but left the invalid-ID store after the flag clear.
+Separating ID resolution into a natural inline helper, before the shared
+cleanup, reproduces the target's ID-store/flag-clear order. A structured
+positive-root branch instead produced 328B. Equal length alone was not
+accepted, and no manual padding or register hints were introduced.
+[Initial diagnostic](../.analysis/card-callbacks-first-draw.json),
+[shared cleanup diagnostic](../.analysis/card-callbacks-refined-draw.json),
+[structured branch diagnostic](../.analysis/card-callbacks-structured-draw.json),
+[resolved-ID diagnostic](../.analysis/card-callbacks-value-draw.json).
+
+AsciiInf::CreateText (`0x004015F0`, 407B / 1 field) has a signed capacity
+check at 320. Each queued entry is 0x164 bytes, beginning at manager +0x9E4;
+text count is +0x1C848 and next ID is +0x1C888. The extra 0x164-byte region
+between the declared 320 entries and count remains unclassified, rather
+than being treated as proof of a 321-entry array. The header is a partial
+manager view, not a recovered complete object size. The method copies the
+text, position, colors, scale, style, alignment and other observed current
+state in target order; it does not clear the whole entry or initialize the
+untouched +0x124 field. It resets the embedded timer, increments a distinct
+text-ID counter, changes a wrapped zero to 1, stores the new ID and returns
+it. Ordinary `strcpy` under the fixed owner flags naturally emits the target
+copy loop and its alignment.
+[Complete core review](../.analysis/ascii-text-core-review.txt),
+[partial queue layout](../src/AsciiInf.hpp), [source](../src/AsciiInf.cpp).
+
+Both text methods return a small `AsciiTextId` structure by value, rather
+than an integer or an AnmId. This naturally explains their hidden result
+buffers. CreateText uses a private EDX receiver, EAX position, ECX string
+and stack result pointer, ending in RET 4. The variadic CreateTextF wrapper
+(`0x00401790`, 85B / 4 fields) uses private EDI/ESI for receiver/result and
+retains the ordinary vsprintf call and security-cookie edges. A direct
+`return CreateText(...)` emitted only 75B because it forwarded the outer
+result buffer. Assigning the real returned ID to a local result, then
+returning that value, restores the target's distinct temporary and copy in
+85B. No ABI misdeclaration or support profile change was used. The bounded
+AsciiInf probe consumes both returned IDs through the real methods.
+[Wrapper review](../.analysis/card-text-create-review.txt),
+[direct-return diagnostic](../.analysis/card-callbacks-first-text-format.json),
+[local-assignment diagnostic](../.analysis/card-callbacks-refined-text-format.json),
+[probe](../probes/ascii-inf-context.cpp).
+
+The two callback extents are individually 10B, at 0x0040DD50 and 0x0040DD60,
+with one call field each. They receive the Chain argument in ECX and call
+the real Update/Draw bodies, whose private receivers are EDI/EBX. Their
+existing medium-confidence authored classifications are retained: matching
+explicit C++ callbacks does not settle whether the original source wrote
+these bridges or LTCG emitted convention adapters. The padding between
+the two entries belongs to neither accepted extent.
+[Independent entry/span review](../.analysis/card-lifecycle-and-callback-spans.txt).
+
+CardInf::Update (`0x0040D850`) now has a complete 507B / 16-field frontier.
+It advances active frames, clears an auxiliary flag at pre-increment
+frame 60 or later, decays the bonus from frame 300 unless flag 0x10 is set,
+and rounds the result toward a multiple of ten using signed remainder. The
+120-frame visibility logic runs after the timer increment: crossing below
+96 sends interrupt 3 to three VMs and sets flag 8; crossing above 128 sends
+interrupt 2 and clears it. The target uses ordered comparisons. The tracked
+actor position is smoothed through separate rounded delta and step vectors,
+using float 0.05 widened to double (`3FA99999A0000000`). A successful position
+VM lookup receives the game-to-screen offsets; the observed gate state can
+clear flag 0x40.
+[Complete Update review](../.analysis/card-update-active-interval-review.txt),
+[constant reads](../.analysis/card-update-constants.txt).
+
+Capturing the ANM manager before vector arithmetic restores its target load
+position. The remaining ordinary differences are +375..+382 and +390..+397:
+the Y/Z adds load tracked coordinates before the temporary, whereas the
+target loads the temporary first. All 16 fields replay; no exact credit is
+given. Expanding scalar assignments produced 511B and retained an x87 value
+across VM lookup. A vector-by-value sum produced 525B; a pointer-output vector
+helper returned to 507B with the same 16-byte mismatch. These natural source
+shapes did not resolve the operand-order frontier. The four accessed global
+roots are represented only as observed partial views; their original class
+identities remain unresolved.
+[Scalar diagnostic](../.analysis/card-callbacks-structured-update.json),
+[value diagnostic](../.analysis/card-callbacks-value-update.json),
+[pointer diagnostic](../.analysis/card-callbacks-pointer-update.json),
+[global writer review](../.analysis/card-global-writers-review.txt).
+
+Final replay covers **22 complete owners in six cold contexts**: all ten
+retained exact owners and the five new ones pass, while seven frontiers are
+rejected. CardInf/AsciiInf primary contexts have 40 inputs, the three
+frame/viewport/Present contexts have 39, and post-Present retains four.
+Adaptive Present remains a two-byte +90/+92 frontier; the frame and camera
+frontiers retain their previous rejection modes. The ledgers now contain
+**432 source mappings / 351 exact functions / 24,884 exact bytes**, including
+**342 authored exact functions / 24,524 authored bytes**. Update receives no
+partial credit, so authored source-present backlog grows by one to 81. Native
+product and runtime closure remain unproved. No compiler profiles or Oracle
+tools changed; only the affected contexts were cold-built.
+[Cold construction](../.analysis/card-callbacks-final-build.log),
+[complete current comparisons](../.analysis/card-callbacks-final-results.json).
+
+The next referenced activation and termination entries are 0x0040DD70 and
+0x0040E350, called at 0x0041B4AE / 0x0041B4E1 inside the same large script
+owner. Their ledger extents are 1496B / 398B. Activation's Ghidra body lists
+only 1417 instruction bytes: the complete 1496B owner hypothesis also covers
+filler and four physical tables at 0x0040E300/310/324/338. These data references
+into switch handlers are owned tables, not unrelated external entries.
+Review the whole physical extent before implementing or accepting that unit.
+The nearby 54B helper at 0x0040E4E0 adds signed amount / 10 to global
+0x004B4CC4 and caps it at 999999999; termination contains the same arithmetic
+inline. These are target observations only, with no new source or exact credit.
+[Entry, callers and termination review](../.analysis/card-start-stop-next-review.txt),
+[complete activation instruction listing](../.analysis/card-start-complete-code-next.txt),
+[table reads](../.analysis/card-start-owned-tables-next.txt).
+
 ## Open questions
 
 - Per-unit flags, the TU partition, which objects were `/GL`, the library set
