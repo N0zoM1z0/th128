@@ -340,6 +340,7 @@ ResetScalarTransitionTimer
 ResetTransitionTimer
 ResetViewTransitionTimer
 ResolveAnmVmId
+RestoreSupervisorSurfaces
 Rng::GetAngle
 Rng::GetFloat
 Rng::GetFloatScaled
@@ -384,6 +385,8 @@ SptResourceInf::LoadIncludes
 StartAnmVmEffect06
 Stub46C240
 Stub46C270
+SupervisorFrame::PresentImmediate
+SupervisorFrame::PresentWithSleep
 ThreadInf::Resume
 ThreadInf::Start
 ThreadInf::StartSuspended

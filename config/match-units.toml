@@ -7421,3 +7421,103 @@ linkages = [
   { offset = 100, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 252 },
   { offset = 115, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 260 },
 ]
+
+[units.supervisor-restore-surfaces]
+artifact_kind = "linked-pe"
+source = "src/SupervisorSurfaces.cpp"
+support_sources = ["src/AnmVmScript.cpp", "probes/anm-vm-update-context.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVmEffects.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "src/ZunTimer.cpp", "src/AnmVmView.cpp", "src/AnmDraw.cpp", "src/AnmInterp.cpp", "probes/supervisor-surfaces-context.cpp"]
+output_dir = "build/match-linked/SupervisorSurfaces"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorSurfacesProbe@4"
+functions = ["RestoreSupervisorSurfaces"]
+symbol = "?RestoreSupervisorSurfaces@@YGXPAUSupervisorSurfaceState@@@Z"
+target_address = 0x00435D20
+size = 217
+linkages = [
+  { offset = 72, type = "REL32", symbol = "?BindVmScript@AnmResource@@QAEXPAUAnmVm@@H@Z", target = 0x004593B0 },
+  { offset = 160, type = "REL32", symbol = "?BindVmScript@AnmResource@@QAEXPAUAnmVm@@H@Z", target = 0x004593B0 },
+  { offset = 182, type = "REL32", symbol = "?BindVmScript@AnmResource@@QAEXPAUAnmVm@@H@Z", target = 0x004593B0 },
+]
+
+[units.supervisor-present-immediate]
+frontier = true
+artifact_kind = "linked-pe"
+source = "src/SupervisorPresent.cpp"
+support_sources = ["src/SupervisorSurfaces.cpp", "src/AnmVmScript.cpp", "probes/anm-vm-update-context.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVmEffects.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "src/ZunTimer.cpp", "src/AnmVmView.cpp", "src/AnmDraw.cpp", "src/AnmInterp.cpp", "probes/supervisor-surfaces-context.cpp", "src/SupervisorDevice.cpp", "src/SupervisorTime.cpp", "probes/supervisor-present-context.cpp", "probes/supervisor-time-context.cpp"]
+support_profiles = { "src/SupervisorTime.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "probes/supervisor-time-context.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"] }
+output_dir = "build/match-linked/SupervisorPresent"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPresentProbe@8"
+functions = ["SupervisorFrame::PresentImmediate"]
+symbol = "?PresentImmediate@SupervisorFrame@@QAEXXZ"
+target_address = 0x00454D90
+size = 190
+linkages = [
+  { offset = 2, type = "REL32", symbol = "?HandleScreenshot@SupervisorFrame@@QAEXXZ", target = 0x004550B0 },
+  { offset = 7, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 16 },
+  { offset = 34, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 436 },
+  { offset = 52, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 436 },
+  { offset = 57, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 440 },
+  { offset = 75, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 440 },
+  { offset = 80, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 444 },
+  { offset = 98, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 444 },
+  { offset = 104, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 436 },
+  { offset = 109, type = "REL32", symbol = "?ReleaseAnmRenderTargets@@YGXXZ", target = 0x004536A0 },
+  { offset = 114, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 16 },
+  { offset = 124, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 252 },
+  { offset = 132, type = "REL32", symbol = "?RecreateAnmRenderTargets@@YGXXZ", target = 0x00453720 },
+  { offset = 137, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 8 },
+  { offset = 142, type = "REL32", symbol = "?RestoreSupervisorSurfaces@@YGXPAUSupervisorSurfaceState@@@Z", target = 0x00435D20 },
+  { offset = 147, type = "REL32", symbol = "?InitializeSupervisorRenderState@@YGXXZ", target = 0x00455A70 },
+  { offset = 153, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1404 },
+  { offset = 163, type = "DIR32", symbol = "?g_PostPresentTimingState@@3PAXA", target = 0x004B894C },
+  { offset = 170, type = "REL32", symbol = "?UpdatePostPresentTiming@@YAHXZ", target = 0x0041F990 },
+  { offset = 176, type = "DIR32", symbol = "?g_PostPresentReplayState@@3PAXA", target = 0x004B8934 },
+  { offset = 184, type = "REL32", symbol = "?UpdatePostPresentReplay@@YAXXZ", target = 0x0040DA50 },
+]
+
+[units.supervisor-present-with-sleep]
+frontier = true
+artifact_kind = "linked-pe"
+source = "src/SupervisorPresent.cpp"
+support_sources = ["src/SupervisorSurfaces.cpp", "src/AnmVmScript.cpp", "probes/anm-vm-update-context.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVmEffects.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "src/ZunTimer.cpp", "src/AnmVmView.cpp", "src/AnmDraw.cpp", "src/AnmInterp.cpp", "probes/supervisor-surfaces-context.cpp", "src/SupervisorDevice.cpp", "src/SupervisorTime.cpp", "probes/supervisor-present-context.cpp", "probes/supervisor-time-context.cpp"]
+support_profiles = { "src/SupervisorTime.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "probes/supervisor-time-context.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"] }
+output_dir = "build/match-linked/SupervisorPresent"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPresentProbe@8"
+functions = ["SupervisorFrame::PresentWithSleep"]
+symbol = "?PresentWithSleep@SupervisorFrame@@QAEXXZ"
+target_address = 0x00454F70
+size = 314
+linkages = [
+  { offset = 2, type = "REL32", symbol = "?GetElapsedSeconds@@YANXZ", target = 0x00455160 },
+  { offset = 16, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 499 },
+  { offset = 33, type = "DIR32", symbol = "__real@3f91111111111111", target = 0x004A66D0 },
+  { offset = 69, type = "DIR32", symbol = "__real@408f400000000000", target = 0x004A65E0 },
+  { offset = 75, type = "DIR32", symbol = "__real@400c000000000000", target = 0x004A68F0 },
+  { offset = 80, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 91, type = "DIR32", symbol = "__imp__Sleep@4", target = 0x0049A084 },
+  { offset = 104, type = "REL32", symbol = "?GetElapsedSeconds@@YANXZ", target = 0x00455160 },
+  { offset = 117, type = "REL32", symbol = "?HandleScreenshot@SupervisorFrame@@QAEXXZ", target = 0x004550B0 },
+  { offset = 122, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 16 },
+  { offset = 147, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 436 },
+  { offset = 165, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 436 },
+  { offset = 170, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 440 },
+  { offset = 188, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 440 },
+  { offset = 193, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 444 },
+  { offset = 211, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 444 },
+  { offset = 217, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 436 },
+  { offset = 222, type = "REL32", symbol = "?ReleaseAnmRenderTargets@@YGXXZ", target = 0x004536A0 },
+  { offset = 227, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 16 },
+  { offset = 237, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 252 },
+  { offset = 245, type = "REL32", symbol = "?RecreateAnmRenderTargets@@YGXXZ", target = 0x00453720 },
+  { offset = 250, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 8 },
+  { offset = 255, type = "REL32", symbol = "?RestoreSupervisorSurfaces@@YGXPAUSupervisorSurfaceState@@@Z", target = 0x00435D20 },
+  { offset = 260, type = "REL32", symbol = "?InitializeSupervisorRenderState@@YGXXZ", target = 0x00455A70 },
+  { offset = 266, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1404 },
+  { offset = 275, type = "REL32", symbol = "?GetElapsedSeconds@@YANXZ", target = 0x00455160 },
+  { offset = 287, type = "DIR32", symbol = "?g_PostPresentTimingState@@3PAXA", target = 0x004B894C },
+  { offset = 294, type = "REL32", symbol = "?UpdatePostPresentTiming@@YAHXZ", target = 0x0041F990 },
+  { offset = 300, type = "DIR32", symbol = "?g_PostPresentReplayState@@3PAXA", target = 0x004B8934 },
+  { offset = 308, type = "REL32", symbol = "?UpdatePostPresentReplay@@YAXXZ", target = 0x0040DA50 },
+]

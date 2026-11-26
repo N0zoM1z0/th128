@@ -1,6 +1,6 @@
 # TH128 reconstruction handoff
 
-Snapshot: 2026-11-26 (both device-loss ANM texture passes exact; +289 authored bytes). Read this first, then AGENTS.md.
+Snapshot: 2026-11-26 (surface/VM restoration exact; two maintained Present frontiers). Read this first, then AGENTS.md.
 
 ## Resume safely
 
@@ -36,12 +36,12 @@ canonical ledgers. At this snapshot:
 | Boundary reviewed / provisional | 3,452 / 64 |
 | Origin rows pending | 21 |
 | Authored / excluded / indeterminate | 2,226 / 1,269 / 0 |
-| Source-present mappings | 409 |
-| Source-present with authored origin | 400 |
-| Authored source-present exact backlog | 76 |
-| Canonical exact functions | 333 |
-| Canonical exact codegen bytes | 20,493 |
-| Canonical exact authored bytes | 20,133 |
+| Source-present mappings | 412 |
+| Source-present with authored origin | 403 |
+| Authored source-present exact backlog | 78 |
+| Canonical exact functions | 334 |
+| Canonical exact codegen bytes | 20,710 |
+| Canonical exact authored bytes | 20,350 |
 
 The candidate inventory is not proven complete. The 21 remaining pending origin
 rows are unreferenced `d3dx9math.inl` candidates (all 16 CRT-band boundary-review
@@ -78,6 +78,37 @@ are not over-inlined; address-taken probe pointers prevent interprocedural
 `and esp, -8` hoisting; struct copies unlock `fldz` hoisting in transition setters.
 
 ## Latest advance (2026-11-26)
+
+`RestoreSupervisorSurfaces` (`0x00435D20`) is newly exact at 217 bytes,
+including all three real BindVmScript fields and the runtime viewport copy.
+It gets level-zero texture surfaces, binds `0x52/0x55/0x52`, tests the first
+pointer after the first binding, and gets the mono back buffer through the
+SDK GetBackBuffer call. The receiver is Supervisor `+8`; the copied
+`0x118`-byte blocks remain opaque beyond their reviewed fields.
+
+Immediate/WithSleep Present now have maintained source with complete
+21/30-field units. Both remain frontiers at 189/190 and 323/314 bytes.
+Immediate differs in final branch/pop layout; tail-expression/null-guard
+variants did not close it. The canonical timer profiles restore its support
+owner to 266 bytes but leave WithSleep's caller frame. A normal-COFF timer
+support diagnostic shrank Present to 313 bytes but also shrank the timer
+to 259 and lost its independent alignment. That hypothesis was rejected;
+the maintained context retains the canonical all-LTCG timer configuration.
+Removing the named double local did not help either. Original TU ownership
+is still unproven; pursue real callee/TU context with fixed owner profiles.
+Screenshot handling and D3D state initialization remain external; the
+latter has no live incoming ECX argument.
+
+The frame header now names its screenshot member and both maintained
+Present bodies. Its one affected existing exact owner, AnmViewportTan,
+passes complete replay. Final comparison covers that wrapper plus the
+three new owners across three cold contexts: surface restoration passes,
+both Present frontiers are rejected. See the
+[finding](KNOWLEDGE_BASE.md#surface-restoration-and-maintained-present-paths-2026-11-26),
+[final results](../.analysis/surfaces-present-preserved-timer-final-results.json) and
+[affected scope](../.analysis/surfaces-present-preserved-timer-final-scope.json).
+
+Previous device-texture checkpoint (`60017e8`):
 
 `SupervisorDevice.cpp/.hpp` now maintains both device-loss texture passes:
 ReleaseAnmRenderTargets (`0x004536A0`, 124B / one field) and
@@ -648,6 +679,8 @@ Primary evidence:
 | src/AnmViewport.cpp | 2D camera matrices and float tangent | compiler/header tangent exact (31B, excluded from authored totals); camera frontier |
 | src/SupervisorFrame.cpp | adaptive, timed and vsync calc/draw entry points | 3 frontiers; real presentation boundaries remain external |
 | src/SupervisorDevice.cpp | release/recreate render-target textures across all 38 ANM slots | 2 exact (289B) |
+| src/SupervisorSurfaces.cpp | level-zero surface acquisition, three VM bindings and fallback viewport copy | exact (217B) |
+| src/SupervisorPresent.cpp | immediate/sleep presentation and device-loss recovery | 2 frontiers; screenshot/state/timing hooks remain external |
 | src/AnmResource.cpp | `Release`, `AnmTextureEntry::Release`, `CreateVm` | 2 exact (linked PE); `CreateVm` frontier |
 | src/AnmVmUpdateWrapper.cpp | manager binding update wrapper (`0x00407080`) | 20-byte target frontier; 5-byte GL body, 15-byte normal-COFF body |
 | src/AnmHelpers.cpp | `ResolveAnmVmId` and 31 `AnmId`/VM/child/rotation/draw helpers (`0x00467570..0x00468100`) | 31 exact (linked PE); DrawSingleVm credit withdrawn; `ClearD3DTexture*` frontiers |
@@ -690,11 +723,13 @@ callers remain frontiers as well.
 ## Next useful work (Phase 3+)
 
 1. **Continue the real frame/draw context**: the three calc/draw frame
-   entries and 2D camera now have source; both render-target texture walkers
-   are exact. Reconstruct the 217-byte surface/VM restoration at `0x00435D20`,
-   then the presentation callers (`0x00454940/0x00454D90/0x00454F70`), preserving
-   screenshot handling at `0x004550B0` as its own boundary. The sleep-capable
-   314-byte present is the next bounded owner. The reviewed mode-17 polar
+   entries, 2D camera and two Present paths now have source. Both texture
+   walkers and the 217-byte surface restoration are exact. Reconstruct
+   D3D state setup at `0x00455A70` (802B) and screenshot handling at
+   `0x004550B0` (168B), then the adaptive presentation owner `0x00454940`
+   (653B including its physical hole). Integrate the real Present bodies
+   into frame-entry contexts before revisiting their private caller ABI.
+   The reviewed mode-17 polar
    line strip at `0x00462D60` is another useful scope. Sprite/rectangle
    frontiers still include ambient rounding and FSINCOS; avoid repeating
    the documented vector/zero-lifetime probes.
@@ -732,7 +767,7 @@ callers remain frontiers as well.
 5. **Next useful command after the session identity checks**:
 
    ~~~bash
-   sed -n '169,266p' .analysis/presentation-loss-leaf-review.txt
+   sed -n '267,551p' .analysis/presentation-loss-leaf-review.txt
    ~~~
 
    The new dispatcher and small sprite wrappers are reviewed in

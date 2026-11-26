@@ -17,8 +17,9 @@ struct SupervisorFrame
     double lastRasterTime;            // +0x2068
 
     void PresentAdaptive();            // 0x00454940; not yet reconstructed
-    void PresentImmediate();           // 0x00454D90; not yet reconstructed
-    void PresentWithSleep();           // 0x00454F70; not yet reconstructed
+    void PresentImmediate();           // 0x00454D90; SupervisorPresent.cpp
+    void PresentWithSleep();           // 0x00454F70; SupervisorPresent.cpp
+    void HandleScreenshot();           // 0x004550B0; reviewed external boundary
 };
 typedef char SupervisorFrameTimeOffset[(offsetof(SupervisorFrame, currentTime) == 0x2040) ? 1 : -1];
 

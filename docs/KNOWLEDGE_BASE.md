@@ -2325,6 +2325,102 @@ functions / 20,133 authored bytes**.
 [Affected scope](../.analysis/device-target-final-scope.json),
 [cold build](../.analysis/device-target-direct-access-link.log).
 
+## Surface restoration and maintained Present paths (2026-11-26)
+
+Original Japanese TH12.8 v1.00a `RestoreSupervisorSurfaces` at `0x00435D20`
+now reproduces its complete **217-byte** pinned VC10 RTM `/O2 /Ob1 /Oy- /GL`
+owner and three real BindVmScript REL32 fields, adding one authored exact
+function. The first natural source matched, including the `0x118`-byte
+runtime state copy and RET 4. Its linked context contains the maintained
+BindVmScript body; the source does not simulate its register effects.
+[Complete target](../.analysis/presentation-loss-leaf-review.txt),
+[complete linked results](../.analysis/surfaces-present-preserved-timer-final-results.json),
+[source](../src/SupervisorSurfaces.cpp).
+
+The receiver is the graphics view rooted at Supervisor `+8`. If its first
+surface is nonnull, the entire function returns. Otherwise it gets texture
+entry 2's level-zero surface and binds the first VM to script `0x52`.
+**After that binding**, it tests the first surface pointer again; only when
+still null does it copy the viewport-state block. It then gets texture
+entry 3's level-zero surface, binds the other VMs to `0x55` and `0x52`, and
+calls SDK **GetBackBuffer(0, 0, MONO, ...)**. HRESULTs are ignored. There is
+no independent retry/validation of each output surface.
+
+| Graphics-view field | Offset from Supervisor `+8` |
+| --- | --- |
+| Device | `+0x008` |
+| Texture surfaces / back buffer | `+0x1AC/+0x1B0/+0x1B4` |
+| Three VM pointers | `+0x1BC/+0x1C0/+0x1C4` |
+| Viewport copy source / fallback destination | `+0x204/+0x434`, each `0x118` bytes |
+| Resource | `+0x588` |
+
+The middle range at `+0x31C` begins at the default 2D camera's
+`0x004D3184` root. Only the copied extent is settled here; the complete
+viewport class remains opaque beyond its reviewed fields. The fifth
+caller at `0x004334B0` is flag-controlled and also reenables four callback
+records after restoring surfaces.
+[Wrapper review](../.analysis/surface-restore-wrapper-review.txt),
+[partial view](../src/SupervisorSurfaces.hpp).
+
+`SupervisorPresent.cpp` now maintains Immediate and WithSleep at
+`0x00454D90` (190B / 21 target fields) and `0x00454F70` (314B / 30 fields).
+Both perform screenshot handling and Present; negative HRESULT releases
+three held surfaces, clears the first slot again, releases ANM render
+targets, calls Reset with the current presentation parameters, recreates
+targets, restores surfaces/VMs, initializes render state and writes mode 2.
+The two optional timing/replay hooks remain reviewed external boundaries.
+WithSleep additionally samples the clock, conditionally sleeps a positive
+integer budget `(lastPresent + 1/60 - now)*1000 - 3.5`, and records the two
+presentation timestamps. The branch requires config byte `0x004D3053 == 1`
+and elapsed time strictly between zero and 1/60.
+[Present target review](../.analysis/frame-present-and-viewport-review.txt),
+[maintained source](../src/SupervisorPresent.cpp).
+
+Render-state setup at `0x00455A70` has no live incoming argument: its
+initial PUSH ECX reserves a local slot, overwritten by a float before its
+first read. Screenshot handling at `0x004550B0` receives the frame in ECX
+and is now declared as a frame member. Neither boundary has a fabricated
+body. All existing frame-entry candidate contexts still omit the new
+Present definitions; integrate the real bodies before revisiting their
+private caller ABI.
+
+The maintained Present owners remain frontiers at **189/190** and
+**323/314** bytes. Immediate shares a popped register across the last
+conditional branch where the target has branch-specific pops. Explicit
+void-tail returns and an early null guard emit the same layout. WithSleep
+has an extra caller alignment/frame setup. Its timer support owner initially
+shrank to 259 bytes; the timer's address-taken probe and canonical profiles
+restore 266 bytes but leave Present at 323. Removing the named double local
+also leaves the output unchanged, so neither the named local nor the
+timer's own missing alignment alone explains the caller frame.
+
+A bounded mixed-boundary diagnostic kept the Present owner `/GL` and
+compiled only SupervisorTime support as normal COFF. That removed the
+extra caller frame and produced 313 bytes, but the timer itself was then
+259 bytes and lost the target's independent alignment. **That hypothesis
+was rejected and removed from the maintained context.** A closer caller
+alone does not settle the callee ABI or original TU boundary. The final
+context preserves the timer's canonical profiles and all-LTCG ownership;
+neither Present receives exact credit. No Present owner flags were varied.
+[First timer frame](../.analysis/present-first-time-frame.txt),
+[all-LTCG timer frame](../.analysis/present-known-timer-time-frame.txt),
+[rejected mixed timer frame](../.analysis/present-mixed-current-time-frame.txt),
+[final retained timer frame](../.analysis/present-preserved-timer-final-time-frame.txt),
+[canonical timer settings reused](../.analysis/present-canonical-timer-profile-inputs.json),
+[direct-condition negative](../.analysis/present-direct-time-supervisor-present-with-sleep.json),
+[mixed-boundary settings](../.analysis/present-mixed-timer-context.json),
+[rejected mixed Present observations](../.analysis/present-mixed-current-supervisor-present-with-sleep.json).
+
+Final comparison covers the three new owners and the one existing exact
+unit affected by the frame header, AnmViewportTan. Surface restoration and
+the existing wrapper pass; both Present owners fail the complete-size gate.
+Only those three contexts were cold-built, with current receipts reused
+when inputs remained unchanged. Canonical totals are **412 source mappings /
+334 exact functions / 20,710 exact bytes**, including **325 authored exact
+functions / 20,350 authored bytes**.
+[Affected scope](../.analysis/surfaces-present-preserved-timer-final-scope.json),
+[final results](../.analysis/surfaces-present-preserved-timer-final-results.json).
+
 ## Open questions
 
 - Per-unit flags, the TU partition, which objects were `/GL`, the library set
