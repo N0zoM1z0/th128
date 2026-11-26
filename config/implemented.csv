@@ -212,6 +212,8 @@ CWaveFileView::OpenFromMemory
 CWaveFileView::SaveFilePos
 CWaveFileView::~CWaveFileView
 CaptureSupervisorScreenshot
+CardInf::EnableChains
+CardInf::HasInvalidDurationCode
 Chain::CreateAndRegisterCalc
 Chain::CreateAndRegisterCalcImmediate
 Chain::CreateAndRegisterDraw
@@ -339,7 +341,6 @@ Pbg::ParseArchiveDirectory
 PollKeyboardState
 RecreateAnmRenderTargets
 ReleaseAnmRenderTargets
-ReplayPauseState::HasInvalidDurationCode
 ResetScalarTransitionTimer
 ResetTransitionTimer
 ResetViewTransitionTimer

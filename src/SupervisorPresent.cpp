@@ -101,7 +101,7 @@ void SupervisorFrame::PresentAdaptive()
     }
     if (g_PostPresentTimingState != 0)
         UpdatePostPresentTiming();
-    if (g_PostPresentReplayState != 0)
+    if (g_CardInf != 0)
         UpdatePostPresentReplay();
     GetElapsedSeconds();
     if (sleepProfiles[sleepProfileIndex].sleepMilliseconds > 0)
@@ -140,7 +140,7 @@ void SupervisorFrame::PresentImmediate()
     }
     if (g_PostPresentTimingState != 0)
         UpdatePostPresentTiming();
-    if (g_PostPresentReplayState == 0)
+    if (g_CardInf == 0)
         return;
     UpdatePostPresentReplay();
 }
@@ -189,7 +189,7 @@ void SupervisorFrame::PresentWithSleep()
     lastPresentTime = GetElapsedSeconds();
     if (g_PostPresentTimingState != 0)
         UpdatePostPresentTiming();
-    if (g_PostPresentReplayState == 0)
+    if (g_CardInf == 0)
         return;
     UpdatePostPresentReplay();
 }

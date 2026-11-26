@@ -61,7 +61,7 @@ int __cdecl UpdatePostPresentTiming()
     return 1;
 }
 
-int ReplayPauseState::HasInvalidDurationCode()
+int CardInf::HasInvalidDurationCode()
 {
     const int seconds = ((encodedDuration / 100) % 1000 + 934) % 1000;
     const int hundredths = (encodedDuration % 100 + 67) % 100;
@@ -70,7 +70,7 @@ int ReplayPauseState::HasInvalidDurationCode()
 
 void __cdecl UpdatePostPresentReplay()
 {
-    ReplayPauseState *state = static_cast<ReplayPauseState *>(g_PostPresentReplayState);
+    CardInf *state = g_CardInf;
     if ((state->flags & 1U) != 0)
     {
         if ((state->flags & 0x80U) == 0)
@@ -100,19 +100,20 @@ void __cdecl UpdatePostPresentReplay()
     state->encodedDuration = ((seconds + hundredths + 22) * 1000 + (seconds + 66) % 1000) * 100
         + (hundredths + 33) % 100;
 
-    unsigned char *storage = static_cast<unsigned char *>(g_ReplayPauseStorage);
+    const int sampleIndex = state->pauseSampleIndex;
     if (GameplayState()->replayMode == 0)
     {
         unsigned char *stream = reinterpret_cast<unsigned char **>(
-            storage + 0x20)[g_CurrentReplayStage];
-        reinterpret_cast<int *>(stream + 0x30)[state->pauseSampleIndex] = state->encodedDuration;
-        ++state->pauseSampleIndex;
-        return;
+            static_cast<unsigned char *>(g_ReplayPauseStorage) + 0x20)[g_CurrentReplayStage];
+        reinterpret_cast<int *>(stream + 0x30)[sampleIndex] = state->encodedDuration;
     }
-    ReplayPausePlaybackSlot *slots = reinterpret_cast<ReplayPausePlaybackSlot *>(
-        storage + 0x148);
-    state->encodedDuration = reinterpret_cast<int *>(slots[g_CurrentReplayStage].stream + 0x30)[state->pauseSampleIndex];
-    if (state->HasInvalidDurationCode())
-        state->encodedDuration = 0x06AD1584; // Encoded 999.99-second fallback.
+    else
+    {
+        ReplayPausePlaybackSlot *slots = reinterpret_cast<ReplayPausePlaybackSlot *>(
+            static_cast<unsigned char *>(g_ReplayPauseStorage) + 0x148);
+        state->encodedDuration = reinterpret_cast<int *>(slots[g_CurrentReplayStage].stream + 0x30)[sampleIndex];
+        if (state->HasInvalidDurationCode())
+            state->encodedDuration = 0x06AD1584; // Encoded 999.99-second fallback.
+    }
     ++state->pauseSampleIndex;
 }

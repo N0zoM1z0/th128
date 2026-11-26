@@ -7482,7 +7482,7 @@ linkages = [
   { offset = 153, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1404 },
   { offset = 163, type = "DIR32", symbol = "?g_PostPresentTimingState@@3PAXA", target = 0x004B894C },
   { offset = 170, type = "REL32", symbol = "?UpdatePostPresentTiming@@YAHXZ", target = 0x0041F990 },
-  { offset = 176, type = "DIR32", symbol = "?g_PostPresentReplayState@@3PAXA", target = 0x004B8934 },
+  { offset = 176, type = "DIR32", symbol = "?g_CardInf@@3PAUCardInf@@A", target = 0x004B8934 },
   { offset = 184, type = "REL32", symbol = "?UpdatePostPresentReplay@@YAXXZ", target = 0x0040DA50 },
 ]
 
@@ -7528,7 +7528,7 @@ linkages = [
   { offset = 275, type = "REL32", symbol = "?GetElapsedSeconds@@YANXZ", target = 0x00455160 },
   { offset = 287, type = "DIR32", symbol = "?g_PostPresentTimingState@@3PAXA", target = 0x004B894C },
   { offset = 294, type = "REL32", symbol = "?UpdatePostPresentTiming@@YAHXZ", target = 0x0041F990 },
-  { offset = 300, type = "DIR32", symbol = "?g_PostPresentReplayState@@3PAXA", target = 0x004B8934 },
+  { offset = 300, type = "DIR32", symbol = "?g_CardInf@@3PAUCardInf@@A", target = 0x004B8934 },
   { offset = 308, type = "REL32", symbol = "?UpdatePostPresentReplay@@YAXXZ", target = 0x0040DA50 },
 ]
 
@@ -7791,7 +7791,7 @@ linkages = [
   { offset = 568, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1404 },
   { offset = 578, type = "DIR32", symbol = "?g_PostPresentTimingState@@3PAXA", target = 0x004B894C },
   { offset = 585, type = "REL32", symbol = "?UpdatePostPresentTiming@@YAHXZ", target = 0x0041F990 },
-  { offset = 591, type = "DIR32", symbol = "?g_PostPresentReplayState@@3PAXA", target = 0x004B8934 },
+  { offset = 591, type = "DIR32", symbol = "?g_CardInf@@3PAUCardInf@@A", target = 0x004B8934 },
   { offset = 598, type = "REL32", symbol = "?UpdatePostPresentReplay@@YAXXZ", target = 0x0040DA50 },
   { offset = 603, type = "REL32", symbol = "?GetElapsedSeconds@@YANXZ", target = 0x00455160 },
   { offset = 632, type = "DIR32", symbol = "__imp__Sleep@4", target = 0x0049A084 },
@@ -7822,7 +7822,6 @@ linkages = [
 ]
 
 [units.post-present-replay-update]
-frontier = true
 artifact_kind = "linked-pe"
 source = "src/PostPresentUpdates.cpp"
 support_sources = ["src/SupervisorTime.cpp", "probes/supervisor-time-context.cpp", "probes/post-present-updates-context.cpp"]
@@ -7835,7 +7834,7 @@ symbol = "?UpdatePostPresentReplay@@YAXXZ"
 target_address = 0x0040DA50
 size = 382
 linkages = [
-  { offset = 10, type = "DIR32", symbol = "?g_PostPresentReplayState@@3PAXA", target = 0x004B8934 },
+  { offset = 10, type = "DIR32", symbol = "?g_CardInf@@3PAUCardInf@@A", target = 0x004B8934 },
   { offset = 31, type = "REL32", symbol = "?GetElapsedSeconds@@YANXZ", target = 0x00455160 },
   { offset = 76, type = "REL32", symbol = "?GetElapsedSeconds@@YANXZ", target = 0x00455160 },
   { offset = 97, type = "DIR32", symbol = "__real@3f9119ce075f6fd2", target = 0x004A6758 },
@@ -7850,7 +7849,7 @@ linkages = [
   { offset = 290, type = "DIR32", symbol = "?g_ReplayPauseStorage@@3PAXA", target = 0x004B8A84 },
   { offset = 298, type = "DIR32", symbol = "?g_CurrentReplayStage@@3HA", target = 0x004B4D14 },
   { offset = 324, type = "DIR32", symbol = "?g_CurrentReplayStage@@3HA", target = 0x004B4D14 },
-  { offset = 351, type = "REL32", symbol = "?HasInvalidDurationCode@ReplayPauseState@@QAEHXZ", target = 0x0040D340 },
+  { offset = 351, type = "REL32", symbol = "?HasInvalidDurationCode@CardInf@@QAEHXZ", target = 0x0040D340 },
 ]
 
 [units.replay-pause-code-invalid]
@@ -7861,9 +7860,24 @@ support_profiles = { "src/SupervisorTime.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/
 output_dir = "build/match-linked/PostPresentUpdates"
 profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
 entry = "PostPresentUpdatesProbe@0"
-functions = ["ReplayPauseState::HasInvalidDurationCode"]
-symbol = "?HasInvalidDurationCode@ReplayPauseState@@QAEHXZ"
+functions = ["CardInf::HasInvalidDurationCode"]
+symbol = "?HasInvalidDurationCode@CardInf@@QAEHXZ"
 target_address = 0x0040D340
 size = 81
 linkages = [
+]
+
+[units.card-enable-chains]
+artifact_kind = "linked-pe"
+source = "src/CardInf.cpp"
+support_sources = ["probes/card-inf-context.cpp"]
+output_dir = "build/match-linked/CardInf"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardInfProbe@0"
+functions = ["CardInf::EnableChains"]
+symbol = "?EnableChains@CardInf@@SAXXZ"
+target_address = 0x0040D680
+size = 35
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_CardInf@@3PAUCardInf@@A", target = 0x004B8934 },
 ]

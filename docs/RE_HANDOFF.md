@@ -1,6 +1,6 @@
 # TH128 reconstruction handoff
 
-Snapshot: 2026-11-26 (post-Present FPS accounting and replay pause checksum exact; real pause callback integrated). Read this first, then AGENTS.md.
+Snapshot: 2026-11-26 (CardInf identified; active-duration update and chain activation exact). Read this first, then AGENTS.md.
 
 ## Resume safely
 
@@ -36,12 +36,12 @@ canonical ledgers. At this snapshot:
 | Boundary reviewed / provisional | 3,452 / 64 |
 | Origin rows pending | 21 |
 | Authored / excluded / indeterminate | 2,226 / 1,269 / 0 |
-| Source-present mappings | 421 |
-| Source-present with authored origin | 412 |
-| Authored source-present exact backlog | 80 |
-| Canonical exact functions | 341 |
-| Canonical exact codegen bytes | 23,225 |
-| Canonical exact authored bytes | 22,865 |
+| Source-present mappings | 422 |
+| Source-present with authored origin | 413 |
+| Authored source-present exact backlog | 79 |
+| Canonical exact functions | 343 |
+| Canonical exact codegen bytes | 23,642 |
+| Canonical exact authored bytes | 23,282 |
 
 The candidate inventory is not proven complete. The 21 remaining pending origin
 rows are unreferenced `d3dx9math.inl` candidates (all 16 CRT-band boundary-review
@@ -79,35 +79,44 @@ are not over-inlined; address-taken probe pointers prevent interprocedural
 
 ## Latest advance (2026-11-26)
 
-The real post-Present callbacks now have source in `PostPresentUpdates.cpp`.
-`UpdatePostPresentTiming` (`0x0041F990`, **256B / 8 fields**) and
-`ReplayPauseState::HasInvalidDurationCode` (`0x0040D340`, **81B / 0 fields**)
-are newly exact with the fixed VC10 RTM `/GL /Ob1 /Oy-` primary profile.
-The timing count is unsigned and includes the configured skip weight. Its
-one-second window updates float FPS, nominal/effective totals and the
-observed gameplay flags.
+The singleton at `0x004B8934` is **CardInf**, identified by `card.anm`,
+`shutdown CardInf` and `src\game\card.cpp` target strings. Its factory
+allocates 0xC0 bytes. `CardInf.hpp` replaces the old `ReplayPauseState`
+layout hypothesis and exposes the observed chains, VM IDs, embedded timer,
+active-interval timing fields and slot-37 ANM resource. The typed global is now
+`g_CardInf`; current bindings and source mappings use that identity.
 
-`UpdatePostPresentReplay` (`0x0040DA50`) records pause entry and quantizes
-resume duration to **0.0167 seconds**, with a **>= 0.00835** upward tie.
-It records/replays stage-indexed samples and checks their decimal redundancy;
-invalid playback codes fall back to encoded 999.99 seconds. The source
-returns an integer checksum predicate because the target caller tests EAX.
-The replay owner remains **389/382B**: table/index load scheduling and
-index caching across that call differ. An earlier 382B source still failed
-field placement and ordinary bytes. Do not manufacture checksum clobbers
-or repeat the failed direct-table/cached-index probes.
+`UpdatePostPresentReplay` (`0x0040DA50`, **382B / 16 fields**) is newly
+exact with the unchanged VC10 RTM `/GL /Ob1 /Oy-` primary profile.
+The successful source shares the sample index, keeps direct table accesses
+inside record/playback branches and increments the object field once after
+the join. The compiler naturally increments memory after the pure
+integer checksum; no fake effects or clobbers are used. Unifying only the
+increment gives 388B; retaining a common storage local with the shared
+index gives a wrong 382B. Keep the complete successful pattern and the
+>= 0.00835 quantization tie.
 
-The real callback TU is integrated into all three frame/viewport/Present
-contexts (36 source inputs), preserving the timer's canonical support
-profile. The affected scope is eleven owners in four contexts; no shared
-frame header changed and screenshot capture/writer contexts are unaffected.
-All five exact owners pass (two new and three retained); the other six
+`CardInf::EnableChains` (`0x0040D680`, **35B / 1 field**) is also newly
+exact. It enables each non-null calc/draw element with flag 2, assuming the
+singleton exists. FPS 256B and renamed CardInf checksum 81B also pass.
+The affected scope is twelve owners in five cold contexts. Screenshot
+capture/writer contexts have no changed inputs.
+All seven exact owners pass (five retained and two new); the other five
 remain rejected frontiers. Adaptive Present still differs at +90/+92.
-See the [finding](KNOWLEDGE_BASE.md#post-present-frame-accounting-and-replay-pause-timing-2026-11-26),
-[complete results](../.analysis/post-present-final-results.json) and
-[affected scope](../.analysis/post-present-final-scope.json).
-The prior [frame/Present findings](KNOWLEDGE_BASE.md#real-framepresent-closure-and-adaptive-pacing-2026-11-26)
-and [historical notes](RE_CHECKPOINT_NOTES.md) retain earlier negative probes.
+See the [finding](KNOWLEDGE_BASE.md#cardinf-identity-and-exact-active-duration-update-2026-11-26),
+[complete results](../.analysis/card-pause-final-results.json) and
+[affected scope](../.analysis/card-pause-final-scope.json).
+Earlier source hypotheses and negative probes remain in the
+[prior checkpoint](KNOWLEDGE_BASE.md#post-present-frame-accounting-and-replay-pause-timing-2026-11-26).
+
+The next CardInf source owners are Initialize `0x0040D540` (285B),
+Shutdown `0x0040D6B0` (249B), Create `0x0040D7B0` (94B) and Destroy
+`0x0040D830` (29B). Their target bodies and callbacks are already reviewed;
+these four do not yet have maintained source or exact credit. The timed
+interval is CardInf activity: the start/end paths set/clear flag 1 and
+the 507B update advances its frame count and bonus. The legacy `pause*`
+member names and old flag comment still need renaming with that header edit;
+do not infer a game-pause state from those labels.
 
 ## Active reconstruction: AnmVm
 
@@ -274,11 +283,13 @@ callers remain frontiers as well.
 
 ## Next useful work (Phase 3+)
 
-1. **Continue the real frame/draw context**: the post-Present replay callback
-   now has semantically reviewed 389/382B source, with the quantization tie
-   and integer checksum interface corrected. Investigate its table/index
-   lifetimes and the original TU closure; retain the exact FPS/checksum
-   bodies. The three calc/draw frame
+1. **Continue the real CardInf/frame context**: reconstruct CardInf setup,
+   shutdown and factory/destroy from the reviewed lifecycle bodies. Retain
+   the exact active-duration update, chain activation, FPS and checksum
+   owners. Initialization uses ANM slot 37, calc/draw priorities 26/10,
+   disabled chain flags and an embedded timer reset. Shutdown releases the
+   resource, deletes three VMs, cuts both elements and clears the singleton.
+   The three calc/draw frame
    entries, 2D camera and all three Present paths now have source. Both texture
    walkers, the 217-byte surface restoration and 802-byte D3D state setup
    are exact, as are screenshot capture (520B) and its BMP writer (352B).
@@ -329,7 +340,7 @@ callers remain frontiers as well.
 5. **Next useful command after the session identity checks**:
 
    ~~~bash
-   scripts/repo-python scripts/diff-linked-target.py build/match-linked/PostPresentUpdates '?UpdatePostPresentReplay@@YAXXZ' 0x0040DA50 382
+   scripts/repo-python scripts/ghidra.py decompile .analysis/card-lifecycle-hypotheses.txt 0x0040D540 0x0040D6B0 0x0040D7B0
    ~~~
 
    The new dispatcher and small sprite wrappers are reviewed in

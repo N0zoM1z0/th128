@@ -21,7 +21,8 @@ ZunTimer::operator==,0x00407E70,function
 InterpolateLinearScalar,0x0040CCF0,function
 ResetScalarTransitionTimer,0x0040CEA0,function
 Rng::GetFloatScaled,0x0040D130,function
-ReplayPauseState::HasInvalidDurationCode,0x0040D340,function
+CardInf::HasInvalidDurationCode,0x0040D340,function
+CardInf::EnableChains,0x0040D680,function
 UpdatePostPresentReplay,0x0040DA50,function
 ZunTimer::operator>,0x00410CD0,function
 AnmVmEffectNoop412B30,0x00412B30,function

@@ -2664,6 +2664,10 @@ source mappings / 339 exact functions / 22,888 exact bytes**, including
 
 ## Post-Present frame accounting and replay pause timing (2026-11-26)
 
+This section records checkpoint `59848a9`. The later CardInf finding below
+supersedes the `ReplayPauseState` type hypothesis and the 389B frontier;
+the historical compiler results are retained unchanged.
+
 Original Japanese TH12.8 v1.00a `UpdatePostPresentTiming` (`0x0041F990`,
 **256B / 8 address fields**) and `ReplayPauseState::HasInvalidDurationCode`
 (`0x0040D340`, **81B / no address fields**) pass complete pinned VC10 RTM
@@ -2767,6 +2771,110 @@ authored bytes**. The net exact gain is two functions / 337 bytes.
 [Complete final results](../.analysis/post-present-final-results.json),
 [affected scope](../.analysis/post-present-final-scope.json),
 [three-context cold build](../.analysis/post-present-integrated-link.log).
+
+## CardInf identity and exact active-duration update (2026-11-26)
+
+The singleton at **0x004B8934 is CardInf** in original Japanese TH12.8
+v1.00a. The loader at `0x0040D540` requests `card.anm` (`0x004A216C`),
+and nearby target strings name `shutdown CardInf` (`0x004A21A8`) and
+`src\game\card.cpp` (`0x004A21BC`). Its factory at `0x0040D7B0`
+allocates **0xC0 bytes** and stores the singleton. The earlier generic
+`ReplayPauseState` name described only the pause/replay fields and is
+superseded; it did not identify the owning game module.
+[Attested literal bytes](../.analysis/replay-pause-resource-strings.txt),
+[singleton references](../.analysis/replay-pause-stage-storage-xrefs.txt),
+[lifecycle owners](../.analysis/replay-pause-lifecycle-review.txt),
+[current layout](../src/CardInf.hpp).
+
+The earlier **pause** interpretation is also superseded. The card-start
+path `0x0040DD70` copies the card name and sets flag `+0x7C & 1`;
+`0x0040E350` clears that bit and stops the card VMs. Update `0x0040D850`
+runs while it is set, advances `+0x90`, updates the timer and recalculates
+the displayed bonus. The measured interval is CardInf activity. Legacy
+`pause*` member names and the old flag comment remain working labels in
+this checkpoint; rename them with the next lifecycle source edit. They
+are not evidence of a game-pause state. The unimplemented update also
+exposes a VM ID at `+0x20` and three floats at `+0xAC/+0xB0/+0xB4`.
+[Card start/end paths](../.analysis/replay-pause-lifecycle-review.txt),
+[complete 507B active update](../.analysis/card-update-active-interval-review.txt).
+
+The post-Present active-duration callback `UpdatePostPresentReplay`
+(`0x0040DA50`) now passes its complete **382-byte owner and all 16 address
+fields** under the unchanged pinned VC10 RTM `/O2 /Ob1 /Oy- /GL` primary
+profile. `CardInf::EnableChains` (`0x0040D680`) is newly reconstructed and
+exact at **35B / one global field**. It ORs flag 2 into each existing
+calc/draw ChainElem, with no additional singleton guard. Both callsites
+in `0x004269D0` overwrite EAX without consuming a result, supporting the
+void declaration. [Callsite ABI evidence](../.analysis/card-enable-call-sites.txt).
+The prior FPS
+256B/8-field and renamed integer-checksum 81B/0-field owners also replay.
+[Pause update](../.analysis/card-pause-update-first-canonical.json),
+[chain activation](../.analysis/card-enable-first-canonical.json),
+[renamed checksum](../.analysis/card-code-first-canonical.json),
+[FPS](../.analysis/card-fps-first-canonical.json).
+
+The duration update closes through ordinary C++ control flow: read the sample
+index once, use direct record/playback table accesses in the two branches,
+and increment the object's index once after their join. No clobbers,
+volatile accesses, register hints or owner profile changes are needed.
+The compiler naturally shares the storage-global load after the mode test,
+keeps the common index in ECX only while needed, and emits an in-memory
+increment after the checksum call. All CRT and checksum call identities
+remain intact.
+[Source](../src/PostPresentUpdates.cpp),
+[matching isolated observation](../.analysis/post-present-shared-index-direct-post-present-replay-update.json).
+
+The bounded intermediate probes explain why isolated edits did not close
+the old source. Unifying the increment alone yields **388B** and fixes
+the increment instruction. Adding a shared index while retaining the
+pre-branch storage local yields **382B**, but hoists the gameplay-global
+load before the integer divisions and fails ordinary bytes and field
+placement. Removing that storage local lets the branch accesses be shared
+naturally and closes the complete target. These are different observations
+from the earlier 382B version that cached the encoded value as well; equal
+length alone was never accepted. Private candidate links reused attested
+support objects for diagnostics; acceptance used fresh canonical cold builds.
+[Unified increment](../.analysis/post-present-unified-advance-post-present-replay-update.json),
+[shared-index negative](../.analysis/post-present-shared-index-post-present-replay-update.json),
+[cold build](../.analysis/card-pause-first-canonical-link.log).
+
+Lifecycle evidence extends the layout without claiming those functions as
+reconstructed source. Calc/draw elements are at `+0x08/+0x0C`, three VM
+IDs at `+0x14/+0x18/+0x1C`, a ZunTimer at `+0x24`, pause fields remain
+at `+0x7C..+0xA8`, and the ANM resource pointer is at `+0xB8`.
+The constructor path first clears the timer initialization bit, then
+zeroes all 0xC0 bytes, sets lifecycle flag 2 and publishes the singleton.
+Initialization loads ANM slot **37**, creates initially disabled calc/draw
+elements at priorities **26 / 10**, and resets the timer to current 0,
+previous -1. It installs callback wrappers `0x0040DD50/0x0040DD60`, which
+bridge the real Chain callback receiver in ECX to the update/draw bodies'
+private EDI/EBX receivers.
+[Initialization](../.analysis/replay-pause-registration-review.txt),
+[wrapper spans](../.analysis/card-lifecycle-and-callback-spans.txt).
+
+The 249B shutdown owner `0x0040D6B0` releases/deletes ANM slot 37,
+deletes the three VMs, cuts both ChainElems under Supervisor critical
+section 0 and clears the singleton. The 94B factory calls initialization
+and invokes shutdown/delete on a nonzero result. The 29B global destroy
+wrapper at `0x0040D830` guards the singleton before shutdown/delete.
+These three and the 285B initializer are the next source scopes. The
+unreferenced 19B delete-and-return-pointer body at `0x0040D810` remains
+unclassified at source level; do not assume its compiler-generated origin
+from its shape alone.
+[Shutdown and factory](../.analysis/replay-pause-lifecycle-review.txt),
+[complete undeclared wrapper bytes](../.analysis/replay-pause-delete-wrapper-span.txt).
+
+Final replay covers **twelve owners in five cold contexts**: all seven
+exact owners pass, including five retained matches and the two new ones.
+The five other owners remain rejected frontiers; adaptive Present retains
+its ordinary-byte differences at +90/+92. The ledgers now contain **422
+source mappings / 343 exact functions / 23,642 exact bytes**, including
+**334 authored exact functions / 23,282 authored bytes**. The net exact
+gain is two functions / 417 bytes. Native product and runtime closure
+remain unproved.
+[Complete results](../.analysis/card-pause-final-results.json),
+[affected sources, owners and profiles](../.analysis/card-pause-final-scope.json),
+[family cold build](../.analysis/card-pause-family-cold-link.log).
 
 ## Open questions
 
