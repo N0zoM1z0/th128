@@ -2477,6 +2477,108 @@ exact bytes**, including **326 authored exact functions / 21,152 bytes**.
 [support ownership](../.analysis/state-reset-present-support-owners.json),
 [Present cold build](../.analysis/state-reset-present-link.log).
 
+## Screenshot capture, writer and pending surface copies (2026-11-26)
+
+Original Japanese TH12.8 v1.00a now has complete VC10 RTM
+`/O2 /Ob1 /Oy- /GL` matches for **CaptureSupervisorScreenshot** at
+`0x004343D0` (**520B / 39 fields**) and **WriteSupervisorScreenshot** at
+`0x00434270` (**352B / 34 fields**). Both are primary-TU owners in the
+maintained screenshot context; all bytes and absolute/relative identities
+pass the canonical comparator. The capture's source cdecl filename
+parameter naturally becomes the target's private EAX receiver. The writer
+uses the legal cdecl CRT thread-callback signature with an unused pointer;
+the target does not read an incoming argument.
+[Capture comparison](../.analysis/screenshot-capture-final-canonical.json),
+[writer comparison](../.analysis/screenshot-writer-final-canonical.json),
+[source](../src/SupervisorScreenshot.cpp),
+[complete target leaves](../.analysis/screenshot-leaves-review.txt),
+[complete writer target](../.analysis/screenshot-worker-review.txt).
+
+Screenshot state begins at Supervisor `+0x6D8`: worker handle `+0`, packed
+14-byte BITMAPFILEHEADER `+4`, BITMAPINFO pointer `+0x14`, pixel pointer
+`+0x18`, filename `+0x1C`. Capture waits in Sleep(10) while the worker slot
+is nonzero, obtains the mono back buffer, prepares the BMP file header,
+and copies the filename. Format 22 (X8R8G8B8) allocates a 44-byte BITMAPINFO
+and 921,600 pixel bytes. It writes a 640x480, 24-bit BI_RGB header, locks
+the surface and copies BGR triples from rows 479 down to 0, using the
+source pitch and a 1,920-byte destination row stride. It unlocks, starts
+the actual writer via `_beginthread`, stores its return and releases the
+surface. The separate empty logger at `0x004360F0` remains a reviewed
+varargs boundary, without a fabricated body or new exact credit.
+[Logger target](../.analysis/screenshot-logger-review.txt),
+[attested capture strings](../.analysis/screenshot-capture-data.txt),
+[remaining error text](../.analysis/screenshot-error-data.txt).
+
+The R5G6B5 path logs refusal, releases the surface and returns zero; other
+unsupported formats log and return one before surface release. A failed
+pixel allocation leaves the info block allocated. Back-buffer and
+LockRect HRESULTs are ignored. The writer ignores all stream results,
+writes 14 header bytes, 40 info-header bytes and the pixels, conditionally
+frees/clears both allocations and clears the worker slot. The maintained
+FileSystem bodies naturally inline to the writer's complete 352-byte
+target, including the original stream error paths. These retained failure
+behaviors are reconstruction findings, not repairs or runtime validation.
+
+The first capture was 517B. Moving row decrement before destination-offset
+increment and using the observed `y > -1` bound restored the target's
+520B loop. Its last four ordinary differences were the order of two
+pointer additions; initializing the destination pointer first closed them.
+Only these natural source expressions changed; owner profiles stayed fixed.
+The private relink predicted the result, then a canonical cold build
+accepted the full owner and all 39 fields.
+[First capture](../.analysis/screenshot-first-supervisor-capture-screenshot.json),
+[full-size four-byte mismatch](../.analysis/screenshot-capture-real-fs-canonical.json),
+[isolated pointer-order diagnostic](../.analysis/screenshot-destination-first-supervisor-capture-screenshot.json).
+
+The 168-byte screenshot handler now has source. It always flushes pending
+surface copies, then tests InputState zero's trigger mask bit `0x40000`.
+It changes to the global directory at `0x004D3999`, creates `snapshot`,
+formats `"%ssnapshot\\th%.3d.bmp"` using the receiver's string at `+0x29`,
+and scans indices 000..999 through FileExists. It captures only when a name
+is free and restores the global directory at `0x004D4999`, including when
+all names exist. Global directory pointers and the dynamic receiver string
+are distinct source accesses.
+[Handler target](../.analysis/frame-timing-data-review.txt),
+[literal strings](../.analysis/screenshot-text-data.txt).
+
+`FlushAnmSurfaceCopies` at `0x004537D0` is a four-entry copy queue, not input
+polling. The manager's first `0xA0` bytes are four `0x28`-byte records:
+ANM slot, texture index, **source** x/y/width/height, then **destination**
+x/y/width/height. The D3DX call's argument order establishes the rectangle
+roles; an initial source draft had them reversed and was corrected.
+Negative slots are skipped. Active slots with a texture flush sprites,
+obtain the mono back buffer and destination level-zero surface, copy with
+filter 2, dirty the texture only on D3D_OK, release acquired surfaces and
+consume the slot by writing -1, including failed attempts. The queue
+assumes that active resource slots are valid.
+[Copy source](../src/SupervisorSurfaceCopies.cpp),
+[complete copy target](../.analysis/screenshot-leaves-review.txt).
+
+The handler and copy owners remain frontiers at **301/168** and **369/371**
+bytes. FileExists is inlined into the handler, which also has an extra
+aligned frame. Reusing the canonical FileSystem/GameErrorContext profiles
+and existing FsErrUtil call probe did not close it. Original TU ownership
+is not established by these builds; preserve the fixed owner profiles
+and inspect real call/ABI evidence before changing a boundary. The copy
+owner differs in its initial signed-slot load/test and local/control-flow
+layout. Neither owner is cropped or granted exact credit.
+[Final copy-context observations](../.analysis/screenshot-final-copies-supervisor-flush-surface-copies.json),
+[unchanged handler after Fs context reuse](../.analysis/screenshot-real-fs-supervisor-screenshot-handler.json).
+
+Both Present contexts now link the actual screenshot/copy/FileSystem
+bodies and still produce 189/190 and 323/314 bytes. Their timer and state
+initializer support owners remain 266B and 802B. Final strict comparison
+covers all four new owners, both Present consumers and the existing
+AnmViewportTan exact affected by the header comment. Only capture, writer
+and that existing compiler/header wrapper pass. The affected scope spans
+four contexts; unchanged current receipts were reused after their cold
+builds. Totals are **417 source mappings / 337 exact functions / 22,384
+bytes**, including **328 authored exact functions / 22,024 authored bytes**.
+[Seven-owner results](../.analysis/screenshot-final-results.json),
+[affected scope](../.analysis/screenshot-final-scope.json),
+[Present support ownership](../.analysis/screenshot-final-present-support-owners.json),
+[final cold build](../.analysis/screenshot-final-link.log).
+
 ## Open questions
 
 - Per-unit flags, the TU partition, which objects were `/GL`, the library set

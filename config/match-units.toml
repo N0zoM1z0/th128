@@ -7443,8 +7443,9 @@ linkages = [
 frontier = true
 artifact_kind = "linked-pe"
 source = "src/SupervisorPresent.cpp"
-support_sources = ["src/SupervisorRenderState.cpp", "src/SupervisorSurfaces.cpp", "src/AnmVmScript.cpp", "probes/anm-vm-update-context.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVmEffects.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "src/ZunTimer.cpp", "src/AnmVmView.cpp", "src/AnmDraw.cpp", "src/AnmInterp.cpp", "probes/supervisor-surfaces-context.cpp", "src/SupervisorDevice.cpp", "src/SupervisorTime.cpp", "probes/supervisor-present-context.cpp", "probes/supervisor-time-context.cpp"]
-support_profiles = { "src/SupervisorTime.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "probes/supervisor-time-context.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"] }
+support_sources = ["src/SupervisorRenderState.cpp", "src/SupervisorSurfaces.cpp", "src/AnmVmScript.cpp", "probes/anm-vm-update-context.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVmEffects.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "src/ZunTimer.cpp", "src/AnmVmView.cpp", "src/AnmDraw.cpp", "src/AnmInterp.cpp", "probes/supervisor-surfaces-context.cpp", "src/SupervisorDevice.cpp", "src/SupervisorTime.cpp", "probes/supervisor-present-context.cpp", "probes/supervisor-time-context.cpp", "src/SupervisorScreenshot.cpp", "src/SupervisorSurfaceCopies.cpp", "src/FileSystem.cpp", "src/GameErrorContext.cpp", "src/DebugLog.cpp", "probes/supervisor-screenshot-context.cpp"]
+normal_support_sources = ["src/DebugLog.cpp"]
+support_profiles = { "src/SupervisorTime.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "probes/supervisor-time-context.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/FileSystem.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/GameErrorContext.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"] }
 output_dir = "build/match-linked/SupervisorPresent"
 profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
 entry = "SupervisorPresentProbe@8"
@@ -7480,8 +7481,9 @@ linkages = [
 frontier = true
 artifact_kind = "linked-pe"
 source = "src/SupervisorPresent.cpp"
-support_sources = ["src/SupervisorRenderState.cpp", "src/SupervisorSurfaces.cpp", "src/AnmVmScript.cpp", "probes/anm-vm-update-context.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVmEffects.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "src/ZunTimer.cpp", "src/AnmVmView.cpp", "src/AnmDraw.cpp", "src/AnmInterp.cpp", "probes/supervisor-surfaces-context.cpp", "src/SupervisorDevice.cpp", "src/SupervisorTime.cpp", "probes/supervisor-present-context.cpp", "probes/supervisor-time-context.cpp"]
-support_profiles = { "src/SupervisorTime.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "probes/supervisor-time-context.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"] }
+support_sources = ["src/SupervisorRenderState.cpp", "src/SupervisorSurfaces.cpp", "src/AnmVmScript.cpp", "probes/anm-vm-update-context.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVmEffects.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "src/ZunTimer.cpp", "src/AnmVmView.cpp", "src/AnmDraw.cpp", "src/AnmInterp.cpp", "probes/supervisor-surfaces-context.cpp", "src/SupervisorDevice.cpp", "src/SupervisorTime.cpp", "probes/supervisor-present-context.cpp", "probes/supervisor-time-context.cpp", "src/SupervisorScreenshot.cpp", "src/SupervisorSurfaceCopies.cpp", "src/FileSystem.cpp", "src/GameErrorContext.cpp", "src/DebugLog.cpp", "probes/supervisor-screenshot-context.cpp"]
+normal_support_sources = ["src/DebugLog.cpp"]
+support_profiles = { "src/SupervisorTime.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "probes/supervisor-time-context.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/FileSystem.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/GameErrorContext.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"] }
 output_dir = "build/match-linked/SupervisorPresent"
 profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
 entry = "SupervisorPresentProbe@8"
@@ -7571,4 +7573,163 @@ linkages = [
   { offset = 713, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 16 },
   { offset = 735, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 16 },
   { offset = 757, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+]
+
+[units.supervisor-screenshot-handler]
+frontier = true
+artifact_kind = "linked-pe"
+source = "src/SupervisorScreenshot.cpp"
+support_sources = ["src/SupervisorSurfaceCopies.cpp", "src/AnmVmScript.cpp", "probes/anm-vm-update-context.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVmEffects.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "src/ZunTimer.cpp", "src/AnmVmView.cpp", "src/AnmDraw.cpp", "src/AnmInterp.cpp", "src/FileSystem.cpp", "src/GameErrorContext.cpp", "src/DebugLog.cpp", "probes/supervisor-screenshot-context.cpp", "src/EngineUtil.cpp", "probes/fs-err-util-context.cpp"]
+normal_support_sources = ["src/DebugLog.cpp"]
+support_profiles = { "src/FileSystem.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/GameErrorContext.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"] }
+output_dir = "build/match-linked/SupervisorScreenshot"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorScreenshotProbe@4"
+functions = ["SupervisorFrame::HandleScreenshot"]
+symbol = "?HandleScreenshot@SupervisorFrame@@QAEXXZ"
+target_address = 0x004550B0
+size = 168
+linkages = [
+  { offset = 10, type = "DIR32", symbol = "___security_cookie", target = 0x004B01F4 },
+  { offset = 24, type = "REL32", symbol = "?FlushAnmSurfaceCopies@@YGXXZ", target = 0x004537D0 },
+  { offset = 30, type = "DIR32", symbol = "?g_InputStates@@3PAUInputState@@A", target = 0x004DAFF8, addend = 12 },
+  { offset = 41, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 2873 },
+  { offset = 46, type = "REL32", symbol = "__chdir", target = 0x00473906 },
+  { offset = 54, type = "DIR32", symbol = "??_C@_08HLGCJJEE@snapshot?$AA@", target = 0x004A4E54 },
+  { offset = 59, type = "REL32", symbol = "__mkdir", target = 0x00473A2F },
+  { offset = 80, type = "DIR32", symbol = "??_C@_0BG@PEJJOCPJ@?$CFssnapshot?2th?$CF?43d?4bmp?$AA@", target = 0x004A4E60 },
+  { offset = 86, type = "REL32", symbol = "_sprintf", target = 0x00472B63 },
+  { offset = 101, type = "REL32", symbol = "?FileExists@FileSystem@@YGHPBD@Z", target = 0x00469E00 },
+  { offset = 135, type = "REL32", symbol = "?CaptureSupervisorScreenshot@@YAHPBD@Z", target = 0x004343D0 },
+  { offset = 140, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 6969 },
+  { offset = 145, type = "REL32", symbol = "__chdir", target = 0x00473906 },
+  { offset = 160, type = "REL32", symbol = "@__security_check_cookie@4", target = 0x004728FD },
+]
+
+[units.supervisor-capture-screenshot]
+artifact_kind = "linked-pe"
+source = "src/SupervisorScreenshot.cpp"
+support_sources = ["src/SupervisorSurfaceCopies.cpp", "src/AnmVmScript.cpp", "probes/anm-vm-update-context.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVmEffects.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "src/ZunTimer.cpp", "src/AnmVmView.cpp", "src/AnmDraw.cpp", "src/AnmInterp.cpp", "src/FileSystem.cpp", "src/GameErrorContext.cpp", "src/DebugLog.cpp", "probes/supervisor-screenshot-context.cpp", "src/EngineUtil.cpp", "probes/fs-err-util-context.cpp"]
+normal_support_sources = ["src/DebugLog.cpp"]
+support_profiles = { "src/FileSystem.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/GameErrorContext.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"] }
+output_dir = "build/match-linked/SupervisorScreenshot"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorScreenshotProbe@4"
+functions = ["CaptureSupervisorScreenshot"]
+symbol = "?CaptureSupervisorScreenshot@@YAHPBD@Z"
+target_address = 0x004343D0
+size = 520
+linkages = [
+  { offset = 8, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1752 },
+  { offset = 22, type = "DIR32", symbol = "__imp__Sleep@4", target = 0x0049A084 },
+  { offset = 38, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1752 },
+  { offset = 47, type = "DIR32", symbol = "??_C@_0O@FOBPAMME@SnapShot?$CB?5?$CFs?6?$AA@", target = 0x004A3004 },
+  { offset = 59, type = "REL32", symbol = "?ScreenshotDebugLog@@YAXPBDZZ", target = 0x004360F0 },
+  { offset = 64, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 16 },
+  { offset = 92, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1756 },
+  { offset = 97, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1760 },
+  { offset = 102, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1764 },
+  { offset = 108, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1768 },
+  { offset = 123, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1780 },
+  { offset = 128, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1766 },
+  { offset = 133, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1758 },
+  { offset = 140, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1756 },
+  { offset = 159, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 260 },
+  { offset = 170, type = "DIR32", symbol = "?g_GameErrorContext@@3UGameErrorContext@@A", target = 0x004B4F50 },
+  { offset = 177, type = "DIR32", symbol = "??_C@_0BO@MKPCINEN@error?5?$DP?5src?2game?2mother?4cpp?$AN?6?$AA@", target = 0x004A3094 },
+  { offset = 182, type = "REL32", symbol = "?Log@GameErrorContext@@QAAPBDPBDZZ", target = 0x0046A250 },
+  { offset = 202, type = "DIR32", symbol = "??_C@_0BH@NNBBNPHN@16bit?5?$IC?M?$IO?f?$IC?h?$IN?$JO?$IC?$NP?$IC?H?$IC?$KC?$AN?6?$AA@", target = 0x004A3018 },
+  { offset = 207, type = "REL32", symbol = "?Log@GameErrorContext@@QAAPBDPBDZZ", target = 0x0046A250 },
+  { offset = 222, type = "REL32", symbol = "_malloc", target = 0x00472F6F },
+  { offset = 230, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1772 },
+  { offset = 244, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+  { offset = 254, type = "REL32", symbol = "_malloc", target = 0x00472F6F },
+  { offset = 262, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1776 },
+  { offset = 271, type = "DIR32", symbol = "??_C@_0BO@GCDLGPM@snapShotScreen?5?3?5?$IKm?$JF?$NL?$IC?$LF?$IC?$KN?$IC?h?$AN?6?$AA@", target = 0x004A3054 },
+  { offset = 276, type = "DIR32", symbol = "?g_GameErrorContext@@3UGameErrorContext@@A", target = 0x004B4F50 },
+  { offset = 281, type = "REL32", symbol = "?Log@GameErrorContext@@QAAPBDPBDZZ", target = 0x0046A250 },
+  { offset = 294, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1772 },
+  { offset = 300, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1758 },
+  { offset = 319, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1772 },
+  { offset = 331, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1772 },
+  { offset = 343, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1772 },
+  { offset = 356, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1772 },
+  { offset = 370, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1772 },
+  { offset = 412, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1776 },
+  { offset = 479, type = "DIR32", symbol = "?WriteSupervisorScreenshot@@YAXPAX@Z", target = 0x00434270 },
+  { offset = 484, type = "REL32", symbol = "__beginthread", target = 0x0047334F },
+  { offset = 492, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1752 },
+]
+
+[units.supervisor-write-screenshot]
+artifact_kind = "linked-pe"
+source = "src/SupervisorScreenshot.cpp"
+support_sources = ["src/SupervisorSurfaceCopies.cpp", "src/AnmVmScript.cpp", "probes/anm-vm-update-context.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVmEffects.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "src/ZunTimer.cpp", "src/AnmVmView.cpp", "src/AnmDraw.cpp", "src/AnmInterp.cpp", "src/FileSystem.cpp", "src/GameErrorContext.cpp", "src/DebugLog.cpp", "probes/supervisor-screenshot-context.cpp", "src/EngineUtil.cpp", "probes/fs-err-util-context.cpp"]
+normal_support_sources = ["src/DebugLog.cpp"]
+support_profiles = { "src/FileSystem.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/GameErrorContext.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"] }
+output_dir = "build/match-linked/SupervisorScreenshot"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorScreenshotProbe@4"
+functions = ["WriteSupervisorScreenshot"]
+symbol = "?WriteSupervisorScreenshot@@YAXPAX@Z"
+target_address = 0x00434270
+size = 352
+linkages = [
+  { offset = 8, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1780 },
+  { offset = 13, type = "REL32", symbol = "?OpenWriteStream@FileSystem@@YGHPBD@Z", target = 0x00469FE0 },
+  { offset = 18, type = "DIR32", symbol = "?g_StreamFileHandle@@3PAXA", target = 0x004B1260 },
+  { offset = 33, type = "DIR32", symbol = "__imp__WriteFile@20", target = 0x0049A0AC },
+  { offset = 48, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1756 },
+  { offset = 61, type = "DIR32", symbol = "__imp__LeaveCriticalSection@4", target = 0x0049A08C },
+  { offset = 67, type = "DIR32", symbol = "__imp__CloseHandle@4", target = 0x0049A0A4 },
+  { offset = 75, type = "DIR32", symbol = "?g_StreamFileHandle@@3PAXA", target = 0x004B1260 },
+  { offset = 84, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1432 },
+  { offset = 95, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 2120 },
+  { offset = 103, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 2362 },
+  { offset = 108, type = "DIR32", symbol = "?g_StreamFileHandle@@3PAXA", target = 0x004B1260 },
+  { offset = 123, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1772 },
+  { offset = 146, type = "DIR32", symbol = "?g_StreamFileHandle@@3PAXA", target = 0x004B1260 },
+  { offset = 155, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1432 },
+  { offset = 166, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 2120 },
+  { offset = 174, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 2362 },
+  { offset = 179, type = "DIR32", symbol = "?g_StreamFileHandle@@3PAXA", target = 0x004B1260 },
+  { offset = 190, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1776 },
+  { offset = 219, type = "DIR32", symbol = "?g_StreamFileHandle@@3PAXA", target = 0x004B1260 },
+  { offset = 228, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1432 },
+  { offset = 239, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 2120 },
+  { offset = 247, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 2362 },
+  { offset = 252, type = "DIR32", symbol = "?g_StreamFileHandle@@3PAXA", target = 0x004B1260 },
+  { offset = 266, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1432 },
+  { offset = 277, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 2120 },
+  { offset = 285, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 2362 },
+  { offset = 292, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1772 },
+  { offset = 304, type = "REL32", symbol = "_free", target = 0x0047290C },
+  { offset = 313, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1772 },
+  { offset = 318, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1776 },
+  { offset = 328, type = "REL32", symbol = "_free", target = 0x0047290C },
+  { offset = 337, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1776 },
+  { offset = 343, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1752 },
+]
+
+[units.supervisor-flush-surface-copies]
+frontier = true
+artifact_kind = "linked-pe"
+source = "src/SupervisorSurfaceCopies.cpp"
+support_sources = ["src/SupervisorScreenshot.cpp", "src/AnmVmScript.cpp", "probes/anm-vm-update-context.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVmEffects.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "src/ZunTimer.cpp", "src/AnmVmView.cpp", "src/AnmDraw.cpp", "src/AnmInterp.cpp", "src/FileSystem.cpp", "src/GameErrorContext.cpp", "src/DebugLog.cpp", "probes/supervisor-screenshot-context.cpp", "src/EngineUtil.cpp", "probes/fs-err-util-context.cpp"]
+normal_support_sources = ["src/DebugLog.cpp"]
+support_profiles = { "src/FileSystem.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"], "src/GameErrorContext.cpp" = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"] }
+output_dir = "build/match-linked/SupervisorSurfaceCopies"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorScreenshotProbe@4"
+functions = ["FlushAnmSurfaceCopies"]
+symbol = "?FlushAnmSurfaceCopies@@YGXXZ"
+target_address = 0x004537D0
+size = 371
+linkages = [
+  { offset = 7, type = "DIR32", symbol = "___security_cookie", target = 0x004B01F4 },
+  { offset = 19, type = "DIR32", symbol = "__imp__D3DXLoadSurfaceFromSurface@32", target = 0x0049A2A4 },
+  { offset = 26, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+  { offset = 91, type = "REL32", symbol = "?FlushSpriteBatch@AnmManager@@QAEXXZ", target = 0x0045EF60 },
+  { offset = 96, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 16 },
+  { offset = 363, type = "REL32", symbol = "@__security_check_cookie@4", target = 0x004728FD },
 ]

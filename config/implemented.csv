@@ -211,6 +211,7 @@ CWaveFileView::GetSize
 CWaveFileView::OpenFromMemory
 CWaveFileView::SaveFilePos
 CWaveFileView::~CWaveFileView
+CaptureSupervisorScreenshot
 Chain::CreateAndRegisterCalc
 Chain::CreateAndRegisterCalcImmediate
 Chain::CreateAndRegisterDraw
@@ -243,6 +244,7 @@ FileSystem::WriteDataToFile
 FileSystem::WriteStream
 FindChainNodeByOwner
 FlushAnmSpriteBatch
+FlushAnmSurfaceCopies
 GameErrorContext::Fatal
 GameErrorContext::Log
 GetAnmVmDrawPosition
@@ -386,6 +388,7 @@ SptResourceInf::LoadIncludes
 StartAnmVmEffect06
 Stub46C240
 Stub46C270
+SupervisorFrame::HandleScreenshot
 SupervisorFrame::PresentImmediate
 SupervisorFrame::PresentWithSleep
 ThreadInf::Resume
@@ -399,6 +402,7 @@ UpdateInputSlot
 Vec2LengthSq
 WaveDebugLog
 WindowProc
+WriteSupervisorScreenshot
 ZunTimer::Add
 ZunTimer::Increment
 ZunTimer::SetCurrent

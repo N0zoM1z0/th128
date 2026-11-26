@@ -1,6 +1,6 @@
 # TH128 reconstruction handoff
 
-Snapshot: 2026-11-26 (D3D9 state initialization exact; real initializer linked into Present). Read this first, then AGENTS.md.
+Snapshot: 2026-11-26 (screenshot capture and BMP writer exact; screenshot/copy pipeline maintained). Read this first, then AGENTS.md.
 
 ## Resume safely
 
@@ -36,12 +36,12 @@ canonical ledgers. At this snapshot:
 | Boundary reviewed / provisional | 3,452 / 64 |
 | Origin rows pending | 21 |
 | Authored / excluded / indeterminate | 2,226 / 1,269 / 0 |
-| Source-present mappings | 413 |
-| Source-present with authored origin | 404 |
-| Authored source-present exact backlog | 78 |
-| Canonical exact functions | 335 |
-| Canonical exact codegen bytes | 21,512 |
-| Canonical exact authored bytes | 21,152 |
+| Source-present mappings | 417 |
+| Source-present with authored origin | 408 |
+| Authored source-present exact backlog | 80 |
+| Canonical exact functions | 337 |
+| Canonical exact codegen bytes | 22,384 |
+| Canonical exact authored bytes | 22,024 |
 
 The candidate inventory is not proven complete. The 21 remaining pending origin
 rows are unreferenced `d3dx9math.inl` candidates (all 16 CRT-band boundary-review
@@ -78,6 +78,35 @@ are not over-inlined; address-taken probe pointers prevent interprocedural
 `and esp, -8` hoisting; struct copies unlock `fldz` hoisting in transition setters.
 
 ## Latest advance (2026-11-26)
+
+`SupervisorScreenshot.cpp` now has two complete VC10 RTM `/GL /Ob1 /Oy-`
+matches: CaptureSupervisorScreenshot (`0x004343D0`, **520B / 39 fields**)
+and WriteSupervisorScreenshot (`0x00434270`, **352B / 34 fields**).
+The maintained capture prepares bottom-up 640x480 24-bit BMP data and
+starts the real CRT writer callback. The worker uses the maintained
+FileSystem stream bodies, frees both buffers and clears its worker slot.
+The target's format refusals, ignored HRESULTs and allocation/early-return
+behavior remain intact. A natural row-loop/pointer-initialization ordering
+change closed capture; no owner flags were varied.
+
+The screenshot handler and four-slot ANM surface-copy consumer also have
+source, remaining frontiers at 301/168 and 369/371 bytes. The manager's
+four prefix records contain source rectangle coordinates before destination
+coordinates, established by the D3DX call arguments. FileExists is inlined
+into the handler; reusing the existing FsErrUtil call probe did not help.
+The header's one existing exact consumer, AnmViewportTan, passed cold replay.
+See the [finding](KNOWLEDGE_BASE.md#screenshot-capture-writer-and-pending-surface-copies-2026-11-26)
+and [affected scope](../.analysis/screenshot-final-scope.json).
+
+Present now links the real screenshot/copy/FileSystem bodies, retaining
+189/190 and 323/314 bytes; its timer/state support owners remain 266/802B.
+The [final seven-owner comparisons](../.analysis/screenshot-final-results.json)
+accept capture, writer and the existing tangent wrapper, and reject the
+four complete frontiers. The affected scope spans four contexts; current
+receipts are valid for the retained sources and profiles. Frame-entry
+contexts still need the real Present/screenshot/copy bodies integrated.
+
+Previous render-state checkpoint (`6047666`):
 
 `InitializeSupervisorRenderState` (`0x00455A70`) is newly exact at **802
 bytes / 37 DIR32 fields**, with the fixed VC10 RTM `/GL /Ob1 /Oy-` profile.
@@ -703,8 +732,10 @@ Primary evidence:
 | src/SupervisorFrame.cpp | adaptive, timed and vsync calc/draw entry points | 3 frontiers; real presentation boundaries remain external |
 | src/SupervisorDevice.cpp | release/recreate render-target textures across all 38 ANM slots | 2 exact (289B) |
 | src/SupervisorSurfaces.cpp | level-zero surface acquisition, three VM bindings and fallback viewport copy | exact (217B) |
-| src/SupervisorPresent.cpp | immediate/sleep presentation and device-loss recovery | 2 frontiers; real state initializer linked; screenshot/timing hooks remain external |
+| src/SupervisorPresent.cpp | immediate/sleep presentation and device-loss recovery | 2 frontiers; real screenshot/state bodies linked; timing hooks remain external |
 | src/SupervisorRenderState.cpp | initial D3D9 render/stage/sampler states and ANM cache invalidation | exact (802B) |
+| src/SupervisorScreenshot.cpp | screenshot trigger, BMP pixel capture and asynchronous stream writer | capture/writer exact (872B); handler frontier |
+| src/SupervisorSurfaceCopies.cpp | four queued back-buffer rectangle copies into ANM textures | frontier (369/371B) |
 | src/AnmResource.cpp | `Release`, `AnmTextureEntry::Release`, `CreateVm` | 2 exact (linked PE); `CreateVm` frontier |
 | src/AnmVmUpdateWrapper.cpp | manager binding update wrapper (`0x00407080`) | 20-byte target frontier; 5-byte GL body, 15-byte normal-COFF body |
 | src/AnmHelpers.cpp | `ResolveAnmVmId` and 31 `AnmId`/VM/child/rotation/draw helpers (`0x00467570..0x00468100`) | 31 exact (linked PE); DrawSingleVm credit withdrawn; `ClearD3DTexture*` frontiers |
@@ -749,10 +780,12 @@ callers remain frontiers as well.
 1. **Continue the real frame/draw context**: the three calc/draw frame
    entries, 2D camera and two Present paths now have source. Both texture
    walkers, the 217-byte surface restoration and 802-byte D3D state setup
-   are exact. Reconstruct screenshot handling at `0x004550B0` (168B),
-   reviewing its game callees at `0x004343D0` (520B) and `0x004537D0`
-   (371B), then the adaptive presentation owner `0x00454940`
-   (653B including its physical hole). Integrate the real Present bodies
+   are exact, as are screenshot capture (520B) and its BMP writer (352B).
+   The handler's FileExists inlining and the copy consumer's 369/371B
+   load/local-layout difference remain open. Do not repeat the unsuccessful
+   FsErrUtil-probe addition or move a mismatch into a support callee.
+   Reconstruct the adaptive presentation owner `0x00454940` (653B including
+   its physical hole). Integrate the real Present/screenshot/copy bodies
    into frame-entry contexts before revisiting their private caller ABI.
    The reviewed mode-17 polar
    line strip at `0x00462D60` is another useful scope. Sprite/rectangle
@@ -792,7 +825,7 @@ callers remain frontiers as well.
 5. **Next useful command after the session identity checks**:
 
    ~~~bash
-   sed -n '1,88p' .analysis/frame-timing-data-review.txt
+   scripts/repo-python scripts/diff-linked-target.py build/match-linked/SupervisorSurfaceCopies '?FlushAnmSurfaceCopies@@YGXXZ' 0x004537D0 371
    ~~~
 
    The new dispatcher and small sprite wrappers are reviewed in

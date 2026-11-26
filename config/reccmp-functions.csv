@@ -79,6 +79,8 @@ LaserInfiniteInf::Slot01,0x0042EEB0,function
 ZunTimer::SetCurrentF,0x00432C40,function
 ShortestAngleDifference,0x00432CC0,function
 ZunVec3::SetPolarXY,0x00432E20,function
+WriteSupervisorScreenshot,0x00434270,function
+CaptureSupervisorScreenshot,0x004343D0,function
 AnmFogState::Enable,0x00434A70,function
 AnmFogState::Disable,0x00434AB0,function
 AnmSpriteViewport::Set2DView,0x00435090,function
@@ -115,12 +117,14 @@ Pbg::MemFile::GetSize,0x00450FD0,function
 Pbg::MemFile::Seek,0x00450FE0,function
 ReleaseAnmRenderTargets,0x004536A0,function
 RecreateAnmRenderTargets,0x00453720,function
+FlushAnmSurfaceCopies,0x004537D0,function
 WindowProc,0x00454420,function
 RunAdaptiveFrame,0x004547D0,function
 RunTimedFrame,0x00454BD0,function
 SupervisorFrame::PresentImmediate,0x00454D90,function
 RunVsyncFrame,0x00454E50,function
 SupervisorFrame::PresentWithSleep,0x00454F70,function
+SupervisorFrame::HandleScreenshot,0x004550B0,function
 GetElapsedSeconds,0x00455160,function
 CreateGameWindow,0x00455320,function
 InitializeSupervisorRenderState,0x00455A70,function
