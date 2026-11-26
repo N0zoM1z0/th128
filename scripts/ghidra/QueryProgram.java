@@ -322,6 +322,23 @@ public class QueryProgram extends GhidraScript
         output.printf("returned: %d  query: %s%n", emitted, flatten(query));
     }
 
+    private void writeBytes(PrintWriter output, Address start, int count)
+        throws Exception
+    {
+        if (count > 4096)
+            throw new IllegalArgumentException("read_bytes requires 1..4096 bytes");
+        var block = currentProgram.getMemory().getBlock(start);
+        Address end = start.addNoWrap(count - 1);
+        if (block == null || !block.isInitialized() || !block.contains(end))
+            throw new IllegalArgumentException(
+                "read_bytes must stay in one initialized memory block");
+        byte[] bytes = new byte[count];
+        if (currentProgram.getMemory().getBytes(start, bytes) != count)
+            throw new IllegalArgumentException("incomplete read_bytes result");
+        output.printf("memory_bytes: %s %d%nhex: %s%n", formattedAddress(start),
+            count, java.util.HexFormat.of().formatHex(bytes));
+    }
+
     private static int positive(String value, String name)
     {
         int parsed = Integer.parseInt(value);
@@ -433,6 +450,14 @@ public class QueryProgram extends GhidraScript
                     throw new IllegalArgumentException("offset must not be negative");
                 listFunctions(output, offset, positive(args[3], "limit"),
                     textArgument(args[4]));
+            }
+            else if (operation.equals("read_bytes"))
+            {
+                if (args.length < 4)
+                    throw new IllegalArgumentException("read_bytes requires COUNT ADDRESS...");
+                int count = positive(args[2], "byte count");
+                for (int i = 3; i < args.length; ++i)
+                    writeBytes(output, toAddr(args[i]), count);
             }
             else if (operation.equals("search_strings"))
             {

@@ -1,6 +1,6 @@
 # TH128 reconstruction handoff
 
-Snapshot: 2026-11-26 (both ANM binders exact; natural manager update receiver). Read this first, then AGENTS.md.
+Snapshot: 2026-11-26 (ANM preload exact; real first-stage resource loading). Read this first, then AGENTS.md.
 
 ## Resume safely
 
@@ -36,12 +36,12 @@ canonical ledgers. At this snapshot:
 | Boundary reviewed / provisional | 3,452 / 64 |
 | Origin rows pending | 21 |
 | Authored / excluded / indeterminate | 2,226 / 1,269 / 0 |
-| Source-present mappings | 356 |
-| Source-present with authored origin | 348 |
-| Authored source-present exact backlog | 44 |
-| Canonical exact functions | 312 |
-| Canonical exact codegen bytes | 18,764 |
-| Canonical exact authored bytes | 18,435 |
+| Source-present mappings | 359 |
+| Source-present with authored origin | 351 |
+| Authored source-present exact backlog | 46 |
+| Canonical exact functions | 313 |
+| Canonical exact codegen bytes | 18,888 |
+| Canonical exact authored bytes | 18,559 |
 
 The candidate inventory is not proven complete. The 21 remaining pending origin
 rows are unreferenced `d3dx9math.inl` candidates (all 16 CRT-band boundary-review
@@ -135,6 +135,13 @@ mixed wrapper consumer also builds. See the [binding finding](KNOWLEDGE_BASE.md#
 
 Current focused frontiers:
 
+- `LoadAnm` (`0x004653F0`): the real 515-byte first-stage loader now has
+  source and a linked frontier unit. The candidate is 511 bytes; the
+  target retains a loop-top null test instead of the candidate's rotated
+  backedge check.
+- `CacheExternalTexture` (`0x00465680`): the full 231-byte owner and all
+  13 fields replay, with two raw SIB byte differences at `+0xC4/+0xCE`.
+  Typed/index-first and byte-offset accessors did not resolve them.
 - `UpdateWorldVms`: complete 229-byte owner with all 12 address fields
   replayed; one raw difference at `+8` (`sub esp, 0x84` vs target `0x8C`).
   Resolve the frame/TU context without unused slots or padding.
@@ -167,6 +174,26 @@ scripts/repo-python scripts/compare-linked-function.py --unit anm-manager-set-in
 
 `AnmVm::Update` remains a frontier.
 
+`AnmManager::PreloadAnm` (`0x00465600`, 124 bytes) is now exact
+(+1 function, +124 bytes), including six internal alignment bytes and
+eight address fields. It uses a manager snapshot, the actual `LoadAnm`
+member, and the real empty ellipsis-only release logger. The fake loader
+and volatile logger probe are removed. `AnmLoading.cpp` also implements
+the version-7 external texture cache, preserving the target error paths.
+The resource's 32-bit file ID, filename and count fields are now named.
+Its inline constructor retains the existing exact 19-byte owner in the
+primary loading context; this adds no constructor credit. The first-stage
+loader and texture cache above remain frontiers, and GPU/table finalization
+at `0x00465770` remains unimplemented.
+See the [loading finding](KNOWLEDGE_BASE.md#anm-first-stage-loading-release-logging-and-preload-wait-2026-11-26)
+and [affected replay](../.analysis/anm-loading-final-replay.log)
+(161/161 exact units passed in 12 contexts). The next-stage review shows
+that `+0x124` is a one-based finalization cursor, and `+0x128` is a release
+request; the legacy source names `isInvalid`/`loadPending` remain to be
+renamed with that implementation. Scheduler `0x00465E50` advances only
+one archive entry per invocation. See the loading finding for its apparent
+null reload on the release branch; preserve the observed ordering.
+
 Replay the recent ANM exact owners with:
 
 ```bash
@@ -175,7 +202,8 @@ scripts/repo-python scripts/replay-exact-units.py \
   --unit anm-manager-on-tick-world-callback --unit anm-manager-on-tick-ui-callback \
   --unit anm-manager-update-ui-vms --unit anm-manager-stop-vm-by-id \
   --unit anm-vm-spawn-child-at-position --unit anm-manager-get-vm-by-id \
-  --unit anm-resource-bind-vm-script --unit anm-resource-bind-vm-at-position
+  --unit anm-resource-bind-vm-script --unit anm-resource-bind-vm-at-position \
+  --unit anm-manager-preload-anm
 ```
 
 ## Active reconstruction: AnmVm
@@ -288,8 +316,9 @@ Primary evidence:
 | src/AnmVmEffects.cpp | render-state sync, world matrices, sprite/fog/primitive draw paths, effect 10 | 5 exact normal-COFF owners; renderer paths frontier |
 | src/AnmVmOperands.cpp | four operand resolver owners (`0x00459900..0x00459CE0`) | 4/4 exact (linked PE) |
 | src/AnmVmResource.cpp | `NormalizeAnmCoordinates` (`0x00459D50`) | exact (linked PE) |
-| src/AnmManager.cpp | VM lookup, allocation, list cleanup, draw grouping, tick callbacks, `FlushSpriteBatch`, 23 `DrawLayer*` callbacks | 35 exact (linked PE), including `UpdateUiVms` and `StopVmById`; `UpdateWorldVms`/`PreloadAnm`/`SetInterruptAndUpdate` frontiers |
-| src/AnmResource.cpp | `AnmResource::AnmResource`, `Release`, `AnmTextureEntry::Release`, `CreateVm` | 3 exact (linked PE); `CreateVm` frontier |
+| src/AnmManager.cpp | VM lookup, allocation, list cleanup, draw grouping, tick callbacks, `FlushSpriteBatch`, preload, 23 `DrawLayer*` callbacks | 36 exact (linked PE), including `UpdateUiVms`, `StopVmById` and `PreloadAnm`; `UpdateWorldVms`/`SetInterruptAndUpdate` frontiers |
+| src/AnmLoading.cpp | first-stage ANM load, external texture caching, inline resource constructor contribution | constructor exact (linked PE); loader/cache frontiers |
+| src/AnmResource.cpp | `Release`, `AnmTextureEntry::Release`, `CreateVm` | 2 exact (linked PE); `CreateVm` frontier |
 | src/AnmVmUpdateWrapper.cpp | manager binding update wrapper (`0x00407080`) | 20-byte target frontier; 5-byte GL body, 15-byte normal-COFF body |
 | src/AnmHelpers.cpp | `ResolveAnmVmId` and 31 `AnmId`/VM/child/rotation/draw helpers (`0x00467570..0x00468100`) | 32 exact (linked PE); `ClearD3DTexture*` frontiers |
 | src/AnmInterp.cpp | `AnmInterp<T>` template (`AnmColor3`/`float`/`int`/`ZunVec2`) and vector/angle/color helpers (`0x0045D330..0x0045E76F`) | 39 exact (linked PE) + frontiers |
@@ -307,9 +336,9 @@ has an accepted exact owner replay yet.
 
 ### Exact ANM owners
 
-`config/matches.csv` now contains **138 exact ANM-area owners** across the
+`config/matches.csv` now contains **139 exact ANM-area owners** across the
 modules above (6 setters/ctor, 5 effect-table owners, 4 operand resolvers,
-`NormalizeAnmCoordinates`, 8 script/binding/child/easing/timer owners, 35 `AnmManager`,
+`NormalizeAnmCoordinates`, 8 script/binding/child/easing/timer owners, 36 `AnmManager`,
 3 `AnmResource`/`AnmTextureEntry`, 32 `AnmHelpers`, 39 `AnmInterp`, and
 5 `AnmVmTransitions`). Do not expand this list from source presence or
 successful compilation; only accepted rows in `config/matches.csv` count as
@@ -326,9 +355,11 @@ callers remain frontiers as well.
 
 ## Next useful work (Phase 3+)
 
-1. **Close remaining ANM medium functions**: finish `UpdateWorldVms` (`0x00466AF0`),
-   the binding update wrapper (`0x00407080`, 20B), `CreateVm` (`0x004670B0`, frontier), `PreloadAnm`
-   (`0x00465600`, 124B), `SetInterruptAndUpdate` (`0x004674F0`, 128B), `SetEffectState` (`0x0045E6C0`, 133B),
+1. **Close remaining ANM medium functions**: finish the loader/cache pair
+   (`0x004653F0`, 515B / `0x00465680`, 231B), then review finalization at
+   `0x00465770` (1,000B). Other focused frontiers are `UpdateWorldVms` (`0x00466AF0`),
+   the binding update wrapper (`0x00407080`, 20B), `CreateVm` (`0x004670B0`),
+   `SetInterruptAndUpdate` (`0x004674F0`, 128B), `SetEffectState` (`0x0045E6C0`, 133B),
    `ClearD3DTexture` (`0x00467BD0`) and the
    four `AnmInterp<T>::Step` functions (`0x0045D3D0..0x0045DB20`), plus `AnmVm::Update`
    (`0x00459D90`, 13,604B).
@@ -339,10 +370,12 @@ callers remain frontiers as well.
 3. **Phase 4 — Gameplay modules (`0x00401000..0x0044F500`)**: `AsciiInf`, `Bullet`,
    `Ice`/`Card`, `EnemyInf`, `Gui`, `Laser*Inf`, `Player`, `Stage`, `GameManager`,
    `Replay`/`Title`/`Score`.
-4. **Next verification command when resuming**:
+4. **Next useful command after the session identity checks** (expected
+   two-byte mismatch, no exact credit):
 
    ~~~bash
-   scripts/repo-python scripts/validate-tracking.py --require-target
+   scripts/repo-python scripts/build-match-unit.py --unit anm-resource-cache-external-texture
+   scripts/repo-python scripts/compare-linked-function.py --unit anm-resource-cache-external-texture
    ~~~
 
 ## Workflow and constraints
@@ -353,7 +386,7 @@ callers remain frontiers as well.
   probes during exploration; use the canonical Oracle only for the affected
   exact owner(s) and required dependencies.
 - Make substantive local checkpoints with the required format:
-  gpt-web: <English summary>.
+  gpt-6.1-sol: <English summary> (current operator instruction).
 - Keep source-present, exact codegen, product closure and runtime behavior as
   separate states.
 - build/ is disposable generated output. Recreate it through repository

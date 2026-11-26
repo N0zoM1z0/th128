@@ -2,7 +2,7 @@
 
 #include "Supervisor.hpp"
 
-void __cdecl ChainDebugLog(const char *, ...)
+void __cdecl ChainDebugLog(...)
 {
 }
 

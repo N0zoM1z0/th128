@@ -27,11 +27,6 @@ void AnmTextureEntry::Release()
     }
 }
 
-AnmResource::AnmResource()
-{
-    memset(this, 0, sizeof(AnmResource));
-}
-
 void AnmResource::Release()
 {
     if (anmFileHeader == 0)

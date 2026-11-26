@@ -188,6 +188,9 @@ AnmVm::StartEffect10,0x004631A0,function
 UpdateAnmVmEffect10,0x004634A0,function
 DrawAnmVmEffect10,0x004636E0,function
 AnmVmEffect10Vertex::SetPolar,0x00463700,function
+AnmManager::LoadAnm,0x004653F0,function
+AnmManager::PreloadAnm,0x00465600,function
+AnmResource::CacheExternalTexture,0x00465680,function
 AnmManager::AreAllAnmsLoaded,0x00465EE0,function
 AnmManager::ReleaseAnm,0x00465F20,function
 AnmResource::Release,0x00465F60,function

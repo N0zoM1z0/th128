@@ -20,18 +20,6 @@ int __stdcall DrawAnmVmWithManager(AnmVm *vm, AnmManager *manager)
     return (int)(x ^ (*p)->nextVmId);
 }
 
-AnmResource *__stdcall LoadAnmSlot(AnmManager *manager, int slot, const char *filename)
-{
-    volatile int x = slot + (int)filename[0];
-    return manager->loadedAnms[x & 3];
-}
-
-void __cdecl ChainDebugLog(const char *fmt, ...)
-{
-    volatile char c = fmt[0];
-    (void)c;
-}
-
 unsigned int *g_ProbeSupFlags = &g_Supervisor.flags;
 CRITICAL_SECTION *g_ProbeSupCs = g_Supervisor.criticalSections;
 unsigned char *g_ProbeSupDepth = g_Supervisor.lockDepths;

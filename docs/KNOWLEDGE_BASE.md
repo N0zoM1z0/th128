@@ -976,6 +976,146 @@ another cold build. All 128 current-input exact comparisons passed.
 [Affected replay](../.analysis/anm-binding-affected-replay.log),
 [selected units](../.analysis/anm-binding-affected-units.json).
 
+## ANM first-stage loading, release logging and preload wait (2026-11-26)
+
+For the original Japanese TH128 v1.00a and pinned VC10 RTM
+`/O2 /Ob1 /Oy- /GL`, `AnmManager::PreloadAnm` at `0x00465600` now
+replays its complete 124-byte owner and all eight address fields exactly.
+The physical owner includes six internal alignment bytes omitted from the
+sparse Ghidra body. It holds a manager snapshot across the cache-hit log,
+calls the real `LoadAnm` member on a miss, sets resource `+0x124`, and waits
+with `Sleep(1)` until that flag clears or Supervisor flags `0x180` are set.
+[Exact preload replay](../.analysis/anm-preload-final-exact.json),
+[target boundary and references](../.analysis/anm-load-slot-review.txt),
+[snapshot diagnostic](../.analysis/anm-preload-manager-snapshot-diff.txt).
+
+The loader at `0x004653F0` owns all 515 bytes through `0x004655F2`.
+Ghidra's initial 96-byte function and apparent entry at `0x00465450` are
+parts of this single owner; the complete span has no external interior
+references. The source now implements the actual first loading stage:
+check the slot upper bound of 38, read the ANM blob, allocate and cache a
+zeroed resource, count linked archive entries/sprites/scripts, allocate
+their tables, and cache external texture data. It does not yet populate
+the sprite/script tables or create GPU textures; the later stage at
+`0x00465770` remains unimplemented. Allocation and cache assignment precede
+the null-blob test in the target, and the slot check has no lower-bound test.
+[Complete loader span](../.analysis/anm-load-slot-complete-span.txt),
+[loading-family hypotheses](../.analysis/anm-load-family-decomp.txt).
+
+The target settles several resource fields: a **32-bit** file ID at `+0`,
+a 260-byte filename at `+4`, the archive pointer at `+0x108`, texture count
+at `+0x10C`, script count at `+0x110` and sprite count at `+0x114`.
+The existing binding callers still narrow the file ID to the VM's 16-bit
+field. Each texture entry is 20 bytes; raw data size is `+8`, and its pointer
+is `+4`. The observed archive prefix has version `+0`, 16-bit sprite/script
+counts at `+4/+6`, name offset `+0x10`, a byte flag at `+0x20` and relative
+next-entry offset at `+0x24`. Advance by that offset, never by the prefix's
+`sizeof`. The `hasEmbeddedTexture` field name is provisional: the reviewed
+behavior is that a nonzero byte skips the external read.
+
+`AnmResource::CacheExternalTexture` at `0x00465680` is a complete 231-byte
+owner with one loader caller. It requires version 7; names beginning with
+`@` also skip external reads. Otherwise it calls `OpenPath(path, &size, 1)`,
+stores size then raw pointer, and returns 1. Version/read failures call the
+193-byte `GameErrorContext::Fatal` at `0x0046A320` and return -1, rather than
+the separate log method at `0x0046A250`.
+[Complete cache review](../.analysis/anm-load-entry-review.txt).
+
+The release logger at `0x00468130` is a one-byte `RET`. Its natural
+ellipsis-only declaration `void __cdecl ChainDebugLog(...)` preserves the
+format and payload pushes in the callers even though its body is empty.
+With a fixed named format parameter, LTCG removed that parameter and
+shortened the preload caller. The old probe's artificial volatile character
+read is removed along with its fake load-slot implementation. This is a
+source-shape explanation supported by compiler output, not recovery of an
+original C++ declaration.
+[Logger target review](../.analysis/anm-debug-log-review.txt),
+[logger exact replay](../.analysis/anm-release-logger-final-exact.json),
+[named-format failure](../.analysis/anm-preload-first-diff.txt).
+
+The resource constructor is now inline in the class so the real loader can
+inline its 312-byte zero initialization under `/Ob1`. Its separately emitted
+19-byte constructor is still exact, including the `memset` call at `+9`.
+The public contribution moved to the primary `AnmLoading` TU; the Oracle
+correctly rejected the old resource-primary context where the constructor
+belonged to a support object. The canonical constructor unit now follows
+the actual primary contribution, without additional exact credit.
+[Constructor replay](../.analysis/anm-inline-ctor-final-exact.json).
+
+Two loading owners remain frontiers. `LoadAnm` is 511 vs 515 bytes: the
+compiler rotates the target's loop-top null test into its backedge check.
+Initializing `textureIndex` before allocation and inlining the constructor
+fixed the earlier local lifetime and call differences. Rewriting the traversal as an explicit
+infinite loop did not retain the missing physical test.
+[Current loader diagnostic](../.analysis/anm-load-slot-explicit-loop-diff.txt).
+The strict unit also rejects its short primary contribution before comparing
+fields ([extent rejection](../.analysis/anm-load-slot-final-frontier.stderr)).
+A controlled cold build using a pointer-width integer address sum in
+`NextAnmEntry` still emits the same 511-byte candidate; pointer arithmetic
+versus integer wraparound does not explain this loop shape.
+[Integer-address probe](../.analysis/anm-load-integer-address-probe.py),
+[observations](../.analysis/anm-load-integer-address-final-observations.txt).
+The texture cache has the full 231-byte extent and all 13 address fields
+replay, but raw SIB bytes at `+0xC4/+0xCE` are `0x0A` instead of target
+`0x11`: `[edx+ecx+disp]` vs `[ecx+edx+disp]`. Equivalent addresses still
+fail exact comparison. Typed/index-first and byte-offset accessors did not
+change those bytes and were removed. The source retains direct typed stores;
+no address normalization or padding was added.
+[Strict cache frontier](../.analysis/anm-cache-texture-final-frontier.json),
+[cache diagnostic](../.analysis/anm-cache-texture-conditional-diff.txt),
+[rejected byte-offset accessor](../.analysis/anm-cache-texture-byte-offset-diff.txt).
+
+The affected scope is 161 exact units in 12 compilation contexts, including
+the Chain, ThreadInf and CoreMath consumers of the logging declaration.
+The current preload, loader-primary constructor and Chain families already
+had fresh cold builds; the other nine contexts were rebuilt for the changed
+inputs. See the [final replay](../.analysis/anm-loading-final-replay.log) and
+[selected units](../.analysis/anm-loading-final-affected-units.json): all
+161 current-input comparisons passed. The current world-update frontier
+also retains only its frame-size byte difference at `+8`
+([strict replay](../.analysis/anm-world-after-loading.json)).
+
+The next-stage target review also settles that resource `+0x124`, currently
+named `isInvalid`, is a **one-based finalization cursor**, not a boolean.
+The 1,000-byte owner at `0x00465770` walks the archive chain, accumulating
+the earlier entries' sprite/script counts, and processes only the entry
+whose zero-based index equals `cursor - 1`. It creates/selects that entry's
+texture, fills its sprite records through `0x00466090`, and installs script
+pointers from the eight-byte script table. If another entry follows it
+increments the cursor and returns; reaching the final entry clears it to
+zero. The reviewed fatal tails also clear it. The `+0x20` archive flag selects
+the embedded-data helper with `entry + *(entry+0x1C)`; `@` names take separate
+texture-creation paths. This is target behavior for the next reconstruction,
+not new source or exact credit. The source field name is retained for this
+checkpoint; rename it when implementing that stage and replay its consumers.
+[Full finalization span](../.analysis/anm-finalize-textures-complete-span.txt),
+[entry/caller review](../.analysis/anm-finalize-textures-review.txt).
+
+The 140-byte scheduler at `0x00465E50` scans the 38 resource slots and
+returns immediately after finalizing the first resource with a nonzero
+cursor. Thus this path advances only one archive entry across the manager
+per invocation. Resource `+0x128`, currently named `loadPending`, selects
+the release path before finalization. The existing `ReleaseAnm` source
+releases immediately; it does not set this flag. Preserve the scheduler's
+target ordering when reconstructing it:
+the ordinary in-range release branch clears the manager slot and then
+reloads that slot before the `+0x128` clear. Do not silently repair this
+apparent null dereference from a decompiler interpretation.
+[Scheduler disassembly and caller](../.analysis/anm-load-scheduler-review.txt).
+
+The bounded Ghidra `read_bytes` query was added to recover undefined CP932
+diagnostics through the attested local route; see its
+[usage](SHARED_TOOLS.md). Eight 96-byte data reads and the one-byte logger
+read agree with the original target. Zero/oversized counts, unmapped starts
+and a mapped range crossing its memory block are rejected. A short read
+inside mapped section padding is allowed, so this operation supplies no
+owner-boundary evidence.
+[Target-byte smoke](../.analysis/anm-read-bytes-target-smoke.txt),
+[zero](../.analysis/anm-read-bytes-zero.log),
+[oversized](../.analysis/anm-read-bytes-oversized.log),
+[unmapped](../.analysis/anm-read-bytes-unmapped.log),
+[crossing](../.analysis/anm-read-bytes-section-crossing.log).
+
 ## Open questions
 
 - Per-unit flags, the TU partition, which objects were `/GL`, the library set

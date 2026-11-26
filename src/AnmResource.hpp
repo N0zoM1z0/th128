@@ -1,9 +1,25 @@
 #pragma once
 
 #include <stddef.h>
+#include <string.h>
 #include "AnmVm.hpp"
 
 void NormalizeAnmCoordinates(float *normalized, const float *pixels);
+
+// Observed prefix of an ANM v7 entry. Entries link through nextOffset;
+// the prefix size does not determine the complete record size.
+struct AnmArchiveEntry
+{
+    unsigned int version;                  // +0x00
+    unsigned short spriteCount;            // +0x04
+    unsigned short scriptCount;            // +0x06
+    unsigned char unknown008[8];
+    unsigned int nameOffset;               // +0x10
+    unsigned char unknown014[12];
+    unsigned char hasEmbeddedTexture;      // +0x20
+    unsigned char unknown021[3];
+    unsigned int nextOffset;               // +0x24
+};
 
 // One animation-file entry occupies 0x48 bytes. The dimension/rectangle
 // values used by VM binding are observed directly at +0x1C..+0x40.
@@ -31,7 +47,7 @@ struct AnmTextureEntry
 {
     void *texture;        // +0x00 (IDirect3DTexture9 *)
     void *rawData;        // +0x04
-    unsigned int field08; // +0x08
+    unsigned int rawDataSize; // +0x08
     unsigned int field0C; // +0x0C
     unsigned int field10; // +0x10
 
@@ -41,11 +57,12 @@ typedef char AnmTextureEntrySize[(sizeof(AnmTextureEntry) == 0x14) ? 1 : -1];
 
 struct AnmResource
 {
-    unsigned short fileId;                  // +0x000
-    unsigned char unknown002[0x108 - 2];
+    int fileId;                             // +0x000
+    char filename[260];                     // +0x004
     void *anmFileHeader;                    // +0x108, required for binding
     int textureCount;                       // +0x10C
-    unsigned char unknown110[0x118 - 0x110];
+    int scriptCount;                        // +0x110
+    int spriteCount;                        // +0x114
     AnmFileEntry *anmFiles;                 // +0x118
     const unsigned int *scriptOffsets;      // +0x11C
     AnmTextureEntry *textures;              // +0x120
@@ -55,8 +72,9 @@ struct AnmResource
     int activeVmCount;                      // +0x130
     void *extraData134;                     // +0x134
 
-    AnmResource();
+    AnmResource() { memset(this, 0, sizeof(AnmResource)); }
     void Release();
+    int CacheExternalTexture(const AnmArchiveEntry *entry, int textureIndex);
     AnmId SpawnChildVm(int scriptIndex, AnmVm *parent, unsigned int listMode);
     AnmId SpawnChildVmAtPosition(int scriptIndex, AnmVm *parent);
     void BindVmScript(AnmVm *vm, int scriptIndex);

@@ -61,6 +61,6 @@ public:
 
 extern Chain *g_Chain;
 
-void __cdecl ChainDebugLog(const char *fmt, ...);
+void __cdecl ChainDebugLog(...);
 
 #endif

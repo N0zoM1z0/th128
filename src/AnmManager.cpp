@@ -103,7 +103,6 @@ struct AnmD3DDeviceView
 
 extern AnmD3DDeviceView *g_D3DDevice;
 extern int __stdcall DrawAnmVmWithManager(AnmVm *vm, AnmManager *manager);
-extern AnmResource *__stdcall LoadAnmSlot(AnmManager *manager, int slot, const char *filename);
 
 struct AnmPauseStateView
 {
@@ -566,13 +565,14 @@ bool AnmManager::IsPoolVm(AnmVm *vm)
 
 AnmResource *AnmManager::PreloadAnm(int slot, const char *filename)
 {
-    if (g_AnmManager->loadedAnms[slot] != 0)
+    AnmManager *manager = g_AnmManager;
+    if (manager->loadedAnms[slot] != 0)
     {
         ChainDebugLog("::preloadAnim already : %s\n", filename);
-        return g_AnmManager->loadedAnms[slot];
+        return manager->loadedAnms[slot];
     }
 
-    AnmResource *res = LoadAnmSlot(g_AnmManager, slot, filename);
+    AnmResource *res = manager->LoadAnm(slot, filename);
     if (res == 0)
     {
         return 0;

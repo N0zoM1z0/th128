@@ -17,6 +17,18 @@ lock. Direct headless arguments can also be passed with
 `./scripts/shared_runtime.py ghidra -- ...`. Keep the original locked tool
 version; moving the installation does not authorize changing tool hashes.
 
+For bounded bytes that Ghidra has not defined as strings or data, use the
+attested read-only query path:
+
+```bash
+scripts/repo-python scripts/ghidra.py query \
+  .analysis/anm-version-message.txt read_bytes 96 0x004A5D14
+```
+
+`read_bytes COUNT ADDRESS...` returns hex bytes for each address. Count must
+be 1..4096 and each range must stay in one initialized memory block. This
+checks mapped memory bounds; it does not establish function ownership.
+
 The ignored `.tools/shared-runtimes.json` chooses the installed versions,
 repository-owned Wine prefix and architecture. `.tools/ghidra`, `.tools/jdk`
 and `.tools/factory-runtime.py` are local selectors. Factory's provisioner

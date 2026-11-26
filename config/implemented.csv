@@ -98,9 +98,11 @@ AnmManager::DrawLayer9
 AnmManager::DrawVmGroup
 AnmManager::GetVmById
 AnmManager::IsPoolVm
+AnmManager::LoadAnm
 AnmManager::MarkResourceVmsForDelete
 AnmManager::OnTickUiCallback
 AnmManager::OnTickWorldCallback
+AnmManager::PreloadAnm
 AnmManager::ReleaseAnm
 AnmManager::SetInterruptAndUpdate
 AnmManager::StopVmById
@@ -110,6 +112,7 @@ AnmManager::UpdateWorldVms
 AnmResource::AnmResource
 AnmResource::BindVmAtPosition
 AnmResource::BindVmScript
+AnmResource::CacheExternalTexture
 AnmResource::CreateVm
 AnmResource::Release
 AnmResource::SpawnChildVm
