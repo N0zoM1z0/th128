@@ -1858,6 +1858,102 @@ passes. This is exact per-owner evidence, not native rendering closure.
 [Comparison log](../.analysis/anm-draw-current-input-replay.log),
 [final scope](../.analysis/anm-draw-final-scope.json).
 
+## ANM sprite state, quad append and real corner wrappers (2026-11-26)
+
+The original Japanese TH12.8 v1.00a renderer's state function at `0x0045E770`
+now reproduces exactly under pinned VC10 RTM `/O2 /Ob1 /Oy- /GL`.
+`AnmDrawLeaf::ApplyState` uses the **passed manager**, with the VM in
+private `EDI` and manager in `EAX`. It reads the blend selector from VM flags
+bits 5–7, flushes before changing a cache, and rereads the VM selector
+after the call. Cache byte manager `+0x4E9692` controls **point/linear
+sampler filtering**: the target calls device vtable `+0x114`,
+`SetSamplerState(0, MAGFILTER/MINFILTER, value)`, with linear for bit 2
+clear and point for bit 2 set. The former one-VM approximation incorrectly
+called `SetTextureStageState` at `+0x10C`; it now delegates to the real
+explicit-manager implementation.
+[Target helper review](../.analysis/anm-sprite-batch-helpers-review.txt).
+
+The state owner's full extent is 416 bytes: 387 code bytes, one alignment
+byte and seven DIR32 dispatch entries through `0x0045E90F`. Its 21 fields
+are two real FlushSpriteBatch calls, eleven Supervisor device references,
+one local table pointer and seven local entries. An ascending source case
+order emitted 392 bytes and shared the source-blend call across cases
+0/4/6. Target layout instead places case 6 before case 5. That natural
+switch order produces the target's duplicated first calls and shared case
+3/5 tail; no compiler flag or ABI hint is needed.
+[Owned table read](../.analysis/anm-state-and-batch-owned-tables.txt),
+[ascending-order observation](../.analysis/anm-sprite-delegated-state-state.json),
+[target-order observation](../.analysis/anm-sprite-case-order-state.json).
+
+The append owner at `0x0045F040` copies six 28-byte transformed vertices
+in TL/TR/BL, TR/BL/BR order. Six ordinary struct assignments, each using
+the manager's current `+0x8696F0` cursor, naturally emit the target's six
+REP MOVSD sequences and cursor reloads. It then advances the cursor by
+168, increments `+0x4E96EC` and returns zero. The complete 138-byte owner
+has no address fields. Caching a destination pointer would assert a
+stronger alias relationship than the observed reloads.
+[Complete append review](../.analysis/anm-sprite-batch-helpers-review.txt),
+[initial compiler observation](../.analysis/anm-sprite-first-append.json).
+
+Both owners pass the canonical complete-primary-TU comparison: 416 bytes / 21 fields and 138 bytes / no
+fields, including physical tails and all local table destinations.
+[State canonical replay](../.analysis/anm-sprite-state-canonical.json),
+[append canonical replay](../.analysis/anm-sprite-append-canonical.json). The separate
+five-byte entry at `0x0045E910` jumps to the state **entry**, so it does
+not create an unowned interior entry. It has no reviewed callers and
+receives no source or exact credit in this checkpoint.
+[Following jump review](../.analysis/anm-state-following-jump-review.txt).
+
+Four small sprite wrappers now call the maintained mode-0, mode-2/3 or
+mode-1 corner builder and the external real submission boundary at
+`0x0045E920`. `0x0045FA10` receives manager before VM on the stack and
+returns with `RET 8`; its logical source signature and dispatcher edge
+now follow that order. The shared TL/TR/BL/BR quad at `0x004DAF28` has
+four 28-byte elements; the attested target data is initially all zero.
+The two rotated entries remain separate natural functions. None of these
+four wrappers has exact credit while its corner/submission private ABI
+still differs.
+[Wrapper review](../.analysis/anm-render-sprite-wrappers-review.txt),
+[quad data](../.analysis/anm-sprite-quad-data-and-state-table.txt).
+
+The complete submission extent is 1,532 bytes through `0x0045EF1B`,
+including three alignment bytes and four table entries. It adds the passed
+manager's XY view offset, optionally snaps the four axis-aligned edges,
+caches all four XYZ vectors into the VM, computes UVs, rejects quads outside
+the unsigned viewport, updates texture/vertex-format state, then calls
+the real state and append owners. Its table selects uniform
+primary/secondary colors for modes 0/1 and horizontal/vertical gradients
+for modes 2/3. Submission flag 2 skips **all** color selection and
+modulation, preserving the shared quad's existing color words. Otherwise,
+when manager color modulation is enabled, it uses the existing 25-byte
+`AnmInterpHelpers::BlendColorChannel` owner (`0x0045E750`) for all four
+channels: multiply, shift right by 7, saturate to 255. The viewport pointer
+at `0x004D33B4` is read unconditionally.
+[Complete submission disassembly](../.analysis/anm-sprite-batch-complete.txt),
+[boundary and xrefs](../.analysis/anm-sprite-batch-owner-review.txt),
+[table and constants](../.analysis/anm-batch-table-and-round-constants.txt).
+
+The submission's FRNDINT operations follow the ambient x87 rounding mode
+before subtracting `0.5f`. The pinned VC10 headers do not declare
+`rint`/`nearbyint`; ordinary floor or a fixed nearest-even helper does not
+settle that contract. Submission stays external pending a natural source
+solution and a complete-owner comparison. The old Effects approximations
+are not evidence for this owner.
+
+The complete current-input replay cold-built **11 affected contexts** and
+compared **87 owners**. All 77 existing exact owners remain exact; the two
+new owners add 554 bytes. The four wrappers, Draw, draw-position helper,
+DrawVmGroup and DrawSingleVm remain rejected frontiers. The four wrapper
+candidates are 55/52, 51/55, 51/48 and 51/48 bytes (candidate/target);
+Draw is 1,348/1,392 bytes. Draw-position retains its eight X-addition
+operand-order differences. No former caller credit was restored. Canonical
+totals are **307 functions / 19,831 bytes**, including 299 authored exact
+functions / 19,502 bytes. Native rendering closure remains separate.
+[Complete results](../.analysis/anm-sprite-deps-current-results.json),
+[replay log](../.analysis/anm-sprite-deps-current-replay.log),
+[final scope](../.analysis/anm-sprite-deps-final-scope.json),
+[current owner observations](../.analysis/anm-sprite-canonical-draw.json).
+
 ## Open questions
 
 - Per-unit flags, the TU partition, which objects were `/GL`, the library set

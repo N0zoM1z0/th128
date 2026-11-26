@@ -1,5 +1,11 @@
 AddAngles
 AllocateAnmVm
+AnmDrawLeaf::AlternateRotatedSprite
+AnmDrawLeaf::AppendSprite
+AnmDrawLeaf::ApplyState
+AnmDrawLeaf::PixelAlignedSprite
+AnmDrawLeaf::RotatedSprite
+AnmDrawLeaf::UnrotatedSprite
 AnmFogState::Disable
 AnmFogState::Enable
 AnmHelpers::AccumulateTextureColor1555
@@ -168,7 +174,6 @@ AnmVmSetScale2
 AnmVmSetScaleX
 AnmVmSetScaleY
 AnmVmSetUvScroll
-ApplyAnmVmRenderState
 BgmStreamView::HasField10
 BgmStreamView::SetFadeOut
 BuildAnmVmViewCorners

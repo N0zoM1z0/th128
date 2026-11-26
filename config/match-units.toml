@@ -944,17 +944,39 @@ size = 213
 relocations = []
 
 [units.anm-renderer-apply-vm-state]
-frontier = true # Applies the VM blend mode and point/linear sampler filter to the D3D9 renderer.
-artifact_kind = "coff"
-source = "src/AnmVmEffects.cpp"
-inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp", "src/AnmVmGeometry.hpp", "src/Rng.hpp", "src/ZunMath.hpp", "src/ZunTimer.hpp"]
-object = "build/match/AnmVmEffects.obj"
-profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
-functions = ["ApplyAnmVmRenderState"]
-symbol = "?ApplyAnmVmRenderState@@YAXPAUAnmVm@@@Z"
+artifact_kind = "linked-pe"
+source = "src/AnmDraw.cpp"
+support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/AnmLoading.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp"]
+output_dir = "build/match-linked/AnmDraw"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmDrawLeaf::ApplyState"]
+symbol = "?ApplyState@AnmDrawLeaf@@YGXPAUAnmVm@@PAUAnmManager@@@Z"
 target_address = 0x0045E770
 size = 416
-relocations = []
+linkages = [
+  { offset = 28, type = "REL32", symbol = "?FlushSpriteBatch@AnmManager@@QAEXXZ", target = 0x0045EF60 },
+  { offset = 64, type = "DIR32", local = true, target = 0x0045E8F4 },
+  { offset = 69, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 16 },
+  { offset = 96, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 16 },
+  { offset = 120, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 16 },
+  { offset = 140, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 16 },
+  { offset = 168, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 16 },
+  { offset = 192, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 16 },
+  { offset = 218, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 16 },
+  { offset = 238, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 16 },
+  { offset = 258, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 16 },
+  { offset = 299, type = "REL32", symbol = "?FlushSpriteBatch@AnmManager@@QAEXXZ", target = 0x0045EF60 },
+  { offset = 321, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 16 },
+  { offset = 360, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 16 },
+  { offset = 388, type = "DIR32", local = true, target = 0x0045E7B4 },
+  { offset = 392, type = "DIR32", local = true, target = 0x0045E7CF },
+  { offset = 396, type = "DIR32", local = true, target = 0x0045E7E7 },
+  { offset = 400, type = "DIR32", local = true, target = 0x0045E813 },
+  { offset = 404, type = "DIR32", local = true, target = 0x0045E817 },
+  { offset = 408, type = "DIR32", local = true, target = 0x0045E847 },
+  { offset = 412, type = "DIR32", local = true, target = 0x0045E82F },
+]
 
 [units.anm-renderer-draw-vm-vertices]
 frontier = true # Binds the VM's animation texture and draws a transformed immediate-mode vertex list.
@@ -6796,7 +6818,7 @@ linkages = [
   { offset = 390, type = "REL32", symbol = "?Disable@AnmFogState@@QAEJXZ", target = 0x00434AB0 },
   { offset = 427, type = "REL32", symbol = "?TriangleStrip@AnmDrawLeaf@@YGHPAUAnmVm@@PAUAnmManager@@PBXH@Z", target = 0x004615A0 },
   { offset = 462, type = "REL32", symbol = "?TriangleFan@AnmDrawLeaf@@YGHPAUAnmVm@@PAUAnmManager@@PBXH@Z", target = 0x00461A00 },
-  { offset = 503, type = "REL32", symbol = "?UnrotatedSprite@AnmDrawLeaf@@YGHPAUAnmVm@@PAUAnmManager@@@Z", target = 0x0045FA10 },
+  { offset = 503, type = "REL32", symbol = "?UnrotatedSprite@AnmDrawLeaf@@YGHPAUAnmManager@@PAUAnmVm@@@Z", target = 0x0045FA10 },
   { offset = 545, type = "REL32", symbol = "?AlternateRotatedSprite@AnmDrawLeaf@@YGHPAUAnmVm@@PAUAnmManager@@@Z", target = 0x0045FD70 },
   { offset = 592, type = "REL32", symbol = "?GetAnmVmDrawPosition@@YG?AUZunVec3@@PBUAnmVm@@@Z", target = 0x004630F0 },
   { offset = 620, type = "REL32", symbol = "?GetAnmVmDrawPosition@@YG?AUZunVec3@@PBUAnmVm@@@Z", target = 0x004630F0 },
@@ -6886,4 +6908,102 @@ size = 54
 linkages = [
   { offset = 12, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
   { offset = 17, type = "REL32", symbol = "?FlushSpriteBatch@AnmManager@@QAEXXZ", target = 0x0045EF60 },
+]
+
+[units.anm-sprite-append]
+artifact_kind = "linked-pe"
+source = "src/AnmDraw.cpp"
+support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/AnmLoading.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp"]
+output_dir = "build/match-linked/AnmDraw"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmDrawLeaf::AppendSprite"]
+symbol = "?AppendSprite@AnmDrawLeaf@@YGHPAUAnmManager@@PBUAnmVmEffect10Vertex@@@Z"
+target_address = 0x0045F040
+size = 138
+linkages = [
+]
+
+[units.anm-sprite-pixel-aligned]
+frontier = true
+artifact_kind = "linked-pe"
+source = "src/AnmDraw.cpp"
+support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/AnmLoading.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp"]
+output_dir = "build/match-linked/AnmDraw"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmDrawLeaf::PixelAlignedSprite"]
+symbol = "?PixelAlignedSprite@AnmDrawLeaf@@YGHPAUAnmVm@@PAUAnmManager@@@Z"
+target_address = 0x0045F5D0
+size = 52
+linkages = [
+  { offset = 7, type = "DIR32", symbol = "?g_AnmSpriteVertices@@3PAUAnmVmEffect10Vertex@@A", target = 0x004DAF28, addend = 28 },
+  { offset = 14, type = "DIR32", symbol = "?g_AnmSpriteVertices@@3PAUAnmVmEffect10Vertex@@A", target = 0x004DAF28 },
+  { offset = 19, type = "DIR32", symbol = "?g_AnmSpriteVertices@@3PAUAnmVmEffect10Vertex@@A", target = 0x004DAF28, addend = 84 },
+  { offset = 24, type = "DIR32", symbol = "?g_AnmSpriteVertices@@3PAUAnmVmEffect10Vertex@@A", target = 0x004DAF28, addend = 56 },
+  { offset = 29, type = "REL32", symbol = "?BuildAnmVmViewCornersMode0@@YAXPBUAnmVm@@PAM111@Z", target = 0x0045F110 },
+  { offset = 41, type = "REL32", symbol = "?SubmitSprite@AnmDrawLeaf@@YGHPAUAnmManager@@PAUAnmVm@@I@Z", target = 0x0045E920 },
+]
+
+[units.anm-sprite-unrotated]
+frontier = true
+artifact_kind = "linked-pe"
+source = "src/AnmDraw.cpp"
+support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/AnmLoading.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp"]
+output_dir = "build/match-linked/AnmDraw"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmDrawLeaf::UnrotatedSprite"]
+symbol = "?UnrotatedSprite@AnmDrawLeaf@@YGHPAUAnmManager@@PAUAnmVm@@@Z"
+target_address = 0x0045FA10
+size = 55
+linkages = [
+  { offset = 11, type = "DIR32", symbol = "?g_AnmSpriteVertices@@3PAUAnmVmEffect10Vertex@@A", target = 0x004DAF28, addend = 84 },
+  { offset = 16, type = "DIR32", symbol = "?g_AnmSpriteVertices@@3PAUAnmVmEffect10Vertex@@A", target = 0x004DAF28, addend = 56 },
+  { offset = 21, type = "DIR32", symbol = "?g_AnmSpriteVertices@@3PAUAnmVmEffect10Vertex@@A", target = 0x004DAF28, addend = 28 },
+  { offset = 26, type = "DIR32", symbol = "?g_AnmSpriteVertices@@3PAUAnmVmEffect10Vertex@@A", target = 0x004DAF28 },
+  { offset = 31, type = "REL32", symbol = "?BuildAnmVmViewCornersMode23@@YAXPBUAnmVm@@PAM111@Z", target = 0x0045F610 },
+  { offset = 44, type = "REL32", symbol = "?SubmitSprite@AnmDrawLeaf@@YGHPAUAnmManager@@PAUAnmVm@@I@Z", target = 0x0045E920 },
+]
+
+[units.anm-sprite-rotated]
+frontier = true
+artifact_kind = "linked-pe"
+source = "src/AnmDraw.cpp"
+support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/AnmLoading.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp"]
+output_dir = "build/match-linked/AnmDraw"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmDrawLeaf::RotatedSprite"]
+symbol = "?RotatedSprite@AnmDrawLeaf@@YGHPAUAnmVm@@PAUAnmManager@@@Z"
+target_address = 0x0045FD40
+size = 48
+linkages = [
+  { offset = 7, type = "DIR32", symbol = "?g_AnmSpriteVertices@@3PAUAnmVmEffect10Vertex@@A", target = 0x004DAF28 },
+  { offset = 12, type = "DIR32", symbol = "?g_AnmSpriteVertices@@3PAUAnmVmEffect10Vertex@@A", target = 0x004DAF28, addend = 84 },
+  { offset = 17, type = "DIR32", symbol = "?g_AnmSpriteVertices@@3PAUAnmVmEffect10Vertex@@A", target = 0x004DAF28, addend = 56 },
+  { offset = 22, type = "DIR32", symbol = "?g_AnmSpriteVertices@@3PAUAnmVmEffect10Vertex@@A", target = 0x004DAF28, addend = 28 },
+  { offset = 27, type = "REL32", symbol = "?BuildAnmVmViewCornersMode1@@YAXPBUAnmVm@@PAM111@Z", target = 0x0045FAD0 },
+  { offset = 37, type = "REL32", symbol = "?SubmitSprite@AnmDrawLeaf@@YGHPAUAnmManager@@PAUAnmVm@@I@Z", target = 0x0045E920 },
+]
+
+[units.anm-sprite-alternate-rotated]
+frontier = true
+artifact_kind = "linked-pe"
+source = "src/AnmDraw.cpp"
+support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/AnmLoading.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp"]
+output_dir = "build/match-linked/AnmDraw"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmDrawLeaf::AlternateRotatedSprite"]
+symbol = "?AlternateRotatedSprite@AnmDrawLeaf@@YGHPAUAnmVm@@PAUAnmManager@@@Z"
+target_address = 0x0045FD70
+size = 48
+linkages = [
+  { offset = 7, type = "DIR32", symbol = "?g_AnmSpriteVertices@@3PAUAnmVmEffect10Vertex@@A", target = 0x004DAF28 },
+  { offset = 12, type = "DIR32", symbol = "?g_AnmSpriteVertices@@3PAUAnmVmEffect10Vertex@@A", target = 0x004DAF28, addend = 84 },
+  { offset = 17, type = "DIR32", symbol = "?g_AnmSpriteVertices@@3PAUAnmVmEffect10Vertex@@A", target = 0x004DAF28, addend = 56 },
+  { offset = 22, type = "DIR32", symbol = "?g_AnmSpriteVertices@@3PAUAnmVmEffect10Vertex@@A", target = 0x004DAF28, addend = 28 },
+  { offset = 27, type = "REL32", symbol = "?BuildAnmVmViewCornersMode1@@YAXPBUAnmVm@@PAM111@Z", target = 0x0045FAD0 },
+  { offset = 37, type = "REL32", symbol = "?SubmitSprite@AnmDrawLeaf@@YGHPAUAnmManager@@PAUAnmVm@@I@Z", target = 0x0045E920 },
 ]

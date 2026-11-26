@@ -1,5 +1,6 @@
 #include "AnmDraw.hpp"
 #include "AnmManager.hpp"
+#include "AnmVmView.hpp"
 #include "Supervisor.hpp"
 
 #include <d3d9.h>
@@ -8,8 +9,6 @@
 // implementations remain separate reconstruction work; these are declarations.
 namespace AnmDrawLeaf
 {
-    int __stdcall PixelAlignedSprite(AnmVm *, AnmManager *);       // 0x0045F5D0
-    int __stdcall RotatedSprite(AnmVm *, AnmManager *);            // 0x0045FD40
     int __stdcall ProjectedSprite(AnmVm *, AnmManager *);          // 0x00460240
     int __stdcall WorldMatrixBatchSprite(AnmVm *, AnmManager *);   // 0x00460B50
     int __stdcall FogSprite(AnmVm *, AnmManager *);                // 0x00460270
@@ -17,9 +16,6 @@ namespace AnmDrawLeaf
     int __stdcall WorldMatrixSprite(AnmVm *, AnmManager *);        // 0x00460DD0
     int __stdcall TriangleStrip(AnmVm *, AnmManager *, const void *, int); // 0x004615A0
     int __stdcall TriangleFan(AnmVm *, AnmManager *, const void *, int);   // 0x00461A00
-    int __stdcall UnrotatedSprite(AnmVm *, AnmManager *);          // 0x0045FA10
-    int __stdcall AlternateRotatedSprite(AnmVm *, AnmManager *);   // 0x0045FD70
-    void __stdcall ApplyState(AnmVm *, AnmManager *);              // 0x0045E770
     void __stdcall Rectangle(AnmManager *, float, float, float, float, float, unsigned int); // 0x004620E0
     void __stdcall GradientRectangle(AnmManager *, float, float, float, float, float, unsigned int, unsigned int); // 0x004626B0
     void __stdcall OutlinedRectangle(AnmManager *, float, float, float, float, float, unsigned int); // 0x004628D0
@@ -28,8 +24,20 @@ namespace AnmDrawLeaf
     void __stdcall Line(AnmManager *, float, float, float, float, int, unsigned int); // 0x00462D60
 }
 
+AnmVmEffect10Vertex g_AnmSpriteVertices[4];
+
 namespace
 {
+    // Partial view of the manager's render-state cache. The receiver is the
+    // manager supplied by the caller, including when it differs from the global.
+    struct AnmSpriteState
+    {
+        unsigned char unknown000[0x4E968C];
+        unsigned char blendMode;
+        unsigned char unknown4E968D[0x4E9692 - 0x4E968D];
+        unsigned char samplerPointFilter;
+    };
+
     inline ZunVec3 AddDrawVectors(const ZunVec3 &left, const ZunVec3 &right)
     {
         ZunVec3 result = {
@@ -39,6 +47,116 @@ namespace
         };
         return result;
     }
+}
+
+void __stdcall AnmDrawLeaf::ApplyState(AnmVm *vm, AnmManager *manager)
+{
+    AnmSpriteState *state = reinterpret_cast<AnmSpriteState *>(manager);
+    if (state->blendMode != ((vm->flags >> 5) & 7U))
+    {
+        manager->FlushSpriteBatch();
+        state->blendMode = (unsigned char)((vm->flags >> 5) & 7U);
+        switch (state->blendMode)
+        {
+        case 0:
+            g_Supervisor.d3dDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+            g_Supervisor.d3dDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+            g_Supervisor.d3dDevice->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);
+            break;
+        case 1:
+            g_Supervisor.d3dDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+            g_Supervisor.d3dDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);
+            g_Supervisor.d3dDevice->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);
+            break;
+        case 2:
+            g_Supervisor.d3dDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+            g_Supervisor.d3dDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);
+            g_Supervisor.d3dDevice->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_REVSUBTRACT);
+            break;
+        case 3:
+            g_Supervisor.d3dDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_ONE);
+            g_Supervisor.d3dDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ZERO);
+            g_Supervisor.d3dDevice->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);
+            break;
+        case 4:
+            g_Supervisor.d3dDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_INVDESTCOLOR);
+            g_Supervisor.d3dDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+            g_Supervisor.d3dDevice->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);
+            break;
+        case 6:
+            g_Supervisor.d3dDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_INVSRCCOLOR);
+            g_Supervisor.d3dDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+            g_Supervisor.d3dDevice->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);
+            break;
+        case 5:
+            g_Supervisor.d3dDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_DESTCOLOR);
+            g_Supervisor.d3dDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ZERO);
+            g_Supervisor.d3dDevice->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);
+            break;
+        }
+    }
+
+    if (state->samplerPointFilter != ((vm->stateFlags >> 2) & 1U))
+    {
+        manager->FlushSpriteBatch();
+        state->samplerPointFilter = (unsigned char)((vm->stateFlags >> 2) & 1U);
+        if (state->samplerPointFilter == 0)
+        {
+            g_Supervisor.d3dDevice->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
+            g_Supervisor.d3dDevice->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR);
+        }
+        else
+        {
+            g_Supervisor.d3dDevice->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_POINT);
+            g_Supervisor.d3dDevice->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_POINT);
+        }
+    }
+    ++manager->stateCallCount;
+}
+
+int __stdcall AnmDrawLeaf::AppendSprite(
+    AnmManager *manager, const AnmVmEffect10Vertex *vertices)
+{
+    // Re-read the cursor for each assignment: the source quad can alias the
+    // manager, so caching the destination would give a stronger alias contract.
+    reinterpret_cast<AnmVmEffect10Vertex *>(manager->spriteVertexBufferBase)[0] = vertices[0];
+    reinterpret_cast<AnmVmEffect10Vertex *>(manager->spriteVertexBufferBase)[1] = vertices[1];
+    reinterpret_cast<AnmVmEffect10Vertex *>(manager->spriteVertexBufferBase)[2] = vertices[2];
+    reinterpret_cast<AnmVmEffect10Vertex *>(manager->spriteVertexBufferBase)[3] = vertices[1];
+    reinterpret_cast<AnmVmEffect10Vertex *>(manager->spriteVertexBufferBase)[4] = vertices[2];
+    reinterpret_cast<AnmVmEffect10Vertex *>(manager->spriteVertexBufferBase)[5] = vertices[3];
+    manager->spriteVertexBufferBase =
+        reinterpret_cast<AnmVmEffect10Vertex *>(manager->spriteVertexBufferBase) + 6;
+    ++manager->spriteBatchCount;
+    return 0;
+}
+
+int __stdcall AnmDrawLeaf::PixelAlignedSprite(AnmVm *vm, AnmManager *manager)
+{
+    BuildAnmVmViewCornersMode0(vm, &g_AnmSpriteVertices[0].x,
+        &g_AnmSpriteVertices[1].x, &g_AnmSpriteVertices[2].x, &g_AnmSpriteVertices[3].x);
+    return SubmitSprite(manager, vm, 1);
+}
+
+int __stdcall AnmDrawLeaf::UnrotatedSprite(AnmManager *manager, AnmVm *vm)
+{
+    BuildAnmVmViewCornersMode23(vm, &g_AnmSpriteVertices[0].x,
+        &g_AnmSpriteVertices[1].x, &g_AnmSpriteVertices[2].x, &g_AnmSpriteVertices[3].x);
+    return SubmitSprite(manager, vm, 0);
+}
+
+int __stdcall AnmDrawLeaf::RotatedSprite(AnmVm *vm, AnmManager *manager)
+{
+    BuildAnmVmViewCornersMode1(vm, &g_AnmSpriteVertices[0].x,
+        &g_AnmSpriteVertices[1].x, &g_AnmSpriteVertices[2].x, &g_AnmSpriteVertices[3].x);
+    return SubmitSprite(manager, vm, 0);
+}
+
+int __stdcall AnmDrawLeaf::AlternateRotatedSprite(AnmVm *vm, AnmManager *manager)
+{
+    BuildAnmVmViewCornersMode1(vm, &g_AnmSpriteVertices[0].x,
+        &g_AnmSpriteVertices[1].x, &g_AnmSpriteVertices[2].x, &g_AnmSpriteVertices[3].x);
+    return SubmitSprite(manager, vm, 0);
 }
 
 ZunVec3 __stdcall GetAnmVmDrawPosition(const AnmVm *vm)
@@ -129,7 +247,7 @@ int AnmVm::Draw(AnmManager *manager)
     case 2:
         if ((vm->color & 0xFF000000U) == 0 &&
             (vm->secondaryColor & 0xFF000000U) == 0) return -1;
-        return AnmDrawLeaf::UnrotatedSprite(vm, manager);
+        return AnmDrawLeaf::UnrotatedSprite(manager, vm);
     case 3:
         if ((vm->color & 0xFF000000U) == 0 &&
             (vm->secondaryColor & 0xFF000000U) == 0) return -1;

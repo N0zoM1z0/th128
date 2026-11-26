@@ -1,4 +1,5 @@
 #include "AnmVm.hpp"
+#include "AnmDraw.hpp"
 #include "AnmVmGeometry.hpp"
 #include "AnmResource.hpp"
 #include "AnmManager.hpp"
@@ -131,7 +132,7 @@ struct AnmVmRendererState
     unsigned char unknown4E968D;
     unsigned char vertexFormatMode;         // +0x4E968E
     unsigned char unknown4E968F[3];
-    unsigned char textureArgumentMode;      // +0x4E9692
+    unsigned char samplerPointFilter;      // +0x4E9692
     unsigned char textureStageState;        // +0x4E9693
     void *currentTextureTransformFile;      // +0x4E9694
     IDirect3DVertexBuffer9 *vertexBuffer;    // +0x4E9698
@@ -261,77 +262,11 @@ void FlushAnmSpriteBatch()
     renderer->pendingBatchCount = 0;
 }
 
+// Convenience entry for the older single-VM rendering hypotheses. The
+// reviewed target owner is AnmDrawLeaf::ApplyState, with an explicit manager.
 void ApplyAnmVmRenderState(AnmVm *vm)
 {
-    AnmVmRendererState *renderer = GetAnmVmRenderer();
-    IDirect3DDevice9 *device = GetAnmVmDevice();
-    if (renderer == 0 || device == 0 || vm == 0)
-    {
-        return;
-    }
-
-    const unsigned char blendMode = (unsigned char)((vm->flags >> 5) & 7U);
-    if (renderer->blendMode != blendMode)
-    {
-        FlushAnmSpriteBatch();
-        renderer->blendMode = blendMode;
-
-        switch (blendMode)
-        {
-        case 0:
-            device->SetRenderState(D3DRS_SRCBLEND, 5);
-            device->SetRenderState(D3DRS_DESTBLEND, 6);
-            device->SetRenderState(D3DRS_BLENDOP, 1);
-            break;
-        case 1:
-            device->SetRenderState(D3DRS_SRCBLEND, 5);
-            device->SetRenderState(D3DRS_DESTBLEND, 2);
-            device->SetRenderState(D3DRS_BLENDOP, 1);
-            break;
-        case 2:
-            device->SetRenderState(D3DRS_SRCBLEND, 5);
-            device->SetRenderState(D3DRS_DESTBLEND, 2);
-            device->SetRenderState(D3DRS_BLENDOP, 3);
-            break;
-        case 3:
-            device->SetRenderState(D3DRS_SRCBLEND, 2);
-            device->SetRenderState(D3DRS_DESTBLEND, 1);
-            device->SetRenderState(D3DRS_BLENDOP, 1);
-            break;
-        case 4:
-            device->SetRenderState(D3DRS_SRCBLEND, 10);
-            device->SetRenderState(D3DRS_DESTBLEND, 6);
-            device->SetRenderState(D3DRS_BLENDOP, 1);
-            break;
-        case 5:
-            device->SetRenderState(D3DRS_SRCBLEND, 9);
-            device->SetRenderState(D3DRS_DESTBLEND, 1);
-            device->SetRenderState(D3DRS_BLENDOP, 1);
-            break;
-        case 6:
-            device->SetRenderState(D3DRS_SRCBLEND, 4);
-            device->SetRenderState(D3DRS_DESTBLEND, 6);
-            device->SetRenderState(D3DRS_BLENDOP, 1);
-            break;
-        default:
-            break;
-        }
-    }
-
-    const unsigned char textureArgumentMode =
-        (unsigned char)((vm->stateFlags >> 2) & 1U);
-    if (renderer->textureArgumentMode != textureArgumentMode)
-    {
-        FlushAnmSpriteBatch();
-        renderer->textureArgumentMode = textureArgumentMode;
-        const DWORD argument = textureArgumentMode == 0
-            ? D3DTA_TEXTURE
-            : D3DTA_CURRENT;
-        device->SetTextureStageState(0, D3DTSS_ALPHAARG1, argument);
-        device->SetTextureStageState(0, D3DTSS_COLORARG1, argument);
-    }
-
-    ++renderer->stateCallCount;
+    AnmDrawLeaf::ApplyState(vm, GetGlobalAnmManager());
 }
 
 int DrawAnmVmVertices(

@@ -191,11 +191,16 @@ AnmInterp<int>::SetGoal,0x0045E670,function
 AnmInterp<int>::ResetTimer,0x0045E680,function
 AnmVm::SetEffectState,0x0045E6C0,function
 AnmInterpHelpers::BlendColorChannel,0x0045E750,function
-ApplyAnmVmRenderState,0x0045E770,function
+AnmDrawLeaf::ApplyState,0x0045E770,function
 FlushAnmSpriteBatch,0x0045EF60,function
+AnmDrawLeaf::AppendSprite,0x0045F040,function
 BuildAnmVmViewCornersMode0,0x0045F110,function
+AnmDrawLeaf::PixelAlignedSprite,0x0045F5D0,function
 BuildAnmVmViewCornersMode23,0x0045F610,function
+AnmDrawLeaf::UnrotatedSprite,0x0045FA10,function
 BuildAnmVmViewCornersMode1,0x0045FAD0,function
+AnmDrawLeaf::RotatedSprite,0x0045FD40,function
+AnmDrawLeaf::AlternateRotatedSprite,0x0045FD70,function
 DrawAnmVmVertices,0x00461A00,function
 AnmVm::Draw,0x00461B00,function
 BuildAnmVmViewCorners,0x00462070,function

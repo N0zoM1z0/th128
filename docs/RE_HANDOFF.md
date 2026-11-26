@@ -1,6 +1,6 @@
 # TH128 reconstruction handoff
 
-Snapshot: 2026-11-26 (natural ANM draw dispatcher; two fog matches; 25 synthetic-context exact rows withdrawn). Read this first, then AGENTS.md.
+Snapshot: 2026-11-26 (exact ANM render state and quad append; four real sprite wrappers). Read this first, then AGENTS.md.
 
 ## Resume safely
 
@@ -36,12 +36,12 @@ canonical ledgers. At this snapshot:
 | Boundary reviewed / provisional | 3,452 / 64 |
 | Origin rows pending | 21 |
 | Authored / excluded / indeterminate | 2,226 / 1,269 / 0 |
-| Source-present mappings | 391 |
-| Source-present with authored origin | 383 |
-| Authored source-present exact backlog | 86 |
-| Canonical exact functions | 305 |
-| Canonical exact codegen bytes | 19,277 |
-| Canonical exact authored bytes | 18,948 |
+| Source-present mappings | 396 |
+| Source-present with authored origin | 388 |
+| Authored source-present exact backlog | 89 |
+| Canonical exact functions | 307 |
+| Canonical exact codegen bytes | 19,831 |
+| Canonical exact authored bytes | 19,502 |
 
 The candidate inventory is not proven complete. The 21 remaining pending origin
 rows are unreferenced `d3dx9math.inl` candidates (all 16 CRT-band boundary-review
@@ -79,13 +79,43 @@ are not over-inlined; address-taken probe pointers prevent interprocedural
 
 ## Latest advance (2026-11-26)
 
+`AnmDrawLeaf::ApplyState` (`0x0045E770`, 416B) and `AppendSprite`
+(`0x0045F040`, 138B) now pass the canonical linked Oracle, adding two exact
+owners / 554 bytes. ApplyState uses the passed manager, rereads VM flags
+after flush, and controls MAG/MIN sampler filtering with SetSamplerState;
+the old one-VM approximation now delegates to it. Target-visible case order
+6 before 5 naturally recovers the complete code and seven-entry table.
+The quad append uses six struct assignments in TL/TR/BL, TR/BL/BR order,
+with a cursor reload before each copy; it has no address fields.
+
+Four real sprite wrappers and the initially zero shared transformed quad
+now have maintained source. The unrotated entry's stack order is manager
+then VM. All four wrappers remain rejected frontiers; submission at
+`0x0045E920` stays external. Its complete 1,532-byte extent, UV/color/cull
+paths and four-entry table are reviewed. FRNDINT follows the ambient x87
+rounding mode, so neither floor nor a fixed nearest-even replacement closes
+that source contract. See the [state/append finding](KNOWLEDGE_BASE.md#anm-sprite-state-quad-append-and-real-corner-wrappers-2026-11-26),
+[state replay](../.analysis/anm-sprite-state-canonical.json) and
+[append replay](../.analysis/anm-sprite-append-canonical.json).
+
+All 77 existing affected exact owners and the two new exact owners pass
+after 11 cold context builds. All 87 selected owners were compared; the
+remaining eight candidates still fail the complete-owner check (seven
+extent rejections and the draw-position helper's eight byte differences).
+No former caller credit was restored. See the
+[full results](../.analysis/anm-sprite-deps-current-results.json) and
+[final scope](../.analysis/anm-sprite-deps-final-scope.json).
+
+Previous draw checkpoint (`2263a9f`):
+
 `AnmVm::Draw` (`0x00461B00`) now has maintained source in `AnmDraw.cpp`,
 replacing the probes' volatile `flags ^ nextVmId` renderer. The helpers
 probe's fabricated binding results and the old unused one-argument draw
 approximation are also removed. Every linked manager/helper context now
 includes the real dispatcher; unknown leaf implementations stay external.
 Its 1,392-byte target includes 22/7-entry tables and 58 reviewed fields.
-The candidate is 1,324 bytes. The 108-byte draw-position helper still has
+That checkpoint candidate was 1,324 bytes; with the real wrappers it is
+now 1,348 bytes. The 108-byte draw-position helper still has
 eight ordinary X-addition operand-order differences; reversing its outer
 operands introduced GS and a 133-byte owner, so that variant was rejected.
 
@@ -583,8 +613,7 @@ callers remain frontiers as well.
 5. **Next useful command after the session identity checks**:
 
    ~~~bash
-   scripts/repo-python scripts/ghidra.py query \
-     .analysis/anm-sprite-batch-owner-review.txt review 0x0045E920
+   sed -n '1,260p' .analysis/anm-sprite-batch-decompile.txt
    ~~~
 
    The new dispatcher and small sprite wrappers are reviewed in
