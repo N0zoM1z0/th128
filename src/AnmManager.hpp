@@ -56,6 +56,7 @@ struct AnmManager
     int CleanupVm(AnmVm *vm);
     int UpdateWorldVms();
     int UpdateUiVms();
+    int OnTickWorldCallback();
     int OnTickUiCallback();
     int DrawVmGroup(unsigned int group);
     int DrawLayer0();

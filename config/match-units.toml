@@ -980,7 +980,7 @@ inputs = ["src/AnmVm.hpp", "src/ZunTimer.hpp"]
 object = "build/match/AnmVmTransitions.obj"
 profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc"]
 functions = ["AnmVm::SetEffectState"]
-symbol = "?SetEffectState@AnmVm@@QAEXIEEE@Z"
+symbol = "?SetEffectState@AnmVm@@QAEXIIEE@Z"
 target_address = 0x0045E6C0
 size = 133
 relocations = []
@@ -5975,4 +5975,92 @@ target_address = 0x0045E240
 size = 120
 linkages = [
   { offset = 84, type = "DIR32", symbol = "?g_TimeScale@@3MA", target = 0x004B6F58 },
+]
+
+[units.anm-manager-on-tick-world-callback]
+artifact_kind = "linked-pe"
+source = "src/AnmManager.cpp"
+inputs = ["src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp"]
+output_dir = "build/match-linked/AnmCore"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmManager::OnTickWorldCallback"]
+symbol = "?OnTickWorldCallback@AnmManager@@QAEHXZ"
+target_address = 0x00466690
+size = 46
+linkages = [
+  { offset = 3, type = "DIR32", symbol = "?g_AnmPauseState@@3PAUAnmPauseStateView@@A", target = 0x004B8954 },
+  { offset = 42, type = "REL32", symbol = "?UpdateWorldVms@AnmManager@@QAEHXZ", target = 0x00466AF0 },
+]
+
+[units.anm-manager-on-tick-ui-callback]
+artifact_kind = "linked-pe"
+source = "src/AnmManager.cpp"
+inputs = ["src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp"]
+output_dir = "build/match-linked/AnmCore"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmManager::OnTickUiCallback"]
+symbol = "?OnTickUiCallback@AnmManager@@QAEHXZ"
+target_address = 0x004666C0
+size = 7
+linkages = [
+  { offset = 3, type = "REL32", symbol = "?UpdateUiVms@AnmManager@@QAEHXZ", target = 0x00466BE0 },
+]
+
+[units.anm-manager-update-world-vms]
+frontier = true
+artifact_kind = "linked-pe"
+source = "src/AnmManager.cpp"
+inputs = ["src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp"]
+output_dir = "build/match-linked/AnmCore"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmManager::UpdateWorldVms"]
+symbol = "?UpdateWorldVms@AnmManager@@QAEHXZ"
+target_address = 0x00466AF0
+size = 229
+linkages = [
+  { offset = 14, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", addend = 1432, target = 0x004D2E60 },
+  { offset = 30, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", addend = 2288, target = 0x004D2E60 },
+  { offset = 36, type = "DIR32", symbol = "__imp__EnterCriticalSection@4", target = 0x0049A088 },
+  { offset = 42, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", addend = 2369, target = 0x004D2E60 },
+  { offset = 103, type = "REL32", symbol = "?CleanupVm@AnmManager@@QAEHPAUAnmVm@@@Z", target = 0x00466F60 },
+  { offset = 128, type = "REL32", symbol = "?CleanupVm@AnmManager@@QAEHPAUAnmVm@@@Z", target = 0x00466F60 },
+  { offset = 137, type = "REL32", symbol = "?Update@AnmVm@@QAEHXZ", target = 0x00459D90 },
+  { offset = 146, type = "REL32", symbol = "?CleanupVm@AnmManager@@QAEHPAUAnmVm@@@Z", target = 0x00466F60 },
+  { offset = 190, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", addend = 1432, target = 0x004D2E60 },
+  { offset = 201, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", addend = 2288, target = 0x004D2E60 },
+  { offset = 207, type = "DIR32", symbol = "__imp__LeaveCriticalSection@4", target = 0x0049A08C },
+  { offset = 213, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", addend = 2369, target = 0x004D2E60 },
+]
+
+[units.anm-manager-update-ui-vms]
+frontier = true
+artifact_kind = "linked-pe"
+source = "src/AnmManager.cpp"
+inputs = ["src/AnmManager.hpp", "src/AnmResource.hpp", "src/AnmVm.hpp", "src/ZunTimer.hpp", "src/Supervisor.hpp", "src/ThreadInf.hpp", "src/Chain.hpp", "src/AngleMath.hpp"]
+support_sources = ["src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp"]
+output_dir = "build/match-linked/AnmCore"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmManager::UpdateUiVms"]
+symbol = "?UpdateUiVms@AnmManager@@QAEHXZ"
+target_address = 0x00466BE0
+size = 246
+linkages = [
+  { offset = 11, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", addend = 1432, target = 0x004D2E60 },
+  { offset = 27, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", addend = 2288, target = 0x004D2E60 },
+  { offset = 33, type = "DIR32", symbol = "__imp__EnterCriticalSection@4", target = 0x0049A088 },
+  { offset = 39, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", addend = 2369, target = 0x004D2E60 },
+  { offset = 111, type = "REL32", symbol = "?CleanupVm@AnmManager@@QAEHPAUAnmVm@@@Z", target = 0x00466F60 },
+  { offset = 134, type = "REL32", symbol = "?Update@AnmVm@@QAEHXZ", target = 0x00459D90 },
+  { offset = 143, type = "REL32", symbol = "?CleanupVm@AnmManager@@QAEHPAUAnmVm@@@Z", target = 0x00466F60 },
+  { offset = 207, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", addend = 1432, target = 0x004D2E60 },
+  { offset = 218, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", addend = 2288, target = 0x004D2E60 },
+  { offset = 224, type = "DIR32", symbol = "__imp__LeaveCriticalSection@4", target = 0x0049A08C },
+  { offset = 230, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", addend = 2369, target = 0x004D2E60 },
 ]

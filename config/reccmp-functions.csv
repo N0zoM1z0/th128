@@ -191,6 +191,8 @@ AnmManager::AreAllAnmsLoaded,0x00465EE0,function
 AnmManager::ReleaseAnm,0x00465F20,function
 AnmResource::Release,0x00465F60,function
 AnmTextureEntry::Release,0x00466060,function
+AnmManager::OnTickWorldCallback,0x00466690,function
+AnmManager::OnTickUiCallback,0x004666C0,function
 AnmManager::DrawLayer0,0x004666D0,function
 AnmManager::DrawLayer1,0x004666E0,function
 AnmManager::DrawLayer2,0x004666F0,function
@@ -214,6 +216,8 @@ AnmManager::DrawLayer26,0x00466880,function
 AnmManager::DrawLayer25,0x00466890,function
 AnmManager::DrawLayer23,0x004668A0,function
 AnmManager::DrawLayer22,0x004668B0,function
+AnmManager::UpdateWorldVms,0x00466AF0,function
+AnmManager::UpdateUiVms,0x00466BE0,function
 AnmManager::DrawVmGroup,0x00466CE0,function
 AnmVm::RegisterWorldVmAtTail,0x00466D60,function
 AnmVm::RegisterWorldVmAtHead,0x00466DE0,function

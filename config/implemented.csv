@@ -99,8 +99,12 @@ AnmManager::DrawVmGroup
 AnmManager::GetVmById
 AnmManager::IsPoolVm
 AnmManager::MarkResourceVmsForDelete
+AnmManager::OnTickUiCallback
+AnmManager::OnTickWorldCallback
 AnmManager::ReleaseAnm
 AnmManager::StopVmById
+AnmManager::UpdateUiVms
+AnmManager::UpdateWorldVms
 AnmResource::AnmResource
 AnmResource::BindVmAtPosition
 AnmResource::BindVmScript

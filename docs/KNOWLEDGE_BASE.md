@@ -705,10 +705,13 @@ or copy order alone did not close them. These are compiler observations, not
 proof of the original C++ spelling. Separately, casting primary-effect mode
 to a byte and moving its zero-velocity stores preserved 133 bytes but did not
 match its prologue; those changes were reverted.
-Its mode formal is still `unsigned int` in the maintained header/source,
-while the inventory signature uses `unsigned char`. The target consumes the
-low stack byte; testing a byte formal is the next ABI hypothesis, not yet
-compiler evidence.
+A subsequent byte-formal probe was rejected: VC10 promotes mode to DL,
+producing a 132-byte owner ending in `RET 8`, whereas the target has three
+stack slots and `RET 12`. The maintained `unsigned int` formal and low-byte
+mask were restored. See the [byte-formal diagnostic](../.analysis/anm-effect-byte-formal-diff.txt).
+The inventory signature and frontier symbol now agree with the maintained
+`unsigned int` declaration; low-byte consumption alone does not prove the
+original formal type.
 
 Validation scope is the two new owners and the 81 existing exact units whose
 build contexts compile the changed transition source, Update caller or probe
@@ -721,6 +724,51 @@ contribution is 13,688 bytes versus the 13,604-byte target
 ([diagnostic](../.analysis/anm-transitions-20261126-update-consumer.json));
 this is a different context from `AnmVmUpdateBinding`. Update remains a
 frontier; these matches do not establish a runnable product.
+
+## ANM tick callbacks and internal update ABI (2026-11-26)
+
+The target takes the addresses of the Chain callbacks at `0x00466690`
+(46 bytes) and `0x004666C0` (7 bytes), which adapt ECX to the internal
+EAX manager argument and tail-call `UpdateWorldVms` (`0x00466AF0`) and
+`UpdateUiVms` (`0x00466BE0`). Directly taking the internal updates' addresses
+in the diagnostic probe prevented VC10 RTM `/O2 /Ob1 /Oy- /GL` from choosing
+that private ABI. Keeping the actual callbacks in the probe restores it
+without ABI annotations or unused arguments. Both callbacks now have exact
+linked-PE owner replays: the world owner has a DIR32 global-state field at
+`+3` -> `0x004B8954` and a REL32 tail jump at `+42` -> `0x00466AF0`;
+the UI owner has a REL32 tail jump at `+3` -> `0x00466BE0`. All 74 affected
+units passed [cold replay](../.analysis/anm-tick-callbacks-affected-replay.log)
+([selected units](../.analysis/anm-tick-callbacks-affected-units.json)).
+
+The [hash-attested span review](../.analysis/anm-tick-callbacks-20261126-span.txt)
+includes both callbacks and their intervening INT3 gap. The two external data
+references land exactly at the entries (`0x004638FD` -> `0x00466690`,
+`0x00463943` -> `0x004666C0`); neither callback has an external interior
+reference. The world callback reads the global pointer slot `0x004B8954`
+and flags at object `+0x60`. With a non-null state, it returns 1 without updating when
+`((flags | (flags >> 2)) & 1) && (flags & 2)`; otherwise it tail-calls world
+update. The UI callback always tail-calls UI update. `AnmPauseStateView` is
+only a view of these observed fields, not a recovered full game class.
+
+The [update-owner review](../.analysis/anm-manager-update-20261126-review.txt)
+shows contiguous 229/246-byte bodies, no tables or external interior entries,
+and INT3 following both. World update uses an extra-data callback's nonzero
+return to delete the VM; UI update ignores that return and still calls the
+VM update. UI resets the shared update count; world increments it.
+
+Clearing `tails[i]->drawListNext` after assigning `tails[i]` reproduces world
+initialization's base-pointer induction and shared zero register. The world
+candidate shrank from 243 to 229 bytes. Its remaining raw difference is the
+stack allocation (`0x84` candidate vs `0x8C` target), so it stays a frontier.
+No unused array slots or padding were added. The 246-byte UI candidate still
+schedules initial list-head clears and local tail stores differently. Aggregate
+array initialization and caching the initial list node did not help; clearing
+heads indirectly produced 240 bytes. Those UI experiments were reverted.
+Both frontier units declare every reviewed address field for full owner replay:
+the [world result](../.analysis/anm-manager-update-world-frontier.json) replays
+12 fields and differs only at `+8`; the
+[UI result](../.analysis/anm-manager-update-ui-frontier.json) replays 11 fields
+and has 31 raw differences in `+43..+75`. Neither grants exact credit.
 
 ## Open questions
 

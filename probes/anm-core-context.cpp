@@ -7,6 +7,9 @@
 Supervisor g_Supervisor;
 AnmManager *g_AnmManager = 0;
 
+struct AnmPauseStateView;
+AnmPauseStateView *g_AnmPauseState = 0;
+
 struct AnmD3DDeviceView;
 AnmD3DDeviceView *g_D3DDevice = 0;
 
@@ -68,7 +71,7 @@ extern "C" void __stdcall AnmCoreProbe(
     m1->DrawVmGroup((unsigned int)slot);
     m2->DrawVmGroup((unsigned int)(slot + 1));
     static int (AnmManager::*const kLayers[])() = {
-        &AnmManager::UpdateWorldVms, &AnmManager::UpdateUiVms, &AnmManager::OnTickUiCallback,
+        &AnmManager::OnTickWorldCallback, &AnmManager::OnTickUiCallback,
         &AnmManager::DrawLayer0,
         &AnmManager::DrawLayer1, &AnmManager::DrawLayer2, &AnmManager::DrawLayer3,
         &AnmManager::DrawLayer5, &AnmManager::DrawLayer6, &AnmManager::DrawLayer7,

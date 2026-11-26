@@ -105,6 +105,14 @@ extern AnmD3DDeviceView *g_D3DDevice;
 extern int __stdcall DrawAnmVmWithManager(AnmVm *vm, AnmManager *manager);
 extern AnmResource *__stdcall LoadAnmSlot(AnmManager *manager, int slot, const char *filename);
 
+struct AnmPauseStateView
+{
+    unsigned char unknown000[0x60];
+    unsigned int flags;
+};
+
+extern AnmPauseStateView *g_AnmPauseState;
+
 AnmVm *AnmManager::GetVmById(unsigned int id)
 {
     if (id == 0)
@@ -433,7 +441,7 @@ int AnmManager::UpdateWorldVms()
     for (int i = 0; i < 31; ++i)
     {
         tails[i] = &renderListHeads[i];
-        renderListHeads[i].drawListNext = 0;
+        tails[i]->drawListNext = 0;
     }
 
     for (AnmVmListNode *node = worldVms; node != 0;)
@@ -540,6 +548,18 @@ int AnmManager::DrawVmGroup(unsigned int group)
 
     g_Supervisor.LeaveCriticalSection(9);
     return 1;
+}
+
+int AnmManager::OnTickWorldCallback()
+{
+    AnmPauseStateView *pause = g_AnmPauseState;
+    if (pause != 0 &&
+        ((pause->flags | (pause->flags >> 2)) & 1U) != 0 &&
+        (pause->flags & 2U) != 0)
+    {
+        return 1;
+    }
+    return UpdateWorldVms();
 }
 
 int AnmManager::OnTickUiCallback() { return UpdateUiVms(); }

@@ -2005,8 +2005,8 @@ address,span_end,state,confidence,evidence_id,notes
 0x00466370,0x00466430,reviewed,high,bdesc-exact,start padding; refs callx3; descent body 0x00466370..0x00466430 (193 bytes) ends with ret; then padding-then-start 0x00466440
 0x00466440,0x00466587,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x00466440..0x00466587 (328 bytes) ends with ret; then padding-then-start 0x00466590; WEAK: no call, jump, pointer or vtable reference found"
 0x00466590,0x00466682,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x00466590..0x00466682 (243 bytes) ends with ret; then padding-then-start 0x00466690; WEAK: no call, jump, pointer or vtable reference found"
-0x00466690,0x004666BD,reviewed,high,bnew-referenced,found by padded-aligned; start padding; refs immx1; descent body 0x00466690..0x004666BD (46 bytes) ends with jmp; then padding-then-start 0x004666C0
-0x004666C0,0x004666C6,reviewed,high,bnew-referenced,found by padded-aligned; start padding; refs immx1; descent body 0x004666C0..0x004666C6 (7 bytes) ends with jmp; then padding-then-start 0x004666D0
+0x00466690,0x004666BD,reviewed,high,anm-manager-on-tick-world-callback-boundary,"46-byte owner 0x00466690..0x004666BD, two ordinary return/tail paths; following INT3 gap at 0x004666BE..BF; incoming callback data reference at 0x004638FD; no references into its interior."
+0x004666C0,0x004666C6,reviewed,high,anm-manager-on-tick-ui-callback-boundary,"7-byte owner 0x004666C0..0x004666C6: MOV EAX,ECX then JMP 0x00466BE0; incoming callback data reference at 0x00463943; following INT3 padding and no references into its interior."
 0x004666D0,0x004666DB,reviewed,high,bnew-referenced,found by padded-aligned; start padding; refs immx1; descent body 0x004666D0..0x004666DB (12 bytes) ends with ret; then padding-then-start 0x004666E0
 0x004666E0,0x004666EE,reviewed,high,bnew-referenced,found by padded-aligned; start padding; refs immx1; descent body 0x004666E0..0x004666EE (15 bytes) ends with ret; then padding-then-start 0x004666F0
 0x004666F0,0x004666FE,reviewed,high,bnew-referenced,found by padded-aligned; start padding; refs immx1; descent body 0x004666F0..0x004666FE (15 bytes) ends with ret; then padding-then-start 0x00466700
@@ -2036,8 +2036,8 @@ address,span_end,state,confidence,evidence_id,notes
 0x00466980,0x00466A04,reviewed,high,bnew-referenced,found by padded-aligned; start padding; refs immx1; descent body 0x00466980..0x00466A04 (133 bytes) ends with ret; then padding-then-start 0x00466A10
 0x00466A10,0x00466A59,reviewed,high,bnew-referenced,found by padded-aligned; start padding; refs immx1; descent body 0x00466A10..0x00466A59 (74 bytes) ends with ret; then padding-then-start 0x00466A60
 0x00466A60,0x00466AE4,reviewed,high,bnew-referenced,found by padded-aligned; start padding; refs immx1; descent body 0x00466A60..0x00466AE4 (133 bytes) ends with ret; then padding-then-start 0x00466AF0
-0x00466AF0,0x00466BD4,reviewed,high,bdesc-exact,start padding; refs jmpx1; descent body 0x00466AF0..0x00466BD4 (229 bytes) ends with ret; then padding-then-start 0x00466BE0
-0x00466BE0,0x00466CD5,reviewed,high,bdesc-exact,start padding; refs jmpx1; descent body 0x00466BE0..0x00466CD5 (246 bytes) ends with ret; then padding-then-start 0x00466CE0
+0x00466AF0,0x00466BD4,reviewed,high,anm-manager-update-world-vms-boundary,"Complete hash-attested contiguous owner 0x00466AF0..0x00466BD4 (229 bytes), no external interior references or tables, following INT3 padding, reached by world callback tail jump."
+0x00466BE0,0x00466CD5,reviewed,high,anm-manager-update-ui-vms-boundary,"Complete hash-attested contiguous owner 0x00466BE0..0x00466CD5 (246 bytes), no external interior references or tables, following INT3 padding, reached by UI callback tail jump."
 0x00466CE0,0x00466D5D,reviewed,high,bdesc-exact,start padding; refs callx33; descent body 0x00466CE0..0x00466D5D (126 bytes) ends with ret; then padding-then-start 0x00466D60
 0x00466D60,0x00466DDB,reviewed,high,anm-manager-register-world-tail-boundary,Hash-attested 124-byte body at 0x00466D60..0x00466DDB; 15 direct callers; RET before 0x00466DE0.
 0x00466DE0,0x00466E56,reviewed,high,anm-manager-register-world-head-boundary,Hash-attested 119-byte body at 0x00466DE0..0x00466E56; 5 direct callers; RET before 0x00466E60.

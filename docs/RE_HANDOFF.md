@@ -1,6 +1,6 @@
 # TH128 reconstruction handoff
 
-Snapshot: 2026-11-26 (Phases 0–2 complete; ANM color transitions closed). Read this first, then AGENTS.md.
+Snapshot: 2026-11-26 (Phases 0–2 complete; ANM color transitions and tick callbacks closed). Read this first, then AGENTS.md.
 
 ## Resume safely
 
@@ -36,12 +36,12 @@ canonical ledgers. At this snapshot:
 | Boundary reviewed / provisional | 3,452 / 64 |
 | Origin rows pending | 21 |
 | Authored / excluded / indeterminate | 2,226 / 1,269 / 0 |
-| Source-present mappings | 350 |
-| Source-present with authored origin | 342 |
-| Authored source-present exact backlog | 45 |
-| Canonical exact functions | 305 |
-| Canonical exact codegen bytes | 17,575 |
-| Canonical exact authored bytes | 17,246 |
+| Source-present mappings | 354 |
+| Source-present with authored origin | 346 |
+| Authored source-present exact backlog | 47 |
+| Canonical exact functions | 307 |
+| Canonical exact codegen bytes | 17,628 |
+| Canonical exact authored bytes | 17,299 |
 
 The candidate inventory is not proven complete. The 21 remaining pending origin
 rows are unreferenced `d3dx9math.inl` candidates (all 16 CRT-band boundary-review
@@ -88,17 +88,42 @@ three-integer color snapshots; both Update callers and the probe preserve
 their endpoint roles. The two new owners and 81 existing dependent exact
 units all passed cold replay. See the [color snapshot finding](KNOWLEDGE_BASE.md#anm-color-snapshot-and-parameter-order-2026-11-26).
 
-Next useful scope: `SetEffectState` (`0x0045E6C0`, 133 bytes), whose remaining
-frontier is the mode/endpoint prologue scheduling. Byte casts and moving the
-zero velocity stores did not close it; those experiments were reverted.
-Next hypothesis: its mode formal is still `unsigned int`, whereas the target
-consumes a stack byte and the inventory signature already uses `unsigned char`.
-`AnmVm::Update` remains a frontier.
+`OnTickWorldCallback` (`0x00466690`, 46 bytes) and `OnTickUiCallback`
+(`0x004666C0`, 7 bytes) are now exact as well (+2 functions, +53 bytes).
+The world callback honors the flags at state `+0x60` before tail-calling
+world update; UI always tail-calls UI update. Keeping these actual callbacks
+in the probe, instead of taking the internal updates' addresses, restores
+the target's private EAX manager input naturally. All 74 affected exact
+units passed cold replay. See the [tick callback finding](KNOWLEDGE_BASE.md#anm-tick-callbacks-and-internal-update-abi-2026-11-26).
 
-Replay the new owners with:
+Current focused frontiers:
+
+- `UpdateWorldVms`: complete 229-byte owner with all 12 address fields
+  replayed; one raw difference at `+8` (`sub esp, 0x84` vs target `0x8C`).
+  Resolve the frame/TU context without unused slots or padding.
+- `UpdateUiVms`: complete 246-byte owner, all 11 address fields replayed;
+  31 differing bytes in the initial head-clear/tail-store scheduling.
+- `SetEffectState`: the byte-formal hypothesis was rejected (132 bytes,
+  mode in DL, `RET 8` vs target 133 bytes / three stack slots / `RET 12`).
+  The unsigned-int formal and mask are retained; its frontier symbol and
+  inventory signature now agree with the source.
+
+Both internal updates now have source mappings and explicit linked frontier
+units. Reproduce the world frontier (expected mismatch, no exact credit):
 
 ```bash
-scripts/repo-python scripts/replay-exact-units.py --unit anm-vm-set-color-transition --unit anm-vm-set-secondary-color-transition
+scripts/repo-python scripts/build-match-unit.py --unit anm-manager-update-world-vms
+scripts/repo-python scripts/compare-linked-function.py --unit anm-manager-update-world-vms
+```
+
+`AnmVm::Update` remains a frontier.
+
+Replay the color and tick callback owners with:
+
+```bash
+scripts/repo-python scripts/replay-exact-units.py \
+  --unit anm-vm-set-color-transition --unit anm-vm-set-secondary-color-transition \
+  --unit anm-manager-on-tick-world-callback --unit anm-manager-on-tick-ui-callback
 ```
 
 ## Active reconstruction: AnmVm
@@ -210,7 +235,7 @@ Primary evidence:
 | src/AnmVmEffects.cpp | render-state sync, world matrices, sprite/fog/primitive draw paths, effect 10 | 5 exact normal-COFF owners; renderer paths frontier |
 | src/AnmVmOperands.cpp | four operand resolver owners (`0x00459900..0x00459CE0`) | 4/4 exact (linked PE) |
 | src/AnmVmResource.cpp | `NormalizeAnmCoordinates` (`0x00459D50`) | exact (linked PE) |
-| src/AnmManager.cpp | VM lookup, allocation, list cleanup, draw grouping, `FlushSpriteBatch`, 23 `DrawLayer*` callbacks | 31 exact (linked PE); `UpdateWorldVms`/`UpdateUiVms`/`PreloadAnm`/`StopVmById` frontiers |
+| src/AnmManager.cpp | VM lookup, allocation, list cleanup, draw grouping, tick callbacks, `FlushSpriteBatch`, 23 `DrawLayer*` callbacks | 33 exact (linked PE); `UpdateWorldVms`/`UpdateUiVms`/`PreloadAnm`/`StopVmById` frontiers |
 | src/AnmResource.cpp | `AnmResource::AnmResource`, `Release`, `AnmTextureEntry::Release`, `CreateVm` | 3 exact (linked PE); `CreateVm` frontier |
 | src/AnmHelpers.cpp | `ResolveAnmVmId` and 31 `AnmId`/VM/child/rotation/draw helpers (`0x00467570..0x00468100`) | 32 exact (linked PE); `ClearD3DTexture*` frontiers |
 | src/AnmInterp.cpp | `AnmInterp<T>` template (`AnmColor3`/`float`/`int`/`ZunVec2`) and vector/angle/color helpers (`0x0045D330..0x0045E76F`) | 39 exact (linked PE) + frontiers |
@@ -228,9 +253,9 @@ has an accepted exact owner replay yet.
 
 ### Exact ANM owners
 
-`config/matches.csv` now contains **131 exact ANM-area owners** across the
+`config/matches.csv` now contains **133 exact ANM-area owners** across the
 modules above (6 setters/ctor, 5 effect-table owners, 4 operand resolvers,
-`NormalizeAnmCoordinates`, 5 script/easing/timer helpers, 31 `AnmManager`,
+`NormalizeAnmCoordinates`, 5 script/easing/timer helpers, 33 `AnmManager`,
 3 `AnmResource`/`AnmTextureEntry`, 32 `AnmHelpers`, 39 `AnmInterp`, and
 5 `AnmVmTransitions`). Do not expand this list from source presence or
 successful compilation; only accepted rows in `config/matches.csv` count as
