@@ -37,7 +37,15 @@ struct AnmArchiveSprite
     float height;
 };
 
-struct AnmEmbeddedTexture;
+struct AnmEmbeddedTexture
+{
+    unsigned char signature[4];
+    unsigned short unknown004;
+    short format;                          // +0x06
+    short width;                           // +0x08
+    short height;                          // +0x0A
+    unsigned int unknown00C;
+};
 
 // One resolved sprite occupies 0x48 bytes.
 struct AnmFileEntry
@@ -69,13 +77,13 @@ struct AnmTextureEntry
     void *texture;        // +0x00 (IDirect3DTexture9 *)
     void *rawData;        // +0x04
     unsigned int rawDataSize; // +0x08
-    unsigned int field0C; // +0x0C
-    unsigned int field10; // +0x10
+    unsigned int bytesPerPixel; // +0x0C
+    unsigned int flags;   // +0x10, bit 0 marks a render-target texture
 
     void Release();
-    int LoadExternalTexture(int format, int width, int height, int offsetX, int offsetY);
-    int LoadEmbeddedTexture(const AnmEmbeddedTexture *data, int format, int width, int height);
-    int CreateEmptyTexture(int width, int height, int format);
+    int LoadExternalTexture(int format, unsigned int width, unsigned int height, int offsetX, int offsetY);
+    int LoadEmbeddedTexture(const AnmEmbeddedTexture *data, int format, unsigned int width, unsigned int height);
+    int CreateEmptyTexture(unsigned int width, unsigned int height, int format);
     int CreateRenderTarget();
 };
 typedef char AnmTextureEntrySize[(sizeof(AnmTextureEntry) == 0x14) ? 1 : -1];

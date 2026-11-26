@@ -1,6 +1,6 @@
 # TH128 reconstruction handoff
 
-Snapshot: 2026-11-26 (resolved ANM sprites exact; finalization and scheduler source). Read this first, then AGENTS.md.
+Snapshot: 2026-11-26 (ANM texture creation and pending scheduler exact; shared D3D9 device view). Read this first, then AGENTS.md.
 
 ## Resume safely
 
@@ -36,12 +36,12 @@ canonical ledgers. At this snapshot:
 | Boundary reviewed / provisional | 3,452 / 64 |
 | Origin rows pending | 21 |
 | Authored / excluded / indeterminate | 2,226 / 1,269 / 0 |
-| Source-present mappings | 362 |
-| Source-present with authored origin | 354 |
-| Authored source-present exact backlog | 48 |
-| Canonical exact functions | 314 |
-| Canonical exact codegen bytes | 19,033 |
-| Canonical exact authored bytes | 18,704 |
+| Source-present mappings | 366 |
+| Source-present with authored origin | 358 |
+| Authored source-present exact backlog | 49 |
+| Canonical exact functions | 317 |
+| Canonical exact codegen bytes | 19,312 |
+| Canonical exact authored bytes | 18,983 |
 
 The candidate inventory is not proven complete. The 21 remaining pending origin
 rows are unreferenced `d3dx9math.inl` candidates (all 16 CRT-band boundary-review
@@ -136,13 +136,15 @@ mixed wrapper consumer also builds. See the [binding finding](KNOWLEDGE_BASE.md#
 Current focused frontiers:
 
 - `FinalizeNextEntry` (`0x00465770`): complete target 1,000 bytes, current
-  source 831 bytes. Its integer-only log call disappears, stack alignment
-  differs, and the source receives the resource in ESI instead of ECX.
-  Implement the four reviewed texture operations before closing this context.
-- `ProcessPendingAnms` (`0x00465E50`): complete 140-byte owner and all four
-  fields replay; one ordinary-byte difference at `+0x73`, ESI instead of
-  ECX when forwarding the finalizer's resource. The signed slot / unsigned
-  array-count bound now reproduces both target range checks.
+  source 887 bytes with the real GPU definitions. Its resource input now
+  uses ECX, closing the scheduler below; the full finalizer still differs.
+- `LoadExternalTexture` (`0x00464FD0`): source 477 vs 511 bytes. Its format
+  lifetime, extra promoted origin input, frame and integer-only logging
+  differ. An in-place-format probe still gives 477 bytes and `RET 12`
+  instead of the target's `RET 16`; the verified source is retained.
+- `LoadEmbeddedTexture` (`0x004651D0`): full 296-byte extent and 13 fields
+  replay, with 16 raw differences in the failure epilogue and final product.
+  Dimension signedness, release expansion and an accumulator did not close it.
 - `LoadAnm` (`0x004653F0`): the real 515-byte first-stage loader now has
   source and a linked frontier unit. The candidate is 511 bytes; the
   target retains a loop-top null test instead of the candidate's rotated
@@ -207,12 +209,29 @@ assignments reproduce its complete owner with no address fields. The raw
 and resolved sprite layouts now name pixel bounds, actual texture sizes,
 UV bounds, logical sizes and scaling ratios. Both `FinalizeNextEntry` and
 `ProcessPendingAnms` have maintained source in `AnmFinalization.cpp`.
-The four texture methods at `0x00464FD0`, `0x004651D0`, `0x00465300`
-and `0x00465350` are still
-declarations, and the separate 746-byte entry finalizer remains unimplemented.
+The four texture methods now have source in `AnmTextureLoading.cpp`.
+The separate 746-byte entry finalizer remains unimplemented.
 See the [resolved-sprite finding](KNOWLEDGE_BASE.md#anm-resolved-sprites-and-finalization-array-bounds-2026-11-26)
 and [final comparison](../.analysis/anm-finalization-current-input-final.log)
 (130/130 exact units passed in ten cold-built contexts).
+
+`CreateEmptyTexture` (`0x00465300`, 70 bytes) and `CreateRenderTarget`
+(`0x00465350`, 69 bytes) now replay exactly, each with five reviewed fields.
+Both use the pinned SDK interfaces and the actual Supervisor device view.
+The batching path's duplicate device storage and 90-slot placeholder view
+are removed; its six device fields now bind through `g_Supervisor + 16`.
+With all four texture definitions present, `ProcessPendingAnms`
+(`0x00465E50`, 140 bytes, four fields) also becomes exact naturally.
+These add three functions and 279 bytes. `SetSprite` remains exact.
+See the [GPU/state finding](KNOWLEDGE_BASE.md#anm-gpu-texture-loading-and-shared-graphics-state-2026-11-26)
+and [canonical comparison](../.analysis/anm-gpu-canonical-final-compare.log)
+(189 units across 19 cold-built contexts).
+
+External texture loading still calls the unimplemented 1,774-byte
+`FillTransparentTextureColors` at `0x004645F0`. It repairs transparent
+pixels' RGB from nontransparent neighbors; it does not free the CPU file buffer.
+The presentation block at `0x004D2F5C` is passed to device `Reset`; the
+legacy cursor/windowed field at `0x004D2F7C` corresponds to its `Windowed`.
 
 Replay the recent ANM exact owners with:
 
@@ -223,7 +242,9 @@ scripts/repo-python scripts/replay-exact-units.py \
   --unit anm-manager-update-ui-vms --unit anm-manager-stop-vm-by-id \
   --unit anm-vm-spawn-child-at-position --unit anm-manager-get-vm-by-id \
   --unit anm-resource-bind-vm-script --unit anm-resource-bind-vm-at-position \
-  --unit anm-manager-preload-anm --unit anm-resource-set-sprite
+  --unit anm-manager-preload-anm --unit anm-resource-set-sprite \
+  --unit anm-manager-process-pending-anms --unit anm-texture-create-empty \
+  --unit anm-texture-create-render-target
 ```
 
 ## Active reconstruction: AnmVm
@@ -338,7 +359,8 @@ Primary evidence:
 | src/AnmVmResource.cpp | `NormalizeAnmCoordinates` (`0x00459D50`) | exact (linked PE) |
 | src/AnmManager.cpp | VM lookup, allocation, list cleanup, draw grouping, tick callbacks, `FlushSpriteBatch`, preload, 23 `DrawLayer*` callbacks | 36 exact (linked PE), including `UpdateUiVms`, `StopVmById` and `PreloadAnm`; `UpdateWorldVms`/`SetInterruptAndUpdate` frontiers |
 | src/AnmLoading.cpp | first-stage ANM load, external texture caching, inline resource constructor contribution | constructor exact (linked PE); loader/cache frontiers |
-| src/AnmFinalization.cpp | resolved sprite installation, one-entry finalization and pending-resource scheduler | `SetSprite` exact (145B); finalization/scheduler frontiers; GPU callees not implemented |
+| src/AnmFinalization.cpp | resolved sprite installation, one-entry finalization and pending-resource scheduler | `SetSprite` (145B) and scheduler (140B) exact; finalizer frontier |
+| src/AnmTextureLoading.cpp | external decoding/cropping, embedded upload, empty texture and render-target creation | creation owners exact (70B/69B); two loader frontiers; transparent-color repair still external |
 | src/AnmResource.cpp | `Release`, `AnmTextureEntry::Release`, `CreateVm` | 2 exact (linked PE); `CreateVm` frontier |
 | src/AnmVmUpdateWrapper.cpp | manager binding update wrapper (`0x00407080`) | 20-byte target frontier; 5-byte GL body, 15-byte normal-COFF body |
 | src/AnmHelpers.cpp | `ResolveAnmVmId` and 31 `AnmId`/VM/child/rotation/draw helpers (`0x00467570..0x00468100`) | 32 exact (linked PE); `ClearD3DTexture*` frontiers |
@@ -357,10 +379,10 @@ has an accepted exact owner replay yet.
 
 ### Exact ANM owners
 
-`config/matches.csv` now contains **140 exact ANM-area owners** across the
+`config/matches.csv` now contains **143 exact ANM-area owners** across the
 modules above (6 setters/ctor, 5 effect-table owners, 4 operand resolvers,
-`NormalizeAnmCoordinates`, 8 script/binding/child/easing/timer owners, 36 `AnmManager`,
-4 `AnmResource`/`AnmTextureEntry`, 32 `AnmHelpers`, 39 `AnmInterp`, and
+`NormalizeAnmCoordinates`, 8 script/binding/child/easing/timer owners, 37 `AnmManager`,
+6 `AnmResource`/`AnmTextureEntry`, 32 `AnmHelpers`, 39 `AnmInterp`, and
 5 `AnmVmTransitions`). Do not expand this list from source presence or
 successful compilation; only accepted rows in `config/matches.csv` count as
 exact.
@@ -376,12 +398,12 @@ callers remain frontiers as well.
 
 ## Next useful work (Phase 3+)
 
-1. **Close ANM finalization dependencies**: reconstruct `CreateEmptyTexture`
-   (`0x00465300`, 70B), `CreateRenderTarget` (`0x00465350`, 69B), external
-   decoding (`0x00464FD0`, 511B) and embedded upload (`0x004651D0`, 296B).
-   Their target/decompiler evidence and format-table addresses are linked
-   in the resolved-sprite finding. Then revisit the 1,000-byte finalizer
-   and one-byte scheduler frontier, plus the loader/cache pair
+1. **Close ANM finalization dependencies**: reconstruct transparent-color
+   repair (`0x004645F0`, 1,774B, including physical tables) and resolve
+   the external decoder (`0x00464FD0`, 511B) / embedded uploader
+   (`0x004651D0`, 296B) frontiers. The format-parameter lifetime probe and
+   GPU/state finding retain useful measurements. Then revisit the
+   1,000-byte finalizer and the loader/cache pair
    (`0x004653F0`, 515B / `0x00465680`, 231B).
    Other focused frontiers are `UpdateWorldVms` (`0x00466AF0`),
    the binding update wrapper (`0x00407080`, 20B), `CreateVm` (`0x004670B0`),
@@ -400,7 +422,7 @@ callers remain frontiers as well.
 
    ~~~bash
    scripts/repo-python scripts/ghidra.py query \
-     .analysis/anm-next-texture-creation-review.txt review 0x00465300 0x00465350
+     .analysis/anm-transparent-colors-complete-span.txt review_span 0x004645F0 0x00464CDD
    ~~~
 
 ## Workflow and constraints

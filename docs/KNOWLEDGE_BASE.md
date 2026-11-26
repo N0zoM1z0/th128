@@ -1225,6 +1225,123 @@ constructor, helpers and effect callbacks.
 [final comparison](../.analysis/anm-finalization-current-input-final.log),
 [selected units](../.analysis/anm-finalization-affected-units.json).
 
+## ANM GPU texture loading and shared graphics state (2026-11-26)
+
+For Japanese TH128 v1.00a and pinned VC10 RTM `/O2 /Ob1 /Oy- /GL`,
+`AnmTextureLoading.cpp` now implements the four reviewed texture operations.
+Empty-texture and render-target creation now replay exactly as complete
+70/69-byte primary-TU owners, each with five reviewed address fields.
+[Empty-texture replay](../.analysis/anm-texture-create-empty-final-exact.json),
+[render-target replay](../.analysis/anm-texture-create-render-target-final-exact.json).
+[Initial observations](../.analysis/anm-gpu-textures-first-observations.txt),
+[complete creation/target review](../.analysis/anm-texture-creation-and-cpu-release-review.txt).
+
+Empty texture creation clears flag bit 0, requests one managed mip level
+through `D3DXCreateTexture`, ignores HRESULT, stores the format byte count,
+and returns requested width times height times bytes per pixel. Render-target
+creation sets bit 0 and calls device slot `+0x5C` using the current back-buffer
+dimensions and format. It also ignores HRESULT and returns zero; its stored
+byte count is four only for format 22, otherwise two. These unusual failure
+and accounting paths are retained.
+
+The external-file loader selects the 16-bit fallback, decodes the cached
+raw file, and adopts the decoded texture when requested and actual
+dimensions agree. That branch ignores the origin offsets. Otherwise it
+creates a destination texture with mip count zero, clips a signed source
+rectangle to the decoded dimensions, and copies the surface. Initial decode
+failure returns -1; destination creation status is ignored, and copy failure
+only logs. Temporary surfaces and the temporary source texture are released
+in target order. CPU file data stays owned by the texture entry.
+
+The embedded path uses a 16-byte payload header: signed format, width and
+height at `+6/+8/+0xA`, followed by pixels at `+0x10`. The pitch uses payload
+width and payload format's byte count, while the destination format can
+use the configured fallback. The same rectangle is supplied as source and
+destination bounds. Only texture-creation failure returns -1; the upload
+HRESULT is ignored. The texture fields at `+0x0C/+0x10` are now named
+`bytesPerPixel` and `flags`.
+[Complete loader review](../.analysis/anm-sprite-and-texture-helpers-review.txt).
+
+The Windows 7.0A SDK already present in the pinned toolchain supplies the
+actual D3D9 interfaces. Four D3DX declarations are maintained separately;
+their standard ABI was checked against Microsoft's
+[creation](https://learn.microsoft.com/en-us/windows/win32/direct3d9/d3dxcreatetexture),
+[file decoder](https://learn.microsoft.com/en-us/windows/win32/direct3d9/d3dxcreatetexturefromfileinmemoryex),
+[surface copy](https://learn.microsoft.com/en-us/windows/win32/direct3d9/d3dxloadsurfacefromsurface)
+and [memory upload](https://learn.microsoft.com/en-us/windows/win32/direct3d9/d3dxloadsurfacefrommemory)
+documentation. TH128 parameters and behavior come from the local target,
+including its literal filter/mip settings and nonzero HRESULT tests.
+
+The source's separate `g_D3DDevice` storage and 90-slot placeholder interface
+are removed. Sprite batching and texture creation now use
+`g_Supervisor.d3dDevice` at physical `+0x10` (`0x004D2E70`) and actual SDK
+interfaces. Existing batching bindings point to the same target address
+through `g_Supervisor + 16`. Back-buffer dimensions/format occupy physical
+`+0xFC/+0x100/+0x104`, and the fallback flag byte is `+0x208`.
+This extends the maintained physical view without proving original C++
+class or TU ownership.
+
+The target passes `0x004D2F5C` directly to device slot `+0x40` at
+`0x00454B60` and `0x00453E7A`. With the SDK's `IDirect3DDevice9::Reset`
+signature this identifies a `D3DPRESENT_PARAMETERS` block there. Its
+`Windowed` field is at `+0x20`, or `0x004D2F7C`, matching the maintained
+Supervisor field formerly described as cursor visibility/windowed mode.
+Recover the whole parameter block when continuing Supervisor work.
+[Exact call-site review](../.analysis/anm-presentation-parameters-exact-call-review.txt),
+[field references](../.analysis/anm-graphics-presentation-field-xrefs.txt).
+
+Two loader owners remain frontiers. The external decoder is 477 vs 511
+bytes. The embedded uploader has all 296 bytes and 13 address fields, but
+16 ordinary bytes differ: failure-tail OR/POP scheduling and the order of
+the final multiplications. Signed versus unsigned dimension formals,
+expanding the release helper and spelling out the size accumulator all
+generated the same remaining differences. The API-facing dimensions are
+maintained as unsigned; this does not recover the original source types.
+The final source keeps the concise release helper and product expression.
+[Signed baseline](../.analysis/anm-gpu-textures-first-observations.txt),
+[unsigned control](../.analysis/anm-gpu-unsigned-dimensions-observations.txt),
+[flat-release control](../.analysis/anm-gpu-flat-release-observations.txt),
+[accumulator control](../.analysis/anm-gpu-size-accumulator-observations.txt),
+[embedded diagnostic](../.analysis/anm-texture-load-embedded-first-diff.txt).
+
+The external candidate also promotes the X origin into ECX and returns
+with `RET 12`, while the target leaves both origins on the stack and uses
+`RET 16`. Its extra format local initially looked relevant: the target keeps
+the effective format in EBX, where the candidate keeps the promoted origin.
+A separate cold probe that mutates the format formal directly still emits
+477 bytes, the same promotion and `RET 12`. The verified source is retained.
+[In-place-format probe](../.analysis/anm-gpu-inplace-format-probe.py),
+[observations](../.analysis/anm-gpu-inplace-format-observations.txt).
+
+The external decoder calls `0x004645F0` after GPU creation. This is a
+1,774-byte transparent-pixel RGB repair operation, not CPU buffer release:
+it locks texture level zero and fills transparent pixels' color channels
+from nontransparent orthogonal neighbors in several packed formats, then
+unlocks and releases the surface. The embedded path does not call it.
+`FillTransparentTextureColors` remains a declared dependency; no source
+mapping or exact credit is assigned to that helper yet.
+[Postprocess hypothesis](../.analysis/anm-texture-postprocess-hypothesis.txt),
+[entry/callers](../.analysis/anm-texture-creation-and-cpu-release-review.txt).
+
+With the four real texture definitions in the link, `FinalizeNextEntry`
+is now 887 vs 1,000 bytes and its resource input is naturally ECX.
+`ProcessPendingAnms` consequently closes all 140 bytes and four fields,
+including the previously differing receiver-forwarding byte at `+0x73`.
+This adds a third exact owner (+140 bytes) without a register hint or ABI
+shim. The exact sprite installer stays unchanged. The finalizer still has
+extensive differences and the external postprocess dependency remains open.
+[Scheduler replay](../.analysis/anm-scheduler-with-real-gpu-frontier.json),
+[owner observations](../.analysis/anm-finalization-with-real-gpu-observations.txt).
+
+The Supervisor header, device-use changes and real texture definitions
+affect 186 existing exact units. They and the two creation candidates all
+passed in 19 cold compilation contexts. The newly closed scheduler is
+included in the final canonical comparison: all 189 units passed. No further
+cold build is needed for unchanged executable inputs.
+[Cold comparison](../.analysis/anm-gpu-final-replay.log),
+[canonical comparison](../.analysis/anm-gpu-canonical-final-compare.log),
+[selected units](../.analysis/anm-gpu-canonical-affected-units.json).
+
 ## Open questions
 
 - Per-unit flags, the TU partition, which objects were `/GL`, the library set

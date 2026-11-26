@@ -4388,13 +4388,13 @@ target_address = 0x0045EF60
 size = 213
 linkages = [
   { offset = 14, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
-  { offset = 28, type = "DIR32", symbol = "?g_D3DDevice@@3PAUAnmD3DDeviceView@@A", target = 0x004D2E70 },
-  { offset = 50, type = "DIR32", symbol = "?g_D3DDevice@@3PAUAnmD3DDeviceView@@A", target = 0x004D2E70 },
+  { offset = 28, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", addend = 16, target = 0x004D2E60 },
+  { offset = 50, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", addend = 16, target = 0x004D2E60 },
   { offset = 72, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
-  { offset = 84, type = "DIR32", symbol = "?g_D3DDevice@@3PAUAnmD3DDeviceView@@A", target = 0x004D2E70 },
-  { offset = 106, type = "DIR32", symbol = "?g_D3DDevice@@3PAUAnmD3DDeviceView@@A", target = 0x004D2E70 },
-  { offset = 128, type = "DIR32", symbol = "?g_D3DDevice@@3PAUAnmD3DDeviceView@@A", target = 0x004D2E70 },
-  { offset = 155, type = "DIR32", symbol = "?g_D3DDevice@@3PAUAnmD3DDeviceView@@A", target = 0x004D2E70 },
+  { offset = 84, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", addend = 16, target = 0x004D2E60 },
+  { offset = 106, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", addend = 16, target = 0x004D2E60 },
+  { offset = 128, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", addend = 16, target = 0x004D2E60 },
+  { offset = 155, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", addend = 16, target = 0x004D2E60 },
 ]
 
 [units.anm-manager-are-all-anms-loaded]
@@ -6212,7 +6212,7 @@ linkages = [
 [units.anm-resource-set-sprite]
 artifact_kind = "linked-pe"
 source = "src/AnmFinalization.cpp"
-support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp"]
+support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmTextureLoading.cpp"]
 output_dir = "build/match-linked/AnmFinalization"
 profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
 entry = "AnmCoreProbe@48"
@@ -6226,7 +6226,7 @@ linkages = []
 frontier = true
 artifact_kind = "linked-pe"
 source = "src/AnmFinalization.cpp"
-support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp"]
+support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmTextureLoading.cpp"]
 output_dir = "build/match-linked/AnmFinalization"
 profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
 entry = "AnmCoreProbe@48"
@@ -6237,10 +6237,9 @@ size = 1000
 linkages = []
 
 [units.anm-manager-process-pending-anms]
-frontier = true
 artifact_kind = "linked-pe"
 source = "src/AnmFinalization.cpp"
-support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp"]
+support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmTextureLoading.cpp"]
 output_dir = "build/match-linked/AnmFinalization"
 profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
 entry = "AnmCoreProbe@48"
@@ -6253,4 +6252,84 @@ linkages = [
   { offset = 49, type = "REL32", symbol = "?Release@AnmResource@@QAEXXZ", target = 0x00465F60 },
   { offset = 57, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
   { offset = 122, type = "REL32", symbol = "?FinalizeNextEntry@AnmResource@@QAEPAU1@XZ", target = 0x00465770 },
+]
+
+[units.anm-texture-create-empty]
+artifact_kind = "linked-pe"
+source = "src/AnmTextureLoading.cpp"
+support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp"]
+output_dir = "build/match-linked/AnmTextureLoading"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmTextureEntry::CreateEmptyTexture"]
+symbol = "?CreateEmptyTexture@AnmTextureEntry@@QAEHIIH@Z"
+target_address = 0x00465300
+size = 70
+linkages = [
+  { offset = 10, type = "DIR32", symbol = "?g_AnmTextureFormats@@3QBW4_D3DFORMAT@@B", target = 0x004A4884 },
+  { offset = 19, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", addend = 16, target = 0x004D2E60 },
+  { offset = 36, type = "DIR32", symbol = "__imp__D3DXCreateTexture@32", target = 0x0049A2C8 },
+  { offset = 43, type = "DIR32", symbol = "?g_AnmTextureBytesPerPixel@@3QBHB", target = 0x004A48A8 },
+  { offset = 50, type = "DIR32", symbol = "?g_AnmTextureBytesPerPixel@@3QBHB", target = 0x004A48A8 },
+]
+
+[units.anm-texture-create-render-target]
+artifact_kind = "linked-pe"
+source = "src/AnmTextureLoading.cpp"
+support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp"]
+output_dir = "build/match-linked/AnmTextureLoading"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmTextureEntry::CreateRenderTarget"]
+symbol = "?CreateRenderTarget@AnmTextureEntry@@QAEHXZ"
+target_address = 0x00465350
+size = 69
+linkages = [
+  { offset = 6, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", addend = 260, target = 0x004D2E60 },
+  { offset = 11, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", addend = 16, target = 0x004D2E60 },
+  { offset = 25, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", addend = 256, target = 0x004D2E60 },
+  { offset = 36, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", addend = 252, target = 0x004D2E60 },
+  { offset = 51, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", addend = 260, target = 0x004D2E60 },
+]
+
+[units.anm-texture-load-external]
+frontier = true
+artifact_kind = "linked-pe"
+source = "src/AnmTextureLoading.cpp"
+support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp"]
+output_dir = "build/match-linked/AnmTextureLoading"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmTextureEntry::LoadExternalTexture"]
+symbol = "?LoadExternalTexture@AnmTextureEntry@@QAEHHIIHH@Z"
+target_address = 0x00464FD0
+size = 511
+linkages = []
+
+[units.anm-texture-load-embedded]
+frontier = true
+artifact_kind = "linked-pe"
+source = "src/AnmTextureLoading.cpp"
+support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp"]
+output_dir = "build/match-linked/AnmTextureLoading"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmTextureEntry::LoadEmbeddedTexture"]
+symbol = "?LoadEmbeddedTexture@AnmTextureEntry@@QAEHPBUAnmEmbeddedTexture@@HII@Z"
+target_address = 0x004651D0
+size = 296
+linkages = [
+  { offset = 7, type = "DIR32", symbol = "___security_cookie", target = 0x004B01F4 },
+  { offset = 24, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", addend = 520, target = 0x004D2E60 },
+  { offset = 39, type = "DIR32", symbol = "?g_AnmTextureFormats@@3QBW4_D3DFORMAT@@B", target = 0x004A4884 },
+  { offset = 88, type = "DIR32", symbol = "?g_AnmTextureFormats@@3QBW4_D3DFORMAT@@B", target = 0x004A4884 },
+  { offset = 94, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", addend = 16, target = 0x004D2E60 },
+  { offset = 121, type = "DIR32", symbol = "__imp__D3DXCreateTexture@32", target = 0x0049A2C8 },
+  { offset = 155, type = "REL32", symbol = "@__security_check_cookie@4", target = 0x004728FD },
+  { offset = 195, type = "DIR32", symbol = "?g_AnmTextureBytesPerPixel@@3QBHB", target = 0x004A48A8 },
+  { offset = 205, type = "DIR32", symbol = "?g_AnmTextureFormats@@3QBW4_D3DFORMAT@@B", target = 0x004A4884 },
+  { offset = 232, type = "DIR32", symbol = "__imp__D3DXLoadSurfaceFromMemory@40", target = 0x0049A2C4 },
+  { offset = 239, type = "DIR32", symbol = "?g_AnmTextureBytesPerPixel@@3QBHB", target = 0x004A48A8 },
+  { offset = 246, type = "DIR32", symbol = "?g_AnmTextureBytesPerPixel@@3QBHB", target = 0x004A48A8 },
+  { offset = 286, type = "REL32", symbol = "@__security_check_cookie@4", target = 0x004728FD },
 ]

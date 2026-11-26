@@ -5,6 +5,8 @@
 
 #include "ThreadInf.hpp"
 
+struct IDirect3DDevice9;
+
 // Partial physical layout of the global Supervisor singleton rooted at
 // 0x004D2E60 (provisional base; reviewed offsets anchored against TH128.exe):
 //   +0x0018 (0x004D2E78): RECT mainWindowRect
@@ -24,11 +26,17 @@
 //   +0x0B20 (0x004D3980): int appInactive
 struct Supervisor
 {
-    unsigned char pad0000[0x18];
+    unsigned char pad0000[0x10];
+    IDirect3DDevice9 *d3dDevice;        // +0x0010 (0x004D2E70)
+    unsigned char pad0014[0x04];
     RECT mainWindowRect;                // +0x0018 (0x004D2E78)
     unsigned char pad0028[0x38];
     HWND deviceWindow;                  // +0x0060 (0x004D2EC0)
-    unsigned char pad0064[0xB8];
+    unsigned char pad0064[0x98];
+    unsigned int backBufferWidth;      // +0x00FC (0x004D2F5C)
+    unsigned int backBufferHeight;     // +0x0100 (0x004D2F60)
+    unsigned int backBufferFormat;     // +0x0104 (0x004D2F64), D3DFORMAT
+    unsigned char pad0108[0x14];
     int cursorAlwaysVisible;            // +0x011C (0x004D2F7C)
     unsigned char pad0120[0xCD];
     unsigned char configWindowMode;     // +0x01ED (0x004D304D)
@@ -38,7 +46,9 @@ struct Supervisor
     unsigned char pad01F4[0x04];
     int configWindowX;                  // +0x01F8 (0x004D3058)
     int configWindowY;                  // +0x01FC (0x004D305C)
-    unsigned char pad0200[0x398];
+    unsigned char pad0200[0x08];
+    unsigned char textureFormatFlags;  // +0x0208 (0x004D3068), bit 0 selects 16-bit fallback
+    unsigned char pad0209[0x38F];
     unsigned int flags;                 // +0x0598 (0x004D33F8)
     unsigned char pad059C[0x25C];
     ThreadInf thread;                   // +0x07F8 (0x004D3658)

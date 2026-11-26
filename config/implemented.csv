@@ -120,6 +120,10 @@ AnmResource::Release
 AnmResource::SetSprite
 AnmResource::SpawnChildVm
 AnmResource::SpawnChildVmAtPosition
+AnmTextureEntry::CreateEmptyTexture
+AnmTextureEntry::CreateRenderTarget
+AnmTextureEntry::LoadEmbeddedTexture
+AnmTextureEntry::LoadExternalTexture
 AnmTextureEntry::Release
 AnmVm::AnmVm
 AnmVm::BindAnmFile

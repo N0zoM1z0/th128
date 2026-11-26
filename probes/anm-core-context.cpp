@@ -10,9 +10,6 @@ AnmManager *g_AnmManager = 0;
 struct AnmPauseStateView;
 AnmPauseStateView *g_AnmPauseState = 0;
 
-struct AnmD3DDeviceView;
-AnmD3DDeviceView *g_D3DDevice = 0;
-
 int __stdcall DrawAnmVmWithManager(AnmVm *vm, AnmManager *manager)
 {
     AnmManager *volatile *p = &manager;
