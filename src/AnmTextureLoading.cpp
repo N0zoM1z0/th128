@@ -2,6 +2,10 @@
 #include "AnmD3DX.hpp"
 #include "Supervisor.hpp"
 #include "Chain.hpp"
+#include "FileSystem.hpp"
+
+#include <stdio.h>
+#include <stdlib.h>
 
 // Shared format indices used by archive entries and embedded texture headers.
 extern const D3DFORMAT g_AnmTextureFormats[9] = {
@@ -285,6 +289,94 @@ void __stdcall AnmHelpers::FillTransparentTextureColors(AnmTextureEntry *entry)
     }
     surface->UnlockRect();
     surface->Release();
+}
+
+int AnmTextureEntry::LoadTextureFile(int format, const char *filename, unsigned int colorKey)
+{
+    format = AnmHelpers::NormalizeTextureFormat(format);
+    char path[260];
+    sprintf(path, "%s", filename);
+    int size;
+    unsigned char *data = FileSystem::OpenPath(path, &size, 1);
+    if (data == 0)
+        return -1;
+
+    rawDataSize = size;
+    if (D3DXCreateTextureFromFileInMemoryEx(g_Supervisor.d3dDevice,
+        data, size, 0, 0, 0, 0, g_AnmTextureFormats[format],
+        D3DPOOL_MANAGED, 1, 0xFFFFFFFFU, colorKey, 0, 0,
+        reinterpret_cast<IDirect3DTexture9 **>(&texture)) != D3D_OK)
+    {
+        free(data);
+        return -1;
+    }
+
+    flags &= ~1U;
+    AnmHelpers::FillTransparentTextureColors(this);
+    bytesPerPixel = g_AnmTextureBytesPerPixel[format];
+    rawData = data;
+    return 0;
+}
+
+int AnmTextureEntry::UploadTextureImage(const void *data, unsigned int size)
+{
+    int format = 1;
+    if ((g_Supervisor.textureFormatFlags & 1) != 0)
+        format = 5;
+
+    flags &= ~1U;
+    rawDataSize = size;
+    IDirect3DSurface9 *surface = 0;
+    reinterpret_cast<IDirect3DTexture9 *>(texture)->GetSurfaceLevel(0, &surface);
+    D3DXLoadSurfaceFromFileInMemory(surface, 0, 0, data, size, 0, 1, 0, 0);
+    surface->Release();
+    AnmHelpers::FillTransparentTextureColors(this);
+    bytesPerPixel = g_AnmTextureBytesPerPixel[format];
+    return 0;
+}
+
+int AnmTextureEntry::UploadTextureRegion(
+    const void *data, unsigned int size, int format, int destinationY, int isEmbedded)
+{
+    int actualFormat = AnmHelpers::NormalizeTextureFormat(format);
+    flags &= ~1U;
+    rawDataSize = size;
+    IDirect3DSurface9 *surface = 0;
+    reinterpret_cast<IDirect3DTexture9 *>(texture)->GetSurfaceLevel(0, &surface);
+    RECT sourceRect;
+    RECT destinationRect;
+    if (isEmbedded == 0)
+    {
+        D3DSURFACE_DESC desc;
+        surface->GetDesc(&desc);
+        destinationRect.left = 0;
+        destinationRect.top = destinationY;
+        destinationRect.right = desc.Width;
+        destinationRect.bottom = desc.Height;
+        D3DXLoadSurfaceFromFileInMemory(surface, 0, &destinationRect,
+            data, size, 0, 1, 0, 0);
+    }
+    else
+    {
+        const AnmArchiveEntry *entry = static_cast<const AnmArchiveEntry *>(data);
+        const AnmEmbeddedTexture *pixels = reinterpret_cast<const AnmEmbeddedTexture *>(
+            static_cast<const unsigned char *>(data) + entry->textureOffset);
+        sourceRect.left = 0;
+        sourceRect.top = 0;
+        sourceRect.right = pixels->width;
+        sourceRect.bottom = pixels->height;
+        destinationRect.left = 0;
+        destinationRect.top = destinationY;
+        destinationRect.right = pixels->width;
+        destinationRect.bottom = pixels->height + destinationY;
+        D3DXLoadSurfaceFromMemory(surface, 0, &destinationRect, pixels + 1,
+            g_AnmTextureFormats[pixels->format], pixels->width * g_AnmTextureBytesPerPixel[pixels->format],
+            0, &sourceRect, 1, 0);
+    }
+    surface->Release();
+    AnmHelpers::FillTransparentTextureColors(this);
+    bytesPerPixel = g_AnmTextureBytesPerPixel[actualFormat];
+    return 0;
 }
 
 int AnmTextureEntry::CreateEmptyTexture(unsigned int width, unsigned int height, int format)

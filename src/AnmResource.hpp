@@ -81,6 +81,9 @@ struct AnmTextureEntry
     unsigned int flags;   // +0x10, bit 0 marks a render-target texture
 
     void Release();
+    int LoadTextureFile(int format, const char *filename, unsigned int colorKey);
+    int UploadTextureImage(const void *data, unsigned int size);
+    int UploadTextureRegion(const void *data, unsigned int size, int format, int destinationY, int isEmbedded);
     int LoadExternalTexture(int format, unsigned int width, unsigned int height, int offsetX, int offsetY);
     int LoadEmbeddedTexture(const AnmEmbeddedTexture *data, int format, unsigned int width, unsigned int height);
     int CreateEmptyTexture(unsigned int width, unsigned int height, int format);

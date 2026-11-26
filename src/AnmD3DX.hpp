@@ -22,6 +22,11 @@ __declspec(dllimport) HRESULT WINAPI D3DXLoadSurfaceFromSurface(
     const PALETTEENTRY *sourcePalette, const RECT *sourceRect,
     DWORD filter, D3DCOLOR colorKey);
 
+__declspec(dllimport) HRESULT WINAPI D3DXLoadSurfaceFromFileInMemory(
+    IDirect3DSurface9 *destination, const PALETTEENTRY *destinationPalette,
+    const RECT *destinationRect, const void *source, UINT size,
+    const RECT *sourceRect, DWORD filter, D3DCOLOR colorKey, _D3DXIMAGE_INFO *info);
+
 __declspec(dllimport) HRESULT WINAPI D3DXLoadSurfaceFromMemory(
     IDirect3DSurface9 *destination, const PALETTEENTRY *destinationPalette,
     const RECT *destinationRect, const void *source, D3DFORMAT sourceFormat,

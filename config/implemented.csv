@@ -130,7 +130,10 @@ AnmTextureEntry::CreateEmptyTexture
 AnmTextureEntry::CreateRenderTarget
 AnmTextureEntry::LoadEmbeddedTexture
 AnmTextureEntry::LoadExternalTexture
+AnmTextureEntry::LoadTextureFile
 AnmTextureEntry::Release
+AnmTextureEntry::UploadTextureImage
+AnmTextureEntry::UploadTextureRegion
 AnmVm::AnmVm
 AnmVm::BindAnmFile
 AnmVm::RegisterUiVmAtHead

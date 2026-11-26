@@ -1456,6 +1456,99 @@ the earlier GPU snapshot without adding credit to any larger frontier.
 [final loader diagnostics](../.analysis/anm-colors-final-family.txt),
 [current finalization owners](../.analysis/anm-colors-final-finalization-owners.json).
 
+## ANM file-backed creation and existing-texture uploads (2026-11-26)
+
+For Japanese TH128 v1.00a and pinned VC10 RTM `/O2 /Ob1 /Oy- /GL`,
+the three other direct callers of transparent RGB repair now have maintained
+source: file-backed creation at `0x00464CE0` (245 bytes), image upload at
+`0x00464DE0` (156), and region upload at `0x00464E80` (330). Together with
+the existing decoder at `0x00464FD0`, all four direct caller definitions are
+present in the texture-loading linked context. All three new owners remain
+frontiers; source presence grants no new exact credit.
+[Complete target owners/references](../.analysis/anm-additional-texture-creation-review.txt),
+[final owner diagnostics](../.analysis/anm-additional-final-observations.txt).
+
+`LoadTextureFile` normalizes the destination format, copies the path through
+`sprintf(path, "%s", filename)`, and opens external file bytes. Failure to
+read returns -1. The byte count is stored before D3DX decoding; decode failure
+frees the new buffer and returns -1. Successful creation clears render-target
+bit 0, repairs transparent RGB, stores byte accounting and retains the new
+CPU buffer in `rawData`, returning zero. The extra caller-supplied argument
+is the 32-bit color key, not an image-info pointer: its push is the fourth
+argument from the end of `D3DXCreateTextureFromFileInMemoryEx`.
+[Path-format bytes](../.analysis/anm-additional-texture-path-format.txt),
+[complete 245-byte/14-field comparison](../.analysis/anm-additional-final-load-file-replay.json).
+
+`UploadTextureImage` operates on an existing texture's level zero. It records
+the supplied size, clears flag bit 0, loads the in-memory image with filter
+1 and no color key, releases the surface unconditionally, repairs transparent
+RGB and records format-index 1/5 byte accounting. Upload HRESULT is ignored
+and the return value is zero. It does not store the input pointer. The
+caller at `0x00427F09` selects `resource->textures[1]` and frees its image
+buffer after this call, confirming that input ownership stays with the caller.
+[Call-site review](../.analysis/anm-upload-texture-image-caller-review.txt).
+
+`UploadTextureRegion` also changes existing level zero and records the input
+size without taking CPU ownership. The external-image path gets actual
+texture dimensions and uses destination `(0, destinationY, width, height)`:
+the bottom is the absolute texture height. The embedded path follows the
+archive header's `textureOffset`, uses signed payload dimensions, and uploads
+the raw pixels with source `(0, 0, width, height)` and destination
+`(0, destinationY, width, height + destinationY)`. Its source pitch and format
+come from the embedded header, while byte accounting uses the normalized
+requested format. Both paths ignore the upload result, unconditionally
+release the surface, run transparent RGB repair and return zero.
+
+`AnmD3DX.hpp` now declares the nine-argument surface-file upload import.
+Its standard ABI was checked against
+[Microsoft's function declaration](https://learn.microsoft.com/en-us/windows/win32/direct3d9/d3dxloadsurfacefromfileinmemory);
+the TH128 rectangles, filters, cleanup and ignored HRESULTs come from the
+local target, not that documentation.
+
+The final file loader has the complete 245-byte owner and all 14 reviewed
+fields, but eight ordinary bytes differ because filename and format use
+different incoming registers/stack roles. Reordering the first two formals
+and then normalizing the format formal in place produced the same eight
+differences. The maintained API puts format first, consistent with the
+existing format-led loader. Do not treat API ordering as the resolved cause
+of this remaining private ABI difference.
+[Initial observation](../.analysis/anm-additional-first-observations.txt),
+[format-first control](../.analysis/anm-additional-format-first-observations.txt),
+[final comparison](../.analysis/anm-additional-final-load-file-replay.json).
+
+Image upload is 116 vs 156 bytes: the target's eight-byte stack alignment,
+GS setup and size register are not reproduced. Region upload is 329 vs 330
+bytes with ten fields and different format/data promotion, frame and return
+stack count. Each has a full linked frontier unit with the target's six/ten
+reviewed fields; no shortened comparison or ABI shim is used.
+[Image rejection](../.analysis/anm-additional-final-upload-image-replay.json),
+[region rejection](../.analysis/anm-additional-final-upload-region-replay.json).
+
+Two bounded source-shape controls did not settle the larger repair either.
+Sharing the loop indices and neighbor count changed a few spills but left
+the 1,774-byte extent and `0x4C` frame. A common union for the three 16-bit
+pixel views produced the identical complete owner hash
+`ae0ac9d04cb5b5fe562b039ff3a9b502d8141279cf0ea26134e3c248633d3ad3`.
+Both controls are retained privately; the simpler prior loop/view declarations
+remain. Adding the three real caller definitions also leaves the repair's
+frame unresolved, so absent caller bodies alone were not the explanation
+in this measured context.
+[Shared-counter control](../.analysis/anm-colors-shared-counters-observations.txt),
+[union control](../.analysis/anm-colors-union-view-observations.txt),
+[complete-caller context](../.analysis/anm-colors-complete-callers-final-observations.txt).
+
+The shared entry declarations and local D3DX header change affect 138
+existing canonical exact owners across 11 compilation contexts, selected
+through their executable input contracts. All 138 passed complete cold
+comparison; the three new frontiers were compared separately and rejected
+honestly. `SetSprite` remains 145 bytes, the pending scheduler 140, and the
+full finalizer stays at 903 vs 1,000. No compiler profile or comparison tool
+changed. Tracking now records 375 mappings and 322 exact functions; the
+three new source mappings do not increase the exact count.
+[Cold build/comparison](../.analysis/anm-additional-final-replay.log),
+[selected owners](../.analysis/anm-additional-final-selected-units.json),
+[finalization observations](../.analysis/anm-additional-final-finalization-owners.json).
+
 ## Open questions
 
 - Per-unit flags, the TU partition, which objects were `/GL`, the library set

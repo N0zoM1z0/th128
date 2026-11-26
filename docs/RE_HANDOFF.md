@@ -1,6 +1,6 @@
 # TH128 reconstruction handoff
 
-Snapshot: 2026-11-26 (five ANM texture helpers exact; complete transparent-color repair source/frontier). Read this first, then AGENTS.md.
+Snapshot: 2026-11-26 (all four transparent-repair callers have source; file/region upload frontiers). Read this first, then AGENTS.md.
 
 ## Resume safely
 
@@ -36,9 +36,9 @@ canonical ledgers. At this snapshot:
 | Boundary reviewed / provisional | 3,452 / 64 |
 | Origin rows pending | 21 |
 | Authored / excluded / indeterminate | 2,226 / 1,269 / 0 |
-| Source-present mappings | 372 |
-| Source-present with authored origin | 364 |
-| Authored source-present exact backlog | 50 |
+| Source-present mappings | 375 |
+| Source-present with authored origin | 367 |
+| Authored source-present exact backlog | 53 |
 | Canonical exact functions | 322 |
 | Canonical exact codegen bytes | 19,507 |
 | Canonical exact authored bytes | 19,178 |
@@ -153,6 +153,14 @@ Current focused frontiers:
 - `LoadEmbeddedTexture` (`0x004651D0`): full 296-byte extent and 13 fields
   replay, with 16 raw differences in the failure epilogue and final product.
   Dimension signedness, release expansion and an accumulator did not close it.
+- `LoadTextureFile` (`0x00464CE0`): complete 245-byte owner and all 14 fields
+  compare, but eight filename/format register bytes differ. Parameter-order
+  and in-place-format controls did not change those differences.
+- `UploadTextureImage` (`0x00464DE0`): 116 vs 156 bytes; target eight-byte
+  stack alignment, GS setup and size-register context remain open. Its real
+  caller at `0x00427F09` supplies `textures[1]` and frees the input afterward.
+- `UploadTextureRegion` (`0x00464E80`): 329 vs 330 bytes, with ten fields;
+  format/data promotion, frame and `RET 8` vs target `RET 12` differ.
 - `LoadAnm` (`0x004653F0`): the real 515-byte first-stage loader now has
   source and a linked frontier unit. The candidate is 511 bytes; the
   target retains a loop-top null test instead of the candidate's rotated
@@ -217,7 +225,7 @@ assignments reproduce its complete owner with no address fields. The raw
 and resolved sprite layouts now name pixel bounds, actual texture sizes,
 UV bounds, logical sizes and scaling ratios. Both `FinalizeNextEntry` and
 `ProcessPendingAnms` have maintained source in `AnmFinalization.cpp`.
-The four texture methods now have source in `AnmTextureLoading.cpp`.
+The texture methods have maintained source in `AnmTextureLoading.cpp`.
 The separate 746-byte entry finalizer remains unimplemented.
 See the [resolved-sprite finding](KNOWLEDGE_BASE.md#anm-resolved-sprites-and-finalization-array-bounds-2026-11-26)
 and [final comparison](../.analysis/anm-finalization-current-input-final.log)
@@ -254,6 +262,23 @@ header or other compilation context changed. See the
 [pixel finding](KNOWLEDGE_BASE.md#anm-transparent-pixel-repair-and-inline-neighbor-helpers-2026-11-26),
 [final comparison](../.analysis/anm-colors-final-compare.log), and
 [current frontier observations](../.analysis/anm-colors-final-observations.txt).
+
+`LoadTextureFile`, `UploadTextureImage` and `UploadTextureRegion` now have
+complete target-reviewed implementations and full linked frontier units.
+The file path retains CPU bytes on success and frees them only on decode
+failure; uploads retain caller ownership. External region upload uses an
+absolute bottom of texture height, while embedded upload adds the Y origin
+to payload height. Upload HRESULTs are ignored as in the target. All four
+direct callers of RGB repair are now defined in its linked context, but the
+repair still has a `0x4C` frame instead of `0x50`. Shared counters did not
+close it; a union for the 16-bit views emitted identical code and was removed.
+See the [upload finding](KNOWLEDGE_BASE.md#anm-file-backed-creation-and-existing-texture-uploads-2026-11-26)
+for the retained controls and caller-ownership evidence.
+The changed entry/D3DX declarations required 11 cold contexts; all 138
+affected canonical exact comparisons passed. The three new owners were
+rejected separately and add source mappings only. See the
+[affected replay](../.analysis/anm-additional-final-replay.log) and
+[selected units](../.analysis/anm-additional-final-selected-units.json).
 
 Replay the recent ANM exact owners with:
 
@@ -382,7 +407,7 @@ Primary evidence:
 | src/AnmManager.cpp | VM lookup, allocation, list cleanup, draw grouping, tick callbacks, `FlushSpriteBatch`, preload, 23 `DrawLayer*` callbacks | 36 exact (linked PE), including `UpdateUiVms`, `StopVmById` and `PreloadAnm`; `UpdateWorldVms`/`SetInterruptAndUpdate` frontiers |
 | src/AnmLoading.cpp | first-stage ANM load, external texture caching, inline resource constructor contribution | constructor exact (linked PE); loader/cache frontiers |
 | src/AnmFinalization.cpp | resolved sprite installation, one-entry finalization and pending-resource scheduler | `SetSprite` (145B) and scheduler (140B) exact; finalizer frontier |
-| src/AnmTextureLoading.cpp | texture creation/loading, format fallback, neighbor accumulation and transparent RGB repair | 7 owners exact (334B); two loader frontiers and full 1,774B repair frontier |
+| src/AnmTextureLoading.cpp | seven texture creation/loading/upload methods, format fallback, neighbor accumulation and transparent RGB repair | 7 owners exact (334B); 6 frontiers including the full 1,774B repair |
 | src/AnmResource.cpp | `Release`, `AnmTextureEntry::Release`, `CreateVm` | 2 exact (linked PE); `CreateVm` frontier |
 | src/AnmVmUpdateWrapper.cpp | manager binding update wrapper (`0x00407080`) | 20-byte target frontier; 5-byte GL body, 15-byte normal-COFF body |
 | src/AnmHelpers.cpp | `ResolveAnmVmId` and 31 `AnmId`/VM/child/rotation/draw helpers (`0x00467570..0x00468100`) | 32 exact (linked PE); `ClearD3DTexture*` frontiers |
@@ -424,7 +449,10 @@ callers remain frontiers as well.
    the external decoder (`0x00464FD0`, 511B) / embedded uploader
    (`0x004651D0`, 296B) frontiers. The five small helpers are exact; retain
    their real definitions while resolving the repair's local lifetimes and
-   stack/register layout. The pixel and GPU findings retain failed probes.
+   stack/register layout. All four direct callers now have source. The
+   remaining upload paths are listed above; reconstructing the real caller
+   at `0x00427CD0` is useful for the image uploader's GS/alignment context.
+   The pixel, upload and GPU findings retain failed probes.
    Then revisit the
    1,000-byte finalizer and the loader/cache pair
    (`0x004653F0`, 515B / `0x00465680`, 231B).
@@ -444,15 +472,16 @@ callers remain frontiers as well.
 4. **Next useful command after the session identity checks**:
 
    ~~~bash
-   scripts/repo-python scripts/compare-linked-function.py \
-     --unit anm-fill-transparent-texture-colors
+   scripts/repo-python scripts/ghidra.py query \
+     .analysis/anm-upload-image-caller-complete.txt disassemble 600 0x00427CD0
    ~~~
 
-   This currently rejects the complete owner's field positions. Compare
-   `.analysis/anm-colors-final-source.asm` with
-   `.analysis/anm-colors-target.asm`; rebuild the affected contexts after
-   source edits. The saved body review and separate raw table read cover the
-   full target; instruction-only review must stop at `0x00464CA9`.
+   The caller's reviewed owner is 1,184 bytes through `0x0042816F`; the
+   existing 250-instruction review covers the upload and following free.
+   For the repair, compare `.analysis/anm-colors-complete-callers-final-source.asm`
+   with `.analysis/anm-colors-target.asm`. Its saved body review and separate
+   table read cover the full target; instruction-only review must stop at
+   `0x00464CA9`.
 
 ## Workflow and constraints
 

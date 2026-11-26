@@ -194,6 +194,9 @@ AnmHelpers::AccumulateTextureColor1555,0x00464560,function
 AnmHelpers::AccumulateTextureColor4444,0x00464590,function
 AnmHelpers::AccumulateTextureColor8332,0x004645C0,function
 AnmHelpers::FillTransparentTextureColors,0x004645F0,function
+AnmTextureEntry::LoadTextureFile,0x00464CE0,function
+AnmTextureEntry::UploadTextureImage,0x00464DE0,function
+AnmTextureEntry::UploadTextureRegion,0x00464E80,function
 AnmTextureEntry::LoadExternalTexture,0x00464FD0,function
 AnmTextureEntry::LoadEmbeddedTexture,0x004651D0,function
 AnmTextureEntry::CreateEmptyTexture,0x00465300,function
