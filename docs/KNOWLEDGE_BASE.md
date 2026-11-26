@@ -3399,11 +3399,9 @@ against 210B; the explicit-X, centered and half-center wrappers remain
 counts. [Card and score replay](../.analysis/texture-text-card-results.json),
 [VM-text replay](../.analysis/texture-text-vm-results.json).
 
-An untested source-type question for the two-byte ordinary frontier is the
-texture parameter: the current interface retains the earlier opaque `void *`,
-while target vtable +0x48 is GetSurfaceLevel on IDirect3DTexture9. A typed
-IDirect3DTexture9 pointer is a natural candidate to inspect before another
-caller/probe experiment; no compiler result is claimed for it.
+The typed-texture hypothesis was subsequently tested and falsified: using
+IDirect3DTexture9* still emits the same ordinary +533/+580 differences.
+See the lifetime checkpoint below for the retained result; do not repeat it.
 
 All four 45-source contexts cold-built successfully. The twelve affected
 owners have complete strict results: AddScore remains exact, and the eleven
@@ -3412,3 +3410,89 @@ rewritten, and none of the four new source mappings entered matches.csv.
 [Final comparison set](../.analysis/texture-text-final-results.json),
 [affected source graph](../.analysis/texture-text-affected-scope.json),
 [cold build log](../.analysis/texture-text-cold-build.log).
+
+## Scratch-image lifetime and font setup (2026-11-26)
+
+Five Japanese v1.00a owners in [TextImageLifetime.cpp](../src/TextImageLifetime.cpp)
+are newly exact under pinned VC10 RTM: scratch-image destruction 105B,
+default-format initialization 22B, creation 413B, font setup 516B and font
+cleanup 83B. Their complete primary PDB contributions total **1,139B**, with
+all **80 address fields** replayed at the correct offsets, types, targets,
+addends and call identities, and zero remaining byte differences. The final
+three-source context was cold-built after adding cleanup, then all five
+owners were compared again. Totals are **357 exact / 26,077B**; authored exact
+bytes are **25,717B**. Native product/runtime closure remains unproved.
+[Final cold results](../.analysis/text-image-lifetime-final-results.json),
+[scope](../.analysis/text-image-lifetime-final-scope.json),
+[cold build](../.analysis/text-image-lifetime-final-cold-build.log),
+[target fields](../.analysis/text-image-lifetime-target-fields.json).
+
+This context keeps the primary `/O2 /Ob1 /Oy- /GL` profile. Its real Rng.cpp
+support uses `/O2 /Oy- /GL` without `/Ob1`: the target's font setup physically
+contains the complete GetU16 operation, both critical-section gates and the
+256-iteration noise fill. With `/Ob1` on that support, the candidate instead
+calls GetU16 and owns only 405B. Allowing ordinary inlining on the RNG support
+reproduces the target's 516B and all 32 address fields. The established RNG
+primary context and source were not changed. This proves a reproducible
+linked context, not the original TU partition or compiler settings.
+[Initial out-of-line RNG candidate](../.analysis/text-image-lifetime-first-observations.json),
+[inlined support candidate](../.analysis/text-image-lifetime-inline-observations.json).
+
+Creation first calls destruction, clears a 108-byte BITMAPV4HEADER and
+searches the mutable 24-byte format records. The lookup returns null only
+for requested format -1; reaching the sentinel for another unsupported
+format still returns its address. Preserve that observed behavior instead
+of adding an unsupported-format rejection. Pitch uses signed divisions:
+`((1024 * bitsPerPixel / 8 + 3) / 4) * 4`. The DIB has width 1024 and height
+**-129**, while logical stored height and byte count are **128** rows.
+CreateDIBSection failure returns false; success clears the image bytes,
+creates/selects a memory DC and publishes the handles and dimensions.
+No new CreateCompatibleDC/SelectObject failure branch is added.
+[Complete creation review](../.analysis/text-image-init-font-next-review.txt),
+[format records](../.analysis/text-image-format-records.txt).
+
+Destruction returns false for a null DC. Otherwise it restores the previous
+bitmap, deletes DC and bitmap, clears width/height/DC/bitmap/previous/pixels,
+sets format -1 and returns true; pitch and byte count remain unchanged.
+A nonnull-DC block followed by return false reproduces the target's 105B
+branch layout. The earlier early-return spelling had the same full size
+but the opposite branch layout and field positions. In creation, assigning
+byte count before format produces the observed EDX size / EAX format
+writeback and closes the initial ordinary +328/+351 and field-binding gap.
+[Destructor review](../.analysis/texture-text-initialization-review.txt).
+
+The unreferenced 22B wrapper tries A4R4G4B4, returns true on success and
+otherwise returns the A8R8G8B8 result. Its boundary remains reviewed at
+medium confidence despite exact codegen. Font setup also tries formats
+26 then 21, but continues into noise/font creation even if both fail.
+Noise bytes are GetU16 >> 9 at 0x004B4DD0; the RNG state is 0x004D2AE0 with
+counter +4. The eight CreateFontA calls use CP932 full-width-MS Gothic and
+Mincho face names, Shift-JIS charset, quality 4 and pitch/family 17:
+
+| Stored handle | Height | Weight | Face |
+| --- | ---: | ---: | --- |
+| Default / 0x004D2ACC | 32 | 400 | Gothic |
+| Font 4 / 0x004D2ABC | 40 | 400 | Gothic |
+| Font 1 / 0x004D2AC8 | 32 | 600 | Mincho |
+| Font 5 / 0x004D2AB8 | 40 | 600 | Mincho |
+| Font 2 / 0x004D2AC4 | 15 | 700 | Gothic |
+| Font 3 / 0x004D2AC0 | 15 | 700 | Mincho |
+| Font 6 / 0x004D0AB4 | 15 | 700 | Gothic |
+| Font 7 / 0x004B8AA4 | 15 | 700 | Mincho |
+
+The duplicate font-parameter calls still create separate handles.
+The 83B cleanup calls image destruction, then DeleteObject for default,
+2, 4, 6, 1, 3, 5, 7, without null checks or clearing the font globals.
+It has no incoming/interior references and keeps medium boundary confidence.
+[Default wrapper](../.analysis/text-image-default-init-span.txt),
+[font names](../.analysis/text-image-font-names.txt),
+[font cleanup](../.analysis/text-fonts-destroy-owned-span.txt),
+[real startup/shutdown callers](../.analysis/text-image-lifetime-callers.txt).
+
+The proposed typed-texture experiment was falsified: using
+IDirect3DTexture9* for the two drawing parameters still emits 696B with the
+same ordinary +533/+580 differences; other observed owner sizes and field
+layouts are unchanged. Only decorated symbols differ. The experiment stayed
+private, so TextTexture/AnmText source, their four canonical contexts and
+AddScore's evidence remain unchanged. Do not retry this type hypothesis.
+[Typed-texture result](../.analysis/texture-text-typed-observations.json).

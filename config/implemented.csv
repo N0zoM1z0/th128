@@ -249,6 +249,8 @@ DebugLog46C320
 DebugPrint
 DecTimeScaleRef
 DecryptBlocks
+DestroyTextFonts
+DestroyTextImage
 DrawAlternateTextToTexture
 DrawAnmVmEffect10
 DrawAnmVmVertices
@@ -284,7 +286,10 @@ HelpInf::Shutdown
 HelpInf::Update
 InitDefaultTimeScale
 InitJoypad
+InitializeDefaultTextImage
 InitializeSupervisorRenderState
+InitializeTextFonts
+InitializeTextImage
 InterpolateAngle
 InterpolateColorVector
 InterpolateInteger
