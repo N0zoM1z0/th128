@@ -167,6 +167,14 @@ namespace
         timer->currentF = (float)value;
     }
 
+    inline void ResetBindingTimer(ZunTimer &timer)
+    {
+        timer.Initialize();
+        timer.currentF = 0.0f;
+        timer.current = 0;
+        timer.previous = -1;
+    }
+
 
     inline void InsertAnmVmNodeAfter(AnmVmListNode *head, AnmVmListNode *node)
     {
@@ -915,8 +923,6 @@ AnmId AnmResource::SpawnChildVmAtPosition(
     return childId;
 }
 
-void __stdcall UpdateVmForBinding(AnmVm *vm);
-
 void AnmResource::BindVmScript(AnmVm *vm, int scriptIndex)
 {
     if (scriptOffsets[scriptIndex] == 0 || isInvalid != 0)
@@ -935,22 +941,11 @@ void AnmResource::BindVmScript(AnmVm *vm, int scriptIndex)
     vm->scriptDataOffset = scriptData;
     vm->scriptDataOffsetCopy = scriptData;
 
-    if (!vm->timer070.initialized)
-    {
-        vm->timer070.currentF = 0.0f;
-        vm->timer070.current = 0;
-        vm->timer070.previous = -999999;
-        vm->timer070.gameSpeed = reinterpret_cast<float *>(0x004B6F58);
-        vm->timer070.initialized = 1;
-    }
-    (void)*reinterpret_cast<AnmManager *volatile *>(0x004D2E50);
-    vm->timer070.currentF = 0.0f;
-    vm->timer070.current = 0;
-    vm->timer070.previous = -1;
-    *reinterpret_cast<volatile unsigned int *>(&vm->flags) &= ~1U;
+    ResetBindingTimer(vm->timer070);
+    vm->flags &= ~1U;
 
-    UpdateVmForBinding(vm);
-    ++GetGlobalAnmManager()->activeVmCount;
+    g_AnmManager->UpdateVm(vm);
+    ++g_AnmManager->activeVmCount;
 
     vm->scale2X = 1.0f;
     vm->scale2Y = 1.0f;
@@ -982,22 +977,11 @@ void AnmResource::BindVmAtPosition(
     vm->scriptDataOffset = scriptData;
     vm->scriptDataOffsetCopy = scriptData;
 
-    if (!vm->timer070.initialized)
-    {
-        vm->timer070.currentF = 0.0f;
-        vm->timer070.current = 0;
-        vm->timer070.previous = -999999;
-        vm->timer070.gameSpeed = reinterpret_cast<float *>(0x004B6F58);
-        vm->timer070.initialized = 1;
-    }
-    (void)*reinterpret_cast<AnmManager *volatile *>(0x004D2E50);
-    vm->timer070.currentF = 0.0f;
-    vm->timer070.current = 0;
-    vm->timer070.previous = -1;
-    *reinterpret_cast<volatile unsigned int *>(&vm->flags) &= ~1U;
+    ResetBindingTimer(vm->timer070);
+    vm->flags &= ~1U;
 
-    UpdateVmForBinding(vm);
-    ++GetGlobalAnmManager()->activeVmCount;
+    g_AnmManager->UpdateVm(vm);
+    ++g_AnmManager->activeVmCount;
 
     if ((vm->stateFlags & 0xC0U) == 0x80U)
     {

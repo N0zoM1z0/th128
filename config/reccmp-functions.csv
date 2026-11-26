@@ -13,6 +13,7 @@ InterpolateVector,0x004065D0,function
 ResetTransitionTimer,0x00406F80,function
 AnmVmSetScaleY,0x00407020,function
 AnmVmSetScaleX,0x00407040,function
+AnmManager::UpdateVm,0x00407080,function
 ZunTimer::operator<=,0x00407130,function
 SetTimeScale,0x00407310,function
 ZunTimer::operator>=,0x004073B0,function

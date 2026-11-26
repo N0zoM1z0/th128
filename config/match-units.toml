@@ -567,8 +567,24 @@ target_address = 0x00468010
 size = 200
 relocations = []
 
-[units.anm-resource-bind-vm-script]
+[units.anm-manager-update-vm-for-binding]
 frontier = true
+artifact_kind = "linked-pe"
+source = "src/AnmVmUpdateWrapper.cpp"
+inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp", "src/AnmManager.hpp", "src/AngleMath.hpp", "src/ZunTimer.hpp", "src/AnmVmGeometry.hpp", "src/AnmVmView.hpp"]
+support_sources = ["src/AnmVmScript.cpp", "probes/anm-vm-update-context.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmOperands.cpp", "src/AnmVmResource.cpp", "src/AnmVmEffects.cpp", "src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVm.cpp", "src/Rng.cpp", "src/ZunTimer.cpp", "src/AnmVmView.cpp"]
+output_dir = "build/match-linked/AnmBindingWrapper"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmVmUpdateProbe@4"
+functions = ["AnmManager::UpdateVm"]
+symbol = "?UpdateVm@AnmManager@@QAEXPAUAnmVm@@@Z"
+target_address = 0x00407080
+size = 20
+linkages = [
+  { offset = 10, type = "REL32", symbol = "?Update@AnmVm@@QAEHXZ", target = 0x00459D90 },
+]
+
+[units.anm-resource-bind-vm-script]
 artifact_kind = "linked-pe"
 source = "src/AnmVmScript.cpp"
 inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp", "src/AnmManager.hpp", "src/AngleMath.hpp", "src/ZunTimer.hpp", "src/AnmVmGeometry.hpp", "src/AnmVmView.hpp"]
@@ -580,10 +596,16 @@ functions = ["AnmResource::BindVmScript"]
 symbol = "?BindVmScript@AnmResource@@QAEXPAUAnmVm@@H@Z"
 target_address = 0x004593B0
 size = 262
-linkages = []
+linkages = [
+  { offset = 33, type = "REL32", symbol = "?ResetForReuse@AnmVm@@QAEXXZ", target = 0x00402EA0 },
+  { offset = 147, type = "DIR32", symbol = "?g_TimeScale@@3MA", target = 0x004B6F58 },
+  { offset = 159, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+  { offset = 189, type = "REL32", symbol = "?UpdateVm@AnmManager@@QAEXPAUAnmVm@@@Z", target = 0x00407080 },
+  { offset = 196, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+  { offset = 253, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+]
 
 [units.anm-resource-bind-vm-at-position]
-frontier = true
 artifact_kind = "linked-pe"
 source = "src/AnmVmScript.cpp"
 inputs = ["src/AnmVm.hpp", "src/AnmResource.hpp", "src/AnmManager.hpp", "src/AngleMath.hpp", "src/ZunTimer.hpp", "src/AnmVmGeometry.hpp", "src/AnmVmView.hpp"]
@@ -595,7 +617,14 @@ functions = ["AnmResource::BindVmAtPosition"]
 symbol = "?BindVmAtPosition@AnmResource@@QAEXPAUAnmVm@@HPBUZunVec3@@@Z"
 target_address = 0x004594C0
 size = 295
-linkages = []
+linkages = [
+  { offset = 39, type = "REL32", symbol = "?ResetForReuse@AnmVm@@QAEXXZ", target = 0x00402EA0 },
+  { offset = 182, type = "DIR32", symbol = "?g_TimeScale@@3MA", target = 0x004B6F58 },
+  { offset = 194, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+  { offset = 224, type = "REL32", symbol = "?UpdateVm@AnmManager@@QAEXPAUAnmVm@@@Z", target = 0x00407080 },
+  { offset = 229, type = "DIR32", symbol = "?g_AnmManager@@3PAUAnmManager@@A", target = 0x004D2E50 },
+  { offset = 283, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+]
 
 [units.anm-resource-create-vm]
 frontier = true

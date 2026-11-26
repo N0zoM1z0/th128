@@ -919,6 +919,63 @@ The final current-input comparison passed all 126 affected exact units.
 The current world owner still has only the frame-size byte difference at `+8`:
 [complete frontier replay](../.analysis/anm-world-after-callback-recovery.json).
 
+## Natural ANM binding calls and inline timer resets (2026-11-26)
+
+For the original Japanese TH128 v1.00a and pinned VC10 RTM
+`/O2 /Ob1 /Oy- /GL`, `AnmResource::BindVmScript` at `0x004593B0`
+(262 bytes) and `BindVmAtPosition` at `0x004594C0` (295 bytes) now
+replay exactly as complete primary-script contributions. Each has six
+reviewed address fields: VM reset, `g_TimeScale`, two singleton loads,
+manager update and the failure-path `memset`.
+[Script replay](../.analysis/anm-bind-script-natural-exact.json),
+[positioned replay](../.analysis/anm-bind-position-natural-exact.json),
+[complete target review](../.analysis/anm-binding-natural-target-review.txt).
+
+The binders call the ordinary `AnmManager::UpdateVm(AnmVm *)` member.
+This explains the target singleton load into ECX as a real receiver input;
+the old free stdcall function needed an unrelated volatile global read.
+The unsupported `stateFlags` formal is removed from the manager declaration.
+The source now uses typed singleton and game-speed symbols and ordinary flag
+accesses throughout both binders. This also closes the earlier DL/CL register
+allocation differences without register hints.
+
+A flat timer reset reached both full lengths but left 20 ordinary-byte
+differences in each owner: the flag clear and argument push moved before the
+two integer timer stores. The local inline `ResetBindingTimer` helper
+preserves the reset operation as an inline call, reproducing all six fields
+and every remaining byte. No additional timer state, stack slots or volatile
+accesses were needed.
+[Rejected flat reset](../.analysis/anm-bind-natural-member-diff.txt),
+[helper diagnostic](../.analysis/anm-bind-reset-helper-diff.txt).
+
+The target update wrapper at `0x00407080` remains a separate 20-byte frontier.
+The earlier free stdcall body produces 15 bytes as normal COFF; the natural
+member in the full `/GL` wrapper context produces only a five-byte tail jump.
+The normal body keeps the stack VM input and `RET 4`, while omitting the
+target's alignment and ESP restoration. The GL tail jump also loses that
+stack-argument boundary. The source mapping and explicit linked frontier now cover that full
+20-byte owner; its TU/ABI context remains open. The binder matches use the
+reviewed symbolic wrapper binding in the existing diagnostic link family;
+they do not establish closure with the real wrapper body or a native product.
+[Normal-COFF observation](../.analysis/anm-binding-wrapper-normal-diff.txt),
+[complete COFF extents](../.analysis/anm-binding-wrapper-complete-extents.txt),
+[wrapper target review](../.analysis/anm-binding-update-boundary-review.txt),
+[GL build](../.analysis/anm-binding-wrapper-native-gl-build.log),
+[extent rejection](../.analysis/anm-binding-wrapper-gl-frontier.err).
+
+The mixed COFF/GL consumer also builds with the natural member symbol; its
+normal member wrapper is 15 bytes and its 13,604-byte `Update` remains a
+codegen frontier.
+[Mixed build](../.analysis/anm-binding-mixed-wrapper-build.log),
+[bounded observations](../.analysis/anm-binding-mixed-wrapper-observations.txt).
+
+The affected scope is 128 exact units across the existing eight compilation
+contexts. The script family was already freshly cold-built for this source
+and supplies eight of those owners; only the seven other contexts need
+another cold build. All 128 current-input exact comparisons passed.
+[Affected replay](../.analysis/anm-binding-affected-replay.log),
+[selected units](../.analysis/anm-binding-affected-units.json).
+
 ## Open questions
 
 - Per-unit flags, the TU partition, which objects were `/GL`, the library set

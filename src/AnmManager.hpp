@@ -46,7 +46,7 @@ struct AnmManager
     unsigned int colorModulationEnabled;     // +0x8C3904
 
     AnmVm *GetVmById(AnmId id);
-    void __fastcall UpdateVm(unsigned int stateFlags, AnmVm *vm);
+    void UpdateVm(AnmVm *vm);
     void StopVmById(AnmId id, short interrupt);
     void SetInterruptAndUpdate(AnmId id, short interrupt);
     void MarkResourceVmsForDelete(AnmResource *resource);

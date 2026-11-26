@@ -105,6 +105,7 @@ AnmManager::ReleaseAnm
 AnmManager::SetInterruptAndUpdate
 AnmManager::StopVmById
 AnmManager::UpdateUiVms
+AnmManager::UpdateVm
 AnmManager::UpdateWorldVms
 AnmResource::AnmResource
 AnmResource::BindVmAtPosition

@@ -1,6 +1,6 @@
 # TH128 reconstruction handoff
 
-Snapshot: 2026-11-26 (positioned child and stop exact; native ID lookup replaces shim). Read this first, then AGENTS.md.
+Snapshot: 2026-11-26 (both ANM binders exact; natural manager update receiver). Read this first, then AGENTS.md.
 
 ## Resume safely
 
@@ -36,12 +36,12 @@ canonical ledgers. At this snapshot:
 | Boundary reviewed / provisional | 3,452 / 64 |
 | Origin rows pending | 21 |
 | Authored / excluded / indeterminate | 2,226 / 1,269 / 0 |
-| Source-present mappings | 355 |
-| Source-present with authored origin | 347 |
-| Authored source-present exact backlog | 45 |
-| Canonical exact functions | 310 |
-| Canonical exact codegen bytes | 18,207 |
-| Canonical exact authored bytes | 17,878 |
+| Source-present mappings | 356 |
+| Source-present with authored origin | 348 |
+| Authored source-present exact backlog | 44 |
+| Canonical exact functions | 312 |
+| Canonical exact codegen bytes | 18,764 |
+| Canonical exact authored bytes | 18,435 |
 
 The candidate inventory is not proven complete. The 21 remaining pending origin
 rows are unreferenced `d3dx9math.inl` candidates (all 16 CRT-band boundary-review
@@ -125,6 +125,14 @@ context instead of repeating it in four additional output directories.
 All 126 affected exact units passed the final current-input comparison
 ([replay](../.analysis/anm-member-consolidated-final-replay.log)).
 
+`AnmResource::BindVmScript` (`0x004593B0`, 262 bytes) and
+`BindVmAtPosition` (`0x004594C0`, 295 bytes) now replay exact
+(+2 functions, +557 bytes), each with six reviewed address fields.
+They use a real manager member receiver and a local inline timer reset;
+the old volatile singleton read, flag cast and absolute timer pointer are
+removed. All 128 affected exact units passed current-input comparison; the
+mixed wrapper consumer also builds. See the [binding finding](KNOWLEDGE_BASE.md#natural-anm-binding-calls-and-inline-timer-resets-2026-11-26).
+
 Current focused frontiers:
 
 - `UpdateWorldVms`: complete 229-byte owner with all 12 address fields
@@ -142,13 +150,13 @@ return-pointer promotion and control-flow differences. `CreateVm` was
 the target keeps physical insertion branches eliminated by the source compiler.
 `SetInterruptAndUpdate` (`0x004674F0`, 128 bytes) now has a source mapping
 and linked frontier unit: the candidate is 127 bytes with different stack
-alignment. `BindVmScript`/`BindVmAtPosition` units now point to their actual
-`AnmVmScript.cpp` definitions. The current script context has `Update` at
-13,604 bytes but extensive differences; matching its size grants no credit.
-`BindVmScript` is 262 bytes with three register-byte differences. Its existing
-volatile singleton read and flag cast still need natural-source cleanup.
-The reviewed 20-byte wrapper at `0x00407080` takes a stack VM and calls
-`Update`; test the manager-member hypothesis described in the knowledge base.
+alignment. The reviewed update wrapper at `0x00407080` now has a source
+mapping and linked frontier unit. Its natural member implementation is a
+five-byte tail jump in the full GL wrapper context; the target is a 20-byte
+stack-VM wrapper with eight-byte alignment and `RET 4`. The original TU/ABI
+context is unresolved. The binder matches use the reviewed external-symbol
+binding; they do not prove closure with that wrapper body. The current script
+`Update` still has extensive differences despite its earlier 13,604-byte size.
 Reproduce the interrupt frontier (expected
 mismatch, no exact credit):
 
@@ -159,14 +167,15 @@ scripts/repo-python scripts/compare-linked-function.py --unit anm-manager-set-in
 
 `AnmVm::Update` remains a frontier.
 
-Replay the color and tick callback owners with:
+Replay the recent ANM exact owners with:
 
 ```bash
 scripts/repo-python scripts/replay-exact-units.py \
   --unit anm-vm-set-color-transition --unit anm-vm-set-secondary-color-transition \
   --unit anm-manager-on-tick-world-callback --unit anm-manager-on-tick-ui-callback \
   --unit anm-manager-update-ui-vms --unit anm-manager-stop-vm-by-id \
-  --unit anm-vm-spawn-child-at-position --unit anm-manager-get-vm-by-id
+  --unit anm-vm-spawn-child-at-position --unit anm-manager-get-vm-by-id \
+  --unit anm-resource-bind-vm-script --unit anm-resource-bind-vm-at-position
 ```
 
 ## Active reconstruction: AnmVm
@@ -274,13 +283,14 @@ Primary evidence:
 
 | Source | Scope | Status |
 | --- | --- | --- |
-| src/AnmVmScript.cpp | wait commands, opcode dispatcher, ready-instruction loop, view corners, easing and timer reset helpers | 6 owners exact (`EaseTransition`, 3 timer resets, `SetUpdateTimerCurrent`, positioned child creation); `AnmVm::Update` frontier |
+| src/AnmVmScript.cpp | wait commands, opcode dispatcher, ready-instruction loop, view corners, easing and timer reset helpers | 8 owners exact (`EaseTransition`, 3 timer resets, `SetUpdateTimerCurrent`, positioned child creation, both resource binders); `AnmVm::Update` frontier |
 | src/AnmVmTransitions.cpp | transition setup (`SetScaleTransition`, `SetSecondaryScaleTransition`, `SetSecondaryEffectState`, color/effect setup) | 5 exact (`0x0045E080`, `0x0045E190`, `0x0045E240`, `0x0045E2C0`, `0x0045E4D0`); primary-effect frontier |
 | src/AnmVmEffects.cpp | render-state sync, world matrices, sprite/fog/primitive draw paths, effect 10 | 5 exact normal-COFF owners; renderer paths frontier |
 | src/AnmVmOperands.cpp | four operand resolver owners (`0x00459900..0x00459CE0`) | 4/4 exact (linked PE) |
 | src/AnmVmResource.cpp | `NormalizeAnmCoordinates` (`0x00459D50`) | exact (linked PE) |
 | src/AnmManager.cpp | VM lookup, allocation, list cleanup, draw grouping, tick callbacks, `FlushSpriteBatch`, 23 `DrawLayer*` callbacks | 35 exact (linked PE), including `UpdateUiVms` and `StopVmById`; `UpdateWorldVms`/`PreloadAnm`/`SetInterruptAndUpdate` frontiers |
 | src/AnmResource.cpp | `AnmResource::AnmResource`, `Release`, `AnmTextureEntry::Release`, `CreateVm` | 3 exact (linked PE); `CreateVm` frontier |
+| src/AnmVmUpdateWrapper.cpp | manager binding update wrapper (`0x00407080`) | 20-byte target frontier; 5-byte GL body, 15-byte normal-COFF body |
 | src/AnmHelpers.cpp | `ResolveAnmVmId` and 31 `AnmId`/VM/child/rotation/draw helpers (`0x00467570..0x00468100`) | 32 exact (linked PE); `ClearD3DTexture*` frontiers |
 | src/AnmInterp.cpp | `AnmInterp<T>` template (`AnmColor3`/`float`/`int`/`ZunVec2`) and vector/angle/color helpers (`0x0045D330..0x0045E76F`) | 39 exact (linked PE) + frontiers |
 | src/Rng.cpp | RNG primitives and scaled overloads | exact (linked PE) |
@@ -297,9 +307,9 @@ has an accepted exact owner replay yet.
 
 ### Exact ANM owners
 
-`config/matches.csv` now contains **136 exact ANM-area owners** across the
+`config/matches.csv` now contains **138 exact ANM-area owners** across the
 modules above (6 setters/ctor, 5 effect-table owners, 4 operand resolvers,
-`NormalizeAnmCoordinates`, 6 script/child/easing/timer owners, 35 `AnmManager`,
+`NormalizeAnmCoordinates`, 8 script/binding/child/easing/timer owners, 35 `AnmManager`,
 3 `AnmResource`/`AnmTextureEntry`, 32 `AnmHelpers`, 39 `AnmInterp`, and
 5 `AnmVmTransitions`). Do not expand this list from source presence or
 successful compilation; only accepted rows in `config/matches.csv` count as
@@ -317,7 +327,7 @@ callers remain frontiers as well.
 ## Next useful work (Phase 3+)
 
 1. **Close remaining ANM medium functions**: finish `UpdateWorldVms` (`0x00466AF0`),
-   `CreateVm` (`0x004670B0`, frontier), `PreloadAnm`
+   the binding update wrapper (`0x00407080`, 20B), `CreateVm` (`0x004670B0`, frontier), `PreloadAnm`
    (`0x00465600`, 124B), `SetInterruptAndUpdate` (`0x004674F0`, 128B), `SetEffectState` (`0x0045E6C0`, 133B),
    `ClearD3DTexture` (`0x00467BD0`) and the
    four `AnmInterp<T>::Step` functions (`0x0045D3D0..0x0045DB20`), plus `AnmVm::Update`
