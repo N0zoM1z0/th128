@@ -113,6 +113,7 @@ struct AnmResource
     int CacheExternalTexture(const AnmArchiveEntry *entry, int textureIndex);
     AnmResource *FinalizeNextEntry();
     void SetSprite(int spriteIndex, const AnmFileEntry *sprite);
+    AnmId CreateUiVm(const ZunVec3 *position, int scriptIndex);
     AnmId SpawnChildVm(int scriptIndex, AnmVm *parent, unsigned int listMode);
     AnmId SpawnChildVmAtPosition(int scriptIndex, AnmVm *parent);
     void BindVmScript(AnmVm *vm, int scriptIndex);

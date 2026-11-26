@@ -6257,7 +6257,7 @@ linkages = [
 [units.anm-texture-create-empty]
 artifact_kind = "linked-pe"
 source = "src/AnmTextureLoading.cpp"
-support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp"]
+support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp", "src/HelpInf.cpp", "src/MenuCursor.cpp", "src/SoundManager.cpp", "src/AnmHelpers.cpp", "probes/help-context.cpp"]
 output_dir = "build/match-linked/AnmTextureLoading"
 profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
 entry = "AnmCoreProbe@48"
@@ -6276,7 +6276,7 @@ linkages = [
 [units.anm-texture-create-render-target]
 artifact_kind = "linked-pe"
 source = "src/AnmTextureLoading.cpp"
-support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp"]
+support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp", "src/HelpInf.cpp", "src/MenuCursor.cpp", "src/SoundManager.cpp", "src/AnmHelpers.cpp", "probes/help-context.cpp"]
 output_dir = "build/match-linked/AnmTextureLoading"
 profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
 entry = "AnmCoreProbe@48"
@@ -6296,7 +6296,7 @@ linkages = [
 frontier = true
 artifact_kind = "linked-pe"
 source = "src/AnmTextureLoading.cpp"
-support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp"]
+support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp", "src/HelpInf.cpp", "src/MenuCursor.cpp", "src/SoundManager.cpp", "src/AnmHelpers.cpp", "probes/help-context.cpp"]
 output_dir = "build/match-linked/AnmTextureLoading"
 profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
 entry = "AnmCoreProbe@48"
@@ -6310,7 +6310,7 @@ linkages = []
 frontier = true
 artifact_kind = "linked-pe"
 source = "src/AnmTextureLoading.cpp"
-support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp"]
+support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp", "src/HelpInf.cpp", "src/MenuCursor.cpp", "src/SoundManager.cpp", "src/AnmHelpers.cpp", "probes/help-context.cpp"]
 output_dir = "build/match-linked/AnmTextureLoading"
 profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
 entry = "AnmCoreProbe@48"
@@ -6338,7 +6338,7 @@ linkages = [
 frontier = true
 artifact_kind = "linked-pe"
 source = "src/AnmTextureLoading.cpp"
-support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp"]
+support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp", "src/HelpInf.cpp", "src/MenuCursor.cpp", "src/SoundManager.cpp", "src/AnmHelpers.cpp", "probes/help-context.cpp"]
 output_dir = "build/match-linked/AnmTextureLoading"
 profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
 entry = "AnmCoreProbe@48"
@@ -6362,7 +6362,7 @@ linkages = [
 [units.anm-accumulate-texture-color-8888]
 artifact_kind = "linked-pe"
 source = "src/AnmTextureLoading.cpp"
-support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp"]
+support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp", "src/HelpInf.cpp", "src/MenuCursor.cpp", "src/SoundManager.cpp", "src/AnmHelpers.cpp", "probes/help-context.cpp"]
 output_dir = "build/match-linked/AnmTextureLoading"
 profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
 entry = "AnmCoreProbe@48"
@@ -6375,7 +6375,7 @@ linkages = []
 [units.anm-accumulate-texture-color-1555]
 artifact_kind = "linked-pe"
 source = "src/AnmTextureLoading.cpp"
-support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp"]
+support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp", "src/HelpInf.cpp", "src/MenuCursor.cpp", "src/SoundManager.cpp", "src/AnmHelpers.cpp", "probes/help-context.cpp"]
 output_dir = "build/match-linked/AnmTextureLoading"
 profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
 entry = "AnmCoreProbe@48"
@@ -6388,7 +6388,7 @@ linkages = []
 [units.anm-accumulate-texture-color-4444]
 artifact_kind = "linked-pe"
 source = "src/AnmTextureLoading.cpp"
-support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp"]
+support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp", "src/HelpInf.cpp", "src/MenuCursor.cpp", "src/SoundManager.cpp", "src/AnmHelpers.cpp", "probes/help-context.cpp"]
 output_dir = "build/match-linked/AnmTextureLoading"
 profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
 entry = "AnmCoreProbe@48"
@@ -6401,7 +6401,7 @@ linkages = []
 [units.anm-accumulate-texture-color-8332]
 artifact_kind = "linked-pe"
 source = "src/AnmTextureLoading.cpp"
-support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp"]
+support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp", "src/HelpInf.cpp", "src/MenuCursor.cpp", "src/SoundManager.cpp", "src/AnmHelpers.cpp", "probes/help-context.cpp"]
 output_dir = "build/match-linked/AnmTextureLoading"
 profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
 entry = "AnmCoreProbe@48"
@@ -6414,7 +6414,7 @@ linkages = []
 [units.anm-normalize-texture-format]
 artifact_kind = "linked-pe"
 source = "src/AnmTextureLoading.cpp"
-support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp"]
+support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp", "src/HelpInf.cpp", "src/MenuCursor.cpp", "src/SoundManager.cpp", "src/AnmHelpers.cpp", "probes/help-context.cpp"]
 output_dir = "build/match-linked/AnmTextureLoading"
 profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
 entry = "AnmCoreProbe@48"
@@ -6431,7 +6431,7 @@ linkages = [
 frontier = true
 artifact_kind = "linked-pe"
 source = "src/AnmTextureLoading.cpp"
-support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp"]
+support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp", "src/HelpInf.cpp", "src/MenuCursor.cpp", "src/SoundManager.cpp", "src/AnmHelpers.cpp", "probes/help-context.cpp"]
 output_dir = "build/match-linked/AnmTextureLoading"
 profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
 entry = "AnmCoreProbe@48"
@@ -6460,7 +6460,7 @@ linkages = [
 frontier = true
 artifact_kind = "linked-pe"
 source = "src/AnmTextureLoading.cpp"
-support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp"]
+support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp", "src/HelpInf.cpp", "src/MenuCursor.cpp", "src/SoundManager.cpp", "src/AnmHelpers.cpp", "probes/help-context.cpp"]
 output_dir = "build/match-linked/AnmTextureLoading"
 profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
 entry = "AnmCoreProbe@48"
@@ -6481,7 +6481,7 @@ linkages = [
 frontier = true
 artifact_kind = "linked-pe"
 source = "src/AnmTextureLoading.cpp"
-support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp"]
+support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp", "src/HelpInf.cpp", "src/MenuCursor.cpp", "src/SoundManager.cpp", "src/AnmHelpers.cpp", "probes/help-context.cpp"]
 output_dir = "build/match-linked/AnmTextureLoading"
 profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
 entry = "AnmCoreProbe@48"
@@ -6500,4 +6500,145 @@ linkages = [
   { offset = 294, type = "REL32", symbol = "?FillTransparentTextureColors@AnmHelpers@@YGXPAUAnmTextureEntry@@@Z", target = 0x004645F0 },
   { offset = 304, type = "DIR32", symbol = "?g_AnmTextureBytesPerPixel@@3QBHB", target = 0x004A48A8 },
   { offset = 320, type = "REL32", symbol = "@__security_check_cookie@4", target = 0x004728FD },
+]
+
+[units.help-update]
+frontier = true
+artifact_kind = "linked-pe"
+source = "src/HelpInf.cpp"
+support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp", "src/AnmTextureLoading.cpp", "src/MenuCursor.cpp", "src/SoundManager.cpp", "src/AnmHelpers.cpp", "probes/help-context.cpp"]
+output_dir = "build/match-linked/HelpInf"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["HelpInf::Update"]
+symbol = "?Update@HelpInf@@SGHPAU1@@Z"
+target_address = 0x00427CD0
+size = 1184
+linkages = [
+]
+
+[units.help-create-vm]
+artifact_kind = "linked-pe"
+source = "src/HelpInf.cpp"
+support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp", "src/AnmTextureLoading.cpp", "src/MenuCursor.cpp", "src/SoundManager.cpp", "src/AnmHelpers.cpp", "probes/help-context.cpp"]
+output_dir = "build/match-linked/HelpInf"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["HelpInf::CreateVm"]
+symbol = "?CreateVm@HelpInf@@QAEXHPBUZunVec3@@@Z"
+target_address = 0x00427880
+size = 35
+linkages = [
+  { offset = 18, type = "REL32", symbol = "?CreateUiVm@AnmResource@@QAE?AUAnmId@@PBUZunVec3@@H@Z", target = 0x004281D0 },
+]
+
+[units.help-resource-create-ui-vm]
+frontier = true
+artifact_kind = "linked-pe"
+source = "src/HelpInf.cpp"
+support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp", "src/AnmTextureLoading.cpp", "src/MenuCursor.cpp", "src/SoundManager.cpp", "src/AnmHelpers.cpp", "probes/help-context.cpp"]
+output_dir = "build/match-linked/HelpInf"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["AnmResource::CreateUiVm"]
+symbol = "?CreateUiVm@AnmResource@@QAE?AUAnmId@@PBUZunVec3@@H@Z"
+target_address = 0x004281D0
+size = 204
+linkages = [
+  { offset = 8, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1432 },
+  { offset = 26, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 2288 },
+  { offset = 32, type = "DIR32", symbol = "__imp__EnterCriticalSection@4", target = 0x0049A088 },
+  { offset = 38, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 2369 },
+  { offset = 49, type = "REL32", symbol = "?AllocateAnmVm@@YAPAUAnmVm@@XZ", target = 0x00468010 },
+  { offset = 132, type = "REL32", symbol = "?BindVmScript@AnmResource@@QAEXPAUAnmVm@@H@Z", target = 0x004593B0 },
+  { offset = 143, type = "REL32", symbol = "?RegisterUiVmAtTail@AnmVm@@QAE?AUAnmId@@XZ", target = 0x00466E60 },
+  { offset = 164, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 1432 },
+  { offset = 177, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 2288 },
+  { offset = 183, type = "DIR32", symbol = "__imp__LeaveCriticalSection@4", target = 0x0049A08C },
+  { offset = 189, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 2369 },
+]
+
+[units.help-load-resources-worker]
+frontier = true
+artifact_kind = "linked-pe"
+source = "src/HelpInf.cpp"
+support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp", "src/AnmTextureLoading.cpp", "src/MenuCursor.cpp", "src/SoundManager.cpp", "src/AnmHelpers.cpp", "probes/help-context.cpp"]
+output_dir = "build/match-linked/HelpInf"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["HelpInf::LoadResourcesWorker"]
+symbol = "?LoadResourcesWorker@HelpInf@@SAXXZ"
+target_address = 0x00427960
+size = 90
+linkages = [
+  { offset = 2, type = "DIR32", symbol = "??_C@_08EOADLPKB@help?4anm?$AA@", target = 0x004A294C },
+  { offset = 12, type = "REL32", symbol = "?PreloadAnm@AnmManager@@SAPAUAnmResource@@HPBD@Z", target = 0x00465600 },
+  { offset = 18, type = "DIR32", symbol = "?g_HelpInf@@3PAUHelpInf@@A", target = 0x004B8A58 },
+  { offset = 34, type = "DIR32", symbol = "??_C@_0DH@LGCMOPFP@?$IJ?f?$JG?J?$IN?2?$JA?$KM?$IDf?$IB?$FL?$ID?$FO?$IC?$KK?$IM?$KJ?$IC?B?$IC?$KJ?$IC?h?$IC?$NM?$IC?$LJ?$IC?q?$IBB@", target = 0x004A2394 },
+  { offset = 39, type = "DIR32", symbol = "?g_GameErrorContext@@3UGameErrorContext@@A", target = 0x004B4F50 },
+  { offset = 44, type = "REL32", symbol = "?Fatal@GameErrorContext@@QAAPBDPBDZZ", target = 0x0046A250 },
+  { offset = 54, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 2056 },
+  { offset = 64, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 2052 },
+]
+
+[units.help-load-page-worker]
+artifact_kind = "linked-pe"
+source = "src/HelpInf.cpp"
+support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp", "src/AnmTextureLoading.cpp", "src/MenuCursor.cpp", "src/SoundManager.cpp", "src/AnmHelpers.cpp", "probes/help-context.cpp"]
+output_dir = "build/match-linked/HelpInf"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["HelpInf::LoadPageWorker"]
+symbol = "?LoadPageWorker@HelpInf@@SAXXZ"
+target_address = 0x004279C0
+size = 68
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_HelpInf@@3PAUHelpInf@@A", target = 0x004B8A58 },
+  { offset = 21, type = "REL32", symbol = "?OpenPath@FileSystem@@YGPAEPBDPAHH@Z", target = 0x00469C40 },
+  { offset = 27, type = "DIR32", symbol = "?g_HelpInf@@3PAUHelpInf@@A", target = 0x004B8A58 },
+  { offset = 49, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 2056 },
+  { offset = 59, type = "DIR32", symbol = "?g_Supervisor@@3USupervisor@@A", target = 0x004D2E60, addend = 2052 },
+]
+
+[units.help-on-tick]
+artifact_kind = "linked-pe"
+source = "src/HelpInf.cpp"
+support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp", "src/AnmTextureLoading.cpp", "src/MenuCursor.cpp", "src/SoundManager.cpp", "src/AnmHelpers.cpp", "probes/help-context.cpp"]
+output_dir = "build/match-linked/HelpInf"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["HelpInf::OnTick"]
+symbol = "?OnTick@HelpInf@@SIHPAX@Z"
+target_address = 0x00428180
+size = 7
+linkages = [
+  { offset = 2, type = "REL32", symbol = "?Update@HelpInf@@SGHPAU1@@Z", target = 0x00427CD0 },
+]
+
+[units.help-on-draw]
+artifact_kind = "linked-pe"
+source = "src/HelpInf.cpp"
+support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp", "src/AnmTextureLoading.cpp", "src/MenuCursor.cpp", "src/SoundManager.cpp", "src/AnmHelpers.cpp", "probes/help-context.cpp"]
+output_dir = "build/match-linked/HelpInf"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["HelpInf::OnDraw"]
+symbol = "?OnDraw@HelpInf@@SIHPAX@Z"
+target_address = 0x00428190
+size = 6
+linkages = [
+]
+
+[units.help-draw]
+artifact_kind = "linked-pe"
+source = "src/HelpInf.cpp"
+support_sources = ["src/AnmManager.cpp", "src/AnmResource.cpp", "src/AnmVmScript.cpp", "src/AnmVmEffects.cpp", "src/AnmVmTransitions.cpp", "src/AnmVmView.cpp", "src/ZunTimer.cpp", "src/AngleMath.cpp", "src/ThreadInf.cpp", "probes/anm-core-context.cpp", "src/Chain.cpp", "src/GameErrorContext.cpp", "probes/anm-load-context.cpp", "src/AnmLoading.cpp", "src/AnmFinalization.cpp", "src/AnmTextureLoading.cpp", "src/MenuCursor.cpp", "src/SoundManager.cpp", "src/AnmHelpers.cpp", "probes/help-context.cpp"]
+output_dir = "build/match-linked/HelpInf"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AnmCoreProbe@48"
+functions = ["HelpInf::Draw"]
+symbol = "?Draw@HelpInf@@QAEHXZ"
+target_address = 0x00428170
+size = 6
+linkages = [
 ]

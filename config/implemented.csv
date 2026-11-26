@@ -120,6 +120,7 @@ AnmResource::AnmResource
 AnmResource::BindVmAtPosition
 AnmResource::BindVmScript
 AnmResource::CacheExternalTexture
+AnmResource::CreateUiVm
 AnmResource::CreateVm
 AnmResource::FinalizeNextEntry
 AnmResource::Release
@@ -230,6 +231,13 @@ GameErrorContext::Fatal
 GameErrorContext::Log
 GetElapsedSeconds
 GetWindowsVersionCode
+HelpInf::CreateVm
+HelpInf::Draw
+HelpInf::LoadPageWorker
+HelpInf::LoadResourcesWorker
+HelpInf::OnDraw
+HelpInf::OnTick
+HelpInf::Update
 InitDefaultTimeScale
 InitJoypad
 InterpolateAngle

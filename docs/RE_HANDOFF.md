@@ -1,6 +1,6 @@
 # TH128 reconstruction handoff
 
-Snapshot: 2026-11-26 (all four transparent-repair callers have source; file/region upload frontiers). Read this first, then AGENTS.md.
+Snapshot: 2026-11-26 (HelpInf viewer source; five new exact owners; main update and UI creation remain frontiers). Read this first, then AGENTS.md.
 
 ## Resume safely
 
@@ -22,8 +22,8 @@ Snapshot: 2026-11-26 (all four transparent-repair callers have source; file/regi
    output remains a hypothesis until source and compiler evidence settle it.
 
 Local commits are reconstruction checkpoints, not remote publication.
-Recheck the live branch and remote state before any push; the repository
-shell has no network access, so this workflow does not push changes.
+Recheck the live branch and remote state before any push; no push was
+performed for this checkpoint.
 
 ## Current ledger status
 
@@ -36,12 +36,12 @@ canonical ledgers. At this snapshot:
 | Boundary reviewed / provisional | 3,452 / 64 |
 | Origin rows pending | 21 |
 | Authored / excluded / indeterminate | 2,226 / 1,269 / 0 |
-| Source-present mappings | 375 |
-| Source-present with authored origin | 367 |
-| Authored source-present exact backlog | 53 |
-| Canonical exact functions | 322 |
-| Canonical exact codegen bytes | 19,507 |
-| Canonical exact authored bytes | 19,178 |
+| Source-present mappings | 383 |
+| Source-present with authored origin | 375 |
+| Authored source-present exact backlog | 56 |
+| Canonical exact functions | 327 |
+| Canonical exact codegen bytes | 19,629 |
+| Canonical exact authored bytes | 19,300 |
 
 The candidate inventory is not proven complete. The 21 remaining pending origin
 rows are unreferenced `d3dx9math.inl` candidates (all 16 CRT-band boundary-review
@@ -78,6 +78,36 @@ are not over-inlined; address-taken probe pointers prevent interprocedural
 `and esp, -8` hoisting; struct copies unlock `fldz` hoisting in transition setters.
 
 ## Latest advance (2026-11-26)
+
+`HelpInf.hpp/.cpp` now reconstruct the nine-page help viewer at `0x00427CD0`,
+its `0x1C0` layout, page/resource worker bodies, UI VM creation and callbacks.
+Five complete owners are newly exact (+122 bytes, seven reviewed fields):
+`CreateVm` (`0x00427880`, 35B), `LoadPageWorker` (`0x004279C0`, 68B),
+`Draw` (`0x00428170`, 6B), `OnTick` (`0x00428180`, 7B) and
+`OnDraw` (`0x00428190`, 6B). The real member-returned `AnmId` and a dynamic
+probe preserve the generic ID-store helper without an ABI shim. The upload
+caller owns and frees its CPU image; the following D3D slot `+0x24` is
+`PreLoad`, confirmed against the pinned SDK.
+
+Three HelpInf owners remain frontiers: Update is 1,092/1,184 bytes,
+`AnmResource::CreateUiVm` is 202/204, and `LoadResourcesWorker` is 92/90.
+Update still differs in frame/register layout, cursor clamping, launcher
+edges and two timer calls: the target uses `SetUpdateTimerCurrent`
+(`0x00403280`), while current source uses the public setter (`0x00403240`).
+The UI helper's binder input/result lifetimes differ; the resource worker's
+private Fatal receiver is EDI rather than ECX. Worker bodies consume no
+stack arguments and end in plain RET; CRT thread-entry adaptation at the
+external launcher remains unresolved. Initialization and native runtime
+closure are not implemented by this checkpoint.
+
+The resource-header change required 11 existing contexts to be cold-built;
+the new HelpInf context was already cold-built and receipt-verified. All
+143 affected/new exact owners passed the final current-input comparison.
+The expanded texture context includes the real HelpInf caller, but image
+upload remains 116/156 bytes and RGB repair retains its `0x4C`/`0x50`
+frame difference. See the [HelpInf finding](KNOWLEDGE_BASE.md#helpinf-viewer-returned-anm-ids-and-page-ownership-2026-11-26),
+[comparison](../.analysis/help-final-replay.log) and
+[selected units](../.analysis/help-final-affected-units.json).
 
 `AnmVm::SetColorTransition` (`0x0045E4D0`) and
 `SetSecondaryColorTransition` (`0x0045E2C0`) now replay exact as complete
@@ -408,6 +438,7 @@ Primary evidence:
 | src/AnmLoading.cpp | first-stage ANM load, external texture caching, inline resource constructor contribution | constructor exact (linked PE); loader/cache frontiers |
 | src/AnmFinalization.cpp | resolved sprite installation, one-entry finalization and pending-resource scheduler | `SetSprite` (145B) and scheduler (140B) exact; finalizer frontier |
 | src/AnmTextureLoading.cpp | seven texture creation/loading/upload methods, format fallback, neighbor accumulation and transparent RGB repair | 7 owners exact (334B); 6 frontiers including the full 1,774B repair |
+| src/HelpInf.cpp | help viewer update, UI VM creation, page/resource worker bodies and Chain callbacks | 5 owners exact (122B); Update, UI helper and resource worker frontiers |
 | src/AnmResource.cpp | `Release`, `AnmTextureEntry::Release`, `CreateVm` | 2 exact (linked PE); `CreateVm` frontier |
 | src/AnmVmUpdateWrapper.cpp | manager binding update wrapper (`0x00407080`) | 20-byte target frontier; 5-byte GL body, 15-byte normal-COFF body |
 | src/AnmHelpers.cpp | `ResolveAnmVmId` and 31 `AnmId`/VM/child/rotation/draw helpers (`0x00467570..0x00468100`) | 32 exact (linked PE); `ClearD3DTexture*` frontiers |
@@ -450,8 +481,11 @@ callers remain frontiers as well.
    (`0x004651D0`, 296B) frontiers. The five small helpers are exact; retain
    their real definitions while resolving the repair's local lifetimes and
    stack/register layout. All four direct callers now have source. The
-   remaining upload paths are listed above; reconstructing the real caller
-   at `0x00427CD0` is useful for the image uploader's GS/alignment context.
+   remaining upload paths are listed above; the real HelpInf caller at
+   `0x00427CD0` is now present without closing the uploader's GS/alignment
+   differences. First resolve its two timer-call identities by sharing the
+   maintained `SetUpdateTimerCurrent` implementation through an honest API;
+   do not bind the public setter to the byte-identical private copy.
    The pixel, upload and GPU findings retain failed probes.
    Then revisit the
    1,000-byte finalizer and the loader/cache pair
@@ -472,12 +506,14 @@ callers remain frontiers as well.
 4. **Next useful command after the session identity checks**:
 
    ~~~bash
-   scripts/repo-python scripts/ghidra.py query \
-     .analysis/anm-upload-image-caller-complete.txt disassemble 600 0x00427CD0
+   rg -n 'SetUpdateTimerCurrent|SetCurrent\(0\)' src/AnmVmScript.cpp src/HelpInf.cpp
    ~~~
 
-   The caller's reviewed owner is 1,184 bytes through `0x0042816F`; the
-   existing 250-instruction review covers the upload and following free.
+   The HelpInf owner's complete 1,184 bytes through `0x0042816F`, including
+   alignment and five dispatch entries, are reviewed in
+   `.analysis/manual-update-body-and-tail-review.txt` and
+   `.analysis/manual-dispatch-table.txt`. Preserve the separate setter
+   identity at `0x00403280` while narrowing the affected replay scope.
    For the repair, compare `.analysis/anm-colors-complete-callers-final-source.asm`
    with `.analysis/anm-colors-target.asm`. Its saved body review and separate
    table read cover the full target; instruction-only review must stop at

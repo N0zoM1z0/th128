@@ -35,6 +35,14 @@ SptInf::Slot03,0x004144C0,function
 SptInf::Slot04,0x004144D0,function
 SptInf::`scalar deleting destructor',0x00414630,function
 SptResourceInf::LoadIncludes,0x00414680,function
+HelpInf::CreateVm,0x00427880,function
+HelpInf::LoadResourcesWorker,0x00427960,function
+HelpInf::LoadPageWorker,0x004279C0,function
+HelpInf::Update,0x00427CD0,function
+HelpInf::Draw,0x00428170,function
+HelpInf::OnTick,0x00428180,function
+HelpInf::OnDraw,0x00428190,function
+AnmResource::CreateUiVm,0x004281D0,function
 LaserDataInf::Slot00,0x004299D0,function
 LaserDataInf::Slot01,0x004299E0,function
 LaserDataInf::Slot02,0x004299F0,function

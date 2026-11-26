@@ -1549,6 +1549,130 @@ three new source mappings do not increase the exact count.
 [selected owners](../.analysis/anm-additional-final-selected-units.json),
 [finalization observations](../.analysis/anm-additional-final-finalization-owners.json).
 
+## HelpInf viewer, returned ANM IDs and page ownership (2026-11-26)
+
+For Japanese TH128 v1.00a and pinned VC10 RTM `/O2 /Ob1 /Oy- /GL`,
+the caller at `0x00427CD0` is the nine-page help viewer. The target contains
+`help.anm`, `help_%.2d.png`, and `src\game\help.cpp:92 HelpInf`; creation
+allocates `0x1C0` bytes and publishes the object at `0x004B8A58`.
+`HelpInf.hpp/.cpp` now maintain its physical layout, complete update flow,
+page/resource worker bodies, VM creation and Chain callbacks.
+[Target strings](../.analysis/manual-asset-strings.txt),
+[viewer dispatch disassembly](../.analysis/anm-upload-image-caller-complete.txt),
+[local creation/helper review](../.analysis/manual-local-helpers-review.txt).
+
+| Physical field | TH128 offset |
+| --- | --- |
+| Calc/draw Chain elements | `+0x008/+0x00C` |
+| Outer state / embedded timer | `+0x010/+0x014` |
+| MenuCursor, size `0xD8` | `+0x028..+0x0FF` |
+| Nine directory IDs and one page ID | `+0x100..+0x127` |
+| Exit request / X origin | `+0x128/+0x12C` |
+| ANM resource / pending CPU image | `+0x130/+0x134` |
+| Page state / 128-byte filename / image size | `+0x138/+0x13C/+0x1BC` |
+
+The initial outer state advances to browsing on its first tick. Page state
+0 creates nine UI VMs, gives the selected label interrupt 2 and the others
+3, clears texture slot 1, and falls through to directory input. Directory
+input waits for timer 20 and uses trigger/repeat masks `0x10/0x20`.
+Confirmation selects the image filename, resets the timer, queues a read and
+stops all directory VMs. Cancel requests the outer exit state; it sets the
+exit field after timer 30. These timer gates and the two fallthroughs are
+preserved, including the upload-to-view fallthrough in page states 3/4.
+
+The page worker reads through `FileSystem::OpenPath(..., 0)`, writes page
+state 3 even if reading failed, then clears the shared thread's running flag
+and sets its stop request. The next UI tick uploads into `textures[1]`, frees
+the CPU image if nonnull, clears that pointer again, calls texture
+`PreLoad()`, creates script 9, and enters page state 4. The viewing gate is
+again timer 20. Up/down step only within pages 0..8; returning to the
+directory recreates its nine VMs. No extra null/failure behavior was added.
+[Worker bodies](../.analysis/manual-worker-callback-spans.txt),
+[caller upload/free](../.analysis/anm-upload-texture-image-caller-review.txt).
+
+The post-upload virtual call at `0x00427F44` uses slot `+0x24`, which the
+pinned Windows SDK identifies as `IDirect3DResource9::PreLoad`. It is not
+`GenerateMipSubLevels` at slot `+0x40`. The initial source used the latter;
+the SDK review corrected this before final comparison.
+
+The resource UI helper at `0x004281D0` creates a VM under Supervisor lock 9,
+copies or zeros its position, binds the script, registers at the UI tail,
+clears state flags `0xC0`, and returns an `AnmId`. The initial free-function
+implementation returned this four-byte POD in EAX and emitted 184/20-byte
+helper/caller owners at that stage. A resource member return supplies the
+target's hidden result pointer and `RET 8` contract. Keeping the script index
+dynamic in the callback probe
+also preserves the generic `HelpInf::CreateVm` instead of specializing its
+only visible direct call to script 9. The complete 35-byte caller now has
+zero differences and its one call field binds to this actual resource member.
+[Free-function observation](../.analysis/help-first-observations.txt),
+[member observation](../.analysis/help-member-observations.txt),
+[canonical caller replay](../.analysis/help-final-help-create-vm-replay.json).
+
+The helper remains 202 vs 204 bytes. Fixed-size position `memcpy` preserves
+the target's integer word copies; individual float assignments instead emit
+x87 loads/stores. Snapshotting the registered ID's integer before constructing
+the returned wrapper retains a separate registration temporary. The remaining
+binder register input/result-lifetime differences are linked-context questions,
+not grounds for register hints or a different ABI declaration.
+[Measured final context](../.analysis/help-core-context-observations.txt).
+
+The full update remains 1,092 vs 1,184 bytes. Its complete target extent
+includes seven bytes of internal alignment, a final alignment byte, and five
+absolute dispatch entries at `0x0042815C..0x0042816F`; sparse analyzer ranges
+alone omit these bytes. Source still differs in stack alignment/register
+allocation, directory cursor clamping, opaque task-launch calls, and the two
+timer-setter edges: target calls the separate `0x00403280` copy while this
+initial implementation calls the public `ZunTimer::SetCurrent`.
+[Body review](../.analysis/manual-update-body-and-tail-review.txt),
+[owned table read](../.analysis/manual-dispatch-table.txt).
+
+The shared task launcher at `0x00434CB0` starts a CRT thread, but the two
+worker bodies have plain RET tails and no consumed stack arguments. Only
+those zero-argument bodies are modeled here; the thread-entry adaptation
+stays external. No incompatible callback cast or fabricated wrapper was
+introduced, and the worker-owner comparison does not close native thread
+startup or the runnable product.
+
+Five complete primary-TU owners are now exact, adding 122 bytes and seven
+reviewed relocation fields:
+
+| Target | Owner | Bytes | Fields |
+| --- | --- | ---: | ---: |
+| `0x00427880` | `HelpInf::CreateVm` | 35 | 1 |
+| `0x004279C0` | `HelpInf::LoadPageWorker` | 68 | 5 |
+| `0x00428170` | `HelpInf::Draw` | 6 | 0 |
+| `0x00428180` | `HelpInf::OnTick` | 7 | 1 |
+| `0x00428190` | `HelpInf::OnDraw` | 6 | 0 |
+
+The unreferenced Draw copy retains a medium-confidence target boundary;
+its six-byte extent and adjacent bytes were reviewed separately from the
+callback. The resource worker remains 92 vs 90 bytes: its candidate private
+`Fatal` receiver uses EDI rather than target ECX, adding an EDI save/restore.
+The update and UI helper above also remain frontiers. Strict comparisons
+reject all three owners at the complete-contribution size check.
+[Page worker replay](../.analysis/help-final-help-load-page-worker-replay.json),
+[Draw replay](../.analysis/help-final-help-draw-replay.json),
+[tick callback replay](../.analysis/help-final-help-on-tick-replay.json),
+[draw callback replay](../.analysis/help-final-help-on-draw-replay.json).
+
+All 138 previously exact consumers of the changed resource header were
+cold-built in 11 contexts; the new HelpInf context had already been cold-built
+and receipt-verified. The final current-input comparison passed all 143
+affected/new exact owners across these 12 contexts, including full owned
+extents and relocation/call identities. No HelpInf initialization, launcher
+adaptation or runtime closure is claimed.
+[Final comparison](../.analysis/help-final-replay.log),
+[selected owners](../.analysis/help-final-affected-units.json).
+
+The existing texture context now includes the real HelpInf caller, MenuCursor,
+sound operations and its callback probe. It still gives 116 vs 156 bytes for
+image upload and 1,774 bytes with the same unresolved frame for RGB repair.
+Adding the real caller alone did not explain those remaining GS/alignment
+differences in this measured context.
+[Texture consumer](../.analysis/help-texture-consumer-observations.txt),
+[upload observations](../.analysis/help-upload-consumer-observations.txt).
+
 ## Open questions
 
 - Per-unit flags, the TU partition, which objects were `/GL`, the library set
