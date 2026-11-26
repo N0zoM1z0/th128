@@ -63,8 +63,9 @@ is exact as normal COFF. It allocates 0x2C bytes into `vm->extraData`
 (+0x4AC, which `~AnmVm` frees) and copies the screen position into
 `vm->position` (+0x464) by **vector struct assignment**: per-component float
 copies compile to `FLD`/`FSTP`, the original's integer `MOV`s need a struct
-copy. `ZunTimer::Initialize` and an inline `Reset()` now live in the header
-for such inline timer resets.
+copy. `ZunTimer::Initialize` remains inline in the header; this callback
+uses the local `ResetEffectTimer` helper because the shared `Reset()` is
+now an out-of-line owner.
 
 ## Laser classes
 
@@ -217,13 +218,11 @@ call edges for the X/Y scalar transitions. Opcode 113 has a third, byte-identica
 preserves the view-transition call edge. The four Update-owned timer-frame
 writes also use a separate exact 61-byte `SetUpdateTimerCurrent` copy at
 `0x00403280`, distinct from `ZunTimer::SetCurrent` at `0x00403240`; all four
-call edges now match the target. The VM-id lookup at `0x00467420` now has an
-exact 89-byte natural-C++ replay: `GetVmByIdTargetAbi` keeps the manager in
-EDX, the ID on the stack, and the unused ECX fastcall slot through an
-address-taken probe reference. It searches world then UI VM lists. The
-`0x00467780` `ResolveAnmVmId` wrapper now calls this exact helper and keeps
-both Update call edges; its current candidate is 23 bytes versus the 21-byte
-target because LTCG emits a zeroing instruction for the unused ECX slot.
+call edges now match the target. The historical VM-id lookup experiment used
+an unused-ECX fastcall shim and left a 23-byte wrapper. That shim has been
+removed; the native `AnmId`
+member and its canonical replay are described in
+[the current ID/child finding](#anm-child-creation-and-native-id-lookup-2026-11-26).
 Opcode 45 is `acos`, confirmed by the target's `__CIacos` call; the source now
 uses `acos` rather than `asin`. The latest targeted `AnmVm::Update` linked
 build is 13,628 bytes against the 13,604-byte target (3,721 vs 3,769 decoded
@@ -657,7 +656,7 @@ A Capstone sweep across all 2,214 confirmed authored game functions (`0x00401000
 
 Verified against TH128 (`resources/th128.exe`, VC10 RTM `16.00.30319.01`, link `10.00.30319.01`) across +201 newly accepted exact functions (`102 -> 303` exact, `6,620 -> 17,121` exact bytes):
 
-- **`struct AnmId` by-value solves the `GetVmById` (`0x00467420`) / `ResolveAnmVmId` (`0x00467780`) LTCG stack-arg mystery.** VC10 `/GL` custom calling convention promotes scalar and pointer parameters (`this`, `AnmId *`, `ZunVec3 *`) into registers, but **never** register-promotes by-value `struct` parameters (`struct AnmId { unsigned int id; };`). Declaring `AnmVm *AnmManager::GetVmById(AnmId id)` naturally keeps `this` in `EDX` and `id` on the stack (`push eax; call 0x467420`) with zero unused-`ECX` workaround, reproducing both the 89-byte `GetVmById` body and 30+ `AnmHelpers` / `ResolveAnmVmId` callers exactly.
+- **`struct AnmId` by-value solves the `GetVmById` (`0x00467420`) / `ResolveAnmVmId` (`0x00467780`) LTCG stack-arg mystery.** In the tested ANM contexts, VC10 `/GL` promotes scalar and pointer parameters (`this`, `AnmId *`, `ZunVec3 *`) into registers while the by-value `AnmId` (`struct AnmId { unsigned int id; };`) stays on the stack. Declaring `AnmVm *AnmManager::GetVmById(AnmId id)` naturally keeps `this` in `EDX` and `id` on the stack (`push eax; call 0x467420`) with zero unused-`ECX` workaround, reproducing both the 89-byte `GetVmById` body and 30+ `AnmHelpers` / `ResolveAnmVmId` callers exactly.
 - **`/Ob1` (inline only `__inline`/in-class) is required for ANM `/GL` units.** Under default `/O2` (`/Ob2`), VC10 `/GL` aggressively inlines out-of-line `.cpp` helpers (`GetVmById`, `EaseTransition`, `DrawAnmVmWithManager`, `Supervisor::EnterCriticalSection`/`LeaveCriticalSection`), inflating callers by 24–70 bytes. Adding `/Ob1` (`/TP /O2 /Ob1 /Oy- /Gy /MT /Isrc /GL`) keeps out-of-line `.cpp` calls intact while still inlining header-defined `inline` methods (`ZunTimer::Initialize`, `ResolveVmIdPtrInline`). Note: `Pbg::File` (`~File` inlining `Close`) still uses `/O2` without `/Ob1`, confirming per-TU/per-project inline settings differ between Pbg and ANM.
 - **Interprocedural stack-alignment (`and esp, -8`) hoisting under `/GL`.** When a function has an 8-byte aligned local (`double`, `LARGE_INTEGER`) or calls a callee that does (`AnmVm::Update`), VC10 `/GL` hoists `and esp, -8` out of non-escaping callees into their callers. Taking the function's address in the probe (matching real `Chain` callback registration) restores `and esp, -8` inside the function (`SupervisorTime::GetElapsedSeconds` `0x00455160`, 266B exact; `UpdateWorldVms`/`UpdateUiVms` `0x00466AF0`/`0x00466BE0`).
 - **Singleton `this` constant propagation unlocks IV strength reduction.** Calling `SoundManager` methods on `&g_SoundManager` lets `/GL` constant-propagate `this`, emitting the exact pointer+index induction variable (`cmp ecx, &queuedIds[12]`) and matching all 17 `SoundManager` functions (`0x00458410..0x0045921F`).
@@ -812,9 +811,10 @@ compiler now eliminates the empty-node insertion branch in head registration;
 the target retains physical dead-branch instructions. Whole registration
 owners remain frontiers (118 vs 124 bytes for tails, 93 vs 119 for heads in
 the linked script context). Aggregate node-reset probes did not close them
-and were reverted. The child helper owners in that same context are
-264 vs 266 bytes and 250 vs 230 bytes; these measurements grant no exact credit.
-[Bounded observations](../.analysis/anm-id-return-frontier-observations.txt).
+and were reverted. At that checkpoint the child helper owners were
+264 vs 266 bytes and 250 vs 230 bytes, without exact credit. The subsequent member-return
+reconstruction below supersedes these measurements.
+[Earlier observations](../.analysis/anm-id-return-frontier-observations.txt).
 `CreateVm` remains 359 vs 364 bytes in its primary resource context. The
 small child-owner size gap still hides many control/ABI differences
 ([complete diagnostic](../.analysis/anm-child-after-id-return-diff.txt)).
@@ -822,6 +822,102 @@ The world update remains a one-byte frontier after these changes
 ([current replay](../.analysis/anm-world-after-id-return.json)).
 Seven affected factory/registration/child units now retain `/GL` as linked
 frontiers with the maintained symbols instead of stale normal-COFF prototypes.
+
+## ANM child creation and native ID lookup (2026-11-26)
+
+For the original Japanese TH128 v1.00a and pinned VC10 RTM
+`/O2 /Ob1 /Oy- /GL`, two more complete owners now replay exactly:
+`AnmResource::SpawnChildVmAtPosition` at `0x00467330` (230 bytes,
+11 address fields) and `AnmManager::StopVmById` at `0x00467480`
+(103 bytes, two fields). The native `AnmManager::GetVmById(AnmId)`
+replaces the old shim's canonical 89-byte row without adding byte credit.
+[Positioned-child replay](../.analysis/anm-child-position-final.json),
+[stop replay](../.analysis/anm-stop-final.json),
+[native lookup replay](../.analysis/anm-lookup-native-final.json).
+
+Both child creators are resource members returning the four-byte POD `AnmId`.
+This naturally supplies the hidden stack result pointer; the resource is
+promoted into EAX. An explicit caller-owned output pointer retained unwanted
+aliasing with `Supervisor.flags`: even at 230 bytes it left 13 ordinary-byte
+differences in the positioned creator. The member-return form permits the
+target's flags load before the result store and closes the complete owner.
+The creators now call the existing typed Supervisor section-9 lock methods;
+their old absolute-address volatile lock implementation is removed.
+[Complete target review](../.analysis/anm-id-return-review.txt),
+[rejected output-pointer diagnostic](../.analysis/anm-child-value-position-diff.txt).
+
+The parent main position is copied **before** `BindVmScript`; the three
+script-variable words and the alternate position are copied afterwards.
+`ResetForReuse` preserves the main position and binding executes an initial
+VM update, so moving the main copy after binding changes script input and
+can overwrite its output. Ordinary `ZunVec3` copies and `memcpy` for the three
+adjacent script words reproduce the target's integer moves. The normal child
+path also uses the reviewed list-insertion helper: it updates the new node's
+next pointer only when the parent's existing next pointer is nonnull.
+
+The core probe includes dynamic-manager lookup calls, following
+`GetVmPosById` at `0x004676F0`, whose target forwards the receiver without
+reloading the singleton. With only singleton callers LTCG specializes away
+the manager and removes `StopVmById`'s required global load. Retaining the
+actual dynamic-receiver use restores the complete 103-byte caller. Its
+second argument is a signed 16-bit interrupt in BX: it calls the optional
+callback and writes the interrupt to `currentFrame` on the VM and children;
+it does not clear callbacks. The unused-ECX shim, scalar lookup overload and
+probe pointer keeping that shim alive are all removed.
+[Consumer/interrupt review](../.analysis/anm-native-id-consumers-review.txt),
+[stop target review](../.analysis/anm-vm-factory-review.txt).
+
+Remaining measured frontiers: normal child creation is 293 vs 266 bytes,
+with registration return-pointer promotion and control-flow differences;
+`SetInterruptAndUpdate` is 127 vs 128 bytes with a stack-alignment difference.
+The latter now has a source mapping and linked frontier unit.
+`BindVmScript` and `BindVmAtPosition` units now point to their actual
+`AnmVmScript.cpp` definitions and retain `/GL`; both remain frontiers.
+[Normal-child diagnostic](../.analysis/anm-child-member-flat-diff.txt).
+The same current script link has a 262-byte `BindVmScript` with three
+ordinary register-byte differences (DL vs CL), a 294-byte positioned binder
+vs 295 target, and a 13,604-byte `Update` with extensive byte differences.
+Equal owner sizes supply no exact credit.
+[Bounded observations](../.analysis/anm-member-current-frontier-observations.txt),
+[binder diagnostic](../.analysis/anm-bind-script-current-diff.txt).
+
+The binders' shared callee at `0x00407080` is a complete 20-byte wrapper:
+align ESP to eight bytes, load the stack VM into ECX, call `Update`, return
+with `RET 4`. It has exactly those two binder callers. A natural manager
+member taking only the VM could explain the binders' ECX singleton load;
+this remains a hypothesis to compile before replacing their legacy volatile
+singleton read and flag cast. The existing unimplemented `UpdateVm`
+declaration's extra `stateFlags` parameter has no supporting evidence here.
+[Wrapper review](../.analysis/anm-binding-update-boundary-review.txt).
+
+The initial affected cold replay exposed five missing effect callbacks:
+`14aee6d` had replaced their source while expanding effect-10, leaving their
+canonical rows behind. The other 121 comparisons passed in a bounded audit.
+[Failed replay](../.analysis/anm-member-affected-replay.log),
+[failure audit](../.analysis/anm-member-comparison-audit.json).
+The five callbacks are restored from their earlier natural source. Calling
+the now-out-of-line shared `ZunTimer::Reset` produced 139 vs 187 bytes;
+flattening the reset into the callback reached 187 bytes but moved the scale
+constant field from target `+120` to `+115`. A local inline reset helper
+restores the original nested inline operation: all 187 bytes and seven
+relocations now match, as do the four complete three-byte empty callbacks.
+This recovers existing claims and adds no exact credit.
+[Recovered COFF replay](../.analysis/anm-effect-callbacks-reset-helper-replay.log),
+[target review](../.analysis/anm-effect-callbacks-recovery-review.txt),
+[explicit callback span](../.analysis/anm-effect-callbacks-recovery-span.txt).
+The four script timer-helper contexts had identical executable contracts to
+`AnmVmColorInterpolation`; only their output directories differed. Their four
+`output_dir` entries now share that existing cold-link family. All six owners
+still undergo separate complete comparisons. This reduces the affected family
+from 12 compilation contexts to eight, without changing source, compiler or
+link settings and without adding build machinery. After callback recovery,
+the 45 linked consumers are covered by four cold-linked contexts; the five
+COFF callbacks are freshly rebuilt and the other contexts' inputs are unchanged.
+The final current-input comparison passed all 126 affected exact units.
+[Final replay](../.analysis/anm-member-consolidated-final-replay.log),
+[selected units](../.analysis/anm-member-affected-units.json).
+The current world owner still has only the frame-size byte difference at `+8`:
+[complete frontier replay](../.analysis/anm-world-after-callback-recovery.json).
 
 ## Open questions
 

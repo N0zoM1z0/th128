@@ -1,6 +1,6 @@
 # TH128 reconstruction handoff
 
-Snapshot: 2026-11-26 (ANM UI update exact; ID return and parent lifetime repaired). Read this first, then AGENTS.md.
+Snapshot: 2026-11-26 (positioned child and stop exact; native ID lookup replaces shim). Read this first, then AGENTS.md.
 
 ## Resume safely
 
@@ -36,12 +36,12 @@ canonical ledgers. At this snapshot:
 | Boundary reviewed / provisional | 3,452 / 64 |
 | Origin rows pending | 21 |
 | Authored / excluded / indeterminate | 2,226 / 1,269 / 0 |
-| Source-present mappings | 354 |
-| Source-present with authored origin | 346 |
-| Authored source-present exact backlog | 46 |
-| Canonical exact functions | 308 |
-| Canonical exact codegen bytes | 17,874 |
-| Canonical exact authored bytes | 17,545 |
+| Source-present mappings | 355 |
+| Source-present with authored origin | 347 |
+| Authored source-present exact backlog | 45 |
+| Canonical exact functions | 310 |
+| Canonical exact codegen bytes | 18,207 |
+| Canonical exact authored bytes | 17,878 |
 
 The candidate inventory is not proven complete. The 21 remaining pending origin
 rows are unreferenced `d3dx9math.inl` candidates (all 16 CRT-band boundary-review
@@ -105,6 +105,26 @@ independent ID locals instead of overwriting the live `parent` argument.
 These API and lifetime repairs grant no extra exact credit. See the
 [UI/ID finding](KNOWLEDGE_BASE.md#ui-update-initialization-and-value-returned-anm-ids-2026-11-26).
 
+`AnmResource::SpawnChildVmAtPosition` (`0x00467330`, 230 bytes) and
+`AnmManager::StopVmById` (`0x00467480`, 103 bytes) now replay exact
+(+2 functions, +333 bytes). Child creation uses natural `AnmId` member
+returns and typed Supervisor locks. The positioned path copies the main
+position before binding, then script variables and alternate position after
+binding. The stop path preserves its signed 16-bit interrupt and callbacks.
+The native 89-byte `GetVmById(AnmId)` replaces the old unused-ECX shim's
+canonical unit without extra credit; the shim and its probe pointers are
+removed. See the [child/lookup finding](KNOWLEDGE_BASE.md#anm-child-creation-and-native-id-lookup-2026-11-26).
+
+The affected check also found five old exact callback rows whose definitions
+had been overwritten during effect-10 work. All five natural callbacks are
+restored in `AnmVmEffects.cpp`; a local inline timer reset reproduces the
+187-byte start callback and its seven relocations, while the four empty
+callbacks each reproduce three bytes. These restore existing credit.
+The four timer-helper units now share the identical script compilation
+context instead of repeating it in four additional output directories.
+All 126 affected exact units passed the final current-input comparison
+([replay](../.analysis/anm-member-consolidated-final-replay.log)).
+
 Current focused frontiers:
 
 - `UpdateWorldVms`: complete 229-byte owner with all 12 address fields
@@ -115,18 +135,26 @@ Current focused frontiers:
   The unsigned-int formal and mask are retained; its frontier symbol and
   inventory signature now agree with the source.
 
-The registration/creation family now has linked frontier units with its
-maintained symbols. Tail/head registration owners are 118/93 bytes vs target
-124/119 in the script context; `CreateVm` is 359 vs 364 in the resource
-context. `SpawnChildVm` is 264 vs its full 266-byte target, with broad control
-and ABI differences despite the small size gap. The positioned child owner
-is 250 vs 230. These are natural-source frontiers after removing forced
-volatile node reads and register hints. Reproduce the world frontier
-(expected mismatch, no exact credit):
+The remaining factory family has maintained linked `/GL` frontier units.
+`SpawnChildVm` is 293 vs its complete 266-byte target, with registration
+return-pointer promotion and control-flow differences. `CreateVm` was
+359 vs 364 in the resource context. Registration owners remain frontiers;
+the target keeps physical insertion branches eliminated by the source compiler.
+`SetInterruptAndUpdate` (`0x004674F0`, 128 bytes) now has a source mapping
+and linked frontier unit: the candidate is 127 bytes with different stack
+alignment. `BindVmScript`/`BindVmAtPosition` units now point to their actual
+`AnmVmScript.cpp` definitions. The current script context has `Update` at
+13,604 bytes but extensive differences; matching its size grants no credit.
+`BindVmScript` is 262 bytes with three register-byte differences. Its existing
+volatile singleton read and flag cast still need natural-source cleanup.
+The reviewed 20-byte wrapper at `0x00407080` takes a stack VM and calls
+`Update`; test the manager-member hypothesis described in the knowledge base.
+Reproduce the interrupt frontier (expected
+mismatch, no exact credit):
 
 ```bash
-scripts/repo-python scripts/build-match-unit.py --unit anm-manager-update-world-vms
-scripts/repo-python scripts/compare-linked-function.py --unit anm-manager-update-world-vms
+scripts/repo-python scripts/build-match-unit.py --unit anm-manager-set-interrupt-and-update
+scripts/repo-python scripts/compare-linked-function.py --unit anm-manager-set-interrupt-and-update
 ```
 
 `AnmVm::Update` remains a frontier.
@@ -137,7 +165,8 @@ Replay the color and tick callback owners with:
 scripts/repo-python scripts/replay-exact-units.py \
   --unit anm-vm-set-color-transition --unit anm-vm-set-secondary-color-transition \
   --unit anm-manager-on-tick-world-callback --unit anm-manager-on-tick-ui-callback \
-  --unit anm-manager-update-ui-vms
+  --unit anm-manager-update-ui-vms --unit anm-manager-stop-vm-by-id \
+  --unit anm-vm-spawn-child-at-position --unit anm-manager-get-vm-by-id
 ```
 
 ## Active reconstruction: AnmVm
@@ -196,9 +225,10 @@ the exact 61-byte `SetUpdateTimerCurrent` copy at `0x00403280`, distinct from
 `ZunTimer::SetCurrent` at `0x00403240`. `AnmManager::GetVmById` (`0x00467420`, 89 bytes) and `ResolveAnmVmId`
 (`0x00467780`, 21 bytes) are both now exact via natural `struct AnmId` by-value
 (`AnmManager::GetVmById(AnmId)` in `src/AnmManager.cpp` and
-`AnmHelpers::ResolveVmIdPtr` in `src/AnmHelpers.cpp`; the older
-`anm-manager-get-vm-by-id-target-abi` unit also remains exact). Opcode 45 is confirmed as `acos` by the
-target `__CIacos` call. The latest targeted `AnmVm::Update` candidate is
+`AnmHelpers::ResolveVmIdPtr` in `src/AnmHelpers.cpp`). The old unused-ECX
+shim unit has been removed; `anm-manager-get-vm-by-id` is the canonical lookup.
+Opcode 45 is confirmed as `acos` by the target `__CIacos` call.
+An earlier retained `AnmVm::Update` measurement, before the child member-return changes, was
 13,628 bytes vs 13,604 target (3,721 vs 3,769 instructions; 286 vs 289 calls,
 283 vs 286 direct). The opcode-40 world/UI branches now preserve both target
 `Rng::GetU32` calls, and opcode 102 preserves both target `BindAnmFile` calls.
@@ -209,8 +239,8 @@ float/integer operand-address helper counts are 11/14 candidate vs 12/13
 target. The random-float call is the exact 52-byte `Rng::GetFloat(float scale)`
 leaf at `0x0040D130` (target inventory label `Rng::GetFloatScaled`);
 `Rng::GetU32` is an exact 149-byte leaf with eight mapped relocations. The
-`SpawnChildVm` helper owner is now 264 bytes vs the complete 266-byte target
-in the script context; its private ABI and control flow remain frontiers. Opcodes 40 and 41
+`SpawnChildVm` member is now 293 bytes vs the complete 266-byte target
+in the script context; its registration return ABI and control flow remain frontiers. Opcodes 40 and 41
 select the world/UI RNG in separate branches; opcode 41 uses the exact
 `Rng::GetFloat(float scale)` leaf at 0x0040D130. Opcodes 17, 27 and 42..46
 share the target float-result store, opcode 47 uses `AddAngles(angle, 0)`, and
@@ -244,12 +274,12 @@ Primary evidence:
 
 | Source | Scope | Status |
 | --- | --- | --- |
-| src/AnmVmScript.cpp | wait commands, opcode dispatcher, ready-instruction loop, view corners, easing and timer reset helpers | 5 helpers exact (`EaseTransition`, 3 timer resets, `SetUpdateTimerCurrent`); `AnmVm::Update` frontier |
+| src/AnmVmScript.cpp | wait commands, opcode dispatcher, ready-instruction loop, view corners, easing and timer reset helpers | 6 owners exact (`EaseTransition`, 3 timer resets, `SetUpdateTimerCurrent`, positioned child creation); `AnmVm::Update` frontier |
 | src/AnmVmTransitions.cpp | transition setup (`SetScaleTransition`, `SetSecondaryScaleTransition`, `SetSecondaryEffectState`, color/effect setup) | 5 exact (`0x0045E080`, `0x0045E190`, `0x0045E240`, `0x0045E2C0`, `0x0045E4D0`); primary-effect frontier |
 | src/AnmVmEffects.cpp | render-state sync, world matrices, sprite/fog/primitive draw paths, effect 10 | 5 exact normal-COFF owners; renderer paths frontier |
 | src/AnmVmOperands.cpp | four operand resolver owners (`0x00459900..0x00459CE0`) | 4/4 exact (linked PE) |
 | src/AnmVmResource.cpp | `NormalizeAnmCoordinates` (`0x00459D50`) | exact (linked PE) |
-| src/AnmManager.cpp | VM lookup, allocation, list cleanup, draw grouping, tick callbacks, `FlushSpriteBatch`, 23 `DrawLayer*` callbacks | 34 exact (linked PE), including `UpdateUiVms`; `UpdateWorldVms`/`PreloadAnm`/`StopVmById` frontiers |
+| src/AnmManager.cpp | VM lookup, allocation, list cleanup, draw grouping, tick callbacks, `FlushSpriteBatch`, 23 `DrawLayer*` callbacks | 35 exact (linked PE), including `UpdateUiVms` and `StopVmById`; `UpdateWorldVms`/`PreloadAnm`/`SetInterruptAndUpdate` frontiers |
 | src/AnmResource.cpp | `AnmResource::AnmResource`, `Release`, `AnmTextureEntry::Release`, `CreateVm` | 3 exact (linked PE); `CreateVm` frontier |
 | src/AnmHelpers.cpp | `ResolveAnmVmId` and 31 `AnmId`/VM/child/rotation/draw helpers (`0x00467570..0x00468100`) | 32 exact (linked PE); `ClearD3DTexture*` frontiers |
 | src/AnmInterp.cpp | `AnmInterp<T>` template (`AnmColor3`/`float`/`int`/`ZunVec2`) and vector/angle/color helpers (`0x0045D330..0x0045E76F`) | 39 exact (linked PE) + frontiers |
@@ -267,9 +297,9 @@ has an accepted exact owner replay yet.
 
 ### Exact ANM owners
 
-`config/matches.csv` now contains **134 exact ANM-area owners** across the
+`config/matches.csv` now contains **136 exact ANM-area owners** across the
 modules above (6 setters/ctor, 5 effect-table owners, 4 operand resolvers,
-`NormalizeAnmCoordinates`, 5 script/easing/timer helpers, 34 `AnmManager`,
+`NormalizeAnmCoordinates`, 6 script/child/easing/timer owners, 35 `AnmManager`,
 3 `AnmResource`/`AnmTextureEntry`, 32 `AnmHelpers`, 39 `AnmInterp`, and
 5 `AnmVmTransitions`). Do not expand this list from source presence or
 successful compilation; only accepted rows in `config/matches.csv` count as
@@ -288,7 +318,7 @@ callers remain frontiers as well.
 
 1. **Close remaining ANM medium functions**: finish `UpdateWorldVms` (`0x00466AF0`),
    `CreateVm` (`0x004670B0`, frontier), `PreloadAnm`
-   (`0x00465600`, 124B), `StopVmById` (`0x00467480`, 103B), `SetEffectState` (`0x0045E6C0`, 133B),
+   (`0x00465600`, 124B), `SetInterruptAndUpdate` (`0x004674F0`, 128B), `SetEffectState` (`0x0045E6C0`, 133B),
    `ClearD3DTexture` (`0x00467BD0`) and the
    four `AnmInterp<T>::Step` functions (`0x0045D3D0..0x0045DB20`), plus `AnmVm::Update`
    (`0x00459D90`, 13,604B).

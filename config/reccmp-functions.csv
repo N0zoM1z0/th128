@@ -225,10 +225,11 @@ AnmVm::RegisterUiVmAtTail,0x00466E60,function
 AnmVm::RegisterUiVmAtHead,0x00466EE0,function
 AnmManager::CleanupVm,0x00466F60,function
 AnmResource::CreateVm,0x004670B0,function
-SpawnChildVm,0x00467220,function
-SpawnChildVmAtPosition,0x00467330,function
+AnmResource::SpawnChildVm,0x00467220,function
+AnmResource::SpawnChildVmAtPosition,0x00467330,function
 AnmManager::GetVmById,0x00467420,function
 AnmManager::StopVmById,0x00467480,function
+AnmManager::SetInterruptAndUpdate,0x004674F0,function
 AnmHelpers::MarkVmTreeForDeleteById,0x00467570,function
 AnmHelpers::SetVmPosById,0x004675C0,function
 AnmHelpers::SetVmRotZById,0x00467600,function

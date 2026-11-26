@@ -5,6 +5,7 @@
 #include "AnmManager.hpp"
 #include "AngleMath.hpp"
 #include "Rng.hpp"
+#include "Supervisor.hpp"
 
 #include <math.h>
 #include <stdlib.h>
@@ -12,8 +13,6 @@
 
 namespace
 {
-    typedef void (__stdcall *AnmVmChildCriticalSectionRoutine)(void *);
-
     __forceinline const unsigned char *InstructionBytes(const AnmVmInstructionHeader *instruction)
     {
         return reinterpret_cast<const unsigned char *>(instruction);
@@ -169,123 +168,21 @@ namespace
     }
 
 
-    __declspec(noinline) unsigned int *__stdcall SpawnChildVm(
-        AnmResource *resource,
-        unsigned int *childId,
-        int scriptIndex,
-        AnmVm *parent,
-        unsigned int listMode)
+    inline void InsertAnmVmNodeAfter(AnmVmListNode *head, AnmVmListNode *node)
     {
-        const unsigned int increment = 1;
-        if ((*reinterpret_cast<volatile unsigned int *>(0x004D33F8) & 0x8000U) != 0)
+        if (head->next != 0)
         {
-            AnmVmChildCriticalSectionRoutine enter =
-                *reinterpret_cast<AnmVmChildCriticalSectionRoutine *>(0x0049A088);
-            enter(reinterpret_cast<void *>(0x004D3750));
-            *reinterpret_cast<volatile unsigned char *>(0x004D37A1) +=
-                static_cast<unsigned char>(increment);
-        }
-        resource->activeVmCount += increment;
-
-        AnmVm *child = AllocateAnmVm();
-        const ZunVec3 initialPosition = {0.0f, 0.0f, 0.0f};
-        child->stateFlags |= 2U;
-        child->position.x = initialPosition.x;
-        child->scriptState = parent->scriptState;
-        child->position.y = initialPosition.y;
-        child->position.z = initialPosition.z;
-        resource->BindVmScript(child, scriptIndex);
-        child->parentVm = parent;
-        AnmId registeredId;
-        if ((listMode & 4U) != 0)
-        {
-            if ((listMode & 2U) != 0)
-                registeredId = child->RegisterUiVmAtHead();
-            else
-                registeredId = child->RegisterUiVmAtTail();
-        }
-        else
-        {
-            if ((listMode & 2U) != 0)
-                registeredId = child->RegisterWorldVmAtHead();
-            else
-                registeredId = child->RegisterWorldVmAtTail();
-        }
-        *childId = registeredId.id;
-
-        AnmVmListNode *head = &parent->childNode;
-        AnmVmListNode *node = &child->childNode;
-        node->next = head->next;
-        if (node->next != 0)
-        {
-            node->next->previous = node;
+            node->next = head->next;
+            head->next->previous = node;
         }
         head->next = node;
         node->previous = head;
-
-        if ((*reinterpret_cast<volatile unsigned int *>(0x004D33F8) & 0x8000U) != 0)
-        {
-            AnmVmChildCriticalSectionRoutine leave =
-                *reinterpret_cast<AnmVmChildCriticalSectionRoutine *>(0x0049A08C);
-            leave(reinterpret_cast<void *>(0x004D3750));
-            --*reinterpret_cast<volatile unsigned char *>(0x004D37A1);
-        }
-        return childId;
-    }
-
-    __declspec(noinline) unsigned int *__stdcall SpawnChildVmAtPosition(
-        AnmResource *resource,
-        unsigned int *childId,
-        int scriptIndex,
-        AnmVm *parent)
-    {
-        const unsigned int increment = 1;
-        if ((*reinterpret_cast<volatile unsigned int *>(0x004D33F8) & 0x8000U) != 0)
-        {
-            AnmVmChildCriticalSectionRoutine enter =
-                *reinterpret_cast<AnmVmChildCriticalSectionRoutine *>(0x0049A088);
-            enter(reinterpret_cast<void *>(0x004D3750));
-            *reinterpret_cast<volatile unsigned char *>(0x004D37A1) +=
-                static_cast<unsigned char>(increment);
-        }
-        resource->activeVmCount += increment;
-
-        AnmVm *child = AllocateAnmVm();
-        child->stateFlags |= 2U;
-        child->scriptState = parent->scriptState;
-        resource->BindVmScript(child, scriptIndex);
-        const unsigned int *sourcePosition =
-            reinterpret_cast<const unsigned int *>(&parent->position);
-        unsigned int *destinationPosition =
-            reinterpret_cast<unsigned int *>(&child->position);
-        destinationPosition[0] = sourcePosition[0];
-        destinationPosition[1] = sourcePosition[1];
-        destinationPosition[2] = sourcePosition[2];
-        const unsigned int *sourceScriptFloats =
-            reinterpret_cast<const unsigned int *>(&parent->unknown024);
-        unsigned int *destinationScriptFloats =
-            reinterpret_cast<unsigned int *>(&child->unknown024);
-        destinationScriptFloats[0] = sourceScriptFloats[0];
-        destinationScriptFloats[1] = sourceScriptFloats[1];
-        destinationScriptFloats[2] = sourceScriptFloats[2];
-        child->alternatePosition = parent->secondaryPosition;
-        const AnmId registeredId = child->RegisterWorldVmAtTail();
-        *childId = registeredId.id;
-
-        if ((*reinterpret_cast<volatile unsigned int *>(0x004D33F8) & 0x8000U) != 0)
-        {
-            AnmVmChildCriticalSectionRoutine leave =
-                *reinterpret_cast<AnmVmChildCriticalSectionRoutine *>(0x0049A08C);
-            leave(reinterpret_cast<void *>(0x004D3750));
-            --*reinterpret_cast<volatile unsigned char *>(0x004D37A1);
-        }
-        return childId;
     }
 
     __declspec(noinline) AnmVm *ResolveAnmVmId(unsigned int *id)
     {
-        AnmManager *manager = GetGlobalAnmManager();
-        AnmVm *vm = GetVmByIdTargetAbi(0, manager, *id);
+        const AnmId vmId = { *id };
+        AnmVm *vm = g_AnmManager->GetVmById(vmId);
         if (vm == 0)
         {
             *id = 0;
@@ -961,11 +858,61 @@ namespace
         return (transition->values[1] - transition->values[0]) * eased +
             transition->values[0];
     }
+}
 
+AnmId AnmResource::SpawnChildVm(
+    int scriptIndex,
+    AnmVm *parent,
+    unsigned int listMode)
+{
+    g_Supervisor.EnterCriticalSection(9);
+    ++activeVmCount;
 
+    AnmVm *child = AllocateAnmVm();
+    ZunVec3 initialPosition;
+    initialPosition.x = 0.0f;
+    initialPosition.y = 0.0f;
+    initialPosition.z = 0.0f;
+    child->scriptState = parent->scriptState;
+    child->stateFlags |= 2U;
+    child->position = initialPosition;
+    BindVmScript(child, scriptIndex);
+    child->parentVm = parent;
+    AnmId childId;
+    if ((listMode & 4U) != 0 && (listMode & 2U) != 0)
+        childId = child->RegisterUiVmAtHead();
+    else if ((listMode & 4U) != 0)
+        childId = child->RegisterUiVmAtTail();
+    else if ((listMode & 2U) != 0)
+        childId = child->RegisterWorldVmAtHead();
+    else
+        childId = child->RegisterWorldVmAtTail();
 
+    InsertAnmVmNodeAfter(&parent->childNode, &child->childNode);
 
+    g_Supervisor.LeaveCriticalSection(9);
+    return childId;
+}
 
+AnmId AnmResource::SpawnChildVmAtPosition(
+    int scriptIndex,
+    AnmVm *parent)
+{
+    g_Supervisor.EnterCriticalSection(9);
+    ++activeVmCount;
+
+    AnmVm *child = AllocateAnmVm();
+    child->scriptState = parent->scriptState;
+    child->stateFlags |= 2U;
+    child->position = parent->position;
+    BindVmScript(child, scriptIndex);
+    memcpy(&child->unknown024, &parent->unknown024, 3 * sizeof(float));
+    child->alternatePosition = parent->secondaryPosition;
+    AnmId childId;
+    childId = child->RegisterWorldVmAtTail();
+
+    g_Supervisor.LeaveCriticalSection(9);
+    return childId;
 }
 
 void __stdcall UpdateVmForBinding(AnmVm *vm);
@@ -1152,21 +1099,6 @@ namespace
 
 
 
-// Keep the frame owner and its list helpers in the same translation unit.
-namespace
-{
-    inline void InsertAnmVmNodeAfter(AnmVmListNode *head, AnmVmListNode *node)
-    {
-        if (head->next != 0)
-        {
-            node->next = head->next;
-            head->next->previous = node;
-        }
-        head->next = node;
-        node->previous = head;
-    }
-}
-
 AnmId AnmVm::RegisterWorldVmAtTail()
 {
     AnmManager *manager = g_AnmManager;
@@ -1289,13 +1221,6 @@ AnmId AnmVm::RegisterUiVmAtHead()
 int AnmVm::Update()
 {
     AnmVm *const vm = this;
-    // Keep one child-id output slot per target spawn opcode. Their distinct
-    // addresses prevent LTCG from folding five original callsites together.
-    unsigned int childSpawnId88;
-    unsigned int childSpawnId96;
-    unsigned int childSpawnId91;
-    unsigned int childSpawnId90;
-    unsigned int childSpawnId92;
     if (scriptDataOffsetCopy == 0)
     {
         return 1;
@@ -1509,15 +1434,16 @@ AnmVmUpdateScriptLoop:
 
     case 88:
     {
-        SpawnChildVm(vm->resource, &childSpawnId88, IntegerSource(*this, instruction, 8, 1U), this, 0);
+        vm->resource->SpawnChildVm(IntegerSource(*this, instruction, 8, 1U), this, 0);
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
 
     case 96:
     {
-        SpawnChildVm(vm->resource, &childSpawnId96, IntegerSource(*this, instruction, 8, 1U), this, 0);
-        AnmVm *child = ResolveAnmVmId(&childSpawnId96);
+        unsigned int childId = vm->resource->SpawnChildVm(
+            IntegerSource(*this, instruction, 8, 1U), this, 0).id;
+        AnmVm *child = ResolveAnmVmId(&childId);
         if (child != 0)
         {
             child->alternatePosition.x = FloatSource(*this, instruction, 12, 2U);
@@ -1529,21 +1455,21 @@ AnmVmUpdateScriptLoop:
 
     case 91:
     {
-        SpawnChildVm(vm->resource, &childSpawnId91, IntegerSource(*this, instruction, 8, 1U), this, 2);
+        vm->resource->SpawnChildVm(IntegerSource(*this, instruction, 8, 1U), this, 2);
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
 
     case 90:
     {
-        SpawnChildVm(vm->resource, &childSpawnId90, IntegerSource(*this, instruction, 8, 1U), this, 4);
+        vm->resource->SpawnChildVm(IntegerSource(*this, instruction, 8, 1U), this, 4);
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
 
     case 92:
     {
-        SpawnChildVm(vm->resource, &childSpawnId92, IntegerSource(*this, instruction, 8, 1U), this, 6);
+        vm->resource->SpawnChildVm(IntegerSource(*this, instruction, 8, 1U), this, 6);
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }
@@ -1556,8 +1482,8 @@ AnmVmUpdateScriptLoop:
 
     case 97:
     {
-        unsigned int childId;
-        SpawnChildVmAtPosition(vm->resource, &childId, IntegerSource(*this, instruction, 8, 1U), this);
+        unsigned int childId = vm->resource->SpawnChildVmAtPosition(
+            IntegerSource(*this, instruction, 8, 1U), this).id;
         AnmVm *child = ResolveAnmVmId(&childId);
         if (child != 0)
         {
@@ -1570,8 +1496,7 @@ AnmVmUpdateScriptLoop:
 
     case 95:
     {
-        unsigned int childId;
-        SpawnChildVmAtPosition(vm->resource, &childId, IntegerSource(*this, instruction, 8, 1U), this);
+        vm->resource->SpawnChildVmAtPosition(IntegerSource(*this, instruction, 8, 1U), this);
         scriptDataOffsetCopy = NextInstructionAddress(instruction);
         continue;
     }

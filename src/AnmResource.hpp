@@ -57,6 +57,8 @@ struct AnmResource
 
     AnmResource();
     void Release();
+    AnmId SpawnChildVm(int scriptIndex, AnmVm *parent, unsigned int listMode);
+    AnmId SpawnChildVmAtPosition(int scriptIndex, AnmVm *parent);
     void BindVmScript(AnmVm *vm, int scriptIndex);
     void BindVmAtPosition(AnmVm *vm, int scriptIndex, const ZunVec3 *position);
     AnmId CreateVm(

@@ -113,32 +113,6 @@ struct AnmPauseStateView
 
 extern AnmPauseStateView *g_AnmPauseState;
 
-AnmVm *AnmManager::GetVmById(unsigned int id)
-{
-    if (id == 0)
-    {
-        return 0;
-    }
-
-    for (AnmVmListNode *node = worldVms; node != 0; node = node->next)
-    {
-        if (node->vm->id == id)
-        {
-            return node->vm;
-        }
-    }
-
-    for (AnmVmListNode *node = uiVms; node != 0; node = node->next)
-    {
-        if (node->vm->id == id)
-        {
-            return node->vm;
-        }
-    }
-
-    return 0;
-}
-
 AnmVm *AnmManager::GetVmById(AnmId vmId)
 {
     if (vmId.id == 0)
@@ -157,37 +131,6 @@ AnmVm *AnmManager::GetVmById(AnmId vmId)
     for (AnmVmListNode *node = uiVms; node != 0; node = node->next)
     {
         if (node->vm->id == vmId.id)
-        {
-            return node->vm;
-        }
-    }
-
-    return 0;
-}
-
-__declspec(noinline) AnmVm *__fastcall GetVmByIdTargetAbi(
-    void *unused, AnmManager *manager, volatile unsigned int id)
-{
-    (void)unused;
-    const unsigned int lookupId = id;
-    if (lookupId == 0)
-    {
-        return 0;
-    }
-
-    for (AnmVmListNode *node = manager->worldVms;
-         node != 0; node = node->next)
-    {
-        if (node->vm->id == lookupId)
-        {
-            return node->vm;
-        }
-    }
-
-    for (AnmVmListNode *node = manager->uiVms;
-         node != 0; node = node->next)
-    {
-        if (node->vm->id == lookupId)
         {
             return node->vm;
         }
@@ -317,7 +260,8 @@ void AnmManager::MarkResourceVmsForDelete(AnmResource *resource)
 
 void AnmManager::DeleteVmById(unsigned int *id)
 {
-    AnmVm *vm = GetVmByIdTargetAbi(0, g_AnmManager, *id);
+    AnmId vmId = { *id };
+    AnmVm *vm = g_AnmManager->GetVmById(vmId);
     if (vm != 0)
     {
         vm->flags |= 0x20000000U;
@@ -337,7 +281,8 @@ void AnmManager::DeleteVmById(unsigned int *id)
 unsigned int *AnmManager::FindChildVmByScript(
     unsigned int *outId, unsigned int *rootId, int scriptIndex)
 {
-    AnmVm *vm = GetVmByIdTargetAbi(0, g_AnmManager, *rootId);
+    AnmId vmId = { *rootId };
+    AnmVm *vm = g_AnmManager->GetVmById(vmId);
     if (vm == 0)
     {
         *rootId = 0;

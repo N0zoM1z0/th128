@@ -37,11 +37,6 @@ CRITICAL_SECTION *g_ProbeSupCs = g_Supervisor.criticalSections;
 unsigned char *g_ProbeSupDepth = g_Supervisor.lockDepths;
 AnmManager **g_ProbeAnmManagerAddr = &g_AnmManager;
 
-typedef AnmVm *(__fastcall *GetVmByIdTargetAbiPointer)(
-    void *, AnmManager *, volatile unsigned int);
-GetVmByIdTargetAbiPointer volatile g_KeepGetVmByIdTargetAbi =
-    &GetVmByIdTargetAbi;
-
 extern "C" void __stdcall AnmCoreProbe(
     AnmManager *m1, AnmManager *m2,
     AnmResource *r1, AnmResource *r2,
@@ -52,6 +47,11 @@ extern "C" void __stdcall AnmCoreProbe(
     AllocateAnmVm();
     AnmId a1 = { *id1 };
     AnmId a2 = { *id2 };
+    // GetVmPosById at 0x004676F0 also forwards a dynamic manager receiver.
+    AnmVm *found1 = m1->GetVmById(a1);
+    AnmVm *found2 = m2->GetVmById(a2);
+    if (found1 != 0) *id1 = found1->id;
+    if (found2 != 0) *id2 = found2->id;
     m1->StopVmById(a1, intr);
     m2->StopVmById(a2, (short)(intr + 1));
     m1->SetInterruptAndUpdate(a1, intr);

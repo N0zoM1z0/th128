@@ -45,7 +45,6 @@ struct AnmManager
     unsigned char colorModulation[4];        // +0x8C3900
     unsigned int colorModulationEnabled;     // +0x8C3904
 
-    AnmVm *GetVmById(unsigned int id);
     AnmVm *GetVmById(AnmId id);
     void __fastcall UpdateVm(unsigned int stateFlags, AnmVm *vm);
     void StopVmById(AnmId id, short interrupt);
@@ -88,11 +87,6 @@ struct AnmManager
     static AnmResource *PreloadAnm(int slot, const char *filename);
     void FlushSpriteBatch();
 };
-
-// The original VM lookup helper uses the manager in EDX and leaves the VM id
-// on the stack. Its unused ECX slot is part of the target's private fastcall.
-AnmVm *__fastcall GetVmByIdTargetAbi(
-    void *unused, AnmManager *manager, volatile unsigned int id);
 
 typedef char AnmManagerActiveCountOffset[(offsetof(AnmManager, activeVmCount) == 0xA0) ? 1 : -1];
 typedef char AnmManagerViewOffsetX[(offsetof(AnmManager, viewOffsetX) == 0xB0) ? 1 : -1];
