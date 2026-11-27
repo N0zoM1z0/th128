@@ -20657,3 +20657,352 @@ linkages = [
   { offset = 106, type = "DIR32", symbol = "__imp__CreateProcessA@40", target = 0x0049A0B8 },
   { offset = 131, type = "DIR32", symbol = "__imp__GetExitCodeProcess@8", target = 0x0049A0BC },
 ]
+
+[units.zc-enemy-get-int-var-ptr]
+artifact_kind = "linked-pe"
+source = "src/ZeroCallMedium.cpp"
+support_sources = ["probes/zero-call-medium-context.cpp"]
+output_dir = "build/match-linked/ZeroCallMedium"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ZeroCallMediumProbe@44"
+functions = ["th128::ZcEnemy::GetIntVarPtr"]
+symbol = "?GetIntVarPtr@ZcEnemy@th128@@QAEPAHH@Z"
+target_address = 0x0041D140
+size = 379
+data_spans = [{ offset = 316, size = 63 }]
+linkages = [
+  { offset = 23, type = "DIR32", local = true, target = 0x0041D27C },
+  { offset = 30, type = "DIR32", local = true, target = 0x0041D23C },
+  { offset = 75, type = "DIR32", symbol = "?g_ZcEnemyMgr@th128@@3PAUZcEnemyMgr@1@A", target = 0x004B8948 },
+  { offset = 87, type = "DIR32", symbol = "?g_ZcEnemyMgr@th128@@3PAUZcEnemyMgr@1@A", target = 0x004B8948 },
+  { offset = 99, type = "DIR32", symbol = "?g_ZcEnemyMgr@th128@@3PAUZcEnemyMgr@1@A", target = 0x004B8948 },
+  { offset = 112, type = "DIR32", symbol = "?g_ZcEnemyMgr@th128@@3PAUZcEnemyMgr@1@A", target = 0x004B8948 },
+  { offset = 133, type = "DIR32", symbol = "?g_ZcEnemyMgr@th128@@3PAUZcEnemyMgr@1@A", target = 0x004B8948 },
+  { offset = 155, type = "DIR32", symbol = "?g_ZcEnemyMgr@th128@@3PAUZcEnemyMgr@1@A", target = 0x004B8948 },
+  { offset = 176, type = "DIR32", symbol = "?g_ZcEnemyMgr@th128@@3PAUZcEnemyMgr@1@A", target = 0x004B8948 },
+  { offset = 197, type = "DIR32", symbol = "?g_ZcEnemyMgr@th128@@3PAUZcEnemyMgr@1@A", target = 0x004B8948 },
+  { offset = 209, type = "DIR32", symbol = "?g_ZcEnemyMgr@th128@@3PAUZcEnemyMgr@1@A", target = 0x004B8948 },
+  { offset = 221, type = "DIR32", symbol = "?g_ZcEnemyMgr@th128@@3PAUZcEnemyMgr@1@A", target = 0x004B8948 },
+  { offset = 233, type = "DIR32", symbol = "?g_ZcEnemyMgr@th128@@3PAUZcEnemyMgr@1@A", target = 0x004B8948 },
+  { offset = 252, type = "DIR32", local = true, target = 0x0041D162 },
+  { offset = 256, type = "DIR32", local = true, target = 0x0041D16C },
+  { offset = 260, type = "DIR32", local = true, target = 0x0041D176 },
+  { offset = 264, type = "DIR32", local = true, target = 0x0041D180 },
+  { offset = 268, type = "DIR32", local = true, target = 0x0041D18A },
+  { offset = 272, type = "DIR32", local = true, target = 0x0041D196 },
+  { offset = 276, type = "DIR32", local = true, target = 0x0041D1A2 },
+  { offset = 280, type = "DIR32", local = true, target = 0x0041D1AE },
+  { offset = 284, type = "DIR32", local = true, target = 0x0041D1C4 },
+  { offset = 288, type = "DIR32", local = true, target = 0x0041D1D9 },
+  { offset = 292, type = "DIR32", local = true, target = 0x0041D1EF },
+  { offset = 296, type = "DIR32", local = true, target = 0x0041D204 },
+  { offset = 300, type = "DIR32", local = true, target = 0x0041D210 },
+  { offset = 304, type = "DIR32", local = true, target = 0x0041D21C },
+  { offset = 308, type = "DIR32", local = true, target = 0x0041D228 },
+  { offset = 312, type = "DIR32", local = true, target = 0x0041D234 },
+]
+
+[units.zc-enemy-get-float-var-ptr]
+artifact_kind = "linked-pe"
+source = "src/ZeroCallMedium.cpp"
+support_sources = ["probes/zero-call-medium-context.cpp"]
+output_dir = "build/match-linked/ZeroCallMedium"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ZeroCallMediumProbe@44"
+functions = ["th128::ZcEnemy::GetFloatVarPtr"]
+symbol = "?GetFloatVarPtr@ZcEnemy@th128@@QAEPAMH@Z"
+target_address = 0x0041DC20
+size = 525
+data_spans = [{ offset = 444, size = 81 }]
+linkages = [
+  { offset = 23, type = "DIR32", local = true, target = 0x0041DDDC },
+  { offset = 30, type = "DIR32", local = true, target = 0x0041DD78 },
+  { offset = 116, type = "DIR32", symbol = "?g_ZcEnemyMgr@th128@@3PAUZcEnemyMgr@1@A", target = 0x004B8948 },
+  { offset = 137, type = "DIR32", symbol = "?g_ZcEnemyMgr@th128@@3PAUZcEnemyMgr@1@A", target = 0x004B8948 },
+  { offset = 159, type = "DIR32", symbol = "?g_ZcEnemyMgr@th128@@3PAUZcEnemyMgr@1@A", target = 0x004B8948 },
+  { offset = 180, type = "DIR32", symbol = "?g_ZcEnemyMgr@th128@@3PAUZcEnemyMgr@1@A", target = 0x004B8948 },
+  { offset = 201, type = "DIR32", symbol = "?g_ZcEnemyMgr@th128@@3PAUZcEnemyMgr@1@A", target = 0x004B8948 },
+  { offset = 213, type = "DIR32", symbol = "?g_ZcEnemyMgr@th128@@3PAUZcEnemyMgr@1@A", target = 0x004B8948 },
+  { offset = 225, type = "DIR32", symbol = "?g_ZcEnemyMgr@th128@@3PAUZcEnemyMgr@1@A", target = 0x004B8948 },
+  { offset = 237, type = "DIR32", symbol = "?g_ZcEnemyMgr@th128@@3PAUZcEnemyMgr@1@A", target = 0x004B8948 },
+  { offset = 249, type = "DIR32", symbol = "?g_ZcEnemyMgr@th128@@3PAUZcEnemyMgr@1@A", target = 0x004B8948 },
+  { offset = 261, type = "DIR32", symbol = "?g_ZcEnemyMgr@th128@@3PAUZcEnemyMgr@1@A", target = 0x004B8948 },
+  { offset = 273, type = "DIR32", symbol = "?g_ZcEnemyMgr@th128@@3PAUZcEnemyMgr@1@A", target = 0x004B8948 },
+  { offset = 285, type = "DIR32", symbol = "?g_ZcEnemyMgr@th128@@3PAUZcEnemyMgr@1@A", target = 0x004B8948 },
+  { offset = 344, type = "DIR32", local = true, target = 0x0041DD48 },
+  { offset = 348, type = "DIR32", local = true, target = 0x0041DD52 },
+  { offset = 352, type = "DIR32", local = true, target = 0x0041DD5C },
+  { offset = 356, type = "DIR32", local = true, target = 0x0041DD66 },
+  { offset = 360, type = "DIR32", local = true, target = 0x0041DC42 },
+  { offset = 364, type = "DIR32", local = true, target = 0x0041DC4C },
+  { offset = 368, type = "DIR32", local = true, target = 0x0041DC56 },
+  { offset = 372, type = "DIR32", local = true, target = 0x0041DC60 },
+  { offset = 376, type = "DIR32", local = true, target = 0x0041DC92 },
+  { offset = 380, type = "DIR32", local = true, target = 0x0041DCA8 },
+  { offset = 384, type = "DIR32", local = true, target = 0x0041DCBD },
+  { offset = 388, type = "DIR32", local = true, target = 0x0041DCD3 },
+  { offset = 392, type = "DIR32", local = true, target = 0x0041DC6A },
+  { offset = 396, type = "DIR32", local = true, target = 0x0041DC74 },
+  { offset = 400, type = "DIR32", local = true, target = 0x0041DC7E },
+  { offset = 404, type = "DIR32", local = true, target = 0x0041DC88 },
+  { offset = 408, type = "DIR32", local = true, target = 0x0041DCE8 },
+  { offset = 412, type = "DIR32", local = true, target = 0x0041DCF4 },
+  { offset = 416, type = "DIR32", local = true, target = 0x0041DD00 },
+  { offset = 420, type = "DIR32", local = true, target = 0x0041DD0C },
+  { offset = 424, type = "DIR32", local = true, target = 0x0041DD18 },
+  { offset = 428, type = "DIR32", local = true, target = 0x0041DD24 },
+  { offset = 432, type = "DIR32", local = true, target = 0x0041DD30 },
+  { offset = 436, type = "DIR32", local = true, target = 0x0041DD3C },
+  { offset = 440, type = "DIR32", local = true, target = 0x0041DD70 },
+]
+
+[units.zc-player-stop-all-option-anms]
+artifact_kind = "linked-pe"
+source = "src/ZeroCallMedium.cpp"
+support_sources = ["probes/zero-call-medium-context.cpp"]
+output_dir = "build/match-linked/ZeroCallMedium"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ZeroCallMediumProbe@44"
+functions = ["th128::ZcPlayerStopAllOptionAnms"]
+symbol = "?ZcPlayerStopAllOptionAnms@th128@@YAXXZ"
+target_address = 0x0041FE20
+size = 412
+linkages = [
+  { offset = 9, type = "DIR32", symbol = "?g_ZcPlayer@th128@@3PAUZcPlayer@1@A", target = 0x004B8A80 },
+  { offset = 61, type = "DIR32", symbol = "?g_ZcAnmMgr@th128@@3PAUZcAnmMgr@1@A", target = 0x004D2E50 },
+  { offset = 228, type = "DIR32", symbol = "?g_ZcAnmMgr@th128@@3PAUZcAnmMgr@1@A", target = 0x004D2E50 },
+]
+
+[units.zc-gui-update-meter-anms]
+artifact_kind = "linked-pe"
+source = "src/ZeroCallMedium.cpp"
+support_sources = ["probes/zero-call-medium-context.cpp"]
+output_dir = "build/match-linked/ZeroCallMedium"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ZeroCallMediumProbe@44"
+functions = ["th128::ZcGuiUpdateMeterAnms"]
+symbol = "?ZcGuiUpdateMeterAnms@th128@@YGXPAUZcGui@1@@Z"
+target_address = 0x00425820
+size = 372
+linkages = [
+  { offset = 37, type = "DIR32", symbol = "?g_ZcAnmMgr@th128@@3PAUZcAnmMgr@1@A", target = 0x004D2E50 },
+  { offset = 43, type = "DIR32", symbol = "?g_ZcFreezeMeter@th128@@3HA", target = 0x004B4D70 },
+]
+
+[units.zc2-init-game-cameras]
+artifact_kind = "linked-pe"
+source = "src/ZeroCallMedium2.cpp"
+support_sources = ["probes/zero-call-medium2-context.cpp"]
+output_dir = "build/match-linked/ZeroCallMedium2"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ZeroCallMedium2Probe@40"
+functions = ["th128::Zc2StageCamOwner::InitGameCameras"]
+symbol = "?InitGameCameras@Zc2StageCamOwner@th128@@QAEXXZ"
+target_address = 0x00435370
+size = 738
+linkages = [
+  { offset = 14, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 496, target = 0x004D306C },
+  { offset = 38, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 280, target = 0x004D306C },
+  { offset = 53, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 284, target = 0x004D306C },
+  { offset = 66, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 288, target = 0x004D306C },
+  { offset = 78, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 292, target = 0x004D306C },
+  { offset = 92, type = "DIR32", symbol = "__real@3f060a92", target = 0x004A66F4 },
+  { offset = 97, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 296, target = 0x004D306C },
+  { offset = 106, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 352, target = 0x004D306C },
+  { offset = 114, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 300, target = 0x004D306C },
+  { offset = 123, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 500, target = 0x004D306C },
+  { offset = 130, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 304, target = 0x004D306C },
+  { offset = 139, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 504, target = 0x004D306C },
+  { offset = 147, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 308, target = 0x004D306C },
+  { offset = 155, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 312, target = 0x004D306C },
+  { offset = 172, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 340, target = 0x004D306C },
+  { offset = 187, type = "DIR32", symbol = "__real@447a0000", target = 0x004A66CC },
+  { offset = 193, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 344, target = 0x004D306C },
+  { offset = 205, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 348, target = 0x004D306C },
+  { offset = 219, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", target = 0x004D306C },
+  { offset = 231, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 4, target = 0x004D306C },
+  { offset = 243, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 8, target = 0x004D306C },
+  { offset = 255, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 12, target = 0x004D306C },
+  { offset = 264, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 16, target = 0x004D306C },
+  { offset = 276, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 20, target = 0x004D306C },
+  { offset = 295, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 24, target = 0x004D306C },
+  { offset = 303, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 484, target = 0x004D306C },
+  { offset = 308, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 488, target = 0x004D306C },
+  { offset = 314, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 492, target = 0x004D306C },
+  { offset = 320, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 508, target = 0x004D306C },
+  { offset = 332, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 28, target = 0x004D306C },
+  { offset = 341, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 72, target = 0x004D306C },
+  { offset = 349, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 32, target = 0x004D306C },
+  { offset = 355, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 220, target = 0x004D306C },
+  { offset = 360, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 228, target = 0x004D306C },
+  { offset = 368, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 224, target = 0x004D306C },
+  { offset = 382, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 60, target = 0x004D306C },
+  { offset = 397, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 64, target = 0x004D306C },
+  { offset = 406, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 68, target = 0x004D306C },
+  { offset = 425, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 204, target = 0x004D306C },
+  { offset = 435, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 208, target = 0x004D306C },
+  { offset = 445, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 212, target = 0x004D306C },
+  { offset = 455, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 216, target = 0x004D306C },
+  { offset = 466, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 204, target = 0x004D306C },
+  { offset = 471, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 208, target = 0x004D306C },
+  { offset = 477, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 212, target = 0x004D306C },
+  { offset = 483, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 216, target = 0x004D306C },
+  { offset = 499, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 560, target = 0x004D306C },
+  { offset = 516, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 564, target = 0x004D306C },
+  { offset = 525, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 568, target = 0x004D306C },
+  { offset = 540, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 572, target = 0x004D306C },
+  { offset = 555, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 576, target = 0x004D306C },
+  { offset = 567, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 580, target = 0x004D306C },
+  { offset = 581, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 584, target = 0x004D306C },
+  { offset = 592, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 632, target = 0x004D306C },
+  { offset = 598, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 588, target = 0x004D306C },
+  { offset = 607, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 780, target = 0x004D306C },
+  { offset = 615, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 592, target = 0x004D306C },
+  { offset = 621, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 784, target = 0x004D306C },
+  { offset = 626, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 788, target = 0x004D306C },
+  { offset = 638, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 620, target = 0x004D306C },
+  { offset = 653, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 624, target = 0x004D306C },
+  { offset = 662, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 628, target = 0x004D306C },
+  { offset = 674, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 768, target = 0x004D306C },
+  { offset = 682, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 764, target = 0x004D306C },
+  { offset = 692, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 772, target = 0x004D306C },
+  { offset = 702, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 776, target = 0x004D306C },
+  { offset = 715, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 764, target = 0x004D306C },
+  { offset = 725, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 772, target = 0x004D306C },
+  { offset = 730, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 776, target = 0x004D306C },
+]
+
+[units.zc2-init-menu-cameras]
+artifact_kind = "linked-pe"
+source = "src/ZeroCallMedium2.cpp"
+support_sources = ["probes/zero-call-medium2-context.cpp"]
+output_dir = "build/match-linked/ZeroCallMedium2"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ZeroCallMedium2Probe@40"
+functions = ["th128::Zc2InitMenuCameras"]
+symbol = "?Zc2InitMenuCameras@th128@@YAXXZ"
+target_address = 0x00435660
+size = 636
+linkages = [
+  { offset = 14, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 508, target = 0x004D306C },
+  { offset = 44, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 280, target = 0x004D306C },
+  { offset = 59, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 284, target = 0x004D306C },
+  { offset = 73, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 288, target = 0x004D306C },
+  { offset = 86, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 292, target = 0x004D306C },
+  { offset = 92, type = "DIR32", symbol = "__real@3f060a92", target = 0x004A66F4 },
+  { offset = 101, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 352, target = 0x004D306C },
+  { offset = 107, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 296, target = 0x004D306C },
+  { offset = 118, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 500, target = 0x004D306C },
+  { offset = 124, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 300, target = 0x004D306C },
+  { offset = 135, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 504, target = 0x004D306C },
+  { offset = 140, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 304, target = 0x004D306C },
+  { offset = 148, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 308, target = 0x004D306C },
+  { offset = 157, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 312, target = 0x004D306C },
+  { offset = 174, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 340, target = 0x004D306C },
+  { offset = 189, type = "DIR32", symbol = "__real@447a0000", target = 0x004A66CC },
+  { offset = 195, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 344, target = 0x004D306C },
+  { offset = 207, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 348, target = 0x004D306C },
+  { offset = 221, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", target = 0x004D306C },
+  { offset = 233, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 4, target = 0x004D306C },
+  { offset = 245, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 8, target = 0x004D306C },
+  { offset = 257, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 12, target = 0x004D306C },
+  { offset = 266, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 16, target = 0x004D306C },
+  { offset = 278, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 20, target = 0x004D306C },
+  { offset = 301, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 484, target = 0x004D306C },
+  { offset = 306, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 488, target = 0x004D306C },
+  { offset = 312, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 492, target = 0x004D306C },
+  { offset = 318, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 496, target = 0x004D306C },
+  { offset = 324, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 24, target = 0x004D306C },
+  { offset = 335, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 72, target = 0x004D306C },
+  { offset = 341, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 28, target = 0x004D306C },
+  { offset = 352, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 220, target = 0x004D306C },
+  { offset = 358, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 32, target = 0x004D306C },
+  { offset = 365, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 204, target = 0x004D306C },
+  { offset = 371, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 224, target = 0x004D306C },
+  { offset = 376, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 208, target = 0x004D306C },
+  { offset = 384, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 212, target = 0x004D306C },
+  { offset = 396, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 60, target = 0x004D306C },
+  { offset = 411, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 64, target = 0x004D306C },
+  { offset = 426, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 68, target = 0x004D306C },
+  { offset = 440, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 560, target = 0x004D306C },
+  { offset = 452, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 564, target = 0x004D306C },
+  { offset = 467, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 568, target = 0x004D306C },
+  { offset = 479, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 572, target = 0x004D306C },
+  { offset = 488, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 576, target = 0x004D306C },
+  { offset = 502, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 580, target = 0x004D306C },
+  { offset = 516, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 584, target = 0x004D306C },
+  { offset = 525, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 632, target = 0x004D306C },
+  { offset = 531, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 588, target = 0x004D306C },
+  { offset = 540, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 780, target = 0x004D306C },
+  { offset = 548, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 216, target = 0x004D306C },
+  { offset = 554, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 784, target = 0x004D306C },
+  { offset = 559, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 228, target = 0x004D306C },
+  { offset = 564, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 764, target = 0x004D306C },
+  { offset = 572, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 768, target = 0x004D306C },
+  { offset = 581, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 772, target = 0x004D306C },
+  { offset = 593, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 776, target = 0x004D306C },
+  { offset = 601, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 788, target = 0x004D306C },
+  { offset = 610, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 592, target = 0x004D306C },
+  { offset = 615, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 620, target = 0x004D306C },
+  { offset = 621, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 624, target = 0x004D306C },
+  { offset = 627, type = "DIR32", symbol = "?g_Zc2Cameras@th128@@3PAUZc2CameraSlot@1@A", addend = 628, target = 0x004D306C },
+]
+
+[units.zc2-config-dialog-proc]
+artifact_kind = "linked-pe"
+source = "src/ZeroCallMedium2.cpp"
+support_sources = ["probes/zero-call-medium2-context.cpp"]
+output_dir = "build/match-linked/ZeroCallMedium2"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ZeroCallMedium2Probe@40"
+functions = ["th128::Zc2ConfigDialogProc"]
+symbol = "?Zc2ConfigDialogProc@th128@@YGHPAUHWND__@@IIJ@Z"
+target_address = 0x00456190
+size = 416
+linkages = [
+  { offset = 12, type = "DIR32", symbol = "__imp__EndDialog@8", target = 0x0049A250 },
+  { offset = 62, type = "DIR32", symbol = "__imp__IsDlgButtonChecked@8", target = 0x0049A260 },
+  { offset = 81, type = "DIR32", symbol = "?g_Zc2CfgFlags@th128@@3IA", target = 0x004D3068 },
+  { offset = 93, type = "DIR32", symbol = "?g_Zc2CfgFlags@th128@@3IA", target = 0x004D3068 },
+  { offset = 116, type = "DIR32", symbol = "?g_Zc2WinMode@th128@@3EA", target = 0x004D304D },
+  { offset = 137, type = "DIR32", symbol = "?g_Zc2WinMode@th128@@3EA", target = 0x004D304D },
+  { offset = 158, type = "DIR32", symbol = "?g_Zc2WinMode@th128@@3EA", target = 0x004D304D },
+  { offset = 183, type = "DIR32", symbol = "?g_Zc2WinMode@th128@@3EA", target = 0x004D304D },
+  { offset = 189, type = "DIR32", symbol = "?g_Zc2SupFlags@th128@@3IA", target = 0x004D59A8 },
+  { offset = 200, type = "DIR32", symbol = "?g_Zc2SupFlags@th128@@3IA", target = 0x004D59A8 },
+  { offset = 221, type = "DIR32", symbol = "?g_Zc2SupFlags@th128@@3IA", target = 0x004D59A8 },
+  { offset = 244, type = "DIR32", symbol = "?g_Zc2CfgFlags@th128@@3IA", target = 0x004D3068 },
+  { offset = 254, type = "DIR32", symbol = "__imp__SendMessageA@16", target = 0x0049A22C },
+  { offset = 260, type = "DIR32", symbol = "__imp__GetDlgItem@8", target = 0x0049A24C },
+  { offset = 289, type = "DIR32", symbol = "?g_Zc2WinMode@th128@@3EA", target = 0x004D304D },
+  { offset = 301, type = "DIR32", local = true, target = 0x00456320 },
+  { offset = 375, type = "DIR32", symbol = "?g_Zc2SupFlags@th128@@3IA", target = 0x004D59A8 },
+  { offset = 387, type = "DIR32", symbol = "?g_Zc2SupFlags@th128@@3IA", target = 0x004D59A8 },
+  { offset = 400, type = "DIR32", local = true, target = 0x004562C1 },
+  { offset = 404, type = "DIR32", local = true, target = 0x004562D1 },
+  { offset = 408, type = "DIR32", local = true, target = 0x004562E1 },
+  { offset = 412, type = "DIR32", local = true, target = 0x004562F1 },
+]
+
+[units.zc2-fade-on-calc]
+artifact_kind = "linked-pe"
+source = "src/ZeroCallMedium2.cpp"
+support_sources = ["probes/zero-call-medium2-context.cpp"]
+output_dir = "build/match-linked/ZeroCallMedium2"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ZeroCallMedium2Probe@40"
+functions = ["th128::Zc2Fade::OnCalc"]
+symbol = "?OnCalc@Zc2Fade@th128@@QAEHXZ"
+target_address = 0x00456D90
+size = 193
+linkages = [
+  { offset = 33, type = "DIR32", symbol = "__real@4060000000000000", target = 0x004A65F8 },
+  { offset = 41, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 61, type = "DIR32", symbol = "__real@4060000000000000", target = 0x004A65F8 },
+  { offset = 67, type = "DIR32", symbol = "__real@3fc0000000000000", target = 0x004A67A8 },
+  { offset = 72, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 99, type = "DIR32", symbol = "__real@3fefae147ae147ae", target = 0x004A6698 },
+  { offset = 112, type = "DIR32", symbol = "__real@3f8147ae", target = 0x004A6694 },
+  { offset = 131, type = "DIR32", symbol = "__real@3ff0000000000000", target = 0x004A6588 },
+  { offset = 166, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+]

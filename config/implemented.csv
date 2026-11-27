@@ -1285,3 +1285,11 @@ th128::SaShutdownSoundThreads
 th128::SaSinF
 th128::SaStartSfxThread
 th128::SaStreamObj::`scalar deleting destructor'
+th128::Zc2ConfigDialogProc
+th128::Zc2Fade::OnCalc
+th128::Zc2InitMenuCameras
+th128::Zc2StageCamOwner::InitGameCameras
+th128::ZcEnemy::GetFloatVarPtr
+th128::ZcEnemy::GetIntVarPtr
+th128::ZcGuiUpdateMeterAnms
+th128::ZcPlayerStopAllOptionAnms

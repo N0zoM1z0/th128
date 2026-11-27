@@ -413,6 +413,8 @@ EmRet1_415A60,0x00415A60,function
 EmEnemyMgr::DamageInCircle,0x00417C30,function
 EmEnemyMgr::DamageInColumn,0x00417D20,function
 EmEnemyMgr::DamageInCircle2,0x00417EF0,function
+th128::ZcEnemy::GetIntVarPtr,0x0041D140,function
+th128::ZcEnemy::GetFloatVarPtr,0x0041DC20,function
 EmSlotsObj::SetSlotF0C,0x0041DE90,function
 EmNoOp41E450,0x0041E450,function
 EmInterp2D::SetStart,0x0041ED70,function
@@ -473,6 +475,7 @@ GmGuiMini::SetFlag3AndClear5A3C,0x0041FC30,function
 GmGuiMini::GetFlag3,0x0041FC50,function
 GmGuiMini::SetFlag4,0x0041FC60,function
 GdGuiFlags::GetFlag4,0x0041FC70,function
+th128::ZcPlayerStopAllOptionAnms,0x0041FE20,function
 GdEnemyFlags::IsNotFlag5,0x0041FFC0,function
 GdEnemyFlags::IsNotFlag0,0x0041FFD0,function
 GdEnemyFlags::IsFlag0Or4OrPos506C,0x0041FFE0,function
@@ -483,6 +486,7 @@ GdGuiObj::DestroySelf,0x00421070,function
 GdGuiObj::DestroyGlobal,0x00421090,function
 GdGuiObj::CalcHook,0x00422D60,function
 PopupNotifications::Show,0x00424B80,function
+th128::ZcGuiUpdateMeterAnms,0x00425820,function
 GdStageOwner::Set7C,0x004259A0,function
 GdGet4B4D3C,0x004259B0,function
 GdGet4B4D50Bit2,0x004259C0,function
@@ -672,6 +676,8 @@ CaptureSupervisorScreenshot,0x004343D0,function
 AnmFogState::Enable,0x00434A70,function
 AnmFogState::Disable,0x00434AB0,function
 AnmSpriteViewport::Set2DView,0x00435090,function
+th128::Zc2StageCamOwner::InitGameCameras,0x00435370,function
+th128::Zc2InitMenuCameras,0x00435660,function
 RestoreSupervisorSurfaces,0x00435D20,function
 SpReleaseAllSurfaces,0x00435E00,function
 SpSyncStageInfoPtr,0x00435E50,function
@@ -937,11 +943,13 @@ CreateGameWindow,0x00455320,function
 InitializeSupervisorRenderState,0x00455A70,function
 LsDisableImeDll,0x00455DA0,function
 LsShowCursorWrap,0x00455F40,function
+th128::Zc2ConfigDialogProc,0x00456190,function
 LsObj0C::Get0C,0x00456670,function
 LsObj0C::Zero0C,0x00456680,function
 LsObj0C::GetAddr0C,0x00456690,function
 LsFade44::LsFade44,0x004566A0,function
 LsClearAndPresentTwice,0x004566C0,function
+th128::Zc2Fade::OnCalc,0x00456D90,function
 th128::SaNoOp4575C0,0x004575C0,function
 th128::SaInitSoundThread,0x004575D0,function
 th128::SaRequestSoundStop,0x00457620,function
