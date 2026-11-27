@@ -405,7 +405,11 @@ GetWindowsVersionCode,0x0046A800,function
 MenuCursor::Push,0x0046A900,function
 MenuCursor::Pop,0x0046A940,function
 MenuCursor::Move,0x0046A970,function
+CoreTimer::ClearFlag0,0x0046A9F0,function
+CoreTimer::ResetScale,0x0046AA00,function
 ZunTimer::Add,0x0046AA20,function
+CoreTimer::GetScale,0x0046AAF0,function
+CoreChecksumWords,0x0046AB80,function
 ThreadInf::ThreadInf,0x0046AC80,function
 ThreadInf::~ThreadInf,0x0046ACD0,function
 SetThreadGlobalFlag4B4D8C,0x0046ACE0,function
@@ -414,6 +418,7 @@ ThreadInf::Start,0x0046AD60,function
 ThreadInf::StartSuspended,0x0046ADA0,function
 ThreadInf::Resume,0x0046ADE0,function
 SetThreadFlagBit2,0x0046ADF0,function
+CoreMotionState::UpdateVelocity,0x0046AE00,function
 EaseTransition,0x0046B190,function
 Vec2LengthSq,0x0046C0C0,function
 ShortestAngleDifference2,0x0046C0E0,function

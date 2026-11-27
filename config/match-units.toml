@@ -9324,3 +9324,78 @@ symbol = "?FreeFrame@EclStack@@QAEHXZ"
 target_address = 0x00470870
 size = 41
 linkages = []
+
+# Core math, timer, checksum, and motion helpers: VC10 /GL linked-PE exact units.
+[units.core-timer-clear-flag0]
+artifact_kind = "linked-pe"
+source = "src/CoreMathHelpers.cpp"
+support_sources = ["probes/core-math-helpers-context.cpp"]
+output_dir = "build/match-linked/CoreMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CoreMathHelpersProbe@48"
+functions = ["CoreTimer::ClearFlag0"]
+symbol = "?ClearFlag0@CoreTimer@@QAEXXZ"
+target_address = 0x0046A9F0
+size = 5
+linkages = []
+
+[units.core-timer-reset-scale]
+artifact_kind = "linked-pe"
+source = "src/CoreMathHelpers.cpp"
+support_sources = ["probes/core-math-helpers-context.cpp"]
+output_dir = "build/match-linked/CoreMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CoreMathHelpersProbe@48"
+functions = ["CoreTimer::ResetScale"]
+symbol = "?ResetScale@CoreTimer@@QAEXXZ"
+target_address = 0x0046AA00
+size = 18
+linkages = [
+  { offset = 13, type = "DIR32", symbol = "?g_CoreDefaultTimeScale@@3UCoreTimeScale@@A", target = 0x004B6F58 },
+]
+
+[units.core-timer-get-scale]
+artifact_kind = "linked-pe"
+source = "src/CoreMathHelpers.cpp"
+support_sources = ["probes/core-math-helpers-context.cpp"]
+output_dir = "build/match-linked/CoreMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CoreMathHelpersProbe@48"
+functions = ["CoreTimer::GetScale"]
+symbol = "?GetScale@CoreTimer@@QAEMXZ"
+target_address = 0x0046AAF0
+size = 6
+linkages = []
+
+[units.core-checksum-words]
+artifact_kind = "linked-pe"
+source = "src/CoreMathHelpers.cpp"
+support_sources = ["probes/core-math-helpers-context.cpp"]
+output_dir = "build/match-linked/CoreMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CoreMathHelpersProbe@48"
+functions = ["CoreChecksumWords"]
+symbol = "?CoreChecksumWords@@YAGPBGH@Z"
+target_address = 0x0046AB80
+size = 116
+linkages = []
+
+[units.core-motion-update-velocity]
+artifact_kind = "linked-pe"
+source = "src/CoreMathHelpers.cpp"
+support_sources = ["probes/core-math-helpers-context.cpp"]
+output_dir = "build/match-linked/CoreMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CoreMathHelpersProbe@48"
+functions = ["CoreMotionState::UpdateVelocity"]
+symbol = "?UpdateVelocity@CoreMotionState@@QAEXXZ"
+target_address = 0x0046AE00
+size = 113
+linkages = [
+  { offset = 18, type = "DIR32", symbol = "?g_CoreDefaultTimeScale@@3UCoreTimeScale@@A", target = 0x004B6F58 },
+  { offset = 42, type = "REL32", symbol = "?FromPolar@CoreFloat2@@QAEXMM@Z", target = 0x0046C1F0 },
+  { offset = 61, type = "DIR32", symbol = "?g_CoreDefaultTimeScale@@3UCoreTimeScale@@A", target = 0x004B6F58 },
+  { offset = 76, type = "DIR32", symbol = "?g_CoreDefaultTimeScale@@3UCoreTimeScale@@A", target = 0x004B6F58 },
+  { offset = 93, type = "REL32", symbol = "?CoreNormalizeAngle@@YGMM@Z", target = 0x0046A700 },
+  { offset = 102, type = "REL32", symbol = "?CoreNormalizeAngle@@YGMM@Z", target = 0x0046A700 },
+]

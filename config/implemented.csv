@@ -255,6 +255,11 @@ ChainElem::ChainElem(ChainCallback)
 ChainElem::`scalar deleting destructor'
 ChainElem::~ChainElem
 ClearKeyboardState
+CoreChecksumWords
+CoreMotionState::UpdateVelocity
+CoreTimer::ClearFlag0
+CoreTimer::GetScale
+CoreTimer::ResetScale
 CreateGameWindow
 CreateOffscreenA1R5G5B5Texture
 DebugLog46C320
