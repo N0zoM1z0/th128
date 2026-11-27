@@ -795,6 +795,7 @@ address,name,size,status,match_percent,unit,evidence
 0x004451B0,TaTitleMgrExact::TaTitleMgrExact,201,exact,100.00,TaTitleMgrExact_ctor,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x00445730,TaTitleMgrExact::DestroyGlobal,28,exact,100.00,TaTitleMgrExact_DestroyGlobal,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x00445750,TaTitleMgrExact::DestroySelf,18,exact,100.00,TaTitleMgrExact_DestroySelf,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x00448D90,th128::Tc1UpdateDigitSprites,2394,exact,100.00,tc1-update-digit-sprites,exact linked VC10 /GL match in TwoCallBatch1 (2394B)
 0x0044B3B0,TaRet1_44B3B0,6,exact,100.00,TaRet1_44B3B0,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x0044B3C0,TaRet1_44B3C0,6,exact,100.00,TaRet1_44B3C0,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x0044B3D0,TaRet1_44B3D0,6,exact,100.00,TaRet1_44B3D0,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe

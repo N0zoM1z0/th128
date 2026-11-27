@@ -1530,7 +1530,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x00446CB0,0x00447B97,reviewed,high,bdesc-exact,start after-table; refs callx2; descent body 0x00446CB0..0x00447B97 (3816 bytes) ends with jmp; then padding-then-start 0x00447BA0; 3 filler hole(s)
 0x00447BA0,0x00448A1F,reviewed,high,bdesc-exact,start padding; refs callx4; descent body 0x00447BA0..0x00448A1F (3712 bytes) ends with jmp; then adjacent-start 0x00448A20; 28 filler hole(s)
 0x00448A20,0x00448D8F,reviewed,high,bdesc-extent-correction,descent extends the inventory span by 20 bytes past 0x00448D7B; state applies to the proposed extent. start after-terminator; refs callx1; descent body 0x00448A20..0x00448D8F (880 bytes) ends with table; then adjacent-start 0x00448D90; tables 0x00448D7C+20
-0x00448D90,0x004496E9,reviewed,high,bdesc-exact,start after-table; refs callx4; descent body 0x00448D90..0x004496E9 (2394 bytes) ends with ret; then padding-then-start 0x004496F0; 9 filler hole(s)
+0x00448D90,0x004496E9,reviewed,high,tc1-update-digit-sprites-boundary,0x00448d90:2394
 0x004496F0,0x004497B6,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x004496F0..0x004497B6 (199 bytes) ends with ret; then padding-then-start 0x004497C0
 0x004497C0,0x00449CDB,reviewed,high,bdesc-exact,start padding; refs callx2; descent body 0x004497C0..0x00449CDB (1308 bytes) ends with jmp; then padding-then-start 0x00449CE0; 2 filler hole(s)
 0x00449CE0,0x00449FD3,reviewed,high,bdesc-extent-correction,descent extends the inventory span by 21 bytes past 0x00449FBE; state applies to the proposed extent. start padding; refs callx1; descent body 0x00449CE0..0x00449FD3 (756 bytes) ends with table; then padding-then-start 0x00449FE0; tables 0x00449FC0+20; 1 filler hole(s)
