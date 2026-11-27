@@ -571,6 +571,7 @@ address,name,size,status,match_percent,unit,evidence
 0x004282F0,IlItemEntry::IlItemEntry,40,exact,100.00,IlItemEntry_ctor,Cold-replayed VC10 LTCG match via ItemLaserHelpersProbe
 0x00428320,IlItemEntry::~IlItemEntry,63,exact,100.00,IlItemEntry_dtor,Cold-replayed VC10 LTCG match via ItemLaserHelpersProbe
 0x004293C0,IlRet0_4293C0,3,exact,100.00,IlRet0_4293C0,Cold-replayed VC10 LTCG match via ItemLaserHelpersProbe
+0x00429770,th128::Zc5ClearActiveItems,385,exact,100.00,zc5-clear-active-items,exact
 0x00429900,IlIsNZ0::IsNonZero,8,exact,100.00,IlIsNZ0_IsNonZero,Cold-replayed VC10 LTCG match via ItemLaserHelpersProbe
 0x00429910,IlGet4B4D38,6,exact,100.00,IlGet4B4D38,Cold-replayed VC10 LTCG match via ItemLaserHelpersProbe
 0x00429920,IlAddPowerClamped,49,exact,100.00,IlAddPowerClamped,Cold-replayed VC10 LTCG match via ItemLaserHelpersProbe
