@@ -2,6 +2,7 @@ AddAngles
 AddScore
 AddTextColor4444
 AllocateAnmVm
+AmcAnmManager::AmcAnmManager
 AnmDrawLeaf::AlternateRotatedSprite
 AnmDrawLeaf::AppendSprite
 AnmDrawLeaf::ApplyState
@@ -1243,6 +1244,7 @@ TaTitleMgrExact::SetSubStateAndResetTimer
 TaTitleMgrExact::TaTitleMgrExact
 TaVtbl850A::SetVtblA
 TaVtbl850B::SetVtblB
+Tb1UpdateOptionsVolume
 TextImage::SetAlpha
 ThreadInf::Resume
 ThreadInf::Start

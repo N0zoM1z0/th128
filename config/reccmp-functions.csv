@@ -818,6 +818,7 @@ TaHelpMgr::SetFloat12C,0x00445190,function
 TaTitleMgrExact::TaTitleMgrExact,0x004451B0,function
 TaTitleMgrExact::DestroyGlobal,0x00445730,function
 TaTitleMgrExact::DestroySelf,0x00445750,function
+Tb1UpdateOptionsVolume,0x00447BA0,function
 th128::Tc1UpdateDigitSprites,0x00448D90,function
 TaRet1_44B3B0,0x0044B3B0,function
 TaRet1_44B3C0,0x0044B3C0,function
@@ -1078,6 +1079,7 @@ AnmVm::StartEffect10,0x004631A0,function
 UpdateAnmVmEffect10,0x004634A0,function
 DrawAnmVmEffect10,0x004636E0,function
 AnmVmEffect10Vertex::SetPolar,0x00463700,function
+AmcAnmManager::AmcAnmManager,0x00463750,function
 AnmHelpers::NormalizeTextureFormat,0x00464510,function
 AnmHelpers::AccumulateTextureColor8888,0x00464540,function
 AnmHelpers::AccumulateTextureColor1555,0x00464560,function
