@@ -1,12 +1,44 @@
 address,name,size,status,match_percent,unit,evidence
+0x00401000,GetGameManagerField4,9,exact,100.00,ascii-get-game-manager-field4,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x004010A0,AsciiEntry::ClearFlag0,10,exact,100.00,ascii-entry-clear-flag0,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x004015F0,AsciiInf::CreateText,407,exact,100.00,ascii-create-text,"Pinned VC10 RTM /O2 /Ob1 /Oy- /GL; current 40-source cold context with real CardInf, AsciiInf and ANM callees; complete 407-byte primary PDB contribution and all 1 address fields replayed with zero differences; .analysis/card-callbacks-ascii-results.json."
 0x00401790,AsciiInf::CreateTextF,85,exact,100.00,ascii-create-text-format,"Pinned VC10 RTM /O2 /Ob1 /Oy- /GL; current 40-source cold context with real CardInf, AsciiInf and ANM callees; complete 85-byte primary PDB contribution and all 4 address fields replayed with zero differences; .analysis/card-callbacks-ascii-results.json."
+0x00402A00,AsciiInf::FindEntryByIdPtr,72,exact,100.00,ascii-find-entry-by-id-ptr,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00402A50,AsciiInf::GetStructSize,6,exact,100.00,ascii-get-struct-size,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00402A60,AsciiIdEquals,10,exact,100.00,ascii-id-equals,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00402A70,AsciiInf::FindEntryById,78,exact,100.00,ascii-find-entry-by-id,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x00402AC0,ZunTimer::Increment,88,exact,100.00,zun-timer-increment,Cold pinned VC10 /GL linked-PE replay; complete 88-byte PDB contribution; three reviewed DIR32 constants and one REL32 __ftol2_sse relocation; zero byte differences.
 0x00402B20,ZunTimerModulo,16,exact,100.00,zun-timer-modulo,Cold pinned VC10 /GL /Ob1 /Oy- complete 16-byte public primary-TU PDB contribution behind an independent two-call probe context; current receipts; no fields; zero byte differences.
+0x00402B30,AsciiAnmVmMini::SetByte3F3,7,exact,100.00,ascii-anm-vm-set-byte-3f3,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00402B40,AsciiAnmVmMini::SetInt3F0,7,exact,100.00,ascii-anm-vm-set-int-3f0,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00402B50,AsciiAnmVmMini::GetSprite,7,exact,100.00,ascii-anm-vm-get-sprite,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x00402B60,AnmVmSetUvScroll,26,exact,100.00,anm-vm-set-uv-scroll,Cold pinned VC10 /GL /Ob1 /Oy- complete public primary-TU PDB contribution behind the AnmVm setter probe context; current receipts; no fields; zero byte differences.
+0x00402B80,AsciiAnmResMini::GetSprite,13,exact,100.00,ascii-anm-res-get-sprite,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00402B90,AsciiAnmVmMini::BindSprite,98,exact,100.00,ascii-anm-vm-bind-sprite,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x00402C00,AnmVmSetScale2,26,exact,100.00,anm-vm-set-scale2,Cold pinned VC10 /GL /Ob1 /Oy- complete public primary-TU PDB contribution behind the AnmVm setter probe context; current receipts; no fields; zero byte differences.
 0x00402C20,AnmVmSetScale,26,exact,100.00,anm-vm-set-scale,Cold pinned VC10 /GL /Ob1 /Oy- complete public primary-TU PDB contribution behind the AnmVm setter probe context; current receipts; no fields; zero byte differences.
 0x00402C40,ZunTimer::operator<,18,exact,100.00,zun-timer-less,Cold pinned VC10 /GL /Ob1 /Oy- complete 18-byte public primary-TU PDB contribution behind the shared ZunTimer probe context; current receipts; no fields; zero byte differences.
+0x00402CA0,AsciiSetIntCell,3,exact,100.00,ascii-set-int-cell,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00402CB0,AsciiInf::NoOp1,1,exact,100.00,ascii-noop1,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00402CC0,AsciiInf::SetColor,7,exact,100.00,ascii-set-color,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00402CD0,AsciiInf::ResetAlign,11,exact,100.00,ascii-reset-align,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00402CE0,AsciiInf::SetScale,25,exact,100.00,ascii-set-scale,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00402D00,AsciiInf::SetFontId,7,exact,100.00,ascii-set-font-id,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00402D10,AsciiInf::ResetShadow,11,exact,100.00,ascii-reset-shadow,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00402D20,AsciiInf::SetLayer,7,exact,100.00,ascii-set-layer,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00402D30,AsciiInf::SetBlendMode,7,exact,100.00,ascii-set-blend-mode,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00402D40,AsciiInf::ResetFlags,15,exact,100.00,ascii-reset-flags,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00402D50,AsciiInf::ResetColors,26,exact,100.00,ascii-reset-colors,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00402D70,AsciiInf::ResetStyle,107,exact,100.00,ascii-reset-style,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00402DE0,AsciiInf::NoOp2,1,exact,100.00,ascii-noop2,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00402DF0,AsciiInf::NoOp3,1,exact,100.00,ascii-noop3,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00402E00,AsciiMatrix4x4::SetIdentity,52,exact,100.00,ascii-matrix-set-identity,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00402E40,AsciiZero44A::Zero,8,exact,100.00,ascii-zero-44a,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00402E50,AsciiZero34::Zero,8,exact,100.00,ascii-zero-34,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00402E60,AsciiZero44B::Zero,8,exact,100.00,ascii-zero-44b,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00402E70,AsciiZero24A::Zero,8,exact,100.00,ascii-zero-24a,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00402E80,AsciiZero24B::Zero,8,exact,100.00,ascii-zero-24b,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00402E90,AsciiListNode::Init,11,exact,100.00,ascii-list-node-init,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x004031A0,AnmVm::AnmVm,116,exact,100.00,anm-vm-constructor,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; the memset relocation replayed against the library-confirmed _memset; zero byte differences.
 0x00403240,ZunTimer::SetCurrent,61,exact,100.00,zun-timer-set-current,Cold pinned VC10 /GL /Ob1 /Oy- complete public primary-TU PDB contribution behind the shared ZunTimer probe context; current receipts; reviewed game-speed and _ftol2_sse fields replay with zero byte differences.
 0x00403280,SetUpdateTimerCurrent,61,exact,100.00,anm-vm-update-timer-set-current,Cold pinned VC10 /GL /Ob1 /Oy- linked primary-source function; PDB and MAP owner agree; offset 38 DIR32 g_TimeScale replayed to 0x004B6F58; zero byte differences across all 61 bytes.

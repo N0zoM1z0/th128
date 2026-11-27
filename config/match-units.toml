@@ -9415,3 +9415,427 @@ size = 105
 linkages = [
   { offset = 41, type = "DIR32", symbol = "__real@3c23d70a", target = 0x004A668C },
 ]
+
+# AsciiInf and AnmVm helper batch: VC10 /GL linked-PE exact units.
+
+[units.ascii-get-game-manager-field4]
+artifact_kind = "linked-pe"
+source = "src/AsciiInfHelpers.cpp"
+support_sources = ["probes/ascii-inf-helpers-context.cpp"]
+output_dir = "build/match-linked/AsciiInfHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AsciiInfHelpersProbe@72"
+functions = ["GetGameManagerField4"]
+symbol = "?GetGameManagerField4@@YAHXZ"
+target_address = 0x00401000
+size = 9
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_GameManagerMini@@3PAUGameManagerMini@@A", target = 0x004B8A7C },
+]
+
+[units.ascii-entry-clear-flag0]
+artifact_kind = "linked-pe"
+source = "src/AsciiInfHelpers.cpp"
+support_sources = ["probes/ascii-inf-helpers-context.cpp"]
+output_dir = "build/match-linked/AsciiInfHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AsciiInfHelpersProbe@72"
+functions = ["AsciiEntry::ClearFlag0"]
+symbol = "?ClearFlag0@AsciiEntry@@QAEPAU1@XZ"
+target_address = 0x004010A0
+size = 10
+linkages = []
+
+[units.ascii-find-entry-by-id-ptr]
+artifact_kind = "linked-pe"
+source = "src/AsciiInfHelpers.cpp"
+support_sources = ["probes/ascii-inf-helpers-context.cpp"]
+output_dir = "build/match-linked/AsciiInfHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AsciiInfHelpersProbe@72"
+functions = ["AsciiInf::FindEntryByIdPtr"]
+symbol = "?FindEntryByIdPtr@AsciiInf@@QAEPAUAsciiEntry@@PBH@Z"
+target_address = 0x00402A00
+size = 72
+linkages = [
+  { offset = 3, type = "DIR32", symbol = "?g_AsciiInf@@3PAVAsciiInf@@A", target = 0x004B8920 },
+]
+
+[units.ascii-get-struct-size]
+artifact_kind = "linked-pe"
+source = "src/AsciiInfHelpers.cpp"
+support_sources = ["probes/ascii-inf-helpers-context.cpp"]
+output_dir = "build/match-linked/AsciiInfHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AsciiInfHelpersProbe@72"
+functions = ["AsciiInf::GetStructSize"]
+symbol = "?GetStructSize@AsciiInf@@SAIXZ"
+target_address = 0x00402A50
+size = 6
+linkages = []
+
+[units.ascii-id-equals]
+artifact_kind = "linked-pe"
+source = "src/AsciiInfHelpers.cpp"
+support_sources = ["probes/ascii-inf-helpers-context.cpp"]
+output_dir = "build/match-linked/AsciiInfHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AsciiInfHelpersProbe@72"
+functions = ["AsciiIdEquals"]
+symbol = "?AsciiIdEquals@@YA_NPBH0@Z"
+target_address = 0x00402A60
+size = 10
+linkages = []
+
+[units.ascii-find-entry-by-id]
+artifact_kind = "linked-pe"
+source = "src/AsciiInfHelpers.cpp"
+support_sources = ["probes/ascii-inf-helpers-context.cpp"]
+output_dir = "build/match-linked/AsciiInfHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AsciiInfHelpersProbe@72"
+functions = ["AsciiInf::FindEntryById"]
+symbol = "?FindEntryById@AsciiInf@@QAEPAUAsciiEntry@@H@Z"
+target_address = 0x00402A70
+size = 78
+linkages = [
+  { offset = 6, type = "DIR32", symbol = "?g_AsciiInf@@3PAVAsciiInf@@A", target = 0x004B8920 },
+]
+
+[units.ascii-anm-vm-set-byte-3f3]
+artifact_kind = "linked-pe"
+source = "src/AsciiInfHelpers.cpp"
+support_sources = ["probes/ascii-inf-helpers-context.cpp"]
+output_dir = "build/match-linked/AsciiInfHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AsciiInfHelpersProbe@72"
+functions = ["AsciiAnmVmMini::SetByte3F3"]
+symbol = "?SetByte3F3@AsciiAnmVmMini@@QAEXE@Z"
+target_address = 0x00402B30
+size = 7
+linkages = []
+
+[units.ascii-anm-vm-set-int-3f0]
+artifact_kind = "linked-pe"
+source = "src/AsciiInfHelpers.cpp"
+support_sources = ["probes/ascii-inf-helpers-context.cpp"]
+output_dir = "build/match-linked/AsciiInfHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AsciiInfHelpersProbe@72"
+functions = ["AsciiAnmVmMini::SetInt3F0"]
+symbol = "?SetInt3F0@AsciiAnmVmMini@@QAEXH@Z"
+target_address = 0x00402B40
+size = 7
+linkages = []
+
+[units.ascii-anm-vm-get-sprite]
+artifact_kind = "linked-pe"
+source = "src/AsciiInfHelpers.cpp"
+support_sources = ["probes/ascii-inf-helpers-context.cpp"]
+output_dir = "build/match-linked/AsciiInfHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AsciiInfHelpersProbe@72"
+functions = ["AsciiAnmVmMini::GetSprite"]
+symbol = "?GetSprite@AsciiAnmVmMini@@QAEPAUAsciiSpriteMini@@XZ"
+target_address = 0x00402B50
+size = 7
+linkages = []
+
+[units.ascii-anm-res-get-sprite]
+artifact_kind = "linked-pe"
+source = "src/AsciiInfHelpers.cpp"
+support_sources = ["probes/ascii-inf-helpers-context.cpp"]
+output_dir = "build/match-linked/AsciiInfHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AsciiInfHelpersProbe@72"
+functions = ["AsciiAnmResMini::GetSprite"]
+symbol = "?GetSprite@AsciiAnmResMini@@QAEPAUAsciiSpriteMini@@H@Z"
+target_address = 0x00402B80
+size = 13
+linkages = []
+
+[units.ascii-anm-vm-bind-sprite]
+artifact_kind = "linked-pe"
+source = "src/AsciiInfHelpers.cpp"
+support_sources = ["probes/ascii-inf-helpers-context.cpp"]
+output_dir = "build/match-linked/AsciiInfHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AsciiInfHelpersProbe@72"
+functions = ["AsciiAnmVmMini::BindSprite"]
+symbol = "?BindSprite@AsciiAnmVmMini@@QAEXPAUAsciiSpriteMini@@@Z"
+target_address = 0x00402B90
+size = 98
+linkages = []
+
+[units.ascii-set-int-cell]
+artifact_kind = "linked-pe"
+source = "src/AsciiInfHelpers.cpp"
+support_sources = ["probes/ascii-inf-helpers-context.cpp"]
+output_dir = "build/match-linked/AsciiInfHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AsciiInfHelpersProbe@72"
+functions = ["AsciiSetIntCell"]
+symbol = "?AsciiSetIntCell@@YAXHPAH@Z"
+target_address = 0x00402CA0
+size = 3
+linkages = []
+
+[units.ascii-noop1]
+artifact_kind = "linked-pe"
+source = "src/AsciiInfHelpers.cpp"
+support_sources = ["probes/ascii-inf-helpers-context.cpp"]
+output_dir = "build/match-linked/AsciiInfHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AsciiInfHelpersProbe@72"
+functions = ["AsciiInf::NoOp1"]
+symbol = "?NoOp1@AsciiInf@@QAEXXZ"
+target_address = 0x00402CB0
+size = 1
+linkages = []
+
+[units.ascii-set-color]
+artifact_kind = "linked-pe"
+source = "src/AsciiInfHelpers.cpp"
+support_sources = ["probes/ascii-inf-helpers-context.cpp"]
+output_dir = "build/match-linked/AsciiInfHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AsciiInfHelpersProbe@72"
+functions = ["AsciiInf::SetColor"]
+symbol = "?SetColor@AsciiInf@@QAEXI@Z"
+target_address = 0x00402CC0
+size = 7
+linkages = []
+
+[units.ascii-reset-align]
+artifact_kind = "linked-pe"
+source = "src/AsciiInfHelpers.cpp"
+support_sources = ["probes/ascii-inf-helpers-context.cpp"]
+output_dir = "build/match-linked/AsciiInfHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AsciiInfHelpersProbe@72"
+functions = ["AsciiInf::ResetAlign"]
+symbol = "?ResetAlign@AsciiInf@@QAEXXZ"
+target_address = 0x00402CD0
+size = 11
+linkages = []
+
+[units.ascii-set-scale]
+artifact_kind = "linked-pe"
+source = "src/AsciiInfHelpers.cpp"
+support_sources = ["probes/ascii-inf-helpers-context.cpp"]
+output_dir = "build/match-linked/AsciiInfHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AsciiInfHelpersProbe@72"
+functions = ["AsciiInf::SetScale"]
+symbol = "?SetScale@AsciiInf@@QAEXMM@Z"
+target_address = 0x00402CE0
+size = 25
+linkages = []
+
+[units.ascii-set-font-id]
+artifact_kind = "linked-pe"
+source = "src/AsciiInfHelpers.cpp"
+support_sources = ["probes/ascii-inf-helpers-context.cpp"]
+output_dir = "build/match-linked/AsciiInfHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AsciiInfHelpersProbe@72"
+functions = ["AsciiInf::SetFontId"]
+symbol = "?SetFontId@AsciiInf@@QAEXH@Z"
+target_address = 0x00402D00
+size = 7
+linkages = []
+
+[units.ascii-reset-shadow]
+artifact_kind = "linked-pe"
+source = "src/AsciiInfHelpers.cpp"
+support_sources = ["probes/ascii-inf-helpers-context.cpp"]
+output_dir = "build/match-linked/AsciiInfHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AsciiInfHelpersProbe@72"
+functions = ["AsciiInf::ResetShadow"]
+symbol = "?ResetShadow@AsciiInf@@QAEXXZ"
+target_address = 0x00402D10
+size = 11
+linkages = []
+
+[units.ascii-set-layer]
+artifact_kind = "linked-pe"
+source = "src/AsciiInfHelpers.cpp"
+support_sources = ["probes/ascii-inf-helpers-context.cpp"]
+output_dir = "build/match-linked/AsciiInfHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AsciiInfHelpersProbe@72"
+functions = ["AsciiInf::SetLayer"]
+symbol = "?SetLayer@AsciiInf@@QAEXH@Z"
+target_address = 0x00402D20
+size = 7
+linkages = []
+
+[units.ascii-set-blend-mode]
+artifact_kind = "linked-pe"
+source = "src/AsciiInfHelpers.cpp"
+support_sources = ["probes/ascii-inf-helpers-context.cpp"]
+output_dir = "build/match-linked/AsciiInfHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AsciiInfHelpersProbe@72"
+functions = ["AsciiInf::SetBlendMode"]
+symbol = "?SetBlendMode@AsciiInf@@QAEXH@Z"
+target_address = 0x00402D30
+size = 7
+linkages = []
+
+[units.ascii-reset-flags]
+artifact_kind = "linked-pe"
+source = "src/AsciiInfHelpers.cpp"
+support_sources = ["probes/ascii-inf-helpers-context.cpp"]
+output_dir = "build/match-linked/AsciiInfHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AsciiInfHelpersProbe@72"
+functions = ["AsciiInf::ResetFlags"]
+symbol = "?ResetFlags@AsciiInf@@QAEXXZ"
+target_address = 0x00402D40
+size = 15
+linkages = []
+
+[units.ascii-reset-colors]
+artifact_kind = "linked-pe"
+source = "src/AsciiInfHelpers.cpp"
+support_sources = ["probes/ascii-inf-helpers-context.cpp"]
+output_dir = "build/match-linked/AsciiInfHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AsciiInfHelpersProbe@72"
+functions = ["AsciiInf::ResetColors"]
+symbol = "?ResetColors@AsciiInf@@QAEXXZ"
+target_address = 0x00402D50
+size = 26
+linkages = []
+
+[units.ascii-reset-style]
+artifact_kind = "linked-pe"
+source = "src/AsciiInfHelpers.cpp"
+support_sources = ["probes/ascii-inf-helpers-context.cpp"]
+output_dir = "build/match-linked/AsciiInfHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AsciiInfHelpersProbe@72"
+functions = ["AsciiInf::ResetStyle"]
+symbol = "?ResetStyle@AsciiInf@@QAEXXZ"
+target_address = 0x00402D70
+size = 107
+linkages = []
+
+[units.ascii-noop2]
+artifact_kind = "linked-pe"
+source = "src/AsciiInfHelpers.cpp"
+support_sources = ["probes/ascii-inf-helpers-context.cpp"]
+output_dir = "build/match-linked/AsciiInfHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AsciiInfHelpersProbe@72"
+functions = ["AsciiInf::NoOp2"]
+symbol = "?NoOp2@AsciiInf@@QAEXXZ"
+target_address = 0x00402DE0
+size = 1
+linkages = []
+
+[units.ascii-noop3]
+artifact_kind = "linked-pe"
+source = "src/AsciiInfHelpers.cpp"
+support_sources = ["probes/ascii-inf-helpers-context.cpp"]
+output_dir = "build/match-linked/AsciiInfHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AsciiInfHelpersProbe@72"
+functions = ["AsciiInf::NoOp3"]
+symbol = "?NoOp3@AsciiInf@@QAEXXZ"
+target_address = 0x00402DF0
+size = 1
+linkages = []
+
+[units.ascii-matrix-set-identity]
+artifact_kind = "linked-pe"
+source = "src/AsciiInfHelpers.cpp"
+support_sources = ["probes/ascii-inf-helpers-context.cpp"]
+output_dir = "build/match-linked/AsciiInfHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AsciiInfHelpersProbe@72"
+functions = ["AsciiMatrix4x4::SetIdentity"]
+symbol = "?SetIdentity@AsciiMatrix4x4@@QAEXXZ"
+target_address = 0x00402E00
+size = 52
+linkages = []
+
+[units.ascii-zero-44a]
+artifact_kind = "linked-pe"
+source = "src/AsciiInfHelpers.cpp"
+support_sources = ["probes/ascii-inf-helpers-context.cpp"]
+output_dir = "build/match-linked/AsciiInfHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AsciiInfHelpersProbe@72"
+functions = ["AsciiZero44A::Zero"]
+symbol = "?Zero@AsciiZero44A@@QAEXXZ"
+target_address = 0x00402E40
+size = 8
+linkages = []
+
+[units.ascii-zero-34]
+artifact_kind = "linked-pe"
+source = "src/AsciiInfHelpers.cpp"
+support_sources = ["probes/ascii-inf-helpers-context.cpp"]
+output_dir = "build/match-linked/AsciiInfHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AsciiInfHelpersProbe@72"
+functions = ["AsciiZero34::Zero"]
+symbol = "?Zero@AsciiZero34@@QAEXXZ"
+target_address = 0x00402E50
+size = 8
+linkages = []
+
+[units.ascii-zero-44b]
+artifact_kind = "linked-pe"
+source = "src/AsciiInfHelpers.cpp"
+support_sources = ["probes/ascii-inf-helpers-context.cpp"]
+output_dir = "build/match-linked/AsciiInfHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AsciiInfHelpersProbe@72"
+functions = ["AsciiZero44B::Zero"]
+symbol = "?Zero@AsciiZero44B@@QAEXXZ"
+target_address = 0x00402E60
+size = 8
+linkages = []
+
+[units.ascii-zero-24a]
+artifact_kind = "linked-pe"
+source = "src/AsciiInfHelpers.cpp"
+support_sources = ["probes/ascii-inf-helpers-context.cpp"]
+output_dir = "build/match-linked/AsciiInfHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AsciiInfHelpersProbe@72"
+functions = ["AsciiZero24A::Zero"]
+symbol = "?Zero@AsciiZero24A@@QAEXXZ"
+target_address = 0x00402E70
+size = 8
+linkages = []
+
+[units.ascii-zero-24b]
+artifact_kind = "linked-pe"
+source = "src/AsciiInfHelpers.cpp"
+support_sources = ["probes/ascii-inf-helpers-context.cpp"]
+output_dir = "build/match-linked/AsciiInfHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AsciiInfHelpersProbe@72"
+functions = ["AsciiZero24B::Zero"]
+symbol = "?Zero@AsciiZero24B@@QAEXXZ"
+target_address = 0x00402E80
+size = 8
+linkages = []
+
+[units.ascii-list-node-init]
+artifact_kind = "linked-pe"
+source = "src/AsciiInfHelpers.cpp"
+support_sources = ["probes/ascii-inf-helpers-context.cpp"]
+output_dir = "build/match-linked/AsciiInfHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AsciiInfHelpersProbe@72"
+functions = ["AsciiListNode::Init"]
+symbol = "?Init@AsciiListNode@@QAEXPAX@Z"
+target_address = 0x00402E90
+size = 11
+linkages = []
