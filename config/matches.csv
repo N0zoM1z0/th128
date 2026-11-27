@@ -154,10 +154,45 @@ address,name,size,status,match_percent,unit,evidence
 0x004081B0,BulletTimerMini::ClearFlag0,7,exact,100.00,bullet-timer-clear-flag0,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x00408560,BulletBoundsCheck::IsOutOfBoundsTall,106,exact,100.00,bullet-bounds-tall,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x004085D0,BulletBoundsCheck::IsOutOfBounds,106,exact,100.00,bullet-bounds-normal,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040CE50,CardScalarInterp::SetStart,5,exact,100.00,card-scalar-set-start,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040CE60,CardScalarInterp::SetEnd,6,exact,100.00,card-scalar-set-end,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040CE70,CardScalarInterp::SetVel0,6,exact,100.00,card-scalar-set-vel0,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040CE80,CardScalarInterp::SetVel1,6,exact,100.00,card-scalar-set-vel1,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040CE90,CardScalarInterp::SetDuration,4,exact,100.00,card-scalar-set-duration,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x0040CEA0,ResetScalarTransitionTimer,52,exact,100.00,anm-vm-scalar-transition-reset,Cold pinned VC10 /GL /Ob1 /Oy- linked primary-source function; PDB and MAP owner agree; offset 31 DIR32 g_TimeScale replayed to 0x004B6F58; zero byte differences across all 52 bytes.
+0x0040CEE0,CardScalarInterp::GetDuration,4,exact,100.00,card-scalar-get-duration,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040CF20,CardVec2::LengthSq,27,exact,100.00,card-vec2-length-sq,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040CF60,CardVec2::Cross,26,exact,100.00,card-vec2-cross,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040CFA0,CardVec2::IsOutOfBoundsPad,96,exact,100.00,card-vec2-out-of-bounds-pad,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040D070,CardAnmVmMini::ClearBlendBits,11,exact,100.00,card-anm-clear-blend,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040D080,CardAnmVmMini::SetBlendMode1,22,exact,100.00,card-anm-set-blend1,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040D0A0,CardAnmVmMini::SetInterrupt2,45,exact,100.00,card-anm-set-interrupt2,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040D0D0,CardVec3::SubInPlace,25,exact,100.00,card-vec3-sub-in-place,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x0040D130,Rng::GetFloatScaled,52,exact,100.00,rng-get-float-scale,Cold pinned VC10 /GL linked-PE build; complete 52-byte primary-TU PDB owner and all three reviewed REL32/DIR32 fields replay with zero byte differences.
+0x0040D170,CardGetStatusBit2,15,exact,100.00,card-get-status-bit2,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040D180,CardGetStatusBit0Or2,19,exact,100.00,card-get-status-bit0or2,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040D290,CardAnmVmMini::GetFlag0,10,exact,100.00,card-anm-get-flag0,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040D2A0,CardAnmVmMini::SetInterrupt,25,exact,100.00,card-anm-set-interrupt,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040D2C0,CardVec2::Set,18,exact,100.00,card-vec2-set,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040D2E0,CardVec2::operator*,26,exact,100.00,card-vec2-mul-scalar,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040D300,CardNoOp40D300,1,exact,100.00,card-noop-40d300,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x0040D340,CardInf::HasInvalidDurationCode,81,exact,100.00,replay-pause-code-invalid,Pinned VC10 RTM /O2 /Ob1 /Oy- /GL primary TU; current cold receipt; complete 81-byte PDB owner and all 0 reviewed address fields replayed with zero differences; .analysis/card-code-first-canonical.json.
+0x0040D3A0,CardEncodeReplaySeed,59,exact,100.00,card-encode-replay-seed,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040D3E0,CardPtr11FC::Ptr,6,exact,100.00,card-ptr-11fc,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040D3F0,CardGuiMini::GetArr80,13,exact,100.00,card-gui-get-arr80,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040D400,CardGuiMini::GetArr5C,10,exact,100.00,card-gui-get-arr5c,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040D410,CardStageMini::ClearFlag0,13,exact,100.00,card-stage-clear-flag0,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040D420,CardStageMini::SetFlag0,13,exact,100.00,card-stage-set-flag0,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040D430,CardGuiMini::IncCap80,21,exact,100.00,card-gui-inc-cap80,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040D450,CardGuiMini::IncCap84,21,exact,100.00,card-gui-inc-cap84,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040D470,CardGuiMini::IncCap88,21,exact,100.00,card-gui-inc-cap88,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040D490,CardGuiMini::IncCap8C,21,exact,100.00,card-gui-inc-cap8c,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040D4B0,CardReplayMgrMini::GetEntry,20,exact,100.00,card-replay-get-entry,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040D4D0,CardCountByteMatches250,78,exact,100.00,card-count-byte-matches-250,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040D520,CardFreezeMini::CardFreezeMini,32,exact,100.00,card-freeze-ctor,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x0040D540,CardInf::Initialize,285,exact,100.00,card-initialize,"Pinned VC10 RTM /O2 /Ob1 /Oy- /GL; current 39-source cold context with real ANM, Chain and ordinary error-log callees; complete 285-byte primary PDB contribution and all 12 address fields replayed with zero differences; .analysis/card-lifecycle-primary-results.json."
+0x0040D660,CardRet0_40D660,3,exact,100.00,card-ret0-40d660,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040D670,CardRet0_40D670,3,exact,100.00,card-ret0-40d670,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x0040D680,CardInf::EnableChains,35,exact,100.00,card-enable-chains,Pinned VC10 RTM /O2 /Ob1 /Oy- /GL primary TU; current cold receipt; complete 35-byte PDB owner and all 1 reviewed address fields replayed with zero differences; .analysis/card-enable-first-canonical.json.
 0x0040D7B0,CardInf::Create,94,exact,100.00,card-create,"Pinned VC10 RTM /O2 /Ob1 /Oy- /GL; current 39-source cold context with real ANM, Chain and ordinary error-log callees; complete 94-byte primary PDB contribution and all 6 address fields replayed with zero differences; .analysis/card-lifecycle-primary-results.json."
 0x0040D830,CardInf::Destroy,29,exact,100.00,card-destroy,"Pinned VC10 RTM /O2 /Ob1 /Oy- /GL; current 39-source cold context with real ANM, Chain and ordinary error-log callees; complete 29-byte primary PDB contribution and all 3 address fields replayed with zero differences; .analysis/card-lifecycle-primary-results.json."
@@ -166,6 +201,42 @@ address,name,size,status,match_percent,unit,evidence
 0x0040DD50,CardInf::OnTick,10,exact,100.00,card-on-tick,"Pinned VC10 RTM /O2 /Ob1 /Oy- /GL; current 40-source cold context with real CardInf, AsciiInf and ANM callees; complete 10-byte primary PDB contribution and all 1 address fields replayed with zero differences; .analysis/card-callbacks-primary-results.json."
 0x0040DD60,CardInf::OnDraw,10,exact,100.00,card-on-draw,"Pinned VC10 RTM /O2 /Ob1 /Oy- /GL; current 40-source cold context with real CardInf, AsciiInf and ANM callees; complete 10-byte primary PDB contribution and all 1 address fields replayed with zero differences; .analysis/card-callbacks-primary-results.json."
 0x0040E4E0,AddScore,54,exact,100.00,score-add,"Pinned VC10 RTM /O2 /Ob1 /Oy- /GL; current 45-source cold context with real CardInf, notification, VM-text, texture-text, alpha/color, ANM and sound bodies; complete 54-byte primary PDB contribution and all three DIR32 score fields replayed with zero differences; .analysis/texture-text-card-results.json."
+0x0040E520,CardGet4D33F0,6,exact,100.00,card-get-4d33f0,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040E530,CardAsciiMini::GetAnmRes,7,exact,100.00,card-ascii-get-anm-res,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040E540,CardPauseMini::IsState1,16,exact,100.00,card-pause-is-state1,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040E550,CardAnmVmMini::GetField3F0Ptr,6,exact,100.00,card-anm-get-field3f0-ptr,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040E560,CardAsciiMini::SetAlphaByte,12,exact,100.00,card-ascii-set-alpha-byte,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040E570,CardTable148::Get,11,exact,100.00,card-table148-get,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040E580,CardPauseMini::GetArr20,10,exact,100.00,card-pause-get-arr20,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040E590,CardField74::Get,4,exact,100.00,card-field74-get,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040E5A0,CardField04Sub::Sub300,9,exact,100.00,card-field04-sub300,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040E5B0,CardChainPair::EnableBoth,30,exact,100.00,card-chain-enable-both,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040E5D0,CardNoOp40E5D0,1,exact,100.00,card-noop-40e5d0,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040E5E0,CardField4C::Get,4,exact,100.00,card-field4c-get,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040E5F0,CardNoOp40E5F0,1,exact,100.00,card-noop-40e5f0,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040E600,CardPlayerMini::GetField10,9,exact,100.00,card-player-get-field10,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040E610,CardBulletIter::GetSub9D8,6,exact,100.00,card-bullet-get-sub9d8,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040E620,CardBulletIter::GetF9F8,7,exact,100.00,card-bullet-get-f9f8,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040E630,CardBulletIter::GetFA00,7,exact,100.00,card-bullet-get-fa00,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040E640,CardBulletIter::GetFlag0,6,exact,100.00,card-bullet-get-flag0,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040E650,CardPtr08::Ptr,4,exact,100.00,card-ptr-08,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040E660,CardEnemyMini::SetMode12,15,exact,100.00,card-enemy-set-mode12,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040E670,CardEnemyMini::SetTargetPos,40,exact,100.00,card-enemy-set-target-pos,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040E6A0,CardBulletMgrMini::GetPool,9,exact,100.00,card-bullet-mgr-get-pool,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040E6B0,CardFreezeMini::CheckEndNoClear80,45,exact,100.00,card-freeze-check-end-noclear,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040E6E0,CardEnemyMini::GetF68,4,exact,100.00,card-enemy-get-f68,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040E6F0,CardEnemyMini::GetF6C,4,exact,100.00,card-enemy-get-f6c,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040E700,CardField10::Get,4,exact,100.00,card-field10-get,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040E740,CardLaserMgrMini::BeginIter,16,exact,100.00,card-laser-begin-iter,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040E750,CardLaserMgrMini::NextIter,29,exact,100.00,card-laser-next-iter,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040E770,CardZeroCheck::IsZero,8,exact,100.00,card-zero-check,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040E780,CardPtr10::Ptr,4,exact,100.00,card-ptr-10,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040E790,CardEffectMgrMini::GetField6B200,7,exact,100.00,card-effect-get-6b200,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040E7A0,CardEffectMgrMini::CardEffectMgrMini,77,exact,100.00,card-effect-mgr-ctor,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040E7F0,CardEffectSub54::CardEffectSub54,7,exact,100.00,card-effect-sub54-ctor,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040E800,CardEffectSub68::CardEffectSub68,14,exact,100.00,card-effect-sub68-ctor,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040E810,CardNoOp40E810,1,exact,100.00,card-noop-40e810,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040E910,CardEffectMgrMini::EnableChainElems,23,exact,100.00,card-effect-enable-chain,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x00410CD0,ZunTimer::operator>,18,exact,100.00,zun-timer-greater,Cold pinned VC10 /GL /Ob1 /Oy- complete 18-byte public primary-TU PDB contribution behind the shared ZunTimer probe context; current receipts; no fields; zero byte differences.
 0x00412B30,AnmVmEffectNoop412B30,3,exact,100.00,anm-vm-effect-noop-412b30,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
 0x00412B40,AnmVmEffectNoop412B40,3,exact,100.00,anm-vm-effect-noop-412b40,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.

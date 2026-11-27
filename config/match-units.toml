@@ -11328,3 +11328,994 @@ linkages = [
   { offset = 60, type = "DIR32", symbol = "__real@0000000000000000", target = 0x004A65A0 },
   { offset = 76, type = "DIR32", symbol = "__real@407c000000000000", target = 0x004A6600 },
 ]
+
+# Card, Ice, Freeze, Laser, and EffectManager helper batch: VC10 /GL linked-PE exact units.
+
+[units.card-scalar-set-start]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardScalarInterp::SetStart"]
+symbol = "?SetStart@CardScalarInterp@@QAEXABM@Z"
+target_address = 0x0040CE50
+size = 5
+linkages = []
+
+[units.card-scalar-set-end]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardScalarInterp::SetEnd"]
+symbol = "?SetEnd@CardScalarInterp@@QAEXABM@Z"
+target_address = 0x0040CE60
+size = 6
+linkages = []
+
+[units.card-scalar-set-vel0]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardScalarInterp::SetVel0"]
+symbol = "?SetVel0@CardScalarInterp@@QAEXABM@Z"
+target_address = 0x0040CE70
+size = 6
+linkages = []
+
+[units.card-scalar-set-vel1]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardScalarInterp::SetVel1"]
+symbol = "?SetVel1@CardScalarInterp@@QAEXABM@Z"
+target_address = 0x0040CE80
+size = 6
+linkages = []
+
+[units.card-scalar-set-duration]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardScalarInterp::SetDuration"]
+symbol = "?SetDuration@CardScalarInterp@@QAEXH@Z"
+target_address = 0x0040CE90
+size = 4
+linkages = []
+
+[units.card-scalar-get-duration]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardScalarInterp::GetDuration"]
+symbol = "?GetDuration@CardScalarInterp@@QBEHXZ"
+target_address = 0x0040CEE0
+size = 4
+linkages = []
+
+[units.card-vec2-length-sq]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardVec2::LengthSq"]
+symbol = "?LengthSq@CardVec2@@QBEMXZ"
+target_address = 0x0040CF20
+size = 27
+linkages = []
+
+[units.card-vec2-dot]
+frontier = true # Register-order swap (eax vs ecx) in 26-byte 2D dot product
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardVec2::Dot"]
+symbol = "?Dot@CardVec2@@QBEMABU1@@Z"
+target_address = 0x0040CF40
+size = 26
+linkages = []
+
+[units.card-vec2-cross]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardVec2::Cross"]
+symbol = "?Cross@CardVec2@@QBEMABU1@@Z"
+target_address = 0x0040CF60
+size = 26
+linkages = []
+
+[units.card-vec2-out-of-bounds-pad]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardVec2::IsOutOfBoundsPad"]
+symbol = "?IsOutOfBoundsPad@CardVec2@@QBEHMM@Z"
+target_address = 0x0040CFA0
+size = 96
+linkages = [
+  { offset = 16, type = "DIR32", symbol = "__real@c068000000000000", target = 0x004A6608 },
+  { offset = 31, type = "DIR32", symbol = "__real@4068000000000000", target = 0x004A65D8 },
+  { offset = 52, type = "DIR32", symbol = "__real@0000000000000000", target = 0x004A65A0 },
+  { offset = 68, type = "DIR32", symbol = "__real@407c000000000000", target = 0x004A6600 },
+]
+
+[units.card-anm-clear-blend]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardAnmVmMini::ClearBlendBits"]
+symbol = "?ClearBlendBits@CardAnmVmMini@@QAEXXZ"
+target_address = 0x0040D070
+size = 11
+linkages = []
+
+[units.card-anm-set-blend1]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardAnmVmMini::SetBlendMode1"]
+symbol = "?SetBlendMode1@CardAnmVmMini@@QAEXXZ"
+target_address = 0x0040D080
+size = 22
+linkages = []
+
+[units.card-anm-set-interrupt2]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardAnmVmMini::SetInterrupt2"]
+symbol = "?SetInterrupt2@CardAnmVmMini@@QAEXXZ"
+target_address = 0x0040D0A0
+size = 45
+linkages = []
+
+[units.card-vec3-sub-in-place]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardVec3::SubInPlace"]
+symbol = "?SubInPlace@CardVec3@@QAEXABU1@@Z"
+target_address = 0x0040D0D0
+size = 25
+linkages = []
+
+[units.card-get-status-bit2]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardGetStatusBit2"]
+symbol = "?CardGetStatusBit2@@YAIXZ"
+target_address = 0x0040D170
+size = 15
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_CardStatus60@@3PAUCardStatus60@@A", target = 0x004B8954 },
+]
+
+[units.card-get-status-bit0or2]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardGetStatusBit0Or2"]
+symbol = "?CardGetStatusBit0Or2@@YAIXZ"
+target_address = 0x0040D180
+size = 19
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_CardStatus60@@3PAUCardStatus60@@A", target = 0x004B8954 },
+]
+
+[units.card-anm-get-flag0]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardAnmVmMini::GetFlag0"]
+symbol = "?GetFlag0@CardAnmVmMini@@QAEIXZ"
+target_address = 0x0040D290
+size = 10
+linkages = []
+
+[units.card-anm-set-interrupt]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardAnmVmMini::SetInterrupt"]
+symbol = "?SetInterrupt@CardAnmVmMini@@QAEXF@Z"
+target_address = 0x0040D2A0
+size = 25
+linkages = []
+
+[units.card-vec2-set]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardVec2::Set"]
+symbol = "?Set@CardVec2@@QAEXMM@Z"
+target_address = 0x0040D2C0
+size = 18
+linkages = []
+
+[units.card-vec2-mul-scalar]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardVec2::operator*"]
+symbol = "??DCardVec2@@QBE?AU0@M@Z"
+target_address = 0x0040D2E0
+size = 26
+linkages = []
+
+[units.card-noop-40d300]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardNoOp40D300"]
+symbol = "?CardNoOp40D300@@YAXXZ"
+target_address = 0x0040D300
+size = 1
+linkages = []
+
+[units.card-encode-replay-seed]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardEncodeReplaySeed"]
+symbol = "?CardEncodeReplaySeed@@YGXHHPAUCardReplayTarget@@@Z"
+target_address = 0x0040D3A0
+size = 59
+linkages = []
+
+[units.card-ptr-11fc]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardPtr11FC::Ptr"]
+symbol = "?Ptr@CardPtr11FC@@QAEPAHXZ"
+target_address = 0x0040D3E0
+size = 6
+linkages = []
+
+[units.card-gui-get-arr80]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardGuiMini::GetArr80"]
+symbol = "?GetArr80@CardGuiMini@@SAHH@Z"
+target_address = 0x0040D3F0
+size = 13
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_CardGuiMini@@3PAUCardGuiMini@@A", target = 0x004B8948 },
+]
+
+[units.card-gui-get-arr5c]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardGuiMini::GetArr5C"]
+symbol = "?GetArr5C@CardGuiMini@@SAHH@Z"
+target_address = 0x0040D400
+size = 10
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_CardGuiMini@@3PAUCardGuiMini@@A", target = 0x004B8948 },
+]
+
+[units.card-stage-clear-flag0]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardStageMini::ClearFlag0"]
+symbol = "?ClearFlag0@CardStageMini@@SAXXZ"
+target_address = 0x0040D410
+size = 13
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_CardStageMini@@3PAUCardStageMini@@A", target = 0x004B8928 },
+]
+
+[units.card-stage-set-flag0]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardStageMini::SetFlag0"]
+symbol = "?SetFlag0@CardStageMini@@SAXXZ"
+target_address = 0x0040D420
+size = 13
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_CardStageMini@@3PAUCardStageMini@@A", target = 0x004B8928 },
+]
+
+[units.card-gui-inc-cap80]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardGuiMini::IncCap80"]
+symbol = "?IncCap80@CardGuiMini@@QAEXXZ"
+target_address = 0x0040D430
+size = 21
+linkages = []
+
+[units.card-gui-inc-cap84]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardGuiMini::IncCap84"]
+symbol = "?IncCap84@CardGuiMini@@QAEXXZ"
+target_address = 0x0040D450
+size = 21
+linkages = []
+
+[units.card-gui-inc-cap88]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardGuiMini::IncCap88"]
+symbol = "?IncCap88@CardGuiMini@@QAEXXZ"
+target_address = 0x0040D470
+size = 21
+linkages = []
+
+[units.card-gui-inc-cap8c]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardGuiMini::IncCap8C"]
+symbol = "?IncCap8C@CardGuiMini@@QAEXXZ"
+target_address = 0x0040D490
+size = 21
+linkages = []
+
+[units.card-replay-get-entry]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardReplayMgrMini::GetEntry"]
+symbol = "?GetEntry@CardReplayMgrMini@@SAPAUCardReplayEntry@@H@Z"
+target_address = 0x0040D4B0
+size = 20
+linkages = [
+  { offset = 2, type = "DIR32", symbol = "?g_CardReplayMgr@@3PAUCardReplayMgrMini@@A", target = 0x004B8A88 },
+]
+
+[units.card-count-byte-matches-250]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardCountByteMatches250"]
+symbol = "?CardCountByteMatches250@@YAHH@Z"
+target_address = 0x0040D4D0
+size = 78
+linkages = [
+  { offset = 8, type = "DIR32", symbol = "?g_CardByteTable@@3PACA", target = 0x004B23D0 },
+  { offset = 20, type = "DIR32", symbol = "?g_CardByteTable@@3PACA", target = 0x004B23D0, addend = 1 },
+  { offset = 32, type = "DIR32", symbol = "?g_CardByteTable@@3PACA", target = 0x004B23D0, addend = 2 },
+  { offset = 44, type = "DIR32", symbol = "?g_CardByteTable@@3PACA", target = 0x004B23D0, addend = 3 },
+  { offset = 56, type = "DIR32", symbol = "?g_CardByteTable@@3PACA", target = 0x004B23D0, addend = 4 },
+]
+
+[units.card-freeze-ctor]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardFreezeMini::CardFreezeMini"]
+symbol = "??0CardFreezeMini@@QAE@XZ"
+target_address = 0x0040D520
+size = 32
+linkages = [
+  { offset = 13, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+  { offset = 25, type = "DIR32", symbol = "?g_CardFreezeMini@@3PAUCardFreezeMini@@A", target = 0x004B8934 },
+]
+
+[units.card-ret0-40d660]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardRet0_40D660"]
+symbol = "?CardRet0_40D660@@YAHXZ"
+target_address = 0x0040D660
+size = 3
+linkages = []
+
+[units.card-ret0-40d670]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardRet0_40D670"]
+symbol = "?CardRet0_40D670@@YAHXZ"
+target_address = 0x0040D670
+size = 3
+linkages = []
+
+[units.card-get-4d33f0]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardGet4D33F0"]
+symbol = "?CardGet4D33F0@@YAHXZ"
+target_address = 0x0040E520
+size = 6
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_CardGlobal4D33F0@@3HA", target = 0x004D33F0 },
+]
+
+[units.card-ascii-get-anm-res]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardAsciiMini::GetAnmRes"]
+symbol = "?GetAnmRes@CardAsciiMini@@QAEPAXXZ"
+target_address = 0x0040E530
+size = 7
+linkages = []
+
+[units.card-pause-is-state1]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardPauseMini::IsState1"]
+symbol = "?IsState1@CardPauseMini@@SA_NXZ"
+target_address = 0x0040E540
+size = 16
+linkages = [
+  { offset = 2, type = "DIR32", symbol = "?g_CardPauseMini@@3PAUCardPauseMini@@A", target = 0x004B8A84 },
+]
+
+[units.card-anm-get-field3f0-ptr]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardAnmVmMini::GetField3F0Ptr"]
+symbol = "?GetField3F0Ptr@CardAnmVmMini@@QAEPAHXZ"
+target_address = 0x0040E550
+size = 6
+linkages = []
+
+[units.card-ascii-set-alpha-byte]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardAsciiMini::SetAlphaByte"]
+symbol = "?SetAlphaByte@CardAsciiMini@@SAXE@Z"
+target_address = 0x0040E560
+size = 12
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_CardAsciiMini@@3PAUCardAsciiMini@@A", target = 0x004B8920 },
+]
+
+[units.card-table148-get]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardTable148::Get"]
+symbol = "?Get@CardTable148@@QAEHH@Z"
+target_address = 0x0040E570
+size = 11
+linkages = []
+
+[units.card-pause-get-arr20]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardPauseMini::GetArr20"]
+symbol = "?GetArr20@CardPauseMini@@SAHH@Z"
+target_address = 0x0040E580
+size = 10
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_CardPauseMini@@3PAUCardPauseMini@@A", target = 0x004B8A84 },
+]
+
+[units.card-field74-get]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardField74::Get"]
+symbol = "?Get@CardField74@@QAEHXZ"
+target_address = 0x0040E590
+size = 4
+linkages = []
+
+[units.card-field04-sub300]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardField04Sub::Sub300"]
+symbol = "?Sub300@CardField04Sub@@QAEHXZ"
+target_address = 0x0040E5A0
+size = 9
+linkages = []
+
+[units.card-chain-enable-both]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardChainPair::EnableBoth"]
+symbol = "?EnableBoth@CardChainPair@@QAEXXZ"
+target_address = 0x0040E5B0
+size = 30
+linkages = []
+
+[units.card-noop-40e5d0]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardNoOp40E5D0"]
+symbol = "?CardNoOp40E5D0@@YAXXZ"
+target_address = 0x0040E5D0
+size = 1
+linkages = []
+
+[units.card-field4c-get]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardField4C::Get"]
+symbol = "?Get@CardField4C@@QAEHXZ"
+target_address = 0x0040E5E0
+size = 4
+linkages = []
+
+[units.card-noop-40e5f0]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardNoOp40E5F0"]
+symbol = "?CardNoOp40E5F0@@YAXXZ"
+target_address = 0x0040E5F0
+size = 1
+linkages = []
+
+[units.card-player-get-field10]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardPlayerMini::GetField10"]
+symbol = "?GetField10@CardPlayerMini@@SAHXZ"
+target_address = 0x0040E600
+size = 9
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_CardPlayerMini@@3PAUCardPlayerMini@@A", target = 0x004B8A80 },
+]
+
+[units.card-bullet-get-sub9d8]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardBulletIter::GetSub9D8"]
+symbol = "?GetSub9D8@CardBulletIter@@QAEPAXXZ"
+target_address = 0x0040E610
+size = 6
+linkages = []
+
+[units.card-bullet-get-f9f8]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardBulletIter::GetF9F8"]
+symbol = "?GetF9F8@CardBulletIter@@QAEMXZ"
+target_address = 0x0040E620
+size = 7
+linkages = []
+
+[units.card-bullet-get-fa00]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardBulletIter::GetFA00"]
+symbol = "?GetFA00@CardBulletIter@@QAEMXZ"
+target_address = 0x0040E630
+size = 7
+linkages = []
+
+[units.card-bullet-get-flag0]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardBulletIter::GetFlag0"]
+symbol = "?GetFlag0@CardBulletIter@@QAEIXZ"
+target_address = 0x0040E640
+size = 6
+linkages = []
+
+[units.card-ptr-08]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardPtr08::Ptr"]
+symbol = "?Ptr@CardPtr08@@QAEPAHXZ"
+target_address = 0x0040E650
+size = 4
+linkages = []
+
+[units.card-enemy-set-mode12]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardEnemyMini::SetMode12"]
+symbol = "?SetMode12@CardEnemyMini@@QAEXXZ"
+target_address = 0x0040E660
+size = 15
+linkages = []
+
+[units.card-enemy-set-target-pos]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardEnemyMini::SetTargetPos"]
+symbol = "?SetTargetPos@CardEnemyMini@@QAEXMM@Z"
+target_address = 0x0040E670
+size = 40
+linkages = []
+
+[units.card-bullet-mgr-get-pool]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardBulletMgrMini::GetPool"]
+symbol = "?GetPool@CardBulletMgrMini@@SAPAXXZ"
+target_address = 0x0040E6A0
+size = 9
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_CardBulletMgr@@3PAUCardBulletMgrMini@@A", target = 0x004B8930 },
+]
+
+[units.card-freeze-check-end-noclear]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardFreezeMini::CheckEndNoClear80"]
+symbol = "?CheckEndNoClear80@CardFreezeMini@@SAXXZ"
+target_address = 0x0040E6B0
+size = 45
+linkages = [
+  { offset = 2, type = "DIR32", symbol = "?g_CardFreezeMini@@3PAUCardFreezeMini@@A", target = 0x004B8934 },
+  { offset = 28, type = "DIR32", symbol = "?g_CardBombMini@@3PAUCardBombMini@@A", target = 0x004B892C },
+]
+
+[units.card-enemy-get-f68]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardEnemyMini::GetF68"]
+symbol = "?GetF68@CardEnemyMini@@QAEMXZ"
+target_address = 0x0040E6E0
+size = 4
+linkages = []
+
+[units.card-enemy-get-f6c]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardEnemyMini::GetF6C"]
+symbol = "?GetF6C@CardEnemyMini@@QAEMXZ"
+target_address = 0x0040E6F0
+size = 4
+linkages = []
+
+[units.card-field10-get]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardField10::Get"]
+symbol = "?Get@CardField10@@QAEHXZ"
+target_address = 0x0040E700
+size = 4
+linkages = []
+
+[units.card-laser-begin-iter]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardLaserMgrMini::BeginIter"]
+symbol = "?BeginIter@CardLaserMgrMini@@SAPAUCardLaserNode@@XZ"
+target_address = 0x0040E740
+size = 16
+linkages = [
+  { offset = 2, type = "DIR32", symbol = "?g_CardLaserMgr@@3PAUCardLaserMgrMini@@A", target = 0x004B8A60 },
+]
+
+[units.card-laser-next-iter]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardLaserMgrMini::NextIter"]
+symbol = "?NextIter@CardLaserMgrMini@@SAPAUCardLaserNode@@XZ"
+target_address = 0x0040E750
+size = 29
+linkages = [
+  { offset = 2, type = "DIR32", symbol = "?g_CardLaserMgr@@3PAUCardLaserMgrMini@@A", target = 0x004B8A60 },
+]
+
+[units.card-zero-check]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardZeroCheck::IsZero"]
+symbol = "?IsZero@CardZeroCheck@@QAE_NXZ"
+target_address = 0x0040E770
+size = 8
+linkages = []
+
+[units.card-ptr-10]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardPtr10::Ptr"]
+symbol = "?Ptr@CardPtr10@@QAEPAHXZ"
+target_address = 0x0040E780
+size = 4
+linkages = []
+
+[units.card-effect-get-6b200]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardEffectMgrMini::GetField6B200"]
+symbol = "?GetField6B200@CardEffectMgrMini@@QAEHXZ"
+target_address = 0x0040E790
+size = 7
+linkages = []
+
+[units.card-effect-mgr-ctor]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardEffectMgrMini::CardEffectMgrMini"]
+symbol = "??0CardEffectMgrMini@@QAE@XZ"
+target_address = 0x0040E7A0
+size = 77
+linkages = [
+  { offset = 58, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+  { offset = 70, type = "DIR32", symbol = "?g_CardEffectMgr@@3PAUCardEffectMgrMini@@A", target = 0x004B8938 },
+]
+
+[units.card-effect-sub54-ctor]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardEffectSub54::CardEffectSub54"]
+symbol = "??0CardEffectSub54@@QAE@XZ"
+target_address = 0x0040E7F0
+size = 7
+linkages = []
+
+[units.card-effect-sub68-ctor]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardEffectSub68::CardEffectSub68"]
+symbol = "??0CardEffectSub68@@QAE@XZ"
+target_address = 0x0040E800
+size = 14
+linkages = []
+
+[units.card-noop-40e810]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardNoOp40E810"]
+symbol = "?CardNoOp40E810@@YAXXZ"
+target_address = 0x0040E810
+size = 1
+linkages = []
+
+[units.card-effect-enable-chain]
+artifact_kind = "linked-pe"
+source = "src/CardIceHelpers.cpp"
+support_sources = ["probes/card-ice-helpers-context.cpp"]
+output_dir = "build/match-linked/CardIceHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CardIceHelpersProbe@116"
+functions = ["CardEffectMgrMini::EnableChainElems"]
+symbol = "?EnableChainElems@CardEffectMgrMini@@SAXXZ"
+target_address = 0x0040E910
+size = 23
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_CardEffectMgr@@3PAUCardEffectMgrMini@@A", target = 0x004B8938 },
+]
