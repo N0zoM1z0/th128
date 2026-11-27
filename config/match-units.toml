@@ -21138,3 +21138,46 @@ linkages = [
   { offset = 675, type = "REL32", symbol = "?CreateTextF@AsciiInf@@QAA?AUAsciiTextId@@PBUZunVec3@@PBDZZ", target = 0x00401790 },
   { offset = 683, type = "DIR32", symbol = "?g_AsciiInf@@3PAUAsciiInf@@A", target = 0x004B8920 },
 ]
+
+[units.ecl-run-get-int-arg]
+artifact_kind = "linked-pe"
+source = "src/EclVmRun.cpp"
+support_sources = ["probes/ecl-vm-run-context.cpp"]
+output_dir = "build/match-linked/EclVmRun"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EclVmRunProbe@32"
+functions = ["th128::EclRunContext::GetIntArg"]
+symbol = "?GetIntArg@EclRunContext@th128@@QAEHH@Z"
+target_address = 0x0046FED0
+size = 150
+linkages = [
+  { offset = 107, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+]
+
+[units.ecl-run-get-int-arg0-ptr]
+frontier = true
+artifact_kind = "linked-pe"
+source = "src/EclVmRun.cpp"
+support_sources = ["probes/ecl-vm-run-context.cpp"]
+output_dir = "build/match-linked/EclVmRun"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EclVmRunProbe@32"
+functions = ["th128::EclRunContext::GetIntArg0Ptr"]
+symbol = "?GetIntArg0Ptr@EclRunContext@th128@@QAEPAHXZ"
+target_address = 0x00470140
+size = 48
+linkages = []
+
+[units.ecl-run-stack-push]
+frontier = true
+artifact_kind = "linked-pe"
+source = "src/EclVmRun.cpp"
+support_sources = ["probes/ecl-vm-run-context.cpp"]
+output_dir = "build/match-linked/EclVmRun"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EclVmRunProbe@32"
+functions = ["th128::EclRunStack::Push"]
+symbol = "?Push@EclRunStack@th128@@QAEHPBXD@Z"
+target_address = 0x00470780
+size = 74
+linkages = []

@@ -1278,9 +1278,11 @@ EclStack::GetPtr,0x0046DE10,function
 EclStack::GetSp,0x0046DE20,function
 EclStack::SetSp,0x0046DE30,function
 EclVm::GetResource,0x0046DE40,function
+th128::EclRunContext::GetIntArg,0x0046FED0,function
 EclContext::GetFloatArg,0x0046FF70,function
 EclContext::GetIntVar,0x00470030,function
 EclContext::GetFloatVar,0x004700A0,function
+th128::EclRunContext::GetIntArg0Ptr,0x00470140,function
 EclContext::GetFloatArgPtr,0x00470170,function
 EclContext::GetFloatArg1Ptr,0x004701D0,function
 EclVm::FindAsyncContext,0x004702C0,function
@@ -1295,6 +1297,7 @@ SptResourceInf::Load,0x004703F0,function
 SptResourceInf::FindSub,0x00470610,function
 EclVm::BindSub,0x00470730,function
 EclVm::ResetToSub,0x00470750,function
+th128::EclRunStack::Push,0x00470780,function
 EclStack::Pop,0x004707D0,function
 EclStack::AllocFrame,0x00470830,function
 EclStack::FreeFrame,0x00470870,function

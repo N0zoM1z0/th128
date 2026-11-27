@@ -1275,6 +1275,9 @@ ZunVec3::SetPolarXY
 th128::AsDrawFreezeHud
 th128::AsDrawNameEntry
 th128::CiPollJoystickRaw
+th128::EclRunContext::GetIntArg
+th128::EclRunContext::GetIntArg0Ptr
+th128::EclRunStack::Push
 th128::LdCreateProcessAndWait
 th128::SaClearD3DTexture
 th128::SaHitTestQuad

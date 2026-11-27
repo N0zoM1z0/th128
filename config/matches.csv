@@ -1186,6 +1186,7 @@ address,name,size,status,match_percent,unit,evidence
 0x0046DE20,EclStack::GetSp,7,exact,100.00,ecl-stack-get-sp,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046DE30,EclStack::SetSp,7,exact,100.00,ecl-stack-set-sp,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046DE40,EclVm::GetResource,7,exact,100.00,ecl-vm-get-resource,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x0046FED0,th128::EclRunContext::GetIntArg,150,exact,100.00,ecl-run-get-int-arg,150B linked-pe VC10 /GL exact
 0x0046FF70,EclContext::GetFloatArg,182,exact,100.00,ecl-context-get-float-arg,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x00470030,EclContext::GetIntVar,103,exact,100.00,ecl-context-get-int-var,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x004700A0,EclContext::GetFloatVar,148,exact,100.00,ecl-context-get-float-var,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.

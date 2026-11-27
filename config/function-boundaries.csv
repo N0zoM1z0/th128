@@ -2260,11 +2260,11 @@ address,span_end,state,confidence,evidence_id,notes
 0x0046DE50,0x0046E0F4,reviewed,high,bdesc-exact,start padding; refs callx2; descent body 0x0046DE50..0x0046E0F4 (677 bytes) ends with ret; then padding-then-start 0x0046E100
 0x0046E100,0x0046FE1C,reviewed,high,bdesc-extent-correction,descent extends the inventory span by 349 bytes past 0x0046FCBF; state applies to the proposed extent. start padding; refs callx1; descent body 0x0046E100..0x0046FE1C (7453 bytes) ends with table; then padding-then-start 0x0046FE20; tables 0x0046FCC0+256 0x0046FDC0+93; 1 filler hole(s)
 0x0046FE20,0x0046FEC2,reviewed,high,bdesc-exact,start padding; refs callx6; descent body 0x0046FE20..0x0046FEC2 (163 bytes) ends with ret; then padding-then-start 0x0046FED0
-0x0046FED0,0x0046FF65,reviewed,high,bdesc-exact,start padding; refs callx20; descent body 0x0046FED0..0x0046FF65 (150 bytes) ends with ret; then padding-then-start 0x0046FF70
+0x0046FED0,0x0046FF65,reviewed,high,ecl-run-get-int-arg-boundary,150B ECL integer argument resolver
 0x0046FF70,0x00470025,reviewed,high,ecl-context-get-float-arg-boundary,Attested 182-byte span 0x0046FF70..0x00470025 before 0xCC padding.
 0x00470030,0x00470096,reviewed,high,ecl-context-get-int-var-boundary,Attested 103-byte span 0x00470030..0x00470096 before 0xCC padding.
 0x004700A0,0x00470133,reviewed,high,ecl-context-get-float-var-boundary,Attested 148-byte span 0x004700A0..0x00470133 before 0xCC padding.
-0x00470140,0x0047016F,reviewed,high,bdesc-exact,start padding; refs callx2; descent body 0x00470140..0x0047016F (48 bytes) ends with ret; then adjacent-start 0x00470170
+0x00470140,0x0047016F,reviewed,high,ecl-run-get-int-arg0-ptr-boundary,48B ECL integer arg0 pointer resolver
 0x00470170,0x004701C8,reviewed,high,ecl-context-get-float-arg-ptr-boundary,Attested 89-byte span 0x00470170..0x004701C8 before 0xCC padding.
 0x004701D0,0x00470218,reviewed,high,ecl-context-get-float-arg1-ptr-boundary,Attested 73-byte span 0x004701D0..0x00470218 before 0xCC padding.
 0x00470220,0x004702B0,reviewed,high,bdesc-exact,start padding; refs callx3; descent body 0x00470220..0x004702B0 (145 bytes) ends with ret; then padding-then-start 0x004702C0
@@ -2282,7 +2282,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x004706A0,0x00470721,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x004706A0..0x00470721 (130 bytes) ends with ret; then padding-then-start 0x00470730
 0x00470730,0x0047074B,reviewed,high,ecl-vm-bind-sub-boundary,Attested 28-byte span 0x00470730..0x0047074B before 0xCC padding.
 0x00470750,0x00470776,reviewed,high,ecl-vm-reset-to-sub-boundary,Attested 39-byte span 0x00470750..0x00470776 before 0xCC padding.
-0x00470780,0x004707C9,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x00470780..0x004707C9 (74 bytes) ends with ret; then padding-then-start 0x004707D0; WEAK: no call, jump, pointer or vtable reference found"
+0x00470780,0x004707C9,reviewed,high,ecl-run-stack-push-boundary,74B ECL typed stack push
 0x004707D0,0x00470822,reviewed,high,ecl-stack-pop-boundary,Attested 83-byte span 0x004707D0..0x00470822 before 0xCC padding.
 0x00470830,0x0047086F,reviewed,high,ecl-stack-alloc-frame-boundary,Attested 64-byte span 0x00470830..0x0047086F before 0xCC padding.
 0x00470870,0x00470898,reviewed,high,ecl-stack-free-frame-boundary,Attested 41-byte span 0x00470870..0x00470898 before 0xCC padding.
