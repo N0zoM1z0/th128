@@ -15845,3 +15845,638 @@ size = 18
 linkages = [
   { offset = 1, type = "DIR32", symbol = "?g_Gd4B8924@@3PAUGd4B8924@@A", target = 0x004B8924 },
 ]
+
+[units.gt-gui-is-banner-active]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtGuiMini::IsBannerActive"]
+symbol = "?IsBannerActive@GtGuiMini@@SAHXZ"
+target_address = 0x00425CB0
+size = 35
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_GtGui@@3PAUGtGuiMini@@A", target = 0x004B8950 },
+]
+
+[units.gt-4b8940-enable-both]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtPairChainA::EnableBoth"]
+symbol = "?EnableBoth@GtPairChainA@@SAXXZ"
+target_address = 0x00425CE0
+size = 23
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_Gt4B8940@@3PAUGtPairChainA@@A", target = 0x004B8940 },
+]
+
+[units.gt-laser-node-unlink]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtLaserNode::Unlink"]
+symbol = "?Unlink@GtLaserNode@@QAEXXZ"
+target_address = 0x00425D40
+size = 23
+linkages = []
+
+[units.gt-laser-mgr-delete-all]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtLaserMgr::DeleteAll"]
+symbol = "?DeleteAll@GtLaserMgr@@SAXXZ"
+target_address = 0x00425D60
+size = 68
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_Gt4B8A60@@3PAUGtLaserMgr@@A", target = 0x004B8A60 },
+  { offset = 52, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+]
+
+[units.gt-4b8a90-enable-both]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtPairChainB::EnableBoth"]
+symbol = "?EnableBoth@GtPairChainB@@SAXXZ"
+target_address = 0x00425DB0
+size = 23
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_Gt4B8A90@@3PAUGtPairChainB@@A", target = 0x004B8A90 },
+]
+
+[units.gt-enemy-reset-timer-lists]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtEnemyTimerMgr::ResetTimerAndLists"]
+symbol = "?ResetTimerAndLists@GtEnemyTimerMgr@@SAHXZ"
+target_address = 0x00425DD0
+size = 98
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_GtEnemyMgr@@3PAUGtEnemyTimerMgr@@A", target = 0x004B8948 },
+  { offset = 51, type = "DIR32", symbol = "?g_GtDefaultTimeScale@@3MA", target = 0x004B6F58 },
+]
+
+[units.gt-game-thread-destroy-global]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtGameThread::DestroyGlobal"]
+symbol = "?DestroyGlobal@GtGameThread@@SAXXZ"
+target_address = 0x00426980
+size = 38
+linkages = [
+  { offset = 3, type = "DIR32", symbol = "?g_GtGameThread@@3PAUGtGameThread@@A", target = 0x004B8954 },
+  { offset = 9, type = "DIR32", symbol = "?g_Gt4D59E8@@3HA", target = 0x004D59E8 },
+  { offset = 23, type = "REL32", symbol = "?GtGameThreadDtor@@YGXPAUGtGameThread@@@Z", target = 0x00426430 },
+  { offset = 29, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+]
+
+[units.gt-anm-clear-ret1]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtAnmClear::ClearRet1"]
+symbol = "?ClearRet1@GtAnmClear@@SAHXZ"
+target_address = 0x00426EA0
+size = 35
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_GtAnmMgr@@3PAUGtAnmClear@@A", target = 0x004D2E50 },
+]
+
+[units.gt-game-thread-draw-hook]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtGameThread::DrawHook"]
+symbol = "?DrawHook@GtGameThread@@QAEHXZ"
+target_address = 0x00426ED0
+size = 7
+linkages = [
+  { offset = 2, type = "REL32", symbol = "?GtGameThreadDraw@@YGHPAUGtGameThread@@@Z", target = 0x004269D0 },
+]
+
+[units.gt-game-thread-clear-anm]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtGameThread::ClearAnmIfNotFlag2"]
+symbol = "?ClearAnmIfNotFlag2@GtGameThread@@QAEHXZ"
+target_address = 0x00426EE0
+size = 43
+linkages = [
+  { offset = 7, type = "DIR32", symbol = "?g_GtAnmMgr@@3PAUGtAnmClear@@A", target = 0x004D2E50 },
+]
+
+[units.gt-copy-to-path-buf]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtCopyToPathBuf"]
+symbol = "?GtCopyToPathBuf@@YAPADPBD@Z"
+target_address = 0x00426F90
+size = 65
+linkages = [
+  { offset = 2, type = "DIR32", symbol = "?g_GtPathBuf@@3PADA", target = 0x004DB878 },
+  { offset = 26, type = "DIR32", symbol = "?g_GtPathBuf@@3PADA", target = 0x004DB878 },
+  { offset = 59, type = "DIR32", symbol = "?g_GtPathBuf@@3PADA", target = 0x004DB878 },
+]
+
+[units.gt-add-graze-or-points]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtAddGrazeOrPoints"]
+symbol = "?GtAddGrazeOrPoints@@YAHH@Z"
+target_address = 0x00427070
+size = 72
+linkages = [
+  { offset = 2, type = "DIR32", symbol = "?g_Gt4B4CC8@@3HA", target = 0x004B4CC8 },
+  { offset = 7, type = "DIR32", symbol = "?g_Gt4B4D34@@3HA", target = 0x004B4D34 },
+  { offset = 22, type = "DIR32", symbol = "?g_Gt4B4CC8@@3HA", target = 0x004B4CC8 },
+  { offset = 34, type = "DIR32", symbol = "?g_Gt4B4CC8@@3HA", target = 0x004B4CC8 },
+  { offset = 46, type = "DIR32", symbol = "?g_Gt4B4D38@@3HA", target = 0x004B4D38 },
+]
+
+[units.gt-decrement-bomb]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtDecrementBomb"]
+symbol = "?GtDecrementBomb@@YAXXZ"
+target_address = 0x00427150
+size = 57
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_Gt4B4D04@@3HA", target = 0x004B4D04 },
+  { offset = 7, type = "DIR32", symbol = "?g_Gt4B4D04@@3HA", target = 0x004B4D04 },
+  { offset = 28, type = "DIR32", symbol = "?g_Gt4B4D04@@3HA", target = 0x004B4D04 },
+  { offset = 34, type = "DIR32", symbol = "?g_GtGui@@3PAUGtGuiMini@@A", target = 0x004B8950 },
+  { offset = 44, type = "DIR32", symbol = "?g_Gt4B4D08@@3HA", target = 0x004B4D08 },
+  { offset = 52, type = "REL32", symbol = "?GtGuiUpdateBombs@@YGXPAUGtGuiMini@@HH@Z", target = 0x0041FD50 },
+]
+
+[units.gt-globals-set44-update-gui]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtGlobalsObj::Set44AndUpdateGui"]
+symbol = "?Set44AndUpdateGui@GtGlobalsObj@@QAEXXZ"
+target_address = 0x00427190
+size = 37
+linkages = [
+  { offset = 8, type = "DIR32", symbol = "?g_GtGui@@3PAUGtGuiMini@@A", target = 0x004B8950 },
+  { offset = 18, type = "DIR32", symbol = "?g_Gt4B4D08@@3HA", target = 0x004B4D08 },
+  { offset = 24, type = "DIR32", symbol = "?g_Gt4B4D04@@3HA", target = 0x004B4D04 },
+  { offset = 32, type = "REL32", symbol = "?GtGuiUpdateBombs@@YGXPAUGtGuiMini@@HH@Z", target = 0x0041FD50 },
+]
+
+[units.gt-timestamp-save]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtTimestampObj::Save"]
+symbol = "?Save@GtTimestampObj@@SGXPAU1@@Z"
+target_address = 0x004274A0
+size = 32
+linkages = [
+  { offset = 4, type = "DIR32", symbol = "?g_GtGameThread@@3PAUGtGameThread@@A", target = 0x004B8954 },
+  { offset = 15, type = "REL32", symbol = "?GtGetTimeSeconds@@YANXZ", target = 0x00455160 },
+]
+
+[units.gt-anm-clear]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtAnmClear::Clear"]
+symbol = "?Clear@GtAnmClear@@SAXXZ"
+target_address = 0x004274C0
+size = 32
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_GtAnmMgr@@3PAUGtAnmClear@@A", target = 0x004D2E50 },
+]
+
+[units.gt-globals-inc60-64]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtGlobalsObj::Inc60And64"]
+symbol = "?Inc60And64@GtGlobalsObj@@QAEXXZ"
+target_address = 0x004274E0
+size = 12
+linkages = []
+
+[units.gt-sound-slot-stop-save]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtSoundSlot::StopAndSaveStatus"]
+symbol = "?StopAndSaveStatus@GtSoundSlot@@QAEXXZ"
+target_address = 0x004274F0
+size = 56
+linkages = []
+
+[units.gt-stop-all-sound-buffers]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtStopAllSoundBuffers"]
+symbol = "?GtStopAllSoundBuffers@@YAXXZ"
+target_address = 0x00427530
+size = 80
+linkages = [
+  { offset = 7, type = "DIR32", symbol = "?g_Gt4D5A88@@3HA", target = 0x004D5A88 },
+  { offset = 16, type = "DIR32", symbol = "?g_GtSoundSlots@@3PAUGtSoundSlot@@A", target = 0x004D73F0 },
+  { offset = 69, type = "DIR32", symbol = "?g_Gt4B894C@@3PAUGtFpsDouble@@A", target = 0x004D7B10 },
+]
+
+[units.gt-replay-mgr-disable-both]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtReplayMgr::DisableBoth"]
+symbol = "?DisableBoth@GtReplayMgr@@SAXXZ"
+target_address = 0x00427580
+size = 41
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_GtReplayMgr@@3PAUGtReplayMgr@@A", target = 0x004B8A84 },
+]
+
+[units.gt-globals-inc68-clamp9]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtGlobalsObj::Inc68Clamp9"]
+symbol = "?Inc68Clamp9@GtGlobalsObj@@QAEXXZ"
+target_address = 0x004275B0
+size = 17
+linkages = []
+
+[units.gt-globals-get58]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtGlobalsObj::Get58"]
+symbol = "?Get58@GtGlobalsObj@@QAEHXZ"
+target_address = 0x004275D0
+size = 4
+linkages = []
+
+[units.gt-globals-set0c1-clr10]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtGlobalsObj::Set0C1AndClear10"]
+symbol = "?Set0C1AndClear10@GtGlobalsObj@@QAEXXZ"
+target_address = 0x004275E0
+size = 15
+linkages = []
+
+[units.gt-globals-set-flag0]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtGlobalsObj::SetFlag0"]
+symbol = "?SetFlag0@GtGlobalsObj@@QAEXH@Z"
+target_address = 0x00427630
+size = 25
+linkages = []
+
+[units.gt-globals-get-flag1]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtGlobalsObj::GetFlag1"]
+symbol = "?GetFlag1@GtGlobalsObj@@QAEHXZ"
+target_address = 0x00427650
+size = 12
+linkages = []
+
+[units.gt-globals-get1c]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtGlobalsObj::Get1C"]
+symbol = "?Get1C@GtGlobalsObj@@QAEHXZ"
+target_address = 0x00427660
+size = 4
+linkages = []
+
+[units.gt-globals-set70]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtGlobalsObj::Set70"]
+symbol = "?Set70@GtGlobalsObj@@QAEXH@Z"
+target_address = 0x00427670
+size = 4
+linkages = []
+
+[units.gt-globals-clear-flag2]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtGlobalsObj::ClearFlag2"]
+symbol = "?ClearFlag2@GtGlobalsObj@@QAEXXZ"
+target_address = 0x00427680
+size = 8
+linkages = []
+
+[units.gt-globals-max08-78]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtGlobalsObj::Max08With78"]
+symbol = "?Max08With78@GtGlobalsObj@@QAEXXZ"
+target_address = 0x00427690
+size = 12
+linkages = []
+
+[units.gt-globals-set3c]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtGlobalsObj::Set3C"]
+symbol = "?Set3C@GtGlobalsObj@@QAEXH@Z"
+target_address = 0x004276A0
+size = 4
+linkages = []
+
+[units.gt-globals-clear40]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtGlobalsObj::Clear40"]
+symbol = "?Clear40@GtGlobalsObj@@QAEXXZ"
+target_address = 0x004276B0
+size = 8
+linkages = []
+
+[units.gt-globals-setb0]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtGlobalsObj::SetB0"]
+symbol = "?SetB0@GtGlobalsObj@@QAEXH@Z"
+target_address = 0x004276C0
+size = 7
+linkages = []
+
+[units.gt-globals-seta4-clamp]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtGlobalsObj::SetA4Clamp100000"]
+symbol = "?SetA4Clamp100000@GtGlobalsObj@@QAEXH@Z"
+target_address = 0x004276D0
+size = 35
+linkages = []
+
+[units.gt-globals-setfa0]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtGlobalsObj::SetFA0"]
+symbol = "?SetFA0@GtGlobalsObj@@QAEXM@Z"
+target_address = 0x00427700
+size = 16
+linkages = []
+
+[units.gt-set1c-mul1000]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtSet1CMul1000"]
+symbol = "?GtSet1CMul1000@@YGXPAUGtGlobalsObj@@M@Z"
+target_address = 0x00427710
+size = 27
+linkages = [
+  { offset = 8, type = "DIR32", symbol = "__real@408f400000000000", target = 0x004A6590 },
+  { offset = 13, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+]
+
+[units.gt-globals-clear48]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtGlobalsObj::Clear48"]
+symbol = "?Clear48@GtGlobalsObj@@QAEXXZ"
+target_address = 0x00427730
+size = 8
+linkages = []
+
+[units.gt-globals-set04]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtGlobalsObj::Set04"]
+symbol = "?Set04@GtGlobalsObj@@QAEXH@Z"
+target_address = 0x00427740
+size = 4
+linkages = []
+
+[units.gt-globals-set80]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtGlobalsObj::Set80"]
+symbol = "?Set80@GtGlobalsObj@@QAEXH@Z"
+target_address = 0x00427750
+size = 7
+linkages = []
+
+[units.gt-globals-set68]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtGlobalsObj::Set68"]
+symbol = "?Set68@GtGlobalsObj@@QAEXH@Z"
+target_address = 0x00427760
+size = 4
+linkages = []
+
+[units.gt-globals-set4c]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtGlobalsObj::Set4C"]
+symbol = "?Set4C@GtGlobalsObj@@QAEXH@Z"
+target_address = 0x00427770
+size = 4
+linkages = []
+
+[units.gt-globals-clear60-64]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtGlobalsObj::Clear60And64"]
+symbol = "?Clear60And64@GtGlobalsObj@@QAEXXZ"
+target_address = 0x00427780
+size = 9
+linkages = []
+
+[units.gt-get-4d33cc]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtGet4D33CC"]
+symbol = "?GtGet4D33CC@@YAHXZ"
+target_address = 0x00427790
+size = 6
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_Gt4D33CC@@3HA", target = 0x004D33CC },
+]
+
+[units.gt-is-4d33cc-zero]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtIs4D33CCZero"]
+symbol = "?GtIs4D33CCZero@@YAHXZ"
+target_address = 0x004277A0
+size = 12
+linkages = [
+  { offset = 4, type = "DIR32", symbol = "?g_Gt4D33CC@@3HA", target = 0x004D33CC },
+]
+
+[units.gt-noop-4277b0]
+artifact_kind = "linked-pe"
+source = "src/GameThreadHelpers.cpp"
+support_sources = ["probes/game-thread-helpers-context.cpp"]
+output_dir = "build/match-linked/GameThreadHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GameThreadHelpersProbe@48"
+functions = ["GtNoOp4277B0"]
+symbol = "?GtNoOp4277B0@@YAXXZ"
+target_address = 0x004277B0
+size = 1
+linkages = []
