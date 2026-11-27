@@ -387,7 +387,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x0040EAA0,0x0040FC5B,reviewed,high,bdesc-extent-correction,descent extends the inventory span by 20 bytes past 0x0040FC47; state applies to the proposed extent. start padding; refs jmpx1; descent body 0x0040EAA0..0x0040FC5B (4540 bytes) ends with table; then padding-then-start 0x0040FC60; tables 0x0040FC48+20; 1 filler hole(s)
 0x0040FC60,0x0040FCF4,reviewed,high,bdesc-exact,start padding; refs callx18; descent body 0x0040FC60..0x0040FCF4 (149 bytes) ends with ret; then padding-then-start 0x0040FD00
 0x0040FD00,0x0040FEAF,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x0040FD00..0x0040FEAF (432 bytes) ends with ret; then adjacent-start 0x0040FEB0
-0x0040FEB0,0x004101A4,reviewed,high,bdesc-exact,start after-terminator; refs callx1; descent body 0x0040FEB0..0x004101A4 (757 bytes) ends with ret; then padding-then-start 0x004101B0
+0x0040FEB0,0x004101A4,reviewed,high,as-draw-freeze-hud-boundary,757B freeze HUD text draw callback
 0x004101B0,0x004101B4,reviewed,high,bnew-referenced,found by padded-aligned; start padding; refs immx1; descent body 0x004101B0..0x004101B4 (5 bytes) ends with jmp; then padding-then-start 0x004101C0
 0x004101C0,0x004101C6,reviewed,high,bnew-referenced,found by padded-aligned; start padding; refs immx1; descent body 0x004101C0..0x004101C6 (7 bytes) ends with ret; then padding-then-start 0x004101D0
 0x004101D0,0x004102E0,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x004101D0..0x004102E0 (273 bytes) ends with ret; then padding-then-start 0x004102F0

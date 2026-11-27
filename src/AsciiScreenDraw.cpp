@@ -287,7 +287,7 @@ int __stdcall AsDrawFreezeHud(AsFreezeHud *hud) {
         if (hud->flags & 2) {
             pos.y = 64.0f;
         }
-        pct = (hud->animTimer < 30) ? (float)(hud->animTimerF * pct / 30.0) : pct;
+        pct = (float)((hud->animTimer < 30) ? (hud->animTimerF * pct / 30.0) : pct);
         int pct100 = (int)(pct * 100.0);
         g_AsciiInf->scaleX = 2.0f;
         g_AsciiInf->scaleY = 2.0f;
@@ -295,13 +295,13 @@ int __stdcall AsDrawFreezeHud(AsFreezeHud *hud) {
         g_AsciiInf->unknown1C87C = 1;
         g_AsciiInf->color.value = 0xffb0e0ffu;
         g_AsciiInf->alignmentY = 1;
-        unsigned char a1;
+        int a1;
         if (hud->flags & 8) {
-            a1 = (hud->fadeTimer > 8) ? (unsigned char)0x40 : (unsigned char)(0xff - (hud->fadeTimer << 4));
+            a1 = (hud->fadeTimer > 8) ? 0x40 : (unsigned char)(0xff - (hud->fadeTimer << 4));
         } else {
-            a1 = (hud->fadeTimer > 8) ? (unsigned char)0xff : (unsigned char)((hud->fadeTimer + 4) << 4);
+            a1 = (hud->fadeTimer > 8) ? 0xff : (unsigned char)((hud->fadeTimer + 4) << 4);
         }
-        g_AsciiInf->color.channels.alpha = a1;
+        g_AsciiInf->color.channels.alpha = (unsigned char)a1;
         int whole = pct100 / 100;
         g_AsciiInf->CreateTextF(&pos, "%d", whole);
         g_AsciiInf->scaleX = 1.0f;
@@ -323,13 +323,13 @@ int __stdcall AsDrawFreezeHud(AsFreezeHud *hud) {
         g_AsciiInf->unknown1C878 = 0;
         g_AsciiInf->unknown1C87C = 1;
         g_AsciiInf->color.value = 0xfff0f0d0u;
-        unsigned char a2;
+        int a2;
         if (hud->flags & 8) {
-            a2 = (hud->fadeTimer > 8) ? (unsigned char)0x40 : (unsigned char)((hud->fadeTimer << 6) - 1);
+            a2 = (hud->fadeTimer > 8) ? 0x40 : (unsigned char)((hud->fadeTimer << 6) - 1);
         } else {
-            a2 = (hud->fadeTimer > 8) ? (unsigned char)0xff : (unsigned char)((1 - hud->fadeTimer) << 6);
+            a2 = (hud->fadeTimer > 8) ? 0xff : (unsigned char)((1 - hud->fadeTimer) << 6);
         }
-        g_AsciiInf->color.channels.alpha = a2;
+        g_AsciiInf->color.channels.alpha = (unsigned char)a2;
         pos.x = 320.0f;
         pos.y = (float)(pos.y + 50.0);
         if (hud->animTimer >= 30) {

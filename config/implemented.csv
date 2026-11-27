@@ -1272,6 +1272,7 @@ ZunTimer::operator>
 ZunTimer::operator>=
 ZunTimerModulo
 ZunVec3::SetPolarXY
+th128::AsDrawFreezeHud
 th128::AsDrawNameEntry
 th128::CiPollJoystickRaw
 th128::LdCreateProcessAndWait

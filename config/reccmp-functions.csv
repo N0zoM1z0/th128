@@ -246,6 +246,7 @@ CardEffectSub54::CardEffectSub54,0x0040E7F0,function
 CardEffectSub68::CardEffectSub68,0x0040E800,function
 CardNoOp40E810,0x0040E810,function
 CardEffectMgrMini::EnableChainElems,0x0040E910,function
+th128::AsDrawFreezeHud,0x0040FEB0,function
 EffClear0A::Clear,0x00410470,function
 EffPopCount32,0x00410B50,function
 EffSet0::Set,0x00410B90,function

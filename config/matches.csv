@@ -237,6 +237,7 @@ address,name,size,status,match_percent,unit,evidence
 0x0040E800,CardEffectSub68::CardEffectSub68,14,exact,100.00,card-effect-sub68-ctor,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x0040E810,CardNoOp40E810,1,exact,100.00,card-noop-40e810,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x0040E910,CardEffectMgrMini::EnableChainElems,23,exact,100.00,card-effect-enable-chain,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040FEB0,th128::AsDrawFreezeHud,757,exact,100.00,as-draw-freeze-hud,757B linked-pe VC10 /GL exact
 0x00410470,EffClear0A::Clear,7,exact,100.00,eff-clear-0a,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
 0x00410B50,EffPopCount32,60,exact,100.00,eff-popcount32,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
 0x00410B90,EffSet0::Set,3,exact,100.00,eff-set-0,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
