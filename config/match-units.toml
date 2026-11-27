@@ -8750,3 +8750,62 @@ linkages = [
   { offset = 65, type = "DIR32", symbol = "?g_TextFont5@@3PAUHFONT__@@A", target = 0x004D2AB8 },
   { offset = 74, type = "DIR32", symbol = "?g_TextFont7@@3PAUHFONT__@@A", target = 0x004B8AA4 },
 ]
+
+[units.text-image-find-format]
+artifact_kind = "linked-pe"
+source = "src/TextImageHelpers.cpp"
+support_sources = ["probes/text-image-helpers-context.cpp"]
+output_dir = "build/match-linked/TextImageHelpers"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TextImageHelpersProbe@52"
+functions = ["FindTextImageFormat"]
+symbol = "?FindTextImageFormat@@YAPAUTextImageFormatRecord@@W4_D3DFORMAT@@@Z"
+target_address = 0x00451930
+size = 55
+linkages = [
+  { offset = 2, type = "DIR32", symbol = "?g_TextImageFormats@@3PAUTextImageFormatRecord@@A", target = 0x004B1960 },
+  { offset = 27, type = "DIR32", symbol = "?g_TextImageFormats@@3PAUTextImageFormatRecord@@A", target = 0x004B1960 },
+  { offset = 50, type = "DIR32", symbol = "?g_TextImageFormats@@3PAUTextImageFormatRecord@@A", target = 0x004B1960 },
+]
+
+[units.text-image-add-color-4444]
+artifact_kind = "linked-pe"
+source = "src/TextImageHelpers.cpp"
+support_sources = ["probes/text-image-helpers-context.cpp"]
+output_dir = "build/match-linked/TextImageHelpers"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TextImageHelpersProbe@52"
+functions = ["AddTextColor4444"]
+symbol = "?AddTextColor4444@@YAXPBUTextPixel4444@@PAI1@Z"
+target_address = 0x00451990
+size = 42
+linkages = []
+
+[units.text-image-set-alpha]
+artifact_kind = "linked-pe"
+source = "src/TextImageHelpers.cpp"
+support_sources = ["probes/text-image-helpers-context.cpp"]
+output_dir = "build/match-linked/TextImageHelpers"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TextImageHelpersProbe@52"
+functions = ["TextImage::SetAlpha"]
+symbol = "?SetAlpha@TextImage@@QAE_NE@Z"
+target_address = 0x00451DB0
+size = 150
+linkages = []
+
+[units.text-image-create-offscreen-texture]
+artifact_kind = "linked-pe"
+source = "src/TextImageHelpers.cpp"
+support_sources = ["probes/text-image-helpers-context.cpp"]
+output_dir = "build/match-linked/TextImageHelpers"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TextImageHelpersProbe@52"
+functions = ["CreateOffscreenA1R5G5B5Texture"]
+symbol = "?CreateOffscreenA1R5G5B5Texture@@YAPAUIDirect3DTexture9@@II@Z"
+target_address = 0x004525A0
+size = 37
+linkages = [
+  { offset = 9, type = "DIR32", symbol = "?g_D3DDevice@@3PAUIDirect3DDevice9@@A", target = 0x004D2E70 },
+  { offset = 26, type = "DIR32", symbol = "__imp__D3DXCreateTexture@32", target = 0x0049A2C8 },
+]

@@ -1,5 +1,6 @@
 AddAngles
 AddScore
+AddTextColor4444
 AllocateAnmVm
 AnmDrawLeaf::AlternateRotatedSprite
 AnmDrawLeaf::AppendSprite
@@ -245,6 +246,7 @@ ChainElem::`scalar deleting destructor'
 ChainElem::~ChainElem
 ClearKeyboardState
 CreateGameWindow
+CreateOffscreenA1R5G5B5Texture
 DebugLog46C320
 DebugPrint
 DecTimeScaleRef
@@ -266,6 +268,7 @@ FileSystem::WriteDataToFile
 FileSystem::WriteStream
 FillTransparentTextColors
 FindChainNodeByOwner
+FindTextImageFormat
 FlushAnmSpriteBatch
 FlushAnmSurfaceCopies
 GameErrorContext::Fatal
@@ -421,6 +424,7 @@ SupervisorFrame::HandleScreenshot
 SupervisorFrame::PresentAdaptive
 SupervisorFrame::PresentImmediate
 SupervisorFrame::PresentWithSleep
+TextImage::SetAlpha
 ThreadInf::Resume
 ThreadInf::Start
 ThreadInf::StartSuspended
