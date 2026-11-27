@@ -20428,3 +20428,232 @@ linkages = [
   { offset = 139, type = "DIR32", symbol = "?g_LsD3dDev@@3PAULsD3dDev@@A", target = 0x004D2E70 },
   { offset = 149, type = "DIR32", symbol = "?g_LsPresentParams@@3HA", target = 0x004D2F5C },
 ]
+
+[units.SaNoOp4575C0]
+artifact_kind = "linked-pe"
+source = "src/SoundAnmHelpers.cpp"
+support_sources = ["probes/sound-anm-helpers-context.cpp"]
+output_dir = "build/match-linked/SoundAnmHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SoundAnmHelpersProbe@48"
+functions = ["th128::SaNoOp4575C0"]
+symbol = "?SaNoOp4575C0@th128@@YAXXZ"
+target_address = 0x004575c0
+size = 1
+linkages = []
+
+[units.SaInitSoundThread]
+artifact_kind = "linked-pe"
+source = "src/SoundAnmHelpers.cpp"
+support_sources = ["probes/sound-anm-helpers-context.cpp"]
+output_dir = "build/match-linked/SoundAnmHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SoundAnmHelpersProbe@48"
+functions = ["th128::SaInitSoundThread"]
+symbol = "?SaInitSoundThread@th128@@YGHPAX@Z"
+target_address = 0x004575d0
+size = 69
+linkages = [
+  { offset = 11, type = "DIR32", symbol = "?g_SaSoundMgr@th128@@3USaSoundMgr@1@A", target = 0x004D5A68 },
+  { offset = 16, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+  { offset = 27, type = "DIR32", symbol = "?g_SaSoundThreadId@th128@@3KA", target = 0x004DAEAC },
+  { offset = 34, type = "DIR32", symbol = "?g_SaSoundMgr@th128@@3USaSoundMgr@1@A", target = 0x004D5A68 },
+  { offset = 39, type = "DIR32", symbol = "?SaSoundThreadProc@th128@@YGKPAX@Z", target = 0x004576E0 },
+  { offset = 48, type = "DIR32", symbol = "?g_SaSoundArg@th128@@3PAXA", target = 0x004DAEB4 },
+  { offset = 54, type = "DIR32", symbol = "__imp__CreateThread@24", target = 0x0049A0FC },
+  { offset = 59, type = "DIR32", symbol = "?g_SaSoundThread@th128@@3PAXA", target = 0x004DAEA4 },
+]
+
+[units.SaRequestSoundStop]
+artifact_kind = "linked-pe"
+source = "src/SoundAnmHelpers.cpp"
+support_sources = ["probes/sound-anm-helpers-context.cpp"]
+output_dir = "build/match-linked/SoundAnmHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SoundAnmHelpersProbe@48"
+functions = ["th128::SaRequestSoundStop"]
+symbol = "?SaRequestSoundStop@th128@@YAHXZ"
+target_address = 0x00457620
+size = 13
+linkages = [
+  { offset = 2, type = "DIR32", symbol = "?g_SaSoundState@th128@@3HA", target = 0x004DAEB0 },
+]
+
+[units.SaShutdownSoundThreads]
+artifact_kind = "linked-pe"
+source = "src/SoundAnmHelpers.cpp"
+support_sources = ["probes/sound-anm-helpers-context.cpp"]
+output_dir = "build/match-linked/SoundAnmHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SoundAnmHelpersProbe@48"
+functions = ["th128::SaShutdownSoundThreads"]
+symbol = "?SaShutdownSoundThreads@th128@@YAHXZ"
+target_address = 0x00457630
+size = 173
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_SaSoundThread@th128@@3PAXA", target = 0x004DAEA4 },
+  { offset = 15, type = "DIR32", symbol = "?g_SaSoundState@th128@@3HA", target = 0x004DAEB0 },
+  { offset = 24, type = "DIR32", symbol = "?g_SaSoundState@th128@@3HA", target = 0x004DAEB0 },
+  { offset = 35, type = "DIR32", symbol = "__imp__WaitForSingleObject@8", target = 0x0049A100 },
+  { offset = 47, type = "DIR32", symbol = "__imp__Sleep@4", target = 0x0049A084 },
+  { offset = 69, type = "DIR32", symbol = "?g_SaSoundThread@th128@@3PAXA", target = 0x004DAEA4 },
+  { offset = 87, type = "DIR32", symbol = "?g_SaSfxThread@th128@@3PAXA", target = 0x004DAEA8 },
+  { offset = 109, type = "DIR32", symbol = "?g_SaSfxThread@th128@@3PAXA", target = 0x004DAEA8 },
+  { offset = 126, type = "DIR32", symbol = "?g_SaSoundThread@th128@@3PAXA", target = 0x004DAEA4 },
+  { offset = 132, type = "DIR32", symbol = "__imp__CloseHandle@4", target = 0x0049A0A4 },
+  { offset = 141, type = "DIR32", symbol = "?g_SaSfxThread@th128@@3PAXA", target = 0x004DAEA8 },
+  { offset = 151, type = "DIR32", symbol = "?g_SaSoundThread@th128@@3PAXA", target = 0x004DAEA4 },
+  { offset = 161, type = "DIR32", symbol = "?g_SaSfxThread@th128@@3PAXA", target = 0x004DAEA8 },
+]
+
+[units.SaStartSfxThread]
+artifact_kind = "linked-pe"
+source = "src/SoundAnmHelpers.cpp"
+support_sources = ["probes/sound-anm-helpers-context.cpp"]
+output_dir = "build/match-linked/SoundAnmHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SoundAnmHelpersProbe@48"
+functions = ["th128::SaStartSfxThread"]
+symbol = "?SaStartSfxThread@th128@@YAXXZ"
+target_address = 0x00457aa0
+size = 39
+linkages = [
+  { offset = 11, type = "DIR32", symbol = "?g_SaSoundMgr@th128@@3USaSoundMgr@1@A", target = 0x004D5A68 },
+  { offset = 16, type = "DIR32", symbol = "?SaSfxLoadThread@th128@@YAXXZ", target = 0x00457A30 },
+  { offset = 26, type = "DIR32", symbol = "__imp__CreateThread@24", target = 0x0049A0FC },
+  { offset = 31, type = "DIR32", symbol = "?g_SaSfxThread@th128@@3PAXA", target = 0x004DAEA8 },
+]
+
+[units.SaLoadBgmTable]
+artifact_kind = "linked-pe"
+source = "src/SoundAnmHelpers.cpp"
+support_sources = ["probes/sound-anm-helpers-context.cpp"]
+output_dir = "build/match-linked/SoundAnmHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SoundAnmHelpersProbe@48"
+functions = ["th128::SaLoadBgmTable"]
+symbol = "?SaLoadBgmTable@th128@@YGHPAUSaSoundMgr@1@@Z"
+target_address = 0x00457d50
+size = 37
+linkages = [
+  { offset = 8, type = "DIR32", symbol = "?g_SaBgmTableName@th128@@3QBDB", target = 0x004A2E08 },
+  { offset = 13, type = "REL32", symbol = "?SaLoadFile@th128@@YGPAXPBDHH@Z", target = 0x00469C40 },
+]
+
+[units.SaSinF]
+artifact_kind = "linked-pe"
+source = "src/SoundAnmHelpers.cpp"
+support_sources = ["probes/sound-anm-helpers-context.cpp"]
+output_dir = "build/match-linked/SoundAnmHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SoundAnmHelpersProbe@48"
+functions = ["th128::SaSinF"]
+symbol = "?SaSinF@th128@@YGMM@Z"
+target_address = 0x0045e040
+size = 21
+linkages = [
+  { offset = 7, type = "REL32", symbol = "__CIsin", target = 0x0048FBE0 },
+]
+
+[units.SaClearD3DTexture]
+artifact_kind = "linked-pe"
+source = "src/SoundAnmHelpers.cpp"
+support_sources = ["probes/sound-anm-helpers-context.cpp"]
+output_dir = "build/match-linked/SoundAnmHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SoundAnmHelpersProbe@48"
+functions = ["th128::SaClearD3DTexture"]
+symbol = "?SaClearD3DTexture@th128@@YGXPAPAUSaD3DTexture@1@@Z"
+target_address = 0x00467bd0
+size = 133
+linkages = [
+  { offset = 7, type = "DIR32", symbol = "___security_cookie", target = 0x004B01F4 },
+  { offset = 84, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+  { offset = 123, type = "REL32", symbol = "@__security_check_cookie@4", target = 0x004728FD },
+]
+
+[units.SaStreamObj_ScalarDel]
+artifact_kind = "linked-pe"
+source = "src/SoundAnmHelpers.cpp"
+support_sources = ["probes/sound-anm-helpers-context.cpp"]
+output_dir = "build/match-linked/SoundAnmHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SoundAnmHelpersProbe@48"
+functions = ["th128::SaStreamObj::`scalar deleting destructor'"]
+symbol = "??_GSaStreamObj@th128@@UAEPAXI@Z"
+target_address = 0x0046aca0
+size = 39
+linkages = [
+  { offset = 8, type = "DIR32", symbol = "??_7SaStreamObj@th128@@6B@", target = 0x004A6050 },
+  { offset = 13, type = "REL32", symbol = "?Cleanup@SaStreamObj@th128@@QAEXXZ", target = 0x0046ACF0 },
+  { offset = 25, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+]
+
+[units.SaHitTestQuad]
+artifact_kind = "linked-pe"
+source = "src/SoundAnmHelpers.cpp"
+support_sources = ["probes/sound-anm-helpers-context.cpp"]
+output_dir = "build/match-linked/SoundAnmHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SoundAnmHelpersProbe@48"
+functions = ["th128::SaHitTestQuad"]
+symbol = "?SaHitTestQuad@th128@@YGHMMMMMMMM@Z"
+target_address = 0x0046b550
+size = 233
+linkages = []
+
+[units.SaInputPad_ctor]
+artifact_kind = "linked-pe"
+source = "src/SoundAnmHelpers.cpp"
+support_sources = ["probes/sound-anm-helpers-context.cpp"]
+output_dir = "build/match-linked/SoundAnmHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SoundAnmHelpersProbe@48"
+functions = ["th128::SaInputPad::SaInputPad"]
+symbol = "??0SaInputPad@th128@@QAE@XZ"
+target_address = 0x0046c330
+size = 73
+linkages = []
+
+[units.CiPollJoystickRaw]
+artifact_kind = "linked-pe"
+source = "src/CoreInputCollision.cpp"
+support_sources = ["probes/core-input-collision-context.cpp"]
+output_dir = "build/match-linked/CoreInputCollision"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "CoreInputCollisionProbe@44"
+functions = ["th128::CiPollJoystickRaw"]
+symbol = "?CiPollJoystickRaw@th128@@YAPAEXZ"
+target_address = 0x00468d10
+size = 267
+linkages = [
+  { offset = 13, type = "DIR32", symbol = "___security_cookie", target = 0x004B01F4 },
+  { offset = 36, type = "DIR32", symbol = "?g_CiJoyRawButtons@th128@@3PAEA", target = 0x004DB7F0 },
+  { offset = 41, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+  { offset = 50, type = "DIR32", symbol = "?g_CiFlags@th128@@3IA", target = 0x004D33F8 },
+  { offset = 70, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+  { offset = 102, type = "DIR32", symbol = "__imp__joyGetPosEx@8", target = 0x0049A290 },
+  { offset = 125, type = "DIR32", symbol = "?g_CiJoyRawButtons@th128@@3PAEA", target = 0x004DB7F0 },
+  { offset = 141, type = "DIR32", symbol = "?g_CiJoystickDev@th128@@3PAUCiDInputDevice@1@A", target = 0x004D2E8C },
+  { offset = 156, type = "DIR32", symbol = "?g_CiJoystickDev@th128@@3PAUCiDInputDevice@1@A", target = 0x004D2E8C },
+  { offset = 180, type = "DIR32", symbol = "?g_CiJoystickDev@th128@@3PAUCiDInputDevice@1@A", target = 0x004D2E8C },
+  { offset = 236, type = "DIR32", symbol = "?g_CiJoyRawButtons@th128@@3PAEA", target = 0x004DB7F0 },
+  { offset = 254, type = "DIR32", symbol = "?g_CiJoyRawButtons@th128@@3PAEA", target = 0x004DB7F0 },
+  { offset = 259, type = "REL32", symbol = "@__security_check_cookie@4", target = 0x004728FD },
+]
+
+[units.LdCreateProcessAndWait]
+artifact_kind = "linked-pe"
+source = "src/LzssD3dMedium.cpp"
+support_sources = ["probes/lzss-d3d-medium-context.cpp"]
+output_dir = "build/match-linked/LzssD3dMedium"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssD3dMediumProbe@32"
+functions = ["th128::LdCreateProcessAndWait"]
+symbol = "?LdCreateProcessAndWait@th128@@YGHPBDPADH@Z"
+target_address = 0x00451060
+size = 180
+linkages = [
+  { offset = 106, type = "DIR32", symbol = "__imp__CreateProcessA@40", target = 0x0049A0B8 },
+  { offset = 131, type = "DIR32", symbol = "__imp__GetExitCodeProcess@8", target = 0x0049A0BC },
+]

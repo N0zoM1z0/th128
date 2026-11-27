@@ -832,6 +832,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00450FC0,Pbg::MemFile::Tell,7,exact,100.00,pbg-memfile-tell,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; every relocation replayed against reviewed vtable or CRT targets; zero byte differences.
 0x00450FD0,Pbg::MemFile::GetSize,4,exact,100.00,pbg-memfile-get-size,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; every relocation replayed against reviewed vtable or CRT targets; zero byte differences.
 0x00451050,LsAbs0::Abs,9,exact,100.00,LsAbs0_Abs,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00451060,th128::LdCreateProcessAndWait,180,exact,100.00,LdCreateProcessAndWait,Cold-replayed VC10 LTCG match via LzssD3dMediumProbe
 0x00451120,LsResStream::LsResStream,18,exact,100.00,LsResStream_ctor,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
 0x00451140,LsMemStream::ScalarDelete,72,exact,100.00,LsMemStream_ScalarDelete,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
 0x00451190,LsMemStream::CloseDtor,49,exact,100.00,LsMemStream_CloseDtor,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
@@ -903,6 +904,12 @@ address,name,size,status,match_percent,unit,evidence
 0x00456690,LsObj0C::GetAddr0C,4,exact,100.00,LsObj0C_GetAddr0C,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
 0x004566A0,LsFade44::LsFade44,23,exact,100.00,LsFade44_ctor,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
 0x004566C0,LsClearAndPresentTwice,157,exact,100.00,LsClearAndPresentTwice,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x004575C0,th128::SaNoOp4575C0,1,exact,100.00,SaNoOp4575C0,Cold-replayed VC10 LTCG match via SoundAnmHelpersProbe
+0x004575D0,th128::SaInitSoundThread,69,exact,100.00,SaInitSoundThread,Cold-replayed VC10 LTCG match via SoundAnmHelpersProbe
+0x00457620,th128::SaRequestSoundStop,13,exact,100.00,SaRequestSoundStop,Cold-replayed VC10 LTCG match via SoundAnmHelpersProbe
+0x00457630,th128::SaShutdownSoundThreads,173,exact,100.00,SaShutdownSoundThreads,Cold-replayed VC10 LTCG match via SoundAnmHelpersProbe
+0x00457AA0,th128::SaStartSfxThread,39,exact,100.00,SaStartSfxThread,Cold-replayed VC10 LTCG match via SoundAnmHelpersProbe
+0x00457D50,th128::SaLoadBgmTable,37,exact,100.00,SaLoadBgmTable,Cold-replayed VC10 LTCG match via SoundAnmHelpersProbe
 0x00458410,SoundManager::PlaySfx,136,exact,100.00,sound-manager-play-sfx,Cold pinned VC10 /GL linked-PE replay; complete 136-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x004584A0,SoundManager::PlaySfxWithPan,168,exact,100.00,sound-manager-play-sfx-with-pan,Cold pinned VC10 /GL linked-PE replay; complete 168-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x00458550,SoundManager::SetSfxPan,52,exact,100.00,sound-manager-set-sfx-pan,Cold pinned VC10 /GL linked-PE replay; complete 52-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
@@ -947,6 +954,7 @@ address,name,size,status,match_percent,unit,evidence
 0x0045DEA0,AnmInterpHelpers::ShortestAngleDifference3,99,exact,100.00,anm-interp-shortest-angle-diff3,Cold pinned VC10 /GL /Ob1 linked-PE replay; complete 99-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0045DF10,AnmInterpHelpers::AngleScaleNorm,31,exact,100.00,anm-interp-angle-scale-norm,Cold pinned VC10 /GL /Ob1 linked-PE replay; complete 31-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0045DF30,AnmInterpHelpers::AngleAddNorm,31,exact,100.00,anm-interp-angle-add-norm,Cold pinned VC10 /GL /Ob1 linked-PE replay; complete 31-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x0045E040,th128::SaSinF,21,exact,100.00,SaSinF,Cold-replayed VC10 LTCG match via SoundAnmHelpersProbe
 0x0045E080,AnmVm::SetSecondaryScaleTransition,140,exact,100.00,anm-vm-set-secondary-scale-transition-linked,Cold pinned VC10 /GL /Ob1 linked-PE replay; complete 140-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0045E110,AnmInterp<ZunVec2>::SetDuration,4,exact,100.00,anm-interp-vec2-set-duration,Cold pinned VC10 /GL /Ob1 linked-PE replay; complete 4-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0045E130,AnmInterp<ZunVec2>::SetStart,11,exact,100.00,anm-interp-vec2-set-start,Cold pinned VC10 /GL /Ob1 linked-PE replay; complete 11-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
@@ -1039,6 +1047,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00467950,AnmHelpers::ClearChildVisibleByScript,83,exact,100.00,anm-helpers-clear-child-visible-by-script,Cold pinned VC10 /GL /Ob1 linked-PE replay; complete 83-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x004679B0,AnmHelpers::DeleteVmByIdPtr,70,exact,100.00,anm-helpers-delete-vm-by-id-ptr,Cold pinned VC10 /GL /Ob1 linked-PE replay; complete 70-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x00467AD0,AnmHelpers::SetVmGamePosition2,45,exact,100.00,anm-helpers-set-vm-game-position-2,Cold pinned VC10 /GL /Ob1 linked-PE replay; complete 45-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x00467BD0,th128::SaClearD3DTexture,133,exact,100.00,SaClearD3DTexture,Cold-replayed VC10 LTCG match via SoundAnmHelpersProbe
 0x00467D70,AnmHelpers::FindChildIdFromVm,57,exact,100.00,anm-helpers-find-child-id-from-vm,Cold pinned VC10 /GL /Ob1 linked-PE replay; complete 57-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x00467DB0,AnmHelpers::FindChildVmFromVm,53,exact,100.00,anm-helpers-find-child-vm-from-vm,Cold pinned VC10 /GL /Ob1 linked-PE replay; complete 53-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x00467DF0,AnmHelpers::FindChildIdByIdPtr,73,exact,100.00,anm-helpers-find-child-id-by-id-ptr,Cold pinned VC10 /GL /Ob1 linked-PE replay; complete 73-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
@@ -1070,6 +1079,7 @@ address,name,size,status,match_percent,unit,evidence
 0x004688F0,InitJoypad,134,exact,100.00,input-init-joypad,Cold pinned VC10 /GL linked-PE replay; complete 134-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x00468980,MapJoyButtonByte,41,exact,100.00,input-map-joy-button-byte,Cold pinned VC10 /GL linked-PE replay; complete 41-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x004689B0,MapJoyButtonBit,37,exact,100.00,input-map-joy-button-bit,Cold pinned VC10 /GL linked-PE replay; complete 37-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x00468D10,th128::CiPollJoystickRaw,267,exact,100.00,CiPollJoystickRaw,Cold-replayed VC10 LTCG match via CoreInputCollisionProbe
 0x004691F0,UpdateInputSlot,27,exact,100.00,input-update-slot,Cold pinned VC10 /GL linked-PE replay; complete 27-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x00469940,PollKeyboardState,101,exact,100.00,input-poll-keyboard-state,Cold pinned VC10 /GL linked-PE replay; complete 101-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x004699B0,ClearKeyboardState,77,exact,100.00,input-clear-keyboard-state,Cold pinned VC10 /GL linked-PE replay; complete 77-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
@@ -1100,6 +1110,7 @@ address,name,size,status,match_percent,unit,evidence
 0x0046AAF0,CoreTimer::GetScale,6,exact,100.00,core-timer-get-scale,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046AB80,CoreChecksumWords,116,exact,100.00,core-checksum-words,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046AC80,ThreadInf::ThreadInf,21,exact,100.00,thread-inf-ctor,Cold pinned VC10 /GL linked-PE replay; complete 21-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x0046ACA0,th128::SaStreamObj::`scalar deleting destructor',39,exact,100.00,SaStreamObj_ScalarDel,Cold-replayed VC10 LTCG match via SoundAnmHelpersProbe
 0x0046ACD0,ThreadInf::~ThreadInf,16,exact,100.00,thread-inf-dtor,Cold pinned VC10 /GL linked-PE replay; complete 16-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046ACE0,SetThreadGlobalFlag4B4D8C,11,exact,100.00,set-thread-global-flag-4b4d8c,Cold pinned VC10 /GL linked-PE replay; complete 11-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046ACF0,ThreadInf::Stop,105,exact,100.00,thread-inf-stop,Cold pinned VC10 /GL linked-PE replay; complete 105-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
@@ -1109,6 +1120,7 @@ address,name,size,status,match_percent,unit,evidence
 0x0046ADF0,SetThreadFlagBit2,4,exact,100.00,set-thread-flag-bit2,Cold pinned VC10 /GL linked-PE replay; complete 4-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046AE00,CoreMotionState::UpdateVelocity,113,exact,100.00,core-motion-update-velocity,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046B190,EaseTransition,728,exact,100.00,anm-vm-transition-easing-linked,Cold pinned VC10 /GL linked-PE replay; complete 728-byte PDB contribution; 35 reviewed DIR32 fields (jump-table pointer handler entries and constants) replay; zero byte differences.
+0x0046B550,th128::SaHitTestQuad,233,exact,100.00,SaHitTestQuad,Cold-replayed VC10 LTCG match via SoundAnmHelpersProbe
 0x0046BF00,LineEquationFromPoints,105,exact,100.00,geo-line-equation-from-points,Cold pinned VC10 /GL linked-PE replay; complete 105-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046C0C0,Vec2LengthSq,27,exact,100.00,core-math-vec2-length-sq,Cold pinned VC10 /GL linked-PE replay; complete 27-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046C0E0,ShortestAngleDifference2,99,exact,100.00,core-math-shortest-angle-diff2,Cold pinned VC10 /GL linked-PE replay; complete 99-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
@@ -1118,6 +1130,7 @@ address,name,size,status,match_percent,unit,evidence
 0x0046C250,InitDefaultTimeScale,24,exact,100.00,core-math-init-default-time-scale,Cold pinned VC10 /GL linked-PE replay; complete 24-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046C270,Stub46C270,1,exact,100.00,core-math-stub-46c270,Cold pinned VC10 /GL linked-PE replay; complete 1-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046C320,DebugLog46C320,1,exact,100.00,core-math-debug-log-46c320,Cold pinned VC10 /GL linked-PE replay; complete 1-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x0046C330,th128::SaInputPad::SaInputPad,73,exact,100.00,SaInputPad_ctor,Cold-replayed VC10 LTCG match via SoundAnmHelpersProbe
 0x0046C380,FindChainNodeByOwner,18,exact,100.00,core-math-find-chain-node-by-owner,Cold pinned VC10 /GL linked-PE replay; complete 18-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046C3A0,SetChainElemCallback46C3A0,12,exact,100.00,core-math-set-chain-elem-callback-46c3a0,Cold pinned VC10 /GL linked-PE replay; complete 12-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046C3B0,SetGlobalMatrix4x4,156,exact,100.00,core-math-set-global-matrix4x4,Cold pinned VC10 /GL linked-PE replay; complete 156-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.

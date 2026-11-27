@@ -859,6 +859,7 @@ Pbg::MemFile::Tell,0x00450FC0,function
 Pbg::MemFile::GetSize,0x00450FD0,function
 Pbg::MemFile::Seek,0x00450FE0,function
 LsAbs0::Abs,0x00451050,function
+th128::LdCreateProcessAndWait,0x00451060,function
 LsResStream::LsResStream,0x00451120,function
 LsMemStream::ScalarDelete,0x00451140,function
 LsMemStream::CloseDtor,0x00451190,function
@@ -941,6 +942,12 @@ LsObj0C::Zero0C,0x00456680,function
 LsObj0C::GetAddr0C,0x00456690,function
 LsFade44::LsFade44,0x004566A0,function
 LsClearAndPresentTwice,0x004566C0,function
+th128::SaNoOp4575C0,0x004575C0,function
+th128::SaInitSoundThread,0x004575D0,function
+th128::SaRequestSoundStop,0x00457620,function
+th128::SaShutdownSoundThreads,0x00457630,function
+th128::SaStartSfxThread,0x00457AA0,function
+th128::SaLoadBgmTable,0x00457D50,function
 SoundManager::PlaySfx,0x00458410,function
 SoundManager::PlaySfxWithPan,0x004584A0,function
 SoundManager::SetSfxPan,0x00458550,function
@@ -992,6 +999,7 @@ AnmInterpHelpers::ShortestAngleDifference3,0x0045DEA0,function
 AnmInterpHelpers::AngleScaleNorm,0x0045DF10,function
 AnmInterpHelpers::AngleAddNorm,0x0045DF30,function
 AnmVmEffect10Vertex::SetPolarForUpdate,0x0045E010,function
+th128::SaSinF,0x0045E040,function
 AnmVm::SetSecondaryScaleTransition,0x0045E080,function
 AnmInterp<ZunVec2>::SetDuration,0x0045E110,function
 AnmInterp<ZunVec2>::SetStart,0x0045E130,function
@@ -1129,6 +1137,7 @@ AnmHelpers::SetChildVisibleByScript,0x004678F0,function
 AnmHelpers::ClearChildVisibleByScript,0x00467950,function
 AnmHelpers::DeleteVmByIdPtr,0x004679B0,function
 AnmHelpers::SetVmGamePosition2,0x00467AD0,function
+th128::SaClearD3DTexture,0x00467BD0,function
 AnmHelpers::FindChildIdFromVm,0x00467D70,function
 AnmHelpers::FindChildVmFromVm,0x00467DB0,function
 AnmHelpers::FindChildIdByIdPtr,0x00467DF0,function
@@ -1161,6 +1170,7 @@ Chain::CreateAndRegisterDraw,0x00468890,function
 InitJoypad,0x004688F0,function
 MapJoyButtonByte,0x00468980,function
 MapJoyButtonBit,0x004689B0,function
+th128::CiPollJoystickRaw,0x00468D10,function
 UpdateInputSlot,0x004691F0,function
 PollKeyboardState,0x00469940,function
 ClearKeyboardState,0x004699B0,function
@@ -1192,6 +1202,7 @@ ZunTimer::Add,0x0046AA20,function
 CoreTimer::GetScale,0x0046AAF0,function
 CoreChecksumWords,0x0046AB80,function
 ThreadInf::ThreadInf,0x0046AC80,function
+th128::SaStreamObj::`scalar deleting destructor',0x0046ACA0,function
 ThreadInf::~ThreadInf,0x0046ACD0,function
 SetThreadGlobalFlag4B4D8C,0x0046ACE0,function
 ThreadInf::Stop,0x0046ACF0,function
@@ -1201,6 +1212,7 @@ ThreadInf::Resume,0x0046ADE0,function
 SetThreadFlagBit2,0x0046ADF0,function
 CoreMotionState::UpdateVelocity,0x0046AE00,function
 EaseTransition,0x0046B190,function
+th128::SaHitTestQuad,0x0046B550,function
 LineEquationFromPoints,0x0046BF00,function
 Vec2LengthSq,0x0046C0C0,function
 ShortestAngleDifference2,0x0046C0E0,function
@@ -1210,6 +1222,7 @@ Stub46C240,0x0046C240,function
 InitDefaultTimeScale,0x0046C250,function
 Stub46C270,0x0046C270,function
 DebugLog46C320,0x0046C320,function
+th128::SaInputPad::SaInputPad,0x0046C330,function
 FindChainNodeByOwner,0x0046C380,function
 SetChainElemCallback46C3A0,0x0046C3A0,function
 SetGlobalMatrix4x4,0x0046C3B0,function
