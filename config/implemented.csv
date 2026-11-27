@@ -1273,11 +1273,17 @@ ZunTimerModulo
 ZunVec3::SetPolarXY
 th128::AsDrawFreezeHud
 th128::AsDrawNameEntry
+th128::Bz2LzssAddString
 th128::CiPollJoystickRaw
 th128::EclRunContext::GetIntArg
 th128::EclRunContext::GetIntArg0Ptr
 th128::EclRunStack::Push
+th128::Ib1PollInputMain
+th128::Ib1PollInputRaw
+th128::Ib1PollInputSlot
 th128::LdCreateProcessAndWait
+th128::Oc1HideGuiAnms
+th128::Oc1ShowGuiAnms
 th128::SaClearD3DTexture
 th128::SaHitTestQuad
 th128::SaInitSoundThread
@@ -1289,6 +1295,7 @@ th128::SaShutdownSoundThreads
 th128::SaSinF
 th128::SaStartSfxThread
 th128::SaStreamObj::`scalar deleting destructor'
+th128::Tc1UpdateDigitSprites
 th128::Zc10BuildRibbonU
 th128::Zc10BuildRibbonV
 th128::Zc10KillEnemiesInBox

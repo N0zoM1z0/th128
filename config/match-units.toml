@@ -21633,3 +21633,76 @@ linkages = [
   { offset = 2204, type = "REL32", symbol = "?Tc1GetVmById@@YGPAUTc1AnmVm@@PAUTc1AnmMgr@@UTc1AnmId@@@Z", target = 0x00467420 },
   { offset = 2247, type = "REL32", symbol = "?BindAnmFile@Tc1AnmVm@@QAEHPAUTc1AnmFile@@H@Z", target = 0x00459220 },
 ]
+
+[units.ib1-poll-input-raw]
+artifact_kind = "linked-pe"
+source = "src/InputBatch1.cpp"
+support_sources = ["probes/input-batch1-context.cpp"]
+output_dir = "build/match-linked/InputBatch1"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "main"
+functions = ["th128::Ib1PollInputRaw"]
+symbol = "?Ib1PollInputRaw@th128@@YAIXZ"
+target_address = 0x004695C0
+size = 887
+linkages = [
+  { offset = 10, type = "DIR32", symbol = "___security_cookie", target = 0x004B01F4 },
+  { offset = 24, type = "DIR32", symbol = "?g_Ib1WindowActive@th128@@3HA", target = 0x004D397C },
+  { offset = 36, type = "DIR32", symbol = "?g_Ib1SupervisorFlags@th128@@3IA", target = 0x004D33F8 },
+  { offset = 59, type = "DIR32", symbol = "__imp__GetKeyboardState@4", target = 0x0049A238 },
+  { offset = 447, type = "DIR32", symbol = "?g_Ib1KeyboardDevice@th128@@3PAUIb1DirectInputDevice@1@A", target = 0x004D2E88 },
+  { offset = 485, type = "DIR32", symbol = "?g_Ib1KeyboardDevice@th128@@3PAUIb1DirectInputDevice@1@A", target = 0x004D2E88 },
+  { offset = 868, type = "REL32", symbol = "?Ib1MergeJoyInput@th128@@YIII@Z", target = 0x004689E0 },
+  { offset = 879, type = "REL32", symbol = "@__security_check_cookie@4", target = 0x004728FD },
+]
+
+[units.ib1-poll-input-main]
+artifact_kind = "linked-pe"
+source = "src/InputBatch1.cpp"
+support_sources = ["probes/input-batch1-context.cpp"]
+output_dir = "build/match-linked/InputBatch1"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "main"
+functions = ["th128::Ib1PollInputMain"]
+symbol = "?Ib1PollInputMain@th128@@YAIXZ"
+target_address = 0x00468E20
+size = 974
+linkages = [
+  { offset = 10, type = "DIR32", symbol = "___security_cookie", target = 0x004B01F4 },
+  { offset = 24, type = "DIR32", symbol = "?g_Ib1WindowActive@th128@@3HA", target = 0x004D397C },
+  { offset = 36, type = "DIR32", symbol = "?g_Ib1SupervisorFlags@th128@@3IA", target = 0x004D33F8 },
+  { offset = 59, type = "DIR32", symbol = "__imp__GetKeyboardState@4", target = 0x0049A238 },
+  { offset = 475, type = "DIR32", symbol = "?g_Ib1KeyboardDevice@th128@@3PAUIb1DirectInputDevice@1@A", target = 0x004D2E88 },
+  { offset = 513, type = "DIR32", symbol = "?g_Ib1KeyboardDevice@th128@@3PAUIb1DirectInputDevice@1@A", target = 0x004D2E88 },
+  { offset = 923, type = "REL32", symbol = "?Ib1MergeJoyInput@th128@@YIII@Z", target = 0x004689E0 },
+  { offset = 929, type = "DIR32", symbol = "?g_Ib1InputStates@th128@@3PAUIb1InputState@1@A", target = 0x004DAFF8 },
+  { offset = 936, type = "DIR32", symbol = "?g_Ib1InputStates@th128@@3PAUIb1InputState@1@A", target = 0x004DAFF8 },
+  { offset = 942, type = "DIR32", symbol = "?g_Ib1InputStates@th128@@3PAUIb1InputState@1@A", addend = 4, target = 0x004DAFF8 },
+  { offset = 948, type = "DIR32", symbol = "?g_Ib1InputStates@th128@@3PAUIb1InputState@1@A", target = 0x004DAFF8 },
+  { offset = 953, type = "REL32", symbol = "?Update@Ib1InputState@th128@@QAEXXZ", target = 0x0046C2A0 },
+  { offset = 966, type = "REL32", symbol = "@__security_check_cookie@4", target = 0x004728FD },
+]
+
+[units.ib1-poll-input-slot]
+artifact_kind = "linked-pe"
+source = "src/InputBatch1.cpp"
+support_sources = ["probes/input-batch1-context.cpp"]
+output_dir = "build/match-linked/InputBatch1"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "main"
+functions = ["th128::Ib1PollInputSlot"]
+symbol = "?Ib1PollInputSlot@th128@@YGIH@Z"
+target_address = 0x00469210
+size = 940
+linkages = [
+  { offset = 10, type = "DIR32", symbol = "___security_cookie", target = 0x004B01F4 },
+  { offset = 34, type = "DIR32", symbol = "?g_Ib1InputStates@th128@@3PAUIb1InputState@1@A", target = 0x004DAFF8 },
+  { offset = 40, type = "DIR32", symbol = "?g_Ib1WindowActive@th128@@3HA", target = 0x004D397C },
+  { offset = 52, type = "DIR32", symbol = "?g_Ib1SupervisorFlags@th128@@3IA", target = 0x004D33F8 },
+  { offset = 75, type = "DIR32", symbol = "__imp__GetKeyboardState@4", target = 0x0049A238 },
+  { offset = 471, type = "DIR32", symbol = "?g_Ib1KeyboardDevice@th128@@3PAUIb1DirectInputDevice@1@A", target = 0x004D2E88 },
+  { offset = 509, type = "DIR32", symbol = "?g_Ib1KeyboardDevice@th128@@3PAUIb1DirectInputDevice@1@A", target = 0x004D2E88 },
+  { offset = 900, type = "REL32", symbol = "?Ib1MergeJoyInput@th128@@YIII@Z", target = 0x004689E0 },
+  { offset = 916, type = "REL32", symbol = "?Update@Ib1InputState@th128@@QAEXXZ", target = 0x0046C2A0 },
+  { offset = 930, type = "REL32", symbol = "@__security_check_cookie@4", target = 0x004728FD },
+]

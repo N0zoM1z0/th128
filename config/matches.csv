@@ -1108,7 +1108,10 @@ address,name,size,status,match_percent,unit,evidence
 0x00468980,MapJoyButtonByte,41,exact,100.00,input-map-joy-button-byte,Cold pinned VC10 /GL linked-PE replay; complete 41-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x004689B0,MapJoyButtonBit,37,exact,100.00,input-map-joy-button-bit,Cold pinned VC10 /GL linked-PE replay; complete 37-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x00468D10,th128::CiPollJoystickRaw,267,exact,100.00,CiPollJoystickRaw,Cold-replayed VC10 LTCG match via CoreInputCollisionProbe
+0x00468E20,th128::Ib1PollInputMain,974,exact,100.00,ib1-poll-input-main,linked-pe VC10 /GL exact 974B
 0x004691F0,UpdateInputSlot,27,exact,100.00,input-update-slot,Cold pinned VC10 /GL linked-PE replay; complete 27-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x00469210,th128::Ib1PollInputSlot,940,exact,100.00,ib1-poll-input-slot,linked-pe VC10 /GL exact 940B
+0x004695C0,th128::Ib1PollInputRaw,887,exact,100.00,ib1-poll-input-raw,linked-pe VC10 /GL exact 887B
 0x00469940,PollKeyboardState,101,exact,100.00,input-poll-keyboard-state,Cold pinned VC10 /GL linked-PE replay; complete 101-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x004699B0,ClearKeyboardState,77,exact,100.00,input-clear-keyboard-state,Cold pinned VC10 /GL linked-PE replay; complete 77-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x00469E00,FileSystem::FileExists,145,exact,100.00,file-system-file-exists,Cold pinned VC10 /GL linked-PE replay; complete 145-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.

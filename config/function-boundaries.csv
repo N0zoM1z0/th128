@@ -2125,10 +2125,10 @@ address,span_end,state,confidence,evidence_id,notes
 0x004689B0,0x004689D4,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x004689B0..0x004689D4 (37 bytes) ends with ret; then padding-then-start 0x004689E0; WEAK: no call, jump, pointer or vtable reference found"
 0x004689E0,0x00468D0B,reviewed,high,bdesc-exact,start padding; refs callx3; descent body 0x004689E0..0x00468D0B (812 bytes) ends with ret; then padding-then-start 0x00468D10
 0x00468D10,0x00468E1A,reviewed,high,CiPollJoystickRaw-boundary,Exact VC10 LTCG match via CoreInputCollisionProbe
-0x00468E20,0x004691ED,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00468E20..0x004691ED (974 bytes) ends with ret; then padding-then-start 0x004691F0
+0x00468E20,0x004691ED,reviewed,high,ib1-poll-input-main-boundary,0x00468E20..0x004691ED
 0x004691F0,0x0046920A,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x004691F0..0x0046920A (27 bytes) ends with ret; then padding-then-start 0x00469210; WEAK: no call, jump, pointer or vtable reference found"
-0x00469210,0x004695BB,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x00469210..0x004695BB (940 bytes) ends with ret; then padding-then-start 0x004695C0; WEAK: no call, jump, pointer or vtable reference found"
-0x004695C0,0x00469936,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x004695C0..0x00469936 (887 bytes) ends with ret; then padding-then-start 0x00469940; WEAK: no call, jump, pointer or vtable reference found"
+0x00469210,0x004695BB,reviewed,high,ib1-poll-input-slot-boundary,0x00469210..0x004695BB
+0x004695C0,0x00469936,reviewed,high,ib1-poll-input-raw-boundary,0x004695C0..0x00469936
 0x00469940,0x004699A4,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00469940..0x004699A4 (101 bytes) ends with ret; then padding-then-start 0x004699B0
 0x004699B0,0x004699FC,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x004699B0..0x004699FC (77 bytes) ends with ret; then padding-then-start 0x00469A00
 0x00469A00,0x00469B11,reviewed,high,decrypt-blocks-boundary,"Complete 274-byte body with two returns between CC padding; four callers (archive header, directory, entry read, replay)."

@@ -490,6 +490,8 @@ GdGuiObj::DestroySelf,0x00421070,function
 GdGuiObj::DestroyGlobal,0x00421090,function
 GdGuiObj::CalcHook,0x00422D60,function
 PopupNotifications::Show,0x00424B80,function
+th128::Oc1HideGuiAnms,0x00425340,function
+th128::Oc1ShowGuiAnms,0x004255B0,function
 th128::ZcGuiUpdateMeterAnms,0x00425820,function
 GdStageOwner::Set7C,0x004259A0,function
 GdGet4B4D3C,0x004259B0,function
@@ -816,6 +818,7 @@ TaHelpMgr::SetFloat12C,0x00445190,function
 TaTitleMgrExact::TaTitleMgrExact,0x004451B0,function
 TaTitleMgrExact::DestroyGlobal,0x00445730,function
 TaTitleMgrExact::DestroySelf,0x00445750,function
+th128::Tc1UpdateDigitSprites,0x00448D90,function
 TaRet1_44B3B0,0x0044B3B0,function
 TaRet1_44B3C0,0x0044B3C0,function
 TaRet1_44B3D0,0x0044B3D0,function
@@ -864,6 +867,7 @@ LsObj08::Get08,0x00450550,function
 Pbg::DecompressLzss,0x00450860,function
 LsLzssResetVars,0x00450A20,function
 LsLzssInitTree,0x00450A50,function
+th128::Bz2LzssAddString,0x00450A90,function
 LsLzssContractNode,0x00450D20,function
 LsLzssFindNextNode,0x00450E00,function
 Pbg::MemFile::Write,0x00450E40,function
@@ -1194,7 +1198,10 @@ InitJoypad,0x004688F0,function
 MapJoyButtonByte,0x00468980,function
 MapJoyButtonBit,0x004689B0,function
 th128::CiPollJoystickRaw,0x00468D10,function
+th128::Ib1PollInputMain,0x00468E20,function
 UpdateInputSlot,0x004691F0,function
+th128::Ib1PollInputSlot,0x00469210,function
+th128::Ib1PollInputRaw,0x004695C0,function
 PollKeyboardState,0x00469940,function
 ClearKeyboardState,0x004699B0,function
 DecryptBlocks,0x00469A00,function
