@@ -339,24 +339,34 @@ address,name,size,status,match_percent,unit,evidence
 0x0046C460,CSoundManager::~CSoundManager,21,exact,100.00,csound-manager-dtor,Cold pinned VC10 /GL linked-PE replay; complete 21-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046C480,CSoundManager::Initialize,70,exact,100.00,csound-manager-initialize,Cold pinned VC10 /GL linked-PE replay; complete 70-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046C4D0,CSoundManager::SetPrimaryBufferFormat,222,exact,100.00,csound-manager-set-primary-buffer-format,Cold pinned VC10 /GL linked-PE replay; complete 222-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x0046C820,CWaveFileStream::scalar_deleting_destructor,41,exact,100.00,ds-wave-file-scalar-dtor,"Cold VC10 /GL linked-PE replay (41B, 2 fields, 0 diffs)."
+0x0046CC70,CSoundStream::scalar_deleting_destructor,33,exact,100.00,ds-sound-scalar-dtor,"Cold VC10 /GL linked-PE replay (33B, 2 fields, 0 diffs)."
+0x0046CCA0,CSoundStream::RecreateBuffers,352,exact,100.00,ds-sound-recreate-buffers,"Cold VC10 /GL linked-PE replay (352B, 6 fields, 0 diffs)."
+0x0046CE00,CSoundStream::~CSoundStream,133,exact,100.00,ds-sound-dtor,"Cold VC10 /GL linked-PE replay (133B, 4 fields, 0 diffs)."
 0x0046D0C0,CSoundView::RestoreBuffer,105,exact,100.00,csound-restore-buffer,Cold pinned VC10 /GL linked-PE replay; complete 105-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046D130,CSoundView::GetFreeBuffer,112,exact,100.00,csound-get-free-buffer,Cold pinned VC10 /GL linked-PE replay; complete 112-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046D1A0,CSoundView::GetBuffer0,19,exact,100.00,csound-get-buffer0,Cold pinned VC10 /GL linked-PE replay; complete 19-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046D1C0,CSoundView::Get3DBufferInterface,49,exact,100.00,csound-get-3d-buffer-interface,Cold pinned VC10 /GL linked-PE replay; complete 49-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046D290,CSoundView::SetVolume,122,exact,100.00,csound-set-volume,Cold pinned VC10 /GL linked-PE replay; complete 122-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x0046D310,CSoundStream::Stop,130,exact,100.00,ds-sound-stop,"Cold VC10 /GL linked-PE replay (130B, 1 field, 0 diffs)."
 0x0046D3A0,CSoundView::Pause,117,exact,100.00,csound-pause,Cold pinned VC10 /GL linked-PE replay; complete 117-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046D470,CSoundView::Reset,52,exact,100.00,csound-reset,Cold pinned VC10 /GL linked-PE replay; complete 52-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046D4B0,CSoundView::IsSoundPlaying,85,exact,100.00,csound-is-sound-playing,Cold pinned VC10 /GL linked-PE replay; complete 85-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x0046D550,CStreamingSound::scalar_deleting_destructor,39,exact,100.00,ds-streaming-sound-scalar-dtor,"Cold VC10 /GL linked-PE replay (39B, 3 fields, 0 diffs)."
+0x0046D580,CStreamingSound::~CStreamingSound,11,exact,100.00,ds-streaming-sound-dtor,"Cold VC10 /GL linked-PE replay (11B, 2 fields, 0 diffs)."
 0x0046D590,CSoundView::UpdateFadeOut,68,exact,100.00,csound-update-fade-out,Cold pinned VC10 /GL linked-PE replay; complete 68-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046D5E0,CSoundView::UpdateFadeIn,51,exact,100.00,csound-update-fade-in,Cold pinned VC10 /GL linked-PE replay; complete 51-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046D620,CSoundView::UpdateFadeLow,51,exact,100.00,csound-update-fade-low,Cold pinned VC10 /GL linked-PE replay; complete 51-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046D660,CSoundView::UpdateFadeHigh,55,exact,100.00,csound-update-fade-high,Cold pinned VC10 /GL linked-PE replay; complete 55-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046D9A0,CWaveFileView::CWaveFileView,17,exact,100.00,cwave-file-ctor,Cold pinned VC10 /GL linked-PE replay; complete 17-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046D9C0,CWaveFileView::~CWaveFileView,30,exact,100.00,cwave-file-dtor,Cold pinned VC10 /GL linked-PE replay; complete 30-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x0046D9E0,CWaveFileStream::OpenFile,235,exact,100.00,ds-wave-file-open-file,"Cold VC10 /GL linked-PE replay (235B, 9 fields, 0 diffs)."
 0x0046DB60,CWaveFileView::OpenFromMemory,46,exact,100.00,cwave-file-open-from-memory,Cold pinned VC10 /GL linked-PE replay; complete 46-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046DB90,CWaveFileView::GetSize,4,exact,100.00,cwave-file-get-size,Cold pinned VC10 /GL linked-PE replay; complete 4-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x0046DBA0,CWaveFileStream::ResetFile,236,exact,100.00,ds-wave-file-reset-file,"Cold VC10 /GL linked-PE replay (236B, 6 fields, 0 diffs)."
 0x0046DD60,CWaveFileView::Close,32,exact,100.00,cwave-file-close,Cold pinned VC10 /GL linked-PE replay; complete 32-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046DD80,CWaveFileView::GetSavedPos,7,exact,100.00,cwave-file-get-saved-pos,Cold pinned VC10 /GL linked-PE replay; complete 7-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x0046DD90,CSoundStream::ReopenTrack,19,exact,100.00,ds-sound-reopen-track,"Cold VC10 /GL linked-PE replay (19B, 1 field, 0 diffs)."
 0x0046DDB0,CWaveFileView::SaveFilePos,26,exact,100.00,cwave-file-save-file-pos,Cold pinned VC10 /GL linked-PE replay; complete 26-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046DDD0,WaveDebugLog,1,exact,100.00,wave-debug-log,Cold pinned VC10 /GL linked-PE replay; complete 1-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046DDE0,EclDebugLog,1,exact,100.00,ecl-debug-log,Cold pinned VC10 /GL linked-PE replay; complete 1-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.

@@ -2211,12 +2211,12 @@ address,span_end,state,confidence,evidence_id,notes
 0x0046C480,0x0046C4C5,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x0046C480..0x0046C4C5 (70 bytes) ends with ret; then padding-then-start 0x0046C4D0; WEAK: no call, jump, pointer or vtable reference found"
 0x0046C4D0,0x0046C5AD,reviewed,high,bdesc-exact,start padding; refs callx2; descent body 0x0046C4D0..0x0046C5AD (222 bytes) ends with ret; then padding-then-start 0x0046C5B0
 0x0046C5B0,0x0046C814,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x0046C5B0..0x0046C814 (613 bytes) ends with ret; then padding-then-start 0x0046C820; 1 filler hole(s)
-0x0046C820,0x0046C848,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x0046C820..0x0046C848 (41 bytes) ends with ret; then padding-then-start 0x0046C850; WEAK: no call, jump, pointer or vtable reference found"
+0x0046C820,0x0046C848,reviewed,high,ds-wave-file-scalar-dtor-boundary,Contiguous 41B deleting destructor ending in RET before INT3 padding.
 0x0046C850,0x0046CA9C,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x0046C850..0x0046CA9C (589 bytes) ends with ret; then padding-then-start 0x0046CAA0
 0x0046CAA0,0x0046CC67,reviewed,high,bdesc-exact,start padding; refs callx2; descent body 0x0046CAA0..0x0046CC67 (456 bytes) ends with ret; then padding-then-start 0x0046CC70
-0x0046CC70,0x0046CC90,reviewed,high,bdesc-exact,start padding; refs datax1; descent body 0x0046CC70..0x0046CC90 (33 bytes) ends with ret; then padding-then-start 0x0046CCA0
-0x0046CCA0,0x0046CDFF,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x0046CCA0..0x0046CDFF (352 bytes) ends with ret; then adjacent-start 0x0046CE00
-0x0046CE00,0x0046CE84,reviewed,high,bdesc-exact,"start after-terminator; refs callx2, jmpx1; descent body 0x0046CE00..0x0046CE84 (133 bytes) ends with ret; then padding-then-start 0x0046CE90"
+0x0046CC70,0x0046CC90,reviewed,high,ds-sound-scalar-dtor-boundary,Contiguous 33B deleting destructor ending in RET 4 before INT3 padding.
+0x0046CCA0,0x0046CDFF,reviewed,high,ds-sound-recreate-buffers-boundary,Contiguous 352B method ending in RET before INT3 padding.
+0x0046CE00,0x0046CE84,reviewed,high,ds-sound-dtor-boundary,Contiguous 133B destructor ending in RET before INT3 padding.
 0x0046CE90,0x0046D0B3,reviewed,high,bdesc-exact,start padding; refs callx5; descent body 0x0046CE90..0x0046D0B3 (548 bytes) ends with ret; then padding-then-start 0x0046D0C0
 0x0046D0C0,0x0046D128,reviewed,high,bdesc-exact,start padding; refs callx3; descent body 0x0046D0C0..0x0046D128 (105 bytes) ends with ret; then padding-then-start 0x0046D130; 1 filler hole(s)
 0x0046D130,0x0046D19F,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x0046D130..0x0046D19F (112 bytes) ends with ret; then adjacent-start 0x0046D1A0; 1 filler hole(s)
@@ -2224,14 +2224,14 @@ address,span_end,state,confidence,evidence_id,notes
 0x0046D1C0,0x0046D1F0,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x0046D1C0..0x0046D1F0 (49 bytes) ends with ret; then padding-then-start 0x0046D200; WEAK: no call, jump, pointer or vtable reference found"
 0x0046D200,0x0046D28A,reviewed,high,bdesc-exact,start padding; refs callx3; descent body 0x0046D200..0x0046D28A (139 bytes) ends with ret; then padding-then-start 0x0046D290
 0x0046D290,0x0046D309,reviewed,high,bdesc-exact,"start padding; refs callx9, jmpx1; descent body 0x0046D290..0x0046D309 (122 bytes) ends with ret; then padding-then-start 0x0046D310"
-0x0046D310,0x0046D391,reviewed,high,bdesc-exact,start padding; refs callx3; descent body 0x0046D310..0x0046D391 (130 bytes) ends with ret; then padding-then-start 0x0046D3A0
+0x0046D310,0x0046D391,reviewed,high,ds-sound-stop-boundary,Contiguous 130B method ending in RET 4 before INT3 padding.
 0x0046D3A0,0x0046D414,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x0046D3A0..0x0046D414 (117 bytes) ends with ret; then padding-then-start 0x0046D420
 0x0046D420,0x0046D46C,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x0046D420..0x0046D46C (77 bytes) ends with ret; then padding-then-start 0x0046D470
 0x0046D470,0x0046D4A3,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x0046D470..0x0046D4A3 (52 bytes) ends with ret; then padding-then-start 0x0046D4B0
 0x0046D4B0,0x0046D504,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x0046D4B0..0x0046D504 (85 bytes) ends with ret; then padding-then-start 0x0046D510; 1 filler hole(s); WEAK: no call, jump, pointer or vtable reference found"
 0x0046D510,0x0046D541,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x0046D510..0x0046D541 (50 bytes) ends with ret; then padding-then-start 0x0046D550
-0x0046D550,0x0046D576,reviewed,high,bdesc-exact,start padding; refs datax1; descent body 0x0046D550..0x0046D576 (39 bytes) ends with ret; then padding-then-start 0x0046D580
-0x0046D580,0x0046D58A,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x0046D580..0x0046D58A (11 bytes) ends with jmp; then padding-then-start 0x0046D590; WEAK: no call, jump, pointer or vtable reference found"
+0x0046D550,0x0046D576,reviewed,high,ds-streaming-sound-scalar-dtor-boundary,Contiguous 39B deleting destructor ending in RET 4 before INT3 padding.
+0x0046D580,0x0046D58A,reviewed,high,ds-streaming-sound-dtor-boundary,Contiguous 11B destructor tail-jumping to 0x0046CE00.
 0x0046D590,0x0046D5D3,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x0046D590..0x0046D5D3 (68 bytes) ends with ret; then padding-then-start 0x0046D5E0; WEAK: no call, jump, pointer or vtable reference found"
 0x0046D5E0,0x0046D612,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x0046D5E0..0x0046D612 (51 bytes) ends with ret; then padding-then-start 0x0046D620; WEAK: no call, jump, pointer or vtable reference found"
 0x0046D620,0x0046D652,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x0046D620..0x0046D652 (51 bytes) ends with ret; then padding-then-start 0x0046D660; WEAK: no call, jump, pointer or vtable reference found"
@@ -2240,15 +2240,15 @@ address,span_end,state,confidence,evidence_id,notes
 0x0046D8B0,0x0046D99E,reviewed,high,bdesc-exact,start padding; refs callx2; descent body 0x0046D8B0..0x0046D99E (239 bytes) ends with ret; then padding-then-start 0x0046D9A0
 0x0046D9A0,0x0046D9B0,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x0046D9A0..0x0046D9B0 (17 bytes) ends with ret; then padding-then-start 0x0046D9C0; WEAK: no call, jump, pointer or vtable reference found"
 0x0046D9C0,0x0046D9DD,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x0046D9C0..0x0046D9DD (30 bytes) ends with ret; then padding-then-start 0x0046D9E0; WEAK: no call, jump, pointer or vtable reference found"
-0x0046D9E0,0x0046DACA,reviewed,high,bdesc-exact,start padding; refs callx2; descent body 0x0046D9E0..0x0046DACA (235 bytes) ends with ret; then padding-then-start 0x0046DAD0
+0x0046D9E0,0x0046DACA,reviewed,high,ds-wave-file-open-file-boundary,Contiguous 235B method ending in RET before INT3 padding.
 0x0046DAD0,0x0046DB56,reviewed,high,bdesc-exact,start padding; refs callx4; descent body 0x0046DAD0..0x0046DB56 (135 bytes) ends with ret; then padding-then-start 0x0046DB60
 0x0046DB60,0x0046DB8D,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x0046DB60..0x0046DB8D (46 bytes) ends with ret; then padding-then-start 0x0046DB90; WEAK: no call, jump, pointer or vtable reference found"
 0x0046DB90,0x0046DB93,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x0046DB90..0x0046DB93 (4 bytes) ends with ret; then padding-then-start 0x0046DBA0; WEAK: no call, jump, pointer or vtable reference found"
-0x0046DBA0,0x0046DC8B,reviewed,high,bdesc-exact,start padding; refs callx2; descent body 0x0046DBA0..0x0046DC8B (236 bytes) ends with ret; then padding-then-start 0x0046DC90
+0x0046DBA0,0x0046DC8B,reviewed,high,ds-wave-file-reset-file-boundary,Contiguous 236B method ending in RET before INT3 padding.
 0x0046DC90,0x0046DD50,reviewed,high,bdesc-exact,start padding; refs callx5; descent body 0x0046DC90..0x0046DD50 (193 bytes) ends with ret; then padding-then-start 0x0046DD60
 0x0046DD60,0x0046DD7F,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x0046DD60..0x0046DD7F (32 bytes) ends with ret; then adjacent-start 0x0046DD80; WEAK: no call, jump, pointer or vtable reference found"
 0x0046DD80,0x0046DD86,reviewed,medium,bnew-unreferenced-delimited,"found by after-terminator-aligned; start after-terminator; refs none; descent body 0x0046DD80..0x0046DD86 (7 bytes) ends with ret; then padding-then-start 0x0046DD90; WEAK: no call, jump, pointer or vtable reference found"
-0x0046DD90,0x0046DDA2,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x0046DD90..0x0046DDA2 (19 bytes) ends with ret; then padding-then-start 0x0046DDB0; WEAK: no call, jump, pointer or vtable reference found"
+0x0046DD90,0x0046DDA2,reviewed,high,ds-sound-reopen-track-boundary,Contiguous 19B wrapper ending in RET 4 before INT3 padding.
 0x0046DDB0,0x0046DDC9,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x0046DDB0..0x0046DDC9 (26 bytes) ends with ret; then padding-then-start 0x0046DDD0; WEAK: no call, jump, pointer or vtable reference found"
 0x0046DDD0,0x0046DDD0,reviewed,high,bdesc-exact,start padding; refs callx3; descent body 0x0046DDD0..0x0046DDD0 (1 bytes) ends with ret; then padding-then-start 0x0046DDE0
 0x0046DDE0,0x0046DDE0,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x0046DDE0..0x0046DDE0 (1 bytes) ends with ret; then padding-then-start 0x0046DDF0

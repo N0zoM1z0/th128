@@ -199,6 +199,11 @@ CSoundManager::CSoundManager
 CSoundManager::Initialize
 CSoundManager::SetPrimaryBufferFormat
 CSoundManager::~CSoundManager
+CSoundStream::RecreateBuffers
+CSoundStream::ReopenTrack
+CSoundStream::Stop
+CSoundStream::scalar_deleting_destructor
+CSoundStream::~CSoundStream
 CSoundView::Get3DBufferInterface
 CSoundView::GetBuffer0
 CSoundView::GetFreeBuffer
@@ -211,6 +216,11 @@ CSoundView::UpdateFadeHigh
 CSoundView::UpdateFadeIn
 CSoundView::UpdateFadeLow
 CSoundView::UpdateFadeOut
+CStreamingSound::scalar_deleting_destructor
+CStreamingSound::~CStreamingSound
+CWaveFileStream::OpenFile
+CWaveFileStream::ResetFile
+CWaveFileStream::scalar_deleting_destructor
 CWaveFileView::CWaveFileView
 CWaveFileView::Close
 CWaveFileView::GetSavedPos
