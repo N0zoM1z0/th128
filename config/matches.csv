@@ -366,6 +366,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00414B00,DropOff5004::Get,6,exact,100.00,drop-off-5004-get,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
 0x00414B10,DropDerefOuter::Get,7,exact,100.00,drop-deref-outer-get,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
 0x00414B20,DropOff11C8::Get,6,exact,100.00,drop-off-11c8-get,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
+0x00414B80,th128::Zc13BossStruct::Zc13BossStruct,147,exact,100.00,zc13-reset-boss-struct,Exact VC10 LTCG match via ZeroCallMedium13Probe@60
 0x00414C20,DropFlag30::ClearBit0,5,exact,100.00,drop-flag30-clear-bit0,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
 0x00414C30,DropEclFile::Load,98,exact,100.00,drop-ecl-file-load,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
 0x00414CB0,DropEnemyMgr::SetArr5C,10,exact,100.00,drop-enemy-mgr-set-arr5c,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
@@ -1117,6 +1118,7 @@ address,name,size,status,match_percent,unit,evidence
 0x0046A320,GameErrorContext::Fatal,193,exact,100.00,game-error-context-fatal,Cold pinned VC10 /GL linked-PE replay; complete 193-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046A3F0,Rng::GetU16,105,exact,100.00,rng-get-u16,Cold pinned VC10 /GL /Ob1 /Oy- complete public primary-TU PDB contribution behind the Rng probe (game flags address escaping as in the game); current receipts; every reviewed field replays with zero byte differences.
 0x0046A460,Rng::GetU32,149,exact,100.00,rng-get-u32,Cold pinned VC10 /GL /Ob1 /Oy- complete public primary-TU PDB contribution behind the Rng probe (game flags address escaping as in the game); current receipts; every reviewed field replays with zero byte differences.
+0x0046A500,th128::Zc13RngNextU32,149,exact,100.00,zc13-rng-next-u32,Exact VC10 LTCG match via ZeroCallMedium13Probe@60
 0x0046A5D0,Rng::GetFloat,41,exact,100.00,rng-get-float,Cold pinned VC10 /GL /Ob1 /Oy- complete public primary-TU PDB contribution behind the Rng probe (game flags address escaping as in the game); current receipts; every reviewed field replays with zero byte differences.
 0x0046A600,Rng::GetFloatSigned,47,exact,100.00,rng-get-float-signed,Cold pinned VC10 /GL /Ob1 /Oy- complete public primary-TU PDB contribution behind the Rng probe (game flags address escaping as in the game); current receipts; every reviewed field replays with zero byte differences.
 0x0046A630,Rng::GetAngle,47,exact,100.00,rng-get-angle,Cold pinned VC10 /GL /Ob1 /Oy- complete public primary-TU PDB contribution behind the Rng probe (game flags address escaping as in the game); current receipts; every reviewed field replays with zero byte differences.

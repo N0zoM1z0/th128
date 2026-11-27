@@ -1295,6 +1295,8 @@ th128::Zc10KillEnemiesInBox
 th128::Zc11InitBulletTimer
 th128::Zc12FindDatEntry
 th128::Zc12PlaySfxChannel
+th128::Zc13BossStruct::Zc13BossStruct
+th128::Zc13RngNextU32
 th128::Zc2ConfigDialogProc
 th128::Zc2Fade::OnCalc
 th128::Zc2InitMenuCameras

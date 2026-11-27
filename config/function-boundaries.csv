@@ -605,7 +605,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x00414B20,0x00414B25,reviewed,high,drop-off-11c8-get-boundary,Verified exact VC10 /GL linked-pe extent
 0x00414B30,0x00414B4C,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00414B30..0x00414B4C (29 bytes) ends with ret; then padding-then-start 0x00414B50; WEAK: no call, jump, pointer or vtable reference found"
 0x00414B50,0x00414B72,reviewed,high,bdesc-exact,start padding; refs datax1; descent body 0x00414B50..0x00414B72 (35 bytes) ends with ret; then padding-then-start 0x00414B80
-0x00414B80,0x00414C12,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x00414B80..0x00414C12 (147 bytes) ends with ret; then padding-then-start 0x00414C20; WEAK: no call, jump, pointer or vtable reference found"
+0x00414B80,0x00414C12,reviewed,high,zc13-reset-boss-struct-boundary,0x00414B80..0x00414C12 (147 bytes)
 0x00414C20,0x00414C24,reviewed,high,drop-flag30-clear-bit0-boundary,Verified exact VC10 /GL linked-pe extent
 0x00414C30,0x00414C91,reviewed,high,drop-ecl-file-load-boundary,Verified exact VC10 /GL linked-pe extent
 0x00414CA0,0x00414CAD,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00414CA0..0x00414CAD (14 bytes) ends with ret; then padding-then-start 0x00414CB0; WEAK: no call, jump, pointer or vtable reference found"
@@ -2145,7 +2145,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x0046A320,0x0046A3E0,reviewed,high,bdesc-exact,start padding; refs callx17; descent body 0x0046A320..0x0046A3E0 (193 bytes) ends with ret; then padding-then-start 0x0046A3F0
 0x0046A3F0,0x0046A458,reviewed,high,rng-get-u16-boundary,Complete 105-byte body with two returns between padding.
 0x0046A460,0x0046A4F4,reviewed,high,rng-get-u32-boundary,Complete 149-byte body between padding.
-0x0046A500,0x0046A594,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x0046A500..0x0046A594 (149 bytes) ends with ret; then padding-then-start 0x0046A5A0; WEAK: no call, jump, pointer or vtable reference found"
+0x0046A500,0x0046A594,reviewed,high,zc13-rng-next-u32-boundary,0x0046A500..0x0046A594 (149 bytes)
 0x0046A5A0,0x0046A5CC,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x0046A5A0..0x0046A5CC (45 bytes) ends with ret; then padding-then-start 0x0046A5D0; WEAK: no call, jump, pointer or vtable reference found"
 0x0046A5D0,0x0046A5F8,reviewed,high,rng-get-float-boundary,Complete body between padding.
 0x0046A600,0x0046A62E,reviewed,high,rng-get-float-signed-boundary,Complete body between padding.

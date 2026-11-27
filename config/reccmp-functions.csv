@@ -375,6 +375,7 @@ DropOff3E3C::Get,0x00414AF0,function
 DropOff5004::Get,0x00414B00,function
 DropDerefOuter::Get,0x00414B10,function
 DropOff11C8::Get,0x00414B20,function
+th128::Zc13BossStruct::Zc13BossStruct,0x00414B80,function
 DropFlag30::ClearBit0,0x00414C20,function
 DropEclFile::Load,0x00414C30,function
 DropEnemyMgr::SetArr5C,0x00414CB0,function
@@ -1208,6 +1209,7 @@ GameErrorContext::Log,0x0046A250,function
 GameErrorContext::Fatal,0x0046A320,function
 Rng::GetU16,0x0046A3F0,function
 Rng::GetU32,0x0046A460,function
+th128::Zc13RngNextU32,0x0046A500,function
 Rng::GetFloat,0x0046A5D0,function
 Rng::GetFloatSigned,0x0046A600,function
 Rng::GetAngle,0x0046A630,function
