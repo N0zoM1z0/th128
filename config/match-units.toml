@@ -21511,3 +21511,50 @@ linkages = [
   { offset = 521, type = "REL32", symbol = "?Oc1GetVmById@@YGPAUOc1AnmVm@@PAUOc1AnmMgr@@UOc1AnmId@@@Z", target = 0x00467420 },
   { offset = 570, type = "REL32", symbol = "?Oc1GetVmById@@YGPAUOc1AnmVm@@PAUOc1AnmMgr@@UOc1AnmId@@@Z", target = 0x00467420 },
 ]
+
+[units.bz2-lzss-add-string]
+artifact_kind = "linked-pe"
+source = "src/BigZeroCall2.cpp"
+support_sources = ["probes/big-zero-call2-context.cpp"]
+output_dir = "build/match-linked/BigZeroCall2"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BigZeroCall2Probe@12"
+functions = ["th128::Bz2LzssAddString"]
+symbol = "?Bz2LzssAddString@@YGHHPAH@Z"
+target_address = 0x00450a90
+size = 567
+linkages = [
+  { offset = 19, type = "DIR32", symbol = "?g_Bz2LzssTree@@3PAUBz2LzssNode@@A", target = 0x004B8AA8, addend = 98312 },
+  { offset = 63, type = "DIR32", symbol = "?g_Bz2LzssWindow@@3PAEA", target = 0x004D0AB8 },
+  { offset = 76, type = "DIR32", symbol = "?g_Bz2LzssWindow@@3PAEA", target = 0x004D0AB8 },
+  { offset = 101, type = "DIR32", symbol = "?g_Bz2LzssWindow@@3PAEA", target = 0x004D0AB8 },
+  { offset = 118, type = "DIR32", symbol = "?g_Bz2LzssWindow@@3PAEA", target = 0x004D0AB8 },
+  { offset = 143, type = "DIR32", symbol = "?g_Bz2LzssWindow@@3PAEA", target = 0x004D0AB8 },
+  { offset = 160, type = "DIR32", symbol = "?g_Bz2LzssWindow@@3PAEA", target = 0x004D0AB8 },
+  { offset = 185, type = "DIR32", symbol = "?g_Bz2LzssWindow@@3PAEA", target = 0x004D0AB8 },
+  { offset = 202, type = "DIR32", symbol = "?g_Bz2LzssWindow@@3PAEA", target = 0x004D0AB8 },
+  { offset = 223, type = "DIR32", symbol = "?g_Bz2LzssWindow@@3PAEA", target = 0x004D0AB8 },
+  { offset = 240, type = "DIR32", symbol = "?g_Bz2LzssWindow@@3PAEA", target = 0x004D0AB8 },
+  { offset = 261, type = "DIR32", symbol = "?g_Bz2LzssWindow@@3PAEA", target = 0x004D0AB8 },
+  { offset = 278, type = "DIR32", symbol = "?g_Bz2LzssWindow@@3PAEA", target = 0x004D0AB8 },
+  { offset = 353, type = "DIR32", symbol = "?g_Bz2LzssTree@@3PAUBz2LzssNode@@A", target = 0x004B8AA8, addend = 8 },
+  { offset = 362, type = "DIR32", symbol = "?g_Bz2LzssTree@@3PAUBz2LzssNode@@A", target = 0x004B8AA8, addend = 4 },
+  { offset = 389, type = "DIR32", symbol = "?g_Bz2LzssTree@@3PAUBz2LzssNode@@A", target = 0x004B8AA8 },
+  { offset = 402, type = "DIR32", symbol = "?g_Bz2LzssTree@@3PAUBz2LzssNode@@A", target = 0x004B8AA8, addend = 4 },
+  { offset = 410, type = "DIR32", symbol = "?g_Bz2LzssTree@@3PAUBz2LzssNode@@A", target = 0x004B8AA8, addend = 4 },
+  { offset = 418, type = "DIR32", symbol = "?g_Bz2LzssTree@@3PAUBz2LzssNode@@A", target = 0x004B8AA8, addend = 8 },
+  { offset = 425, type = "DIR32", symbol = "?g_Bz2LzssTree@@3PAUBz2LzssNode@@A", target = 0x004B8AA8 },
+  { offset = 437, type = "DIR32", symbol = "?g_Bz2LzssTree@@3PAUBz2LzssNode@@A", target = 0x004B8AA8 },
+  { offset = 444, type = "DIR32", symbol = "?g_Bz2LzssTree@@3PAUBz2LzssNode@@A", target = 0x004B8AA8, addend = 4 },
+  { offset = 452, type = "DIR32", symbol = "?g_Bz2LzssTree@@3PAUBz2LzssNode@@A", target = 0x004B8AA8, addend = 4 },
+  { offset = 459, type = "DIR32", symbol = "?g_Bz2LzssTree@@3PAUBz2LzssNode@@A", target = 0x004B8AA8, addend = 8 },
+  { offset = 465, type = "DIR32", symbol = "?g_Bz2LzssTree@@3PAUBz2LzssNode@@A", target = 0x004B8AA8, addend = 8 },
+  { offset = 471, type = "DIR32", symbol = "?g_Bz2LzssTree@@3PAUBz2LzssNode@@A", target = 0x004B8AA8, addend = 4 },
+  { offset = 481, type = "DIR32", symbol = "?g_Bz2LzssTree@@3PAUBz2LzssNode@@A", target = 0x004B8AA8 },
+  { offset = 487, type = "DIR32", symbol = "?g_Bz2LzssTree@@3PAUBz2LzssNode@@A", target = 0x004B8AA8, addend = 8 },
+  { offset = 497, type = "DIR32", symbol = "?g_Bz2LzssTree@@3PAUBz2LzssNode@@A", target = 0x004B8AA8 },
+  { offset = 504, type = "DIR32", symbol = "?g_Bz2LzssTree@@3PAUBz2LzssNode@@A", target = 0x004B8AA8 },
+  { offset = 532, type = "DIR32", symbol = "?g_Bz2LzssTree@@3PAUBz2LzssNode@@A", target = 0x004B8AA8 },
+  { offset = 538, type = "DIR32", symbol = "?g_Bz2LzssTree@@3PAUBz2LzssNode@@A", target = 0x004B8AA8, addend = 8 },
+  { offset = 548, type = "DIR32", symbol = "?g_Bz2LzssTree@@3PAUBz2LzssNode@@A", target = 0x004B8AA8, addend = 4 },
+]

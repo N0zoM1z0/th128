@@ -840,6 +840,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00450550,LsObj08::Get08,4,exact,100.00,LsObj08_Get08,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
 0x00450A20,LsLzssResetVars,33,exact,100.00,LsLzssResetVars,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
 0x00450A50,LsLzssInitTree,52,exact,100.00,LsLzssInitTree,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00450A90,th128::Bz2LzssAddString,567,exact,100.00,bz2-lzss-add-string,exact linked VC10 /GL match in BigZeroCall2 (567B)
 0x00450D20,LsLzssContractNode,80,exact,100.00,LsLzssContractNode,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
 0x00450E00,LsLzssFindNextNode,49,exact,100.00,LsLzssFindNextNode,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
 0x00450E40,Pbg::MemFile::Write,5,exact,100.00,pbg-memfile-write,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; every relocation replayed against reviewed vtable or CRT targets; zero byte differences.

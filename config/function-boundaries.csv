@@ -1611,7 +1611,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x00450860,0x00450A1A,reviewed,high,lzss-decompress-boundary,"Complete 443-byte body with two returns between CC padding; four callers (archive header and entry readers, replay and score loaders)."
 0x00450A20,0x00450A40,reviewed,high,LsLzssResetVars-boundary,Exact VC10 LTCG match via LzssStreamHelpersProbe
 0x00450A50,0x00450A83,reviewed,high,LsLzssInitTree-boundary,Exact VC10 LTCG match via LzssStreamHelpersProbe
-0x00450A90,0x00450CC6,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00450A90..0x00450CC6 (567 bytes) ends with ret; then padding-then-start 0x00450CD0; 1 filler hole(s)
+0x00450A90,0x00450CC6,reviewed,high,bz2-lzss-add-string-boundary,0x00450a90:567
 0x00450CD0,0x00450D1E,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00450CD0..0x00450D1E (79 bytes) ends with jmp; then padding-then-start 0x00450D20
 0x00450D20,0x00450D6F,reviewed,high,LsLzssContractNode-boundary,Exact VC10 LTCG match via LzssStreamHelpersProbe
 0x00450D70,0x00450DF5,reviewed,high,bdesc-exact,"start after-terminator; refs callx1, jmpx1; descent body 0x00450D70..0x00450DF5 (134 bytes) ends with ret; then padding-then-start 0x00450E00"
