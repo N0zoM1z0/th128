@@ -712,6 +712,7 @@ SpHelpMgr::Get128,0x004363F0,function
 SpRet0_436580,0x00436580,function
 SpRet0_436590,0x00436590,function
 SpPauseMgr::PauseBothChains,0x004365A0,function
+th128::AsDrawNameEntry,0x00436890,function
 SpArrayD4::Push90,0x00439E90,function
 SpSoundSlot::Resume,0x00439ED0,function
 SpResumeAllSoundBuffers,0x00439EF0,function
@@ -719,6 +720,7 @@ SpCaptureMgr::AllocSlot,0x00439F50,function
 SpVm428::GetSub428Field04,0x00439FC0,function
 SpGameThread::Get14,0x0043A070,function
 SpGameThread::IsNode08Flag1,0x0043A080,function
+th128::Zc3PlayerStartAllOptionAnms,0x0043A180,function
 SpPlayer::GetPosED8,0x0043A310,function
 SpPlayer::GetPosEF0,0x0043A320,function
 SpPlayer::GetPosEFC,0x0043A330,function
@@ -759,6 +761,7 @@ PrVec3::DistSq2DB,0x004408A0,function
 PrFpsCounter::Get34,0x00440950,function
 PrReplayMgr::GetFastForwardStepA,0x004414A0,function
 PrReplayMgr::GetFastForwardStepB,0x00442030,function
+th128::Zc3ReplayStageInit,0x00442210,function
 PrReplayMgr::GetTagStr,0x00442360,function
 PrStageEntry24::ResetZero,0x00442380,function
 PrUserTag::SetUserMagic,0x004423B0,function

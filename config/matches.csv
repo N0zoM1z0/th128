@@ -689,6 +689,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00436580,SpRet0_436580,3,exact,100.00,SpRet0_436580,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
 0x00436590,SpRet0_436590,3,exact,100.00,SpRet0_436590,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
 0x004365A0,SpPauseMgr::PauseBothChains,35,exact,100.00,SpPauseMgr_PauseBothChains,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
+0x00436890,th128::AsDrawNameEntry,375,exact,100.00,as-draw-name-entry,Exact VC10 /GL linked-PE match via compare-linked-function.py.
 0x00439E90,SpArrayD4::Push90,20,exact,100.00,SpArrayD4_Push90,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
 0x00439ED0,SpSoundSlot::Resume,32,exact,100.00,SpSoundSlot_Resume,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
 0x00439EF0,SpResumeAllSoundBuffers,50,exact,100.00,SpResumeAllSoundBuffers,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
@@ -696,6 +697,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00439FC0,SpVm428::GetSub428Field04,10,exact,100.00,SpVm428_GetSub428Field04,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
 0x0043A070,SpGameThread::Get14,9,exact,100.00,SpGameThread_Get14,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
 0x0043A080,SpGameThread::IsNode08Flag1,27,exact,100.00,SpGameThread_IsNode08Flag1,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
+0x0043A180,th128::Zc3PlayerStartAllOptionAnms,398,exact,100.00,zc3-player-start-all-option-anms,Exact VC10 /GL linked-PE match via compare-linked-function.py.
 0x0043A310,SpPlayer::GetPosED8,11,exact,100.00,SpPlayer_GetPosED8,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
 0x0043A320,SpPlayer::GetPosEF0,11,exact,100.00,SpPlayer_GetPosEF0,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
 0x0043A330,SpPlayer::GetPosEFC,11,exact,100.00,SpPlayer_GetPosEFC,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
@@ -736,6 +738,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00440950,PrFpsCounter::Get34,9,exact,100.00,PrFpsCounter_Get34,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
 0x004414A0,PrReplayMgr::GetFastForwardStepA,53,exact,100.00,PrReplayMgr_GetFastForwardStepA,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
 0x00442030,PrReplayMgr::GetFastForwardStepB,59,exact,100.00,PrReplayMgr_GetFastForwardStepB,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x00442210,th128::Zc3ReplayStageInit,326,exact,100.00,zc3-replay-stage-init,Exact VC10 /GL linked-PE match via compare-linked-function.py.
 0x00442360,PrReplayMgr::GetTagStr,25,exact,100.00,PrReplayMgr_GetTagStr,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
 0x00442380,PrStageEntry24::ResetZero,19,exact,100.00,PrStageEntry24_ResetZero,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
 0x004423B0,PrUserTag::SetUserMagic,7,exact,100.00,PrUserTag_SetUserMagic,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe

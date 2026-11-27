@@ -21006,3 +21006,91 @@ linkages = [
   { offset = 131, type = "DIR32", symbol = "__real@3ff0000000000000", target = 0x004A6588 },
   { offset = 166, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
 ]
+
+[units.zc3-player-start-all-option-anms]
+artifact_kind = "linked-pe"
+source = "src/ZeroCallMedium3.cpp"
+support_sources = ["probes/zero-call-medium3-context.cpp"]
+output_dir = "build/match-linked/ZeroCallMedium3"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ZeroCallMedium3Probe@12"
+functions = ["th128::Zc3PlayerStartAllOptionAnms"]
+symbol = "?Zc3PlayerStartAllOptionAnms@th128@@YGXPAUZc3Player@1@@Z"
+target_address = 0x0043A180
+size = 398
+linkages = [
+  { offset = 45, type = "DIR32", symbol = "?g_Zc3AnmMgr@th128@@3PAUZc3AnmMgr@1@A", target = 0x004D2E50 },
+  { offset = 212, type = "DIR32", symbol = "?g_Zc3AnmMgr@th128@@3PAUZc3AnmMgr@1@A", target = 0x004D2E50 },
+]
+
+[units.zc3-replay-stage-init]
+artifact_kind = "linked-pe"
+source = "src/ZeroCallMedium3.cpp"
+support_sources = ["probes/zero-call-medium3-context.cpp"]
+output_dir = "build/match-linked/ZeroCallMedium3"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ZeroCallMedium3Probe@12"
+functions = ["th128::Zc3ReplayStageInit"]
+symbol = "?Zc3ReplayStageInit@th128@@YAXXZ"
+target_address = 0x00442210
+size = 326
+linkages = [
+  { offset = 3, type = "DIR32", symbol = "?g_Zc3ReplayMgr@th128@@3PAUZc3ReplayMgr@1@A", target = 0x004B8A84 },
+  { offset = 21, type = "REL32", symbol = "??2@YAPAXI@Z", target = 0x0047296C },
+  { offset = 43, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+  { offset = 55, type = "DIR32", symbol = "?g_Zc3StageNum@th128@@3HA", target = 0x004B4D14 },
+  { offset = 65, type = "DIR32", symbol = "?g_Zc3StageNum@th128@@3HA", target = 0x004B4D14 },
+  { offset = 76, type = "DIR32", symbol = "?g_Zc3RngSeed@th128@@3GA", target = 0x004D2AE0 },
+  { offset = 87, type = "DIR32", symbol = "?g_Zc3StageNum@th128@@3HA", target = 0x004B4D14 },
+  { offset = 93, type = "DIR32", symbol = "?g_Zc3RngCount@th128@@3HA", target = 0x004D2AE4 },
+  { offset = 112, type = "DIR32", symbol = "?g_Zc3SupFlags3cc@th128@@3IA", target = 0x004D33CC },
+  { offset = 138, type = "DIR32", symbol = "?g_Zc3StageNum@th128@@3HA", target = 0x004B4D14 },
+  { offset = 188, type = "DIR32", symbol = "?g_Zc3RngSeed@th128@@3GA", target = 0x004D2AE0 },
+  { offset = 194, type = "DIR32", symbol = "?g_Zc3RngCount@th128@@3HA", target = 0x004D2AE4 },
+  { offset = 207, type = "DIR32", symbol = "?g_Zc3Score@th128@@3HA", target = 0x004B4CC4 },
+  { offset = 217, type = "DIR32", symbol = "?g_Zc3PowerMax@th128@@3HA", target = 0x004B4D34 },
+  { offset = 222, type = "DIR32", symbol = "?g_Zc3Power@th128@@3HA", target = 0x004B4CC8 },
+  { offset = 232, type = "DIR32", symbol = "?g_Zc3PowerMin@th128@@3HA", target = 0x004B4D38 },
+  { offset = 242, type = "DIR32", symbol = "?g_Zc3Power@th128@@3HA", target = 0x004B4CC8 },
+  { offset = 250, type = "DIR32", symbol = "?g_Zc3Graze@th128@@3HA", target = 0x004B4CDC },
+  { offset = 259, type = "DIR32", symbol = "?g_Zc3Continues@th128@@3HA", target = 0x004B4D28 },
+  { offset = 270, type = "DIR32", symbol = "?g_Zc3FreezeVal@th128@@3HA", target = 0x004B4D64 },
+  { offset = 276, type = "DIR32", symbol = "?g_Zc3FreezeSub@th128@@3HA", target = 0x004B4D68 },
+  { offset = 293, type = "DIR32", symbol = "?g_Zc3FreezeVal@th128@@3HA", target = 0x004B4D64 },
+  { offset = 308, type = "DIR32", symbol = "?g_Zc3FieldD70@th128@@3HA", target = 0x004B4D70 },
+  { offset = 320, type = "DIR32", symbol = "?g_Zc3FieldD60@th128@@3MA", target = 0x004B4D60 },
+]
+
+[units.as-draw-name-entry]
+artifact_kind = "linked-pe"
+source = "src/AsciiScreenDraw.cpp"
+support_sources = ["probes/ascii-screen-draw-context.cpp", "src/AsciiInf.cpp", "src/ZunTimer.cpp"]
+output_dir = "build/match-linked/AsciiScreenDraw"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "AsciiScreenDrawProbe@20"
+functions = ["th128::AsDrawNameEntry"]
+symbol = "?AsDrawNameEntry@th128@@YGXPAUAsNameEntry@1@UZunVec3@@@Z"
+target_address = 0x00436890
+size = 375
+linkages = [
+  { offset = 14, type = "DIR32", symbol = "?g_AsciiInf@@3PAUAsciiInf@@A", target = 0x004B8920 },
+  { offset = 29, type = "DIR32", symbol = "??_C@_02DKCKIIND@?$CFs?$AA@", target = 0x004A3644 },
+  { offset = 38, type = "REL32", symbol = "?CreateTextF@AsciiInf@@QAA?AUAsciiTextId@@PBUZunVec3@@PBDZZ", target = 0x00401790 },
+  { offset = 76, type = "DIR32", symbol = "__real@4022000000000000", target = 0x004A6928 },
+  { offset = 85, type = "DIR32", symbol = "?g_AsciiInf@@3PAUAsciiInf@@A", target = 0x004B8920 },
+  { offset = 93, type = "DIR32", symbol = "??_C@_01IDAFKMJL@_?$AA@", target = 0x004A3648 },
+  { offset = 112, type = "REL32", symbol = "?CreateTextF@AsciiInf@@QAA?AUAsciiTextId@@PBUZunVec3@@PBDZZ", target = 0x00401790 },
+  { offset = 118, type = "DIR32", symbol = "__real@43100000", target = 0x004A69BC },
+  { offset = 124, type = "DIR32", symbol = "?g_AsciiInf@@3PAUAsciiInf@@A", target = 0x004B8920 },
+  { offset = 143, type = "DIR32", symbol = "__real@43500000", target = 0x004A69B8 },
+  { offset = 157, type = "DIR32", symbol = "__real@43a00000", target = 0x004A67D0 },
+  { offset = 178, type = "DIR32", symbol = "?g_AsciiInf@@3PAUAsciiInf@@A", target = 0x004B8920 },
+  { offset = 223, type = "DIR32", symbol = "?g_AsKeyboardChars@th128@@3QBDB", target = 0x004A3590 },
+  { offset = 229, type = "DIR32", symbol = "??_C@_02HAOIJKIC@?$CFc?$AA@", target = 0x004A364C },
+  { offset = 264, type = "DIR32", symbol = "??_C@_02HAOIJKIC@?$CFc?$AA@", target = 0x004A364C },
+  { offset = 276, type = "REL32", symbol = "?CreateTextF@AsciiInf@@QAA?AUAsciiTextId@@PBUZunVec3@@PBDZZ", target = 0x00401790 },
+  { offset = 307, type = "DIR32", symbol = "__real@43500000", target = 0x004A69B8 },
+  { offset = 319, type = "DIR32", symbol = "__real@4030000000000000", target = 0x004A6610 },
+  { offset = 333, type = "DIR32", symbol = "__real@4032000000000000", target = 0x004A68A0 },
+  { offset = 352, type = "DIR32", symbol = "?g_AsciiInf@@3PAUAsciiInf@@A", target = 0x004B8920 },
+]
