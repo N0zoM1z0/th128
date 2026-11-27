@@ -8985,3 +8985,342 @@ size = 19
 linkages = [
   { offset = 11, type = "REL32", symbol = "?ReopenTrack@CWaveFileStream@@QAEJPAUBgmTrackInfoStream@@K@Z", target = 0x0046DAD0 },
 ]
+
+# ECL VM / Stack / SPT helpers: VC10 /GL linked-PE exact units.
+[units.ecl-stack-get-local-ptr]
+artifact_kind = "linked-pe"
+source = "src/EclVmHelpers.cpp"
+support_sources = ["probes/ecl-vm-helpers-context.cpp"]
+output_dir = "build/match-linked/EclVmHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EclVmHelpersProbe@44"
+functions = ["EclStack::GetLocalPtr"]
+symbol = "?GetLocalPtr@EclStack@@QAEPAXH@Z"
+target_address = 0x0046DDF0
+size = 18
+linkages = []
+
+[units.ecl-stack-get-ptr]
+artifact_kind = "linked-pe"
+source = "src/EclVmHelpers.cpp"
+support_sources = ["probes/ecl-vm-helpers-context.cpp"]
+output_dir = "build/match-linked/EclVmHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EclVmHelpersProbe@44"
+functions = ["EclStack::GetPtr"]
+symbol = "?GetPtr@EclStack@@QAEPAXH@Z"
+target_address = 0x0046DE10
+size = 3
+linkages = []
+
+[units.ecl-stack-get-sp]
+artifact_kind = "linked-pe"
+source = "src/EclVmHelpers.cpp"
+support_sources = ["probes/ecl-vm-helpers-context.cpp"]
+output_dir = "build/match-linked/EclVmHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EclVmHelpersProbe@44"
+functions = ["EclStack::GetSp"]
+symbol = "?GetSp@EclStack@@QAEHXZ"
+target_address = 0x0046DE20
+size = 7
+linkages = []
+
+[units.ecl-stack-set-sp]
+artifact_kind = "linked-pe"
+source = "src/EclVmHelpers.cpp"
+support_sources = ["probes/ecl-vm-helpers-context.cpp"]
+output_dir = "build/match-linked/EclVmHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EclVmHelpersProbe@44"
+functions = ["EclStack::SetSp"]
+symbol = "?SetSp@EclStack@@QAEXH@Z"
+target_address = 0x0046DE30
+size = 7
+linkages = []
+
+[units.ecl-vm-get-resource]
+artifact_kind = "linked-pe"
+source = "src/EclVmHelpers.cpp"
+support_sources = ["probes/ecl-vm-helpers-context.cpp"]
+output_dir = "build/match-linked/EclVmHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EclVmHelpersProbe@44"
+functions = ["EclVm::GetResource"]
+symbol = "?GetResource@EclVm@@QAEPAVSptResourceInf@@XZ"
+target_address = 0x0046DE40
+size = 7
+linkages = []
+
+[units.ecl-context-get-float-arg]
+artifact_kind = "linked-pe"
+source = "src/EclVmHelpers.cpp"
+support_sources = ["probes/ecl-vm-helpers-context.cpp"]
+output_dir = "build/match-linked/EclVmHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EclVmHelpersProbe@44"
+functions = ["EclContext::GetFloatArg"]
+symbol = "?GetFloatArg@EclContext@@QAEMH@Z"
+target_address = 0x0046FF70
+size = 182
+linkages = [
+  { offset = 48, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 70, type = "DIR32", symbol = "__real@bf800000", target = 0x004A6688 },
+  { offset = 154, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+]
+
+[units.ecl-context-get-int-var]
+artifact_kind = "linked-pe"
+source = "src/EclVmHelpers.cpp"
+support_sources = ["probes/ecl-vm-helpers-context.cpp"]
+output_dir = "build/match-linked/EclVmHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EclVmHelpersProbe@44"
+functions = ["EclContext::GetIntVar"]
+symbol = "?GetIntVar@EclContext@@QAEHH@Z"
+target_address = 0x00470030
+size = 103
+linkages = [
+  { offset = 77, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+]
+
+[units.ecl-context-get-float-var]
+artifact_kind = "linked-pe"
+source = "src/EclVmHelpers.cpp"
+support_sources = ["probes/ecl-vm-helpers-context.cpp"]
+output_dir = "build/match-linked/EclVmHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EclVmHelpersProbe@44"
+functions = ["EclContext::GetFloatVar"]
+symbol = "?GetFloatVar@EclContext@@QAEMM@Z"
+target_address = 0x004700A0
+size = 148
+linkages = [
+  { offset = 23, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 46, type = "DIR32", symbol = "__real@bf800000", target = 0x004A6688 },
+  { offset = 130, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+]
+
+[units.ecl-context-get-float-arg-ptr]
+artifact_kind = "linked-pe"
+source = "src/EclVmHelpers.cpp"
+support_sources = ["probes/ecl-vm-helpers-context.cpp"]
+output_dir = "build/match-linked/EclVmHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EclVmHelpersProbe@44"
+functions = ["EclContext::GetFloatArgPtr"]
+symbol = "?GetFloatArgPtr@EclContext@@QAEPAMH@Z"
+target_address = 0x00470170
+size = 89
+linkages = [
+  { offset = 41, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 69, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+]
+
+[units.ecl-context-get-float-arg1-ptr]
+artifact_kind = "linked-pe"
+source = "src/EclVmHelpers.cpp"
+support_sources = ["probes/ecl-vm-helpers-context.cpp"]
+output_dir = "build/match-linked/EclVmHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EclVmHelpersProbe@44"
+functions = ["EclContext::GetFloatArg1Ptr"]
+symbol = "?GetFloatArg1Ptr@EclContext@@QAEPAMPAUEclInstr@@@Z"
+target_address = 0x004701D0
+size = 73
+linkages = [
+  { offset = 27, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 55, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+]
+
+[units.ecl-vm-find-async-context]
+artifact_kind = "linked-pe"
+source = "src/EclVmHelpers.cpp"
+support_sources = ["probes/ecl-vm-helpers-context.cpp"]
+output_dir = "build/match-linked/EclVmHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EclVmHelpersProbe@44"
+functions = ["EclVm::FindAsyncContext"]
+symbol = "?FindAsyncContext@EclVm@@QAEPAUEclContextNode@@H@Z"
+target_address = 0x004702C0
+size = 36
+linkages = []
+
+[units.ecl-vm-stop-async-contexts]
+artifact_kind = "linked-pe"
+source = "src/EclVmHelpers.cpp"
+support_sources = ["probes/ecl-vm-helpers-context.cpp"]
+output_dir = "build/match-linked/EclVmHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EclVmHelpersProbe@44"
+functions = ["EclVm::StopAsyncContexts"]
+symbol = "?StopAsyncContexts@EclVm@@QAEXXZ"
+target_address = 0x004702F0
+size = 31
+linkages = []
+
+[units.ecl-normalize-angle-diff]
+artifact_kind = "linked-pe"
+source = "src/EclVmHelpers.cpp"
+support_sources = ["probes/ecl-vm-helpers-context.cpp"]
+output_dir = "build/match-linked/EclVmHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EclVmHelpersProbe@44"
+functions = ["NormalizeAngleDiff"]
+symbol = "?NormalizeAngleDiff@@YGMMM@Z"
+target_address = 0x00470310
+size = 99
+linkages = [
+  { offset = 17, type = "DIR32", symbol = "__real@400921fb60000000", target = 0x004A6580 },
+  { offset = 36, type = "DIR32", symbol = "__real@401921fb60000000", target = 0x004A6578 },
+  { offset = 69, type = "DIR32", symbol = "__real@401921fb60000000", target = 0x004A6578 },
+]
+
+[units.ecl-vm-on-sub-hook]
+artifact_kind = "linked-pe"
+source = "src/EclVmHelpers.cpp"
+support_sources = ["probes/ecl-vm-helpers-context.cpp"]
+output_dir = "build/match-linked/EclVmHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EclVmHelpersProbe@44"
+functions = ["EclVm::OnSubHook"]
+symbol = "?OnSubHook@EclVm@@UAEXXZ"
+target_address = 0x004703A0
+size = 1
+linkages = []
+
+[units.ecl-vm-set-resource]
+artifact_kind = "linked-pe"
+source = "src/EclVmHelpers.cpp"
+support_sources = ["probes/ecl-vm-helpers-context.cpp"]
+output_dir = "build/match-linked/EclVmHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EclVmHelpersProbe@44"
+functions = ["EclVm::SetResource"]
+symbol = "?SetResource@EclVm@@QAEXPAVSptResourceInf@@@Z"
+target_address = 0x004703B0
+size = 7
+linkages = []
+
+[units.ecl-vm-set-cur-instr]
+artifact_kind = "linked-pe"
+source = "src/EclVmHelpers.cpp"
+support_sources = ["probes/ecl-vm-helpers-context.cpp"]
+output_dir = "build/match-linked/EclVmHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EclVmHelpersProbe@44"
+functions = ["EclVm::SetCurInstr"]
+symbol = "?SetCurInstr@EclVm@@QAEXPAUEclInstr@@@Z"
+target_address = 0x004703C0
+size = 7
+linkages = []
+
+[units.ecl-vm-get-cur-instr]
+artifact_kind = "linked-pe"
+source = "src/EclVmHelpers.cpp"
+support_sources = ["probes/ecl-vm-helpers-context.cpp"]
+output_dir = "build/match-linked/EclVmHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EclVmHelpersProbe@44"
+functions = ["EclVm::GetCurInstr"]
+symbol = "?GetCurInstr@EclVm@@QAEPAUEclInstr@@XZ"
+target_address = 0x004703D0
+size = 7
+linkages = []
+
+[units.ecl-vm-set-time]
+artifact_kind = "linked-pe"
+source = "src/EclVmHelpers.cpp"
+support_sources = ["probes/ecl-vm-helpers-context.cpp"]
+output_dir = "build/match-linked/EclVmHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EclVmHelpersProbe@44"
+functions = ["EclVm::SetTime"]
+symbol = "?SetTime@EclVm@@QAEXM@Z"
+target_address = 0x004703E0
+size = 15
+linkages = []
+
+[units.spt-resource-find-sub]
+artifact_kind = "linked-pe"
+source = "src/EclVmHelpers.cpp"
+support_sources = ["probes/ecl-vm-helpers-context.cpp"]
+output_dir = "build/match-linked/EclVmHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EclVmHelpersProbe@44"
+functions = ["SptResourceInf::FindSub"]
+symbol = "?FindSub@SptResourceInf@@QAEPAUEclInstr@@PBD@Z"
+target_address = 0x00470610
+size = 133
+linkages = []
+
+[units.ecl-vm-bind-sub]
+artifact_kind = "linked-pe"
+source = "src/EclVmHelpers.cpp"
+support_sources = ["probes/ecl-vm-helpers-context.cpp"]
+output_dir = "build/match-linked/EclVmHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EclVmHelpersProbe@44"
+functions = ["EclVm::BindSub"]
+symbol = "?BindSub@EclVm@@QAEHPAVSptResourceInf@@PBD@Z"
+target_address = 0x00470730
+size = 28
+linkages = [
+  { offset = 8, type = "REL32", symbol = "?FindSub@SptResourceInf@@QAEPAUEclInstr@@PBD@Z", target = 0x00470610 },
+]
+
+[units.ecl-vm-reset-to-sub]
+artifact_kind = "linked-pe"
+source = "src/EclVmHelpers.cpp"
+support_sources = ["probes/ecl-vm-helpers-context.cpp"]
+output_dir = "build/match-linked/EclVmHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EclVmHelpersProbe@44"
+functions = ["EclVm::ResetToSub"]
+symbol = "?ResetToSub@EclVm@@QAEHPAVSptResourceInf@@PBD@Z"
+target_address = 0x00470750
+size = 39
+linkages = [
+  { offset = 8, type = "REL32", symbol = "?FindSub@SptResourceInf@@QAEPAUEclInstr@@PBD@Z", target = 0x00470610 },
+]
+
+[units.ecl-stack-pop]
+artifact_kind = "linked-pe"
+source = "src/EclVmHelpers.cpp"
+support_sources = ["probes/ecl-vm-helpers-context.cpp"]
+output_dir = "build/match-linked/EclVmHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EclVmHelpersProbe@44"
+functions = ["EclStack::Pop"]
+symbol = "?Pop@EclStack@@QAEHPAXD@Z"
+target_address = 0x004707D0
+size = 83
+linkages = [
+  { offset = 74, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+]
+
+[units.ecl-stack-alloc-frame]
+artifact_kind = "linked-pe"
+source = "src/EclVmHelpers.cpp"
+support_sources = ["probes/ecl-vm-helpers-context.cpp"]
+output_dir = "build/match-linked/EclVmHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EclVmHelpersProbe@44"
+functions = ["EclStack::AllocFrame"]
+symbol = "?AllocFrame@EclStack@@QAEHH@Z"
+target_address = 0x00470830
+size = 64
+linkages = []
+
+[units.ecl-stack-free-frame]
+artifact_kind = "linked-pe"
+source = "src/EclVmHelpers.cpp"
+support_sources = ["probes/ecl-vm-helpers-context.cpp"]
+output_dir = "build/match-linked/EclVmHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EclVmHelpersProbe@44"
+functions = ["EclStack::FreeFrame"]
+symbol = "?FreeFrame@EclStack@@QAEHXZ"
+target_address = 0x00470870
+size = 41
+linkages = []

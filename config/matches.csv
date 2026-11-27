@@ -370,3 +370,27 @@ address,name,size,status,match_percent,unit,evidence
 0x0046DDB0,CWaveFileView::SaveFilePos,26,exact,100.00,cwave-file-save-file-pos,Cold pinned VC10 /GL linked-PE replay; complete 26-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046DDD0,WaveDebugLog,1,exact,100.00,wave-debug-log,Cold pinned VC10 /GL linked-PE replay; complete 1-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046DDE0,EclDebugLog,1,exact,100.00,ecl-debug-log,Cold pinned VC10 /GL linked-PE replay; complete 1-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x0046DDF0,EclStack::GetLocalPtr,18,exact,100.00,ecl-stack-get-local-ptr,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x0046DE10,EclStack::GetPtr,3,exact,100.00,ecl-stack-get-ptr,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x0046DE20,EclStack::GetSp,7,exact,100.00,ecl-stack-get-sp,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x0046DE30,EclStack::SetSp,7,exact,100.00,ecl-stack-set-sp,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x0046DE40,EclVm::GetResource,7,exact,100.00,ecl-vm-get-resource,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x0046FF70,EclContext::GetFloatArg,182,exact,100.00,ecl-context-get-float-arg,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x00470030,EclContext::GetIntVar,103,exact,100.00,ecl-context-get-int-var,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x004700A0,EclContext::GetFloatVar,148,exact,100.00,ecl-context-get-float-var,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x00470170,EclContext::GetFloatArgPtr,89,exact,100.00,ecl-context-get-float-arg-ptr,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x004701D0,EclContext::GetFloatArg1Ptr,73,exact,100.00,ecl-context-get-float-arg1-ptr,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x004702C0,EclVm::FindAsyncContext,36,exact,100.00,ecl-vm-find-async-context,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x004702F0,EclVm::StopAsyncContexts,31,exact,100.00,ecl-vm-stop-async-contexts,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x00470310,NormalizeAngleDiff,99,exact,100.00,ecl-normalize-angle-diff,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x004703A0,EclVm::OnSubHook,1,exact,100.00,ecl-vm-on-sub-hook,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x004703B0,EclVm::SetResource,7,exact,100.00,ecl-vm-set-resource,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x004703C0,EclVm::SetCurInstr,7,exact,100.00,ecl-vm-set-cur-instr,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x004703D0,EclVm::GetCurInstr,7,exact,100.00,ecl-vm-get-cur-instr,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x004703E0,EclVm::SetTime,15,exact,100.00,ecl-vm-set-time,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x00470610,SptResourceInf::FindSub,133,exact,100.00,spt-resource-find-sub,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x00470730,EclVm::BindSub,28,exact,100.00,ecl-vm-bind-sub,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x00470750,EclVm::ResetToSub,39,exact,100.00,ecl-vm-reset-to-sub,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x004707D0,EclStack::Pop,83,exact,100.00,ecl-stack-pop,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x00470830,EclStack::AllocFrame,64,exact,100.00,ecl-stack-alloc-frame,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x00470870,EclStack::FreeFrame,41,exact,100.00,ecl-stack-free-frame,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.

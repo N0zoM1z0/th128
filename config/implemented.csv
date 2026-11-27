@@ -268,7 +268,29 @@ DrawAnmVmEffect10
 DrawAnmVmVertices
 DrawTextToTexture
 EaseTransition
+EclContext::GetFloatArg
+EclContext::GetFloatArg1Ptr
+EclContext::GetFloatArgPtr
+EclContext::GetFloatVar
+EclContext::GetIntVar
 EclDebugLog
+EclStack::AllocFrame
+EclStack::FreeFrame
+EclStack::GetLocalPtr
+EclStack::GetPtr
+EclStack::GetSp
+EclStack::Pop
+EclStack::SetSp
+EclVm::BindSub
+EclVm::FindAsyncContext
+EclVm::GetCurInstr
+EclVm::GetResource
+EclVm::OnSubHook
+EclVm::ResetToSub
+EclVm::SetCurInstr
+EclVm::SetResource
+EclVm::SetTime
+EclVm::StopAsyncContexts
 FileSystem::CloseStream
 FileSystem::FileExists
 FileSystem::OpenReadStream
@@ -347,6 +369,7 @@ MenuCursor::Pop
 MenuCursor::Push
 MultiplyFloatPtr
 NormalizeAngle
+NormalizeAngleDiff
 NormalizeAnmCoordinates
 Pbg::Archive::Close
 Pbg::Archive::Open
@@ -425,6 +448,7 @@ SptInf::Slot02
 SptInf::Slot03
 SptInf::Slot04
 SptInf::`scalar deleting destructor'
+SptResourceInf::FindSub
 SptResourceInf::Load
 SptResourceInf::LoadIncludes
 StartAnmVmEffect06

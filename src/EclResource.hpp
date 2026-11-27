@@ -19,6 +19,9 @@ struct EclSub
     void *code;
 };
 
+struct EclInstr;
+class EclVm;
+
 // RTTI SptResourceInf (vtable 0x004A26DC): script file registry. EclResourceInf
 // (vtable 0x004A2720) derives from it and overrides the include slot.
 class SptResourceInf
@@ -26,6 +29,9 @@ class SptResourceInf
 public:
     virtual int Load(void *file);
     virtual int LoadIncludes(void *includes);
+
+    EclInstr *FindSub(const char *name);
+    EclVm *CreateVm(const char *subName);
 
     int fileCount;                  // +0x04
     int subCount;                   // +0x08
