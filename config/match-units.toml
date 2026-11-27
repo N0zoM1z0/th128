@@ -13281,3 +13281,400 @@ linkages = [
   { offset = 4, type = "REL32", symbol = "??1EndMgr@@QAE@XZ", target = 0x004133E0 },
   { offset = 10, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
 ]
+
+[units.ecl-ret1-4136d0]
+artifact_kind = "linked-pe"
+source = "src/EnemyEclHelpers.cpp"
+support_sources = ["probes/enemy-ecl-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyEclHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyEclHelpersProbe@56"
+functions = ["EclRet1_4136D0"]
+symbol = "?EclRet1_4136D0@@YAHXZ"
+target_address = 0x004136D0
+size = 6
+linkages = []
+
+[units.ecl-ret1-413720]
+artifact_kind = "linked-pe"
+source = "src/EnemyEclHelpers.cpp"
+support_sources = ["probes/enemy-ecl-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyEclHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyEclHelpersProbe@56"
+functions = ["EclRet1_413720"]
+symbol = "?EclRet1_413720@@YAHXZ"
+target_address = 0x00413720
+size = 6
+linkages = []
+
+[units.ecl-get-key-hold-frames]
+artifact_kind = "linked-pe"
+source = "src/EnemyEclHelpers.cpp"
+support_sources = ["probes/enemy-ecl-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyEclHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyEclHelpersProbe@56"
+functions = ["EclGetKeyHoldFrames"]
+symbol = "?EclGetKeyHoldFrames@@YAHH@Z"
+target_address = 0x004141A0
+size = 26
+linkages = [
+  { offset = 9, type = "DIR32", symbol = "?g_EclInputMask@@3IA", target = 0x004DAFF8 },
+  { offset = 18, type = "DIR32", symbol = "?g_EclKeyHoldTable@@3PAHA", target = 0x004DB10C },
+]
+
+[units.ecl-test-input-mask]
+artifact_kind = "linked-pe"
+source = "src/EnemyEclHelpers.cpp"
+support_sources = ["probes/enemy-ecl-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyEclHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyEclHelpersProbe@56"
+functions = ["EclTestInputMask"]
+symbol = "?EclTestInputMask@@YGII@Z"
+target_address = 0x004141E0
+size = 15
+linkages = [
+  { offset = 4, type = "DIR32", symbol = "?g_EclInputMask@@3IA", target = 0x004DAFF8 },
+]
+
+[units.ecl-get-84]
+artifact_kind = "linked-pe"
+source = "src/EnemyEclHelpers.cpp"
+support_sources = ["probes/enemy-ecl-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyEclHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyEclHelpersProbe@56"
+functions = ["EclGet84::Get"]
+symbol = "?Get@EclGet84@@QAEHXZ"
+target_address = 0x004141F0
+size = 7
+linkages = []
+
+[units.ecl-is-zero-0]
+artifact_kind = "linked-pe"
+source = "src/EnemyEclHelpers.cpp"
+support_sources = ["probes/enemy-ecl-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyEclHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyEclHelpersProbe@56"
+functions = ["EclIsZ0::IsZero"]
+symbol = "?IsZero@EclIsZ0@@QAEHXZ"
+target_address = 0x00414200
+size = 8
+linkages = []
+
+[units.ecl-noop-414260]
+artifact_kind = "linked-pe"
+source = "src/EnemyEclHelpers.cpp"
+support_sources = ["probes/enemy-ecl-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyEclHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyEclHelpersProbe@56"
+functions = ["EclNoOp414260"]
+symbol = "?EclNoOp414260@@YAXXZ"
+target_address = 0x00414260
+size = 1
+linkages = []
+
+[units.ecl-get-68]
+artifact_kind = "linked-pe"
+source = "src/EnemyEclHelpers.cpp"
+support_sources = ["probes/enemy-ecl-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyEclHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyEclHelpersProbe@56"
+functions = ["EclGet68::Get"]
+symbol = "?Get@EclGet68@@QAEHXZ"
+target_address = 0x00414270
+size = 4
+linkages = []
+
+[units.ecl-set-4b8930-field60]
+artifact_kind = "linked-pe"
+source = "src/EnemyEclHelpers.cpp"
+support_sources = ["probes/enemy-ecl-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyEclHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyEclHelpersProbe@56"
+functions = ["EclSet4B8930Field60"]
+symbol = "?EclSet4B8930Field60@@YGXM@Z"
+target_address = 0x004142A0
+size = 18
+linkages = [
+  { offset = 7, type = "DIR32", symbol = "?g_Ecl4B8930@@3PAUEclField60Global@@A", target = 0x004B8930 },
+]
+
+[units.ecl-clear-1000a]
+artifact_kind = "linked-pe"
+source = "src/EnemyEclHelpers.cpp"
+support_sources = ["probes/enemy-ecl-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyEclHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyEclHelpersProbe@56"
+functions = ["EclClear1000A::Clear"]
+symbol = "?Clear@EclClear1000A@@QAEXXZ"
+target_address = 0x004142C0
+size = 15
+linkages = []
+
+[units.ecl-clear-1000b]
+artifact_kind = "linked-pe"
+source = "src/EnemyEclHelpers.cpp"
+support_sources = ["probes/enemy-ecl-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyEclHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyEclHelpersProbe@56"
+functions = ["EclClear1000B::Clear"]
+symbol = "?Clear@EclClear1000B@@QAEXXZ"
+target_address = 0x004142D0
+size = 15
+linkages = []
+
+[units.ecl-ctx-sub-time]
+artifact_kind = "linked-pe"
+source = "src/EnemyEclHelpers.cpp"
+support_sources = ["probes/enemy-ecl-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyEclHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyEclHelpersProbe@56"
+functions = ["EclCtxHolder::SubTime"]
+symbol = "?SubTime@EclCtxHolder@@QAEXM@Z"
+target_address = 0x004144E0
+size = 17
+linkages = []
+
+[units.ecl-host-free-list]
+artifact_kind = "linked-pe"
+source = "src/EnemyEclHelpers.cpp"
+support_sources = ["probes/enemy-ecl-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyEclHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyEclHelpersProbe@56"
+functions = ["EclHostClean::FreeList"]
+symbol = "?FreeList@EclHostClean@@QAEXXZ"
+target_address = 0x00414500
+size = 45
+linkages = [
+  { offset = 23, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+  { offset = 29, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+]
+
+[units.ecl-host-ctor]
+artifact_kind = "linked-pe"
+source = "src/EnemyEclHelpers.cpp"
+support_sources = ["probes/enemy-ecl-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyEclHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyEclHelpersProbe@56"
+functions = ["EclHostClean::EclHostClean"]
+symbol = "??0EclHostClean@@QAE@XZ"
+target_address = 0x00414530
+size = 67
+linkages = [
+  { offset = 5, type = "DIR32", symbol = "?g_EclHostVtbl@@3PAXA", target = 0x004A26E8 },
+  { offset = 10, type = "REL32", symbol = "?ResetSlots@EclSub1000@@QAEXXZ", target = 0x004142E0 },
+]
+
+[units.ecl-host-dtor]
+artifact_kind = "linked-pe"
+source = "src/EnemyEclHelpers.cpp"
+support_sources = ["probes/enemy-ecl-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyEclHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyEclHelpersProbe@56"
+functions = ["EclHostClean::DestroyHost"]
+symbol = "?DestroyHost@EclHostClean@@QAEXXZ"
+target_address = 0x00414600
+size = 47
+linkages = [
+  { offset = 9, type = "DIR32", symbol = "?g_EclHostVtbl@@3PAXA", target = 0x004A26E8 },
+  { offset = 25, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+  { offset = 31, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+]
+
+[units.ecl-arr-0c-get]
+artifact_kind = "linked-pe"
+source = "src/EnemyEclHelpers.cpp"
+support_sources = ["probes/enemy-ecl-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyEclHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyEclHelpersProbe@56"
+functions = ["EclArr0C::Get"]
+symbol = "?Get@EclArr0C@@QAEHH@Z"
+target_address = 0x00414690
+size = 5
+linkages = []
+
+[units.ecl-sub1098-dtor]
+artifact_kind = "linked-pe"
+source = "src/EnemyEclHelpers.cpp"
+support_sources = ["probes/enemy-ecl-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyEclHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyEclHelpersProbe@56"
+functions = ["EclSub1098::~EclSub1098"]
+symbol = "??1EclSub1098@@QAE@XZ"
+target_address = 0x004146D0
+size = 36
+linkages = [
+  { offset = 8, type = "DIR32", symbol = "?g_EclSub1098Vtbl@@3PAXA", target = 0x004A26DC },
+  { offset = 18, type = "REL32", symbol = "_free", target = 0x0047290C },
+]
+
+[units.ecl-hp-set-a]
+artifact_kind = "linked-pe"
+source = "src/EnemyEclHelpers.cpp"
+support_sources = ["probes/enemy-ecl-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyEclHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyEclHelpersProbe@56"
+functions = ["EclHp::SetHpA"]
+symbol = "?SetHpA@EclHp@@QAEXH@Z"
+target_address = 0x00414700
+size = 3
+linkages = []
+
+[units.ecl-hp-get]
+artifact_kind = "linked-pe"
+source = "src/EnemyEclHelpers.cpp"
+support_sources = ["probes/enemy-ecl-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyEclHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyEclHelpersProbe@56"
+functions = ["EclHp::GetHp"]
+symbol = "?GetHp@EclHp@@QAEHXZ"
+target_address = 0x00414710
+size = 3
+linkages = []
+
+[units.ecl-hp-set-b]
+artifact_kind = "linked-pe"
+source = "src/EnemyEclHelpers.cpp"
+support_sources = ["probes/enemy-ecl-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyEclHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyEclHelpersProbe@56"
+functions = ["EclHp::SetHpB"]
+symbol = "?SetHpB@EclHp@@QAEXH@Z"
+target_address = 0x00414720
+size = 3
+linkages = []
+
+[units.ecl-hp-get-flag1]
+artifact_kind = "linked-pe"
+source = "src/EnemyEclHelpers.cpp"
+support_sources = ["probes/enemy-ecl-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyEclHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyEclHelpersProbe@56"
+functions = ["EclHp::GetFlag1"]
+symbol = "?GetFlag1@EclHp@@QAEHXZ"
+target_address = 0x00414730
+size = 9
+linkages = []
+
+[units.ecl-hp-set-raw-mul7]
+artifact_kind = "linked-pe"
+source = "src/EnemyEclHelpers.cpp"
+support_sources = ["probes/enemy-ecl-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyEclHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyEclHelpersProbe@56"
+functions = ["EclHp::SetRawHpMul7"]
+symbol = "?SetRawHpMul7@EclHp@@QAEXH@Z"
+target_address = 0x00414740
+size = 13
+linkages = []
+
+[units.ecl-hp-set-flag0]
+artifact_kind = "linked-pe"
+source = "src/EnemyEclHelpers.cpp"
+support_sources = ["probes/enemy-ecl-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyEclHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyEclHelpersProbe@56"
+functions = ["EclHp::SetFlag0"]
+symbol = "?SetFlag0@EclHp@@QAEXH@Z"
+target_address = 0x00414750
+size = 19
+linkages = []
+
+[units.ecl-hp-get-field04]
+artifact_kind = "linked-pe"
+source = "src/EnemyEclHelpers.cpp"
+support_sources = ["probes/enemy-ecl-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyEclHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyEclHelpersProbe@56"
+functions = ["EclHp::GetField04"]
+symbol = "?GetField04@EclHp@@QAEHXZ"
+target_address = 0x00414770
+size = 4
+linkages = []
+
+[units.ecl-hp-set-field04]
+artifact_kind = "linked-pe"
+source = "src/EnemyEclHelpers.cpp"
+support_sources = ["probes/enemy-ecl-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyEclHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyEclHelpersProbe@56"
+functions = ["EclHp::SetField04"]
+symbol = "?SetField04@EclHp@@QAEXH@Z"
+target_address = 0x00414780
+size = 4
+linkages = []
+
+[units.ecl-hp-get-field08]
+artifact_kind = "linked-pe"
+source = "src/EnemyEclHelpers.cpp"
+support_sources = ["probes/enemy-ecl-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyEclHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyEclHelpersProbe@56"
+functions = ["EclHp::GetField08"]
+symbol = "?GetField08@EclHp@@QAEHXZ"
+target_address = 0x00414790
+size = 4
+linkages = []
+
+[units.ecl-hp-set-field08]
+artifact_kind = "linked-pe"
+source = "src/EnemyEclHelpers.cpp"
+support_sources = ["probes/enemy-ecl-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyEclHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyEclHelpersProbe@56"
+functions = ["EclHp::SetField08"]
+symbol = "?SetField08@EclHp@@QAEXH@Z"
+target_address = 0x004147A0
+size = 4
+linkages = []
+
+[units.ecl-hp-set-min]
+artifact_kind = "linked-pe"
+source = "src/EnemyEclHelpers.cpp"
+support_sources = ["probes/enemy-ecl-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyEclHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyEclHelpersProbe@56"
+functions = ["EclHp::SetMinHp"]
+symbol = "?SetMinHp@EclHp@@QAEXH@Z"
+target_address = 0x004147B0
+size = 4
+linkages = []
+
+[units.ecl-hp-apply-damage]
+artifact_kind = "linked-pe"
+source = "src/EnemyEclHelpers.cpp"
+support_sources = ["probes/enemy-ecl-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyEclHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyEclHelpersProbe@56"
+functions = ["EclHp::ApplyDamage"]
+symbol = "?ApplyDamage@EclHp@@QAEHH@Z"
+target_address = 0x004147D0
+size = 59
+linkages = []

@@ -314,13 +314,42 @@ address,name,size,status,match_percent,unit,evidence
 0x00413590,EndSub::DestroySelf,19,exact,100.00,end-sub-destroy-self,Cold replay passed via scripts/replay-exact-units.py --source src/EndingMeshHelpers.cpp
 0x004135B0,EndMgr::Create,96,exact,100.00,end-mgr-create,Cold replay passed via scripts/replay-exact-units.py --source src/EndingMeshHelpers.cpp
 0x00413610,EndMgr::DestroySelf,21,exact,100.00,end-mgr-destroy-self,Cold replay passed via scripts/replay-exact-units.py --source src/EndingMeshHelpers.cpp
+0x004136D0,EclRet1_4136D0,6,exact,100.00,ecl-ret1-4136d0,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyEclHelpers.cpp
+0x00413720,EclRet1_413720,6,exact,100.00,ecl-ret1-413720,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyEclHelpers.cpp
+0x004141A0,EclGetKeyHoldFrames,26,exact,100.00,ecl-get-key-hold-frames,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyEclHelpers.cpp
+0x004141E0,EclTestInputMask,15,exact,100.00,ecl-test-input-mask,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyEclHelpers.cpp
+0x004141F0,EclGet84::Get,7,exact,100.00,ecl-get-84,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyEclHelpers.cpp
+0x00414200,EclIsZ0::IsZero,8,exact,100.00,ecl-is-zero-0,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyEclHelpers.cpp
+0x00414260,EclNoOp414260,1,exact,100.00,ecl-noop-414260,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyEclHelpers.cpp
+0x00414270,EclGet68::Get,4,exact,100.00,ecl-get-68,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyEclHelpers.cpp
+0x004142A0,EclSet4B8930Field60,18,exact,100.00,ecl-set-4b8930-field60,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyEclHelpers.cpp
+0x004142C0,EclClear1000A::Clear,15,exact,100.00,ecl-clear-1000a,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyEclHelpers.cpp
+0x004142D0,EclClear1000B::Clear,15,exact,100.00,ecl-clear-1000b,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyEclHelpers.cpp
 0x00414360,SptInf::Slot00,3,exact,100.00,spt-slot00,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
 0x004144A0,SptInf::Slot01,5,exact,100.00,spt-slot01,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
 0x004144B0,SptInf::Slot02,5,exact,100.00,spt-slot02,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
 0x004144C0,SptInf::Slot03,5,exact,100.00,spt-slot03,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
 0x004144D0,SptInf::Slot04,5,exact,100.00,spt-slot04,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
+0x004144E0,EclCtxHolder::SubTime,17,exact,100.00,ecl-ctx-sub-time,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyEclHelpers.cpp
+0x00414500,EclHostClean::FreeList,45,exact,100.00,ecl-host-free-list,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyEclHelpers.cpp
+0x00414530,EclHostClean::EclHostClean,67,exact,100.00,ecl-host-ctor,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyEclHelpers.cpp
+0x00414600,EclHostClean::DestroyHost,47,exact,100.00,ecl-host-dtor,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyEclHelpers.cpp
 0x00414630,SptInf::`scalar deleting destructor',74,exact,100.00,spt-deleting-destructor,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; vtable and three operator delete relocations replayed; zero byte differences.
 0x00414680,SptResourceInf::LoadIncludes,5,exact,100.00,spt-resource-load-includes,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
+0x00414690,EclArr0C::Get,5,exact,100.00,ecl-arr-0c-get,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyEclHelpers.cpp
+0x004146D0,EclSub1098::~EclSub1098,36,exact,100.00,ecl-sub1098-dtor,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyEclHelpers.cpp
+0x00414700,EclHp::SetHpA,3,exact,100.00,ecl-hp-set-a,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyEclHelpers.cpp
+0x00414710,EclHp::GetHp,3,exact,100.00,ecl-hp-get,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyEclHelpers.cpp
+0x00414720,EclHp::SetHpB,3,exact,100.00,ecl-hp-set-b,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyEclHelpers.cpp
+0x00414730,EclHp::GetFlag1,9,exact,100.00,ecl-hp-get-flag1,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyEclHelpers.cpp
+0x00414740,EclHp::SetRawHpMul7,13,exact,100.00,ecl-hp-set-raw-mul7,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyEclHelpers.cpp
+0x00414750,EclHp::SetFlag0,19,exact,100.00,ecl-hp-set-flag0,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyEclHelpers.cpp
+0x00414770,EclHp::GetField04,4,exact,100.00,ecl-hp-get-field04,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyEclHelpers.cpp
+0x00414780,EclHp::SetField04,4,exact,100.00,ecl-hp-set-field04,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyEclHelpers.cpp
+0x00414790,EclHp::GetField08,4,exact,100.00,ecl-hp-get-field08,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyEclHelpers.cpp
+0x004147A0,EclHp::SetField08,4,exact,100.00,ecl-hp-set-field08,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyEclHelpers.cpp
+0x004147B0,EclHp::SetMinHp,4,exact,100.00,ecl-hp-set-min,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyEclHelpers.cpp
+0x004147D0,EclHp::ApplyDamage,59,exact,100.00,ecl-hp-apply-damage,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyEclHelpers.cpp
 0x0041F990,UpdatePostPresentTiming,256,exact,100.00,post-present-timing-update,Pinned VC10 RTM /O2 /Ob1 /Oy- /GL primary TU; complete 256-byte PDB owner and all 8 reviewed address fields replayed by compare-linked-function.py; current cold receipt; .analysis/post-present-timing-final-canonical.json.
 0x00427880,HelpInf::CreateVm,35,exact,100.00,help-create-vm,Cold pinned VC10 RTM /GL /Ob1 /Oy- linked-PE replay; complete 35-byte public primary-TU PDB contribution and all 1 reviewed fields; zero byte differences.
 0x004279C0,HelpInf::LoadPageWorker,68,exact,100.00,help-load-page-worker,Cold pinned VC10 RTM /GL /Ob1 /Oy- linked-PE replay; complete 68-byte public primary-TU PDB contribution and all 5 reviewed fields; zero byte differences.
