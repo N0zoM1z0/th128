@@ -787,17 +787,17 @@ address,span_end,state,confidence,evidence_id,notes
 0x0041FC30,0x0041FC46,reviewed,high,gm-gui-set-flag3-clear-boundary,Verified exact VC10 /GL linked-pe extent
 0x0041FC50,0x0041FC5C,reviewed,high,gm-gui-get-flag3-boundary,Verified exact VC10 /GL linked-pe extent
 0x0041FC60,0x0041FC6C,reviewed,high,gm-gui-set-flag4-boundary,Verified exact VC10 /GL linked-pe extent
-0x0041FC70,0x0041FC7C,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x0041FC70..0x0041FC7C (13 bytes) ends with ret; then padding-then-start 0x0041FC80; WEAK: no call, jump, pointer or vtable reference found"
+0x0041FC70,0x0041FC7C,reviewed,high,gd-gui-get-flag4-boundary,Verified exact VC10 /GL linked-pe extent
 0x0041FC80,0x0041FD4E,reviewed,high,bdesc-exact,start padding; refs callx5; descent body 0x0041FC80..0x0041FD4E (207 bytes) ends with ret; then padding-then-start 0x0041FD50
 0x0041FD50,0x0041FE1F,reviewed,high,bdesc-exact,start padding; refs callx6; descent body 0x0041FD50..0x0041FE1F (208 bytes) ends with ret; then adjacent-start 0x0041FE20
 0x0041FE20,0x0041FFBB,reviewed,high,bdesc-exact,start after-terminator; refs callx1; descent body 0x0041FE20..0x0041FFBB (412 bytes) ends with ret; then padding-then-start 0x0041FFC0; 3 filler hole(s)
-0x0041FFC0,0x0041FFCE,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x0041FFC0..0x0041FFCE (15 bytes) ends with ret; then padding-then-start 0x0041FFD0; WEAK: no call, jump, pointer or vtable reference found"
-0x0041FFD0,0x0041FFDB,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x0041FFD0..0x0041FFDB (12 bytes) ends with ret; then padding-then-start 0x0041FFE0; WEAK: no call, jump, pointer or vtable reference found"
-0x0041FFE0,0x0041FFFA,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x0041FFE0..0x0041FFFA (27 bytes) ends with ret; then padding-then-start 0x00420000; WEAK: no call, jump, pointer or vtable reference found"
-0x00420000,0x0042000B,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00420000..0x0042000B (12 bytes) ends with ret; then padding-then-start 0x00420010; WEAK: no call, jump, pointer or vtable reference found"
-0x00420010,0x0042001B,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00420010..0x0042001B (12 bytes) ends with ret; then padding-then-start 0x00420020; WEAK: no call, jump, pointer or vtable reference found"
+0x0041FFC0,0x0041FFCE,reviewed,high,gd-enemy-not-flag5-boundary,Verified exact VC10 /GL linked-pe extent
+0x0041FFD0,0x0041FFDB,reviewed,high,gd-enemy-not-flag0-boundary,Verified exact VC10 /GL linked-pe extent
+0x0041FFE0,0x0041FFFA,reviewed,high,gd-enemy-flag04-pos-boundary,Verified exact VC10 /GL linked-pe extent
+0x00420000,0x0042000B,reviewed,high,gd-enemy-mgr-flag0-boundary,Verified exact VC10 /GL linked-pe extent
+0x00420010,0x0042001B,reviewed,high,gd-4b8934-get-94-boundary,Verified exact VC10 /GL linked-pe extent
 0x00420020,0x004200C4,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00420020..0x004200C4 (165 bytes) ends with ret; then padding-then-start 0x004200D0
-0x004200D0,0x004200DA,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x004200D0..0x004200DA (11 bytes) ends with ret; then padding-then-start 0x004200E0; WEAK: no call, jump, pointer or vtable reference found"
+0x004200D0,0x004200DA,reviewed,high,gd-table-66c-get-boundary,Verified exact VC10 /GL linked-pe extent
 0x004200E0,0x00420197,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x004200E0..0x00420197 (184 bytes) ends with ret; then padding-then-start 0x004201A0
 0x004201A0,0x00420218,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x004201A0..0x00420218 (121 bytes) ends with ret; then padding-then-start 0x00420220
 0x00420220,0x0042034C,reviewed,high,bdesc-exact,start padding; refs callx2; descent body 0x00420220..0x0042034C (301 bytes) ends with ret; then padding-then-start 0x00420350
@@ -809,12 +809,12 @@ address,span_end,state,confidence,evidence_id,notes
 0x00420C50,0x00420CD7,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00420C50..0x00420CD7 (136 bytes) ends with ret; then padding-then-start 0x00420CE0
 0x00420CE0,0x00420FCC,reviewed,high,bdesc-exact,start padding; refs callx5; descent body 0x00420CE0..0x00420FCC (749 bytes) ends with ret; then padding-then-start 0x00420FD0; 1 filler hole(s)
 0x00420FD0,0x00421061,reviewed,high,bdesc-exact,start padding; refs callx2; descent body 0x00420FD0..0x00421061 (146 bytes) ends with ret; then padding-then-start 0x00421070
-0x00421070,0x00421081,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00421070..0x00421081 (18 bytes) ends with ret; then padding-then-start 0x00421090; WEAK: no call, jump, pointer or vtable reference found"
-0x00421090,0x004210AB,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00421090..0x004210AB (28 bytes) ends with ret; then padding-then-start 0x004210B0
+0x00421070,0x00421081,reviewed,high,gd-gui-destroy-self-boundary,Verified exact VC10 /GL linked-pe extent
+0x00421090,0x004210AB,reviewed,high,gd-gui-destroy-global-boundary,Verified exact VC10 /GL linked-pe extent
 0x004210B0,0x004225ED,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x004210B0..0x004225ED (5438 bytes) ends with ret; then padding-then-start 0x004225F0; 10 filler hole(s)
 0x004225F0,0x00422679,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x004225F0..0x00422679 (138 bytes) ends with ret; then padding-then-start 0x00422680
 0x00422680,0x00422D55,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00422680..0x00422D55 (1750 bytes) ends with ret; then padding-then-start 0x00422D60
-0x00422D60,0x00422D66,reviewed,high,bnew-referenced,found by padded-aligned; start padding; refs immx1; descent body 0x00422D60..0x00422D66 (7 bytes) ends with ret; then padding-then-start 0x00422D70
+0x00422D60,0x00422D66,reviewed,high,gd-gui-calc-hook-boundary,Verified exact VC10 /GL linked-pe extent
 0x00422D70,0x00422D79,reviewed,high,bdesc-exact,start padding; refs immx1; descent body 0x00422D70..0x00422D79 (10 bytes) ends with ret; then padding-then-start 0x00422D80
 0x00422D80,0x00422D89,reviewed,high,bdesc-exact,start padding; refs immx1; descent body 0x00422D80..0x00422D89 (10 bytes) ends with ret; then padding-then-start 0x00422D90
 0x00422D90,0x00423107,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00422D90..0x00423107 (888 bytes) ends with ret; then padding-then-start 0x00423110
@@ -833,43 +833,43 @@ address,span_end,state,confidence,evidence_id,notes
 0x00425340,0x004255A6,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00425340..0x004255A6 (615 bytes) ends with ret; then padding-then-start 0x004255B0; 1 filler hole(s); data dwords equal to interior addresses sit in text/float data (chance values): 0x004A1CDC->0x00425450
 0x004255B0,0x00425816,reviewed,high,bdesc-exact,start padding; refs callx2; descent body 0x004255B0..0x00425816 (615 bytes) ends with ret; then padding-then-start 0x00425820; 1 filler hole(s)
 0x00425820,0x00425993,reviewed,high,bdesc-exact,start padding; refs callx3; descent body 0x00425820..0x00425993 (372 bytes) ends with jmp; then padding-then-start 0x004259A0; 1 filler hole(s)
-0x004259A0,0x004259A3,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x004259A0..0x004259A3 (4 bytes) ends with ret; then padding-then-start 0x004259B0; WEAK: no call, jump, pointer or vtable reference found"
-0x004259B0,0x004259B5,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x004259B0..0x004259B5 (6 bytes) ends with ret; then padding-then-start 0x004259C0; WEAK: no call, jump, pointer or vtable reference found"
-0x004259C0,0x004259CB,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x004259C0..0x004259CB (12 bytes) ends with ret; then padding-then-start 0x004259D0; WEAK: no call, jump, pointer or vtable reference found"
-0x004259D0,0x004259D7,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x004259D0..0x004259D7 (8 bytes) ends with ret; then padding-then-start 0x004259E0; WEAK: no call, jump, pointer or vtable reference found"
-0x004259E0,0x004259E3,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x004259E0..0x004259E3 (4 bytes) ends with ret; then padding-then-start 0x004259F0; WEAK: no call, jump, pointer or vtable reference found"
-0x004259F0,0x00425A06,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x004259F0..0x00425A06 (23 bytes) ends with ret; then padding-then-start 0x00425A10; WEAK: no call, jump, pointer or vtable reference found"
+0x004259A0,0x004259A3,reviewed,high,gd-stage-set-7c-boundary,Verified exact VC10 /GL linked-pe extent
+0x004259B0,0x004259B5,reviewed,high,gd-get-4b4d3c-boundary,Verified exact VC10 /GL linked-pe extent
+0x004259C0,0x004259CB,reviewed,high,gd-get-4b4d50-bit2-boundary,Verified exact VC10 /GL linked-pe extent
+0x004259D0,0x004259D7,reviewed,high,gd-set-4b4d50-bit2-boundary,Verified exact VC10 /GL linked-pe extent
+0x004259E0,0x004259E3,reviewed,high,gd-stage-set-6c-boundary,Verified exact VC10 /GL linked-pe extent
+0x004259F0,0x00425A06,reviewed,high,gd-stage-set-idx-boundary,Verified exact VC10 /GL linked-pe extent
 0x00425A10,0x00425A35,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00425A10..0x00425A35 (38 bytes) ends with ret; then padding-then-start 0x00425A40; WEAK: no call, jump, pointer or vtable reference found"
-0x00425A40,0x00425A4F,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00425A40..0x00425A4F (16 bytes) ends with ret; then adjacent-start 0x00425A50; WEAK: no call, jump, pointer or vtable reference found"
-0x00425A50,0x00425A5C,reviewed,medium,bnew-unreferenced-delimited,"found by after-terminator-aligned; start after-terminator; refs none; descent body 0x00425A50..0x00425A5C (13 bytes) ends with ret; then padding-then-start 0x00425A60; WEAK: no call, jump, pointer or vtable reference found"
+0x00425A40,0x00425A4F,reviewed,high,gd-replay-sub-bit0-boundary,Verified exact VC10 /GL linked-pe extent
+0x00425A50,0x00425A5C,reviewed,high,gd-stage-get-flag4-boundary,Verified exact VC10 /GL linked-pe extent
 0x00425A60,0x00425A6F,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00425A60..0x00425A6F (16 bytes) ends with ret; then adjacent-start 0x00425A70; WEAK: no call, jump, pointer or vtable reference found"
-0x00425A70,0x00425A7A,reviewed,medium,bnew-unreferenced-delimited,"found by after-terminator-aligned; start after-terminator; refs none; descent body 0x00425A70..0x00425A7A (11 bytes) ends with ret; then padding-then-start 0x00425A80; WEAK: no call, jump, pointer or vtable reference found"
-0x00425A80,0x00425A8E,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x00425A80..0x00425A8E (15 bytes) ends with ret; then padding-then-start 0x00425A90; WEAK: no call, jump, pointer or vtable reference found"
-0x00425A90,0x00425AA9,reviewed,high,bdesc-exact,start padding; refs callx2; descent body 0x00425A90..0x00425AA9 (26 bytes) ends with ret; then padding-then-start 0x00425AB0
-0x00425AB0,0x00425ABC,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00425AB0..0x00425ABC (13 bytes) ends with ret; then padding-then-start 0x00425AC0; WEAK: no call, jump, pointer or vtable reference found"
-0x00425AC0,0x00425ACE,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x00425AC0..0x00425ACE (15 bytes) ends with ret; then padding-then-start 0x00425AD0; WEAK: no call, jump, pointer or vtable reference found"
-0x00425AD0,0x00425AD3,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00425AD0..0x00425AD3 (4 bytes) ends with ret; then padding-then-start 0x00425AE0; WEAK: no call, jump, pointer or vtable reference found"
-0x00425AE0,0x00425AE6,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00425AE0..0x00425AE6 (7 bytes) ends with ret; then padding-then-start 0x00425AF0; WEAK: no call, jump, pointer or vtable reference found"
-0x00425AF0,0x00425AF6,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00425AF0..0x00425AF6 (7 bytes) ends with ret; then padding-then-start 0x00425B00; WEAK: no call, jump, pointer or vtable reference found"
-0x00425B00,0x00425B06,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00425B00..0x00425B06 (7 bytes) ends with ret; then padding-then-start 0x00425B10; WEAK: no call, jump, pointer or vtable reference found"
-0x00425B10,0x00425B16,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00425B10..0x00425B16 (7 bytes) ends with ret; then padding-then-start 0x00425B20; WEAK: no call, jump, pointer or vtable reference found"
-0x00425B20,0x00425B25,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00425B20..0x00425B25 (6 bytes) ends with ret; then padding-then-start 0x00425B30; WEAK: no call, jump, pointer or vtable reference found"
-0x00425B30,0x00425B35,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00425B30..0x00425B35 (6 bytes) ends with ret; then padding-then-start 0x00425B40; WEAK: no call, jump, pointer or vtable reference found"
+0x00425A70,0x00425A7A,reviewed,high,gd-call-473090-boundary,Verified exact VC10 /GL linked-pe extent
+0x00425A80,0x00425A8E,reviewed,high,gd-test-input-210-boundary,Verified exact VC10 /GL linked-pe extent
+0x00425A90,0x00425AA9,reviewed,high,gd-get-hold-18c-boundary,Verified exact VC10 /GL linked-pe extent
+0x00425AB0,0x00425ABC,reviewed,high,gd-pair-diff-boundary,Verified exact VC10 /GL linked-pe extent
+0x00425AC0,0x00425ACE,reviewed,high,gd-test-input-21c-boundary,Verified exact VC10 /GL linked-pe extent
+0x00425AD0,0x00425AD3,reviewed,high,gd-off-40-get-boundary,Verified exact VC10 /GL linked-pe extent
+0x00425AE0,0x00425AE6,reviewed,high,gd-get-3f0-boundary,Verified exact VC10 /GL linked-pe extent
+0x00425AF0,0x00425AF6,reviewed,high,gd-get-flt-a0-boundary,Verified exact VC10 /GL linked-pe extent
+0x00425B00,0x00425B06,reviewed,high,gd-get-b0-boundary,Verified exact VC10 /GL linked-pe extent
+0x00425B10,0x00425B16,reviewed,high,gd-get-a4-boundary,Verified exact VC10 /GL linked-pe extent
+0x00425B20,0x00425B25,reviewed,high,gd-get-4b4d2c-boundary,Verified exact VC10 /GL linked-pe extent
+0x00425B30,0x00425B35,reviewed,high,gd-off-464-get-boundary,Verified exact VC10 /GL linked-pe extent
 0x00425B40,0x00425B5F,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x00425B40..0x00425B5F (32 bytes) ends with ret; then adjacent-start 0x00425B60; WEAK: no call, jump, pointer or vtable reference found"
-0x00425B60,0x00425B6C,reviewed,medium,bnew-unreferenced-delimited,"found by after-terminator-aligned; start after-terminator; refs none; descent body 0x00425B60..0x00425B6C (13 bytes) ends with ret; then padding-then-start 0x00425B70; WEAK: no call, jump, pointer or vtable reference found"
-0x00425B70,0x00425B75,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00425B70..0x00425B75 (6 bytes) ends with ret; then padding-then-start 0x00425B80; WEAK: no call, jump, pointer or vtable reference found"
-0x00425B80,0x00425B8C,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00425B80..0x00425B8C (13 bytes) ends with ret; then padding-then-start 0x00425B90; WEAK: no call, jump, pointer or vtable reference found"
-0x00425B90,0x00425B95,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00425B90..0x00425B95 (6 bytes) ends with ret; then padding-then-start 0x00425BA0; WEAK: no call, jump, pointer or vtable reference found"
-0x00425BA0,0x00425BA5,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00425BA0..0x00425BA5 (6 bytes) ends with ret; then padding-then-start 0x00425BB0; WEAK: no call, jump, pointer or vtable reference found"
-0x00425BB0,0x00425BB5,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00425BB0..0x00425BB5 (6 bytes) ends with ret; then padding-then-start 0x00425BC0; WEAK: no call, jump, pointer or vtable reference found"
-0x00425BC0,0x00425BC5,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00425BC0..0x00425BC5 (6 bytes) ends with ret; then padding-then-start 0x00425BD0; WEAK: no call, jump, pointer or vtable reference found"
-0x00425BD0,0x00425BD0,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00425BD0..0x00425BD0 (1 bytes) ends with ret; then padding-then-start 0x00425BE0
-0x00425BE0,0x00425BE2,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00425BE0..0x00425BE2 (3 bytes) ends with ret; then padding-then-start 0x00425BF0; WEAK: no call, jump, pointer or vtable reference found"
-0x00425BF0,0x00425BF5,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00425BF0..0x00425BF5 (6 bytes) ends with ret; then padding-then-start 0x00425C00; WEAK: no call, jump, pointer or vtable reference found"
-0x00425C00,0x00425C03,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00425C00..0x00425C03 (4 bytes) ends with ret; then padding-then-start 0x00425C10; WEAK: no call, jump, pointer or vtable reference found"
-0x00425C10,0x00425C3C,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00425C10..0x00425C3C (45 bytes) ends with ret; then padding-then-start 0x00425C40; WEAK: no call, jump, pointer or vtable reference found"
-0x00425C40,0x00425C60,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00425C40..0x00425C60 (33 bytes) ends with ret; then padding-then-start 0x00425C70; WEAK: no call, jump, pointer or vtable reference found"
-0x00425C70,0x00425C81,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00425C70..0x00425C81 (18 bytes) ends with ret; then padding-then-start 0x00425C90; WEAK: no call, jump, pointer or vtable reference found"
+0x00425B60,0x00425B6C,reviewed,high,gd-stage-get-flag3-boundary,Verified exact VC10 /GL linked-pe extent
+0x00425B70,0x00425B75,reviewed,high,gd-get-4d33cc-boundary,Verified exact VC10 /GL linked-pe extent
+0x00425B80,0x00425B8C,reviewed,high,gd-stage-get-flag5-boundary,Verified exact VC10 /GL linked-pe extent
+0x00425B90,0x00425B95,reviewed,high,gd-get-4b4d04-boundary,Verified exact VC10 /GL linked-pe extent
+0x00425BA0,0x00425BA5,reviewed,high,gd-get-4b4d08-boundary,Verified exact VC10 /GL linked-pe extent
+0x00425BB0,0x00425BB5,reviewed,high,gd-get-4b4cfc-boundary,Verified exact VC10 /GL linked-pe extent
+0x00425BC0,0x00425BC5,reviewed,high,gd-get-4b4d00-boundary,Verified exact VC10 /GL linked-pe extent
+0x00425BD0,0x00425BD0,reviewed,high,gd-noop-425bd0-boundary,Verified exact VC10 /GL linked-pe extent
+0x00425BE0,0x00425BE2,reviewed,high,gd-set-0-boundary,Verified exact VC10 /GL linked-pe extent
+0x00425BF0,0x00425BF5,reviewed,high,gd-get-4b4cc0-boundary,Verified exact VC10 /GL linked-pe extent
+0x00425C00,0x00425C03,reviewed,high,gd-get-04-boundary,Verified exact VC10 /GL linked-pe extent
+0x00425C10,0x00425C3C,reviewed,high,gd-vm-set-state3-boundary,Verified exact VC10 /GL linked-pe extent
+0x00425C40,0x00425C60,reviewed,high,gd-vm-set-state-plus7-boundary,Verified exact VC10 /GL linked-pe extent
+0x00425C70,0x00425C81,reviewed,high,gd-4b8924-get-flag3-boundary,Verified exact VC10 /GL linked-pe extent
 0x00425C90,0x00425CA8,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00425C90..0x00425CA8 (25 bytes) ends with ret; then padding-then-start 0x00425CB0; WEAK: no call, jump, pointer or vtable reference found"
 0x00425CB0,0x00425CD2,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00425CB0..0x00425CD2 (35 bytes) ends with ret; then padding-then-start 0x00425CE0; WEAK: no call, jump, pointer or vtable reference found"
 0x00425CE0,0x00425CF6,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00425CE0..0x00425CF6 (23 bytes) ends with ret; then padding-then-start 0x00425D00; WEAK: no call, jump, pointer or vtable reference found"

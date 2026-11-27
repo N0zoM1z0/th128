@@ -15224,3 +15224,624 @@ size = 13
 linkages = [
   { offset = 1, type = "DIR32", symbol = "?g_GmGui@@3PAUGmGuiMini@@A", target = 0x004B8950 },
 ]
+
+[units.gd-gui-get-flag4]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["GdGuiFlags::GetFlag4"]
+symbol = "?GetFlag4@GdGuiFlags@@QAEHXZ"
+target_address = 0x0041FC70
+size = 13
+linkages = []
+
+[units.gd-enemy-not-flag5]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["GdEnemyFlags::IsNotFlag5"]
+symbol = "?IsNotFlag5@GdEnemyFlags@@QAEHXZ"
+target_address = 0x0041FFC0
+size = 15
+linkages = []
+
+[units.gd-enemy-not-flag0]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["GdEnemyFlags::IsNotFlag0"]
+symbol = "?IsNotFlag0@GdEnemyFlags@@QAEHXZ"
+target_address = 0x0041FFD0
+size = 12
+linkages = []
+
+[units.gd-enemy-flag04-pos]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["GdEnemyFlags::IsFlag0Or4OrPos506C"]
+symbol = "?IsFlag0Or4OrPos506C@GdEnemyFlags@@QAEHXZ"
+target_address = 0x0041FFE0
+size = 27
+linkages = []
+
+[units.gd-enemy-mgr-flag0]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["GdEnemyMgrMini::GetFlag0"]
+symbol = "?GetFlag0@GdEnemyMgrMini@@SAHXZ"
+target_address = 0x00420000
+size = 12
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_GdEnemyMgr@@3PAUGdEnemyMgrMini@@A", target = 0x004B8948 },
+]
+
+[units.gd-4b8934-get-94]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["Gd4B8934::GetField94"]
+symbol = "?GetField94@Gd4B8934@@SAHXZ"
+target_address = 0x00420010
+size = 12
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_Gd4B8934@@3PAUGd4B8934@@A", target = 0x004B8934 },
+]
+
+[units.gd-table-66c-get]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["GdTable66C::GetEntry"]
+symbol = "?GetEntry@GdTable66C@@QAEPAXH@Z"
+target_address = 0x004200D0
+size = 11
+linkages = []
+
+[units.gd-gui-destroy-self]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["GdGuiObj::DestroySelf"]
+symbol = "?DestroySelf@GdGuiObj@@QAEPAU1@XZ"
+target_address = 0x00421070
+size = 18
+linkages = [
+  { offset = 2, type = "REL32", symbol = "?GdGuiDtor@@YGXPAUGdGuiObj@@@Z", target = 0x00420CE0 },
+  { offset = 8, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+]
+
+[units.gd-gui-destroy-global]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["GdGuiObj::DestroyGlobal"]
+symbol = "?DestroyGlobal@GdGuiObj@@SAXXZ"
+target_address = 0x00421090
+size = 28
+linkages = [
+  { offset = 3, type = "DIR32", symbol = "?g_GdGuiObj@@3PAUGdGuiObj@@A", target = 0x004B8950 },
+  { offset = 13, type = "REL32", symbol = "?GdGuiDtor@@YGXPAUGdGuiObj@@@Z", target = 0x00420CE0 },
+  { offset = 19, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+]
+
+[units.gd-gui-calc-hook]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["GdGuiObj::CalcHook"]
+symbol = "?CalcHook@GdGuiObj@@QAEHXZ"
+target_address = 0x00422D60
+size = 7
+linkages = [
+  { offset = 2, type = "REL32", symbol = "?GdGuiCalc@@YGHPAUGdGuiObj@@@Z", target = 0x004210B0 },
+]
+
+[units.gd-stage-set-7c]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["GdStageOwner::Set7C"]
+symbol = "?Set7C@GdStageOwner@@QAEXH@Z"
+target_address = 0x004259A0
+size = 4
+linkages = []
+
+[units.gd-get-4b4d3c]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["GdGet4B4D3C"]
+symbol = "?GdGet4B4D3C@@YAHXZ"
+target_address = 0x004259B0
+size = 6
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_Gd4B4D3C@@3HA", target = 0x004B4D3C },
+]
+
+[units.gd-get-4b4d50-bit2]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["GdGet4B4D50Bit2"]
+symbol = "?GdGet4B4D50Bit2@@YAHXZ"
+target_address = 0x004259C0
+size = 12
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_Gd4B4D50@@3IA", target = 0x004B4D50 },
+]
+
+[units.gd-set-4b4d50-bit2]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["GdSet4B4D50Bit2"]
+symbol = "?GdSet4B4D50Bit2@@YAXXZ"
+target_address = 0x004259D0
+size = 8
+linkages = [
+  { offset = 2, type = "DIR32", symbol = "?g_Gd4B4D50@@3IA", target = 0x004B4D50 },
+]
+
+[units.gd-stage-set-6c]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["GdStageOwner::Set6C"]
+symbol = "?Set6C@GdStageOwner@@QAEXH@Z"
+target_address = 0x004259E0
+size = 4
+linkages = []
+
+[units.gd-stage-set-idx]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["GdStageOwner::SetStageIdx"]
+symbol = "?SetStageIdx@GdStageOwner@@QAEXH@Z"
+target_address = 0x004259F0
+size = 23
+linkages = [
+  { offset = 6, type = "DIR32", symbol = "?g_GdStageTable@@3PAUGdStageInfo40@@A", target = 0x004B1A30 },
+  { offset = 12, type = "DIR32", symbol = "?g_GdCurStageInfo@@3PAUGdStageInfo40@@A", target = 0x004B8A98 },
+]
+
+[units.gd-replay-sub-bit0]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["GdReplayMgr::GetSubByte0ABit0"]
+symbol = "?GetSubByte0ABit0@GdReplayMgr@@SAHXZ"
+target_address = 0x00425A40
+size = 16
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_GdReplayMgr@@3PAUGdReplayMgr@@A", target = 0x004B8A84 },
+]
+
+[units.gd-stage-get-flag4]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["GdStageOwner::GetFlag4"]
+symbol = "?GetFlag4@GdStageOwner@@QAEHXZ"
+target_address = 0x00425A50
+size = 13
+linkages = []
+
+[units.gd-call-473090]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["GdCall473090"]
+symbol = "?GdCall473090@@YAHPBD0@Z"
+target_address = 0x00425A70
+size = 11
+linkages = [
+  { offset = 3, type = "REL32", symbol = "?GdStrCmp473090@@YAHPBD0@Z", target = 0x00473090 },
+]
+
+[units.gd-test-input-210]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["GdTestInput210"]
+symbol = "?GdTestInput210@@YGII@Z"
+target_address = 0x00425A80
+size = 15
+linkages = [
+  { offset = 4, type = "DIR32", symbol = "?g_GdInput210@@3IA", target = 0x004DB210 },
+]
+
+[units.gd-get-hold-18c]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["GdGetHold18C"]
+symbol = "?GdGetHold18C@@YAHH@Z"
+target_address = 0x00425A90
+size = 26
+linkages = [
+  { offset = 9, type = "DIR32", symbol = "?g_GdInput210@@3IA", target = 0x004DB210 },
+  { offset = 18, type = "DIR32", symbol = "?g_GdHold18C@@3PAHA", target = 0x004DB18C },
+]
+
+[units.gd-pair-diff]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["GdPair::Diff"]
+symbol = "?Diff@GdPair@@QAEHXZ"
+target_address = 0x00425AB0
+size = 13
+linkages = []
+
+[units.gd-test-input-21c]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["GdTestInput21C"]
+symbol = "?GdTestInput21C@@YGII@Z"
+target_address = 0x00425AC0
+size = 15
+linkages = [
+  { offset = 4, type = "DIR32", symbol = "?g_GdInput21C@@3IA", target = 0x004DB21C },
+]
+
+[units.gd-off-40-get]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["GdOff40::Get"]
+symbol = "?Get@GdOff40@@QAEPAHXZ"
+target_address = 0x00425AD0
+size = 4
+linkages = []
+
+[units.gd-get-3f0]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["GdGet3F0::Get"]
+symbol = "?Get@GdGet3F0@@QAEHXZ"
+target_address = 0x00425AE0
+size = 7
+linkages = []
+
+[units.gd-get-flt-a0]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["GdGetFltA0::Get"]
+symbol = "?Get@GdGetFltA0@@QAEMXZ"
+target_address = 0x00425AF0
+size = 7
+linkages = []
+
+[units.gd-get-b0]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["GdGetB0::Get"]
+symbol = "?Get@GdGetB0@@QAEHXZ"
+target_address = 0x00425B00
+size = 7
+linkages = []
+
+[units.gd-get-a4]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["GdGetA4::Get"]
+symbol = "?Get@GdGetA4@@QAEHXZ"
+target_address = 0x00425B10
+size = 7
+linkages = []
+
+[units.gd-get-4b4d2c]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["GdGet4B4D2C"]
+symbol = "?GdGet4B4D2C@@YAHXZ"
+target_address = 0x00425B20
+size = 6
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_Gd4B4D2C@@3HA", target = 0x004B4D2C },
+]
+
+[units.gd-off-464-get]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["GdOff464::Get"]
+symbol = "?Get@GdOff464@@QAEPAHXZ"
+target_address = 0x00425B30
+size = 6
+linkages = []
+
+[units.gd-stage-get-flag3]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["GdStageOwner::GetFlag3"]
+symbol = "?GetFlag3@GdStageOwner@@QAEHXZ"
+target_address = 0x00425B60
+size = 13
+linkages = []
+
+[units.gd-get-4d33cc]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["GdGet4D33CC"]
+symbol = "?GdGet4D33CC@@YAHXZ"
+target_address = 0x00425B70
+size = 6
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_Gd4D33CC@@3HA", target = 0x004D33CC },
+]
+
+[units.gd-stage-get-flag5]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["GdStageOwner::GetFlag5"]
+symbol = "?GetFlag5@GdStageOwner@@QAEHXZ"
+target_address = 0x00425B80
+size = 13
+linkages = []
+
+[units.gd-get-4b4d04]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["GdGet4B4D04"]
+symbol = "?GdGet4B4D04@@YAHXZ"
+target_address = 0x00425B90
+size = 6
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_Gd4B4D04@@3HA", target = 0x004B4D04 },
+]
+
+[units.gd-get-4b4d08]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["GdGet4B4D08"]
+symbol = "?GdGet4B4D08@@YAHXZ"
+target_address = 0x00425BA0
+size = 6
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_Gd4B4D08@@3HA", target = 0x004B4D08 },
+]
+
+[units.gd-get-4b4cfc]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["GdGet4B4CFC"]
+symbol = "?GdGet4B4CFC@@YAHXZ"
+target_address = 0x00425BB0
+size = 6
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_Gd4B4CFC@@3HA", target = 0x004B4CFC },
+]
+
+[units.gd-get-4b4d00]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["GdGet4B4D00"]
+symbol = "?GdGet4B4D00@@YAHXZ"
+target_address = 0x00425BC0
+size = 6
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_Gd4B4D00@@3HA", target = 0x004B4D00 },
+]
+
+[units.gd-noop-425bd0]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["GdNoOp425BD0"]
+symbol = "?GdNoOp425BD0@@YAXXZ"
+target_address = 0x00425BD0
+size = 1
+linkages = []
+
+[units.gd-set-0]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["GdSet0::Set"]
+symbol = "?Set@GdSet0@@QAEXH@Z"
+target_address = 0x00425BE0
+size = 3
+linkages = []
+
+[units.gd-get-4b4cc0]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["GdGet4B4CC0"]
+symbol = "?GdGet4B4CC0@@YAHXZ"
+target_address = 0x00425BF0
+size = 6
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_Gd4B4CC0@@3HA", target = 0x004B4CC0 },
+]
+
+[units.gd-get-04]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["GdGet04::Get"]
+symbol = "?Get@GdGet04@@QAEHXZ"
+target_address = 0x00425C00
+size = 4
+linkages = []
+
+[units.gd-vm-set-state3]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["GdVmState::SetState3"]
+symbol = "?SetState3@GdVmState@@QAEXXZ"
+target_address = 0x00425C10
+size = 45
+linkages = []
+
+[units.gd-vm-set-state-plus7]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["GdVmState::SetStatePlus7"]
+symbol = "?SetStatePlus7@GdVmState@@QAEXH@Z"
+target_address = 0x00425C40
+size = 33
+linkages = []
+
+[units.gd-4b8924-get-flag3]
+artifact_kind = "linked-pe"
+source = "src/GuiDialogHelpers.cpp"
+support_sources = ["probes/gui-dialog-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiDialogHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiDialogHelpersProbe@84"
+functions = ["Gd4B8924::GetFlag3"]
+symbol = "?GetFlag3@Gd4B8924@@SAHXZ"
+target_address = 0x00425C70
+size = 18
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_Gd4B8924@@3PAUGd4B8924@@A", target = 0x004B8924 },
+]
