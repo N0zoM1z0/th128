@@ -16480,3 +16480,1637 @@ symbol = "?GtNoOp4277B0@@YAXXZ"
 target_address = 0x004277B0
 size = 1
 linkages = []
+
+
+
+[units.IlResetGlobals]
+artifact_kind = "linked-pe"
+source = "src/ItemLaserHelpers.cpp"
+support_sources = ["probes/item-laser-helpers-context.cpp"]
+output_dir = "build/match-linked/ItemLaserHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ItemLaserHelpersProbe@60"
+functions = ["IlResetGlobals"]
+symbol = "?IlResetGlobals@@YAPAUIlGlobals@@XZ"
+target_address = 0x00427850
+size = 41
+linkages = [
+  { offset = 8, type = "DIR32", symbol = "?g_IlGlobals@@3UIlGlobals@@A", target = 0x004B4CC0 },
+  { offset = 13, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+  { offset = 23, type = "DIR32", symbol = "?g_IlGlobals@@3UIlGlobals@@A", target = 0x004B4CC0, addend = 76 },
+  { offset = 28, type = "DIR32", symbol = "?g_IlGlobals@@3UIlGlobals@@A", target = 0x004B4CC0, addend = 120 },
+  { offset = 36, type = "DIR32", symbol = "?g_IlGlobals@@3UIlGlobals@@A", target = 0x004B4CC0 },
+]
+
+[units.IlHelpMgr_ctor]
+artifact_kind = "linked-pe"
+source = "src/ItemLaserHelpers.cpp"
+support_sources = ["probes/item-laser-helpers-context.cpp"]
+output_dir = "build/match-linked/ItemLaserHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ItemLaserHelpersProbe@60"
+functions = ["IlHelpMgr::IlHelpMgr"]
+symbol = "??0IlHelpMgr@@QAE@XZ"
+target_address = 0x00427910
+size = 65
+linkages = [
+  { offset = 46, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+  { offset = 58, type = "DIR32", symbol = "?g_IlHelpMgr@@3PAUIlHelpMgr@@A", target = 0x004B8A58 },
+]
+
+[units.IlTable20_GetFirst]
+artifact_kind = "linked-pe"
+source = "src/ItemLaserHelpers.cpp"
+support_sources = ["probes/item-laser-helpers-context.cpp"]
+output_dir = "build/match-linked/ItemLaserHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ItemLaserHelpersProbe@60"
+functions = ["IlTable20::GetFirst"]
+symbol = "?GetFirst@IlTable20@@QAEHH@Z"
+target_address = 0x004281a0
+size = 13
+linkages = []
+
+[units.IlTable20_GetRow1]
+artifact_kind = "linked-pe"
+source = "src/ItemLaserHelpers.cpp"
+support_sources = ["probes/item-laser-helpers-context.cpp"]
+output_dir = "build/match-linked/ItemLaserHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ItemLaserHelpersProbe@60"
+functions = ["IlTable20::GetRow1"]
+symbol = "?GetRow1@IlTable20@@QAEPAHXZ"
+target_address = 0x004281b0
+size = 10
+linkages = []
+
+[units.IlNoOp4281C0]
+artifact_kind = "linked-pe"
+source = "src/ItemLaserHelpers.cpp"
+support_sources = ["probes/item-laser-helpers-context.cpp"]
+output_dir = "build/match-linked/ItemLaserHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ItemLaserHelpersProbe@60"
+functions = ["IlNoOp4281C0"]
+symbol = "?IlNoOp4281C0@@YAXXZ"
+target_address = 0x004281c0
+size = 1
+linkages = []
+
+[units.IlPlayerMgr_GetF7C]
+artifact_kind = "linked-pe"
+source = "src/ItemLaserHelpers.cpp"
+support_sources = ["probes/item-laser-helpers-context.cpp"]
+output_dir = "build/match-linked/ItemLaserHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ItemLaserHelpersProbe@60"
+functions = ["IlPlayerMgr::GetF7C"]
+symbol = "?GetF7C@IlPlayerMgr@@SAHXZ"
+target_address = 0x004282a0
+size = 12
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_IlPlayerMgr@@3PAUIlPlayerMgr@@A", target = 0x004B8A80 },
+]
+
+[units.IlItemEntry_ctor]
+artifact_kind = "linked-pe"
+source = "src/ItemLaserHelpers.cpp"
+support_sources = ["probes/item-laser-helpers-context.cpp"]
+output_dir = "build/match-linked/ItemLaserHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ItemLaserHelpersProbe@60"
+functions = ["IlItemEntry::IlItemEntry"]
+symbol = "??0IlItemEntry@@QAE@XZ"
+target_address = 0x004282f0
+size = 40
+linkages = [
+  { offset = 4, type = "REL32", symbol = "??0IlAnmVm4E8@@QAE@XZ", target = 0x004031A0 },
+  { offset = 15, type = "REL32", symbol = "??0IlAnmVm4E8@@QAE@XZ", target = 0x004031A0 },
+]
+
+[units.IlItemEntry_dtor]
+artifact_kind = "linked-pe"
+source = "src/ItemLaserHelpers.cpp"
+support_sources = ["probes/item-laser-helpers-context.cpp"]
+output_dir = "build/match-linked/ItemLaserHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ItemLaserHelpersProbe@60"
+functions = ["IlItemEntry::~IlItemEntry"]
+symbol = "??1IlItemEntry@@QAE@XZ"
+target_address = 0x00428320
+size = 63
+linkages = [
+  { offset = 15, type = "REL32", symbol = "_free", target = 0x0047290C },
+  { offset = 44, type = "REL32", symbol = "_free", target = 0x0047290C },
+]
+
+[units.IlRet0_4293C0]
+artifact_kind = "linked-pe"
+source = "src/ItemLaserHelpers.cpp"
+support_sources = ["probes/item-laser-helpers-context.cpp"]
+output_dir = "build/match-linked/ItemLaserHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ItemLaserHelpersProbe@60"
+functions = ["IlRet0_4293C0"]
+symbol = "?IlRet0_4293C0@@YAHXZ"
+target_address = 0x004293c0
+size = 3
+linkages = []
+
+[units.IlIsNZ0_IsNonZero]
+artifact_kind = "linked-pe"
+source = "src/ItemLaserHelpers.cpp"
+support_sources = ["probes/item-laser-helpers-context.cpp"]
+output_dir = "build/match-linked/ItemLaserHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ItemLaserHelpersProbe@60"
+functions = ["IlIsNZ0::IsNonZero"]
+symbol = "?IsNonZero@IlIsNZ0@@QAEHXZ"
+target_address = 0x00429900
+size = 8
+linkages = []
+
+[units.IlGet4B4D38]
+artifact_kind = "linked-pe"
+source = "src/ItemLaserHelpers.cpp"
+support_sources = ["probes/item-laser-helpers-context.cpp"]
+output_dir = "build/match-linked/ItemLaserHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ItemLaserHelpersProbe@60"
+functions = ["IlGet4B4D38"]
+symbol = "?IlGet4B4D38@@YAHXZ"
+target_address = 0x00429910
+size = 6
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_Il4B4D38@@3HA", target = 0x004B4D38 },
+]
+
+[units.IlAddPowerClamped]
+artifact_kind = "linked-pe"
+source = "src/ItemLaserHelpers.cpp"
+support_sources = ["probes/item-laser-helpers-context.cpp"]
+output_dir = "build/match-linked/ItemLaserHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ItemLaserHelpersProbe@60"
+functions = ["IlAddPowerClamped"]
+symbol = "?IlAddPowerClamped@@YGXM@Z"
+target_address = 0x00429920
+size = 49
+linkages = [
+  { offset = 8, type = "DIR32", symbol = "__real@4059000000000000", target = 0x004A6590 },
+  { offset = 13, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 19, type = "DIR32", symbol = "?g_Il4B4CDC@@3HA", target = 0x004B4CDC },
+  { offset = 26, type = "DIR32", symbol = "?g_Il4B4D78@@3HA", target = 0x004B4D78 },
+  { offset = 32, type = "DIR32", symbol = "?g_Il4B4CDC@@3HA", target = 0x004B4CDC },
+  { offset = 41, type = "DIR32", symbol = "?g_Il4B4CDC@@3HA", target = 0x004B4CDC },
+]
+
+[units.IlGet4B4D34]
+artifact_kind = "linked-pe"
+source = "src/ItemLaserHelpers.cpp"
+support_sources = ["probes/item-laser-helpers-context.cpp"]
+output_dir = "build/match-linked/ItemLaserHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ItemLaserHelpersProbe@60"
+functions = ["IlGet4B4D34"]
+symbol = "?IlGet4B4D34@@YAHXZ"
+target_address = 0x00429960
+size = 6
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_Il4B4D34@@3HA", target = 0x004B4D34 },
+]
+
+[units.IlClamp4B4D30Min]
+artifact_kind = "linked-pe"
+source = "src/ItemLaserHelpers.cpp"
+support_sources = ["probes/item-laser-helpers-context.cpp"]
+output_dir = "build/match-linked/ItemLaserHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ItemLaserHelpersProbe@60"
+functions = ["IlClamp4B4D30Min"]
+symbol = "?IlClamp4B4D30Min@@YAXXZ"
+target_address = 0x00429990
+size = 19
+linkages = [
+  { offset = 7, type = "DIR32", symbol = "?g_Il4B4D30@@3HA", target = 0x004B4D30 },
+  { offset = 14, type = "DIR32", symbol = "?g_Il4B4D30@@3HA", target = 0x004B4D30 },
+]
+
+[units.IlNoOp4299B0]
+artifact_kind = "linked-pe"
+source = "src/ItemLaserHelpers.cpp"
+support_sources = ["probes/item-laser-helpers-context.cpp"]
+output_dir = "build/match-linked/ItemLaserHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ItemLaserHelpersProbe@60"
+functions = ["IlNoOp4299B0"]
+symbol = "?IlNoOp4299B0@@YAXXZ"
+target_address = 0x004299b0
+size = 1
+linkages = []
+
+[units.IlLaserNode_LinkAfter]
+artifact_kind = "linked-pe"
+source = "src/ItemLaserHelpers.cpp"
+support_sources = ["probes/item-laser-helpers-context.cpp"]
+output_dir = "build/match-linked/ItemLaserHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ItemLaserHelpersProbe@60"
+functions = ["IlLaserNode::LinkAfter"]
+symbol = "?LinkAfter@IlLaserNode@@QAEXPAU1@@Z"
+target_address = 0x004299c0
+size = 7
+linkages = []
+
+[units.IlCurveObj_AppendNode]
+artifact_kind = "linked-pe"
+source = "src/ItemLaserHelpers.cpp"
+support_sources = ["probes/item-laser-helpers-context.cpp"]
+output_dir = "build/match-linked/ItemLaserHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ItemLaserHelpersProbe@60"
+functions = ["IlCurveObj::AppendNode"]
+symbol = "?AppendNode@IlCurveObj@@QAEPAUIlCurveNode@@M@Z"
+target_address = 0x00429c40
+size = 67
+linkages = [
+  { offset = 29, type = "REL32", symbol = "??2@YAPAXI@Z", target = 0x0047296C },
+]
+
+[units.IlNoOp429CD0]
+artifact_kind = "linked-pe"
+source = "src/ItemLaserHelpers.cpp"
+support_sources = ["probes/item-laser-helpers-context.cpp"]
+output_dir = "build/match-linked/ItemLaserHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ItemLaserHelpersProbe@60"
+functions = ["IlNoOp429CD0"]
+symbol = "?IlNoOp429CD0@@YAXXZ"
+target_address = 0x00429cd0
+size = 1
+linkages = []
+
+[units.IlLaserMgr_SetFlag5F8Bit0]
+artifact_kind = "linked-pe"
+source = "src/ItemLaserHelpers.cpp"
+support_sources = ["probes/item-laser-helpers-context.cpp"]
+output_dir = "build/match-linked/ItemLaserHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ItemLaserHelpersProbe@60"
+functions = ["IlLaserMgr::SetFlag5F8Bit0"]
+symbol = "?SetFlag5F8Bit0@IlLaserMgr@@QAEXH@Z"
+target_address = 0x00429d60
+size = 25
+linkages = []
+
+[units.IlLaserMgr_PushTail]
+artifact_kind = "linked-pe"
+source = "src/ItemLaserHelpers.cpp"
+support_sources = ["probes/item-laser-helpers-context.cpp"]
+output_dir = "build/match-linked/ItemLaserHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ItemLaserHelpersProbe@60"
+functions = ["IlLaserMgr::PushTail"]
+symbol = "?PushTail@IlLaserMgr@@QAEXPAUIlLaserNode@@@Z"
+target_address = 0x00429d80
+size = 25
+linkages = []
+
+[units.IlLaserMgr_UnlinkAndDec]
+artifact_kind = "linked-pe"
+source = "src/ItemLaserHelpers.cpp"
+support_sources = ["probes/item-laser-helpers-context.cpp"]
+output_dir = "build/match-linked/ItemLaserHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ItemLaserHelpersProbe@60"
+functions = ["IlLaserMgr::UnlinkAndDec"]
+symbol = "?UnlinkAndDec@IlLaserMgr@@QAEXPAUIlLaserNode@@@Z"
+target_address = 0x00429da0
+size = 48
+linkages = []
+
+[units.IlPlayerMgr_Get43A90]
+artifact_kind = "linked-pe"
+source = "src/ItemLaserHelpers.cpp"
+support_sources = ["probes/item-laser-helpers-context.cpp"]
+output_dir = "build/match-linked/ItemLaserHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ItemLaserHelpersProbe@60"
+functions = ["IlPlayerMgr::Get43A90"]
+symbol = "?Get43A90@IlPlayerMgr@@SAHXZ"
+target_address = 0x00429dd0
+size = 12
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_IlPlayerMgr@@3PAUIlPlayerMgr@@A", target = 0x004B8A80 },
+]
+
+[units.IlPlayerMgr_SetFlag3AndInc]
+artifact_kind = "linked-pe"
+source = "src/ItemLaserHelpers.cpp"
+support_sources = ["probes/item-laser-helpers-context.cpp"]
+output_dir = "build/match-linked/ItemLaserHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ItemLaserHelpersProbe@60"
+functions = ["IlPlayerMgr::SetFlag3AndInc"]
+symbol = "?SetFlag3AndInc@IlPlayerMgr@@SAXXZ"
+target_address = 0x00429de0
+size = 19
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_IlPlayerMgr@@3PAUIlPlayerMgr@@A", target = 0x004B8A80 },
+]
+
+[units.IlPlayerMgr_ClearFlag3AndZero]
+artifact_kind = "linked-pe"
+source = "src/ItemLaserHelpers.cpp"
+support_sources = ["probes/item-laser-helpers-context.cpp"]
+output_dir = "build/match-linked/ItemLaserHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ItemLaserHelpersProbe@60"
+functions = ["IlPlayerMgr::ClearFlag3AndZero"]
+symbol = "?ClearFlag3AndZero@IlPlayerMgr@@SAXXZ"
+target_address = 0x00429e00
+size = 23
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_IlPlayerMgr@@3PAUIlPlayerMgr@@A", target = 0x004B8A80 },
+]
+
+[units.IlPlayerMgr_IsActive438DCOrFlag1]
+artifact_kind = "linked-pe"
+source = "src/ItemLaserHelpers.cpp"
+support_sources = ["probes/item-laser-helpers-context.cpp"]
+output_dir = "build/match-linked/ItemLaserHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ItemLaserHelpersProbe@60"
+functions = ["IlPlayerMgr::IsActive438DCOrFlag1"]
+symbol = "?IsActive438DCOrFlag1@IlPlayerMgr@@SAHXZ"
+target_address = 0x00429e20
+size = 32
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_IlPlayerMgr@@3PAUIlPlayerMgr@@A", target = 0x004B8A80 },
+]
+
+[units.Il4B8934_AddField84]
+artifact_kind = "linked-pe"
+source = "src/ItemLaserHelpers.cpp"
+support_sources = ["probes/item-laser-helpers-context.cpp"]
+output_dir = "build/match-linked/ItemLaserHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ItemLaserHelpersProbe@60"
+functions = ["Il4B8934::AddField84"]
+symbol = "?AddField84@Il4B8934@@SAXH@Z"
+target_address = 0x00429e40
+size = 42
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_Il4B8934@@3PAUIl4B8934@@A", target = 0x004B8934 },
+]
+
+[units.IlLaserMgr_ctor]
+artifact_kind = "linked-pe"
+source = "src/ItemLaserHelpers.cpp"
+support_sources = ["probes/item-laser-helpers-context.cpp"]
+output_dir = "build/match-linked/ItemLaserHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ItemLaserHelpersProbe@60"
+functions = ["IlLaserMgr::IlLaserMgr"]
+symbol = "??0IlLaserMgr@@QAE@XZ"
+target_address = 0x00429e70
+size = 45
+linkages = [
+  { offset = 5, type = "REL32", symbol = "??0IlLaserBaseExact@@QAE@XZ", target = 0x00429B60 },
+  { offset = 18, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+  { offset = 37, type = "DIR32", symbol = "?g_IlLaserMgr@@3PAUIlLaserMgr@@A", target = 0x004B8A60 },
+]
+
+[units.IlLaserMgr_DrawHook]
+artifact_kind = "linked-pe"
+source = "src/ItemLaserHelpers.cpp"
+support_sources = ["probes/item-laser-helpers-context.cpp"]
+output_dir = "build/match-linked/ItemLaserHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ItemLaserHelpersProbe@60"
+functions = ["IlLaserMgr::DrawHook"]
+symbol = "?DrawHook@IlLaserMgr@@QAEHXZ"
+target_address = 0x0042a3e0
+size = 22
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_IlGameThread@@3PAUIlGameThread@@A", target = 0x004B8954 },
+  { offset = 18, type = "REL32", symbol = "?Draw@IlLaserMgr@@QAEHXZ", target = 0x0042A2E0 },
+]
+
+[units.LmLaserMgr_CancelInBoxA]
+artifact_kind = "linked-pe"
+source = "src/LaserMotherHelpers.cpp"
+support_sources = ["probes/laser-mother-helpers-context.cpp"]
+output_dir = "build/match-linked/LaserMotherHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LaserMotherHelpersProbe@76"
+functions = ["LmLaserMgr::CancelInBoxA"]
+symbol = "?CancelInBoxA@LmLaserMgr@@QAEHPBULmVec3@@0MHH@Z"
+target_address = 0x0042a620
+size = 128
+linkages = []
+
+[units.LmLaserMgr_CancelInBoxB]
+artifact_kind = "linked-pe"
+source = "src/LaserMotherHelpers.cpp"
+support_sources = ["probes/laser-mother-helpers-context.cpp"]
+output_dir = "build/match-linked/LaserMotherHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LaserMotherHelpersProbe@76"
+functions = ["LmLaserMgr::CancelInBoxB"]
+symbol = "?CancelInBoxB@LmLaserMgr@@QAEHPBULmVec3@@0MHHH@Z"
+target_address = 0x0042a6a0
+size = 146
+linkages = []
+
+[units.LmLaserMgr_CancelInCircle]
+artifact_kind = "linked-pe"
+source = "src/LaserMotherHelpers.cpp"
+support_sources = ["probes/laser-mother-helpers-context.cpp"]
+output_dir = "build/match-linked/LaserMotherHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LaserMotherHelpersProbe@76"
+functions = ["LmLaserMgr::CancelInCircle"]
+symbol = "?CancelInCircle@LmLaserMgr@@SGHPBULmVec3@@MHH@Z"
+target_address = 0x0042a7c0
+size = 96
+linkages = [
+  { offset = 4, type = "DIR32", symbol = "?g_LmLaserMgr@@3PAULmLaserMgr@@A", target = 0x004B8A60 },
+]
+
+[units.LmLaserMgr_CancelAll]
+artifact_kind = "linked-pe"
+source = "src/LaserMotherHelpers.cpp"
+support_sources = ["probes/laser-mother-helpers-context.cpp"]
+output_dir = "build/match-linked/LaserMotherHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LaserMotherHelpersProbe@76"
+functions = ["LmLaserMgr::CancelAll"]
+symbol = "?CancelAll@LmLaserMgr@@SAHHH@Z"
+target_address = 0x0042a820
+size = 47
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_LmLaserMgr@@3PAULmLaserMgr@@A", target = 0x004B8A60 },
+]
+
+[units.LmLaserMgr_CheckAll30]
+artifact_kind = "linked-pe"
+source = "src/LaserMotherHelpers.cpp"
+support_sources = ["probes/laser-mother-helpers-context.cpp"]
+output_dir = "build/match-linked/LaserMotherHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LaserMotherHelpersProbe@76"
+functions = ["LmLaserMgr::CheckAll30"]
+symbol = "?CheckAll30@LmLaserMgr@@QAEHHM@Z"
+target_address = 0x0042a850
+size = 56
+linkages = []
+
+[units.LmRet0_42C170]
+artifact_kind = "linked-pe"
+source = "src/LaserMotherHelpers.cpp"
+support_sources = ["probes/laser-mother-helpers-context.cpp"]
+output_dir = "build/match-linked/LaserMotherHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LaserMotherHelpersProbe@76"
+functions = ["LmRet0_42C170"]
+symbol = "?LmRet0_42C170@@YAHXZ"
+target_address = 0x0042c170
+size = 3
+linkages = []
+
+[units.LmRet0_42DB90]
+artifact_kind = "linked-pe"
+source = "src/LaserMotherHelpers.cpp"
+support_sources = ["probes/laser-mother-helpers-context.cpp"]
+output_dir = "build/match-linked/LaserMotherHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LaserMotherHelpersProbe@76"
+functions = ["LmRet0_42DB90"]
+symbol = "?LmRet0_42DB90@@YAHXZ"
+target_address = 0x0042db90
+size = 3
+linkages = []
+
+[units.LmCopyCurveNode]
+artifact_kind = "linked-pe"
+source = "src/LaserMotherHelpers.cpp"
+support_sources = ["probes/laser-mother-helpers-context.cpp"]
+output_dir = "build/match-linked/LaserMotherHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LaserMotherHelpersProbe@76"
+functions = ["LmCopyCurveNode"]
+symbol = "?LmCopyCurveNode@@YAXPBULmCurveNode@@PAU1@@Z"
+target_address = 0x0042f730
+size = 89
+linkages = []
+
+[units.LmLaserCurve_Cleanup]
+artifact_kind = "linked-pe"
+source = "src/LaserMotherHelpers.cpp"
+support_sources = ["probes/laser-mother-helpers-context.cpp"]
+output_dir = "build/match-linked/LaserMotherHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LaserMotherHelpersProbe@76"
+functions = ["LmLaserCurve::Cleanup"]
+symbol = "?Cleanup@LmLaserCurve@@QAEHXZ"
+target_address = 0x0042f790
+size = 96
+linkages = [
+  { offset = 20, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+  { offset = 46, type = "REL32", symbol = "_free", target = 0x0047290C },
+  { offset = 75, type = "REL32", symbol = "_free", target = 0x0047290C },
+]
+
+[units.LmLaserLine_GetSubPlus234]
+artifact_kind = "linked-pe"
+source = "src/LaserMotherHelpers.cpp"
+support_sources = ["probes/laser-mother-helpers-context.cpp"]
+output_dir = "build/match-linked/LaserMotherHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LaserMotherHelpersProbe@76"
+functions = ["LmLaserLine::GetSubPlus234"]
+symbol = "?GetSubPlus234@LmLaserLine@@QAEHXZ"
+target_address = 0x00432010
+size = 18
+linkages = []
+
+[units.LmRet0_432A70]
+artifact_kind = "linked-pe"
+source = "src/LaserMotherHelpers.cpp"
+support_sources = ["probes/laser-mother-helpers-context.cpp"]
+output_dir = "build/match-linked/LaserMotherHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LaserMotherHelpersProbe@76"
+functions = ["LmRet0_432A70"]
+symbol = "?LmRet0_432A70@@YAHXZ"
+target_address = 0x00432a70
+size = 3
+linkages = []
+
+[units.LmRet0_S5]
+artifact_kind = "linked-pe"
+source = "src/LaserMotherHelpers.cpp"
+support_sources = ["probes/laser-mother-helpers-context.cpp"]
+output_dir = "build/match-linked/LaserMotherHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LaserMotherHelpersProbe@76"
+functions = ["LmRet0_S5"]
+symbol = "?LmRet0_S5@@YGHHHHHH@Z"
+target_address = 0x00432a80
+size = 5
+linkages = []
+
+[units.LmRet0_S6]
+artifact_kind = "linked-pe"
+source = "src/LaserMotherHelpers.cpp"
+support_sources = ["probes/laser-mother-helpers-context.cpp"]
+output_dir = "build/match-linked/LaserMotherHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LaserMotherHelpersProbe@76"
+functions = ["LmRet0_S6"]
+symbol = "?LmRet0_S6@@YGHHHHHHH@Z"
+target_address = 0x00432a90
+size = 5
+linkages = []
+
+[units.LmRet0_S4]
+artifact_kind = "linked-pe"
+source = "src/LaserMotherHelpers.cpp"
+support_sources = ["probes/laser-mother-helpers-context.cpp"]
+output_dir = "build/match-linked/LaserMotherHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LaserMotherHelpersProbe@76"
+functions = ["LmRet0_S4"]
+symbol = "?LmRet0_S4@@YGHHHHH@Z"
+target_address = 0x00432aa0
+size = 5
+linkages = []
+
+[units.LmLaserNode_SetByte7CIfZero]
+artifact_kind = "linked-pe"
+source = "src/LaserMotherHelpers.cpp"
+support_sources = ["probes/laser-mother-helpers-context.cpp"]
+output_dir = "build/match-linked/LaserMotherHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LaserMotherHelpersProbe@76"
+functions = ["LmLaserNode::SetByte7CIfZero"]
+symbol = "?SetByte7CIfZero@LmLaserNode@@QAEHHH@Z"
+target_address = 0x00432ab0
+size = 18
+linkages = []
+
+[units.LmRet0_S2]
+artifact_kind = "linked-pe"
+source = "src/LaserMotherHelpers.cpp"
+support_sources = ["probes/laser-mother-helpers-context.cpp"]
+output_dir = "build/match-linked/LaserMotherHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LaserMotherHelpersProbe@76"
+functions = ["LmRet0_S2"]
+symbol = "?LmRet0_S2@@YGHHH@Z"
+target_address = 0x00432ad0
+size = 5
+linkages = []
+
+[units.LmNoOp432AE0]
+artifact_kind = "linked-pe"
+source = "src/LaserMotherHelpers.cpp"
+support_sources = ["probes/laser-mother-helpers-context.cpp"]
+output_dir = "build/match-linked/LaserMotherHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LaserMotherHelpersProbe@76"
+functions = ["LmNoOp432AE0"]
+symbol = "?LmNoOp432AE0@@YAXXZ"
+target_address = 0x00432ae0
+size = 1
+linkages = []
+
+[units.LmNoOp432B30]
+artifact_kind = "linked-pe"
+source = "src/LaserMotherHelpers.cpp"
+support_sources = ["probes/laser-mother-helpers-context.cpp"]
+output_dir = "build/match-linked/LaserMotherHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LaserMotherHelpersProbe@76"
+functions = ["LmNoOp432B30"]
+symbol = "?LmNoOp432B30@@YAXXZ"
+target_address = 0x00432b30
+size = 1
+linkages = []
+
+[units.LmGetFloat88]
+artifact_kind = "linked-pe"
+source = "src/LaserMotherHelpers.cpp"
+support_sources = ["probes/laser-mother-helpers-context.cpp"]
+output_dir = "build/match-linked/LaserMotherHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LaserMotherHelpersProbe@76"
+functions = ["LmGetFloat88"]
+symbol = "?LmGetFloat88@@YAMHPBULmArray88@@@Z"
+target_address = 0x00432bd0
+size = 8
+linkages = []
+
+[units.LmTimer_SetFloat]
+artifact_kind = "linked-pe"
+source = "src/LaserMotherHelpers.cpp"
+support_sources = ["probes/laser-mother-helpers-context.cpp"]
+output_dir = "build/match-linked/LaserMotherHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LaserMotherHelpersProbe@76"
+functions = ["LmTimer::SetFloat"]
+symbol = "?SetFloat@LmTimer@@QAEXM@Z"
+target_address = 0x00432c80
+size = 64
+linkages = [
+  { offset = 34, type = "DIR32", symbol = "?g_LmDefaultTimeScale@@3MA", target = 0x004B6F58 },
+  { offset = 47, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+]
+
+[units.LmVec3_DistSq2D]
+artifact_kind = "linked-pe"
+source = "src/LaserMotherHelpers.cpp"
+support_sources = ["probes/laser-mother-helpers-context.cpp"]
+output_dir = "build/match-linked/LaserMotherHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LaserMotherHelpersProbe@76"
+functions = ["LmVec3::DistSq2D"]
+symbol = "?DistSq2D@LmVec3@@QAEMPBU1@@Z"
+target_address = 0x00432d30
+size = 32
+linkages = []
+
+[units.LmVec3_ScaleTo]
+artifact_kind = "linked-pe"
+source = "src/LaserMotherHelpers.cpp"
+support_sources = ["probes/laser-mother-helpers-context.cpp"]
+output_dir = "build/match-linked/LaserMotherHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LaserMotherHelpersProbe@76"
+functions = ["LmVec3::ScaleTo"]
+symbol = "?ScaleTo@LmVec3@@QAEXPAU1@M@Z"
+target_address = 0x00432d50
+size = 34
+linkages = []
+
+[units.LmVec3_IsOutsidePlayfield]
+artifact_kind = "linked-pe"
+source = "src/LaserMotherHelpers.cpp"
+support_sources = ["probes/laser-mother-helpers-context.cpp"]
+output_dir = "build/match-linked/LaserMotherHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LaserMotherHelpersProbe@76"
+functions = ["LmVec3::IsOutsidePlayfield"]
+symbol = "?IsOutsidePlayfield@LmVec3@@QAEHMM@Z"
+target_address = 0x00432d80
+size = 96
+linkages = [
+  { offset = 16, type = "DIR32", symbol = "__real@c068000000000000", target = 0x004A6608 },
+  { offset = 31, type = "DIR32", symbol = "__real@4068000000000000", target = 0x004A65D8 },
+  { offset = 52, type = "DIR32", symbol = "__real@0000000000000000", target = 0x004A65A0 },
+  { offset = 68, type = "DIR32", symbol = "__real@407c000000000000", target = 0x004A6600 },
+]
+
+[units.LmNoOp432DE0]
+artifact_kind = "linked-pe"
+source = "src/LaserMotherHelpers.cpp"
+support_sources = ["probes/laser-mother-helpers-context.cpp"]
+output_dir = "build/match-linked/LaserMotherHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LaserMotherHelpersProbe@76"
+functions = ["LmNoOp432DE0"]
+symbol = "?LmNoOp432DE0@@YAXXZ"
+target_address = 0x00432de0
+size = 1
+linkages = []
+
+[units.LmIsNZ4_IsNonZero4]
+artifact_kind = "linked-pe"
+source = "src/LaserMotherHelpers.cpp"
+support_sources = ["probes/laser-mother-helpers-context.cpp"]
+output_dir = "build/match-linked/LaserMotherHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LaserMotherHelpersProbe@76"
+functions = ["LmIsNZ4::IsNonZero4"]
+symbol = "?IsNonZero4@LmIsNZ4@@QAEHXZ"
+target_address = 0x00432e10
+size = 9
+linkages = []
+
+[units.LmMother_ctor]
+artifact_kind = "linked-pe"
+source = "src/LaserMotherHelpers.cpp"
+support_sources = ["probes/laser-mother-helpers-context.cpp"]
+output_dir = "build/match-linked/LaserMotherHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LaserMotherHelpersProbe@76"
+functions = ["LmMother::LmMother"]
+symbol = "??0LmMother@@QAE@XZ"
+target_address = 0x00432e40
+size = 58
+linkages = [
+  { offset = 9, type = "DIR32", symbol = "?g_LmSub10Vtbl@@3PAXA", target = 0x004A6050 },
+  { offset = 26, type = "REL32", symbol = "??0LmAnmVm@@QAE@XZ", target = 0x004031A0 },
+  { offset = 38, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+  { offset = 50, type = "DIR32", symbol = "?g_LmMother@@3PAULmMother@@A", target = 0x004B8A64 },
+]
+
+[units.LmMother_Create]
+artifact_kind = "linked-pe"
+source = "src/LaserMotherHelpers.cpp"
+support_sources = ["probes/laser-mother-helpers-context.cpp"]
+output_dir = "build/match-linked/LaserMotherHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LaserMotherHelpersProbe@76"
+functions = ["LmMother::Create"]
+symbol = "?Create@LmMother@@SAPAU1@XZ"
+target_address = 0x004333f0
+size = 117
+linkages = [
+  { offset = 8, type = "REL32", symbol = "??2@YAPAXI@Z", target = 0x0047296C },
+  { offset = 29, type = "DIR32", symbol = "?g_LmSub10Vtbl@@3PAXA", target = 0x004A6050 },
+  { offset = 46, type = "REL32", symbol = "??0LmAnmVm@@QAE@XZ", target = 0x004031A0 },
+  { offset = 58, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+  { offset = 70, type = "DIR32", symbol = "?g_LmMother@@3PAULmMother@@A", target = 0x004B8A64 },
+  { offset = 80, type = "REL32", symbol = "?LmMotherInit@@YGHPAULmMother@@@Z", target = 0x00433110 },
+  { offset = 94, type = "REL32", symbol = "?LmMotherDtor@@YGXPAULmMother@@@Z", target = 0x00433210 },
+  { offset = 100, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+]
+
+[units.LmMother_DestroySelf]
+artifact_kind = "linked-pe"
+source = "src/LaserMotherHelpers.cpp"
+support_sources = ["probes/laser-mother-helpers-context.cpp"]
+output_dir = "build/match-linked/LaserMotherHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LaserMotherHelpersProbe@76"
+functions = ["LmMother::DestroySelf"]
+symbol = "?DestroySelf@LmMother@@QAEPAU1@XZ"
+target_address = 0x00433470
+size = 18
+linkages = [
+  { offset = 2, type = "REL32", symbol = "?LmMotherDtor@@YGXPAULmMother@@@Z", target = 0x00433210 },
+  { offset = 8, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+]
+
+[units.LmMother_DestroyGlobal]
+artifact_kind = "linked-pe"
+source = "src/LaserMotherHelpers.cpp"
+support_sources = ["probes/laser-mother-helpers-context.cpp"]
+output_dir = "build/match-linked/LaserMotherHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LaserMotherHelpersProbe@76"
+functions = ["LmMother::DestroyGlobal"]
+symbol = "?DestroyGlobal@LmMother@@SAXXZ"
+target_address = 0x00433490
+size = 28
+linkages = [
+  { offset = 3, type = "DIR32", symbol = "?g_LmMother@@3PAULmMother@@A", target = 0x004B8A64 },
+  { offset = 13, type = "REL32", symbol = "?LmMotherDtor@@YGXPAULmMother@@@Z", target = 0x00433210 },
+  { offset = 19, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+]
+
+[units.LmPauseAllChains]
+artifact_kind = "linked-pe"
+source = "src/LaserMotherHelpers.cpp"
+support_sources = ["probes/laser-mother-helpers-context.cpp"]
+output_dir = "build/match-linked/LaserMotherHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LaserMotherHelpersProbe@76"
+functions = ["LmPauseAllChains"]
+symbol = "?LmPauseAllChains@@YAXXZ"
+target_address = 0x004335d0
+size = 41
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_LmSupervisor@@3PAULmSupervisorChains@@A", target = 0x004B8920 },
+]
+
+[units.LmObj558_Set558]
+artifact_kind = "linked-pe"
+source = "src/LaserMotherHelpers.cpp"
+support_sources = ["probes/laser-mother-helpers-context.cpp"]
+output_dir = "build/match-linked/LaserMotherHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LaserMotherHelpersProbe@76"
+functions = ["LmObj558::Set558"]
+symbol = "?Set558@LmObj558@@QAEXH@Z"
+target_address = 0x00433600
+size = 7
+linkages = []
+
+[units.LmObj558_GetFlag200Bit4]
+artifact_kind = "linked-pe"
+source = "src/LaserMotherHelpers.cpp"
+support_sources = ["probes/laser-mother-helpers-context.cpp"]
+output_dir = "build/match-linked/LaserMotherHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LaserMotherHelpersProbe@76"
+functions = ["LmObj558::GetFlag200Bit4"]
+symbol = "?GetFlag200Bit4@LmObj558@@QAEHXZ"
+target_address = 0x00433610
+size = 13
+linkages = []
+
+[units.LmNoOp433620]
+artifact_kind = "linked-pe"
+source = "src/LaserMotherHelpers.cpp"
+support_sources = ["probes/laser-mother-helpers-context.cpp"]
+output_dir = "build/match-linked/LaserMotherHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LaserMotherHelpersProbe@76"
+functions = ["LmNoOp433620"]
+symbol = "?LmNoOp433620@@YAXXZ"
+target_address = 0x00433620
+size = 1
+linkages = []
+
+[units.SpAnmVmDel_DeleteSelf]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpAnmVmDel::DeleteSelf"]
+symbol = "?DeleteSelf@SpAnmVmDel@@QAEPAU1@XZ"
+target_address = 0x00433ea0
+size = 41
+linkages = [
+  { offset = 12, type = "REL32", symbol = "_free", target = 0x0047290C },
+  { offset = 31, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+]
+
+[units.SpReleaseAllSurfaces]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpReleaseAllSurfaces"]
+symbol = "?SpReleaseAllSurfaces@@YAXXZ"
+target_address = 0x00435e00
+size = 80
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_SpSurf3014@@3PAUSpComObj@@A", target = 0x004D3014 },
+  { offset = 22, type = "DIR32", symbol = "?g_SpSurf3014@@3PAUSpComObj@@A", target = 0x004D3014 },
+  { offset = 27, type = "DIR32", symbol = "?g_SpSurf3018@@3PAUSpComObj@@A", target = 0x004D3018 },
+  { offset = 45, type = "DIR32", symbol = "?g_SpSurf3018@@3PAUSpComObj@@A", target = 0x004D3018 },
+  { offset = 50, type = "DIR32", symbol = "?g_SpSurf301C@@3PAUSpComObj@@A", target = 0x004D301C },
+  { offset = 68, type = "DIR32", symbol = "?g_SpSurf301C@@3PAUSpComObj@@A", target = 0x004D301C },
+  { offset = 74, type = "DIR32", symbol = "?g_SpSurf3014@@3PAUSpComObj@@A", target = 0x004D3014 },
+]
+
+[units.SpSyncStageInfoPtr]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpSyncStageInfoPtr"]
+symbol = "?SpSyncStageInfoPtr@@YAXXZ"
+target_address = 0x00435e50
+size = 27
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_Sp4B4D18@@3HA", target = 0x004B4D18 },
+  { offset = 6, type = "DIR32", symbol = "?g_Sp4B4D14@@3HA", target = 0x004B4D14 },
+  { offset = 16, type = "DIR32", symbol = "?g_SpStageInfos@@3PAUSpStageInfo@@A", target = 0x004B1A30 },
+  { offset = 22, type = "DIR32", symbol = "?g_SpStageInfoPtr@@3PAUSpStageInfo@@A", target = 0x004B8A98 },
+]
+
+[units.SpSupervisor_UnlockCritSec]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpSupervisor::UnlockCritSec"]
+symbol = "?UnlockCritSec@SpSupervisor@@QAEXH@Z"
+target_address = 0x00435f00
+size = 37
+linkages = [
+  { offset = 25, type = "DIR32", symbol = "?g_SpLeaveCritSec@@3P6GXPAUSpCritSec@@@ZA", target = 0x0049A08C },
+]
+
+[units.SpSupervisor_LockCritSec]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpSupervisor::LockCritSec"]
+symbol = "?LockCritSec@SpSupervisor@@QAEXH@Z"
+target_address = 0x00435f30
+size = 37
+linkages = [
+  { offset = 25, type = "DIR32", symbol = "?g_SpEnterCritSec@@3P6GXPAUSpCritSec@@@ZA", target = 0x0049A088 },
+]
+
+[units.SpStrChrWrap]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpStrChrWrap"]
+symbol = "?SpStrChrWrap@@YAPBDPBDH@Z"
+target_address = 0x00435f60
+size = 11
+linkages = [
+  { offset = 3, type = "REL32", symbol = "_strchr", target = 0x00473400 },
+]
+
+[units.SpSupervisor_GetFlag200Bit6]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpSupervisor::GetFlag200Bit6"]
+symbol = "?GetFlag200Bit6@SpSupervisor@@QAEHXZ"
+target_address = 0x00435f70
+size = 13
+linkages = []
+
+[units.SpSupervisor_GetFlag200Bit5]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpSupervisor::GetFlag200Bit5"]
+symbol = "?GetFlag200Bit5@SpSupervisor@@QAEHXZ"
+target_address = 0x00435f80
+size = 13
+linkages = []
+
+[units.SpSupervisor_GetFlag200Bit3]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpSupervisor::GetFlag200Bit3"]
+symbol = "?GetFlag200Bit3@SpSupervisor@@QAEHXZ"
+target_address = 0x00435f90
+size = 13
+linkages = []
+
+[units.SpSupervisor_GetFlag200Bit1]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpSupervisor::GetFlag200Bit1"]
+symbol = "?GetFlag200Bit1@SpSupervisor@@QAEHXZ"
+target_address = 0x00435fa0
+size = 12
+linkages = []
+
+[units.SpSupervisor_GetField114]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpSupervisor::GetField114"]
+symbol = "?GetField114@SpSupervisor@@QAEHXZ"
+target_address = 0x00435fb0
+size = 7
+linkages = []
+
+[units.SpSupervisor_GetFlag200Bit0]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpSupervisor::GetFlag200Bit0"]
+symbol = "?GetFlag200Bit0@SpSupervisor@@QAEHXZ"
+target_address = 0x00435fc0
+size = 10
+linkages = []
+
+[units.SpSupervisor_GetFlag200Bit2]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpSupervisor::GetFlag200Bit2"]
+symbol = "?GetFlag200Bit2@SpSupervisor@@QAEHXZ"
+target_address = 0x00435fd0
+size = 13
+linkages = []
+
+[units.SpReset4D33BC]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpReset4D33BC"]
+symbol = "?SpReset4D33BC@@YAXXZ"
+target_address = 0x00435fe0
+size = 21
+linkages = [
+  { offset = 2, type = "DIR32", symbol = "?g_Sp4D33BC@@3HA", target = 0x004D33BC },
+  { offset = 12, type = "DIR32", symbol = "?g_Sp4D33C0@@3HA", target = 0x004D33C0 },
+]
+
+[units.SpComHolder_Release0C]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpComHolder::Release0C"]
+symbol = "?Release0C@SpComHolder@@QAEXXZ"
+target_address = 0x00436000
+size = 23
+linkages = []
+
+[units.SpAnmMgr_ReleaseSurf]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpAnmMgr::ReleaseSurf"]
+symbol = "?ReleaseSurf@SpAnmMgr@@SAXXZ"
+target_address = 0x00436020
+size = 37
+linkages = [
+  { offset = 3, type = "DIR32", symbol = "?g_SpAnmMgr@@3PAUSpAnmMgr@@A", target = 0x004D2E50 },
+]
+
+[units.SpWriteWord]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpWriteWord"]
+symbol = "?SpWriteWord@@YAXGPAG@Z"
+target_address = 0x00436050
+size = 4
+linkages = []
+
+[units.SpAnmMgr_ResetByte8E]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpAnmMgr::ResetByte8E"]
+symbol = "?ResetByte8E@SpAnmMgr@@SAXXZ"
+target_address = 0x00436060
+size = 13
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_SpAnmMgr@@3PAUSpAnmMgr@@A", target = 0x004D2E50 },
+]
+
+[units.SpAnmMgr_ResetByte93]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpAnmMgr::ResetByte93"]
+symbol = "?ResetByte93@SpAnmMgr@@SAXXZ"
+target_address = 0x00436070
+size = 13
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_SpAnmMgr@@3PAUSpAnmMgr@@A", target = 0x004D2E50 },
+]
+
+[units.SpAnmMgr_ResetByte92]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpAnmMgr::ResetByte92"]
+symbol = "?ResetByte92@SpAnmMgr@@SAXXZ"
+target_address = 0x00436080
+size = 13
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_SpAnmMgr@@3PAUSpAnmMgr@@A", target = 0x004D2E50 },
+]
+
+[units.SpAnmMgr_ResetByte90]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpAnmMgr::ResetByte90"]
+symbol = "?ResetByte90@SpAnmMgr@@SAXXZ"
+target_address = 0x00436090
+size = 13
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_SpAnmMgr@@3PAUSpAnmMgr@@A", target = 0x004D2E50 },
+]
+
+[units.SpAnmMgr_ResetByte8F]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpAnmMgr::ResetByte8F"]
+symbol = "?ResetByte8F@SpAnmMgr@@SAXXZ"
+target_address = 0x004360a0
+size = 13
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_SpAnmMgr@@3PAUSpAnmMgr@@A", target = 0x004D2E50 },
+]
+
+[units.SpAnmMgr_ResetByte8C]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpAnmMgr::ResetByte8C"]
+symbol = "?ResetByte8C@SpAnmMgr@@SAXXZ"
+target_address = 0x004360b0
+size = 13
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_SpAnmMgr@@3PAUSpAnmMgr@@A", target = 0x004D2E50 },
+]
+
+[units.SpAnmMgr_ResetByte8D]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpAnmMgr::ResetByte8D"]
+symbol = "?ResetByte8D@SpAnmMgr@@SAXXZ"
+target_address = 0x004360c0
+size = 13
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_SpAnmMgr@@3PAUSpAnmMgr@@A", target = 0x004D2E50 },
+]
+
+[units.SpAnmMgr_ResetField88]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpAnmMgr::ResetField88"]
+symbol = "?ResetField88@SpAnmMgr@@SAXXZ"
+target_address = 0x004360d0
+size = 16
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_SpAnmMgr@@3PAUSpAnmMgr@@A", target = 0x004D2E50 },
+]
+
+[units.SpAnmMgr_ResetField94]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpAnmMgr::ResetField94"]
+symbol = "?ResetField94@SpAnmMgr@@SAXXZ"
+target_address = 0x004360e0
+size = 16
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_SpAnmMgr@@3PAUSpAnmMgr@@A", target = 0x004D2E50 },
+]
+
+[units.SpObj10_GetField10]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpObj10::GetField10"]
+symbol = "?GetField10@SpObj10@@QAEHXZ"
+target_address = 0x00436200
+size = 4
+linkages = []
+
+[units.SpGuiMgr_Get5A1C]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpGuiMgr::Get5A1C"]
+symbol = "?Get5A1C@SpGuiMgr@@SAHXZ"
+target_address = 0x00436240
+size = 12
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_SpGuiMgr@@3PAUSpGuiMgr@@A", target = 0x004B8950 },
+]
+
+[units.SpFpsCounter_GetSlowdownPct]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpFpsCounter::GetSlowdownPct"]
+symbol = "?GetSlowdownPct@SpFpsCounter@@SAMXZ"
+target_address = 0x00436280
+size = 41
+linkages = [
+  { offset = 5, type = "DIR32", symbol = "?g_SpFpsCounter@@3PAUSpFpsCounter@@A", target = 0x004B894C },
+  { offset = 23, type = "DIR32", symbol = "__real@4059000000000000", target = 0x004A6590 },
+]
+
+[units.SpHelpMgr_Get128]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpHelpMgr::Get128"]
+symbol = "?Get128@SpHelpMgr@@SAHXZ"
+target_address = 0x004363f0
+size = 12
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_SpHelpMgr@@3PAUSpHelpMgr@@A", target = 0x004B8A58 },
+]
+
+[units.SpRet0_436580]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpRet0_436580"]
+symbol = "?SpRet0_436580@@YAHXZ"
+target_address = 0x00436580
+size = 3
+linkages = []
+
+[units.SpRet0_436590]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpRet0_436590"]
+symbol = "?SpRet0_436590@@YAHXZ"
+target_address = 0x00436590
+size = 3
+linkages = []
+
+[units.SpPauseMgr_PauseBothChains]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpPauseMgr::PauseBothChains"]
+symbol = "?PauseBothChains@SpPauseMgr@@SAXXZ"
+target_address = 0x004365a0
+size = 35
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_SpPauseMgr@@3PAUSpPauseMgr@@A", target = 0x004B8A7C },
+]
+
+[units.SpArrayD4_Push90]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpArrayD4::Push90"]
+symbol = "?Push90@SpArrayD4@@QAEXH@Z"
+target_address = 0x00439e90
+size = 20
+linkages = []
+
+[units.SpSoundSlot_Resume]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpSoundSlot::Resume"]
+symbol = "?Resume@SpSoundSlot@@QAEXXZ"
+target_address = 0x00439ed0
+size = 32
+linkages = []
+
+[units.SpResumeAllSoundBuffers]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpResumeAllSoundBuffers"]
+symbol = "?SpResumeAllSoundBuffers@@YAXXZ"
+target_address = 0x00439ef0
+size = 50
+linkages = [
+  { offset = 2, type = "DIR32", symbol = "?g_SpSoundSlots@@3PAUSpSoundSlot@@A", target = 0x004D73F0 },
+  { offset = 42, type = "DIR32", symbol = "?g_SpGameThread@@3PAUSpGameThread@@A", target = 0x004D7B10 },
+]
+
+[units.SpCaptureMgr_AllocSlot]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpCaptureMgr::AllocSlot"]
+symbol = "?AllocSlot@SpCaptureMgr@@QAEHHHHHHH@Z"
+target_address = 0x00439f50
+size = 102
+linkages = []
+
+[units.SpVm428_GetSub428Field04]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpVm428::GetSub428Field04"]
+symbol = "?GetSub428Field04@SpVm428@@QAEHXZ"
+target_address = 0x00439fc0
+size = 10
+linkages = []
+
+[units.SpGameThread_Get14]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpGameThread::Get14"]
+symbol = "?Get14@SpGameThread@@SAHXZ"
+target_address = 0x0043a070
+size = 9
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_SpGameThread@@3PAUSpGameThread@@A", target = 0x004B8954 },
+]
+
+[units.SpGameThread_IsNode08Flag1]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpGameThread::IsNode08Flag1"]
+symbol = "?IsNode08Flag1@SpGameThread@@SAHXZ"
+target_address = 0x0043a080
+size = 27
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_SpGameThread@@3PAUSpGameThread@@A", target = 0x004B8954 },
+]
+
+[units.SpPlayer_GetPosED8]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpPlayer::GetPosED8"]
+symbol = "?GetPosED8@SpPlayer@@SAPAUSpVec3@@XZ"
+target_address = 0x0043a310
+size = 11
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_SpPlayer@@3PAUSpPlayer@@A", target = 0x004B8A80 },
+]
+
+[units.SpPlayer_GetPosEF0]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpPlayer::GetPosEF0"]
+symbol = "?GetPosEF0@SpPlayer@@SAPAUSpVec3@@XZ"
+target_address = 0x0043a320
+size = 11
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_SpPlayer@@3PAUSpPlayer@@A", target = 0x004B8A80 },
+]
+
+[units.SpPlayer_GetPosEFC]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpPlayer::GetPosEFC"]
+symbol = "?GetPosEFC@SpPlayer@@SAPAUSpVec3@@XZ"
+target_address = 0x0043a330
+size = 11
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_SpPlayer@@3PAUSpPlayer@@A", target = 0x004B8A80 },
+]
+
+[units.SpPlayer_ResetAllOptFlags]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpPlayer::ResetAllOptFlags"]
+symbol = "?ResetAllOptFlags@SpPlayer@@QAEXXZ"
+target_address = 0x0043a340
+size = 54
+linkages = []
+
+[units.SpFlag10_ctor]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpFlag10::SpFlag10"]
+symbol = "??0SpFlag10@@QAE@XZ"
+target_address = 0x0043a520
+size = 7
+linkages = []
+
+[units.SpFlagC8_ctor]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpFlagC8::SpFlagC8"]
+symbol = "??0SpFlagC8@@QAE@XZ"
+target_address = 0x0043a530
+size = 10
+linkages = []
+
+[units.SpFlag5C_ctor]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpFlag5C::SpFlag5C"]
+symbol = "??0SpFlag5C@@QAE@XZ"
+target_address = 0x0043a540
+size = 7
+linkages = []
+
+[units.SpRet0_43ACB0]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpRet0_43ACB0"]
+symbol = "?SpRet0_43ACB0@@YAHXZ"
+target_address = 0x0043acb0
+size = 3
+linkages = []
+
+[units.SpRet0_43ACC0]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpRet0_43ACC0"]
+symbol = "?SpRet0_43ACC0@@YAHXZ"
+target_address = 0x0043acc0
+size = 3
+linkages = []
+
+[units.SpPlayer_DestroySelf]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpPlayer::DestroySelf"]
+symbol = "?DestroySelf@SpPlayer@@QAEPAU1@XZ"
+target_address = 0x0043af40
+size = 18
+linkages = [
+  { offset = 2, type = "REL32", symbol = "?SpPlayerDtor@@YGXPAUSpPlayer@@@Z", target = 0x0043ACD0 },
+  { offset = 8, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+]
+
+[units.SpPlayer_DestroyGlobal]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpPlayer::DestroyGlobal"]
+symbol = "?DestroyGlobal@SpPlayer@@SAXXZ"
+target_address = 0x0043af60
+size = 28
+linkages = [
+  { offset = 3, type = "DIR32", symbol = "?g_SpPlayer@@3PAUSpPlayer@@A", target = 0x004B8A80 },
+  { offset = 13, type = "REL32", symbol = "?SpPlayerDtor@@YGXPAUSpPlayer@@@Z", target = 0x0043ACD0 },
+  { offset = 19, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+]
+
+[units.SpPlayer_SetFlag1AndZeroF64]
+artifact_kind = "linked-pe"
+source = "src/SupervisorPauseHelpers.cpp"
+support_sources = ["probes/supervisor-pause-helpers-context.cpp"]
+output_dir = "build/match-linked/SupervisorPauseHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "SupervisorPauseHelpersProbe@84"
+functions = ["SpPlayer::SetFlag1AndZeroF64"]
+symbol = "?SetFlag1AndZeroF64@SpPlayer@@QAEXXZ"
+target_address = 0x0043b620
+size = 22
+linkages = []
