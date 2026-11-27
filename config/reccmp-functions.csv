@@ -176,6 +176,7 @@ CardVec3::SubInPlace,0x0040D0D0,function
 Rng::GetFloatScaled,0x0040D130,function
 CardGetStatusBit2,0x0040D170,function
 CardGetStatusBit0Or2,0x0040D180,function
+th128::Zc11InitBulletTimer,0x0040D1A0,function
 CardAnmVmMini::GetFlag0,0x0040D290,function
 CardAnmVmMini::SetInterrupt,0x0040D2A0,function
 CardVec2::Set,0x0040D2C0,function

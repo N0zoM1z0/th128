@@ -171,6 +171,7 @@ address,name,size,status,match_percent,unit,evidence
 0x0040D130,Rng::GetFloatScaled,52,exact,100.00,rng-get-float-scale,Cold pinned VC10 /GL linked-PE build; complete 52-byte primary-TU PDB owner and all three reviewed REL32/DIR32 fields replay with zero byte differences.
 0x0040D170,CardGetStatusBit2,15,exact,100.00,card-get-status-bit2,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x0040D180,CardGetStatusBit0Or2,19,exact,100.00,card-get-status-bit0or2,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040D1A0,th128::Zc11InitBulletTimer,230,exact,100.00,zc11-init-bullet-timer,Exact VC10 LTCG match via ZeroCallMedium11Probe@68
 0x0040D290,CardAnmVmMini::GetFlag0,10,exact,100.00,card-anm-get-flag0,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x0040D2A0,CardAnmVmMini::SetInterrupt,25,exact,100.00,card-anm-set-interrupt,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x0040D2C0,CardVec2::Set,18,exact,100.00,card-vec2-set,exact VC10 /GL linked-PE match via replay-exact-units.py

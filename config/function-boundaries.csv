@@ -303,7 +303,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x0040D130,0x0040D163,reviewed,high,rng-get-float-scale-boundary,"Target owner 0x0040D130..0x0040D163 is 52 bytes, ends in RET 4, and has one direct caller from AnmVm::Update; adjacent starts and padding reviewed."
 0x0040D170,0x0040D17E,reviewed,high,card-get-status-bit2-boundary,target-exact
 0x0040D180,0x0040D192,reviewed,high,card-get-status-bit0or2-boundary,target-exact
-0x0040D1A0,0x0040D285,reviewed,high,bdesc-exact,start padding; refs callx6; descent body 0x0040D1A0..0x0040D285 (230 bytes) ends with ret; then padding-then-start 0x0040D290
+0x0040D1A0,0x0040D285,reviewed,high,zc11-init-bullet-timer-boundary,0x0040D1A0..0x0040D285 (230 bytes)
 0x0040D290,0x0040D299,reviewed,high,card-anm-get-flag0-boundary,target-exact
 0x0040D2A0,0x0040D2B8,reviewed,high,card-anm-set-interrupt-boundary,target-exact
 0x0040D2C0,0x0040D2D1,reviewed,high,card-vec2-set-boundary,target-exact
