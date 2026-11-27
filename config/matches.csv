@@ -391,6 +391,35 @@ address,name,size,status,match_percent,unit,evidence
 0x00414F70,DropObj5CC::SetVec3,27,exact,100.00,drop-obj5cc-set-vec3,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
 0x00414F90,DropObj5CC::SetF5DC,16,exact,100.00,drop-obj5cc-set-f5dc,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
 0x00414FA0,DropZero354C::DropZero354C,19,exact,100.00,drop-zero-354c-ctor,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
+0x00414FC0,EmItemMgrMini::FindById,34,exact,100.00,em-item-find-by-id,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
+0x004152E0,EmEnemyMgr::EmEnemyMgr,35,exact,100.00,em-enemy-mgr-ctor,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
+0x00415480,EmSub1098B::EmSub1098B,38,exact,100.00,em-sub1098b-ctor,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
+0x00415610,EmRet0_415610,3,exact,100.00,em-ret0-415610,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
+0x00415620,EmRet0_415620,3,exact,100.00,em-ret0-415620,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
+0x00415630,EmEnemyMgr::EnableBoth,35,exact,100.00,em-enemy-mgr-enable-both,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
+0x004157E0,EmSub1098B::DestroySelf,47,exact,100.00,em-sub1098b-destroy-self,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
+0x00415810,EmSub1098B::~EmSub1098B,36,exact,100.00,em-sub1098b-dtor,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
+0x00415A10,EmRet1_415A10,6,exact,100.00,em-ret1-415a10,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
+0x00415A60,EmRet1_415A60,6,exact,100.00,em-ret1-415a60,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
+0x00417C30,EmEnemyMgr::DamageInCircle,232,exact,100.00,em-enemy-mgr-damage-circle,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
+0x00417D20,EmEnemyMgr::DamageInColumn,203,exact,100.00,em-enemy-mgr-damage-column,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
+0x00417EF0,EmEnemyMgr::DamageInCircle2,232,exact,100.00,em-enemy-mgr-damage-circle2,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
+0x0041DE90,EmSlotsObj::SetSlotF0C,11,exact,100.00,em-slots-set-f0c,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
+0x0041E450,EmNoOp41E450,1,exact,100.00,em-noop-41e450,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
+0x0041ED70,EmInterp2D::SetStart,11,exact,100.00,em-interp2d-set-start,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
+0x0041ED80,EmInterp2D::SetEnd,12,exact,100.00,em-interp2d-set-end,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
+0x0041EDD0,EmInterp2D::SetDuration,4,exact,100.00,em-interp2d-set-duration,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
+0x0041EDE0,EmInterp2D::ResetTimer,52,exact,100.00,em-interp2d-reset-timer,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
+0x0041EE20,EmInterp2D::GetDuration,4,exact,100.00,em-interp2d-get-duration,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
+0x0041EE30,EmInterp2D::ClearDuration,8,exact,100.00,em-interp2d-clear-duration,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
+0x0041EF60,EmGet4D33CC,6,exact,100.00,em-get-4d33cc,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
+0x0041EFB0,EmShort41E::Get,8,exact,100.00,em-short-41e-get,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
+0x0041EFD0,EmGet4B4D30,6,exact,100.00,em-get-4b4d30,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
+0x0041EFE0,EmFloat28::Get28,4,exact,100.00,em-float28-get28,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
+0x0041EFF0,EmFloat28::Get2C,4,exact,100.00,em-float28-get2c,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
+0x0041F000,EmFloat28::SetFlag1,5,exact,100.00,em-float28-set-flag1,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
+0x0041F010,EmFloat28::Set2C,13,exact,100.00,em-float28-set2c,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
+0x0041F020,EmSetWrapped28,25,exact,100.00,em-set-wrapped28,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
 0x0041F990,UpdatePostPresentTiming,256,exact,100.00,post-present-timing-update,Pinned VC10 RTM /O2 /Ob1 /Oy- /GL primary TU; complete 256-byte PDB owner and all 8 reviewed address fields replayed by compare-linked-function.py; current cold receipt; .analysis/post-present-timing-final-canonical.json.
 0x00427880,HelpInf::CreateVm,35,exact,100.00,help-create-vm,Cold pinned VC10 RTM /GL /Ob1 /Oy- linked-PE replay; complete 35-byte public primary-TU PDB contribution and all 1 reviewed fields; zero byte differences.
 0x004279C0,HelpInf::LoadPageWorker,68,exact,100.00,help-load-page-worker,Cold pinned VC10 RTM /GL /Ob1 /Oy- linked-PE replay; complete 68-byte public primary-TU PDB contribution and all 5 reviewed fields; zero byte differences.

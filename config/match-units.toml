@@ -14253,3 +14253,409 @@ size = 19
 linkages = [
   { offset = 9, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
 ]
+
+[units.em-item-find-by-id]
+artifact_kind = "linked-pe"
+source = "src/EnemyMgrMathHelpers.cpp"
+support_sources = ["probes/enemy-mgr-math-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyMgrMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyMgrMathHelpersProbe@64"
+functions = ["EmItemMgrMini::FindById"]
+symbol = "?FindById@EmItemMgrMini@@SAPAUEmItemNode@@H@Z"
+target_address = 0x00414FC0
+size = 34
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_EmItemMgr@@3PAUEmItemMgrMini@@A", target = 0x004B8A60 },
+]
+
+[units.em-enemy-mgr-ctor]
+artifact_kind = "linked-pe"
+source = "src/EnemyMgrMathHelpers.cpp"
+support_sources = ["probes/enemy-mgr-math-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyMgrMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyMgrMathHelpersProbe@64"
+functions = ["EmEnemyMgr::EmEnemyMgr"]
+symbol = "??0EmEnemyMgr@@QAE@XZ"
+target_address = 0x004152E0
+size = 35
+linkages = [
+  { offset = 16, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+  { offset = 28, type = "DIR32", symbol = "?g_EmEnemyMgr@@3PAUEmEnemyMgr@@A", target = 0x004B8948 },
+]
+
+[units.em-sub1098b-ctor]
+artifact_kind = "linked-pe"
+source = "src/EnemyMgrMathHelpers.cpp"
+support_sources = ["probes/enemy-mgr-math-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyMgrMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyMgrMathHelpersProbe@64"
+functions = ["EmSub1098B::EmSub1098B"]
+symbol = "??0EmSub1098B@@QAE@XZ"
+target_address = 0x00415480
+size = 38
+linkages = [
+  { offset = 22, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+  { offset = 31, type = "DIR32", symbol = "?g_EmVtbl4A2720@@3PAXA", target = 0x004A2720 },
+]
+
+[units.em-ret0-415610]
+artifact_kind = "linked-pe"
+source = "src/EnemyMgrMathHelpers.cpp"
+support_sources = ["probes/enemy-mgr-math-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyMgrMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyMgrMathHelpersProbe@64"
+functions = ["EmRet0_415610"]
+symbol = "?EmRet0_415610@@YAHXZ"
+target_address = 0x00415610
+size = 3
+linkages = []
+
+[units.em-ret0-415620]
+artifact_kind = "linked-pe"
+source = "src/EnemyMgrMathHelpers.cpp"
+support_sources = ["probes/enemy-mgr-math-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyMgrMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyMgrMathHelpersProbe@64"
+functions = ["EmRet0_415620"]
+symbol = "?EmRet0_415620@@YAHXZ"
+target_address = 0x00415620
+size = 3
+linkages = []
+
+[units.em-enemy-mgr-enable-both]
+artifact_kind = "linked-pe"
+source = "src/EnemyMgrMathHelpers.cpp"
+support_sources = ["probes/enemy-mgr-math-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyMgrMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyMgrMathHelpersProbe@64"
+functions = ["EmEnemyMgr::EnableBoth"]
+symbol = "?EnableBoth@EmEnemyMgr@@SAXXZ"
+target_address = 0x00415630
+size = 35
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_EmEnemyMgr@@3PAUEmEnemyMgr@@A", target = 0x004B8948 },
+]
+
+[units.em-sub1098b-destroy-self]
+artifact_kind = "linked-pe"
+source = "src/EnemyMgrMathHelpers.cpp"
+support_sources = ["probes/enemy-mgr-math-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyMgrMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyMgrMathHelpersProbe@64"
+functions = ["EmSub1098B::DestroySelf"]
+symbol = "?DestroySelf@EmSub1098B@@QAEPAU1@XZ"
+target_address = 0x004157E0
+size = 47
+linkages = [
+  { offset = 8, type = "DIR32", symbol = "?g_EmVtbl4A26DC@@3PAXA", target = 0x004A26DC },
+  { offset = 18, type = "REL32", symbol = "_free", target = 0x0047290C },
+  { offset = 37, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+]
+
+[units.em-sub1098b-dtor]
+artifact_kind = "linked-pe"
+source = "src/EnemyMgrMathHelpers.cpp"
+support_sources = ["probes/enemy-mgr-math-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyMgrMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyMgrMathHelpersProbe@64"
+functions = ["EmSub1098B::~EmSub1098B"]
+symbol = "??1EmSub1098B@@QAE@XZ"
+target_address = 0x00415810
+size = 36
+linkages = [
+  { offset = 8, type = "DIR32", symbol = "?g_EmVtbl4A26DC@@3PAXA", target = 0x004A26DC },
+  { offset = 18, type = "REL32", symbol = "_free", target = 0x0047290C },
+]
+
+[units.em-ret1-415a10]
+artifact_kind = "linked-pe"
+source = "src/EnemyMgrMathHelpers.cpp"
+support_sources = ["probes/enemy-mgr-math-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyMgrMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyMgrMathHelpersProbe@64"
+functions = ["EmRet1_415A10"]
+symbol = "?EmRet1_415A10@@YAHXZ"
+target_address = 0x00415A10
+size = 6
+linkages = []
+
+[units.em-ret1-415a60]
+artifact_kind = "linked-pe"
+source = "src/EnemyMgrMathHelpers.cpp"
+support_sources = ["probes/enemy-mgr-math-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyMgrMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyMgrMathHelpersProbe@64"
+functions = ["EmRet1_415A60"]
+symbol = "?EmRet1_415A60@@YAHXZ"
+target_address = 0x00415A60
+size = 6
+linkages = []
+
+[units.em-enemy-mgr-damage-circle]
+artifact_kind = "linked-pe"
+source = "src/EnemyMgrMathHelpers.cpp"
+support_sources = ["probes/enemy-mgr-math-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyMgrMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyMgrMathHelpersProbe@64"
+functions = ["EmEnemyMgr::DamageInCircle"]
+symbol = "?DamageInCircle@EmEnemyMgr@@QAEXPBUEmVec2@@M@Z"
+target_address = 0x00417C30
+size = 232
+linkages = [
+  { offset = 26, type = "DIR32", symbol = "__real@4030000000000000", target = 0x004A6610 },
+]
+
+[units.em-enemy-mgr-damage-column]
+artifact_kind = "linked-pe"
+source = "src/EnemyMgrMathHelpers.cpp"
+support_sources = ["probes/enemy-mgr-math-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyMgrMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyMgrMathHelpersProbe@64"
+functions = ["EmEnemyMgr::DamageInColumn"]
+symbol = "?DamageInColumn@EmEnemyMgr@@QAEXPBUEmVec2@@M@Z"
+target_address = 0x00417D20
+size = 203
+linkages = []
+
+[units.em-enemy-mgr-damage-circle2]
+artifact_kind = "linked-pe"
+source = "src/EnemyMgrMathHelpers.cpp"
+support_sources = ["probes/enemy-mgr-math-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyMgrMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyMgrMathHelpersProbe@64"
+functions = ["EmEnemyMgr::DamageInCircle2"]
+symbol = "?DamageInCircle2@EmEnemyMgr@@QAEXPBUEmVec2@@M@Z"
+target_address = 0x00417EF0
+size = 232
+linkages = [
+  { offset = 26, type = "DIR32", symbol = "__real@4030000000000000", target = 0x004A6610 },
+]
+
+[units.em-slots-set-f0c]
+artifact_kind = "linked-pe"
+source = "src/EnemyMgrMathHelpers.cpp"
+support_sources = ["probes/enemy-mgr-math-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyMgrMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyMgrMathHelpersProbe@64"
+functions = ["EmSlotsObj::SetSlotF0C"]
+symbol = "?SetSlotF0C@EmSlotsObj@@QAEXHH@Z"
+target_address = 0x0041DE90
+size = 11
+linkages = []
+
+[units.em-noop-41e450]
+artifact_kind = "linked-pe"
+source = "src/EnemyMgrMathHelpers.cpp"
+support_sources = ["probes/enemy-mgr-math-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyMgrMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyMgrMathHelpersProbe@64"
+functions = ["EmNoOp41E450"]
+symbol = "?EmNoOp41E450@@YAXXZ"
+target_address = 0x0041E450
+size = 1
+linkages = []
+
+[units.em-interp2d-set-start]
+artifact_kind = "linked-pe"
+source = "src/EnemyMgrMathHelpers.cpp"
+support_sources = ["probes/enemy-mgr-math-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyMgrMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyMgrMathHelpersProbe@64"
+functions = ["EmInterp2D::SetStart"]
+symbol = "?SetStart@EmInterp2D@@QAEXPBUEmVec2@@@Z"
+target_address = 0x0041ED70
+size = 11
+linkages = []
+
+[units.em-interp2d-set-end]
+artifact_kind = "linked-pe"
+source = "src/EnemyMgrMathHelpers.cpp"
+support_sources = ["probes/enemy-mgr-math-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyMgrMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyMgrMathHelpersProbe@64"
+functions = ["EmInterp2D::SetEnd"]
+symbol = "?SetEnd@EmInterp2D@@QAEXPBUEmVec2@@@Z"
+target_address = 0x0041ED80
+size = 12
+linkages = []
+
+[units.em-interp2d-set-duration]
+artifact_kind = "linked-pe"
+source = "src/EnemyMgrMathHelpers.cpp"
+support_sources = ["probes/enemy-mgr-math-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyMgrMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyMgrMathHelpersProbe@64"
+functions = ["EmInterp2D::SetDuration"]
+symbol = "?SetDuration@EmInterp2D@@QAEXH@Z"
+target_address = 0x0041EDD0
+size = 4
+linkages = []
+
+[units.em-interp2d-reset-timer]
+artifact_kind = "linked-pe"
+source = "src/EnemyMgrMathHelpers.cpp"
+support_sources = ["probes/enemy-mgr-math-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyMgrMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyMgrMathHelpersProbe@64"
+functions = ["EmInterp2D::ResetTimer"]
+symbol = "?ResetTimer@EmInterp2D@@QAEXXZ"
+target_address = 0x0041EDE0
+size = 52
+linkages = [
+  { offset = 31, type = "DIR32", symbol = "?g_EmDefaultTimeScale@@3MA", target = 0x004B6F58 },
+]
+
+[units.em-interp2d-get-duration]
+artifact_kind = "linked-pe"
+source = "src/EnemyMgrMathHelpers.cpp"
+support_sources = ["probes/enemy-mgr-math-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyMgrMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyMgrMathHelpersProbe@64"
+functions = ["EmInterp2D::GetDuration"]
+symbol = "?GetDuration@EmInterp2D@@QAEHXZ"
+target_address = 0x0041EE20
+size = 4
+linkages = []
+
+[units.em-interp2d-clear-duration]
+artifact_kind = "linked-pe"
+source = "src/EnemyMgrMathHelpers.cpp"
+support_sources = ["probes/enemy-mgr-math-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyMgrMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyMgrMathHelpersProbe@64"
+functions = ["EmInterp2D::ClearDuration"]
+symbol = "?ClearDuration@EmInterp2D@@QAEXXZ"
+target_address = 0x0041EE30
+size = 8
+linkages = []
+
+[units.em-get-4d33cc]
+artifact_kind = "linked-pe"
+source = "src/EnemyMgrMathHelpers.cpp"
+support_sources = ["probes/enemy-mgr-math-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyMgrMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyMgrMathHelpersProbe@64"
+functions = ["EmGet4D33CC"]
+symbol = "?EmGet4D33CC@@YAHXZ"
+target_address = 0x0041EF60
+size = 6
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_Em4D33CC@@3HA", target = 0x004D33CC },
+]
+
+[units.em-short-41e-get]
+artifact_kind = "linked-pe"
+source = "src/EnemyMgrMathHelpers.cpp"
+support_sources = ["probes/enemy-mgr-math-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyMgrMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyMgrMathHelpersProbe@64"
+functions = ["EmShort41E::Get"]
+symbol = "?Get@EmShort41E@@QAEHXZ"
+target_address = 0x0041EFB0
+size = 8
+linkages = []
+
+[units.em-get-4b4d30]
+artifact_kind = "linked-pe"
+source = "src/EnemyMgrMathHelpers.cpp"
+support_sources = ["probes/enemy-mgr-math-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyMgrMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyMgrMathHelpersProbe@64"
+functions = ["EmGet4B4D30"]
+symbol = "?EmGet4B4D30@@YAHXZ"
+target_address = 0x0041EFD0
+size = 6
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_Em4B4D30@@3HA", target = 0x004B4D30 },
+]
+
+[units.em-float28-get28]
+artifact_kind = "linked-pe"
+source = "src/EnemyMgrMathHelpers.cpp"
+support_sources = ["probes/enemy-mgr-math-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyMgrMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyMgrMathHelpersProbe@64"
+functions = ["EmFloat28::Get28"]
+symbol = "?Get28@EmFloat28@@QAEMXZ"
+target_address = 0x0041EFE0
+size = 4
+linkages = []
+
+[units.em-float28-get2c]
+artifact_kind = "linked-pe"
+source = "src/EnemyMgrMathHelpers.cpp"
+support_sources = ["probes/enemy-mgr-math-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyMgrMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyMgrMathHelpersProbe@64"
+functions = ["EmFloat28::Get2C"]
+symbol = "?Get2C@EmFloat28@@QAEMXZ"
+target_address = 0x0041EFF0
+size = 4
+linkages = []
+
+[units.em-float28-set-flag1]
+artifact_kind = "linked-pe"
+source = "src/EnemyMgrMathHelpers.cpp"
+support_sources = ["probes/enemy-mgr-math-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyMgrMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyMgrMathHelpersProbe@64"
+functions = ["EmFloat28::SetFlag1"]
+symbol = "?SetFlag1@EmFloat28@@QAEXXZ"
+target_address = 0x0041F000
+size = 5
+linkages = []
+
+[units.em-float28-set2c]
+artifact_kind = "linked-pe"
+source = "src/EnemyMgrMathHelpers.cpp"
+support_sources = ["probes/enemy-mgr-math-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyMgrMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyMgrMathHelpersProbe@64"
+functions = ["EmFloat28::Set2C"]
+symbol = "?Set2C@EmFloat28@@QAEXM@Z"
+target_address = 0x0041F010
+size = 13
+linkages = []
+
+[units.em-set-wrapped28]
+artifact_kind = "linked-pe"
+source = "src/EnemyMgrMathHelpers.cpp"
+support_sources = ["probes/enemy-mgr-math-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyMgrMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyMgrMathHelpersProbe@64"
+functions = ["EmSetWrapped28"]
+symbol = "?EmSetWrapped28@@YGXPAUEmFloat28@@M@Z"
+target_address = 0x0041F020
+size = 25
+linkages = [
+  { offset = 11, type = "REL32", symbol = "?EmWrapAngle@@YGMM@Z", target = 0x0046A700 },
+]
