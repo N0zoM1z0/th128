@@ -13678,3 +13678,578 @@ symbol = "?ApplyDamage@EclHp@@QAEHH@Z"
 target_address = 0x004147D0
 size = 59
 linkages = []
+
+[units.drop-is-positive]
+artifact_kind = "linked-pe"
+source = "src/EnemyDropHelpers.cpp"
+support_sources = ["probes/enemy-drop-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyDropHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyDropHelpersProbe@116"
+functions = ["DropIsPos::IsPositive"]
+symbol = "?IsPositive@DropIsPos@@QAEHXZ"
+target_address = 0x00414810
+size = 8
+linkages = []
+
+[units.drop-flag14-reset]
+artifact_kind = "linked-pe"
+source = "src/EnemyDropHelpers.cpp"
+support_sources = ["probes/enemy-drop-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyDropHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyDropHelpersProbe@116"
+functions = ["DropFlag14::Reset"]
+symbol = "?Reset@DropFlag14@@QAEXXZ"
+target_address = 0x00414820
+size = 15
+linkages = []
+
+[units.drop-arr-set]
+artifact_kind = "linked-pe"
+source = "src/EnemyDropHelpers.cpp"
+support_sources = ["probes/enemy-drop-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyDropHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyDropHelpersProbe@116"
+functions = ["DropArr::Set"]
+symbol = "?Set@DropArr@@QAEXHH@Z"
+target_address = 0x00414830
+size = 4
+linkages = []
+
+[units.drop-area-set-radius]
+artifact_kind = "linked-pe"
+source = "src/EnemyDropHelpers.cpp"
+support_sources = ["probes/enemy-drop-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyDropHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyDropHelpersProbe@116"
+functions = ["DropArea::SetRadius"]
+symbol = "?SetRadius@DropArea@@QAEXMM@Z"
+target_address = 0x00414840
+size = 19
+linkages = []
+
+[units.drop-set-0]
+artifact_kind = "linked-pe"
+source = "src/EnemyDropHelpers.cpp"
+support_sources = ["probes/enemy-drop-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyDropHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyDropHelpersProbe@116"
+functions = ["DropSet0::Set"]
+symbol = "?Set@DropSet0@@QAEXH@Z"
+target_address = 0x00414860
+size = 3
+linkages = []
+
+[units.drop-get-0]
+artifact_kind = "linked-pe"
+source = "src/EnemyDropHelpers.cpp"
+support_sources = ["probes/enemy-drop-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyDropHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyDropHelpersProbe@116"
+functions = ["DropGet0::Get"]
+symbol = "?Get@DropGet0@@QAEHXZ"
+target_address = 0x00414870
+size = 3
+linkages = []
+
+[units.drop-state-commit]
+artifact_kind = "linked-pe"
+source = "src/EnemyDropHelpers.cpp"
+support_sources = ["probes/enemy-drop-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyDropHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyDropHelpersProbe@116"
+functions = ["DropState::Commit"]
+symbol = "?Commit@DropState@@QAEXXZ"
+target_address = 0x00414880
+size = 25
+linkages = []
+
+[units.drop-area-reset]
+artifact_kind = "linked-pe"
+source = "src/EnemyDropHelpers.cpp"
+support_sources = ["probes/enemy-drop-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyDropHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyDropHelpersProbe@116"
+functions = ["DropArea::Reset"]
+symbol = "?Reset@DropArea@@QAEXXZ"
+target_address = 0x00414A90
+size = 32
+linkages = [
+  { offset = 6, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+  { offset = 12, type = "DIR32", symbol = "__real@42000000", target = 0x004A6618 },
+]
+
+[units.drop-area-clear-counts]
+artifact_kind = "linked-pe"
+source = "src/EnemyDropHelpers.cpp"
+support_sources = ["probes/enemy-drop-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyDropHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyDropHelpersProbe@116"
+functions = ["DropArea::ClearCounts"]
+symbol = "?ClearCounts@DropArea@@QAEXXZ"
+target_address = 0x00414AB0
+size = 33
+linkages = []
+
+[units.drop-off-34-get]
+artifact_kind = "linked-pe"
+source = "src/EnemyDropHelpers.cpp"
+support_sources = ["probes/enemy-drop-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyDropHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyDropHelpersProbe@116"
+functions = ["DropOff34::Get"]
+symbol = "?Get@DropOff34@@QAEPAHXZ"
+target_address = 0x00414AE0
+size = 4
+linkages = []
+
+[units.drop-off-3e3c-get]
+artifact_kind = "linked-pe"
+source = "src/EnemyDropHelpers.cpp"
+support_sources = ["probes/enemy-drop-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyDropHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyDropHelpersProbe@116"
+functions = ["DropOff3E3C::Get"]
+symbol = "?Get@DropOff3E3C@@QAEPAHXZ"
+target_address = 0x00414AF0
+size = 6
+linkages = []
+
+[units.drop-off-5004-get]
+artifact_kind = "linked-pe"
+source = "src/EnemyDropHelpers.cpp"
+support_sources = ["probes/enemy-drop-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyDropHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyDropHelpersProbe@116"
+functions = ["DropOff5004::Get"]
+symbol = "?Get@DropOff5004@@QAEPAHXZ"
+target_address = 0x00414B00
+size = 6
+linkages = []
+
+[units.drop-deref-outer-get]
+artifact_kind = "linked-pe"
+source = "src/EnemyDropHelpers.cpp"
+support_sources = ["probes/enemy-drop-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyDropHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyDropHelpersProbe@116"
+functions = ["DropDerefOuter::Get"]
+symbol = "?Get@DropDerefOuter@@QAEHXZ"
+target_address = 0x00414B10
+size = 7
+linkages = []
+
+[units.drop-off-11c8-get]
+artifact_kind = "linked-pe"
+source = "src/EnemyDropHelpers.cpp"
+support_sources = ["probes/enemy-drop-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyDropHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyDropHelpersProbe@116"
+functions = ["DropOff11C8::Get"]
+symbol = "?Get@DropOff11C8@@QAEPAHXZ"
+target_address = 0x00414B20
+size = 6
+linkages = []
+
+[units.drop-flag30-clear-bit0]
+artifact_kind = "linked-pe"
+source = "src/EnemyDropHelpers.cpp"
+support_sources = ["probes/enemy-drop-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyDropHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyDropHelpersProbe@116"
+functions = ["DropFlag30::ClearBit0"]
+symbol = "?ClearBit0@DropFlag30@@QAEXXZ"
+target_address = 0x00414C20
+size = 5
+linkages = []
+
+[units.drop-ecl-file-load]
+artifact_kind = "linked-pe"
+source = "src/EnemyDropHelpers.cpp"
+support_sources = ["probes/enemy-drop-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyDropHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyDropHelpersProbe@116"
+functions = ["DropEclFile::Load"]
+symbol = "?Load@DropEclFile@@QAEHPBD@Z"
+target_address = 0x00414C30
+size = 98
+linkages = [
+  { offset = 13, type = "DIR32", symbol = "?g_DropPathBuf@@3PADA", target = 0x004DB878 },
+  { offset = 28, type = "DIR32", symbol = "?g_DropPathBuf@@3PADA", target = 0x004DB878 },
+  { offset = 62, type = "DIR32", symbol = "?g_DropPathBuf@@3PADA", target = 0x004DB878 },
+  { offset = 69, type = "REL32", symbol = "?DropReadFile@@YGPAXPBDHH@Z", target = 0x00469C40 },
+  { offset = 77, type = "REL32", symbol = "?Parse@DropEclFile@@QAEHPAX@Z", target = 0x004703F0 },
+]
+
+[units.drop-enemy-mgr-set-arr5c]
+artifact_kind = "linked-pe"
+source = "src/EnemyDropHelpers.cpp"
+support_sources = ["probes/enemy-drop-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyDropHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyDropHelpersProbe@116"
+functions = ["DropEnemyMgr::SetArr5C"]
+symbol = "?SetArr5C@DropEnemyMgr@@SAXHH@Z"
+target_address = 0x00414CB0
+size = 10
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_DropEnemyMgr@@3PAUDropEnemyMgr@@A", target = 0x004B8948 },
+]
+
+[units.drop-enemy-mgr-set-flag7c-bit0]
+artifact_kind = "linked-pe"
+source = "src/EnemyDropHelpers.cpp"
+support_sources = ["probes/enemy-drop-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyDropHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyDropHelpersProbe@116"
+functions = ["DropEnemyMgr::SetFlag7CBit0"]
+symbol = "?SetFlag7CBit0@DropEnemyMgr@@SGXH@Z"
+target_address = 0x00414CC0
+size = 24
+linkages = [
+  { offset = 4, type = "DIR32", symbol = "?g_DropEnemyMgr@@3PAUDropEnemyMgr@@A", target = 0x004B8948 },
+]
+
+[units.drop-enemy-mgr-has-id]
+artifact_kind = "linked-pe"
+source = "src/EnemyDropHelpers.cpp"
+support_sources = ["probes/enemy-drop-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyDropHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyDropHelpersProbe@116"
+functions = ["DropEnemyMgr::HasEnemyId"]
+symbol = "?HasEnemyId@DropEnemyMgr@@SAHH@Z"
+target_address = 0x00414CE0
+size = 45
+linkages = [
+  { offset = 5, type = "DIR32", symbol = "?g_DropEnemyMgr@@3PAUDropEnemyMgr@@A", target = 0x004B8948 },
+]
+
+[units.drop-enemy-mgr-find-id]
+artifact_kind = "linked-pe"
+source = "src/EnemyDropHelpers.cpp"
+support_sources = ["probes/enemy-drop-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyDropHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyDropHelpersProbe@116"
+functions = ["DropEnemyMgr::FindEnemyById"]
+symbol = "?FindEnemyById@DropEnemyMgr@@SAPAUDropEnemyObj@@H@Z"
+target_address = 0x00414D10
+size = 42
+linkages = [
+  { offset = 5, type = "DIR32", symbol = "?g_DropEnemyMgr@@3PAUDropEnemyMgr@@A", target = 0x004B8948 },
+]
+
+[units.drop-enemy-mgr-get-last-id]
+artifact_kind = "linked-pe"
+source = "src/EnemyDropHelpers.cpp"
+support_sources = ["probes/enemy-drop-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyDropHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyDropHelpersProbe@116"
+functions = ["DropEnemyMgr::GetLastId"]
+symbol = "?GetLastId@DropEnemyMgr@@SAHXZ"
+target_address = 0x00414D40
+size = 12
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_DropEnemyMgr@@3PAUDropEnemyMgr@@A", target = 0x004B8948 },
+]
+
+[units.drop-enemy-mgr-get-next-id]
+artifact_kind = "linked-pe"
+source = "src/EnemyDropHelpers.cpp"
+support_sources = ["probes/enemy-drop-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyDropHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyDropHelpersProbe@116"
+functions = ["DropEnemyMgr::GetNextId"]
+symbol = "?GetNextId@DropEnemyMgr@@SAHXZ"
+target_address = 0x00414D50
+size = 12
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_DropEnemyMgr@@3PAUDropEnemyMgr@@A", target = 0x004B8948 },
+]
+
+[units.drop-enemy-mgr-alloc-id]
+artifact_kind = "linked-pe"
+source = "src/EnemyDropHelpers.cpp"
+support_sources = ["probes/enemy-drop-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyDropHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyDropHelpersProbe@116"
+functions = ["DropEnemyMgr::AllocId"]
+symbol = "?AllocId@DropEnemyMgr@@SAHXZ"
+target_address = 0x00414D60
+size = 43
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_DropEnemyMgr@@3PAUDropEnemyMgr@@A", target = 0x004B8948 },
+]
+
+[units.drop-4b8a80-get-f78]
+artifact_kind = "linked-pe"
+source = "src/EnemyDropHelpers.cpp"
+support_sources = ["probes/enemy-drop-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyDropHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyDropHelpersProbe@116"
+functions = ["Drop4B8A80::GetF78"]
+symbol = "?GetF78@Drop4B8A80@@SAHXZ"
+target_address = 0x00414D90
+size = 12
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_Drop4B8A80@@3PAUDrop4B8A80@@A", target = 0x004B8A80 },
+]
+
+[units.drop-obj17c-get]
+artifact_kind = "linked-pe"
+source = "src/EnemyDropHelpers.cpp"
+support_sources = ["probes/enemy-drop-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyDropHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyDropHelpersProbe@116"
+functions = ["DropObj17C::Get"]
+symbol = "?Get@DropObj17C@@QAEHXZ"
+target_address = 0x00414DA0
+size = 7
+linkages = []
+
+[units.drop-gui-has-active]
+artifact_kind = "linked-pe"
+source = "src/EnemyDropHelpers.cpp"
+support_sources = ["probes/enemy-drop-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyDropHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyDropHelpersProbe@116"
+functions = ["DropGuiMini::HasActiveObj"]
+symbol = "?HasActiveObj@DropGuiMini@@QAEHXZ"
+target_address = 0x00414DE0
+size = 12
+linkages = []
+
+[units.drop-gui-get-active-17c]
+artifact_kind = "linked-pe"
+source = "src/EnemyDropHelpers.cpp"
+support_sources = ["probes/enemy-drop-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyDropHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyDropHelpersProbe@116"
+functions = ["DropGuiMini::GetActiveObjField17C"]
+symbol = "?GetActiveObjField17C@DropGuiMini@@SAHXZ"
+target_address = 0x00414DF0
+size = 18
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_DropGui@@3PAUDropGuiMini@@A", target = 0x004B8950 },
+]
+
+[units.drop-4b8934-is-flag0-and-6]
+artifact_kind = "linked-pe"
+source = "src/EnemyDropHelpers.cpp"
+support_sources = ["probes/enemy-drop-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyDropHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyDropHelpersProbe@116"
+functions = ["Drop4B8934::IsFlag0And6"]
+symbol = "?IsFlag0And6@Drop4B8934@@SAHXZ"
+target_address = 0x00414E50
+size = 25
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_Drop4B8934@@3PAUDrop4B8934@@A", target = 0x004B8934 },
+]
+
+[units.drop-4b8934-set-flag4]
+artifact_kind = "linked-pe"
+source = "src/EnemyDropHelpers.cpp"
+support_sources = ["probes/enemy-drop-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyDropHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyDropHelpersProbe@116"
+functions = ["Drop4B8934::SetFlag4"]
+symbol = "?SetFlag4@Drop4B8934@@SAXXZ"
+target_address = 0x00414E70
+size = 10
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_Drop4B8934@@3PAUDrop4B8934@@A", target = 0x004B8934 },
+]
+
+[units.drop-4b8934-get-flag4]
+artifact_kind = "linked-pe"
+source = "src/EnemyDropHelpers.cpp"
+support_sources = ["probes/enemy-drop-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyDropHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyDropHelpersProbe@116"
+functions = ["Drop4B8934::GetFlag4"]
+symbol = "?GetFlag4@Drop4B8934@@SAHXZ"
+target_address = 0x00414EA0
+size = 15
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_Drop4B8934@@3PAUDrop4B8934@@A", target = 0x004B8934 },
+]
+
+[units.drop-obj50-set-vec3]
+artifact_kind = "linked-pe"
+source = "src/EnemyDropHelpers.cpp"
+support_sources = ["probes/enemy-drop-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyDropHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyDropHelpersProbe@116"
+functions = ["DropObj50::SetVec3"]
+symbol = "?SetVec3@DropObj50@@QAEXPBUDropVec3@@@Z"
+target_address = 0x00414EB0
+size = 18
+linkages = []
+
+[units.drop-obj50-set-f68]
+artifact_kind = "linked-pe"
+source = "src/EnemyDropHelpers.cpp"
+support_sources = ["probes/enemy-drop-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyDropHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyDropHelpersProbe@116"
+functions = ["DropObj50::SetF68"]
+symbol = "?SetF68@DropObj50@@QAEXM@Z"
+target_address = 0x00414ED0
+size = 13
+linkages = []
+
+[units.drop-obj50-set-f70]
+artifact_kind = "linked-pe"
+source = "src/EnemyDropHelpers.cpp"
+support_sources = ["probes/enemy-drop-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyDropHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyDropHelpersProbe@116"
+functions = ["DropObj50::SetF70"]
+symbol = "?SetF70@DropObj50@@QAEXM@Z"
+target_address = 0x00414EE0
+size = 13
+linkages = []
+
+[units.drop-obj50-set-f74]
+artifact_kind = "linked-pe"
+source = "src/EnemyDropHelpers.cpp"
+support_sources = ["probes/enemy-drop-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyDropHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyDropHelpersProbe@116"
+functions = ["DropObj50::SetF74"]
+symbol = "?SetF74@DropObj50@@QAEXM@Z"
+target_address = 0x00414EF0
+size = 13
+linkages = []
+
+[units.drop-obj50-clear80]
+artifact_kind = "linked-pe"
+source = "src/EnemyDropHelpers.cpp"
+support_sources = ["probes/enemy-drop-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyDropHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyDropHelpersProbe@116"
+functions = ["DropObj50::Clear80"]
+symbol = "?Clear80@DropObj50@@QAEXXZ"
+target_address = 0x00414F00
+size = 11
+linkages = []
+
+[units.drop-zero-354a-ctor]
+artifact_kind = "linked-pe"
+source = "src/EnemyDropHelpers.cpp"
+support_sources = ["probes/enemy-drop-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyDropHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyDropHelpersProbe@116"
+functions = ["DropZero354A::DropZero354A"]
+symbol = "??0DropZero354A@@QAE@XZ"
+target_address = 0x00414F10
+size = 19
+linkages = [
+  { offset = 9, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+]
+
+[units.drop-zero-354b-ctor]
+artifact_kind = "linked-pe"
+source = "src/EnemyDropHelpers.cpp"
+support_sources = ["probes/enemy-drop-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyDropHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyDropHelpersProbe@116"
+functions = ["DropZero354B::DropZero354B"]
+symbol = "??0DropZero354B@@QAE@XZ"
+target_address = 0x00414F30
+size = 19
+linkages = [
+  { offset = 9, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+]
+
+[units.drop-zero-374-ctor]
+artifact_kind = "linked-pe"
+source = "src/EnemyDropHelpers.cpp"
+support_sources = ["probes/enemy-drop-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyDropHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyDropHelpersProbe@116"
+functions = ["DropZero374::DropZero374"]
+symbol = "??0DropZero374@@QAE@XZ"
+target_address = 0x00414F50
+size = 28
+linkages = [
+  { offset = 9, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+  { offset = 15, type = "DIR32", symbol = "__real@41000000", target = 0x004A674C },
+]
+
+[units.drop-obj5cc-set-vec3]
+artifact_kind = "linked-pe"
+source = "src/EnemyDropHelpers.cpp"
+support_sources = ["probes/enemy-drop-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyDropHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyDropHelpersProbe@116"
+functions = ["DropObj5CC::SetVec3"]
+symbol = "?SetVec3@DropObj5CC@@QAEXPBUDropVec3@@@Z"
+target_address = 0x00414F70
+size = 27
+linkages = []
+
+[units.drop-obj5cc-set-f5dc]
+artifact_kind = "linked-pe"
+source = "src/EnemyDropHelpers.cpp"
+support_sources = ["probes/enemy-drop-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyDropHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyDropHelpersProbe@116"
+functions = ["DropObj5CC::SetF5DC"]
+symbol = "?SetF5DC@DropObj5CC@@QAEXM@Z"
+target_address = 0x00414F90
+size = 16
+linkages = []
+
+[units.drop-zero-354c-ctor]
+artifact_kind = "linked-pe"
+source = "src/EnemyDropHelpers.cpp"
+support_sources = ["probes/enemy-drop-helpers-context.cpp"]
+output_dir = "build/match-linked/EnemyDropHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EnemyDropHelpersProbe@116"
+functions = ["DropZero354C::DropZero354C"]
+symbol = "??0DropZero354C@@QAE@XZ"
+target_address = 0x00414FA0
+size = 19
+linkages = [
+  { offset = 9, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+]

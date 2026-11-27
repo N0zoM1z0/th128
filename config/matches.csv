@@ -350,6 +350,47 @@ address,name,size,status,match_percent,unit,evidence
 0x004147A0,EclHp::SetField08,4,exact,100.00,ecl-hp-set-field08,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyEclHelpers.cpp
 0x004147B0,EclHp::SetMinHp,4,exact,100.00,ecl-hp-set-min,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyEclHelpers.cpp
 0x004147D0,EclHp::ApplyDamage,59,exact,100.00,ecl-hp-apply-damage,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyEclHelpers.cpp
+0x00414810,DropIsPos::IsPositive,8,exact,100.00,drop-is-positive,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
+0x00414820,DropFlag14::Reset,15,exact,100.00,drop-flag14-reset,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
+0x00414830,DropArr::Set,4,exact,100.00,drop-arr-set,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
+0x00414840,DropArea::SetRadius,19,exact,100.00,drop-area-set-radius,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
+0x00414860,DropSet0::Set,3,exact,100.00,drop-set-0,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
+0x00414870,DropGet0::Get,3,exact,100.00,drop-get-0,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
+0x00414880,DropState::Commit,25,exact,100.00,drop-state-commit,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
+0x00414A90,DropArea::Reset,32,exact,100.00,drop-area-reset,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
+0x00414AB0,DropArea::ClearCounts,33,exact,100.00,drop-area-clear-counts,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
+0x00414AE0,DropOff34::Get,4,exact,100.00,drop-off-34-get,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
+0x00414AF0,DropOff3E3C::Get,6,exact,100.00,drop-off-3e3c-get,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
+0x00414B00,DropOff5004::Get,6,exact,100.00,drop-off-5004-get,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
+0x00414B10,DropDerefOuter::Get,7,exact,100.00,drop-deref-outer-get,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
+0x00414B20,DropOff11C8::Get,6,exact,100.00,drop-off-11c8-get,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
+0x00414C20,DropFlag30::ClearBit0,5,exact,100.00,drop-flag30-clear-bit0,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
+0x00414C30,DropEclFile::Load,98,exact,100.00,drop-ecl-file-load,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
+0x00414CB0,DropEnemyMgr::SetArr5C,10,exact,100.00,drop-enemy-mgr-set-arr5c,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
+0x00414CC0,DropEnemyMgr::SetFlag7CBit0,24,exact,100.00,drop-enemy-mgr-set-flag7c-bit0,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
+0x00414CE0,DropEnemyMgr::HasEnemyId,45,exact,100.00,drop-enemy-mgr-has-id,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
+0x00414D10,DropEnemyMgr::FindEnemyById,42,exact,100.00,drop-enemy-mgr-find-id,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
+0x00414D40,DropEnemyMgr::GetLastId,12,exact,100.00,drop-enemy-mgr-get-last-id,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
+0x00414D50,DropEnemyMgr::GetNextId,12,exact,100.00,drop-enemy-mgr-get-next-id,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
+0x00414D60,DropEnemyMgr::AllocId,43,exact,100.00,drop-enemy-mgr-alloc-id,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
+0x00414D90,Drop4B8A80::GetF78,12,exact,100.00,drop-4b8a80-get-f78,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
+0x00414DA0,DropObj17C::Get,7,exact,100.00,drop-obj17c-get,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
+0x00414DE0,DropGuiMini::HasActiveObj,12,exact,100.00,drop-gui-has-active,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
+0x00414DF0,DropGuiMini::GetActiveObjField17C,18,exact,100.00,drop-gui-get-active-17c,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
+0x00414E50,Drop4B8934::IsFlag0And6,25,exact,100.00,drop-4b8934-is-flag0-and-6,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
+0x00414E70,Drop4B8934::SetFlag4,10,exact,100.00,drop-4b8934-set-flag4,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
+0x00414EA0,Drop4B8934::GetFlag4,15,exact,100.00,drop-4b8934-get-flag4,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
+0x00414EB0,DropObj50::SetVec3,18,exact,100.00,drop-obj50-set-vec3,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
+0x00414ED0,DropObj50::SetF68,13,exact,100.00,drop-obj50-set-f68,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
+0x00414EE0,DropObj50::SetF70,13,exact,100.00,drop-obj50-set-f70,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
+0x00414EF0,DropObj50::SetF74,13,exact,100.00,drop-obj50-set-f74,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
+0x00414F00,DropObj50::Clear80,11,exact,100.00,drop-obj50-clear80,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
+0x00414F10,DropZero354A::DropZero354A,19,exact,100.00,drop-zero-354a-ctor,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
+0x00414F30,DropZero354B::DropZero354B,19,exact,100.00,drop-zero-354b-ctor,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
+0x00414F50,DropZero374::DropZero374,28,exact,100.00,drop-zero-374-ctor,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
+0x00414F70,DropObj5CC::SetVec3,27,exact,100.00,drop-obj5cc-set-vec3,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
+0x00414F90,DropObj5CC::SetF5DC,16,exact,100.00,drop-obj5cc-set-f5dc,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
+0x00414FA0,DropZero354C::DropZero354C,19,exact,100.00,drop-zero-354c-ctor,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyDropHelpers.cpp
 0x0041F990,UpdatePostPresentTiming,256,exact,100.00,post-present-timing-update,Pinned VC10 RTM /O2 /Ob1 /Oy- /GL primary TU; complete 256-byte PDB owner and all 8 reviewed address fields replayed by compare-linked-function.py; current cold receipt; .analysis/post-present-timing-final-canonical.json.
 0x00427880,HelpInf::CreateVm,35,exact,100.00,help-create-vm,Cold pinned VC10 RTM /GL /Ob1 /Oy- linked-PE replay; complete 35-byte public primary-TU PDB contribution and all 1 reviewed fields; zero byte differences.
 0x004279C0,HelpInf::LoadPageWorker,68,exact,100.00,help-load-page-worker,Cold pinned VC10 RTM /GL /Ob1 /Oy- linked-PE replay; complete 68-byte public primary-TU PDB contribution and all 5 reviewed fields; zero byte differences.
