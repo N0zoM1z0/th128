@@ -69,9 +69,33 @@ address,name,size,status,match_percent,unit,evidence
 0x004033C0,StageFlag7C::GetBit0,7,exact,100.00,stage-flag-7c-get-bit0,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x00403490,StageFlag80::ClearBit0,8,exact,100.00,stage-flag-80-clear-bit0,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x00403970,StageBgMini::Destroy,21,exact,100.00,stage-bg-destroy,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00406260,StageBgStateMini::SetVecPair,65,exact,100.00,stage-bg-set-vec-pair,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x004062B0,StageBgStateMini::SetFlag2910,11,exact,100.00,stage-bg-set-flag-2910,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00406560,StageBgStateMini::StartFadeOut60,103,exact,100.00,stage-bg-start-fade-out-60,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x004068E0,StageInterp<StageVec3>::GetDuration,4,exact,100.00,stage-interp-vec3-get-duration,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00406BE0,StageInterp<StageFog>::SetStart,16,exact,100.00,stage-interp-fog-set-start,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00406BF0,StageInterp<StageFog>::SetEnd,17,exact,100.00,stage-interp-fog-set-end,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00406C10,StageInterp<StageFog>::SetDuration,7,exact,100.00,stage-interp-fog-set-duration,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00406C20,StageInterp<StageFog>::ResetTimer,58,exact,100.00,stage-interp-fog-reset-timer,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00406C60,StageInterp<StageFog>::GetDuration,7,exact,100.00,stage-interp-fog-get-duration,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00406CE0,StageInterp<StageFog>::ClearDuration,11,exact,100.00,stage-interp-fog-clear-duration,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00406DC0,StageVec3::operator*,34,exact,100.00,stage-vec3-mul-scalar,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00406E10,StageNormalizeAngleInto,23,exact,100.00,stage-normalize-angle-into,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00406E30,StageAnmVmMini::ClearFlag0,8,exact,100.00,stage-anm-vm-clear-flag0,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00406E60,StageInterp<StageVec3>::SetVel1,18,exact,100.00,stage-interp-vec3-set-vel1,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00406E80,StageInterp<StageVec3>::SetVel0,18,exact,100.00,stage-interp-vec3-set-vel0,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00406EA0,StageFog::PackRgba,146,exact,100.00,stage-fog-pack-rgba,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x00406F80,ResetTransitionTimer,52,exact,100.00,anm-vm-transition-reset,Cold pinned VC10 /GL /Ob1 /Oy- linked primary-source function; PDB and MAP owner agree; offset 31 DIR32 g_TimeScale replayed to 0x004B6F58; zero byte differences across all 52 bytes.
+0x00406FC0,StageInterp<StageVec3>::SetEnd,18,exact,100.00,stage-interp-vec3-set-end,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00406FE0,StageInterp<StageVec3>::SetStart,17,exact,100.00,stage-interp-vec3-set-start,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00407010,StageInterp<StageVec3>::SetDuration,4,exact,100.00,stage-interp-vec3-set-duration,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x00407020,AnmVmSetScaleY,20,exact,100.00,anm-vm-set-scale-y,Cold pinned VC10 /GL /Ob1 /Oy- complete public primary-TU PDB contribution behind the AnmVm setter probe context; current receipts; no fields; zero byte differences.
 0x00407040,AnmVmSetScaleX,20,exact,100.00,anm-vm-set-scale-x,Cold pinned VC10 /GL /Ob1 /Oy- complete public primary-TU PDB contribution behind the AnmVm setter probe context; current receipts; no fields; zero byte differences.
+0x00407060,StageSetAnmDirty,13,exact,100.00,stage-set-anm-dirty,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00407070,StageAnmVmMini::HasField424,12,exact,100.00,stage-anm-vm-has-field424,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x004070A0,StageMalloc,10,exact,100.00,stage-malloc,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x004070B0,StageVec3::operator/,44,exact,100.00,stage-vec3-div-scalar,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x004070E0,StageVec3::LengthSq,38,exact,100.00,stage-vec3-length-sq,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x00407130,ZunTimer::operator<=,18,exact,100.00,zun-timer-less-equal,Cold pinned VC10 /GL /Ob1 /Oy- complete 18-byte public primary-TU PDB contribution behind the shared ZunTimer probe context; current receipts; no fields; zero byte differences.
 0x00407310,SetTimeScale,16,exact,100.00,set-time-scale,Cold pinned VC10 /GL /Oy- complete 16-byte public primary-TU PDB contribution; current source/header/tool/producer/PE/MAP/PDB receipts; the one reviewed DIR32 binding replays with zero byte differences.
 0x004073B0,ZunTimer::operator>=,18,exact,100.00,zun-timer-greater-equal,Cold pinned VC10 /GL /Ob1 /Oy- complete 18-byte public primary-TU PDB contribution behind the shared ZunTimer probe context; current receipts; no fields; zero byte differences.
