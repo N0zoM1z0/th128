@@ -12319,3 +12319,583 @@ size = 23
 linkages = [
   { offset = 1, type = "DIR32", symbol = "?g_CardEffectMgr@@3PAUCardEffectMgrMini@@A", target = 0x004B8938 },
 ]
+
+[units.eff-clear-0a]
+artifact_kind = "linked-pe"
+source = "src/EffectBitmapHelpers.cpp"
+support_sources = ["probes/effect-bitmap-helpers-context.cpp"]
+output_dir = "build/match-linked/EffectBitmapHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EffectBitmapHelpersProbe@116"
+functions = ["EffClear0A::Clear"]
+symbol = "?Clear@EffClear0A@@QAEXXZ"
+target_address = 0x00410470
+size = 7
+linkages = []
+
+[units.eff-popcount32]
+artifact_kind = "linked-pe"
+source = "src/EffectBitmapHelpers.cpp"
+support_sources = ["probes/effect-bitmap-helpers-context.cpp"]
+output_dir = "build/match-linked/EffectBitmapHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EffectBitmapHelpersProbe@116"
+functions = ["EffPopCount32"]
+symbol = "?EffPopCount32@@YAII@Z"
+target_address = 0x00410B50
+size = 60
+linkages = []
+
+[units.eff-set-0]
+artifact_kind = "linked-pe"
+source = "src/EffectBitmapHelpers.cpp"
+support_sources = ["probes/effect-bitmap-helpers-context.cpp"]
+output_dir = "build/match-linked/EffectBitmapHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EffectBitmapHelpersProbe@116"
+functions = ["EffSet0::Set"]
+symbol = "?Set@EffSet0@@QAEXH@Z"
+target_address = 0x00410B90
+size = 3
+linkages = []
+
+[units.eff-list-insert-after]
+artifact_kind = "linked-pe"
+source = "src/EffectBitmapHelpers.cpp"
+support_sources = ["probes/effect-bitmap-helpers-context.cpp"]
+output_dir = "build/match-linked/EffectBitmapHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EffectBitmapHelpersProbe@116"
+functions = ["EffListNode::InsertAfter"]
+symbol = "?InsertAfter@EffListNode@@QAEXPAU1@@Z"
+target_address = 0x00410BA0
+size = 23
+linkages = []
+
+[units.eff-list-unlink]
+artifact_kind = "linked-pe"
+source = "src/EffectBitmapHelpers.cpp"
+support_sources = ["probes/effect-bitmap-helpers-context.cpp"]
+output_dir = "build/match-linked/EffectBitmapHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EffectBitmapHelpersProbe@116"
+functions = ["EffListNode::Unlink"]
+symbol = "?Unlink@EffListNode@@QAEXXZ"
+target_address = 0x00410BC0
+size = 37
+linkages = []
+
+[units.eff-copy-vec3]
+artifact_kind = "linked-pe"
+source = "src/EffectBitmapHelpers.cpp"
+support_sources = ["probes/effect-bitmap-helpers-context.cpp"]
+output_dir = "build/match-linked/EffectBitmapHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EffectBitmapHelpersProbe@116"
+functions = ["EffCopyVec3::CopyFrom"]
+symbol = "?CopyFrom@EffCopyVec3@@QAEXPBUEffVec3@@@Z"
+target_address = 0x00410C00
+size = 17
+linkages = []
+
+[units.eff-zero-34]
+artifact_kind = "linked-pe"
+source = "src/EffectBitmapHelpers.cpp"
+support_sources = ["probes/effect-bitmap-helpers-context.cpp"]
+output_dir = "build/match-linked/EffectBitmapHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EffectBitmapHelpersProbe@116"
+functions = ["EffZero34::Zero"]
+symbol = "?Zero@EffZero34@@QAEXXZ"
+target_address = 0x00410C20
+size = 14
+linkages = [
+  { offset = 6, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+]
+
+[units.eff-set-ac]
+artifact_kind = "linked-pe"
+source = "src/EffectBitmapHelpers.cpp"
+support_sources = ["probes/effect-bitmap-helpers-context.cpp"]
+output_dir = "build/match-linked/EffectBitmapHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EffectBitmapHelpersProbe@116"
+functions = ["EffSetAC::Set"]
+symbol = "?Set@EffSetAC@@QAEXH@Z"
+target_address = 0x00410C30
+size = 7
+linkages = []
+
+[units.eff-get-4b4d6c]
+artifact_kind = "linked-pe"
+source = "src/EffectBitmapHelpers.cpp"
+support_sources = ["probes/effect-bitmap-helpers-context.cpp"]
+output_dir = "build/match-linked/EffectBitmapHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EffectBitmapHelpersProbe@116"
+functions = ["EffGet4B4D6C"]
+symbol = "?EffGet4B4D6C@@YAHXZ"
+target_address = 0x00410C40
+size = 6
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_Eff4B4D6C@@3HA", target = 0x004B4D6C },
+]
+
+[units.eff-get-0b]
+artifact_kind = "linked-pe"
+source = "src/EffectBitmapHelpers.cpp"
+support_sources = ["probes/effect-bitmap-helpers-context.cpp"]
+output_dir = "build/match-linked/EffectBitmapHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EffectBitmapHelpersProbe@116"
+functions = ["EffGet0B::Get"]
+symbol = "?Get@EffGet0B@@QAEHXZ"
+target_address = 0x00410C50
+size = 3
+linkages = []
+
+[units.eff-circles-overlap-2d]
+artifact_kind = "linked-pe"
+source = "src/EffectBitmapHelpers.cpp"
+support_sources = ["probes/effect-bitmap-helpers-context.cpp"]
+output_dir = "build/match-linked/EffectBitmapHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EffectBitmapHelpersProbe@116"
+functions = ["EffCirclesOverlap2D"]
+symbol = "?EffCirclesOverlap2D@@YGHMMMMMM@Z"
+target_address = 0x00410C60
+size = 59
+linkages = []
+
+[units.eff-clear-0b]
+artifact_kind = "linked-pe"
+source = "src/EffectBitmapHelpers.cpp"
+support_sources = ["probes/effect-bitmap-helpers-context.cpp"]
+output_dir = "build/match-linked/EffectBitmapHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EffectBitmapHelpersProbe@116"
+functions = ["EffClear0B::Clear"]
+symbol = "?Clear@EffClear0B@@QAEXXZ"
+target_address = 0x00410CA0
+size = 7
+linkages = []
+
+[units.eff-add-4b4d60]
+artifact_kind = "linked-pe"
+source = "src/EffectBitmapHelpers.cpp"
+support_sources = ["probes/effect-bitmap-helpers-context.cpp"]
+output_dir = "build/match-linked/EffectBitmapHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EffectBitmapHelpersProbe@116"
+functions = ["EffAdd4B4D60"]
+symbol = "?EffAdd4B4D60@@YGXM@Z"
+target_address = 0x00410CB0
+size = 22
+linkages = [
+  { offset = 5, type = "DIR32", symbol = "?g_Eff4B4D60@@3MA", target = 0x004B4D60 },
+  { offset = 14, type = "DIR32", symbol = "?g_Eff4B4D60@@3MA", target = 0x004B4D60 },
+]
+
+[units.eff-get-04]
+artifact_kind = "linked-pe"
+source = "src/EffectBitmapHelpers.cpp"
+support_sources = ["probes/effect-bitmap-helpers-context.cpp"]
+output_dir = "build/match-linked/EffectBitmapHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EffectBitmapHelpersProbe@116"
+functions = ["EffGet04::Get"]
+symbol = "?Get@EffGet04@@QAEHXZ"
+target_address = 0x00410CF0
+size = 4
+linkages = []
+
+[units.eff-noop-410d70]
+artifact_kind = "linked-pe"
+source = "src/EffectBitmapHelpers.cpp"
+support_sources = ["probes/effect-bitmap-helpers-context.cpp"]
+output_dir = "build/match-linked/EffectBitmapHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EffectBitmapHelpersProbe@116"
+functions = ["EffNoOp410D70"]
+symbol = "?EffNoOp410D70@@YAXXZ"
+target_address = 0x00410D70
+size = 1
+linkages = []
+
+[units.eff-ptr-array-free-all]
+artifact_kind = "linked-pe"
+source = "src/EffectBitmapHelpers.cpp"
+support_sources = ["probes/effect-bitmap-helpers-context.cpp"]
+output_dir = "build/match-linked/EffectBitmapHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EffectBitmapHelpersProbe@116"
+functions = ["EffPtrArray::FreeAll"]
+symbol = "?FreeAll@EffPtrArray@@QAEXXZ"
+target_address = 0x00410DC0
+size = 83
+linkages = [
+  { offset = 28, type = "REL32", symbol = "_free", target = 0x0047290C },
+  { offset = 61, type = "REL32", symbol = "_free", target = 0x0047290C },
+]
+
+[units.eff-item-mgr-reset-pool]
+artifact_kind = "linked-pe"
+source = "src/EffectBitmapHelpers.cpp"
+support_sources = ["probes/effect-bitmap-helpers-context.cpp"]
+output_dir = "build/match-linked/EffectBitmapHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EffectBitmapHelpersProbe@116"
+functions = ["EffItemMgrMini::ResetPool"]
+symbol = "?ResetPool@EffItemMgrMini@@SAXXZ"
+target_address = 0x00410E20
+size = 48
+linkages = [
+  { offset = 3, type = "DIR32", symbol = "?g_EffItemMgr@@3PAUEffItemMgrMini@@A", target = 0x004B8A5C },
+  { offset = 19, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+]
+
+[units.eff-get-08]
+artifact_kind = "linked-pe"
+source = "src/EffectBitmapHelpers.cpp"
+support_sources = ["probes/effect-bitmap-helpers-context.cpp"]
+output_dir = "build/match-linked/EffectBitmapHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EffectBitmapHelpersProbe@116"
+functions = ["EffGet08::Get"]
+symbol = "?Get@EffGet08@@QAEHXZ"
+target_address = 0x00410E50
+size = 4
+linkages = []
+
+[units.eff-table-8c-get]
+artifact_kind = "linked-pe"
+source = "src/EffectBitmapHelpers.cpp"
+support_sources = ["probes/effect-bitmap-helpers-context.cpp"]
+output_dir = "build/match-linked/EffectBitmapHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EffectBitmapHelpersProbe@116"
+functions = ["EffTable8C::Get"]
+symbol = "?Get@EffTable8C@@QAEHH@Z"
+target_address = 0x00410E60
+size = 10
+linkages = []
+
+[units.eff-gui-get-field-c0]
+artifact_kind = "linked-pe"
+source = "src/EffectBitmapHelpers.cpp"
+support_sources = ["probes/effect-bitmap-helpers-context.cpp"]
+output_dir = "build/match-linked/EffectBitmapHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EffectBitmapHelpersProbe@116"
+functions = ["EffGuiMini::GetFieldC0"]
+symbol = "?GetFieldC0@EffGuiMini@@SAHXZ"
+target_address = 0x00410E70
+size = 12
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_EffGuiMgr@@3PAUEffGuiMini@@A", target = 0x004B8948 },
+]
+
+[units.eff-gui-get-sub-b4-field-08]
+artifact_kind = "linked-pe"
+source = "src/EffectBitmapHelpers.cpp"
+support_sources = ["probes/effect-bitmap-helpers-context.cpp"]
+output_dir = "build/match-linked/EffectBitmapHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EffectBitmapHelpersProbe@116"
+functions = ["EffGuiMini::GetSubB4Field08"]
+symbol = "?GetSubB4Field08@EffGuiMini@@SAHXZ"
+target_address = 0x00410E80
+size = 15
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_EffGuiMgr@@3PAUEffGuiMini@@A", target = 0x004B8948 },
+]
+
+[units.eff-gui-get-sub-b4]
+artifact_kind = "linked-pe"
+source = "src/EffectBitmapHelpers.cpp"
+support_sources = ["probes/effect-bitmap-helpers-context.cpp"]
+output_dir = "build/match-linked/EffectBitmapHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EffectBitmapHelpersProbe@116"
+functions = ["EffGuiMini::GetSubB4"]
+symbol = "?GetSubB4@EffGuiMini@@SAPAUEffGuiSub@@XZ"
+target_address = 0x00410E90
+size = 12
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_EffGuiMgr@@3PAUEffGuiMini@@A", target = 0x004B8948 },
+]
+
+[units.eff-get-0a]
+artifact_kind = "linked-pe"
+source = "src/EffectBitmapHelpers.cpp"
+support_sources = ["probes/effect-bitmap-helpers-context.cpp"]
+output_dir = "build/match-linked/EffectBitmapHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EffectBitmapHelpersProbe@116"
+functions = ["EffGet0A::Get"]
+symbol = "?Get@EffGet0A@@QAEHXZ"
+target_address = 0x00411BD0
+size = 3
+linkages = []
+
+[units.eff-input-update-repeat-masks]
+artifact_kind = "linked-pe"
+source = "src/EffectBitmapHelpers.cpp"
+support_sources = ["probes/effect-bitmap-helpers-context.cpp"]
+output_dir = "build/match-linked/EffectBitmapHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EffectBitmapHelpersProbe@116"
+functions = ["EffInputStateMini::UpdateRepeatMasks"]
+symbol = "?UpdateRepeatMasks@EffInputStateMini@@QAEXXZ"
+target_address = 0x00411BE0
+size = 137
+linkages = []
+
+[units.eff-mode558-set]
+artifact_kind = "linked-pe"
+source = "src/EffectBitmapHelpers.cpp"
+support_sources = ["probes/effect-bitmap-helpers-context.cpp"]
+output_dir = "build/match-linked/EffectBitmapHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EffectBitmapHelpersProbe@116"
+functions = ["EffMode558::SetMode558"]
+symbol = "?SetMode558@EffMode558@@QAEXH@Z"
+target_address = 0x00411C70
+size = 30
+linkages = []
+
+[units.eff-input-get-confirm-mask]
+artifact_kind = "linked-pe"
+source = "src/EffectBitmapHelpers.cpp"
+support_sources = ["probes/effect-bitmap-helpers-context.cpp"]
+output_dir = "build/match-linked/EffectBitmapHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EffectBitmapHelpersProbe@116"
+functions = ["EffInputStateMini::GetConfirmMask"]
+symbol = "?GetConfirmMask@EffInputStateMini@@QAEIXZ"
+target_address = 0x00411C90
+size = 9
+linkages = []
+
+[units.eff-input-test-trigger]
+artifact_kind = "linked-pe"
+source = "src/EffectBitmapHelpers.cpp"
+support_sources = ["probes/effect-bitmap-helpers-context.cpp"]
+output_dir = "build/match-linked/EffectBitmapHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EffectBitmapHelpersProbe@116"
+functions = ["EffInputStateMini::TestTrigger"]
+symbol = "?TestTrigger@EffInputStateMini@@QAEII@Z"
+target_address = 0x00411CA0
+size = 13
+linkages = []
+
+[units.eff-input-test-trigger-or-repeat]
+artifact_kind = "linked-pe"
+source = "src/EffectBitmapHelpers.cpp"
+support_sources = ["probes/effect-bitmap-helpers-context.cpp"]
+output_dir = "build/match-linked/EffectBitmapHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EffectBitmapHelpersProbe@116"
+functions = ["EffInputStateMini::TestTriggerOrRepeat"]
+symbol = "?TestTriggerOrRepeat@EffInputStateMini@@QAEHI@Z"
+target_address = 0x00411CB0
+size = 19
+linkages = []
+
+[units.eff-cursor-save-previous]
+artifact_kind = "linked-pe"
+source = "src/EffectBitmapHelpers.cpp"
+support_sources = ["probes/effect-bitmap-helpers-context.cpp"]
+output_dir = "build/match-linked/EffectBitmapHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EffectBitmapHelpersProbe@116"
+functions = ["EffCursorMini::SavePrevious"]
+symbol = "?SavePrevious@EffCursorMini@@QAEXXZ"
+target_address = 0x00411CD0
+size = 6
+linkages = []
+
+[units.eff-cursor-set-field-d0]
+artifact_kind = "linked-pe"
+source = "src/EffectBitmapHelpers.cpp"
+support_sources = ["probes/effect-bitmap-helpers-context.cpp"]
+output_dir = "build/match-linked/EffectBitmapHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EffectBitmapHelpersProbe@116"
+functions = ["EffCursorMini::SetFieldD0"]
+symbol = "?SetFieldD0@EffCursorMini@@QAEXH@Z"
+target_address = 0x00411D10
+size = 7
+linkages = []
+
+[units.eff-cursor-set-count]
+artifact_kind = "linked-pe"
+source = "src/EffectBitmapHelpers.cpp"
+support_sources = ["probes/effect-bitmap-helpers-context.cpp"]
+output_dir = "build/match-linked/EffectBitmapHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EffectBitmapHelpersProbe@116"
+functions = ["EffCursorMini::SetCount"]
+symbol = "?SetCount@EffCursorMini@@QAEXH@Z"
+target_address = 0x00411D40
+size = 4
+linkages = []
+
+[units.eff-cursor-get-value]
+artifact_kind = "linked-pe"
+source = "src/EffectBitmapHelpers.cpp"
+support_sources = ["probes/effect-bitmap-helpers-context.cpp"]
+output_dir = "build/match-linked/EffectBitmapHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EffectBitmapHelpersProbe@116"
+functions = ["EffCursorMini::GetValue"]
+symbol = "?GetValue@EffCursorMini@@QAEHXZ"
+target_address = 0x00411D50
+size = 3
+linkages = []
+
+[units.eff-noop-411d60]
+artifact_kind = "linked-pe"
+source = "src/EffectBitmapHelpers.cpp"
+support_sources = ["probes/effect-bitmap-helpers-context.cpp"]
+output_dir = "build/match-linked/EffectBitmapHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EffectBitmapHelpersProbe@116"
+functions = ["EffNoOp411D60"]
+symbol = "?EffNoOp411D60@@YAXXZ"
+target_address = 0x00411D60
+size = 1
+linkages = []
+
+[units.eff-cursor-reset-menu]
+artifact_kind = "linked-pe"
+source = "src/EffectBitmapHelpers.cpp"
+support_sources = ["probes/effect-bitmap-helpers-context.cpp"]
+output_dir = "build/match-linked/EffectBitmapHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EffectBitmapHelpersProbe@116"
+functions = ["EffCursorMini::ResetMenu"]
+symbol = "?ResetMenu@EffCursorMini@@QAEXXZ"
+target_address = 0x00411D70
+size = 34
+linkages = []
+
+[units.eff-enemy-mgr-disable-both]
+artifact_kind = "linked-pe"
+source = "src/EffectBitmapHelpers.cpp"
+support_sources = ["probes/effect-bitmap-helpers-context.cpp"]
+output_dir = "build/match-linked/EffectBitmapHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EffectBitmapHelpersProbe@116"
+functions = ["EffEnemyMgrMini::DisableBoth"]
+symbol = "?DisableBoth@EffEnemyMgrMini@@QAEXXZ"
+target_address = 0x00411DA0
+size = 30
+linkages = []
+
+[units.eff-zero-24-global-ctor]
+artifact_kind = "linked-pe"
+source = "src/EffectBitmapHelpers.cpp"
+support_sources = ["probes/effect-bitmap-helpers-context.cpp"]
+output_dir = "build/match-linked/EffectBitmapHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EffectBitmapHelpersProbe@116"
+functions = ["EffZero24Global::EffZero24Global"]
+symbol = "??0EffZero24Global@@QAE@XZ"
+target_address = 0x00411E20
+size = 37
+linkages = [
+  { offset = 32, type = "DIR32", symbol = "?g_Eff4B8940@@3PAUEffZero24Global@@A", target = 0x004B8940 },
+]
+
+[units.eff-ret1-4120c0]
+artifact_kind = "linked-pe"
+source = "src/EffectBitmapHelpers.cpp"
+support_sources = ["probes/effect-bitmap-helpers-context.cpp"]
+output_dir = "build/match-linked/EffectBitmapHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EffectBitmapHelpersProbe@116"
+functions = ["EffRet1_4120C0"]
+symbol = "?EffRet1_4120C0@@YAHXZ"
+target_address = 0x004120C0
+size = 6
+linkages = []
+
+[units.eff-ret1-4120d0]
+artifact_kind = "linked-pe"
+source = "src/EffectBitmapHelpers.cpp"
+support_sources = ["probes/effect-bitmap-helpers-context.cpp"]
+output_dir = "build/match-linked/EffectBitmapHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EffectBitmapHelpersProbe@116"
+functions = ["EffRet1_4120D0"]
+symbol = "?EffRet1_4120D0@@YAHXZ"
+target_address = 0x004120D0
+size = 6
+linkages = []
+
+[units.eff-ret1-4120e0]
+artifact_kind = "linked-pe"
+source = "src/EffectBitmapHelpers.cpp"
+support_sources = ["probes/effect-bitmap-helpers-context.cpp"]
+output_dir = "build/match-linked/EffectBitmapHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EffectBitmapHelpersProbe@116"
+functions = ["EffRet1_4120E0"]
+symbol = "?EffRet1_4120E0@@YAHXZ"
+target_address = 0x004120E0
+size = 6
+linkages = []
+
+[units.eff-ret1-4120f0]
+artifact_kind = "linked-pe"
+source = "src/EffectBitmapHelpers.cpp"
+support_sources = ["probes/effect-bitmap-helpers-context.cpp"]
+output_dir = "build/match-linked/EffectBitmapHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EffectBitmapHelpersProbe@116"
+functions = ["EffRet1_4120F0"]
+symbol = "?EffRet1_4120F0@@YAHXZ"
+target_address = 0x004120F0
+size = 6
+linkages = []
+
+[units.eff-ret0-412260]
+artifact_kind = "linked-pe"
+source = "src/EffectBitmapHelpers.cpp"
+support_sources = ["probes/effect-bitmap-helpers-context.cpp"]
+output_dir = "build/match-linked/EffectBitmapHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EffectBitmapHelpersProbe@116"
+functions = ["EffRet0_412260"]
+symbol = "?EffRet0_412260@@YAHXZ"
+target_address = 0x00412260
+size = 3
+linkages = []
+
+[units.eff-motion34-copy-to]
+artifact_kind = "linked-pe"
+source = "src/EffectBitmapHelpers.cpp"
+support_sources = ["probes/effect-bitmap-helpers-context.cpp"]
+output_dir = "build/match-linked/EffectBitmapHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EffectBitmapHelpersProbe@116"
+functions = ["EffMotion34::CopyTo"]
+symbol = "?CopyTo@EffMotion34@@QBEXAAU1@@Z"
+target_address = 0x00412300
+size = 77
+linkages = []
+
+[units.eff-ret0-412390]
+artifact_kind = "linked-pe"
+source = "src/EffectBitmapHelpers.cpp"
+support_sources = ["probes/effect-bitmap-helpers-context.cpp"]
+output_dir = "build/match-linked/EffectBitmapHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "EffectBitmapHelpersProbe@116"
+functions = ["EffRet0_412390"]
+symbol = "?EffRet0_412390@@YAHXZ"
+target_address = 0x00412390
+size = 3
+linkages = []

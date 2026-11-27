@@ -237,7 +237,50 @@ address,name,size,status,match_percent,unit,evidence
 0x0040E800,CardEffectSub68::CardEffectSub68,14,exact,100.00,card-effect-sub68-ctor,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x0040E810,CardNoOp40E810,1,exact,100.00,card-noop-40e810,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x0040E910,CardEffectMgrMini::EnableChainElems,23,exact,100.00,card-effect-enable-chain,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00410470,EffClear0A::Clear,7,exact,100.00,eff-clear-0a,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x00410B50,EffPopCount32,60,exact,100.00,eff-popcount32,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x00410B90,EffSet0::Set,3,exact,100.00,eff-set-0,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x00410BA0,EffListNode::InsertAfter,23,exact,100.00,eff-list-insert-after,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x00410BC0,EffListNode::Unlink,37,exact,100.00,eff-list-unlink,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x00410C00,EffCopyVec3::CopyFrom,17,exact,100.00,eff-copy-vec3,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x00410C20,EffZero34::Zero,14,exact,100.00,eff-zero-34,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x00410C30,EffSetAC::Set,7,exact,100.00,eff-set-ac,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x00410C40,EffGet4B4D6C,6,exact,100.00,eff-get-4b4d6c,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x00410C50,EffGet0B::Get,3,exact,100.00,eff-get-0b,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x00410C60,EffCirclesOverlap2D,59,exact,100.00,eff-circles-overlap-2d,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x00410CA0,EffClear0B::Clear,7,exact,100.00,eff-clear-0b,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x00410CB0,EffAdd4B4D60,22,exact,100.00,eff-add-4b4d60,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
 0x00410CD0,ZunTimer::operator>,18,exact,100.00,zun-timer-greater,Cold pinned VC10 /GL /Ob1 /Oy- complete 18-byte public primary-TU PDB contribution behind the shared ZunTimer probe context; current receipts; no fields; zero byte differences.
+0x00410CF0,EffGet04::Get,4,exact,100.00,eff-get-04,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x00410D70,EffNoOp410D70,1,exact,100.00,eff-noop-410d70,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x00410DC0,EffPtrArray::FreeAll,83,exact,100.00,eff-ptr-array-free-all,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x00410E20,EffItemMgrMini::ResetPool,48,exact,100.00,eff-item-mgr-reset-pool,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x00410E50,EffGet08::Get,4,exact,100.00,eff-get-08,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x00410E60,EffTable8C::Get,10,exact,100.00,eff-table-8c-get,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x00410E70,EffGuiMini::GetFieldC0,12,exact,100.00,eff-gui-get-field-c0,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x00410E80,EffGuiMini::GetSubB4Field08,15,exact,100.00,eff-gui-get-sub-b4-field-08,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x00410E90,EffGuiMini::GetSubB4,12,exact,100.00,eff-gui-get-sub-b4,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x00411BD0,EffGet0A::Get,3,exact,100.00,eff-get-0a,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x00411BE0,EffInputStateMini::UpdateRepeatMasks,137,exact,100.00,eff-input-update-repeat-masks,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x00411C70,EffMode558::SetMode558,30,exact,100.00,eff-mode558-set,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x00411C90,EffInputStateMini::GetConfirmMask,9,exact,100.00,eff-input-get-confirm-mask,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x00411CA0,EffInputStateMini::TestTrigger,13,exact,100.00,eff-input-test-trigger,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x00411CB0,EffInputStateMini::TestTriggerOrRepeat,19,exact,100.00,eff-input-test-trigger-or-repeat,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x00411CD0,EffCursorMini::SavePrevious,6,exact,100.00,eff-cursor-save-previous,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x00411D10,EffCursorMini::SetFieldD0,7,exact,100.00,eff-cursor-set-field-d0,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x00411D40,EffCursorMini::SetCount,4,exact,100.00,eff-cursor-set-count,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x00411D50,EffCursorMini::GetValue,3,exact,100.00,eff-cursor-get-value,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x00411D60,EffNoOp411D60,1,exact,100.00,eff-noop-411d60,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x00411D70,EffCursorMini::ResetMenu,34,exact,100.00,eff-cursor-reset-menu,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x00411DA0,EffEnemyMgrMini::DisableBoth,30,exact,100.00,eff-enemy-mgr-disable-both,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x00411E20,EffZero24Global::EffZero24Global,37,exact,100.00,eff-zero-24-global-ctor,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x004120C0,EffRet1_4120C0,6,exact,100.00,eff-ret1-4120c0,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x004120D0,EffRet1_4120D0,6,exact,100.00,eff-ret1-4120d0,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x004120E0,EffRet1_4120E0,6,exact,100.00,eff-ret1-4120e0,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x004120F0,EffRet1_4120F0,6,exact,100.00,eff-ret1-4120f0,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x00412260,EffRet0_412260,3,exact,100.00,eff-ret0-412260,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x00412300,EffMotion34::CopyTo,77,exact,100.00,eff-motion34-copy-to,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x00412390,EffRet0_412390,3,exact,100.00,eff-ret0-412390,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
 0x00412B30,AnmVmEffectNoop412B30,3,exact,100.00,anm-vm-effect-noop-412b30,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
 0x00412B40,AnmVmEffectNoop412B40,3,exact,100.00,anm-vm-effect-noop-412b40,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
 0x00412C80,StartAnmVmEffect06,187,exact,100.00,start-anm-vm-effect-06,"Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; CRT, constant and game-speed relocations replayed; zero byte differences."
