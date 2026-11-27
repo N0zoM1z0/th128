@@ -764,6 +764,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00442740,PrReplayList::FreeStageChunks,93,exact,100.00,PrReplayList_FreeStageChunks,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
 0x004427F0,PrStageEntry24::~PrStageEntry24,37,exact,100.00,PrStageEntry24_dtor,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
 0x00442880,PrScoreFile::InitScoreFile,164,exact,100.00,PrScoreFile_InitScoreFile,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x00442930,th128::Zc4InitRouteScores,674,exact,100.00,zc4-init-route-scores,exact
 0x004440F0,TaAnmVm::SetFloat60Flag3,20,exact,100.00,TaAnmVm_SetFloat60Flag3,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x00444110,TaAnmVm::SetFloat468,16,exact,100.00,TaAnmVm_SetFloat468,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x00444120,TaAnmVm::SetFloat464,16,exact,100.00,TaAnmVm_SetFloat464,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
