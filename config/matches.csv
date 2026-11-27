@@ -404,6 +404,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00415A60,EmRet1_415A60,6,exact,100.00,em-ret1-415a60,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
 0x00417C30,EmEnemyMgr::DamageInCircle,232,exact,100.00,em-enemy-mgr-damage-circle,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
 0x00417D20,EmEnemyMgr::DamageInColumn,203,exact,100.00,em-enemy-mgr-damage-column,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
+0x00417DF0,th128::Zc10KillEnemiesInBox,256,exact,100.00,zc10-kill-enemies-in-box,Exact VC10 LTCG match via ZeroCallMedium10Probe@56
 0x00417EF0,EmEnemyMgr::DamageInCircle2,232,exact,100.00,em-enemy-mgr-damage-circle2,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
 0x0041D140,th128::ZcEnemy::GetIntVarPtr,379,exact,100.00,zc-enemy-get-int-var-ptr,Exact VC10 /GL linked-PE match via compare-linked-function.py.
 0x0041DC20,th128::ZcEnemy::GetFloatVarPtr,525,exact,100.00,zc-enemy-get-float-var-ptr,Exact VC10 /GL linked-PE match via compare-linked-function.py.
@@ -1001,6 +1002,8 @@ address,name,size,status,match_percent,unit,evidence
 0x0045E770,AnmDrawLeaf::ApplyState,416,exact,100.00,anm-renderer-apply-vm-state,Cold pinned VC10 /GL /Ob1 linked-PE replay; complete 416-byte primary-TU PDB contribution; all 21 reviewed fields and physical tails replay with zero byte differences.
 0x0045EF60,FlushAnmSpriteBatch,213,exact,100.00,anm-manager-flush-sprite-batch,Cold pinned VC10 /GL /Ob1 linked-PE replay; complete 213-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0045F040,AnmDrawLeaf::AppendSprite,138,exact,100.00,anm-sprite-append,Cold pinned VC10 /GL /Ob1 linked-PE replay; complete 138-byte primary-TU PDB contribution; all 0 reviewed fields and physical tails replay with zero byte differences.
+0x00461370,th128::Zc10BuildRibbonU,248,exact,100.00,zc10-build-ribbon-u,Exact VC10 LTCG match via ZeroCallMedium10Probe@56
+0x00461470,th128::Zc10BuildRibbonV,248,exact,100.00,zc10-build-ribbon-v,Exact VC10 LTCG match via ZeroCallMedium10Probe@56
 0x00464510,AnmHelpers::NormalizeTextureFormat,40,exact,100.00,anm-normalize-texture-format,Cold pinned VC10 RTM /GL /Ob1 /Oy- linked-PE comparison; complete 40-byte public primary-TU PDB contribution and all 2 reviewed address fields; zero byte differences.
 0x00464540,AnmHelpers::AccumulateTextureColor8888,30,exact,100.00,anm-accumulate-texture-color-8888,Cold pinned VC10 RTM /GL /Ob1 /Oy- linked-PE comparison; complete 30-byte public primary-TU PDB contribution and all 0 reviewed address fields; zero byte differences.
 0x00464560,AnmHelpers::AccumulateTextureColor1555,42,exact,100.00,anm-accumulate-texture-color-1555,Cold pinned VC10 RTM /GL /Ob1 /Oy- linked-PE comparison; complete 42-byte public primary-TU PDB contribution and all 0 reviewed address fields; zero byte differences.

@@ -669,7 +669,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x004179C0,0x00417C24,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x004179C0..0x00417C24 (613 bytes) ends with ret; then padding-then-start 0x00417C30; WEAK: no call, jump, pointer or vtable reference found"
 0x00417C30,0x00417D17,reviewed,high,em-enemy-mgr-damage-circle-boundary,Verified exact VC10 /GL linked-pe extent
 0x00417D20,0x00417DEA,reviewed,high,em-enemy-mgr-damage-column-boundary,Verified exact VC10 /GL linked-pe extent
-0x00417DF0,0x00417EEF,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x00417DF0..0x00417EEF (256 bytes) ends with ret; then adjacent-start 0x00417EF0; WEAK: no call, jump, pointer or vtable reference found"
+0x00417DF0,0x00417EEF,reviewed,high,zc10-kill-enemies-in-box-boundary,0x00417DF0..0x00417EEF (256 bytes)
 0x00417EF0,0x00417FD7,reviewed,high,em-enemy-mgr-damage-circle2-boundary,Verified exact VC10 /GL linked-pe extent
 0x00417FE0,0x00417FEA,reviewed,high,bdesc-exact,start padding; refs datax1; descent body 0x00417FE0..0x00417FEA (11 bytes) ends with jmp; then padding-then-start 0x00417FF0
 0x00417FF0,0x0041C94F,reviewed,high,bdesc-extent-correction,descent extends the inventory span by 1022 bytes past 0x0041C551; state applies to the proposed extent. start padding; refs jmpx1; descent body 0x00417FF0..0x0041C94F (18784 bytes) ends with table; then adjacent-start 0x0041C950; tables 0x0041C554+620 0x0041C7C0+360 0x0041C928+20 0x0041C93C+20; 1 filler hole(s)
@@ -1936,8 +1936,8 @@ address,span_end,state,confidence,evidence_id,notes
 0x00460B50,0x00460B7F,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00460B50..0x00460B7F (48 bytes) ends with ret; then adjacent-start 0x00460B80
 0x00460B80,0x00460DC8,reviewed,high,bdesc-exact,start after-terminator; refs callx1; descent body 0x00460B80..0x00460DC8 (585 bytes) ends with ret; then padding-then-start 0x00460DD0
 0x00460DD0,0x00461364,reviewed,high,bdesc-exact,start padding; refs callx2; descent body 0x00460DD0..0x00461364 (1429 bytes) ends with ret; then padding-then-start 0x00461370
-0x00461370,0x00461467,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x00461370..0x00461467 (248 bytes) ends with ret; then padding-then-start 0x00461470; WEAK: no call, jump, pointer or vtable reference found"
-0x00461470,0x00461567,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x00461470..0x00461567 (248 bytes) ends with ret; then padding-then-start 0x00461570; WEAK: no call, jump, pointer or vtable reference found"
+0x00461370,0x00461467,reviewed,high,zc10-build-ribbon-u-boundary,0x00461370..0x00461467 (248 bytes)
+0x00461470,0x00461567,reviewed,high,zc10-build-ribbon-v-boundary,0x00461470..0x00461567 (248 bytes)
 0x00461570,0x00461591,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00461570..0x00461591 (34 bytes) ends with ret; then padding-then-start 0x004615A0; 1 filler hole(s); WEAK: no call, jump, pointer or vtable reference found"
 0x004615A0,0x004616C8,reviewed,high,bdesc-exact,start padding; refs callx2; descent body 0x004615A0..0x004616C8 (297 bytes) ends with ret; then padding-then-start 0x004616D0
 0x004616D0,0x0046175D,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x004616D0..0x0046175D (142 bytes) ends with ret; then padding-then-start 0x00461760; WEAK: no call, jump, pointer or vtable reference found"

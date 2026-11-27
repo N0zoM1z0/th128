@@ -413,6 +413,7 @@ EmRet1_415A10,0x00415A10,function
 EmRet1_415A60,0x00415A60,function
 EmEnemyMgr::DamageInCircle,0x00417C30,function
 EmEnemyMgr::DamageInColumn,0x00417D20,function
+th128::Zc10KillEnemiesInBox,0x00417DF0,function
 EmEnemyMgr::DamageInCircle2,0x00417EF0,function
 th128::ZcEnemy::GetIntVarPtr,0x0041D140,function
 th128::ZcEnemy::GetFloatVarPtr,0x0041DC20,function
@@ -1055,6 +1056,8 @@ AnmDrawLeaf::UnrotatedSprite,0x0045FA10,function
 BuildAnmVmViewCornersMode1,0x0045FAD0,function
 AnmDrawLeaf::RotatedSprite,0x0045FD40,function
 AnmDrawLeaf::AlternateRotatedSprite,0x0045FD70,function
+th128::Zc10BuildRibbonU,0x00461370,function
+th128::Zc10BuildRibbonV,0x00461470,function
 DrawAnmVmVertices,0x00461A00,function
 AnmVm::Draw,0x00461B00,function
 BuildAnmVmViewCorners,0x00462070,function
