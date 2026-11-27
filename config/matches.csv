@@ -961,6 +961,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00459CE0,AnmVm::ResolveIntegerOperandAddress,104,exact,100.00,anm-vm-resolve-integer-operand-address-linked,Cold pinned VC10 /GL /Ob1 /Oy- linked-PE build; complete PDB owner and all 11 reviewed local DIR32 fields replay with zero byte differences.
 0x00459D50,NormalizeAnmCoordinates,52,exact,100.00,anm-vm-normalize-coordinates-linked,Cold pinned VC10 /GL linked-PE build with AnmVm::Update and AnmVmResource in one primary-TU context; complete 52-byte PDB owner; both DIR32 constants replay to 0x004A65C8 and 0x004A65C0; zero byte differences.
 0x0045D330,AnmInterpHelpers::UpdateAnmVmArray,45,exact,100.00,anm-interp-update-anm-vm-array,Cold pinned VC10 /GL /Ob1 linked-PE replay; complete 45-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x0045D3D0,th128::IbInterp<IbInt3>::Step,721,exact,100.00,ib1-interp-int3-step,linked-pe VC10 /GL exact 721B
 0x0045D6B0,AnmInterp<AnmColor3>::GetDuration,4,exact,100.00,anm-interp-color3-get-duration,Cold pinned VC10 /GL /Ob1 linked-PE replay; complete 4-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0045DA80,AnmInterp<float>::SetStart,5,exact,100.00,anm-interp-float-set-start,Cold pinned VC10 /GL /Ob1 linked-PE replay; complete 5-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0045DA90,AnmInterp<float>::SetGoal,6,exact,100.00,anm-interp-float-set-goal,Cold pinned VC10 /GL /Ob1 linked-PE replay; complete 6-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
@@ -1161,6 +1162,7 @@ address,name,size,status,match_percent,unit,evidence
 0x0046C240,Stub46C240,1,exact,100.00,core-math-stub-46c240,Cold pinned VC10 /GL linked-PE replay; complete 1-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046C250,InitDefaultTimeScale,24,exact,100.00,core-math-init-default-time-scale,Cold pinned VC10 /GL linked-PE replay; complete 24-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046C270,Stub46C270,1,exact,100.00,core-math-stub-46c270,Cold pinned VC10 /GL linked-PE replay; complete 1-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x0046C2A0,th128::Cb1InputState::Update,114,exact,100.00,cb1-input-state-update,linked-pe VC10 /GL exact 114B
 0x0046C320,DebugLog46C320,1,exact,100.00,core-math-debug-log-46c320,Cold pinned VC10 /GL linked-PE replay; complete 1-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046C330,th128::SaInputPad::SaInputPad,73,exact,100.00,SaInputPad_ctor,Cold-replayed VC10 LTCG match via SoundAnmHelpersProbe
 0x0046C380,FindChainNodeByOwner,18,exact,100.00,core-math-find-chain-node-by-owner,Cold pinned VC10 /GL linked-PE replay; complete 18-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.

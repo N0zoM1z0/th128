@@ -1848,7 +1848,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x0045D2C0,0x0045D32C,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x0045D2C0..0x0045D32C (109 bytes) ends with ret; then padding-then-start 0x0045D330; WEAK: no call, jump, pointer or vtable reference found"
 0x0045D330,0x0045D35C,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x0045D330..0x0045D35C (45 bytes) ends with ret; then padding-then-start 0x0045D360; WEAK: no call, jump, pointer or vtable reference found"
 0x0045D360,0x0045D3C4,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x0045D360..0x0045D3C4 (101 bytes) ends with ret; then padding-then-start 0x0045D3D0; 1 filler hole(s); WEAK: no call, jump, pointer or vtable reference found"
-0x0045D3D0,0x0045D6A0,reviewed,high,bdesc-exact,start padding; refs callx2; descent body 0x0045D3D0..0x0045D6A0 (721 bytes) ends with ret; then padding-then-start 0x0045D6B0
+0x0045D3D0,0x0045D6A0,reviewed,high,ib1-interp-int3-step-boundary,0x0045D3D0..0x0045D6A0
 0x0045D6B0,0x0045D6B3,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x0045D6B0..0x0045D6B3 (4 bytes) ends with ret; then padding-then-start 0x0045D6C0; WEAK: no call, jump, pointer or vtable reference found"
 0x0045D6C0,0x0045D80E,reviewed,high,bdesc-exact,start padding; refs callx2; descent body 0x0045D6C0..0x0045D80E (335 bytes) ends with ret; then padding-then-start 0x0045D810
 0x0045D810,0x0045DA64,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x0045D810..0x0045DA64 (597 bytes) ends with ret; then padding-then-start 0x0045DA70
@@ -2200,7 +2200,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x0046C250,0x0046C267,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x0046C250..0x0046C267 (24 bytes) ends with ret; then padding-then-start 0x0046C270; WEAK: no call, jump, pointer or vtable reference found"
 0x0046C270,0x0046C270,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x0046C270..0x0046C270 (1 bytes) ends with ret; then padding-then-start 0x0046C280; WEAK: no call, jump, pointer or vtable reference found"
 0x0046C280,0x0046C29B,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x0046C280..0x0046C29B (28 bytes) ends with ret; then padding-then-start 0x0046C2A0; WEAK: no call, jump, pointer or vtable reference found"
-0x0046C2A0,0x0046C311,reviewed,high,bdesc-exact,start padding; refs callx3; descent body 0x0046C2A0..0x0046C311 (114 bytes) ends with ret; then padding-then-start 0x0046C320; 1 filler hole(s)
+0x0046C2A0,0x0046C311,reviewed,high,cb1-input-state-update-boundary,0x0046C2A0..0x0046C311
 0x0046C320,0x0046C320,reviewed,high,bdesc-exact,start padding; refs callx12; descent body 0x0046C320..0x0046C320 (1 bytes) ends with ret; then padding-then-start 0x0046C330
 0x0046C330,0x0046C378,reviewed,high,SaInputPad_ctor-boundary,Exact VC10 LTCG match via SoundAnmHelpersProbe
 0x0046C380,0x0046C391,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x0046C380..0x0046C391 (18 bytes) ends with ret; then padding-then-start 0x0046C3A0; WEAK: no call, jump, pointer or vtable reference found"

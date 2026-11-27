@@ -1000,7 +1000,7 @@ AnmVm::ResolveIntegerOperandAddress,0x00459CE0,function
 NormalizeAnmCoordinates,0x00459D50,function
 AnmVm::Update,0x00459D90,function
 AnmInterpHelpers::UpdateAnmVmArray,0x0045D330,function
-InterpolateColorVector,0x0045D3D0,function
+th128::IbInterp<IbInt3>::Step,0x0045D3D0,function
 AnmInterp<AnmColor3>::GetDuration,0x0045D6B0,function
 InterpolateInteger,0x0045D6C0,function
 InterpolateAngle,0x0045D810,function
@@ -1252,6 +1252,7 @@ DecTimeScaleRef,0x0046C230,function
 Stub46C240,0x0046C240,function
 InitDefaultTimeScale,0x0046C250,function
 Stub46C270,0x0046C270,function
+th128::Cb1InputState::Update,0x0046C2A0,function
 DebugLog46C320,0x0046C320,function
 th128::SaInputPad::SaInputPad,0x0046C330,function
 FindChainNodeByOwner,0x0046C380,function

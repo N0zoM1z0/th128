@@ -21706,3 +21706,50 @@ linkages = [
   { offset = 916, type = "REL32", symbol = "?Update@Ib1InputState@th128@@QAEXXZ", target = 0x0046C2A0 },
   { offset = 930, type = "REL32", symbol = "@__security_check_cookie@4", target = 0x004728FD },
 ]
+
+[units.ib1-interp-int3-step]
+artifact_kind = "linked-pe"
+source = "src/InterpBatch1.cpp"
+support_sources = ["probes/interp-batch1-context.cpp"]
+output_dir = "build/match-linked/InterpBatch1"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "InterpBatch1Probe@8"
+functions = ["th128::IbInterp<IbInt3>::Step"]
+symbol = "?Step@?$IbInterp@UIbInt3@th128@@@th128@@QAE?AUIbInt3@2@XZ"
+target_address = 0x0045D3D0
+size = 721
+linkages = [
+  { offset = 28, type = "REL32", symbol = "?Increment@IbTimer@th128@@QAEXXZ", target = 0x00402AC0 },
+  { offset = 77, type = "DIR32", symbol = "?g_IbDefaultTimeScale@th128@@3MA", target = 0x004B6F58 },
+  { offset = 350, type = "DIR32", symbol = "__real@4008000000000000", target = 0x004A6668 },
+  { offset = 392, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 404, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 415, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 435, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 448, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 459, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 479, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 492, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 503, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 522, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 535, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 546, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 609, type = "REL32", symbol = "?IbEaseTransition@th128@@YGMIM@Z", target = 0x0046B190 },
+  { offset = 667, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 679, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 690, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+]
+
+[units.cb1-input-state-update]
+artifact_kind = "linked-pe"
+source = "src/CleanBatch1.cpp"
+support_sources = ["probes/clean-batch1-context.cpp"]
+normal_support_sources = ["probes/clean-batch1-context.cpp"]
+output_dir = "build/match-linked/CleanBatch1"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "main"
+functions = ["th128::Cb1InputState::Update"]
+symbol = "?Update@Cb1InputState@th128@@QAEXXZ"
+target_address = 0x0046C2A0
+size = 114
+linkages = []
