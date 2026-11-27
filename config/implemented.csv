@@ -157,7 +157,6 @@ AnmTextureEntry::UploadTextureImage
 AnmTextureEntry::UploadTextureRegion
 AnmViewportTan
 AnmVm::AnmVm
-AnmVm::BindAnmFile
 AnmVm::Draw
 AnmVm::RegisterUiVmAtHead
 AnmVm::RegisterUiVmAtTail
@@ -1296,6 +1295,11 @@ th128::Zc2InitMenuCameras
 th128::Zc2StageCamOwner::InitGameCameras
 th128::Zc3PlayerStartAllOptionAnms
 th128::Zc3ReplayStageInit
+th128::Zc4InitRouteScores
+th128::Zc5ClearActiveItems
+th128::Zc8AnmSetSprite
+th128::Zc9InsertScoreEntry
+th128::Zc9SoundResetAndVolume
 th128::ZcEnemy::GetFloatVarPtr
 th128::ZcEnemy::GetIntVarPtr
 th128::ZcGuiUpdateMeterAnms

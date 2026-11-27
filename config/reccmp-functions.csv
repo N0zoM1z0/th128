@@ -587,6 +587,7 @@ IlPlayerMgr::GetF7C,0x004282A0,function
 IlItemEntry::IlItemEntry,0x004282F0,function
 IlItemEntry::~IlItemEntry,0x00428320,function
 IlRet0_4293C0,0x004293C0,function
+th128::Zc5ClearActiveItems,0x00429770,function
 IlIsNZ0::IsNonZero,0x00429900,function
 IlGet4B4D38,0x00429910,function
 IlAddPowerClamped,0x00429920,function
@@ -709,6 +710,7 @@ SpAnmMgr::ResetField94,0x004360E0,function
 SpObj10::GetField10,0x00436200,function
 SpGuiMgr::Get5A1C,0x00436240,function
 SpFpsCounter::GetSlowdownPct,0x00436280,function
+th128::Zc9InsertScoreEntry,0x004362B0,function
 SpHelpMgr::Get128,0x004363F0,function
 SpRet0_436580,0x00436580,function
 SpRet0_436590,0x00436590,function
@@ -787,6 +789,7 @@ PrReplayChunk::DeleteSelf,0x00442700,function
 PrReplayList::FreeStageChunks,0x00442740,function
 PrStageEntry24::~PrStageEntry24,0x004427F0,function
 PrScoreFile::InitScoreFile,0x00442880,function
+th128::Zc4InitRouteScores,0x00442930,function
 TaAnmVm::SetFloat60Flag3,0x004440F0,function
 TaAnmVm::SetFloat468,0x00444110,function
 TaAnmVm::SetFloat464,0x00444120,function
@@ -960,6 +963,7 @@ th128::SaRequestSoundStop,0x00457620,function
 th128::SaShutdownSoundThreads,0x00457630,function
 th128::SaStartSfxThread,0x00457AA0,function
 th128::SaLoadBgmTable,0x00457D50,function
+th128::Zc9SoundResetAndVolume,0x004582B0,function
 SoundManager::PlaySfx,0x00458410,function
 SoundManager::PlaySfxWithPan,0x004584A0,function
 SoundManager::SetSfxPan,0x00458550,function
@@ -977,7 +981,7 @@ SfxChannel::GetBuffer,0x00459190,function
 SoundDebugLog,0x004591A0,function
 SfxChannel::Init,0x004591B0,function
 SoundManager::SoundManager,0x004591D0,function
-AnmVm::BindAnmFile,0x00459220,function
+th128::Zc8AnmSetSprite,0x00459220,function
 AnmResource::BindVmScript,0x004593B0,function
 AnmResource::BindVmAtPosition,0x004594C0,function
 AnmVm::ResolveFloatOperand,0x00459900,function

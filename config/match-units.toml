@@ -21256,3 +21256,66 @@ size = 396
 linkages = [
   { offset = 319, type = "DIR32", symbol = "__real@3f70000000000000", target = 0x004A66B8 },
 ]
+
+[units.zc9-insert-score-entry]
+artifact_kind = "linked-pe"
+source = "src/ZeroCallMedium9.cpp"
+support_sources = ["probes/zero-call-medium9-context.cpp"]
+output_dir = "build/match-linked/ZeroCallMedium9"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ZeroCallMedium9Probe@48"
+functions = ["th128::Zc9InsertScoreEntry"]
+symbol = "?Zc9InsertScoreEntry@@YGHPAUZc9ScoreTable@@@Z"
+target_address = 0x004362b0
+size = 318
+linkages = [
+  { offset = 4, type = "DIR32", symbol = "?g_Zc9Difficulty@@3HA", target = 0x004B4D0C },
+  { offset = 24, type = "DIR32", symbol = "?g_Zc9Score@@3HA", target = 0x004B4CC4 },
+  { offset = 106, type = "DIR32", symbol = "?g_Zc9Difficulty@@3HA", target = 0x004B4D0C },
+  { offset = 119, type = "DIR32", symbol = "?g_Zc9Score@@3HA", target = 0x004B4CC4 },
+  { offset = 137, type = "DIR32", symbol = "?g_Zc9Difficulty@@3HA", target = 0x004B4D0C },
+  { offset = 147, type = "DIR32", symbol = "?g_Zc9Stage@@3EA", target = 0x004B4D28 },
+  { offset = 162, type = "DIR32", symbol = "?g_Zc9Difficulty@@3HA", target = 0x004B4D0C },
+  { offset = 172, type = "DIR32", symbol = "?g_Zc9Route@@3EA", target = 0x004B4D14 },
+  { offset = 187, type = "DIR32", symbol = "?g_Zc9Difficulty@@3HA", target = 0x004B4D0C },
+  { offset = 205, type = "REL32", symbol = "__time64", target = 0x004735E5 },
+  { offset = 210, type = "DIR32", symbol = "?g_Zc9Difficulty@@3HA", target = 0x004B4D0C },
+  { offset = 216, type = "DIR32", symbol = "??_C@_08GGFKNFHG@?5?5?5?5?5?5?5?5?$AA@", target = 0x004A35EC },
+  { offset = 239, type = "DIR32", symbol = "??_C@_08GGFKNFHG@?5?5?5?5?5?5?5?5?$AA@", addend = 4, target = 0x004A35EC },
+  { offset = 248, type = "DIR32", symbol = "??_C@_08GGFKNFHG@?5?5?5?5?5?5?5?5?$AA@", addend = 8, target = 0x004A35EC },
+  { offset = 256, type = "DIR32", symbol = "?g_Zc9SlowRateObj@@3PAUZc9SlowRateObj@@A", target = 0x004B894C },
+  { offset = 271, type = "DIR32", symbol = "?g_Zc9Difficulty@@3HA", target = 0x004B4D0C },
+  { offset = 294, type = "DIR32", symbol = "__real@4059000000000000", target = 0x004A6590 },
+]
+
+[units.zc9-sound-reset-and-volume]
+artifact_kind = "linked-pe"
+source = "src/ZeroCallMedium9.cpp"
+support_sources = ["probes/zero-call-medium9-context.cpp"]
+output_dir = "build/match-linked/ZeroCallMedium9"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "ZeroCallMedium9Probe@48"
+functions = ["th128::Zc9SoundResetAndVolume"]
+symbol = "?Zc9SoundResetAndVolume@@YAHPAUZc9SoundMgr@@@Z"
+target_address = 0x004582b0
+size = 351
+linkages = [
+  { offset = 44, type = "DIR32", symbol = "?g_Zc9SoundThread1@@3PAXA", target = 0x004DAEA4 },
+  { offset = 58, type = "DIR32", symbol = "?g_Zc9SoundStopFlag@@3HA", target = 0x004DAEB0 },
+  { offset = 67, type = "DIR32", symbol = "?g_Zc9SoundStopFlag@@3HA", target = 0x004DAEB0 },
+  { offset = 79, type = "DIR32", symbol = "__imp__WaitForSingleObject@8", target = 0x0049A100 },
+  { offset = 90, type = "DIR32", symbol = "__imp__Sleep@4", target = 0x0049A084 },
+  { offset = 106, type = "DIR32", symbol = "?g_Zc9SoundThread1@@3PAXA", target = 0x004DAEA4 },
+  { offset = 124, type = "DIR32", symbol = "?g_Zc9SoundThread2@@3PAXA", target = 0x004DAEA8 },
+  { offset = 150, type = "DIR32", symbol = "?g_Zc9SoundThread2@@3PAXA", target = 0x004DAEA8 },
+  { offset = 167, type = "DIR32", symbol = "?g_Zc9SoundThread1@@3PAXA", target = 0x004DAEA4 },
+  { offset = 173, type = "DIR32", symbol = "__imp__CloseHandle@4", target = 0x0049A0A4 },
+  { offset = 182, type = "DIR32", symbol = "?g_Zc9SoundThread2@@3PAXA", target = 0x004DAEA8 },
+  { offset = 193, type = "DIR32", symbol = "?g_Zc9SoundThread1@@3PAXA", target = 0x004DAEA4 },
+  { offset = 198, type = "DIR32", symbol = "?g_Zc9SoundThread2@@3PAXA", target = 0x004DAEA8 },
+  { offset = 224, type = "DIR32", symbol = "?g_Zc9ConfigBgmVol@@3CA", target = 0x004D3050 },
+  { offset = 237, type = "DIR32", symbol = "?g_Zc9ConfigBgmOn@@3CA", target = 0x004D3051 },
+  { offset = 259, type = "DIR32", symbol = "__real@4059000000000000", target = 0x004A6590 },
+  { offset = 307, type = "DIR32", symbol = "__real@c0b3880000000000", target = 0x004A66C0 },
+  { offset = 312, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+]

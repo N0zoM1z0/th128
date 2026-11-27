@@ -687,6 +687,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00436200,SpObj10::GetField10,4,exact,100.00,SpObj10_GetField10,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
 0x00436240,SpGuiMgr::Get5A1C,12,exact,100.00,SpGuiMgr_Get5A1C,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
 0x00436280,SpFpsCounter::GetSlowdownPct,41,exact,100.00,SpFpsCounter_GetSlowdownPct,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
+0x004362B0,th128::Zc9InsertScoreEntry,318,exact,100.00,zc9-insert-score-entry,Exact VC10 LTCG match via ZeroCallMedium9Probe@48
 0x004363F0,SpHelpMgr::Get128,12,exact,100.00,SpHelpMgr_Get128,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
 0x00436580,SpRet0_436580,3,exact,100.00,SpRet0_436580,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
 0x00436590,SpRet0_436590,3,exact,100.00,SpRet0_436590,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
@@ -924,6 +925,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00457630,th128::SaShutdownSoundThreads,173,exact,100.00,SaShutdownSoundThreads,Cold-replayed VC10 LTCG match via SoundAnmHelpersProbe
 0x00457AA0,th128::SaStartSfxThread,39,exact,100.00,SaStartSfxThread,Cold-replayed VC10 LTCG match via SoundAnmHelpersProbe
 0x00457D50,th128::SaLoadBgmTable,37,exact,100.00,SaLoadBgmTable,Cold-replayed VC10 LTCG match via SoundAnmHelpersProbe
+0x004582B0,th128::Zc9SoundResetAndVolume,351,exact,100.00,zc9-sound-reset-and-volume,Exact VC10 LTCG match via ZeroCallMedium9Probe@48
 0x00458410,SoundManager::PlaySfx,136,exact,100.00,sound-manager-play-sfx,Cold pinned VC10 /GL linked-PE replay; complete 136-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x004584A0,SoundManager::PlaySfxWithPan,168,exact,100.00,sound-manager-play-sfx-with-pan,Cold pinned VC10 /GL linked-PE replay; complete 168-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x00458550,SoundManager::SetSfxPan,52,exact,100.00,sound-manager-set-sfx-pan,Cold pinned VC10 /GL linked-PE replay; complete 52-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
