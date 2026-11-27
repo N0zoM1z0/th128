@@ -702,13 +702,107 @@ address,name,size,status,match_percent,unit,evidence
 0x0043AF40,SpPlayer::DestroySelf,18,exact,100.00,SpPlayer_DestroySelf,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
 0x0043AF60,SpPlayer::DestroyGlobal,28,exact,100.00,SpPlayer_DestroyGlobal,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
 0x0043B620,SpPlayer::SetFlag1AndZeroF64,22,exact,100.00,SpPlayer_SetFlag1AndZeroF64,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
+0x0043E140,PrIncGrazeClamped,19,exact,100.00,PrIncGrazeClamped,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x0043E180,PrAngleDiffA,99,exact,100.00,PrAngleDiffA,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x0043E260,PrGet4B4CC8Div4B4D38,13,exact,100.00,PrGet4B4CC8Div4B4D38,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x0043E270,PrVec3::DistSq2DA,32,exact,100.00,PrVec3_DistSq2DA,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x0043E290,PrWord418::Get418,8,exact,100.00,PrWord418_Get418,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x0043E2A0,PrTimer::IsTickMultiple,33,exact,100.00,PrTimer_IsTickMultiple,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x0043E2D0,PrIVec2::ToVec3Scaled,26,exact,100.00,PrIVec2_ToVec3Scaled,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x0043E310,PrIVec2::IsNonZero,20,exact,100.00,PrIVec2_IsNonZero,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x0043E3B0,PrIVec2::Set,6,exact,100.00,PrIVec2_Set,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x0043E3E0,PrSet4B4D38,6,exact,100.00,PrSet4B4D38,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x0043E3F0,PrSet4B4D34,6,exact,100.00,PrSet4B4D34,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x0043E400,PrObj38::Get38,4,exact,100.00,PrObj38_Get38,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x0043E410,PrGet4B4CF4,6,exact,100.00,PrGet4B4CF4,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x0043E4A0,PrObj74::Get74,4,exact,100.00,PrObj74_Get74,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x0043E4B0,PrPlayerExact::GetOptPtr,20,exact,100.00,PrPlayerExact_GetOptPtr,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x0043E4D0,PrPlayerExact::GetOptFloat4C,20,exact,100.00,PrPlayerExact_GetOptFloat4C,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x0043E500,PrInputFlags::IsFlag3EE4Set,26,exact,100.00,PrInputFlags_IsFlag3EE4Set,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x0043E520,PrInputFlags::IsFlag50ACSet,26,exact,100.00,PrInputFlags_IsFlag50ACSet,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x0043E540,PrInputFlags::Get11C0,7,exact,100.00,PrInputFlags_Get11C0,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x0043E550,PrEnemyMgr::Get6B218,12,exact,100.00,PrEnemyMgr_Get6B218,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x0043E560,PrComputeBoxBounds,47,exact,100.00,PrComputeBoxBounds,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x00440720,PrPlayerExact::ClearTargetId,52,exact,100.00,PrPlayerExact_ClearTargetId,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x004407C0,PrBulletHit::AddField18,16,exact,100.00,PrBulletHit_AddField18,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x004407F0,PrAngleDiffB,99,exact,100.00,PrAngleDiffB,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x004408A0,PrVec3::DistSq2DB,32,exact,100.00,PrVec3_DistSq2DB,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x00440950,PrFpsCounter::Get34,9,exact,100.00,PrFpsCounter_Get34,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x004414A0,PrReplayMgr::GetFastForwardStepA,53,exact,100.00,PrReplayMgr_GetFastForwardStepA,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x00442030,PrReplayMgr::GetFastForwardStepB,59,exact,100.00,PrReplayMgr_GetFastForwardStepB,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x00442360,PrReplayMgr::GetTagStr,25,exact,100.00,PrReplayMgr_GetTagStr,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x00442380,PrStageEntry24::ResetZero,19,exact,100.00,PrStageEntry24_ResetZero,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x004423B0,PrUserTag::SetUserMagic,7,exact,100.00,PrUserTag_SetUserMagic,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x004423C0,PrReplayChunk::GetFpsCount,14,exact,100.00,PrReplayChunk_GetFpsCount,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x004423D0,PrReplayChunk::GetInputByteCount,28,exact,100.00,PrReplayChunk_GetInputByteCount,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x004423F0,PrReplayChunk::GetInputCount,23,exact,100.00,PrReplayChunk_GetInputCount,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x00442410,PrReplayChunk::GetTotalByteCount,42,exact,100.00,PrReplayChunk_GetTotalByteCount,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x00442450,PrReplayChunk::PushInput,85,exact,100.00,PrReplayChunk_PushInput,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x004424B0,PrReplayChunk::PushFps,37,exact,100.00,PrReplayChunk_PushFps,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x004424E0,PrReplayState84::Set1C,4,exact,100.00,PrReplayState84_Set1C,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x004424F0,PrReplayState84::Set38,4,exact,100.00,PrReplayState84_Set38,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x00442500,PrReplayState84::Set84,7,exact,100.00,PrReplayState84_Set84,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x00442510,PrStageEntry24::ResetNeg1,19,exact,100.00,PrStageEntry24_ResetNeg1,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x00442530,PrReplayState84::Get80,7,exact,100.00,PrReplayState84_Get80,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x00442540,PrReplayState84::Get1C,4,exact,100.00,PrReplayState84_Get1C,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x00442550,PrGet4D33CC,6,exact,100.00,PrGet4D33CC,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x00442560,PrZero4D2AE4,11,exact,100.00,PrZero4D2AE4,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x00442570,PrGet4D2AE0,7,exact,100.00,PrGet4D2AE0,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x00442580,PrBuf90::PrBuf90,19,exact,100.00,PrBuf90_ctor,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x004426C0,PrReplayChunk::UnlinkNode,55,exact,100.00,PrReplayChunk_UnlinkNode,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x00442700,PrReplayChunk::DeleteSelf,64,exact,100.00,PrReplayChunk_DeleteSelf,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x00442740,PrReplayList::FreeStageChunks,93,exact,100.00,PrReplayList_FreeStageChunks,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x004427F0,PrStageEntry24::~PrStageEntry24,37,exact,100.00,PrStageEntry24_dtor,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x00442880,PrScoreFile::InitScoreFile,164,exact,100.00,PrScoreFile_InitScoreFile,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x004440F0,TaAnmVm::SetFloat60Flag3,20,exact,100.00,TaAnmVm_SetFloat60Flag3,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x00444110,TaAnmVm::SetFloat468,16,exact,100.00,TaAnmVm_SetFloat468,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x00444120,TaAnmVm::SetFloat464,16,exact,100.00,TaAnmVm_SetFloat464,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x00444130,TaNoOp444130,1,exact,100.00,TaNoOp444130,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x00444140,TaNode4::IsNextNonZero,12,exact,100.00,TaNode4_IsNextNonZero,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x004441B0,TaStaffMgr::TaStaffMgr,142,exact,100.00,TaStaffMgr_ctor,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x004444E0,TaBuf8C::DeleteSelf,47,exact,100.00,TaBuf8C_DeleteSelf,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x00444640,TaStaffMgr::Create,68,exact,100.00,TaStaffMgr_Create,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x00444690,TaStaffMgr::DestroySelf,18,exact,100.00,TaStaffMgr_DestroySelf,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x004446B0,TaStaffMgr::DestroyPtr,18,exact,100.00,TaStaffMgr_DestroyPtr,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x00444CB0,TaNoOp444CB0,1,exact,100.00,TaNoOp444CB0,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x00444CC0,TaRouteStageToIndex,73,exact,100.00,TaRouteStageToIndex,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x00444D10,TaGetTitleSize,6,exact,100.00,TaGetTitleSize,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x00444D80,TaTitleMgrExact::SetSubStateAndResetTimer,82,exact,100.00,TaTitleMgrExact_SetSubStateAndResetTimer,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x004450E0,TaMother::Get528,12,exact,100.00,TaMother_Get528,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x004450F0,TaScoreMgrExact::IsClearFlag,12,exact,100.00,TaScoreMgrExact_IsClearFlag,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x00445100,TaScoreMgrExact::AreAll6Cleared,64,exact,100.00,TaScoreMgrExact_AreAll6Cleared,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x00445140,TaScoreMgrExact::GetTable660,29,exact,100.00,TaScoreMgrExact_GetTable660,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x00445160,TaScoreMgrExact::SetAllClearFlags,35,exact,100.00,TaScoreMgrExact_SetAllClearFlags,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x00445190,TaHelpMgr::SetFloat12C,21,exact,100.00,TaHelpMgr_SetFloat12C,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x004451B0,TaTitleMgrExact::TaTitleMgrExact,201,exact,100.00,TaTitleMgrExact_ctor,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x00445730,TaTitleMgrExact::DestroyGlobal,28,exact,100.00,TaTitleMgrExact_DestroyGlobal,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x00445750,TaTitleMgrExact::DestroySelf,18,exact,100.00,TaTitleMgrExact_DestroySelf,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x0044B3B0,TaRet1_44B3B0,6,exact,100.00,TaRet1_44B3B0,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x0044B3C0,TaRet1_44B3C0,6,exact,100.00,TaRet1_44B3C0,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x0044B3D0,TaRet1_44B3D0,6,exact,100.00,TaRet1_44B3D0,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x0044F350,TaSkipLine,59,exact,100.00,TaSkipLine,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x0044F3F0,TaObj04::GetField04,4,exact,100.00,TaObj04_GetField04,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x0044F400,TaObj04::IsPos0,8,exact,100.00,TaObj04_IsPos0,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x0044F420,TaObjD4::ZeroD4,11,exact,100.00,TaObjD4_ZeroD4,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x0044F4D0,TaRouteStageToIndexSwitch,104,exact,100.00,TaRouteStageToIndexSwitch,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x0044F560,TaClearFlag4B4D50Bit4,8,exact,100.00,TaClearFlag4B4D50Bit4,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x0044F570,TaObj04::GetPlus7,6,exact,100.00,TaObj04_GetPlus7,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x0044F580,TaAnmMgr::GetSlot4E90C0,8,exact,100.00,TaAnmMgr_GetSlot4E90C0,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x0044F590,TaNoOp44F590,1,exact,100.00,TaNoOp44F590,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x0044F5D0,TaArchive::TaArchive,16,exact,100.00,TaArchive_ctor,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x0044F5E0,Pbg::Archive::~Archive,10,exact,100.00,pbg-archive-destructor,Cold pinned VC10 /GL /Ob1 /Oy- /EHsc complete public primary-TU PDB contribution behind the archive probe (logger as normal COFF); current receipts; every reviewed field replays with zero byte differences.
 0x0044F5F0,Pbg::Archive::Open,172,exact,100.00,pbg-archive-open,"Cold pinned VC10 /GL /Ob1 /Oy- /EHsc complete public primary-TU PDB contribution behind the archive probe, whose placeholder header reader only supplies a defined private-ESI callee; current receipts; all eleven reviewed fields replay with zero byte differences."
 0x0044F730,Pbg::Archive::Close,109,exact,100.00,pbg-archive-close,Cold pinned VC10 /GL /Ob1 /Oy- /EHsc complete public primary-TU PDB contribution behind the archive probe (logger as normal COFF); current receipts; every reviewed field replays with zero byte differences.
 0x0044FB20,Pbg::ParseArchiveDirectory,339,exact,100.00,pbg-archive-parse-directory,"Cold pinned VC10 /GL /Ob1 /Oy- /EHsc complete public primary-TU PDB contribution behind the archive probe; current receipts; seven reviewed fields replay, including the owner-qualified __ehhandler$ DIR32 bound through the MAP static symbol; zero byte differences."
+0x0044FC80,TaStrDupMalloc,47,exact,100.00,TaStrDupMalloc,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x0044FCB0,Pbg::ArchiveEntry::~ArchiveEntry,26,exact,100.00,pbg-archive-entry-destructor,Cold pinned VC10 /GL /Ob1 /Oy- /EHsc complete public primary-TU PDB contribution behind a new[]/delete[] probe; current receipts; the _free field replays with zero byte differences.
+0x0044FCD0,TaStreamAdvance4,8,exact,100.00,TaStreamAdvance4,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x0044FCE0,TaStreamSkipAlignedStr,49,exact,100.00,TaStreamSkipAlignedStr,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x0044FD20,Pbg::ArchiveEntry::ArchiveEntry,9,exact,100.00,pbg-archive-entry-constructor,Cold pinned VC10 /GL /Ob1 /Oy- /EHsc complete public primary-TU PDB contribution behind the archive probe; current receipts; no fields; zero byte differences.
 0x0044FD30,DebugPrint,1,exact,100.00,debug-print,Cold pinned VC10 normal COFF; complete one-byte extent; zero byte differences.
+0x0044FD40,TaNoOp44FD40,1,exact,100.00,TaNoOp44FD40,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x0044FD50,TaNoOp44FD50,1,exact,100.00,TaNoOp44FD50,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x0044FD60,TaStreamBase::TaStreamBase,21,exact,100.00,TaStreamBase_ctor,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x0044FD80,Pbg::File::`scalar deleting destructor',69,exact,100.00,pbg-file-deleting-destructor,"Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; every relocation replayed against reviewed import, vtable or CRT targets; zero byte differences."
 0x0044FDD0,Pbg::File::~File,46,exact,100.00,pbg-file-destructor,"Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; every relocation replayed against reviewed import, vtable or CRT targets; zero byte differences."
 0x0044FE00,Pbg::File::Open,419,exact,100.00,pbg-file-open,"Cold pinned VC10 normal COFF (/O2 /Oy-, default /GS); complete COFF extent; every relocation replayed against reviewed import, security-cookie or CRT targets; zero byte differences."
@@ -719,14 +813,33 @@ address,name,size,status,match_percent,unit,evidence
 0x00450090,Pbg::File::GetSize,21,exact,100.00,pbg-file-get-size,"Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; every relocation replayed against reviewed import, vtable or CRT targets; zero byte differences."
 0x004500B0,Pbg::File::Seek,40,exact,100.00,pbg-file-seek,"Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; every relocation replayed against reviewed import, vtable or CRT targets; zero byte differences."
 0x004500E0,Pbg::File::ReadWhole,153,exact,100.00,pbg-file-read-whole,"Cold pinned VC10 normal COFF (/O2 /Oy-, default /GS); complete COFF extent; every relocation replayed against reviewed import, security-cookie or CRT targets; zero byte differences."
+0x00450180,TaResolvePath,121,exact,100.00,TaResolvePath,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x00450200,TaVtbl850A::SetVtblA,7,exact,100.00,TaVtbl850A_SetVtblA,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x00450210,Pbg::IFile::`scalar deleting destructor',34,exact,100.00,pbg-ifile-deleting-destructor,"Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; every relocation replayed against reviewed import, vtable or CRT targets; zero byte differences."
+0x00450240,TaVtbl850B::SetVtblB,7,exact,100.00,TaVtbl850B_SetVtblB,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x00450250,TaStripDirSlash,20,exact,100.00,TaStripDirSlash,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x00450550,LsObj08::Get08,4,exact,100.00,LsObj08_Get08,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00450A20,LsLzssResetVars,33,exact,100.00,LsLzssResetVars,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00450A50,LsLzssInitTree,52,exact,100.00,LsLzssInitTree,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00450D20,LsLzssContractNode,80,exact,100.00,LsLzssContractNode,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00450E00,LsLzssFindNextNode,49,exact,100.00,LsLzssFindNextNode,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
 0x00450E40,Pbg::MemFile::Write,5,exact,100.00,pbg-memfile-write,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; every relocation replayed against reviewed vtable or CRT targets; zero byte differences.
+0x00450E50,LsMemStream::LsMemStream,18,exact,100.00,LsMemStream_ctor,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
 0x00450E70,Pbg::MemFile::`scalar deleting destructor',72,exact,100.00,pbg-memfile-deleting-destructor,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; every relocation replayed against reviewed vtable or CRT targets; zero byte differences.
 0x00450EC0,Pbg::MemFile::~MemFile,49,exact,100.00,pbg-memfile-destructor,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; every relocation replayed against reviewed vtable or CRT targets; zero byte differences.
 0x00450F30,Pbg::MemFile::Close,37,exact,100.00,pbg-memfile-close,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; every relocation replayed against reviewed vtable or CRT targets; zero byte differences.
 0x00450F60,Pbg::MemFile::Read,91,exact,100.00,pbg-memfile-read,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; every relocation replayed against reviewed vtable or CRT targets; zero byte differences.
 0x00450FC0,Pbg::MemFile::Tell,7,exact,100.00,pbg-memfile-tell,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; every relocation replayed against reviewed vtable or CRT targets; zero byte differences.
 0x00450FD0,Pbg::MemFile::GetSize,4,exact,100.00,pbg-memfile-get-size,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; every relocation replayed against reviewed vtable or CRT targets; zero byte differences.
+0x00451050,LsAbs0::Abs,9,exact,100.00,LsAbs0_Abs,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00451120,LsResStream::LsResStream,18,exact,100.00,LsResStream_ctor,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00451140,LsMemStream::ScalarDelete,72,exact,100.00,LsMemStream_ScalarDelete,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00451190,LsMemStream::CloseDtor,49,exact,100.00,LsMemStream_CloseDtor,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00451280,LsInit4B4D80,38,exact,100.00,LsInit4B4D80,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00451510,LsNoOp451510,1,exact,100.00,LsNoOp451510,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00451590,LsGdiFont::~LsGdiFont,56,exact,100.00,LsGdiFont_dtor,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00451650,LsGdiFont::ReleaseFont,20,exact,100.00,LsGdiFont_ReleaseFont,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00451670,LsInitSurface,48,exact,100.00,LsInitSurface,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
 0x004516B0,DestroyTextImage,105,exact,100.00,text-image-destroy,Pinned VC10 RTM /O2 /Ob1 /Oy- /GL primary with /O2 /Oy- /GL RNG support; current three-source cold linked context; complete 105-byte primary PDB contribution and all 14 address fields replayed with zero differences; .analysis/text-image-lifetime-final-results.json.
 0x00451720,InitializeDefaultTextImage,22,exact,100.00,text-image-initialize-default,Pinned VC10 RTM /O2 /Ob1 /Oy- /GL primary with /O2 /Oy- /GL RNG support; current three-source cold linked context; complete 22-byte primary PDB contribution and all 2 address fields replayed with zero differences; .analysis/text-image-lifetime-final-results.json.
 0x00451740,InitializeTextImage,413,exact,100.00,text-image-initialize,Pinned VC10 RTM /O2 /Ob1 /Oy- /GL primary with /O2 /Oy- /GL RNG support; current three-source cold linked context; complete 413-byte primary PDB contribution and all 22 address fields replayed with zero differences; .analysis/text-image-lifetime-final-results.json.
@@ -736,13 +849,60 @@ address,name,size,status,match_percent,unit,evidence
 0x004525A0,CreateOffscreenA1R5G5B5Texture,37,exact,100.00,text-image-create-offscreen-texture,"Cold VC10 /GL linked-PE replay (37B, 2 DIR32 fields, 0 diffs)."
 0x004525D0,InitializeTextFonts,516,exact,100.00,text-fonts-initialize,Pinned VC10 RTM /O2 /Ob1 /Oy- /GL primary with /O2 /Oy- /GL RNG support; current three-source cold linked context; complete 516-byte primary PDB contribution and all 32 address fields replayed with zero differences; .analysis/text-image-lifetime-final-results.json.
 0x004527E0,DestroyTextFonts,83,exact,100.00,text-fonts-destroy,Pinned VC10 RTM /O2 /Ob1 /Oy- /GL primary with /O2 /Oy- /GL RNG support; current three-source cold linked context; complete 83-byte primary PDB contribution and all 10 address fields replayed with zero differences; .analysis/text-image-lifetime-final-results.json.
+0x00452DB0,LsStdString::GetLen,4,exact,100.00,LsStdString_GetLen,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x004532E0,LsStrLenInline,13,exact,100.00,LsStrLenInline,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00453320,LsZeroSurfacePixels,24,exact,100.00,LsZeroSurfacePixels,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00453340,LsSurfaceGlobal::Get100,7,exact,100.00,LsSurfaceGlobal_Get100,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00453350,LsSurfaceGlobal::IsValid11C,12,exact,100.00,LsSurfaceGlobal_IsValid11C,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00453360,LsSurfaceGlobal::Get114,7,exact,100.00,LsSurfaceGlobal_Get114,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00453370,LsSurfaceGlobal::Get104,7,exact,100.00,LsSurfaceGlobal_Get104,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00453380,LsSurfaceGlobal::Get00,3,exact,100.00,LsSurfaceGlobal_Get00,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00453390,LsPair08::Set8Zero4,11,exact,100.00,LsPair08_Set8Zero4,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x004533A0,LsSurfaceGlobal::Get108,7,exact,100.00,LsSurfaceGlobal_Get108,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x004533B0,LsSurfaceGlobal::Get110,7,exact,100.00,LsSurfaceGlobal_Get110,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x004533C0,LsSurfaceGlobal::Get120,7,exact,100.00,LsSurfaceGlobal_Get120,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x004533D0,LsStdString::DataA,9,exact,100.00,LsStdString_DataA,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x004533E0,LsStdString::DataB,9,exact,100.00,LsStdString_DataB,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x004533F0,LsStdString::TidyFree,35,exact,100.00,LsStdString_TidyFree,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00453420,LsNoOp453420,1,exact,100.00,LsNoOp453420,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00453430,LsNoOpS1_453430,3,exact,100.00,LsNoOpS1_453430,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00453440,LsNoOp453440,1,exact,100.00,LsNoOp453440,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00453450,LsNoOp453450,1,exact,100.00,LsNoOp453450,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00453460,LsMemCpyWrap,12,exact,100.00,LsMemCpyWrap,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00453470,LsOpDeleteWrap,8,exact,100.00,LsOpDeleteWrap,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00453480,LsCopyByte,5,exact,100.00,LsCopyByte,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00453490,LsStdString::DataC,9,exact,100.00,LsStdString_DataC,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x004534A0,LsStdString::SetEos,16,exact,100.00,LsStdString_SetEos,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x004534B0,LsStdString::Tidy,61,exact,100.00,LsStdString_Tidy,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x004534F0,LsStdString::ResetEmpty,18,exact,100.00,LsStdString_ResetEmpty,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00453510,LsNoOp453510,1,exact,100.00,LsNoOp453510,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x004535A0,LsZero0Twice::ZeroTwice,13,exact,100.00,LsZero0Twice_ZeroTwice,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x004535B0,LsNoOp4535B0,1,exact,100.00,LsNoOp4535B0,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x004535C0,LsResetLogBuf,18,exact,100.00,LsResetLogBuf,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00453650,LsPair08::SetBothAndZero8,13,exact,100.00,LsPair08_SetBothAndZero8,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00453660,LsResetBuf20AC,26,exact,100.00,LsResetBuf20AC,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00453680,LsBuf20AC::GetCurSlot,17,exact,100.00,LsBuf20AC_GetCurSlot,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
 0x004536A0,ReleaseAnmRenderTargets,124,exact,100.00,supervisor-release-anm-render-targets,Cold pinned VC10 RTM /GL /Ob1 /Oy- linked-PE replay; complete 124-byte primary-TU PDB contribution and all 1 DIR32 fields reproduce with zero byte differences. All COM call instructions and owned loop alignment remain in the comparison.
 0x00453720,RecreateAnmRenderTargets,165,exact,100.00,supervisor-recreate-anm-render-targets,Cold pinned VC10 RTM /GL /Ob1 /Oy- linked-PE replay; complete 165-byte primary-TU PDB contribution and all 6 DIR32 fields reproduce with zero byte differences. All COM call instructions and owned loop alignment remain in the comparison.
+0x00453960,LsSet4D2E6C,6,exact,100.00,LsSet4D2E6C,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00453970,LsComPair::Get04,4,exact,100.00,LsComPair_Get04,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00453980,LsComPair::GetAddr08,4,exact,100.00,LsComPair_GetAddr08,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00453990,LsComPair::Release04,23,exact,100.00,LsComPair_Release04,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x004539B0,LsComPair::Release08,23,exact,100.00,LsComPair_Release08,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x004543F0,LsDelete464240,18,exact,100.00,LsDelete464240,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00454410,LsDeleteRaw,12,exact,100.00,LsDeleteRaw,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
 0x00454420,WindowProc,420,exact,100.00,window-proc,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; every relocation replayed against reviewed user32 import slots and five game globals; zero byte differences.
 0x00454D90,SupervisorFrame::PresentImmediate,190,exact,100.00,supervisor-present-immediate,"Cold pinned VC10 RTM /GL /Ob1 /Oy- linked-PE replay; complete 190-byte primary-TU PDB contribution and all 21 absolute/relative fields reproduce with zero differences. The real frame, screenshot, surface/texture recovery, state and canonical timer bodies are linked; no fabricated callee or owner-profile change."
 0x00454F70,SupervisorFrame::PresentWithSleep,314,exact,100.00,supervisor-present-with-sleep,"Cold pinned VC10 RTM /GL /Ob1 /Oy- linked-PE replay; complete 314-byte primary-TU PDB contribution and all 30 absolute/relative fields reproduce with zero differences. The real frame, screenshot, surface/texture recovery, state and canonical timer bodies are linked; no fabricated callee or owner-profile change."
 0x00455160,GetElapsedSeconds,266,exact,100.00,supervisor-get-elapsed-seconds,Cold pinned VC10 /GL linked-PE replay; complete 266-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x00455A70,InitializeSupervisorRenderState,802,exact,100.00,supervisor-initialize-render-state,"Cold pinned VC10 RTM /GL /Ob1 /Oy- linked-PE replay; complete 802-byte primary-TU PDB contribution and all 37 DIR32 fields reproduce with zero byte differences, including all COM calls, float bit conversions and the conditional ANM cache reset."
+0x00455DA0,LsDisableImeDll,36,exact,100.00,LsDisableImeDll,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00455F40,LsShowCursorWrap,8,exact,100.00,LsShowCursorWrap,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00456670,LsObj0C::Get0C,4,exact,100.00,LsObj0C_Get0C,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00456680,LsObj0C::Zero0C,8,exact,100.00,LsObj0C_Zero0C,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00456690,LsObj0C::GetAddr0C,4,exact,100.00,LsObj0C_GetAddr0C,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x004566A0,LsFade44::LsFade44,23,exact,100.00,LsFade44_ctor,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x004566C0,LsClearAndPresentTwice,157,exact,100.00,LsClearAndPresentTwice,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
 0x00458410,SoundManager::PlaySfx,136,exact,100.00,sound-manager-play-sfx,Cold pinned VC10 /GL linked-PE replay; complete 136-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x004584A0,SoundManager::PlaySfxWithPan,168,exact,100.00,sound-manager-play-sfx-with-pan,Cold pinned VC10 /GL linked-PE replay; complete 168-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x00458550,SoundManager::SetSfxPan,52,exact,100.00,sound-manager-set-sfx-pan,Cold pinned VC10 /GL linked-PE replay; complete 52-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.

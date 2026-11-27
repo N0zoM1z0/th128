@@ -18114,3 +18114,2317 @@ symbol = "?SetFlag1AndZeroF64@SpPlayer@@QAEXXZ"
 target_address = 0x0043b620
 size = 22
 linkages = []
+
+[units.PrIncGrazeClamped]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrIncGrazeClamped"]
+symbol = "?PrIncGrazeClamped@@YAXXZ"
+target_address = 0x0043e140
+size = 19
+linkages = [
+  { offset = 2, type = "DIR32", symbol = "?g_Pr4B4D40@@3HA", target = 0x004B4D40 },
+  { offset = 14, type = "DIR32", symbol = "?g_Pr4B4D40@@3HA", target = 0x004B4D40 },
+]
+
+[units.PrAngleDiffA]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrAngleDiffA"]
+symbol = "?PrAngleDiffA@@YGMMM@Z"
+target_address = 0x0043e180
+size = 99
+linkages = [
+  { offset = 17, type = "DIR32", symbol = "__real@400921fb60000000", target = 0x004A6580 },
+  { offset = 36, type = "DIR32", symbol = "__real@401921fb60000000", target = 0x004A6578 },
+  { offset = 69, type = "DIR32", symbol = "__real@401921fb60000000", target = 0x004A6578 },
+]
+
+[units.PrGet4B4CC8Div4B4D38]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrGet4B4CC8Div4B4D38"]
+symbol = "?PrGet4B4CC8Div4B4D38@@YAHXZ"
+target_address = 0x0043e260
+size = 13
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_Pr4B4CC8@@3HA", target = 0x004B4CC8 },
+  { offset = 8, type = "DIR32", symbol = "?g_Pr4B4D38@@3HA", target = 0x004B4D38 },
+]
+
+[units.PrVec3_DistSq2DA]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrVec3::DistSq2DA"]
+symbol = "?DistSq2DA@PrVec3@@QAEMPBU1@@Z"
+target_address = 0x0043e270
+size = 32
+linkages = []
+
+[units.PrWord418_Get418]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrWord418::Get418"]
+symbol = "?Get418@PrWord418@@QAEHXZ"
+target_address = 0x0043e290
+size = 8
+linkages = []
+
+[units.PrTimer_IsTickMultiple]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrTimer::IsTickMultiple"]
+symbol = "?IsTickMultiple@PrTimer@@QAEHH@Z"
+target_address = 0x0043e2a0
+size = 33
+linkages = []
+
+[units.PrIVec2_ToVec3Scaled]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrIVec2::ToVec3Scaled"]
+symbol = "?ToVec3Scaled@PrIVec2@@QAEXPAUPrVec3@@@Z"
+target_address = 0x0043e2d0
+size = 26
+linkages = [
+  { offset = 4, type = "DIR32", symbol = "__real@3f80000000000000", target = 0x004A65F0 },
+]
+
+[units.PrIVec2_IsNonZero]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrIVec2::IsNonZero"]
+symbol = "?IsNonZero@PrIVec2@@QAEHXZ"
+target_address = 0x0043e310
+size = 20
+linkages = []
+
+[units.PrIVec2_Set]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrIVec2::Set"]
+symbol = "?Set@PrIVec2@@QAEXHH@Z"
+target_address = 0x0043e3b0
+size = 6
+linkages = []
+
+[units.PrSet4B4D38]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrSet4B4D38"]
+symbol = "?PrSet4B4D38@@YAXH@Z"
+target_address = 0x0043e3e0
+size = 6
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_Pr4B4D38@@3HA", target = 0x004B4D38 },
+]
+
+[units.PrSet4B4D34]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrSet4B4D34"]
+symbol = "?PrSet4B4D34@@YAXH@Z"
+target_address = 0x0043e3f0
+size = 6
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_Pr4B4D34@@3HA", target = 0x004B4D34 },
+]
+
+[units.PrObj38_Get38]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrObj38::Get38"]
+symbol = "?Get38@PrObj38@@QAEHXZ"
+target_address = 0x0043e400
+size = 4
+linkages = []
+
+[units.PrGet4B4CF4]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrGet4B4CF4"]
+symbol = "?PrGet4B4CF4@@YAHXZ"
+target_address = 0x0043e410
+size = 6
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_Pr4B4CF4@@3HA", target = 0x004B4CF4 },
+]
+
+[units.PrObj74_Get74]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrObj74::Get74"]
+symbol = "?Get74@PrObj74@@QAEHXZ"
+target_address = 0x0043e4a0
+size = 4
+linkages = []
+
+[units.PrPlayerExact_GetOptPtr]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrPlayerExact::GetOptPtr"]
+symbol = "?GetOptPtr@PrPlayerExact@@SAPAUPrPlayerOpt@@H@Z"
+target_address = 0x0043e4b0
+size = 20
+linkages = [
+  { offset = 2, type = "DIR32", symbol = "?g_PrPlayer@@3PAUPrPlayerExact@@A", target = 0x004B8A80 },
+]
+
+[units.PrPlayerExact_GetOptFloat4C]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrPlayerExact::GetOptFloat4C"]
+symbol = "?GetOptFloat4C@PrPlayerExact@@SAMH@Z"
+target_address = 0x0043e4d0
+size = 20
+linkages = [
+  { offset = 2, type = "DIR32", symbol = "?g_PrPlayer@@3PAUPrPlayerExact@@A", target = 0x004B8A80 },
+]
+
+[units.PrInputFlags_IsFlag3EE4Set]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrInputFlags::IsFlag3EE4Set"]
+symbol = "?IsFlag3EE4Set@PrInputFlags@@QAEHXZ"
+target_address = 0x0043e500
+size = 26
+linkages = []
+
+[units.PrInputFlags_IsFlag50ACSet]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrInputFlags::IsFlag50ACSet"]
+symbol = "?IsFlag50ACSet@PrInputFlags@@QAEHXZ"
+target_address = 0x0043e520
+size = 26
+linkages = []
+
+[units.PrInputFlags_Get11C0]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrInputFlags::Get11C0"]
+symbol = "?Get11C0@PrInputFlags@@QAEHXZ"
+target_address = 0x0043e540
+size = 7
+linkages = []
+
+[units.PrEnemyMgr_Get6B218]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrEnemyMgr::Get6B218"]
+symbol = "?Get6B218@PrEnemyMgr@@SAHXZ"
+target_address = 0x0043e550
+size = 12
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_PrEnemyMgr@@3PAUPrEnemyMgr@@A", target = 0x004B8938 },
+]
+
+[units.PrComputeBoxBounds]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrComputeBoxBounds"]
+symbol = "?PrComputeBoxBounds@@YAXPBUPrVec3@@0PAU1@1@Z"
+target_address = 0x0043e560
+size = 47
+linkages = [
+  { offset = 4, type = "DIR32", symbol = "__real@3fe0000000000000", target = 0x004A65A8 },
+]
+
+[units.PrPlayerExact_ClearTargetId]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrPlayerExact::ClearTargetId"]
+symbol = "?ClearTargetId@PrPlayerExact@@QAEXH@Z"
+target_address = 0x00440720
+size = 52
+linkages = []
+
+[units.PrBulletHit_AddField18]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrBulletHit::AddField18"]
+symbol = "?AddField18@PrBulletHit@@QAEXM@Z"
+target_address = 0x004407c0
+size = 16
+linkages = []
+
+[units.PrAngleDiffB]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrAngleDiffB"]
+symbol = "?PrAngleDiffB@@YGMMM@Z"
+target_address = 0x004407f0
+size = 99
+linkages = [
+  { offset = 17, type = "DIR32", symbol = "__real@400921fb60000000", target = 0x004A6580 },
+  { offset = 36, type = "DIR32", symbol = "__real@401921fb60000000", target = 0x004A6578 },
+  { offset = 69, type = "DIR32", symbol = "__real@401921fb60000000", target = 0x004A6578 },
+]
+
+[units.PrVec3_DistSq2DB]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrVec3::DistSq2DB"]
+symbol = "?DistSq2DB@PrVec3@@QAEMPBU1@@Z"
+target_address = 0x004408a0
+size = 32
+linkages = []
+
+[units.PrFpsCounter_Get34]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrFpsCounter::Get34"]
+symbol = "?Get34@PrFpsCounter@@SAMXZ"
+target_address = 0x00440950
+size = 9
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_PrFpsCounter@@3PAUPrFpsCounter@@A", target = 0x004B894C },
+]
+
+[units.PrReplayMgr_GetFastForwardStepA]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrReplayMgr::GetFastForwardStepA"]
+symbol = "?GetFastForwardStepA@PrReplayMgr@@QAEHXZ"
+target_address = 0x004414a0
+size = 53
+linkages = [
+  { offset = 2, type = "DIR32", symbol = "?g_PrGameThread@@3PAUPrGameThread@@A", target = 0x004B8954 },
+  { offset = 17, type = "DIR32", symbol = "?g_Pr4DAFF8@@3IA", target = 0x004DAFF8 },
+]
+
+[units.PrReplayMgr_GetFastForwardStepB]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrReplayMgr::GetFastForwardStepB"]
+symbol = "?GetFastForwardStepB@PrReplayMgr@@QAEHXZ"
+target_address = 0x00442030
+size = 59
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_PrGameThread@@3PAUPrGameThread@@A", target = 0x004B8954 },
+  { offset = 23, type = "DIR32", symbol = "?g_Pr4DAFF8@@3IA", target = 0x004DAFF8 },
+]
+
+[units.PrReplayMgr_GetTagStr]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrReplayMgr::GetTagStr"]
+symbol = "?GetTagStr@PrReplayMgr@@QAEPADXZ"
+target_address = 0x00442360
+size = 25
+linkages = [
+  { offset = 8, type = "DIR32", symbol = "?g_PrTagBuf@@3PADA", target = 0x004DB870 },
+  { offset = 14, type = "DIR32", symbol = "?g_PrTagBuf@@3PADA", target = 0x004DB870, addend = 4 },
+  { offset = 20, type = "DIR32", symbol = "?g_PrTagBuf@@3PADA", target = 0x004DB870 },
+]
+
+[units.PrStageEntry24_ResetZero]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrStageEntry24::ResetZero"]
+symbol = "?ResetZero@PrStageEntry24@@QAEXXZ"
+target_address = 0x00442380
+size = 19
+linkages = []
+
+[units.PrUserTag_SetUserMagic]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrUserTag::SetUserMagic"]
+symbol = "?SetUserMagic@PrUserTag@@QAEXXZ"
+target_address = 0x004423b0
+size = 7
+linkages = []
+
+[units.PrReplayChunk_GetFpsCount]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrReplayChunk::GetFpsCount"]
+symbol = "?GetFpsCount@PrReplayChunk@@QAEHXZ"
+target_address = 0x004423c0
+size = 14
+linkages = []
+
+[units.PrReplayChunk_GetInputByteCount]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrReplayChunk::GetInputByteCount"]
+symbol = "?GetInputByteCount@PrReplayChunk@@QAEHXZ"
+target_address = 0x004423d0
+size = 28
+linkages = []
+
+[units.PrReplayChunk_GetInputCount]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrReplayChunk::GetInputCount"]
+symbol = "?GetInputCount@PrReplayChunk@@QAEHXZ"
+target_address = 0x004423f0
+size = 23
+linkages = []
+
+[units.PrReplayChunk_GetTotalByteCount]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrReplayChunk::GetTotalByteCount"]
+symbol = "?GetTotalByteCount@PrReplayChunk@@QAEHXZ"
+target_address = 0x00442410
+size = 42
+linkages = []
+
+[units.PrReplayChunk_PushInput]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrReplayChunk::PushInput"]
+symbol = "?PushInput@PrReplayChunk@@QAEHGGG@Z"
+target_address = 0x00442450
+size = 85
+linkages = []
+
+[units.PrReplayChunk_PushFps]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrReplayChunk::PushFps"]
+symbol = "?PushFps@PrReplayChunk@@QAEHE@Z"
+target_address = 0x004424b0
+size = 37
+linkages = []
+
+[units.PrReplayState84_Set1C]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrReplayState84::Set1C"]
+symbol = "?Set1C@PrReplayState84@@QAEXH@Z"
+target_address = 0x004424e0
+size = 4
+linkages = []
+
+[units.PrReplayState84_Set38]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrReplayState84::Set38"]
+symbol = "?Set38@PrReplayState84@@QAEXH@Z"
+target_address = 0x004424f0
+size = 4
+linkages = []
+
+[units.PrReplayState84_Set84]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrReplayState84::Set84"]
+symbol = "?Set84@PrReplayState84@@QAEXH@Z"
+target_address = 0x00442500
+size = 7
+linkages = []
+
+[units.PrStageEntry24_ResetNeg1]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrStageEntry24::ResetNeg1"]
+symbol = "?ResetNeg1@PrStageEntry24@@QAEXXZ"
+target_address = 0x00442510
+size = 19
+linkages = []
+
+[units.PrReplayState84_Get80]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrReplayState84::Get80"]
+symbol = "?Get80@PrReplayState84@@QAEHXZ"
+target_address = 0x00442530
+size = 7
+linkages = []
+
+[units.PrReplayState84_Get1C]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrReplayState84::Get1C"]
+symbol = "?Get1C@PrReplayState84@@QAEHXZ"
+target_address = 0x00442540
+size = 4
+linkages = []
+
+[units.PrGet4D33CC]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrGet4D33CC"]
+symbol = "?PrGet4D33CC@@YAHXZ"
+target_address = 0x00442550
+size = 6
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_Pr4D33CC@@3HA", target = 0x004D33CC },
+]
+
+[units.PrZero4D2AE4]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrZero4D2AE4"]
+symbol = "?PrZero4D2AE4@@YAXXZ"
+target_address = 0x00442560
+size = 11
+linkages = [
+  { offset = 2, type = "DIR32", symbol = "?g_Pr4D2AE4@@3HA", target = 0x004D2AE4 },
+]
+
+[units.PrGet4D2AE0]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrGet4D2AE0"]
+symbol = "?PrGet4D2AE0@@YAGXZ"
+target_address = 0x00442570
+size = 7
+linkages = [
+  { offset = 2, type = "DIR32", symbol = "?g_Pr4D2AE0@@3GA", target = 0x004D2AE0 },
+]
+
+[units.PrBuf90_ctor]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrBuf90::PrBuf90"]
+symbol = "??0PrBuf90@@QAE@XZ"
+target_address = 0x00442580
+size = 19
+linkages = [
+  { offset = 9, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+]
+
+[units.PrReplayChunk_UnlinkNode]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrReplayChunk::UnlinkNode"]
+symbol = "?UnlinkNode@PrReplayChunk@@QAEXXZ"
+target_address = 0x004426c0
+size = 55
+linkages = []
+
+[units.PrReplayChunk_DeleteSelf]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrReplayChunk::DeleteSelf"]
+symbol = "?DeleteSelf@PrReplayChunk@@QAEPAU1@XZ"
+target_address = 0x00442700
+size = 64
+linkages = [
+  { offset = 54, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+]
+
+[units.PrReplayList_FreeStageChunks]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrReplayList::FreeStageChunks"]
+symbol = "?FreeStageChunks@PrReplayList@@QAEXH@Z"
+target_address = 0x00442740
+size = 93
+linkages = [
+  { offset = 77, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+]
+
+[units.PrStageEntry24_dtor]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrStageEntry24::~PrStageEntry24"]
+symbol = "??1PrStageEntry24@@QAE@XZ"
+target_address = 0x004427f0
+size = 37
+linkages = []
+
+[units.PrScoreFile_InitScoreFile]
+artifact_kind = "linked-pe"
+source = "src/PlayerReplayHelpers.cpp"
+support_sources = ["probes/player-replay-helpers-context.cpp"]
+output_dir = "build/match-linked/PlayerReplayHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "PlayerReplayHelpersProbe@112"
+functions = ["PrScoreFile::InitScoreFile"]
+symbol = "?InitScoreFile@PrScoreFile@@QAEXXZ"
+target_address = 0x00442880
+size = 164
+linkages = [
+  { offset = 13, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+  { offset = 42, type = "DIR32", symbol = "?g_PrScoreTable@@3PACA", target = 0x004B23D0 },
+  { offset = 47, type = "DIR32", symbol = "?g_PrScoreTable@@3PACA", target = 0x004B23D0, addend = 2 },
+  { offset = 72, type = "DIR32", symbol = "?g_PrScoreTable@@3PACA", target = 0x004B23D0, addend = 1 },
+  { offset = 113, type = "DIR32", symbol = "?g_PrScoreTable@@3PACA", target = 0x004B23D0, addend = 3 },
+  { offset = 135, type = "DIR32", symbol = "?g_PrScoreTable@@3PACA", target = 0x004B23D0, addend = 4 },
+]
+
+[units.TaAnmVm_SetFloat60Flag3]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaAnmVm::SetFloat60Flag3"]
+symbol = "?SetFloat60Flag3@TaAnmVm@@QAEXM@Z"
+target_address = 0x004440f0
+size = 20
+linkages = []
+
+[units.TaAnmVm_SetFloat468]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaAnmVm::SetFloat468"]
+symbol = "?SetFloat468@TaAnmVm@@QAEXM@Z"
+target_address = 0x00444110
+size = 16
+linkages = []
+
+[units.TaAnmVm_SetFloat464]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaAnmVm::SetFloat464"]
+symbol = "?SetFloat464@TaAnmVm@@QAEXM@Z"
+target_address = 0x00444120
+size = 16
+linkages = []
+
+[units.TaNoOp444130]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaNoOp444130"]
+symbol = "?TaNoOp444130@@YAXXZ"
+target_address = 0x00444130
+size = 1
+linkages = []
+
+[units.TaNode4_IsNextNonZero]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaNode4::IsNextNonZero"]
+symbol = "?IsNextNonZero@TaNode4@@QAEHXZ"
+target_address = 0x00444140
+size = 12
+linkages = []
+
+[units.TaStaffMgr_ctor]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaStaffMgr::TaStaffMgr"]
+symbol = "??0TaStaffMgr@@QAE@XZ"
+target_address = 0x004441b0
+size = 142
+linkages = [
+  { offset = 5, type = "DIR32", symbol = "?g_TaSub10Vtbl@TaSub10@@2PAXA", target = 0x004A6050 },
+  { offset = 123, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+  { offset = 135, type = "DIR32", symbol = "?g_TaStaffMgr@@3PAUTaStaffMgr@@A", target = 0x004B8A94 },
+]
+
+[units.TaBuf8C_DeleteSelf]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaBuf8C::DeleteSelf"]
+symbol = "?DeleteSelf@TaBuf8C@@QAEPAU1@XZ"
+target_address = 0x004444e0
+size = 47
+linkages = [
+  { offset = 8, type = "DIR32", symbol = "?g_TaBuf8CVtbl@@3PAXA", target = 0x004A26DC },
+  { offset = 18, type = "REL32", symbol = "_free", target = 0x0047290C },
+  { offset = 37, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+]
+
+[units.TaStaffMgr_Create]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaStaffMgr::Create"]
+symbol = "?Create@TaStaffMgr@@SAPAU1@XZ"
+target_address = 0x00444640
+size = 68
+linkages = [
+  { offset = 7, type = "REL32", symbol = "??2@YAPAXI@Z", target = 0x0047296C },
+  { offset = 21, type = "REL32", symbol = "??0TaStaffMgr@@QAE@XZ", target = 0x004441B0 },
+  { offset = 33, type = "REL32", symbol = "?TaStaffInit@@YGHPAUTaStaffMgr@@@Z", target = 0x00444240 },
+  { offset = 47, type = "REL32", symbol = "?TaStaffDtor@@YGXPAUTaStaffMgr@@@Z", target = 0x00444300 },
+  { offset = 53, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+]
+
+[units.TaStaffMgr_DestroySelf]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaStaffMgr::DestroySelf"]
+symbol = "?DestroySelf@TaStaffMgr@@QAEPAU1@XZ"
+target_address = 0x00444690
+size = 18
+linkages = [
+  { offset = 2, type = "REL32", symbol = "?TaStaffDtor@@YGXPAUTaStaffMgr@@@Z", target = 0x00444300 },
+  { offset = 8, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+]
+
+[units.TaStaffMgr_DestroyPtr]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaStaffMgr::DestroyPtr"]
+symbol = "?DestroyPtr@TaStaffMgr@@SAXPAU1@@Z"
+target_address = 0x004446b0
+size = 18
+linkages = [
+  { offset = 6, type = "REL32", symbol = "?TaStaffDtor@@YGXPAUTaStaffMgr@@@Z", target = 0x00444300 },
+  { offset = 12, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+]
+
+[units.TaNoOp444CB0]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaNoOp444CB0"]
+symbol = "?TaNoOp444CB0@@YAXXZ"
+target_address = 0x00444cb0
+size = 1
+linkages = []
+
+[units.TaRouteStageToIndex]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaRouteStageToIndex"]
+symbol = "?TaRouteStageToIndex@@YAHHH@Z"
+target_address = 0x00444cc0
+size = 73
+linkages = []
+
+[units.TaGetTitleSize]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaGetTitleSize"]
+symbol = "?TaGetTitleSize@@YAHXZ"
+target_address = 0x00444d10
+size = 6
+linkages = []
+
+[units.TaTitleMgrExact_SetSubStateAndResetTimer]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaTitleMgrExact::SetSubStateAndResetTimer"]
+symbol = "?SetSubStateAndResetTimer@TaTitleMgrExact@@QAEXH@Z"
+target_address = 0x00444d80
+size = 82
+linkages = [
+  { offset = 49, type = "DIR32", symbol = "?g_TaDefaultTimeScale@@3MA", target = 0x004B6F58 },
+]
+
+[units.TaMother_Get528]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaMother::Get528"]
+symbol = "?Get528@TaMother@@SAHXZ"
+target_address = 0x004450e0
+size = 12
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_TaMother@@3PAUTaMother@@A", target = 0x004B8A64 },
+]
+
+[units.TaScoreMgrExact_IsClearFlag]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaScoreMgrExact::IsClearFlag"]
+symbol = "?IsClearFlag@TaScoreMgrExact@@QAEHH@Z"
+target_address = 0x004450f0
+size = 12
+linkages = []
+
+[units.TaScoreMgrExact_AreAll6Cleared]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaScoreMgrExact::AreAll6Cleared"]
+symbol = "?AreAll6Cleared@TaScoreMgrExact@@SAHXZ"
+target_address = 0x00445100
+size = 64
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_TaScoreMgr@@3PAUTaScoreMgrExact@@A", target = 0x004B8A88 },
+]
+
+[units.TaScoreMgrExact_GetTable660]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaScoreMgrExact::GetTable660"]
+symbol = "?GetTable660@TaScoreMgrExact@@SGHHH@Z"
+target_address = 0x00445140
+size = 29
+linkages = [
+  { offset = 5, type = "DIR32", symbol = "?g_TaScoreMgr@@3PAUTaScoreMgrExact@@A", target = 0x004B8A88 },
+]
+
+[units.TaScoreMgrExact_SetAllClearFlags]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaScoreMgrExact::SetAllClearFlags"]
+symbol = "?SetAllClearFlags@TaScoreMgrExact@@SAXXZ"
+target_address = 0x00445160
+size = 35
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_TaScoreMgr@@3PAUTaScoreMgrExact@@A", target = 0x004B8A88 },
+]
+
+[units.TaHelpMgr_SetFloat12C]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaHelpMgr::SetFloat12C"]
+symbol = "?SetFloat12C@TaHelpMgr@@SGXM@Z"
+target_address = 0x00445190
+size = 21
+linkages = [
+  { offset = 7, type = "DIR32", symbol = "?g_TaHelpMgr@@3PAUTaHelpMgr@@A", target = 0x004B8A58 },
+]
+
+[units.TaTitleMgrExact_ctor]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaTitleMgrExact::TaTitleMgrExact"]
+symbol = "??0TaTitleMgrExact@@QAE@XZ"
+target_address = 0x004451b0
+size = 201
+linkages = [
+  { offset = 2, type = "DIR32", symbol = "??_7TaTitleMgrExact@@6B@", target = 0x004A46CC },
+  { offset = 152, type = "DIR32", symbol = "?g_TaSub10Vtbl@TaSub10@@2PAXA", target = 0x004A6050 },
+  { offset = 181, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+  { offset = 194, type = "DIR32", symbol = "?g_TaTitleMgr@@3PAUTaTitleMgrExact@@A", target = 0x004B8A9C },
+]
+
+[units.TaTitleMgrExact_DestroyGlobal]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaTitleMgrExact::DestroyGlobal"]
+symbol = "?DestroyGlobal@TaTitleMgrExact@@SAXXZ"
+target_address = 0x00445730
+size = 28
+linkages = [
+  { offset = 3, type = "DIR32", symbol = "?g_TaTitleMgr@@3PAUTaTitleMgrExact@@A", target = 0x004B8A9C },
+  { offset = 13, type = "REL32", symbol = "?TaTitleDtor@@YGXPAUTaTitleMgrExact@@@Z", target = 0x00445450 },
+  { offset = 19, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+]
+
+[units.TaTitleMgrExact_DestroySelf]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaTitleMgrExact::DestroySelf"]
+symbol = "?DestroySelf@TaTitleMgrExact@@QAEPAU1@XZ"
+target_address = 0x00445750
+size = 18
+linkages = [
+  { offset = 2, type = "REL32", symbol = "?TaTitleDtor@@YGXPAUTaTitleMgrExact@@@Z", target = 0x00445450 },
+  { offset = 8, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+]
+
+[units.TaRet1_44B3B0]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaRet1_44B3B0"]
+symbol = "?TaRet1_44B3B0@@YAHXZ"
+target_address = 0x0044b3b0
+size = 6
+linkages = []
+
+[units.TaRet1_44B3C0]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaRet1_44B3C0"]
+symbol = "?TaRet1_44B3C0@@YAHXZ"
+target_address = 0x0044b3c0
+size = 6
+linkages = []
+
+[units.TaRet1_44B3D0]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaRet1_44B3D0"]
+symbol = "?TaRet1_44B3D0@@YAHXZ"
+target_address = 0x0044b3d0
+size = 6
+linkages = []
+
+[units.TaSkipLine]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaSkipLine"]
+symbol = "?TaSkipLine@@YAPBDPBDPAH@Z"
+target_address = 0x0044f350
+size = 59
+linkages = []
+
+[units.TaObj04_GetField04]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaObj04::GetField04"]
+symbol = "?GetField04@TaObj04@@QAEHXZ"
+target_address = 0x0044f3f0
+size = 4
+linkages = []
+
+[units.TaObj04_IsPos0]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaObj04::IsPos0"]
+symbol = "?IsPos0@TaObj04@@QAEHXZ"
+target_address = 0x0044f400
+size = 8
+linkages = []
+
+[units.TaObjD4_ZeroD4]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaObjD4::ZeroD4"]
+symbol = "?ZeroD4@TaObjD4@@QAEXXZ"
+target_address = 0x0044f420
+size = 11
+linkages = []
+
+[units.TaRouteStageToIndexSwitch]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaRouteStageToIndexSwitch"]
+symbol = "?TaRouteStageToIndexSwitch@@YAHHH@Z"
+target_address = 0x0044f4d0
+size = 104
+linkages = [
+  { offset = 8, type = "DIR32", local = true, target = 0x0044F51C },
+  { offset = 76, type = "DIR32", local = true, target = 0x0044F4DC },
+  { offset = 80, type = "DIR32", local = true, target = 0x0044F4DE },
+  { offset = 84, type = "DIR32", local = true, target = 0x0044F4EC },
+  { offset = 88, type = "DIR32", local = true, target = 0x0044F4F0 },
+  { offset = 92, type = "DIR32", local = true, target = 0x0044F4FE },
+  { offset = 96, type = "DIR32", local = true, target = 0x0044F502 },
+  { offset = 100, type = "DIR32", local = true, target = 0x0044F510 },
+]
+
+[units.TaClearFlag4B4D50Bit4]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaClearFlag4B4D50Bit4"]
+symbol = "?TaClearFlag4B4D50Bit4@@YAXXZ"
+target_address = 0x0044f560
+size = 8
+linkages = [
+  { offset = 2, type = "DIR32", symbol = "?g_Ta4B4D50@@3IA", target = 0x004B4D50 },
+]
+
+[units.TaObj04_GetPlus7]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaObj04::GetPlus7"]
+symbol = "?GetPlus7@TaObj04@@QAEHXZ"
+target_address = 0x0044f570
+size = 6
+linkages = []
+
+[units.TaAnmMgr_GetSlot4E90C0]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaAnmMgr::GetSlot4E90C0"]
+symbol = "?GetSlot4E90C0@TaAnmMgr@@QAEHH@Z"
+target_address = 0x0044f580
+size = 8
+linkages = []
+
+[units.TaNoOp44F590]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaNoOp44F590"]
+symbol = "?TaNoOp44F590@@YAXXZ"
+target_address = 0x0044f590
+size = 1
+linkages = []
+
+[units.TaArchive_ctor]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaArchive::TaArchive"]
+symbol = "??0TaArchive@@QAE@XZ"
+target_address = 0x0044f5d0
+size = 16
+linkages = []
+
+[units.TaStrDupMalloc]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaStrDupMalloc"]
+symbol = "?TaStrDupMalloc@@YAPADPBD@Z"
+target_address = 0x0044fc80
+size = 47
+linkages = [
+  { offset = 17, type = "REL32", symbol = "_malloc", target = 0x00472F6F },
+]
+
+[units.TaStreamAdvance4]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaStreamAdvance4"]
+symbol = "?TaStreamAdvance4@@YAHPAPAH@Z"
+target_address = 0x0044fcd0
+size = 8
+linkages = []
+
+[units.TaStreamSkipAlignedStr]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaStreamSkipAlignedStr"]
+symbol = "?TaStreamSkipAlignedStr@@YAPADPAPAD@Z"
+target_address = 0x0044fce0
+size = 49
+linkages = []
+
+[units.TaNoOp44FD40]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaNoOp44FD40"]
+symbol = "?TaNoOp44FD40@@YAXXZ"
+target_address = 0x0044fd40
+size = 1
+linkages = []
+
+[units.TaNoOp44FD50]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaNoOp44FD50"]
+symbol = "?TaNoOp44FD50@@YAXXZ"
+target_address = 0x0044fd50
+size = 1
+linkages = []
+
+[units.TaStreamBase_ctor]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaStreamBase::TaStreamBase"]
+symbol = "??0TaStreamBase@@QAE@XZ"
+target_address = 0x0044fd60
+size = 21
+linkages = [
+  { offset = 2, type = "DIR32", symbol = "?g_TaStreamBaseVtbl@@3PAXA", target = 0x004A4828 },
+]
+
+[units.TaResolvePath]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaResolvePath"]
+symbol = "?TaResolvePath@@YAXPADPBD@Z"
+target_address = 0x00450180
+size = 121
+linkages = [
+  { offset = 10, type = "REL32", symbol = "_strchr", target = 0x00473090 },
+  { offset = 55, type = "DIR32", symbol = "?g_TaGetModuleFileNameA@@3P6GKPAXPADK@ZA", target = 0x0049A0B4 },
+  { offset = 63, type = "REL32", symbol = "_strrchr", target = 0x00473400 },
+]
+
+[units.TaVtbl850A_SetVtblA]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaVtbl850A::SetVtblA"]
+symbol = "?SetVtblA@TaVtbl850A@@QAEXXZ"
+target_address = 0x00450200
+size = 7
+linkages = [
+  { offset = 2, type = "DIR32", symbol = "?g_TaVtbl850@@3PAXA", target = 0x004A4850 },
+]
+
+[units.TaVtbl850B_SetVtblB]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaVtbl850B::SetVtblB"]
+symbol = "?SetVtblB@TaVtbl850B@@QAEXXZ"
+target_address = 0x00450240
+size = 7
+linkages = [
+  { offset = 2, type = "DIR32", symbol = "?g_TaVtbl850@@3PAXA", target = 0x004A4850 },
+]
+
+[units.TaStripDirSlash]
+artifact_kind = "linked-pe"
+source = "src/TitleArchiveHelpers.cpp"
+support_sources = ["probes/title-archive-helpers-context.cpp"]
+output_dir = "build/match-linked/TitleArchiveHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "TitleArchiveHelpersProbe@92"
+functions = ["TaStripDirSlash"]
+symbol = "?TaStripDirSlash@@YAPBDPBD@Z"
+target_address = 0x00450250
+size = 20
+linkages = [
+  { offset = 4, type = "REL32", symbol = "_strchr", target = 0x00473090 },
+]
+
+[units.LsObj08_Get08]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsObj08::Get08"]
+symbol = "?Get08@LsObj08@@QAEHXZ"
+target_address = 0x00450550
+size = 4
+linkages = []
+
+[units.LsLzssResetVars]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsLzssResetVars"]
+symbol = "?LsLzssResetVars@@YAXXZ"
+target_address = 0x00450a20
+size = 33
+linkages = [
+  { offset = 4, type = "DIR32", symbol = "?g_Ls4D0AB0@@3HA", target = 0x004D0AB0 },
+  { offset = 14, type = "DIR32", symbol = "?g_Ls4B8AB4@@3HA", target = 0x004B8AB4 },
+  { offset = 23, type = "DIR32", symbol = "?g_Ls4B8ABC@@3HA", target = 0x004B8ABC },
+  { offset = 28, type = "DIR32", symbol = "?g_Ls4B8AB8@@3HA", target = 0x004B8AB8 },
+]
+
+[units.LsLzssInitTree]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsLzssInitTree"]
+symbol = "?LsLzssInitTree@@YAXXZ"
+target_address = 0x00450a50
+size = 52
+linkages = [
+  { offset = 10, type = "DIR32", symbol = "?g_LsRingBuf@@3PAEA", target = 0x004D0AB8 },
+  { offset = 15, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+  { offset = 23, type = "DIR32", symbol = "?g_LsTree@@3PAULsLzssNode@@A", target = 0x004B8AA8, addend = 4 },
+  { offset = 44, type = "DIR32", symbol = "?g_LsLogBuf@@3PADA", target = 0x004D0AB8 },
+]
+
+[units.LsLzssContractNode]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsLzssContractNode"]
+symbol = "?LsLzssContractNode@@YAXHH@Z"
+target_address = 0x00450d20
+size = 80
+linkages = [
+  { offset = 7, type = "DIR32", symbol = "?g_LsTree@@3PAULsLzssNode@@A", target = 0x004B8AA8 },
+  { offset = 17, type = "DIR32", symbol = "?g_LsTree@@3PAULsLzssNode@@A", target = 0x004B8AA8 },
+  { offset = 24, type = "DIR32", symbol = "?g_LsTree@@3PAULsLzssNode@@A", target = 0x004B8AA8 },
+  { offset = 38, type = "DIR32", symbol = "?g_LsTree@@3PAULsLzssNode@@A", target = 0x004B8AA8, addend = 8 },
+  { offset = 46, type = "DIR32", symbol = "?g_LsTree@@3PAULsLzssNode@@A", target = 0x004B8AA8, addend = 8 },
+  { offset = 53, type = "DIR32", symbol = "?g_LsTree@@3PAULsLzssNode@@A", target = 0x004B8AA8 },
+  { offset = 64, type = "DIR32", symbol = "?g_LsTree@@3PAULsLzssNode@@A", target = 0x004B8AA8, addend = 4 },
+  { offset = 71, type = "DIR32", symbol = "?g_LsTree@@3PAULsLzssNode@@A", target = 0x004B8AA8 },
+]
+
+[units.LsLzssFindNextNode]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsLzssFindNextNode"]
+symbol = "?LsLzssFindNextNode@@YAHH@Z"
+target_address = 0x00450e00
+size = 49
+linkages = [
+  { offset = 6, type = "DIR32", symbol = "?g_LsTree@@3PAULsLzssNode@@A", target = 0x004B8AA8, addend = 4 },
+  { offset = 16, type = "DIR32", symbol = "?g_LsTree@@3PAULsLzssNode@@A", target = 0x004B8AA8, addend = 8 },
+  { offset = 40, type = "DIR32", symbol = "?g_LsTree@@3PAULsLzssNode@@A", target = 0x004B8AA8, addend = 8 },
+]
+
+[units.LsMemStream_ctor]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsMemStream::LsMemStream"]
+symbol = "??0LsMemStream@@QAE@XZ"
+target_address = 0x00450e50
+size = 18
+linkages = [
+  { offset = 4, type = "DIR32", symbol = "?g_LsMemStreamVtbl@@3PAXA", target = 0x004A491C },
+]
+
+[units.LsAbs0_Abs]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsAbs0::Abs"]
+symbol = "?Abs@LsAbs0@@QAEHXZ"
+target_address = 0x00451050
+size = 9
+linkages = []
+
+[units.LsResStream_ctor]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsResStream::LsResStream"]
+symbol = "??0LsResStream@@QAE@XZ"
+target_address = 0x00451120
+size = 18
+linkages = [
+  { offset = 13, type = "DIR32", symbol = "?g_LsResStreamVtbl@@3PAXA", target = 0x004A4964 },
+]
+
+[units.LsMemStream_ScalarDelete]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsMemStream::ScalarDelete"]
+symbol = "?ScalarDelete@LsMemStream@@QAEPAU1@I@Z"
+target_address = 0x00451140
+size = 72
+linkages = [
+  { offset = 14, type = "DIR32", symbol = "?g_LsMemStreamVtbl@@3PAXA", target = 0x004A491C },
+  { offset = 24, type = "REL32", symbol = "_free", target = 0x0047290C },
+  { offset = 49, type = "DIR32", symbol = "?g_LsBaseStreamVtbl@@3PAXA", target = 0x004A4850 },
+  { offset = 57, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+]
+
+[units.LsMemStream_CloseDtor]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsMemStream::CloseDtor"]
+symbol = "?CloseDtor@LsMemStream@@QAEXXZ"
+target_address = 0x00451190
+size = 49
+linkages = [
+  { offset = 11, type = "DIR32", symbol = "?g_LsMemStreamVtbl@@3PAXA", target = 0x004A491C },
+  { offset = 21, type = "REL32", symbol = "_free", target = 0x0047290C },
+  { offset = 43, type = "DIR32", symbol = "?g_LsBaseStreamVtbl@@3PAXA", target = 0x004A4850 },
+]
+
+[units.LsInit4B4D80]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsInit4B4D80"]
+symbol = "?LsInit4B4D80@@YAPAXXZ"
+target_address = 0x00451280
+size = 38
+linkages = [
+  { offset = 3, type = "DIR32", symbol = "?g_Ls4B4D80@@3PAHA", target = 0x004B4D80, addend = 4 },
+  { offset = 8, type = "DIR32", symbol = "?g_Ls4B4D80@@3PAHA", target = 0x004B4D80, addend = 8 },
+  { offset = 13, type = "DIR32", symbol = "?g_Ls4B4D80@@3PAHA", target = 0x004B4D80, addend = 12 },
+  { offset = 18, type = "DIR32", symbol = "?g_Ls4B4D80@@3PAHA", target = 0x004B4D80, addend = 16 },
+  { offset = 24, type = "DIR32", symbol = "?g_Ls4B4D80@@3PAHA", target = 0x004B4D80 },
+  { offset = 28, type = "DIR32", symbol = "?g_LsVtbl4A49A0@@3PAXA", target = 0x004A49A0 },
+  { offset = 33, type = "DIR32", symbol = "?g_Ls4B4D80@@3PAHA", target = 0x004B4D80 },
+]
+
+[units.LsNoOp451510]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsNoOp451510"]
+symbol = "?LsNoOp451510@@YAXXZ"
+target_address = 0x00451510
+size = 1
+linkages = []
+
+[units.LsGdiFont_dtor]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsGdiFont::~LsGdiFont"]
+symbol = "??1LsGdiFont@@QAE@XZ"
+target_address = 0x00451590
+size = 56
+linkages = [
+  { offset = 9, type = "DIR32", symbol = "?g_LsDeleteObject@@3P6GHPAX@ZA", target = 0x0049A030 },
+  { offset = 30, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+]
+
+[units.LsGdiFont_ReleaseFont]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsGdiFont::ReleaseFont"]
+symbol = "?ReleaseFont@LsGdiFont@@QAEXXZ"
+target_address = 0x00451650
+size = 20
+linkages = [
+  { offset = 9, type = "DIR32", symbol = "?g_LsDeleteObject@@3P6GHPAX@ZA", target = 0x0049A030 },
+]
+
+[units.LsInitSurface]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsInitSurface"]
+symbol = "?LsInitSurface@@YAPAULsSurfaceGlobal@@XZ"
+target_address = 0x00451670
+size = 48
+linkages = [
+  { offset = 3, type = "DIR32", symbol = "?g_LsSurface@@3ULsSurfaceGlobal@@A", target = 0x004B4DD0, addend = 260 },
+  { offset = 8, type = "DIR32", symbol = "?g_LsSurface@@3ULsSurfaceGlobal@@A", target = 0x004B4DD0, addend = 264 },
+  { offset = 13, type = "DIR32", symbol = "?g_LsSurface@@3ULsSurfaceGlobal@@A", target = 0x004B4DD0, addend = 276 },
+  { offset = 18, type = "DIR32", symbol = "?g_LsSurface@@3ULsSurfaceGlobal@@A", target = 0x004B4DD0, addend = 284 },
+  { offset = 23, type = "DIR32", symbol = "?g_LsSurface@@3ULsSurfaceGlobal@@A", target = 0x004B4DD0, addend = 280 },
+  { offset = 28, type = "DIR32", symbol = "?g_LsSurface@@3ULsSurfaceGlobal@@A", target = 0x004B4DD0, addend = 288 },
+  { offset = 34, type = "DIR32", symbol = "?g_LsSurface@@3ULsSurfaceGlobal@@A", target = 0x004B4DD0, addend = 256 },
+  { offset = 43, type = "DIR32", symbol = "?g_LsSurface@@3ULsSurfaceGlobal@@A", target = 0x004B4DD0 },
+]
+
+[units.LsStdString_GetLen]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsStdString::GetLen"]
+symbol = "?GetLen@LsStdString@@QAEIXZ"
+target_address = 0x00452db0
+size = 4
+linkages = []
+
+[units.LsStrLenInline]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsStrLenInline"]
+symbol = "?LsStrLenInline@@YAHPBD@Z"
+target_address = 0x004532e0
+size = 13
+linkages = []
+
+[units.LsZeroSurfacePixels]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsZeroSurfacePixels"]
+symbol = "?LsZeroSurfacePixels@@YAXXZ"
+target_address = 0x00453320
+size = 24
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_LsSurface@@3ULsSurfaceGlobal@@A", target = 0x004B4DD0, addend = 268 },
+  { offset = 7, type = "DIR32", symbol = "?g_LsSurface@@3ULsSurfaceGlobal@@A", target = 0x004B4DD0, addend = 288 },
+  { offset = 16, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+]
+
+[units.LsSurfaceGlobal_Get100]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsSurfaceGlobal::Get100"]
+symbol = "?Get100@LsSurfaceGlobal@@QAEHXZ"
+target_address = 0x00453340
+size = 7
+linkages = []
+
+[units.LsSurfaceGlobal_IsValid11C]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsSurfaceGlobal::IsValid11C"]
+symbol = "?IsValid11C@LsSurfaceGlobal@@QAEHXZ"
+target_address = 0x00453350
+size = 12
+linkages = []
+
+[units.LsSurfaceGlobal_Get114]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsSurfaceGlobal::Get114"]
+symbol = "?Get114@LsSurfaceGlobal@@QAEHXZ"
+target_address = 0x00453360
+size = 7
+linkages = []
+
+[units.LsSurfaceGlobal_Get104]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsSurfaceGlobal::Get104"]
+symbol = "?Get104@LsSurfaceGlobal@@QAEHXZ"
+target_address = 0x00453370
+size = 7
+linkages = []
+
+[units.LsSurfaceGlobal_Get00]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsSurfaceGlobal::Get00"]
+symbol = "?Get00@LsSurfaceGlobal@@QAEHXZ"
+target_address = 0x00453380
+size = 3
+linkages = []
+
+[units.LsPair08_Set8Zero4]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsPair08::Set8Zero4"]
+symbol = "?Set8Zero4@LsPair08@@QAEXH@Z"
+target_address = 0x00453390
+size = 11
+linkages = []
+
+[units.LsSurfaceGlobal_Get108]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsSurfaceGlobal::Get108"]
+symbol = "?Get108@LsSurfaceGlobal@@QAEHXZ"
+target_address = 0x004533a0
+size = 7
+linkages = []
+
+[units.LsSurfaceGlobal_Get110]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsSurfaceGlobal::Get110"]
+symbol = "?Get110@LsSurfaceGlobal@@QAEHXZ"
+target_address = 0x004533b0
+size = 7
+linkages = []
+
+[units.LsSurfaceGlobal_Get120]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsSurfaceGlobal::Get120"]
+symbol = "?Get120@LsSurfaceGlobal@@QAEPAEXZ"
+target_address = 0x004533c0
+size = 7
+linkages = []
+
+[units.LsStdString_DataA]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsStdString::DataA"]
+symbol = "?DataA@LsStdString@@QAEPADXZ"
+target_address = 0x004533d0
+size = 9
+linkages = []
+
+[units.LsStdString_DataB]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsStdString::DataB"]
+symbol = "?DataB@LsStdString@@QAEPADXZ"
+target_address = 0x004533e0
+size = 9
+linkages = []
+
+[units.LsStdString_TidyFree]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsStdString::TidyFree"]
+symbol = "?TidyFree@LsStdString@@QAEXXZ"
+target_address = 0x004533f0
+size = 35
+linkages = [
+  { offset = 10, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+]
+
+[units.LsNoOp453420]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsNoOp453420"]
+symbol = "?LsNoOp453420@@YAXXZ"
+target_address = 0x00453420
+size = 1
+linkages = []
+
+[units.LsNoOpS1_453430]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsNoOpS1_453430"]
+symbol = "?LsNoOpS1_453430@@YGXH@Z"
+target_address = 0x00453430
+size = 3
+linkages = []
+
+[units.LsNoOp453440]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsNoOp453440"]
+symbol = "?LsNoOp453440@@YAXXZ"
+target_address = 0x00453440
+size = 1
+linkages = []
+
+[units.LsNoOp453450]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsNoOp453450"]
+symbol = "?LsNoOp453450@@YAXXZ"
+target_address = 0x00453450
+size = 1
+linkages = []
+
+[units.LsMemCpyWrap]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsMemCpyWrap"]
+symbol = "?LsMemCpyWrap@@YAXPAXPBXI@Z"
+target_address = 0x00453460
+size = 12
+linkages = [
+  { offset = 4, type = "REL32", symbol = "_memcpy", target = 0x00486FA0 },
+]
+
+[units.LsOpDeleteWrap]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsOpDeleteWrap"]
+symbol = "?LsOpDeleteWrap@@YAXPAX@Z"
+target_address = 0x00453470
+size = 8
+linkages = [
+  { offset = 2, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+]
+
+[units.LsCopyByte]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsCopyByte"]
+symbol = "?LsCopyByte@@YAXPADPBD@Z"
+target_address = 0x00453480
+size = 5
+linkages = []
+
+[units.LsStdString_DataC]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsStdString::DataC"]
+symbol = "?DataC@LsStdString@@QAEPADXZ"
+target_address = 0x00453490
+size = 9
+linkages = []
+
+[units.LsStdString_SetEos]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsStdString::SetEos"]
+symbol = "?SetEos@LsStdString@@QAEXI@Z"
+target_address = 0x004534a0
+size = 16
+linkages = []
+
+[units.LsStdString_Tidy]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsStdString::Tidy"]
+symbol = "?Tidy@LsStdString@@QAEX_NI@Z"
+target_address = 0x004534b0
+size = 61
+linkages = [
+  { offset = 26, type = "REL32", symbol = "_memcpy", target = 0x00486FA0 },
+  { offset = 35, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+]
+
+[units.LsStdString_ResetEmpty]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsStdString::ResetEmpty"]
+symbol = "?ResetEmpty@LsStdString@@QAEXXZ"
+target_address = 0x004534f0
+size = 18
+linkages = []
+
+[units.LsNoOp453510]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsNoOp453510"]
+symbol = "?LsNoOp453510@@YAXXZ"
+target_address = 0x00453510
+size = 1
+linkages = []
+
+[units.LsZero0Twice_ZeroTwice]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsZero0Twice::ZeroTwice"]
+symbol = "?ZeroTwice@LsZero0Twice@@QAEXXZ"
+target_address = 0x004535a0
+size = 13
+linkages = []
+
+[units.LsNoOp4535B0]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsNoOp4535B0"]
+symbol = "?LsNoOp4535B0@@YAXXZ"
+target_address = 0x004535b0
+size = 1
+linkages = []
+
+[units.LsResetLogBuf]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsResetLogBuf"]
+symbol = "?LsResetLogBuf@@YAXXZ"
+target_address = 0x004535c0
+size = 18
+linkages = [
+  { offset = 2, type = "DIR32", symbol = "?g_LsLogPtr@@3PADA", target = 0x004B6F50 },
+  { offset = 6, type = "DIR32", symbol = "?g_LsLogBuf@@3PADA", target = 0x004B4F50 },
+  { offset = 12, type = "DIR32", symbol = "?g_LsLogBuf@@3PADA", target = 0x004B4F50 },
+]
+
+[units.LsPair08_SetBothAndZero8]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsPair08::SetBothAndZero8"]
+symbol = "?SetBothAndZero8@LsPair08@@QAEXH@Z"
+target_address = 0x00453650
+size = 13
+linkages = []
+
+[units.LsResetBuf20AC]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsResetBuf20AC"]
+symbol = "?LsResetBuf20AC@@YAPAULsBuf20AC@@XZ"
+target_address = 0x00453660
+size = 26
+linkages = [
+  { offset = 8, type = "DIR32", symbol = "?g_LsBuf20AC@@3ULsBuf20AC@@A", target = 0x004D3970 },
+  { offset = 13, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+  { offset = 21, type = "DIR32", symbol = "?g_LsBuf20AC@@3ULsBuf20AC@@A", target = 0x004D3970 },
+]
+
+[units.LsBuf20AC_GetCurSlot]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsBuf20AC::GetCurSlot"]
+symbol = "?GetCurSlot@LsBuf20AC@@QAEPAHXZ"
+target_address = 0x00453680
+size = 17
+linkages = []
+
+[units.LsSet4D2E6C]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsSet4D2E6C"]
+symbol = "?LsSet4D2E6C@@YAXPAX@Z"
+target_address = 0x00453960
+size = 6
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_Ls4D2E6C@@3PAXA", target = 0x004D2E6C },
+]
+
+[units.LsComPair_Get04]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsComPair::Get04"]
+symbol = "?Get04@LsComPair@@QAEHXZ"
+target_address = 0x00453970
+size = 4
+linkages = []
+
+[units.LsComPair_GetAddr08]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsComPair::GetAddr08"]
+symbol = "?GetAddr08@LsComPair@@QAEPAPAULsComObj@@XZ"
+target_address = 0x00453980
+size = 4
+linkages = []
+
+[units.LsComPair_Release04]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsComPair::Release04"]
+symbol = "?Release04@LsComPair@@QAEXXZ"
+target_address = 0x00453990
+size = 23
+linkages = []
+
+[units.LsComPair_Release08]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsComPair::Release08"]
+symbol = "?Release08@LsComPair@@QAEXXZ"
+target_address = 0x004539b0
+size = 23
+linkages = []
+
+[units.LsDelete464240]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsDelete464240"]
+symbol = "?LsDelete464240@@YAPAXPAX@Z"
+target_address = 0x004543f0
+size = 18
+linkages = [
+  { offset = 2, type = "REL32", symbol = "?Ls464240@@YGXPAX@Z", target = 0x00464240 },
+  { offset = 8, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+]
+
+[units.LsDeleteRaw]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsDeleteRaw"]
+symbol = "?LsDeleteRaw@@YAPAXPAX@Z"
+target_address = 0x00454410
+size = 12
+linkages = [
+  { offset = 2, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+]
+
+[units.LsDisableImeDll]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsDisableImeDll"]
+symbol = "?LsDisableImeDll@@YAXXZ"
+target_address = 0x00455da0
+size = 36
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "??_C@_09EFEMJFBN@imm32?4dll?$AA@", target = 0x004A5174 },
+  { offset = 7, type = "DIR32", symbol = "?g_LsLoadLibraryA@@3P6GPAXPBD@ZA", target = 0x0049A0F0 },
+  { offset = 16, type = "DIR32", symbol = "??_C@_0O@IBBIJLBJ@ImmDisableIME?$AA@", target = 0x004A5180 },
+  { offset = 23, type = "DIR32", symbol = "?g_LsGetProcAddress@@3P6GPAXPAXPBD@ZA", target = 0x0049A0EC },
+]
+
+[units.LsShowCursorWrap]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsShowCursorWrap"]
+symbol = "?LsShowCursorWrap@@YAHH@Z"
+target_address = 0x00455f40
+size = 8
+linkages = [
+  { offset = 3, type = "DIR32", symbol = "?g_LsShowCursor@@3P6GHH@ZA", target = 0x0049A228 },
+]
+
+[units.LsObj0C_Get0C]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsObj0C::Get0C"]
+symbol = "?Get0C@LsObj0C@@QAEHXZ"
+target_address = 0x00456670
+size = 4
+linkages = []
+
+[units.LsObj0C_Zero0C]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsObj0C::Zero0C"]
+symbol = "?Zero0C@LsObj0C@@QAEXXZ"
+target_address = 0x00456680
+size = 8
+linkages = []
+
+[units.LsObj0C_GetAddr0C]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsObj0C::GetAddr0C"]
+symbol = "?GetAddr0C@LsObj0C@@QAEPAHXZ"
+target_address = 0x00456690
+size = 4
+linkages = []
+
+[units.LsFade44_ctor]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsFade44::LsFade44"]
+symbol = "??0LsFade44@@QAE@XZ"
+target_address = 0x004566a0
+size = 23
+linkages = [
+  { offset = 10, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+]
+
+[units.LsClearAndPresentTwice]
+artifact_kind = "linked-pe"
+source = "src/LzssStreamHelpers.cpp"
+support_sources = ["probes/lzss-stream-helpers-context.cpp"]
+output_dir = "build/match-linked/LzssStreamHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "LzssStreamHelpersProbe@80"
+functions = ["LsClearAndPresentTwice"]
+symbol = "?LsClearAndPresentTwice@@YAXXZ"
+target_address = 0x004566c0
+size = 157
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_LsD3dDev@@3PAULsD3dDev@@A", target = 0x004D2E70 },
+  { offset = 36, type = "DIR32", symbol = "?g_LsD3dDev@@3PAULsD3dDev@@A", target = 0x004D2E70 },
+  { offset = 61, type = "DIR32", symbol = "?g_LsD3dDev@@3PAULsD3dDev@@A", target = 0x004D2E70 },
+  { offset = 71, type = "DIR32", symbol = "?g_LsPresentParams@@3HA", target = 0x004D2F5C },
+  { offset = 79, type = "DIR32", symbol = "?g_LsD3dDev@@3PAULsD3dDev@@A", target = 0x004D2E70 },
+  { offset = 114, type = "DIR32", symbol = "?g_LsD3dDev@@3PAULsD3dDev@@A", target = 0x004D2E70 },
+  { offset = 139, type = "DIR32", symbol = "?g_LsD3dDev@@3PAULsD3dDev@@A", target = 0x004D2E70 },
+  { offset = 149, type = "DIR32", symbol = "?g_LsPresentParams@@3HA", target = 0x004D2F5C },
+]
