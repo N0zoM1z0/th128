@@ -1293,6 +1293,8 @@ th128::Zc10BuildRibbonU
 th128::Zc10BuildRibbonV
 th128::Zc10KillEnemiesInBox
 th128::Zc11InitBulletTimer
+th128::Zc12FindDatEntry
+th128::Zc12PlaySfxChannel
 th128::Zc2ConfigDialogProc
 th128::Zc2Fade::OnCalc
 th128::Zc2InitMenuCameras

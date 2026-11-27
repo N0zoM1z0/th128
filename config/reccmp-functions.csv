@@ -858,6 +858,7 @@ TaVtbl850A::SetVtblA,0x00450200,function
 Pbg::IFile::`scalar deleting destructor',0x00450210,function
 TaVtbl850B::SetVtblB,0x00450240,function
 TaStripDirSlash,0x00450250,function
+th128::Zc12FindDatEntry,0x00450270,function
 LsObj08::Get08,0x00450550,function
 Pbg::DecompressLzss,0x00450860,function
 LsLzssResetVars,0x00450A20,function
@@ -970,6 +971,7 @@ SoundManager::PlaySfx,0x00458410,function
 SoundManager::PlaySfxWithPan,0x004584A0,function
 SoundManager::SetSfxPan,0x00458550,function
 SoundManager::StopSfx,0x00458590,function
+th128::Zc12PlaySfxChannel,0x00458B70,function
 SoundManager::EnqueueBgmCommand,0x00458FF0,function
 BgmStreamView::HasField10,0x004590A0,function
 BgmStreamView::SetFadeOut,0x004590B0,function

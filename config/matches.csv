@@ -833,6 +833,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00450210,Pbg::IFile::`scalar deleting destructor',34,exact,100.00,pbg-ifile-deleting-destructor,"Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; every relocation replayed against reviewed import, vtable or CRT targets; zero byte differences."
 0x00450240,TaVtbl850B::SetVtblB,7,exact,100.00,TaVtbl850B_SetVtblB,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x00450250,TaStripDirSlash,20,exact,100.00,TaStripDirSlash,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x00450270,th128::Zc12FindDatEntry,212,exact,100.00,zc12-find-dat-entry,Exact VC10 LTCG match via ZeroCallMedium12Probe@52
 0x00450550,LsObj08::Get08,4,exact,100.00,LsObj08_Get08,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
 0x00450A20,LsLzssResetVars,33,exact,100.00,LsLzssResetVars,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
 0x00450A50,LsLzssInitTree,52,exact,100.00,LsLzssInitTree,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
@@ -932,6 +933,7 @@ address,name,size,status,match_percent,unit,evidence
 0x004584A0,SoundManager::PlaySfxWithPan,168,exact,100.00,sound-manager-play-sfx-with-pan,Cold pinned VC10 /GL linked-PE replay; complete 168-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x00458550,SoundManager::SetSfxPan,52,exact,100.00,sound-manager-set-sfx-pan,Cold pinned VC10 /GL linked-PE replay; complete 52-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x00458590,SoundManager::StopSfx,137,exact,100.00,sound-manager-stop-sfx,Cold pinned VC10 /GL linked-PE replay; complete 137-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x00458B70,th128::Zc12PlaySfxChannel,195,exact,100.00,zc12-play-sfx-channel,Exact VC10 LTCG match via ZeroCallMedium12Probe@52
 0x00458FF0,SoundManager::EnqueueBgmCommand,158,exact,100.00,sound-manager-enqueue-bgm-command,Cold pinned VC10 /GL linked-PE replay; complete 158-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x004590A0,BgmStreamView::HasField10,9,exact,100.00,bgm-stream-view-has-field10,Cold pinned VC10 /GL linked-PE replay; complete 9-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x004590B0,BgmStreamView::SetFadeOut,34,exact,100.00,bgm-stream-view-set-fade-out,Cold pinned VC10 /GL linked-PE replay; complete 34-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.

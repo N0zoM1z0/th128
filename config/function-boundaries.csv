@@ -1602,7 +1602,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x00450210,0x00450231,reviewed,high,pbg-ifile-deleting-destructor-boundary,Complete body ending in RET between CC padding; no interior references.
 0x00450240,0x00450246,reviewed,high,TaVtbl850B_SetVtblB-boundary,Exact VC10 LTCG match via TitleArchiveHelpersProbe
 0x00450250,0x00450263,reviewed,high,TaStripDirSlash-boundary,Exact VC10 LTCG match via TitleArchiveHelpersProbe
-0x00450270,0x00450343,reviewed,high,bdesc-exact,start padding; refs callx2; descent body 0x00450270..0x00450343 (212 bytes) ends with ret; then padding-then-start 0x00450350; 2 filler hole(s)
+0x00450270,0x00450343,reviewed,high,zc12-find-dat-entry-boundary,0x00450270..0x00450343 (212 bytes)
 0x00450350,0x00450374,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00450350..0x00450374 (37 bytes) ends with ret; then padding-then-start 0x00450380; WEAK: no call, jump, pointer or vtable reference found"
 0x00450380,0x0045044F,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00450380..0x0045044F (208 bytes) ends with ret; then adjacent-start 0x00450450
 0x00450450,0x0045054A,reviewed,high,bdesc-exact,start after-terminator; refs callx1; descent body 0x00450450..0x0045054A (251 bytes) ends with ret; then padding-then-start 0x00450550
@@ -1815,7 +1815,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x00458550,0x00458583,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x00458550..0x00458583 (52 bytes) ends with ret; then padding-then-start 0x00458590; WEAK: no call, jump, pointer or vtable reference found"
 0x00458590,0x00458618,reviewed,high,bdesc-exact,start padding; refs callx9; descent body 0x00458590..0x00458618 (137 bytes) ends with ret; then padding-then-start 0x00458620
 0x00458620,0x00458B6B,reviewed,high,bdesc-extent-correction,descent extends the inventory span by 35 bytes past 0x00458B48; state applies to the proposed extent. start padding; refs callx2; descent body 0x00458620..0x00458B6B (1356 bytes) ends with table; then padding-then-start 0x00458B70; tables 0x00458B4C+32; 1 filler hole(s)
-0x00458B70,0x00458C32,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00458B70..0x00458C32 (195 bytes) ends with ret; then padding-then-start 0x00458C40
+0x00458B70,0x00458C32,reviewed,high,zc12-play-sfx-channel-boundary,0x00458B70..0x00458C32 (195 bytes)
 0x00458C40,0x00458F29,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00458C40..0x00458F29 (746 bytes) ends with ret; then padding-then-start 0x00458F30; 1 filler hole(s)
 0x00458F30,0x00458FE4,reviewed,high,bdesc-exact,start padding; refs immx2; descent body 0x00458F30..0x00458FE4 (181 bytes) ends with ret; then padding-then-start 0x00458FF0
 0x00458FF0,0x0045908D,reviewed,high,bdesc-exact,start padding; refs callx25; descent body 0x00458FF0..0x0045908D (158 bytes) ends with ret; then padding-then-start 0x00459090; 1 filler hole(s)
