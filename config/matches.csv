@@ -420,7 +420,49 @@ address,name,size,status,match_percent,unit,evidence
 0x0041F000,EmFloat28::SetFlag1,5,exact,100.00,em-float28-set-flag1,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
 0x0041F010,EmFloat28::Set2C,13,exact,100.00,em-float28-set2c,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
 0x0041F020,EmSetWrapped28,25,exact,100.00,em-set-wrapped28,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
+0x0041F040,GmMoveObj::Set10,13,exact,100.00,gm-move-set10,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
+0x0041F050,GmMoveObj::Set0C,13,exact,100.00,gm-move-set0c,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
+0x0041F060,GmMoveObj::Get20,4,exact,100.00,gm-move-get20,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
+0x0041F070,GmMoveObj::Get24,4,exact,100.00,gm-move-get24,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
+0x0041F080,GmMoveObj::SetFlag0,5,exact,100.00,gm-move-set-flag0,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
+0x0041F090,GmMoveObj::Get18,4,exact,100.00,gm-move-get18,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
+0x0041F0A0,GmMoveObj::ClearFlag1,5,exact,100.00,gm-move-clear-flag1,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
+0x0041F0B0,GmMoveObj::ClearFlags01,5,exact,100.00,gm-move-clear-flags01,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
+0x0041F0C0,GmCopyVec3::CopyFrom,17,exact,100.00,gm-copy-vec3,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
+0x0041F350,GmMoveObj::Get08,4,exact,100.00,gm-move-get08,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
+0x0041F360,GmNoOp41F360,1,exact,100.00,gm-noop-41f360,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
+0x0041F470,GmPosToUv,49,exact,100.00,gm-pos-to-uv,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
+0x0041F4E0,GmVec2LenSq,27,exact,100.00,gm-vec2-len-sq,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
+0x0041F500,GmSet3F4::Set,7,exact,100.00,gm-set-3f4,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
+0x0041F510,GmOff1C::Get,4,exact,100.00,gm-off-1c-get,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
+0x0041F5D0,GmOff458::Get,6,exact,100.00,gm-off-458-get,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
+0x0041F5E0,GmOff0C::Get,4,exact,100.00,gm-off-0c-get,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
+0x0041F5F0,GmMoveObj::Get2C,4,exact,100.00,gm-move-get2c,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
+0x0041F600,GmScaleObj::Mul60x40,20,exact,100.00,gm-scale-mul60x40,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
+0x0041F620,GmScaleObj::Mul64x44,20,exact,100.00,gm-scale-mul64x44,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
+0x0041F640,GmMoveObj::Set24,13,exact,100.00,gm-move-set24,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
+0x0041F650,GmMoveObj::Set20,13,exact,100.00,gm-move-set20,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
+0x0041F660,GmMoveObj::Set18,13,exact,100.00,gm-move-set18,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
+0x0041F670,GmSetDoubleWrapped1C,34,exact,100.00,gm-set-double-wrapped1c,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
+0x0041F6A0,GmMoveObj::GetFlag1,9,exact,100.00,gm-move-get-flag1,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
+0x0041F6B0,GmMoveObj::GetFlag0,7,exact,100.00,gm-move-get-flag0,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
+0x0041F6C0,GmMoveObj::Set04,13,exact,100.00,gm-move-set04,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
+0x0041F6D0,GmMoveObj::Get04,4,exact,100.00,gm-move-get04,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
+0x0041F6E0,GmMoveObj::Set00,12,exact,100.00,gm-move-set00,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
+0x0041F6F0,GmMoveObj::Get00,3,exact,100.00,gm-move-get00,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
+0x0041F720,Gm4B8954::GetFlag1,14,exact,100.00,gm-4b8954-get-flag1,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
+0x0041F730,GmNoOp41F730,1,exact,100.00,gm-noop-41f730,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
+0x0041F740,GmGet08::Get,4,exact,100.00,gm-get-08,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
+0x0041F7E0,GmFpsCounter::GmFpsCounter,28,exact,100.00,gm-fps-counter-ctor,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
 0x0041F990,UpdatePostPresentTiming,256,exact,100.00,post-present-timing-update,Pinned VC10 RTM /O2 /Ob1 /Oy- /GL primary TU; complete 256-byte PDB owner and all 8 reviewed address fields replayed by compare-linked-function.py; current cold receipt; .analysis/post-present-timing-final-canonical.json.
+0x0041FB70,GmFpsCounter::DrawHook,7,exact,100.00,gm-fps-draw-hook,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
+0x0041FB80,GmGet558::Get,7,exact,100.00,gm-get-558,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
+0x0041FB90,GmNoOp41FB90,1,exact,100.00,gm-noop-41fb90,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
+0x0041FC10,GmGuiMini::GetField5904,12,exact,100.00,gm-gui-get-5904,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
+0x0041FC20,GmGuiMini::ClearRow5914,15,exact,100.00,gm-gui-clear-row5914,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
+0x0041FC30,GmGuiMini::SetFlag3AndClear5A3C,23,exact,100.00,gm-gui-set-flag3-clear,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
+0x0041FC50,GmGuiMini::GetFlag3,13,exact,100.00,gm-gui-get-flag3,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
+0x0041FC60,GmGuiMini::SetFlag4,13,exact,100.00,gm-gui-set-flag4,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
 0x00427880,HelpInf::CreateVm,35,exact,100.00,help-create-vm,Cold pinned VC10 RTM /GL /Ob1 /Oy- linked-PE replay; complete 35-byte public primary-TU PDB contribution and all 1 reviewed fields; zero byte differences.
 0x004279C0,HelpInf::LoadPageWorker,68,exact,100.00,help-load-page-worker,Cold pinned VC10 RTM /GL /Ob1 /Oy- linked-PE replay; complete 68-byte public primary-TU PDB contribution and all 5 reviewed fields; zero byte differences.
 0x00427CB0,HelpInf::Destroy,29,exact,100.00,help-destroy,Cold pinned VC10 RTM /GL /Ob1 /Oy- linked-PE replay; complete 29-byte public primary-TU PDB contribution and all three reviewed global/Shutdown/operator-delete fields; zero byte differences.

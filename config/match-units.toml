@@ -14659,3 +14659,568 @@ size = 25
 linkages = [
   { offset = 11, type = "REL32", symbol = "?EmWrapAngle@@YGMM@Z", target = 0x0046A700 },
 ]
+
+[units.gm-move-set10]
+artifact_kind = "linked-pe"
+source = "src/GuiMathHelpers.cpp"
+support_sources = ["probes/gui-math-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiMathHelpersProbe@72"
+functions = ["GmMoveObj::Set10"]
+symbol = "?Set10@GmMoveObj@@QAEXM@Z"
+target_address = 0x0041F040
+size = 13
+linkages = []
+
+[units.gm-move-set0c]
+artifact_kind = "linked-pe"
+source = "src/GuiMathHelpers.cpp"
+support_sources = ["probes/gui-math-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiMathHelpersProbe@72"
+functions = ["GmMoveObj::Set0C"]
+symbol = "?Set0C@GmMoveObj@@QAEXM@Z"
+target_address = 0x0041F050
+size = 13
+linkages = []
+
+[units.gm-move-get20]
+artifact_kind = "linked-pe"
+source = "src/GuiMathHelpers.cpp"
+support_sources = ["probes/gui-math-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiMathHelpersProbe@72"
+functions = ["GmMoveObj::Get20"]
+symbol = "?Get20@GmMoveObj@@QAEMXZ"
+target_address = 0x0041F060
+size = 4
+linkages = []
+
+[units.gm-move-get24]
+artifact_kind = "linked-pe"
+source = "src/GuiMathHelpers.cpp"
+support_sources = ["probes/gui-math-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiMathHelpersProbe@72"
+functions = ["GmMoveObj::Get24"]
+symbol = "?Get24@GmMoveObj@@QAEMXZ"
+target_address = 0x0041F070
+size = 4
+linkages = []
+
+[units.gm-move-set-flag0]
+artifact_kind = "linked-pe"
+source = "src/GuiMathHelpers.cpp"
+support_sources = ["probes/gui-math-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiMathHelpersProbe@72"
+functions = ["GmMoveObj::SetFlag0"]
+symbol = "?SetFlag0@GmMoveObj@@QAEXXZ"
+target_address = 0x0041F080
+size = 5
+linkages = []
+
+[units.gm-move-get18]
+artifact_kind = "linked-pe"
+source = "src/GuiMathHelpers.cpp"
+support_sources = ["probes/gui-math-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiMathHelpersProbe@72"
+functions = ["GmMoveObj::Get18"]
+symbol = "?Get18@GmMoveObj@@QAEMXZ"
+target_address = 0x0041F090
+size = 4
+linkages = []
+
+[units.gm-move-clear-flag1]
+artifact_kind = "linked-pe"
+source = "src/GuiMathHelpers.cpp"
+support_sources = ["probes/gui-math-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiMathHelpersProbe@72"
+functions = ["GmMoveObj::ClearFlag1"]
+symbol = "?ClearFlag1@GmMoveObj@@QAEXXZ"
+target_address = 0x0041F0A0
+size = 5
+linkages = []
+
+[units.gm-move-clear-flags01]
+artifact_kind = "linked-pe"
+source = "src/GuiMathHelpers.cpp"
+support_sources = ["probes/gui-math-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiMathHelpersProbe@72"
+functions = ["GmMoveObj::ClearFlags01"]
+symbol = "?ClearFlags01@GmMoveObj@@QAEXXZ"
+target_address = 0x0041F0B0
+size = 5
+linkages = []
+
+[units.gm-copy-vec3]
+artifact_kind = "linked-pe"
+source = "src/GuiMathHelpers.cpp"
+support_sources = ["probes/gui-math-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiMathHelpersProbe@72"
+functions = ["GmCopyVec3::CopyFrom"]
+symbol = "?CopyFrom@GmCopyVec3@@QAEXPBUGmVec3@@@Z"
+target_address = 0x0041F0C0
+size = 17
+linkages = []
+
+[units.gm-move-get08]
+artifact_kind = "linked-pe"
+source = "src/GuiMathHelpers.cpp"
+support_sources = ["probes/gui-math-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiMathHelpersProbe@72"
+functions = ["GmMoveObj::Get08"]
+symbol = "?Get08@GmMoveObj@@QAEMXZ"
+target_address = 0x0041F350
+size = 4
+linkages = []
+
+[units.gm-noop-41f360]
+artifact_kind = "linked-pe"
+source = "src/GuiMathHelpers.cpp"
+support_sources = ["probes/gui-math-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiMathHelpersProbe@72"
+functions = ["GmNoOp41F360"]
+symbol = "?GmNoOp41F360@@YAXXZ"
+target_address = 0x0041F360
+size = 1
+linkages = []
+
+[units.gm-pos-to-uv]
+artifact_kind = "linked-pe"
+source = "src/GuiMathHelpers.cpp"
+support_sources = ["probes/gui-math-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiMathHelpersProbe@72"
+functions = ["GmPosToUv"]
+symbol = "?GmPosToUv@@YAXPBUGmVec2@@PAM1@Z"
+target_address = 0x0041F470
+size = 49
+linkages = [
+  { offset = 4, type = "DIR32", symbol = "__real@4084000000000000", target = 0x004A65C8 },
+  { offset = 15, type = "DIR32", symbol = "__real@407e000000000000", target = 0x004A65C0 },
+]
+
+[units.gm-vec2-len-sq]
+artifact_kind = "linked-pe"
+source = "src/GuiMathHelpers.cpp"
+support_sources = ["probes/gui-math-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiMathHelpersProbe@72"
+functions = ["GmVec2LenSq"]
+symbol = "?GmVec2LenSq@@YAMPBUGmVec2@@@Z"
+target_address = 0x0041F4E0
+size = 27
+linkages = []
+
+[units.gm-set-3f4]
+artifact_kind = "linked-pe"
+source = "src/GuiMathHelpers.cpp"
+support_sources = ["probes/gui-math-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiMathHelpersProbe@72"
+functions = ["GmSet3F4::Set"]
+symbol = "?Set@GmSet3F4@@QAEXH@Z"
+target_address = 0x0041F500
+size = 7
+linkages = []
+
+[units.gm-off-1c-get]
+artifact_kind = "linked-pe"
+source = "src/GuiMathHelpers.cpp"
+support_sources = ["probes/gui-math-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiMathHelpersProbe@72"
+functions = ["GmOff1C::Get"]
+symbol = "?Get@GmOff1C@@QAEPAHXZ"
+target_address = 0x0041F510
+size = 4
+linkages = []
+
+[units.gm-off-458-get]
+artifact_kind = "linked-pe"
+source = "src/GuiMathHelpers.cpp"
+support_sources = ["probes/gui-math-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiMathHelpersProbe@72"
+functions = ["GmOff458::Get"]
+symbol = "?Get@GmOff458@@QAEPAHXZ"
+target_address = 0x0041F5D0
+size = 6
+linkages = []
+
+[units.gm-off-0c-get]
+artifact_kind = "linked-pe"
+source = "src/GuiMathHelpers.cpp"
+support_sources = ["probes/gui-math-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiMathHelpersProbe@72"
+functions = ["GmOff0C::Get"]
+symbol = "?Get@GmOff0C@@QAEPAHXZ"
+target_address = 0x0041F5E0
+size = 4
+linkages = []
+
+[units.gm-move-get2c]
+artifact_kind = "linked-pe"
+source = "src/GuiMathHelpers.cpp"
+support_sources = ["probes/gui-math-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiMathHelpersProbe@72"
+functions = ["GmMoveObj::Get2C"]
+symbol = "?Get2C@GmMoveObj@@QAEMXZ"
+target_address = 0x0041F5F0
+size = 4
+linkages = []
+
+[units.gm-scale-mul60x40]
+artifact_kind = "linked-pe"
+source = "src/GuiMathHelpers.cpp"
+support_sources = ["probes/gui-math-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiMathHelpersProbe@72"
+functions = ["GmScaleObj::Mul60x40"]
+symbol = "?Mul60x40@GmScaleObj@@QAEMXZ"
+target_address = 0x0041F600
+size = 20
+linkages = []
+
+[units.gm-scale-mul64x44]
+artifact_kind = "linked-pe"
+source = "src/GuiMathHelpers.cpp"
+support_sources = ["probes/gui-math-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiMathHelpersProbe@72"
+functions = ["GmScaleObj::Mul64x44"]
+symbol = "?Mul64x44@GmScaleObj@@QAEMXZ"
+target_address = 0x0041F620
+size = 20
+linkages = []
+
+[units.gm-move-set24]
+artifact_kind = "linked-pe"
+source = "src/GuiMathHelpers.cpp"
+support_sources = ["probes/gui-math-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiMathHelpersProbe@72"
+functions = ["GmMoveObj::Set24"]
+symbol = "?Set24@GmMoveObj@@QAEXM@Z"
+target_address = 0x0041F640
+size = 13
+linkages = []
+
+[units.gm-move-set20]
+artifact_kind = "linked-pe"
+source = "src/GuiMathHelpers.cpp"
+support_sources = ["probes/gui-math-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiMathHelpersProbe@72"
+functions = ["GmMoveObj::Set20"]
+symbol = "?Set20@GmMoveObj@@QAEXM@Z"
+target_address = 0x0041F650
+size = 13
+linkages = []
+
+[units.gm-move-set18]
+artifact_kind = "linked-pe"
+source = "src/GuiMathHelpers.cpp"
+support_sources = ["probes/gui-math-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiMathHelpersProbe@72"
+functions = ["GmMoveObj::Set18"]
+symbol = "?Set18@GmMoveObj@@QAEXM@Z"
+target_address = 0x0041F660
+size = 13
+linkages = []
+
+[units.gm-set-double-wrapped1c]
+artifact_kind = "linked-pe"
+source = "src/GuiMathHelpers.cpp"
+support_sources = ["probes/gui-math-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiMathHelpersProbe@72"
+functions = ["GmSetDoubleWrapped1C"]
+symbol = "?GmSetDoubleWrapped1C@@YGXPAUGmMoveObj@@M@Z"
+target_address = 0x0041F670
+size = 34
+linkages = [
+  { offset = 11, type = "REL32", symbol = "?GmWrapAngle@@YGMM@Z", target = 0x0046A700 },
+  { offset = 20, type = "REL32", symbol = "?GmWrapAngle@@YGMM@Z", target = 0x0046A700 },
+]
+
+[units.gm-move-get-flag1]
+artifact_kind = "linked-pe"
+source = "src/GuiMathHelpers.cpp"
+support_sources = ["probes/gui-math-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiMathHelpersProbe@72"
+functions = ["GmMoveObj::GetFlag1"]
+symbol = "?GetFlag1@GmMoveObj@@QAEHXZ"
+target_address = 0x0041F6A0
+size = 9
+linkages = []
+
+[units.gm-move-get-flag0]
+artifact_kind = "linked-pe"
+source = "src/GuiMathHelpers.cpp"
+support_sources = ["probes/gui-math-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiMathHelpersProbe@72"
+functions = ["GmMoveObj::GetFlag0"]
+symbol = "?GetFlag0@GmMoveObj@@QAEHXZ"
+target_address = 0x0041F6B0
+size = 7
+linkages = []
+
+[units.gm-move-set04]
+artifact_kind = "linked-pe"
+source = "src/GuiMathHelpers.cpp"
+support_sources = ["probes/gui-math-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiMathHelpersProbe@72"
+functions = ["GmMoveObj::Set04"]
+symbol = "?Set04@GmMoveObj@@QAEXM@Z"
+target_address = 0x0041F6C0
+size = 13
+linkages = []
+
+[units.gm-move-get04]
+artifact_kind = "linked-pe"
+source = "src/GuiMathHelpers.cpp"
+support_sources = ["probes/gui-math-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiMathHelpersProbe@72"
+functions = ["GmMoveObj::Get04"]
+symbol = "?Get04@GmMoveObj@@QAEMXZ"
+target_address = 0x0041F6D0
+size = 4
+linkages = []
+
+[units.gm-move-set00]
+artifact_kind = "linked-pe"
+source = "src/GuiMathHelpers.cpp"
+support_sources = ["probes/gui-math-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiMathHelpersProbe@72"
+functions = ["GmMoveObj::Set00"]
+symbol = "?Set00@GmMoveObj@@QAEXM@Z"
+target_address = 0x0041F6E0
+size = 12
+linkages = []
+
+[units.gm-move-get00]
+artifact_kind = "linked-pe"
+source = "src/GuiMathHelpers.cpp"
+support_sources = ["probes/gui-math-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiMathHelpersProbe@72"
+functions = ["GmMoveObj::Get00"]
+symbol = "?Get00@GmMoveObj@@QAEMXZ"
+target_address = 0x0041F6F0
+size = 3
+linkages = []
+
+[units.gm-4b8954-get-flag1]
+artifact_kind = "linked-pe"
+source = "src/GuiMathHelpers.cpp"
+support_sources = ["probes/gui-math-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiMathHelpersProbe@72"
+functions = ["Gm4B8954::GetFlag1"]
+symbol = "?GetFlag1@Gm4B8954@@SAHXZ"
+target_address = 0x0041F720
+size = 14
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_Gm4B8954@@3PAUGm4B8954@@A", target = 0x004B8954 },
+]
+
+[units.gm-noop-41f730]
+artifact_kind = "linked-pe"
+source = "src/GuiMathHelpers.cpp"
+support_sources = ["probes/gui-math-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiMathHelpersProbe@72"
+functions = ["GmNoOp41F730"]
+symbol = "?GmNoOp41F730@@YAXXZ"
+target_address = 0x0041F730
+size = 1
+linkages = []
+
+[units.gm-get-08]
+artifact_kind = "linked-pe"
+source = "src/GuiMathHelpers.cpp"
+support_sources = ["probes/gui-math-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiMathHelpersProbe@72"
+functions = ["GmGet08::Get"]
+symbol = "?Get@GmGet08@@QAEHXZ"
+target_address = 0x0041F740
+size = 4
+linkages = []
+
+[units.gm-fps-counter-ctor]
+artifact_kind = "linked-pe"
+source = "src/GuiMathHelpers.cpp"
+support_sources = ["probes/gui-math-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiMathHelpersProbe@72"
+functions = ["GmFpsCounter::GmFpsCounter"]
+symbol = "??0GmFpsCounter@@QAE@XZ"
+target_address = 0x0041F7E0
+size = 28
+linkages = [
+  { offset = 9, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+  { offset = 21, type = "DIR32", symbol = "?g_GmFpsCounter@@3PAUGmFpsCounter@@A", target = 0x004B894C },
+]
+
+[units.gm-fps-draw-hook]
+artifact_kind = "linked-pe"
+source = "src/GuiMathHelpers.cpp"
+support_sources = ["probes/gui-math-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiMathHelpersProbe@72"
+functions = ["GmFpsCounter::DrawHook"]
+symbol = "?DrawHook@GmFpsCounter@@QAEHXZ"
+target_address = 0x0041FB70
+size = 7
+linkages = [
+  { offset = 2, type = "REL32", symbol = "?GmFpsCounterDraw@@YGHPAUGmFpsCounter@@@Z", target = 0x0041FA90 },
+]
+
+[units.gm-get-558]
+artifact_kind = "linked-pe"
+source = "src/GuiMathHelpers.cpp"
+support_sources = ["probes/gui-math-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiMathHelpersProbe@72"
+functions = ["GmGet558::Get"]
+symbol = "?Get@GmGet558@@QAEHXZ"
+target_address = 0x0041FB80
+size = 7
+linkages = []
+
+[units.gm-noop-41fb90]
+artifact_kind = "linked-pe"
+source = "src/GuiMathHelpers.cpp"
+support_sources = ["probes/gui-math-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiMathHelpersProbe@72"
+functions = ["GmNoOp41FB90"]
+symbol = "?GmNoOp41FB90@@YAXXZ"
+target_address = 0x0041FB90
+size = 1
+linkages = []
+
+[units.gm-gui-get-5904]
+artifact_kind = "linked-pe"
+source = "src/GuiMathHelpers.cpp"
+support_sources = ["probes/gui-math-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiMathHelpersProbe@72"
+functions = ["GmGuiMini::GetField5904"]
+symbol = "?GetField5904@GmGuiMini@@SAHXZ"
+target_address = 0x0041FC10
+size = 12
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_GmGui@@3PAUGmGuiMini@@A", target = 0x004B8950 },
+]
+
+[units.gm-gui-clear-row5914]
+artifact_kind = "linked-pe"
+source = "src/GuiMathHelpers.cpp"
+support_sources = ["probes/gui-math-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiMathHelpersProbe@72"
+functions = ["GmGuiMini::ClearRow5914"]
+symbol = "?ClearRow5914@GmGuiMini@@QAEXH@Z"
+target_address = 0x0041FC20
+size = 15
+linkages = []
+
+[units.gm-gui-set-flag3-clear]
+artifact_kind = "linked-pe"
+source = "src/GuiMathHelpers.cpp"
+support_sources = ["probes/gui-math-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiMathHelpersProbe@72"
+functions = ["GmGuiMini::SetFlag3AndClear5A3C"]
+symbol = "?SetFlag3AndClear5A3C@GmGuiMini@@SAXXZ"
+target_address = 0x0041FC30
+size = 23
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_GmGui@@3PAUGmGuiMini@@A", target = 0x004B8950 },
+]
+
+[units.gm-gui-get-flag3]
+artifact_kind = "linked-pe"
+source = "src/GuiMathHelpers.cpp"
+support_sources = ["probes/gui-math-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiMathHelpersProbe@72"
+functions = ["GmGuiMini::GetFlag3"]
+symbol = "?GetFlag3@GmGuiMini@@QAEHXZ"
+target_address = 0x0041FC50
+size = 13
+linkages = []
+
+[units.gm-gui-set-flag4]
+artifact_kind = "linked-pe"
+source = "src/GuiMathHelpers.cpp"
+support_sources = ["probes/gui-math-helpers-context.cpp"]
+output_dir = "build/match-linked/GuiMathHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "GuiMathHelpersProbe@72"
+functions = ["GmGuiMini::SetFlag4"]
+symbol = "?SetFlag4@GmGuiMini@@SAXXZ"
+target_address = 0x0041FC60
+size = 13
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_GmGui@@3PAUGmGuiMini@@A", target = 0x004B8950 },
+]
