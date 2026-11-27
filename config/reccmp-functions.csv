@@ -420,6 +420,7 @@ ThreadInf::Resume,0x0046ADE0,function
 SetThreadFlagBit2,0x0046ADF0,function
 CoreMotionState::UpdateVelocity,0x0046AE00,function
 EaseTransition,0x0046B190,function
+LineEquationFromPoints,0x0046BF00,function
 Vec2LengthSq,0x0046C0C0,function
 ShortestAngleDifference2,0x0046C0E0,function
 MultiplyFloatPtr,0x0046C210,function

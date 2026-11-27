@@ -2187,7 +2187,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x0046B950,0x0046BB1B,reviewed,high,bdesc-exact,start padding; refs callx2; descent body 0x0046B950..0x0046BB1B (460 bytes) ends with ret; then padding-then-start 0x0046BB20
 0x0046BB20,0x0046BD17,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x0046BB20..0x0046BD17 (504 bytes) ends with ret; then padding-then-start 0x0046BD20; WEAK: no call, jump, pointer or vtable reference found"
 0x0046BD20,0x0046BEFF,reviewed,high,bdesc-exact,start padding; refs callx4; descent body 0x0046BD20..0x0046BEFF (480 bytes) ends with ret; then adjacent-start 0x0046BF00
-0x0046BF00,0x0046BF68,reviewed,medium,bdesc-exact-weak,"start after-terminator; refs none; descent body 0x0046BF00..0x0046BF68 (105 bytes) ends with ret; then padding-then-start 0x0046BF70; WEAK: no call, jump, pointer or vtable reference found"
+0x0046BF00,0x0046BF68,reviewed,high,geo-line-equation-from-points-boundary,Attested 105-byte span 0x0046BF00..0x0046BF68 before 0xCC padding.
 0x0046BF70,0x0046C0B3,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x0046BF70..0x0046C0B3 (324 bytes) ends with ret; then padding-then-start 0x0046C0C0
 0x0046C0C0,0x0046C0DA,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x0046C0C0..0x0046C0DA (27 bytes) ends with ret; then padding-then-start 0x0046C0E0; WEAK: no call, jump, pointer or vtable reference found"
 0x0046C0E0,0x0046C142,reviewed,high,bdesc-exact,start padding; refs callx3; descent body 0x0046C0E0..0x0046C142 (99 bytes) ends with ret; then padding-then-start 0x0046C150

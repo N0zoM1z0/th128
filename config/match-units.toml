@@ -9399,3 +9399,19 @@ linkages = [
   { offset = 93, type = "REL32", symbol = "?CoreNormalizeAngle@@YGMM@Z", target = 0x0046A700 },
   { offset = 102, type = "REL32", symbol = "?CoreNormalizeAngle@@YGMM@Z", target = 0x0046A700 },
 ]
+
+# 2D geometry / collision helpers: VC10 /GL linked-PE exact units.
+[units.geo-line-equation-from-points]
+artifact_kind = "linked-pe"
+source = "src/Geometry2D.cpp"
+support_sources = ["probes/geometry2d-context.cpp"]
+output_dir = "build/match-linked/Geometry2D"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "Geometry2DProbe@48"
+functions = ["LineEquationFromPoints"]
+symbol = "?LineEquationFromPoints@@YGHMMMMPAM0@Z"
+target_address = 0x0046BF00
+size = 105
+linkages = [
+  { offset = 41, type = "DIR32", symbol = "__real@3c23d70a", target = 0x004A668C },
+]
