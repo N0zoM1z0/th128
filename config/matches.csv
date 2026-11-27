@@ -480,6 +480,8 @@ address,name,size,status,match_percent,unit,evidence
 0x00421070,GdGuiObj::DestroySelf,18,exact,100.00,gd-gui-destroy-self,Cold replay passed via scripts/replay-exact-units.py --source src/GuiDialogHelpers.cpp
 0x00421090,GdGuiObj::DestroyGlobal,28,exact,100.00,gd-gui-destroy-global,Cold replay passed via scripts/replay-exact-units.py --source src/GuiDialogHelpers.cpp
 0x00422D60,GdGuiObj::CalcHook,7,exact,100.00,gd-gui-calc-hook,Cold replay passed via scripts/replay-exact-units.py --source src/GuiDialogHelpers.cpp
+0x00425340,th128::Oc1HideGuiAnms,615,exact,100.00,oc1-hide-gui-anms,exact linked VC10 /GL match in OneCallBatch1 (615B)
+0x004255B0,th128::Oc1ShowGuiAnms,615,exact,100.00,oc1-show-gui-anms,exact linked VC10 /GL match in OneCallBatch1 (615B)
 0x00425820,th128::ZcGuiUpdateMeterAnms,372,exact,100.00,zc-gui-update-meter-anms,Exact VC10 /GL linked-PE match via compare-linked-function.py.
 0x004259A0,GdStageOwner::Set7C,4,exact,100.00,gd-stage-set-7c,Cold replay passed via scripts/replay-exact-units.py --source src/GuiDialogHelpers.cpp
 0x004259B0,GdGet4B4D3C,6,exact,100.00,gd-get-4b4d3c,Cold replay passed via scripts/replay-exact-units.py --source src/GuiDialogHelpers.cpp

@@ -21457,3 +21457,57 @@ size = 147
 linkages = [
   { offset = 93, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
 ]
+
+[units.oc1-hide-gui-anms]
+artifact_kind = "linked-pe"
+source = "src/OneCallBatch1.cpp"
+support_sources = ["probes/one-call-batch1-context.cpp"]
+output_dir = "build/match-linked/OneCallBatch1"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "OneCallBatch1Probe@12"
+functions = ["th128::Oc1HideGuiAnms"]
+symbol = "?Oc1HideGuiAnms@@YAXPAUOc1GuiPanel@@@Z"
+target_address = 0x00425340
+size = 615
+linkages = [
+  { offset = 6, type = "DIR32", symbol = "?g_Oc1AnmMgr@@3PAUOc1AnmMgr@@A", target = 0x004D2E50 },
+  { offset = 15, type = "REL32", symbol = "?Oc1GetVmById@@YGPAUOc1AnmVm@@PAUOc1AnmMgr@@UOc1AnmId@@@Z", target = 0x00467420 },
+  { offset = 70, type = "REL32", symbol = "?Oc1GetVmById@@YGPAUOc1AnmVm@@PAUOc1AnmMgr@@UOc1AnmId@@@Z", target = 0x00467420 },
+  { offset = 119, type = "REL32", symbol = "?Oc1GetVmById@@YGPAUOc1AnmVm@@PAUOc1AnmMgr@@UOc1AnmId@@@Z", target = 0x00467420 },
+  { offset = 168, type = "REL32", symbol = "?Oc1GetVmById@@YGPAUOc1AnmVm@@PAUOc1AnmMgr@@UOc1AnmId@@@Z", target = 0x00467420 },
+  { offset = 217, type = "REL32", symbol = "?Oc1GetVmById@@YGPAUOc1AnmVm@@PAUOc1AnmMgr@@UOc1AnmId@@@Z", target = 0x00467420 },
+  { offset = 266, type = "REL32", symbol = "?Oc1GetVmById@@YGPAUOc1AnmVm@@PAUOc1AnmMgr@@UOc1AnmId@@@Z", target = 0x00467420 },
+  { offset = 315, type = "REL32", symbol = "?Oc1GetVmById@@YGPAUOc1AnmVm@@PAUOc1AnmMgr@@UOc1AnmId@@@Z", target = 0x00467420 },
+  { offset = 374, type = "REL32", symbol = "?Oc1GetVmById@@YGPAUOc1AnmVm@@PAUOc1AnmMgr@@UOc1AnmId@@@Z", target = 0x00467420 },
+  { offset = 423, type = "REL32", symbol = "?Oc1GetVmById@@YGPAUOc1AnmVm@@PAUOc1AnmMgr@@UOc1AnmId@@@Z", target = 0x00467420 },
+  { offset = 472, type = "REL32", symbol = "?Oc1GetVmById@@YGPAUOc1AnmVm@@PAUOc1AnmMgr@@UOc1AnmId@@@Z", target = 0x00467420 },
+  { offset = 521, type = "REL32", symbol = "?Oc1GetVmById@@YGPAUOc1AnmVm@@PAUOc1AnmMgr@@UOc1AnmId@@@Z", target = 0x00467420 },
+  { offset = 570, type = "REL32", symbol = "?Oc1GetVmById@@YGPAUOc1AnmVm@@PAUOc1AnmMgr@@UOc1AnmId@@@Z", target = 0x00467420 },
+]
+
+[units.oc1-show-gui-anms]
+artifact_kind = "linked-pe"
+source = "src/OneCallBatch1.cpp"
+support_sources = ["probes/one-call-batch1-context.cpp"]
+output_dir = "build/match-linked/OneCallBatch1"
+profile = ["/TP", "/O2", "/Ob1", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "OneCallBatch1Probe@12"
+functions = ["th128::Oc1ShowGuiAnms"]
+symbol = "?Oc1ShowGuiAnms@@YAXPAUOc1GuiPanel@@@Z"
+target_address = 0x004255b0
+size = 615
+linkages = [
+  { offset = 6, type = "DIR32", symbol = "?g_Oc1AnmMgr@@3PAUOc1AnmMgr@@A", target = 0x004D2E50 },
+  { offset = 15, type = "REL32", symbol = "?Oc1GetVmById@@YGPAUOc1AnmVm@@PAUOc1AnmMgr@@UOc1AnmId@@@Z", target = 0x00467420 },
+  { offset = 70, type = "REL32", symbol = "?Oc1GetVmById@@YGPAUOc1AnmVm@@PAUOc1AnmMgr@@UOc1AnmId@@@Z", target = 0x00467420 },
+  { offset = 119, type = "REL32", symbol = "?Oc1GetVmById@@YGPAUOc1AnmVm@@PAUOc1AnmMgr@@UOc1AnmId@@@Z", target = 0x00467420 },
+  { offset = 168, type = "REL32", symbol = "?Oc1GetVmById@@YGPAUOc1AnmVm@@PAUOc1AnmMgr@@UOc1AnmId@@@Z", target = 0x00467420 },
+  { offset = 217, type = "REL32", symbol = "?Oc1GetVmById@@YGPAUOc1AnmVm@@PAUOc1AnmMgr@@UOc1AnmId@@@Z", target = 0x00467420 },
+  { offset = 266, type = "REL32", symbol = "?Oc1GetVmById@@YGPAUOc1AnmVm@@PAUOc1AnmMgr@@UOc1AnmId@@@Z", target = 0x00467420 },
+  { offset = 315, type = "REL32", symbol = "?Oc1GetVmById@@YGPAUOc1AnmVm@@PAUOc1AnmMgr@@UOc1AnmId@@@Z", target = 0x00467420 },
+  { offset = 374, type = "REL32", symbol = "?Oc1GetVmById@@YGPAUOc1AnmVm@@PAUOc1AnmMgr@@UOc1AnmId@@@Z", target = 0x00467420 },
+  { offset = 423, type = "REL32", symbol = "?Oc1GetVmById@@YGPAUOc1AnmVm@@PAUOc1AnmMgr@@UOc1AnmId@@@Z", target = 0x00467420 },
+  { offset = 472, type = "REL32", symbol = "?Oc1GetVmById@@YGPAUOc1AnmVm@@PAUOc1AnmMgr@@UOc1AnmId@@@Z", target = 0x00467420 },
+  { offset = 521, type = "REL32", symbol = "?Oc1GetVmById@@YGPAUOc1AnmVm@@PAUOc1AnmMgr@@UOc1AnmId@@@Z", target = 0x00467420 },
+  { offset = 570, type = "REL32", symbol = "?Oc1GetVmById@@YGPAUOc1AnmVm@@PAUOc1AnmMgr@@UOc1AnmId@@@Z", target = 0x00467420 },
+]

@@ -830,8 +830,8 @@ address,span_end,state,confidence,evidence_id,notes
 0x00425140,0x0042523D,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00425140..0x0042523D (254 bytes) ends with ret; then padding-then-start 0x00425240
 0x00425240,0x004252FB,reviewed,high,bdesc-exact,start padding; refs callx2; descent body 0x00425240..0x004252FB (188 bytes) ends with ret; then padding-then-start 0x00425300
 0x00425300,0x00425336,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x00425300..0x00425336 (55 bytes) ends with ret; then padding-then-start 0x00425340; WEAK: no call, jump, pointer or vtable reference found"
-0x00425340,0x004255A6,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00425340..0x004255A6 (615 bytes) ends with ret; then padding-then-start 0x004255B0; 1 filler hole(s); data dwords equal to interior addresses sit in text/float data (chance values): 0x004A1CDC->0x00425450
-0x004255B0,0x00425816,reviewed,high,bdesc-exact,start padding; refs callx2; descent body 0x004255B0..0x00425816 (615 bytes) ends with ret; then padding-then-start 0x00425820; 1 filler hole(s)
+0x00425340,0x004255A6,reviewed,high,oc1-hide-gui-anms-boundary,0x00425340:615
+0x004255B0,0x00425816,reviewed,high,oc1-show-gui-anms-boundary,0x004255b0:615
 0x00425820,0x00425993,reviewed,high,zc-gui-update-meter-anms-boundary,target-exact
 0x004259A0,0x004259A3,reviewed,high,gd-stage-set-7c-boundary,Verified exact VC10 /GL linked-pe extent
 0x004259B0,0x004259B5,reviewed,high,gd-get-4b4d3c-boundary,Verified exact VC10 /GL linked-pe extent
