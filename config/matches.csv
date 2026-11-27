@@ -96,10 +96,64 @@ address,name,size,status,match_percent,unit,evidence
 0x004070A0,StageMalloc,10,exact,100.00,stage-malloc,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x004070B0,StageVec3::operator/,44,exact,100.00,stage-vec3-div-scalar,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x004070E0,StageVec3::LengthSq,38,exact,100.00,stage-vec3-length-sq,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00407110,BulletVec3::operator+,25,exact,100.00,bullet-vec3-add,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x00407130,ZunTimer::operator<=,18,exact,100.00,zun-timer-less-equal,Cold pinned VC10 /GL /Ob1 /Oy- complete 18-byte public primary-TU PDB contribution behind the shared ZunTimer probe context; current receipts; no fields; zero byte differences.
+0x00407150,BulletTimerMini::SetScaleInt,19,exact,100.00,bullet-timer-set-scale-int,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00407170,BulletTimerMini::SetScaleNegInt,25,exact,100.00,bullet-timer-set-scale-neg-int,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00407190,BulletTimerMini::SetScaleMinusOne,16,exact,100.00,bullet-timer-set-scale-minus-one,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x004071A0,BulletAnmManagerMini::ResetColorMod,26,exact,100.00,bullet-anm-reset-color-mod,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00407200,BulletAnmManagerMini::SetColorMod,22,exact,100.00,bullet-anm-set-color-mod,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00407220,BulletField08::Get,4,exact,100.00,bullet-field-08-get,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00407260,BulletVec3::LengthSq2D,27,exact,100.00,bullet-vec3-length-sq-2d,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00407280,BulletVec3::operator-,25,exact,100.00,bullet-vec3-sub,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x004072A0,BulletAngle::Sub,31,exact,100.00,bullet-angle-sub,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x004072C0,BulletAngle::Add,31,exact,100.00,bullet-angle-add,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x004072E0,BulletVec3::GetX,3,exact,100.00,bullet-vec3-get-x,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x00407310,SetTimeScale,16,exact,100.00,set-time-scale,Cold pinned VC10 /GL /Oy- complete 16-byte public primary-TU PDB contribution; current source/header/tool/producer/PE/MAP/PDB receipts; the one reviewed DIR32 binding replays with zero byte differences.
+0x00407320,BulletVec3::GetX2,3,exact,100.00,bullet-vec3-get-x2,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00407330,BulletField04::Get,4,exact,100.00,bullet-field-04-get,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00407340,BulletFlag90::GetBit0,10,exact,100.00,bullet-flag-90-get-bit0,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00407350,BulletVec3::Set,24,exact,100.00,bullet-vec3-set,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00407370,BulletField54::Get,4,exact,100.00,bullet-field-54-get,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00407380,BulletNoOp1,1,exact,100.00,bullet-noop-407380,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00407390,BulletNoOp2,1,exact,100.00,bullet-noop-407390,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x004073A0,BulletRetThis::Self,3,exact,100.00,bullet-ret-this,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x004073B0,ZunTimer::operator>=,18,exact,100.00,zun-timer-greater-equal,Cold pinned VC10 /GL /Ob1 /Oy- complete 18-byte public primary-TU PDB contribution behind the shared ZunTimer probe context; current receipts; no fields; zero byte differences.
+0x004073D0,BulletVec3::GetZ,4,exact,100.00,bullet-vec3-get-z,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x004073E0,BulletVec3::AddInPlace,25,exact,100.00,bullet-vec3-add-in-place,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00407400,BulletVec3::ScaleInPlace,34,exact,100.00,bullet-vec3-scale-in-place,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00407430,BulletVec3::GetZ2,4,exact,100.00,bullet-vec3-get-z2,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00407440,PlayerMini::GetPosPtr,6,exact,100.00,player-get-pos-ptr,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00407450,FreezeInfMini::IsTimerGe60,10,exact,100.00,freeze-is-timer-ge-60,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x004077E0,BulletRet1A,6,exact,100.00,bullet-ret1-4077e0,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00407900,BulletRet1B,6,exact,100.00,bullet-ret1-407900,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00407910,BulletRet0A,3,exact,100.00,bullet-ret0-407910,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00407920,BulletRet0B,3,exact,100.00,bullet-ret0-407920,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00407930,BulletNoOp3,1,exact,100.00,bullet-noop-407930,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00407940,BulletGetModeIndex,15,exact,100.00,bullet-get-mode-index,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00407950,BulletNoOp4,1,exact,100.00,bullet-noop-407950,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00407960,BombInfMini::IsActive,15,exact,100.00,bomb-is-active,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00407970,PlayerMini::SetFloat87B0,16,exact,100.00,player-set-float-87b0,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x004079E0,BulletField5A34::Get,7,exact,100.00,bullet-field-5a34-get,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x004079F0,FreezeInfMini::CheckEnd,55,exact,100.00,freeze-check-end,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00407A30,EnemyMgrMini::GetField65DDC,7,exact,100.00,enemy-mgr-get-field-65ddc,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00407A40,EnemyMgrMini::SetFlag6B1FCBit2,13,exact,100.00,enemy-mgr-set-flag-6b1fc-bit2,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00407A50,EnemyMgrMini::Trigger6B200,26,exact,100.00,enemy-mgr-trigger-6b200,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00407E30,BulletRet1C,6,exact,100.00,bullet-ret1-407e30,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00407E40,BulletRet0C,3,exact,100.00,bullet-ret0-407e40,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00407E50,BulletRet0D,3,exact,100.00,bullet-ret0-407e50,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00407E60,BulletRet0E,3,exact,100.00,bullet-ret0-407e60,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x00407E70,ZunTimer::operator==,18,exact,100.00,zun-timer-equal,Cold pinned VC10 /GL /Ob1 /Oy- complete 18-byte public primary-TU PDB contribution behind the shared ZunTimer probe context; current receipts; no fields; zero byte differences.
+0x00407FB0,BulletItemMini::ResetTimersAndClearFlag0,165,exact,100.00,bullet-item-reset-timers,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00408060,BulletSub380::Reset,33,exact,100.00,bullet-sub380-reset,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00408090,BulletManagerMini::GetAnm,12,exact,100.00,bullet-mgr-get-anm,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x004080A0,BulletZero54::Zero,16,exact,100.00,bullet-zero-54,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x004080B0,BulletGetTypeField00,13,exact,100.00,bullet-get-type-field00,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x004080C0,BulletGetTypeField104,13,exact,100.00,bullet-get-type-field104,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x004080D0,BulletGetTypeField108,13,exact,100.00,bullet-get-type-field108,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x004081B0,BulletTimerMini::ClearFlag0,7,exact,100.00,bullet-timer-clear-flag0,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00408560,BulletBoundsCheck::IsOutOfBoundsTall,106,exact,100.00,bullet-bounds-tall,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x004085D0,BulletBoundsCheck::IsOutOfBounds,106,exact,100.00,bullet-bounds-normal,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x0040CEA0,ResetScalarTransitionTimer,52,exact,100.00,anm-vm-scalar-transition-reset,Cold pinned VC10 /GL /Ob1 /Oy- linked primary-source function; PDB and MAP owner agree; offset 31 DIR32 g_TimeScale replayed to 0x004B6F58; zero byte differences across all 52 bytes.
 0x0040D130,Rng::GetFloatScaled,52,exact,100.00,rng-get-float-scale,Cold pinned VC10 /GL linked-PE build; complete 52-byte primary-TU PDB owner and all three reviewed REL32/DIR32 fields replay with zero byte differences.
 0x0040D340,CardInf::HasInvalidDurationCode,81,exact,100.00,replay-pause-code-invalid,Pinned VC10 RTM /O2 /Ob1 /Oy- /GL primary TU; current cold receipt; complete 81-byte PDB owner and all 0 reviewed address fields replayed with zero differences; .analysis/card-code-first-canonical.json.

@@ -10570,3 +10570,761 @@ symbol = "?LengthSq@StageVec3@@QBEMXZ"
 target_address = 0x004070E0
 size = 38
 linkages = []
+
+# Bullet, Bomb, Freeze, Player, and Vec3 helper batch: VC10 /GL linked-PE exact units.
+
+[units.bullet-vec3-add]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletVec3::operator+"]
+symbol = "??HBulletVec3@@QBE?AU0@ABU0@@Z"
+target_address = 0x00407110
+size = 25
+linkages = []
+
+[units.bullet-timer-set-scale-int]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletTimerMini::SetScaleInt"]
+symbol = "?SetScaleInt@BulletTimerMini@@QAEXH@Z"
+target_address = 0x00407150
+size = 19
+linkages = [
+  { offset = 11, type = "REL32", symbol = "?SetScaleFloat@BulletTimerMini@@QAEXM@Z", target = 0x0046AA20 },
+]
+
+[units.bullet-timer-set-scale-neg-int]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletTimerMini::SetScaleNegInt"]
+symbol = "?SetScaleNegInt@BulletTimerMini@@QAEXH@Z"
+target_address = 0x00407170
+size = 25
+linkages = [
+  { offset = 17, type = "REL32", symbol = "?SetScaleFloat@BulletTimerMini@@QAEXM@Z", target = 0x0046AA20 },
+]
+
+[units.bullet-timer-set-scale-minus-one]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletTimerMini::SetScaleMinusOne"]
+symbol = "?SetScaleMinusOne@BulletTimerMini@@QAEXXZ"
+target_address = 0x00407190
+size = 16
+linkages = [
+  { offset = 2, type = "DIR32", symbol = "__real@bf800000", target = 0x004A6688 },
+  { offset = 11, type = "REL32", symbol = "?SetScaleFloat@BulletTimerMini@@QAEXM@Z", target = 0x0046AA20 },
+]
+
+[units.bullet-anm-reset-color-mod]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletAnmManagerMini::ResetColorMod"]
+symbol = "?ResetColorMod@BulletAnmManagerMini@@SAXXZ"
+target_address = 0x004071A0
+size = 26
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_BulletAnmManager@@3PAUBulletAnmManagerMini@@A", target = 0x004D2E50 },
+]
+
+[units.bullet-anm-set-color-mod]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletAnmManagerMini::SetColorMod"]
+symbol = "?SetColorMod@BulletAnmManagerMini@@SAXI@Z"
+target_address = 0x00407200
+size = 22
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_BulletAnmManager@@3PAUBulletAnmManagerMini@@A", target = 0x004D2E50 },
+]
+
+[units.bullet-field-08-get]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletField08::Get"]
+symbol = "?Get@BulletField08@@QAEHXZ"
+target_address = 0x00407220
+size = 4
+linkages = []
+
+[units.bullet-vec3-length-sq-2d]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletVec3::LengthSq2D"]
+symbol = "?LengthSq2D@BulletVec3@@QBEMXZ"
+target_address = 0x00407260
+size = 27
+linkages = []
+
+[units.bullet-vec3-sub]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletVec3::operator-"]
+symbol = "??GBulletVec3@@QBE?AU0@ABU0@@Z"
+target_address = 0x00407280
+size = 25
+linkages = []
+
+[units.bullet-angle-sub]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletAngle::Sub"]
+symbol = "?Sub@BulletAngle@@QAEPAU1@M@Z"
+target_address = 0x004072A0
+size = 31
+linkages = [
+  { offset = 19, type = "REL32", symbol = "?BulletNormalizeAngle@@YGMM@Z", target = 0x0046A700 },
+]
+
+[units.bullet-angle-add]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletAngle::Add"]
+symbol = "?Add@BulletAngle@@QAEPAU1@M@Z"
+target_address = 0x004072C0
+size = 31
+linkages = [
+  { offset = 19, type = "REL32", symbol = "?BulletNormalizeAngle@@YGMM@Z", target = 0x0046A700 },
+]
+
+[units.bullet-vec3-get-x]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletVec3::GetX"]
+symbol = "?GetX@BulletVec3@@QBEMXZ"
+target_address = 0x004072E0
+size = 3
+linkages = []
+
+[units.bullet-vec3-get-x2]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletVec3::GetX2"]
+symbol = "?GetX2@BulletVec3@@QBEMXZ"
+target_address = 0x00407320
+size = 3
+linkages = []
+
+[units.bullet-field-04-get]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletField04::Get"]
+symbol = "?Get@BulletField04@@QAEHXZ"
+target_address = 0x00407330
+size = 4
+linkages = []
+
+[units.bullet-flag-90-get-bit0]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletFlag90::GetBit0"]
+symbol = "?GetBit0@BulletFlag90@@QAEIXZ"
+target_address = 0x00407340
+size = 10
+linkages = []
+
+[units.bullet-vec3-set]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletVec3::Set"]
+symbol = "?Set@BulletVec3@@QAEXMMM@Z"
+target_address = 0x00407350
+size = 24
+linkages = []
+
+[units.bullet-field-54-get]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletField54::Get"]
+symbol = "?Get@BulletField54@@QAEHXZ"
+target_address = 0x00407370
+size = 4
+linkages = []
+
+[units.bullet-noop-407380]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletNoOp1"]
+symbol = "?BulletNoOp1@@YAXXZ"
+target_address = 0x00407380
+size = 1
+linkages = []
+
+[units.bullet-noop-407390]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletNoOp2"]
+symbol = "?BulletNoOp2@@YAXXZ"
+target_address = 0x00407390
+size = 1
+linkages = []
+
+[units.bullet-ret-this]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletRetThis::Self"]
+symbol = "?Self@BulletRetThis@@QAEPAU1@XZ"
+target_address = 0x004073A0
+size = 3
+linkages = []
+
+[units.bullet-vec3-get-z]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletVec3::GetZ"]
+symbol = "?GetZ@BulletVec3@@QBEMXZ"
+target_address = 0x004073D0
+size = 4
+linkages = []
+
+[units.bullet-vec3-add-in-place]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletVec3::AddInPlace"]
+symbol = "?AddInPlace@BulletVec3@@QAEXABU1@@Z"
+target_address = 0x004073E0
+size = 25
+linkages = []
+
+[units.bullet-vec3-scale-in-place]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletVec3::ScaleInPlace"]
+symbol = "?ScaleInPlace@BulletVec3@@QAEXM@Z"
+target_address = 0x00407400
+size = 34
+linkages = []
+
+[units.bullet-vec3-get-z2]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletVec3::GetZ2"]
+symbol = "?GetZ2@BulletVec3@@QBEMXZ"
+target_address = 0x00407430
+size = 4
+linkages = []
+
+[units.player-get-pos-ptr]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["PlayerMini::GetPosPtr"]
+symbol = "?GetPosPtr@PlayerMini@@QAEPAUBulletVec3@@XZ"
+target_address = 0x00407440
+size = 6
+linkages = []
+
+[units.freeze-is-timer-ge-60]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["FreezeInfMini::IsTimerGe60"]
+symbol = "?IsTimerGe60@FreezeInfMini@@QAE_NXZ"
+target_address = 0x00407450
+size = 10
+linkages = []
+
+[units.bullet-ret1-4077e0]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletRet1A"]
+symbol = "?BulletRet1A@@YAHXZ"
+target_address = 0x004077E0
+size = 6
+linkages = []
+
+[units.bullet-ret1-407900]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletRet1B"]
+symbol = "?BulletRet1B@@YAHXZ"
+target_address = 0x00407900
+size = 6
+linkages = []
+
+[units.bullet-ret0-407910]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletRet0A"]
+symbol = "?BulletRet0A@@YAHXZ"
+target_address = 0x00407910
+size = 3
+linkages = []
+
+[units.bullet-ret0-407920]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletRet0B"]
+symbol = "?BulletRet0B@@YAHXZ"
+target_address = 0x00407920
+size = 3
+linkages = []
+
+[units.bullet-noop-407930]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletNoOp3"]
+symbol = "?BulletNoOp3@@YAXXZ"
+target_address = 0x00407930
+size = 1
+linkages = []
+
+[units.bullet-get-mode-index]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletGetModeIndex"]
+symbol = "?BulletGetModeIndex@@YAHXZ"
+target_address = 0x00407940
+size = 15
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_GameModeA@@3HA", target = 0x004B4CF4 },
+  { offset = 7, type = "DIR32", symbol = "?g_GameModeB@@3HA", target = 0x004B4CF8 },
+]
+
+[units.bullet-noop-407950]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletNoOp4"]
+symbol = "?BulletNoOp4@@YAXXZ"
+target_address = 0x00407950
+size = 1
+linkages = []
+
+[units.bomb-is-active]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BombInfMini::IsActive"]
+symbol = "?IsActive@BombInfMini@@SA_NXZ"
+target_address = 0x00407960
+size = 15
+linkages = [
+  { offset = 2, type = "DIR32", symbol = "?g_BombInfMini@@3PAUBombInfMini@@A", target = 0x004B892C },
+]
+
+[units.player-set-float-87b0]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["PlayerMini::SetFloat87B0"]
+symbol = "?SetFloat87B0@PlayerMini@@QAEXM@Z"
+target_address = 0x00407970
+size = 16
+linkages = []
+
+[units.bullet-field-5a34-get]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletField5A34::Get"]
+symbol = "?Get@BulletField5A34@@QAEHXZ"
+target_address = 0x004079E0
+size = 7
+linkages = []
+
+[units.freeze-check-end]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["FreezeInfMini::CheckEnd"]
+symbol = "?CheckEnd@FreezeInfMini@@SAXXZ"
+target_address = 0x004079F0
+size = 55
+linkages = [
+  { offset = 2, type = "DIR32", symbol = "?g_FreezeInfMini@@3PAUFreezeInfMini@@A", target = 0x004B8934 },
+  { offset = 38, type = "DIR32", symbol = "?g_BombInfMini@@3PAUBombInfMini@@A", target = 0x004B892C },
+]
+
+[units.enemy-mgr-get-field-65ddc]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["EnemyMgrMini::GetField65DDC"]
+symbol = "?GetField65DDC@EnemyMgrMini@@QAEPAXXZ"
+target_address = 0x00407A30
+size = 7
+linkages = []
+
+[units.enemy-mgr-set-flag-6b1fc-bit2]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["EnemyMgrMini::SetFlag6B1FCBit2"]
+symbol = "?SetFlag6B1FCBit2@EnemyMgrMini@@SAXXZ"
+target_address = 0x00407A40
+size = 13
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_EnemyMgrMini@@3PAUEnemyMgrMini@@A", target = 0x004B8938 },
+]
+
+[units.enemy-mgr-trigger-6b200]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["EnemyMgrMini::Trigger6B200"]
+symbol = "?Trigger6B200@EnemyMgrMini@@SAXXZ"
+target_address = 0x00407A50
+size = 26
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_EnemyMgrMini@@3PAUEnemyMgrMini@@A", target = 0x004B8938 },
+]
+
+[units.bullet-ret1-407e30]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletRet1C"]
+symbol = "?BulletRet1C@@YAHXZ"
+target_address = 0x00407E30
+size = 6
+linkages = []
+
+[units.bullet-ret0-407e40]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletRet0C"]
+symbol = "?BulletRet0C@@YAHXZ"
+target_address = 0x00407E40
+size = 3
+linkages = []
+
+[units.bullet-ret0-407e50]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletRet0D"]
+symbol = "?BulletRet0D@@YAHXZ"
+target_address = 0x00407E50
+size = 3
+linkages = []
+
+[units.bullet-ret0-407e60]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletRet0E"]
+symbol = "?BulletRet0E@@YAHXZ"
+target_address = 0x00407E60
+size = 3
+linkages = []
+
+[units.bullet-item-reset-timers]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletItemMini::ResetTimersAndClearFlag0"]
+symbol = "?ResetTimersAndClearFlag0@BulletItemMini@@QAEXXZ"
+target_address = 0x00407FB0
+size = 165
+linkages = [
+  { offset = 55, type = "DIR32", symbol = "?g_BulletDefaultTimeScale@@3MA", target = 0x004B6F58 },
+  { offset = 129, type = "DIR32", symbol = "?g_BulletDefaultTimeScale@@3MA", target = 0x004B6F58 },
+]
+
+[units.bullet-sub380-reset]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletSub380::Reset"]
+symbol = "?Reset@BulletSub380@@QAEPAU1@XZ"
+target_address = 0x00408060
+size = 33
+linkages = [
+  { offset = 12, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+]
+
+[units.bullet-mgr-get-anm]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletManagerMini::GetAnm"]
+symbol = "?GetAnm@BulletManagerMini@@SAPAUBulletAnmResMini@@XZ"
+target_address = 0x00408090
+size = 12
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_BulletManagerMini@@3PAUBulletManagerMini@@A", target = 0x004B8930 },
+]
+
+[units.bullet-zero-54]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletZero54::Zero"]
+symbol = "?Zero@BulletZero54@@QAEPAU1@XZ"
+target_address = 0x004080A0
+size = 16
+linkages = [
+  { offset = 6, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+]
+
+[units.bullet-get-type-field00]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletGetTypeField00"]
+symbol = "?BulletGetTypeField00@@YAHH@Z"
+target_address = 0x004080B0
+size = 13
+linkages = [
+  { offset = 8, type = "DIR32", symbol = "?g_BulletTypes@@3PAUBulletTypeInfo@@A", target = 0x004B24D0 },
+]
+
+[units.bullet-get-type-field104]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletGetTypeField104"]
+symbol = "?BulletGetTypeField104@@YAMH@Z"
+target_address = 0x004080C0
+size = 13
+linkages = [
+  { offset = 8, type = "DIR32", symbol = "?g_BulletTypes@@3PAUBulletTypeInfo@@A", target = 0x004B24D0, addend = 0x104 },
+]
+
+[units.bullet-get-type-field108]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletGetTypeField108"]
+symbol = "?BulletGetTypeField108@@YAMH@Z"
+target_address = 0x004080D0
+size = 13
+linkages = [
+  { offset = 8, type = "DIR32", symbol = "?g_BulletTypes@@3PAUBulletTypeInfo@@A", target = 0x004B24D0, addend = 0x108 },
+]
+
+[units.bullet-timer-clear-flag0]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletTimerMini::ClearFlag0"]
+symbol = "?ClearFlag0@BulletTimerMini@@QAEPAU1@XZ"
+target_address = 0x004081B0
+size = 7
+linkages = []
+
+[units.bullet-bounds-tall]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletBoundsCheck::IsOutOfBoundsTall"]
+symbol = "?IsOutOfBoundsTall@BulletBoundsCheck@@QAEHMM@Z"
+target_address = 0x00408560
+size = 106
+linkages = [
+  { offset = 8, type = "DIR32", symbol = "__real@3fe0000000000000", target = 0x004A65A8 },
+  { offset = 20, type = "DIR32", symbol = "__real@c068000000000000", target = 0x004A6608 },
+  { offset = 39, type = "DIR32", symbol = "__real@4068000000000000", target = 0x004A65D8 },
+  { offset = 60, type = "DIR32", symbol = "__real@c050000000000000", target = 0x004A6658 },
+  { offset = 76, type = "DIR32", symbol = "__real@407c000000000000", target = 0x004A6600 },
+]
+
+[units.bullet-bounds-normal]
+artifact_kind = "linked-pe"
+source = "src/BulletHelpers.cpp"
+support_sources = ["probes/bullet-helpers-context.cpp"]
+output_dir = "build/match-linked/BulletHelpers"
+profile = ["/TP", "/O2", "/Oy-", "/Gy", "/MT", "/Isrc", "/GL"]
+entry = "BulletHelpersProbe@80"
+functions = ["BulletBoundsCheck::IsOutOfBounds"]
+symbol = "?IsOutOfBounds@BulletBoundsCheck@@QAEHMM@Z"
+target_address = 0x004085D0
+size = 106
+linkages = [
+  { offset = 8, type = "DIR32", symbol = "__real@3fe0000000000000", target = 0x004A65A8 },
+  { offset = 20, type = "DIR32", symbol = "__real@c068000000000000", target = 0x004A6608 },
+  { offset = 39, type = "DIR32", symbol = "__real@4068000000000000", target = 0x004A65D8 },
+  { offset = 60, type = "DIR32", symbol = "__real@0000000000000000", target = 0x004A65A0 },
+  { offset = 76, type = "DIR32", symbol = "__real@407c000000000000", target = 0x004A6600 },
+]
