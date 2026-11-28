@@ -318,6 +318,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00412F60,EndListNode::Append,50,exact,100.00,end-list-append,Cold replay passed via scripts/replay-exact-units.py --source src/EndingMeshHelpers.cpp
 0x00412FA0,EndClear0::Clear,7,exact,100.00,end-clear-0,Cold replay passed via scripts/replay-exact-units.py --source src/EndingMeshHelpers.cpp
 0x00412FB0,EndNoOp412FB0,1,exact,100.00,end-noop-412fb0,Cold replay passed via scripts/replay-exact-units.py --source src/EndingMeshHelpers.cpp
+0x00412FC0,CbkEndingSub::~CbkEndingSub,178,exact,100.00,cbk-ending-sub-dtor,compare-linked-function.py --unit cbk-ending-sub-dtor
 0x00413080,EndSub::GetFlag1,9,exact,100.00,end-sub-get-flag1,Cold replay passed via scripts/replay-exact-units.py --source src/EndingMeshHelpers.cpp
 0x00413090,EndSub::GetFlag2,10,exact,100.00,end-sub-get-flag2,Cold replay passed via scripts/replay-exact-units.py --source src/EndingMeshHelpers.cpp
 0x004130A0,EndMgr::LoadFile,103,exact,100.00,end-mgr-load-file,Cold replay passed via scripts/replay-exact-units.py --source src/EndingMeshHelpers.cpp
@@ -498,6 +499,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00420FD0,EbaCreateGui,146,exact,100.00,eba-create-gui,Exact linked VC10 /GL /Ob1 /Oy- /EHsc match in EhBatchA
 0x00421070,GdGuiObj::DestroySelf,18,exact,100.00,gd-gui-destroy-self,Cold replay passed via scripts/replay-exact-units.py --source src/GuiDialogHelpers.cpp
 0x00421090,GdGuiObj::DestroyGlobal,28,exact,100.00,gd-gui-destroy-global,Cold replay passed via scripts/replay-exact-units.py --source src/GuiDialogHelpers.cpp
+0x004225F0,CbkGui::Draw,138,exact,100.00,cbk-gui-draw,compare-linked-function.py --unit cbk-gui-draw
 0x00422D60,GdGuiObj::CalcHook,7,exact,100.00,gd-gui-calc-hook,Cold replay passed via scripts/replay-exact-units.py --source src/GuiDialogHelpers.cpp
 0x00425340,th128::Oc1HideGuiAnms,615,exact,100.00,oc1-hide-gui-anms,exact linked VC10 /GL match in OneCallBatch1 (615B)
 0x004255B0,th128::Oc1ShowGuiAnms,615,exact,100.00,oc1-show-gui-anms,exact linked VC10 /GL match in OneCallBatch1 (615B)
