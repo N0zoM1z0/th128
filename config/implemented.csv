@@ -1187,6 +1187,11 @@ SetThreadFlagBit2
 SetThreadGlobalFlag4B4D8C
 SetTimeScale
 SetUpdateTimerCurrent
+SfwDrawGradientRect
+SfwDrawSolidRect
+SfwScreenEffect::OnCalcFlash
+SfwScreenEffect::OnCalcShakeA
+SfwScreenEffect::OnDrawFade
 SfxChannel::GetBuffer
 SfxChannel::GetId
 SfxChannel::Init

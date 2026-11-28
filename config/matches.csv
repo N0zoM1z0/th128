@@ -1024,8 +1024,13 @@ address,name,size,status,match_percent,unit,evidence
 0x00456690,LsObj0C::GetAddr0C,4,exact,100.00,LsObj0C_GetAddr0C,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
 0x004566A0,LsFade44::LsFade44,23,exact,100.00,LsFade44_ctor,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
 0x004566C0,LsClearAndPresentTwice,157,exact,100.00,LsClearAndPresentTwice,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00456840,SfwDrawSolidRect,474,exact,100.00,screen-fade-wave-draw-solid-rect,linked-pe cold replay exact match (474B)
+0x00456A30,SfwDrawGradientRect,488,exact,100.00,screen-fade-wave-draw-gradient-rect,linked-pe cold replay exact match (488B)
+0x00456C20,SfwScreenEffect::OnDrawFade,130,exact,100.00,screen-fade-wave-on-draw-fade,linked-pe cold replay exact match (130B)
 0x00456CB0,LfbScreenFade::OnCalc,135,exact,100.00,lfb_screen_fade_on_calc,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x00456D90,th128::Zc2Fade::OnCalc,193,exact,100.00,zc2-fade-on-calc,Exact VC10 /GL linked-PE match via compare-linked-function.py.
+0x00456EF0,SfwScreenEffect::OnCalcFlash,203,exact,100.00,screen-fade-wave-on-calc-flash,linked-pe cold replay exact match (203B)
+0x00457010,SfwScreenEffect::OnCalcShakeA,246,exact,100.00,screen-fade-wave-on-calc-shake-a,linked-pe cold replay exact match (246B)
 0x004574F0,LwbSimpleChainOwner::~LwbSimpleChainOwner,166,exact,100.00,lwb-simple-chain-dtor,compare-linked-function.py --unit lwb-simple-chain-dtor
 0x004575C0,th128::SaNoOp4575C0,1,exact,100.00,SaNoOp4575C0,Cold-replayed VC10 LTCG match via SoundAnmHelpersProbe
 0x004575D0,th128::SaInitSoundThread,69,exact,100.00,SaInitSoundThread,Cold-replayed VC10 LTCG match via SoundAnmHelpersProbe

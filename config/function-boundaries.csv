@@ -1768,18 +1768,18 @@ address,span_end,state,confidence,evidence_id,notes
 0x004566C0,0x0045675C,reviewed,high,LsClearAndPresentTwice-boundary,Exact VC10 LTCG match via LzssStreamHelpersProbe
 0x00456760,0x004567C2,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00456760..0x004567C2 (99 bytes) ends with jmp; then padding-then-start 0x004567D0
 0x004567D0,0x00456831,reviewed,high,bdesc-exact,start padding; refs immx3; descent body 0x004567D0..0x00456831 (98 bytes) ends with ret; then padding-then-start 0x00456840
-0x00456840,0x00456A19,reviewed,high,bdesc-exact,start padding; refs callx5; descent body 0x00456840..0x00456A19 (474 bytes) ends with ret; then padding-then-start 0x00456A20
+0x00456840,0x00456A19,reviewed,high,screen-fade-wave-draw-solid-rect-boundary,0x00456840:474
 0x00456A20,0x00456A22,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00456A20..0x00456A22 (3 bytes) ends with ret; then padding-then-start 0x00456A30; WEAK: no call, jump, pointer or vtable reference found"
-0x00456A30,0x00456C17,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x00456A30..0x00456C17 (488 bytes) ends with ret; then padding-then-start 0x00456C20; WEAK: no call, jump, pointer or vtable reference found"
-0x00456C20,0x00456CA1,reviewed,high,bdesc-exact,start padding; refs immx2; descent body 0x00456C20..0x00456CA1 (130 bytes) ends with ret; then padding-then-start 0x00456CB0
+0x00456A30,0x00456C17,reviewed,high,screen-fade-wave-draw-gradient-rect-boundary,0x00456a30:488
+0x00456C20,0x00456CA1,reviewed,high,screen-fade-wave-on-draw-fade-boundary,0x00456c20:130
 0x00456CB0,0x00456D36,reviewed,high,lfb_screen_fade_on_calc-boundary,Direct target extent
 0x00456D40,0x00456D87,reviewed,high,bdesc-exact,start padding; refs immx3; descent body 0x00456D40..0x00456D87 (72 bytes) ends with ret; then padding-then-start 0x00456D90
 0x00456D90,0x00456E50,reviewed,high,zc2-fade-on-calc-boundary,target-exact
 0x00456E60,0x00456E9D,reviewed,high,bdesc-exact,start padding; refs immx1; descent body 0x00456E60..0x00456E9D (62 bytes) ends with ret; then padding-then-start 0x00456EA0
 0x00456EA0,0x00456EE7,reviewed,high,bdesc-exact,start padding; refs immx1; descent body 0x00456EA0..0x00456EE7 (72 bytes) ends with ret; then padding-then-start 0x00456EF0
-0x00456EF0,0x00456FBA,reviewed,high,bdesc-exact,start padding; refs immx1; descent body 0x00456EF0..0x00456FBA (203 bytes) ends with ret; then padding-then-start 0x00456FC0
+0x00456EF0,0x00456FBA,reviewed,high,screen-fade-wave-on-calc-flash-boundary,0x00456ef0:203
 0x00456FC0,0x0045700F,reviewed,high,bdesc-exact,start padding; refs immx1; descent body 0x00456FC0..0x0045700F (80 bytes) ends with ret; then adjacent-start 0x00457010
-0x00457010,0x00457105,reviewed,high,bdesc-exact,start after-terminator; refs immx1; descent body 0x00457010..0x00457105 (246 bytes) ends with ret; then padding-then-start 0x00457110
+0x00457010,0x00457105,reviewed,high,screen-fade-wave-on-calc-shake-a-boundary,0x00457010:246
 0x00457110,0x0045726F,reviewed,high,bdesc-exact,start padding; refs immx2; descent body 0x00457110..0x0045726F (352 bytes) ends with ret; then adjacent-start 0x00457270
 0x00457270,0x0045728A,reviewed,high,bdesc-exact,start after-terminator; refs immx5; descent body 0x00457270..0x0045728A (27 bytes) ends with ret; then padding-then-start 0x00457290
 0x00457290,0x004572A2,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00457290..0x004572A2 (19 bytes) ends with ret; then padding-then-start 0x004572B0; WEAK: no call, jump, pointer or vtable reference found"

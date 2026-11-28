@@ -1060,8 +1060,13 @@ LsObj0C::Zero0C,0x00456680,function
 LsObj0C::GetAddr0C,0x00456690,function
 LsFade44::LsFade44,0x004566A0,function
 LsClearAndPresentTwice,0x004566C0,function
+SfwDrawSolidRect,0x00456840,function
+SfwDrawGradientRect,0x00456A30,function
+SfwScreenEffect::OnDrawFade,0x00456C20,function
 LfbScreenFade::OnCalc,0x00456CB0,function
 th128::Zc2Fade::OnCalc,0x00456D90,function
+SfwScreenEffect::OnCalcFlash,0x00456EF0,function
+SfwScreenEffect::OnCalcShakeA,0x00457010,function
 LwbSimpleChainOwner::~LwbSimpleChainOwner,0x004574F0,function
 th128::SaNoOp4575C0,0x004575C0,function
 th128::SaInitSoundThread,0x004575D0,function

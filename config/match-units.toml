@@ -25214,3 +25214,136 @@ target_address = 0x0046AB70
 size = 13
 linkages = [
 ]
+[units.screen-fade-wave-draw-solid-rect]
+artifact_kind = "linked-pe"
+source = "src/ScreenFadeWave.cpp"
+inputs = ["src/ScreenFadeWave.hpp"]
+support_sources = ["probes/screen-fade-wave-context.cpp"]
+output_dir = "build/match-linked/ScreenFadeWave"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-"]
+entry = "ScreenFadeWaveProbe@8"
+functions = ["SfwDrawSolidRect"]
+symbol = "?SfwDrawSolidRect@th128@@YAXPBUSfwRectF@1@K@Z"
+target_address = 0x00456840
+size = 474
+linkages = [
+  { offset = 7, type = "DIR32", symbol = "___security_cookie", target = 0x004B01F4 },
+  { offset = 19, type = "DIR32", symbol = "?g_SfwAnmManager@th128@@3PAUSfwAnmManager@1@A", target = 0x004D2E50 },
+  { offset = 24, type = "REL32", symbol = "?SfwFlushAnmSpriteBatch@th128@@YAXPAUSfwAnmManager@1@@Z", target = 0x0045EF60 },
+  { offset = 145, type = "DIR32", symbol = "?g_SfwD3dDevice@th128@@3PAUSfwD3dDevice@1@A", target = 0x004D2E70 },
+  { offset = 210, type = "DIR32", symbol = "?g_SfwD3dDevice@th128@@3PAUSfwD3dDevice@1@A", target = 0x004D2E70 },
+  { offset = 231, type = "DIR32", symbol = "?g_SfwD3dDevice@th128@@3PAUSfwD3dDevice@1@A", target = 0x004D2E70 },
+  { offset = 251, type = "DIR32", symbol = "?g_SfwD3dDevice@th128@@3PAUSfwD3dDevice@1@A", target = 0x004D2E70 },
+  { offset = 271, type = "DIR32", symbol = "?g_SfwD3dDevice@th128@@3PAUSfwD3dDevice@1@A", target = 0x004D2E70 },
+  { offset = 291, type = "DIR32", symbol = "?g_SfwD3dDevice@th128@@3PAUSfwD3dDevice@1@A", target = 0x004D2E70 },
+  { offset = 309, type = "DIR32", symbol = "?g_SfwD3dDevice@th128@@3PAUSfwD3dDevice@1@A", target = 0x004D2E70 },
+  { offset = 335, type = "DIR32", symbol = "?g_SfwAnmManager@th128@@3PAUSfwAnmManager@1@A", target = 0x004D2E50 },
+  { offset = 378, type = "DIR32", symbol = "?g_SfwD3dDevice@th128@@3PAUSfwD3dDevice@1@A", target = 0x004D2E70 },
+  { offset = 397, type = "DIR32", symbol = "?g_SfwD3dDevice@th128@@3PAUSfwD3dDevice@1@A", target = 0x004D2E70 },
+  { offset = 418, type = "DIR32", symbol = "?g_SfwD3dDevice@th128@@3PAUSfwD3dDevice@1@A", target = 0x004D2E70 },
+  { offset = 439, type = "DIR32", symbol = "?g_SfwD3dDevice@th128@@3PAUSfwD3dDevice@1@A", target = 0x004D2E70 },
+  { offset = 466, type = "REL32", symbol = "@__security_check_cookie@4", target = 0x004728FD },
+]
+
+[units.screen-fade-wave-draw-gradient-rect]
+artifact_kind = "linked-pe"
+source = "src/ScreenFadeWave.cpp"
+inputs = ["src/ScreenFadeWave.hpp"]
+support_sources = ["probes/screen-fade-wave-context.cpp"]
+output_dir = "build/match-linked/ScreenFadeWave"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-"]
+entry = "ScreenFadeWaveProbe@8"
+functions = ["SfwDrawGradientRect"]
+symbol = "?SfwDrawGradientRect@th128@@YGXPBUSfwRectF@1@KKKK@Z"
+target_address = 0x00456A30
+size = 488
+linkages = [
+  { offset = 7, type = "DIR32", symbol = "___security_cookie", target = 0x004B01F4 },
+  { offset = 19, type = "DIR32", symbol = "?g_SfwAnmManager@th128@@3PAUSfwAnmManager@1@A", target = 0x004D2E50 },
+  { offset = 24, type = "REL32", symbol = "?SfwFlushAnmSpriteBatch@th128@@YAXPAUSfwAnmManager@1@@Z", target = 0x0045EF60 },
+  { offset = 195, type = "DIR32", symbol = "?g_SfwD3dDevice@th128@@3PAUSfwD3dDevice@1@A", target = 0x004D2E70 },
+  { offset = 222, type = "DIR32", symbol = "?g_SfwD3dDevice@th128@@3PAUSfwD3dDevice@1@A", target = 0x004D2E70 },
+  { offset = 243, type = "DIR32", symbol = "?g_SfwD3dDevice@th128@@3PAUSfwD3dDevice@1@A", target = 0x004D2E70 },
+  { offset = 263, type = "DIR32", symbol = "?g_SfwD3dDevice@th128@@3PAUSfwD3dDevice@1@A", target = 0x004D2E70 },
+  { offset = 283, type = "DIR32", symbol = "?g_SfwD3dDevice@th128@@3PAUSfwD3dDevice@1@A", target = 0x004D2E70 },
+  { offset = 303, type = "DIR32", symbol = "?g_SfwD3dDevice@th128@@3PAUSfwD3dDevice@1@A", target = 0x004D2E70 },
+  { offset = 321, type = "DIR32", symbol = "?g_SfwD3dDevice@th128@@3PAUSfwD3dDevice@1@A", target = 0x004D2E70 },
+  { offset = 347, type = "DIR32", symbol = "?g_SfwAnmManager@th128@@3PAUSfwAnmManager@1@A", target = 0x004D2E50 },
+  { offset = 390, type = "DIR32", symbol = "?g_SfwD3dDevice@th128@@3PAUSfwD3dDevice@1@A", target = 0x004D2E70 },
+  { offset = 409, type = "DIR32", symbol = "?g_SfwD3dDevice@th128@@3PAUSfwD3dDevice@1@A", target = 0x004D2E70 },
+  { offset = 430, type = "DIR32", symbol = "?g_SfwD3dDevice@th128@@3PAUSfwD3dDevice@1@A", target = 0x004D2E70 },
+  { offset = 451, type = "DIR32", symbol = "?g_SfwD3dDevice@th128@@3PAUSfwD3dDevice@1@A", target = 0x004D2E70 },
+  { offset = 478, type = "REL32", symbol = "@__security_check_cookie@4", target = 0x004728FD },
+]
+
+[units.screen-fade-wave-on-draw-fade]
+artifact_kind = "linked-pe"
+source = "src/ScreenFadeWave.cpp"
+inputs = ["src/ScreenFadeWave.hpp"]
+support_sources = ["probes/screen-fade-wave-context.cpp"]
+output_dir = "build/match-linked/ScreenFadeWave"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-"]
+entry = "ScreenFadeWaveProbe@8"
+functions = ["SfwScreenEffect::OnDrawFade"]
+symbol = "?OnDrawFade@SfwScreenEffect@th128@@QAEHXZ"
+target_address = 0x00456C20
+size = 130
+linkages = [
+  { offset = 15, type = "DIR32", symbol = "?g_SfwAnmManager@th128@@3PAUSfwAnmManager@1@A", target = 0x004D2E50 },
+  { offset = 24, type = "DIR32", symbol = "__real@44200000", target = 0x004A67A4 },
+  { offset = 36, type = "DIR32", symbol = "__real@43f00000", target = 0x004A67A0 },
+  { offset = 44, type = "REL32", symbol = "?SfwFlushAnmSpriteBatch@th128@@YAXPAUSfwAnmManager@1@@Z", target = 0x0045EF60 },
+  { offset = 51, type = "DIR32", symbol = "?g_SfwViewport@th128@@3USfwViewport@1@A", target = 0x004D2F44 },
+  { offset = 56, type = "DIR32", symbol = "?g_SfwViewport@th128@@3USfwViewport@1@A", addend = 4, target = 0x004D2F44 },
+  { offset = 61, type = "DIR32", symbol = "?g_SfwD3dDevice@th128@@3PAUSfwD3dDevice@1@A", target = 0x004D2E70 },
+  { offset = 67, type = "DIR32", symbol = "?g_SfwViewport@th128@@3USfwViewport@1@A", addend = 8, target = 0x004D2F44 },
+  { offset = 77, type = "DIR32", symbol = "?g_SfwViewport@th128@@3USfwViewport@1@A", addend = 12, target = 0x004D2F44 },
+  { offset = 94, type = "DIR32", symbol = "?g_SfwViewport@th128@@3USfwViewport@1@A", target = 0x004D2F44 },
+  { offset = 114, type = "REL32", symbol = "?SfwDrawSolidRect@th128@@YAXPBUSfwRectF@1@K@Z", target = 0x00456840 },
+]
+
+[units.screen-fade-wave-on-calc-flash]
+artifact_kind = "linked-pe"
+source = "src/ScreenFadeWave.cpp"
+inputs = ["src/ScreenFadeWave.hpp"]
+support_sources = ["probes/screen-fade-wave-context.cpp"]
+output_dir = "build/match-linked/ScreenFadeWave"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-"]
+entry = "ScreenFadeWaveProbe@8"
+functions = ["SfwScreenEffect::OnCalcFlash"]
+symbol = "?OnCalcFlash@SfwScreenEffect@th128@@QAEHXZ"
+target_address = 0x00456EF0
+size = 203
+linkages = [
+  { offset = 15, type = "DIR32", symbol = "?g_SfwPaused@th128@@3HA", target = 0x004D2AD4 },
+  { offset = 60, type = "DIR32", symbol = "__real@4f800000", target = 0x004A6660 },
+  { offset = 113, type = "REL32", symbol = "?Increment@SfwTimer@th128@@QAEXXZ", target = 0x00402AC0 },
+  { offset = 169, type = "DIR32", symbol = "?g_SfwGameSpeed@SfwTimer@th128@@2MA", target = 0x004B6F58 },
+  { offset = 189, type = "REL32", symbol = "?Increment@SfwTimer@th128@@QAEXXZ", target = 0x00402AC0 },
+]
+
+[units.screen-fade-wave-on-calc-shake-a]
+artifact_kind = "linked-pe"
+source = "src/ScreenFadeWave.cpp"
+inputs = ["src/ScreenFadeWave.hpp"]
+support_sources = ["probes/screen-fade-wave-context.cpp"]
+output_dir = "build/match-linked/ScreenFadeWave"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-"]
+entry = "ScreenFadeWaveProbe@8"
+functions = ["SfwScreenEffect::OnCalcShakeA"]
+symbol = "?OnCalcShakeA@SfwScreenEffect@th128@@QAEHXZ"
+target_address = 0x00457010
+size = 246
+linkages = [
+  { offset = 8, type = "DIR32", symbol = "?g_SfwPaused@th128@@3HA", target = 0x004D2AD4 },
+  { offset = 33, type = "REL32", symbol = "?Increment@SfwTimer@th128@@QAEXXZ", target = 0x00402AC0 },
+  { offset = 77, type = "DIR32", symbol = "?g_SfwRng@th128@@3USfwRng@1@A", target = 0x004D2AE0 },
+  { offset = 106, type = "REL32", symbol = "?GetU32@SfwRng@th128@@QAEIXZ", target = 0x0046A460 },
+  { offset = 137, type = "DIR32", symbol = "?g_SfwShakeX@th128@@3MA", target = 0x004D3384 },
+  { offset = 149, type = "DIR32", symbol = "?g_SfwShakeX@th128@@3MA", target = 0x004D3384 },
+  { offset = 158, type = "DIR32", symbol = "?g_SfwRng@th128@@3USfwRng@1@A", target = 0x004D2AE0 },
+  { offset = 163, type = "REL32", symbol = "?GetU32@SfwRng@th128@@QAEIXZ", target = 0x0046A460 },
+  { offset = 198, type = "DIR32", symbol = "?g_SfwShakeY@th128@@3MA", target = 0x004D3388 },
+  { offset = 213, type = "DIR32", symbol = "?g_SfwShakeY@th128@@3MA", target = 0x004D3388 },
+  { offset = 231, type = "DIR32", symbol = "?g_SfwShakeY@th128@@3MA", target = 0x004D3388 },
+]
