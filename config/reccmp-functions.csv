@@ -1,6 +1,7 @@
 name,address,type
 GetGameManagerField4,0x00401000,function
 AsciiEntry::ClearFlag0,0x004010A0,function
+EbcMainMgr::~EbcMainMgr,0x004012A0,function
 AsciiInfCore::OnDraw2,0x004015E0,function
 AsciiInf::CreateText,0x004015F0,function
 AsciiInf::CreateTextF,0x00401790,function
@@ -828,6 +829,7 @@ th128::Zc4InitRouteScores,0x00442930,function
 EbaCreateScoreMgr,0x00442D90,function
 CbbScoreMgr::CbbScoreMgr,0x004433A0,function
 CbdReg443430,0x00443430,function
+EbcScoreMgr::~EbcScoreMgr,0x004434F0,function
 TaAnmVm::SetFloat60Flag3,0x004440F0,function
 TaAnmVm::SetFloat468,0x00444110,function
 TaAnmVm::SetFloat464,0x00444120,function

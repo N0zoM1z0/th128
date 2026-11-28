@@ -1,6 +1,7 @@
 address,name,size,status,match_percent,unit,evidence
 0x00401000,GetGameManagerField4,9,exact,100.00,ascii-get-game-manager-field4,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x004010A0,AsciiEntry::ClearFlag0,10,exact,100.00,ascii-entry-clear-flag0,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x004012A0,EbcMainMgr::~EbcMainMgr,583,exact,100.00,ebc-main-mgr-dtor,Exact linked VC10 /GL /Ob1 /Oy- /EHsc match in EhBatchC
 0x004015E0,AsciiInfCore::OnDraw2,14,exact,100.00,ascii-on-draw2,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x004015F0,AsciiInf::CreateText,407,exact,100.00,ascii-create-text,"Pinned VC10 RTM /O2 /Ob1 /Oy- /GL; current 40-source cold context with real CardInf, AsciiInf and ANM callees; complete 407-byte primary PDB contribution and all 1 address fields replayed with zero differences; .analysis/card-callbacks-ascii-results.json."
 0x00401790,AsciiInf::CreateTextF,85,exact,100.00,ascii-create-text-format,"Pinned VC10 RTM /O2 /Ob1 /Oy- /GL; current 40-source cold context with real CardInf, AsciiInf and ANM callees; complete 85-byte primary PDB contribution and all 4 address fields replayed with zero differences; .analysis/card-callbacks-ascii-results.json."
@@ -805,6 +806,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00442D90,EbaCreateScoreMgr,95,exact,100.00,eba-create-score-mgr,Exact linked VC10 /GL /Ob1 /Oy- /EHsc match in EhBatchA
 0x004433A0,CbbScoreMgr::CbbScoreMgr,142,exact,100.00,cbb-score-mgr-ctor,Cold VC10 LTCG /Ob1 /Oy- linked-PE exact match via CleanBatchBProbe (0 diffs)
 0x00443430,CbdReg443430,180,exact,100.00,cbd-reg-443430,Exact linked VC10 /GL /Ob1 /Oy- match in CleanBatchD
+0x004434F0,EbcScoreMgr::~EbcScoreMgr,259,exact,100.00,ebc-score-mgr-dtor,Exact linked VC10 /GL /Ob1 /Oy- /EHsc match in EhBatchC
 0x004440F0,TaAnmVm::SetFloat60Flag3,20,exact,100.00,TaAnmVm_SetFloat60Flag3,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x00444110,TaAnmVm::SetFloat468,16,exact,100.00,TaAnmVm_SetFloat468,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x00444120,TaAnmVm::SetFloat464,16,exact,100.00,TaAnmVm_SetFloat464,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe

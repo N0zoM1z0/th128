@@ -520,6 +520,8 @@ EbaCreateReplayA
 EbaCreateScoreMgr
 EbaCreateStage
 EbbTitleSub::~EbbTitleSub
+EbcMainMgr::~EbcMainMgr
+EbcScoreMgr::~EbcScoreMgr
 EclArr0C::Get
 EclClear1000A::Clear
 EclClear1000B::Clear
