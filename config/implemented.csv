@@ -711,6 +711,7 @@ EndVmMini::OnMeshUpdate
 EndVmMini::SetFlag2
 EndVmMini::SetMode0D
 EndVmMini::SetPos464
+Enemy::GetFloatVar
 EnemyMgrMini::GetField65DDC
 EnemyMgrMini::SetFlag6B1FCBit2
 EnemyMgrMini::Trigger6B200

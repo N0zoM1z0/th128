@@ -432,6 +432,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00417DF0,th128::Zc10KillEnemiesInBox,256,exact,100.00,zc10-kill-enemies-in-box,Exact VC10 LTCG match via ZeroCallMedium10Probe@56
 0x00417EF0,EmEnemyMgr::DamageInCircle2,232,exact,100.00,em-enemy-mgr-damage-circle2,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
 0x0041D140,th128::ZcEnemy::GetIntVarPtr,379,exact,100.00,zc-enemy-get-int-var-ptr,Exact VC10 /GL linked-PE match via compare-linked-function.py.
+0x0041D2C0,Enemy::GetFloatVar,2392,exact,100.00,enemy-get-float-var,build/match-linked/EnemyGetFloatVar
 0x0041DC20,th128::ZcEnemy::GetFloatVarPtr,525,exact,100.00,zc-enemy-get-float-var-ptr,Exact VC10 /GL linked-PE match via compare-linked-function.py.
 0x0041DE50,ZcaDropOwner::SetDrop,56,exact,100.00,zca-set-enemy-drop,Cold VC10 LTCG /Ob1 /Oy- linked-PE exact match via ZeroCallBatchAProbe (0 diffs)
 0x0041DE90,EmSlotsObj::SetSlotF0C,11,exact,100.00,em-slots-set-f0c,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp

@@ -440,6 +440,7 @@ EmEnemyMgr::DamageInColumn,0x00417D20,function
 th128::Zc10KillEnemiesInBox,0x00417DF0,function
 EmEnemyMgr::DamageInCircle2,0x00417EF0,function
 th128::ZcEnemy::GetIntVarPtr,0x0041D140,function
+Enemy::GetFloatVar,0x0041D2C0,function
 th128::ZcEnemy::GetFloatVarPtr,0x0041DC20,function
 ZcaDropOwner::SetDrop,0x0041DE50,function
 EmSlotsObj::SetSlotF0C,0x0041DE90,function
