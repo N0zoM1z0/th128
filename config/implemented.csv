@@ -435,6 +435,10 @@ CbeInit429ea0
 CbeInit445330
 CbfFormatCommaNumber
 CbfLoadStd
+CbgCheckReplayVersion
+CbgGuiObj::CbgGuiObj
+CbgLoadMapFile
+CbgStageObj::CbgStageObj
 Chain::CreateAndRegisterCalc
 Chain::CreateAndRegisterCalcImmediate
 Chain::CreateAndRegisterDraw

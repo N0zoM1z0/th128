@@ -88,7 +88,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x00403280,0x004032BC,reviewed,high,bdesc-exact,start padding; refs callx81; descent body 0x00403280..0x004032BC (61 bytes) ends with ret; then padding-then-start 0x004032C0
 0x004032C0,0x004033BB,reviewed,high,stage-bg-cleanup-boundary,target-exact
 0x004033C0,0x004033C6,reviewed,high,stage-flag-7c-get-bit0-boundary,target-exact
-0x004033D0,0x00403488,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x004033D0..0x00403488 (185 bytes) ends with ret; then padding-then-start 0x00403490
+0x004033D0,0x00403488,reviewed,high,cbg-stage-ctor-boundary,Exact linked VC10 /GL /Ob1 /Oy- /EHsc extent
 0x00403490,0x00403497,reviewed,high,stage-flag-80-clear-bit0-boundary,target-exact
 0x004034A0,0x0040370D,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x004034A0..0x0040370D (622 bytes) ends with ret; then padding-then-start 0x00403710
 0x00403710,0x00403968,reviewed,high,bdesc-exact,start padding; refs callx7; descent body 0x00403710..0x00403968 (601 bytes) ends with ret; then padding-then-start 0x00403970
@@ -798,7 +798,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x00420010,0x0042001B,reviewed,high,gd-4b8934-get-94-boundary,Verified exact VC10 /GL linked-pe extent
 0x00420020,0x004200C4,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00420020..0x004200C4 (165 bytes) ends with ret; then padding-then-start 0x004200D0
 0x004200D0,0x004200DA,reviewed,high,gd-table-66c-get-boundary,Verified exact VC10 /GL linked-pe extent
-0x004200E0,0x00420197,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x004200E0..0x00420197 (184 bytes) ends with ret; then padding-then-start 0x004201A0
+0x004200E0,0x00420197,reviewed,high,cbg-gui-ctor-boundary,Exact linked VC10 /GL /Ob1 /Oy- /EHsc extent
 0x004201A0,0x00420218,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x004201A0..0x00420218 (121 bytes) ends with ret; then padding-then-start 0x00420220
 0x00420220,0x0042034C,reviewed,high,bdesc-exact,start padding; refs callx2; descent body 0x00420220..0x0042034C (301 bytes) ends with ret; then padding-then-start 0x00420350
 0x00420350,0x0042037D,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00420350..0x0042037D (46 bytes) ends with ret; then padding-then-start 0x00420380; WEAK: no call, jump, pointer or vtable reference found"
@@ -1171,7 +1171,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x00434B70,0x00434B9C,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x00434B70..0x00434B9C (45 bytes) ends with ret; then padding-then-start 0x00434BA0; WEAK: no call, jump, pointer or vtable reference found"
 0x00434BA0,0x00434BA0,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00434BA0..0x00434BA0 (1 bytes) ends with ret; then padding-then-start 0x00434BB0; WEAK: no call, jump, pointer or vtable reference found"
 0x00434BB0,0x00434BB0,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00434BB0..0x00434BB0 (1 bytes) ends with ret; then padding-then-start 0x00434BC0; WEAK: no call, jump, pointer or vtable reference found"
-0x00434BC0,0x00434CA8,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x00434BC0..0x00434CA8 (233 bytes) ends with ret; then padding-then-start 0x00434CB0; WEAK: no call, jump, pointer or vtable reference found"
+0x00434BC0,0x00434CA8,reviewed,high,cbg-check-replay-ver-boundary,Exact linked VC10 /GL /Ob1 /Oy- /EHsc extent
 0x00434CB0,0x00434D2D,reviewed,high,bdesc-exact,start padding; refs callx3; descent body 0x00434CB0..0x00434D2D (126 bytes) ends with ret; then padding-then-start 0x00434D30
 0x00434D30,0x00434D3D,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00434D30..0x00434D3D (14 bytes) ends with ret; then padding-then-start 0x00434D40; WEAK: no call, jump, pointer or vtable reference found"
 0x00434D40,0x00434E4A,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x00434D40..0x00434E4A (267 bytes) ends with ret; then padding-then-start 0x00434E50; WEAK: no call, jump, pointer or vtable reference found"
@@ -1838,7 +1838,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x004594C0,0x004595E6,reviewed,high,anm-resource-bind-vm-at-position-boundary,Complete 295-byte owner at 0x004594C0..0x004595E6; full success and memset failure tails; no tables or external interior references; CC gap before 0x004595F0.
 0x004595F0,0x004596E5,reviewed,high,bdesc-exact,start padding; refs callx9; descent body 0x004595F0..0x004596E5 (246 bytes) ends with ret; then padding-then-start 0x004596F0
 0x004596F0,0x0045981B,reviewed,high,bdesc-exact,"start padding; refs callx1, jmpx2; descent body 0x004596F0..0x0045981B (300 bytes) ends with ret; then padding-then-start 0x00459820"
-0x00459820,0x004598F3,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x00459820..0x004598F3 (212 bytes) ends with ret; then padding-then-start 0x00459900; 1 filler hole(s); WEAK: no call, jump, pointer or vtable reference found"
+0x00459820,0x004598F3,reviewed,high,cbg-load-map-file-boundary,Exact linked VC10 /GL /Ob1 /Oy- /EHsc extent
 0x00459900,0x00459B4B,reviewed,high,anm-vm-resolve-float-operand-linked-boundary,Hash-attested 588-byte owner 0x00459900..0x00459B4B; 93 callers; the 26-entry local jump table at 0x00459AE4 is included in the reviewed extent; RET before 0x00459B50.
 0x00459B50,0x00459C22,reviewed,high,anm-vm-resolve-integer-operand-linked-boundary,Hash-attested 211-byte owner 0x00459B50..0x00459C22 with 82 callers. The owner includes the 12-entry DIR32 jump table at +0x8C and the 23-byte byte dispatch table at +0xBC; the latter is declared as a reviewed data span and compared byte-for-byte. The function returns before 0x00459C30.
 0x00459C30,0x00459CD1,reviewed,high,anm-vm-resolve-float-operand-address-linked-boundary,Hash-attested 162-byte owner 0x00459C30..0x00459CD1; 12 direct callers; both dispatch tables at 0x00459C90 and 0x00459CBC are included; RET before 0x00459CE0.

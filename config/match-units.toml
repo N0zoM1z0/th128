@@ -22652,3 +22652,99 @@ linkages = [
   { offset = 247, type = "REL32", symbol = "?CbfSetText@@YGXPAXPBDH0@Z", target = 0x004015F0 },
   { offset = 260, type = "REL32", symbol = "@__security_check_cookie@4", target = 0x004728FD },
 ]
+
+[units.cbg-check-replay-ver]
+artifact_kind = "linked-pe"
+source = "src/CleanBatchG.cpp"
+inputs = ["src/CleanBatchG.hpp"]
+support_sources = ["probes/clean-batch-g-context.cpp"]
+output_dir = "build/match-linked/CleanBatchG"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-", "/EHsc"]
+entry = "CleanBatchGProbe@8"
+functions = ["CbgCheckReplayVersion"]
+symbol = "?CbgCheckReplayVersion@@YGHPAUCbgReplayMgr@@PBDHH@Z"
+target_address = 0x00434BC0
+size = 233
+linkages = [
+  { offset = 39, type = "DIR32", symbol = "??_C@_05GFCDIDHO@debug?$AA@", target = 0x004A32B8 },
+  { offset = 45, type = "REL32", symbol = "_strncmp", target = 0x0047342D },
+  { offset = 57, type = "DIR32", symbol = "??_C@_05GFCDIDHO@debug?$AA@", target = 0x004A32B8 },
+  { offset = 62, type = "DIR32", symbol = "??_C@_05HOKAIPBA@0100a?$AA@", target = 0x004A32C0 },
+  { offset = 136, type = "REL32", symbol = "_strncmp", target = 0x0047342D },
+  { offset = 159, type = "DIR32", symbol = "??_C@_05OKMLJOMC@?$CFd?5?$CFd?$AA@", target = 0x004A32C8 },
+  { offset = 165, type = "REL32", symbol = "_sscanf", target = 0x0047355B },
+  { offset = 194, type = "REL32", symbol = "_strchr", target = 0x00473090 },
+]
+
+[units.cbg-load-map-file]
+artifact_kind = "linked-pe"
+source = "src/CleanBatchG.cpp"
+inputs = ["src/CleanBatchG.hpp"]
+support_sources = ["probes/clean-batch-g-context.cpp"]
+output_dir = "build/match-linked/CleanBatchG"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-", "/EHsc"]
+entry = "CleanBatchGProbe@8"
+functions = ["CbgLoadMapFile"]
+symbol = "?CbgLoadMapFile@@YGXPAUCbgMapOwner@@PBD@Z"
+target_address = 0x00459820
+size = 212
+linkages = [
+  { offset = 10, type = "DIR32", symbol = "___security_cookie", target = 0x004B01F4 },
+  { offset = 30, type = "DIR32", symbol = "??_C@_02DKCKIIND@?$CFs?$AA@", target = 0x004A3644 },
+  { offset = 36, type = "REL32", symbol = "_sprintf", target = 0x00472B63 },
+  { offset = 86, type = "REL32", symbol = "?CbgFileExists@@YGHPBD@Z", target = 0x00469E00 },
+  { offset = 111, type = "REL32", symbol = "?CbgOpenFile@@YGPAXPBDPAHH@Z", target = 0x00469C40 },
+  { offset = 176, type = "REL32", symbol = "@__security_check_cookie@4", target = 0x004728FD },
+  { offset = 202, type = "REL32", symbol = "@__security_check_cookie@4", target = 0x004728FD },
+]
+
+[units.cbg-stage-ctor]
+artifact_kind = "linked-pe"
+source = "src/CleanBatchG.cpp"
+inputs = ["src/CleanBatchG.hpp"]
+support_sources = ["probes/clean-batch-g-context.cpp"]
+output_dir = "build/match-linked/CleanBatchG"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-", "/EHsc"]
+entry = "CleanBatchGProbe@8"
+functions = ["CbgStageObj::CbgStageObj"]
+symbol = "??0CbgStageObj@@QAE@XZ"
+target_address = 0x004033D0
+size = 185
+linkages = [
+  { offset = 6, type = "DIR32", symbol = "__ehhandler$??0CbgStageObj@@QAE@XZ", target = 0x0049937B, eh_static = true },
+  { offset = 20, type = "DIR32", symbol = "___security_cookie", target = 0x004B01F4 },
+  { offset = 40, type = "DIR32", symbol = "??1CbgAnmVm@@QAE@XZ", target = 0x00403090 },
+  { offset = 80, type = "DIR32", symbol = "??0CbgAnmVm@@QAE@XZ", target = 0x004031A0 },
+  { offset = 99, type = "REL32", symbol = "??_L@YGXPAXIHP6EX0@Z1@Z", target = 0x00472DF8 },
+  { offset = 104, type = "DIR32", symbol = "??1CbgAnmVm@@QAE@XZ", target = 0x00403090 },
+  { offset = 109, type = "DIR32", symbol = "??0CbgAnmVm@@QAE@XZ", target = 0x004031A0 },
+  { offset = 135, type = "REL32", symbol = "??_L@YGXPAXIHP6EX0@Z1@Z", target = 0x00472DF8 },
+  { offset = 154, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+]
+
+[units.cbg-gui-ctor]
+artifact_kind = "linked-pe"
+source = "src/CleanBatchG.cpp"
+inputs = ["src/CleanBatchG.hpp"]
+support_sources = ["probes/clean-batch-g-context.cpp"]
+output_dir = "build/match-linked/CleanBatchG"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-", "/EHsc"]
+entry = "CleanBatchGProbe@8"
+functions = ["CbgGuiObj::CbgGuiObj"]
+symbol = "??0CbgGuiObj@@QAE@XZ"
+target_address = 0x004200E0
+size = 184
+linkages = [
+  { offset = 6, type = "DIR32", symbol = "__ehhandler$??0CbgGuiObj@@QAE@XZ", target = 0x00499339, eh_static = true },
+  { offset = 19, type = "DIR32", symbol = "___security_cookie", target = 0x004B01F4 },
+  { offset = 39, type = "DIR32", symbol = "??1CbgAnmVm@@QAE@XZ", target = 0x00403090 },
+  { offset = 44, type = "DIR32", symbol = "??0CbgAnmVm@@QAE@XZ", target = 0x004031A0 },
+  { offset = 60, type = "REL32", symbol = "??_L@YGXPAXIHP6EX0@Z1@Z", target = 0x00472DF8 },
+  { offset = 65, type = "DIR32", symbol = "??1CbgAnmVm@@QAE@XZ", target = 0x00403090 },
+  { offset = 70, type = "DIR32", symbol = "??0CbgAnmVm@@QAE@XZ", target = 0x004031A0 },
+  { offset = 96, type = "REL32", symbol = "??_L@YGXPAXIHP6EX0@Z1@Z", target = 0x00472DF8 },
+  { offset = 107, type = "REL32", symbol = "??0CbgAnmVm@@QAE@XZ", target = 0x004031A0 },
+  { offset = 118, type = "REL32", symbol = "??0CbgAnmVm@@QAE@XZ", target = 0x004031A0 },
+  { offset = 148, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+  { offset = 160, type = "DIR32", symbol = "?g_CbgGui@@3PAUCbgGuiObj@@A", target = 0x004B8950 },
+]

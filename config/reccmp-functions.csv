@@ -69,6 +69,7 @@ ZunTimer::SetCurrent,0x00403240,function
 SetUpdateTimerCurrent,0x00403280,function
 StageBgMini::Cleanup,0x004032C0,function
 StageFlag7C::GetBit0,0x004033C0,function
+CbgStageObj::CbgStageObj,0x004033D0,function
 StageFlag80::ClearBit0,0x00403490,function
 StageBgMini::Destroy,0x00403970,function
 CbfLoadStd,0x00405130,function
@@ -498,6 +499,7 @@ GdEnemyFlags::IsFlag0Or4OrPos506C,0x0041FFE0,function
 GdEnemyMgrMini::GetFlag0,0x00420000,function
 Gd4B8934::GetField94,0x00420010,function
 GdTable66C::GetEntry,0x004200D0,function
+CbgGuiObj::CbgGuiObj,0x004200E0,function
 GdGuiObj::DestroySelf,0x00421070,function
 GdGuiObj::DestroyGlobal,0x00421090,function
 GdGuiObj::CalcHook,0x00422D60,function
@@ -699,6 +701,7 @@ WriteSupervisorScreenshot,0x00434270,function
 CaptureSupervisorScreenshot,0x004343D0,function
 AnmFogState::Enable,0x00434A70,function
 AnmFogState::Disable,0x00434AB0,function
+CbgCheckReplayVersion,0x00434BC0,function
 AnmSpriteViewport::Set2DView,0x00435090,function
 th128::Zc2StageCamOwner::InitGameCameras,0x00435370,function
 th128::Zc2InitMenuCameras,0x00435660,function
@@ -1020,6 +1023,7 @@ SoundManager::SoundManager,0x004591D0,function
 th128::Zc8AnmSetSprite,0x00459220,function
 AnmResource::BindVmScript,0x004593B0,function
 AnmResource::BindVmAtPosition,0x004594C0,function
+CbgLoadMapFile,0x00459820,function
 AnmVm::ResolveFloatOperand,0x00459900,function
 AnmVm::ResolveIntegerOperand,0x00459B50,function
 AnmVm::ResolveFloatOperandAddress,0x00459C30,function
