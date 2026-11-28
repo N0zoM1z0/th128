@@ -128,6 +128,7 @@ BulletVec3::ScaleInPlace,0x00407400,function
 BulletVec3::GetZ2,0x00407430,function
 PlayerMini::GetPosPtr,0x00407440,function
 FreezeInfMini::IsTimerGe60,0x00407450,function
+CbdReg407490,0x00407490,function
 BulletRet1A,0x004077E0,function
 BulletRet1B,0x00407900,function
 BulletRet0A,0x00407910,function
@@ -272,6 +273,7 @@ EffTable8C::Get,0x00410E60,function
 EffGuiMini::GetFieldC0,0x00410E70,function
 EffGuiMini::GetSubB4Field08,0x00410E80,function
 EffGuiMini::GetSubB4,0x00410E90,function
+CbdReg411040,0x00411040,function
 EffGet0A::Get,0x00411BD0,function
 EffInputStateMini::UpdateRepeatMasks,0x00411BE0,function
 EffMode558::SetMode558,0x00411C70,function
@@ -482,6 +484,8 @@ GmGuiMini::SetFlag3AndClear5A3C,0x0041FC30,function
 GmGuiMini::GetFlag3,0x0041FC50,function
 GmGuiMini::SetFlag4,0x0041FC60,function
 GdGuiFlags::GetFlag4,0x0041FC70,function
+CbdUpdateMeterA,0x0041FC80,function
+CbdUpdateMeterB,0x0041FD50,function
 th128::ZcPlayerStopAllOptionAnms,0x0041FE20,function
 GdEnemyFlags::IsNotFlag5,0x0041FFC0,function
 GdEnemyFlags::IsNotFlag0,0x0041FFD0,function
@@ -595,6 +599,7 @@ AnmResource::CreateUiVm,0x004281D0,function
 IlPlayerMgr::GetF7C,0x004282A0,function
 IlItemEntry::IlItemEntry,0x004282F0,function
 IlItemEntry::~IlItemEntry,0x00428320,function
+CbdReg428360,0x00428360,function
 IlRet0_4293C0,0x004293C0,function
 th128::Zc5ClearActiveItems,0x00429770,function
 IlIsNZ0::IsNonZero,0x00429900,function
@@ -806,12 +811,14 @@ PrStageEntry24::~PrStageEntry24,0x004427F0,function
 PrScoreFile::InitScoreFile,0x00442880,function
 th128::Zc4InitRouteScores,0x00442930,function
 CbbScoreMgr::CbbScoreMgr,0x004433A0,function
+CbdReg443430,0x00443430,function
 TaAnmVm::SetFloat60Flag3,0x004440F0,function
 TaAnmVm::SetFloat468,0x00444110,function
 TaAnmVm::SetFloat464,0x00444120,function
 TaNoOp444130,0x00444130,function
 TaNode4::IsNextNonZero,0x00444140,function
 TaStaffMgr::TaStaffMgr,0x004441B0,function
+CbdReg444240,0x00444240,function
 TaBuf8C::DeleteSelf,0x004444E0,function
 TaStaffMgr::Create,0x00444640,function
 TaStaffMgr::DestroySelf,0x00444690,function
@@ -989,6 +996,7 @@ SoundManager::PlaySfxWithPan,0x004584A0,function
 SoundManager::SetSfxPan,0x00458550,function
 SoundManager::StopSfx,0x00458590,function
 th128::Zc12PlaySfxChannel,0x00458B70,function
+CbdBgmThreadProc,0x00458F30,function
 SoundManager::EnqueueBgmCommand,0x00458FF0,function
 BgmStreamView::HasField10,0x004590A0,function
 BgmStreamView::SetFadeOut,0x004590B0,function

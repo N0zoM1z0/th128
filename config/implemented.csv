@@ -420,6 +420,14 @@ CbbStageLoader::Load
 CbbWaveFile::Read
 CbcChainCut
 CbcPauseObj::Close
+CbdBgmThreadProc
+CbdReg407490
+CbdReg411040
+CbdReg428360
+CbdReg443430
+CbdReg444240
+CbdUpdateMeterA
+CbdUpdateMeterB
 Chain::CreateAndRegisterCalc
 Chain::CreateAndRegisterCalcImmediate
 Chain::CreateAndRegisterDraw

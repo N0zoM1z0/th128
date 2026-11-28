@@ -125,6 +125,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00407430,BulletVec3::GetZ2,4,exact,100.00,bullet-vec3-get-z2,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x00407440,PlayerMini::GetPosPtr,6,exact,100.00,player-get-pos-ptr,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x00407450,FreezeInfMini::IsTimerGe60,10,exact,100.00,freeze-is-timer-ge-60,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00407490,CbdReg407490,180,exact,100.00,cbd-reg-407490,Exact linked VC10 /GL /Ob1 /Oy- match in CleanBatchD
 0x004077E0,BulletRet1A,6,exact,100.00,bullet-ret1-4077e0,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x00407900,BulletRet1B,6,exact,100.00,bullet-ret1-407900,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x00407910,BulletRet0A,3,exact,100.00,bullet-ret0-407910,exact VC10 /GL linked-PE match via replay-exact-units.py
@@ -263,6 +264,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00410E70,EffGuiMini::GetFieldC0,12,exact,100.00,eff-gui-get-field-c0,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
 0x00410E80,EffGuiMini::GetSubB4Field08,15,exact,100.00,eff-gui-get-sub-b4-field-08,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
 0x00410E90,EffGuiMini::GetSubB4,12,exact,100.00,eff-gui-get-sub-b4,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x00411040,CbdReg411040,180,exact,100.00,cbd-reg-411040,Exact linked VC10 /GL /Ob1 /Oy- match in CleanBatchD
 0x00411BD0,EffGet0A::Get,3,exact,100.00,eff-get-0a,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
 0x00411BE0,EffInputStateMini::UpdateRepeatMasks,137,exact,100.00,eff-input-update-repeat-masks,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
 0x00411C70,EffMode558::SetMode558,30,exact,100.00,eff-mode558-set,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
@@ -473,6 +475,8 @@ address,name,size,status,match_percent,unit,evidence
 0x0041FC50,GmGuiMini::GetFlag3,13,exact,100.00,gm-gui-get-flag3,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
 0x0041FC60,GmGuiMini::SetFlag4,13,exact,100.00,gm-gui-set-flag4,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
 0x0041FC70,GdGuiFlags::GetFlag4,13,exact,100.00,gd-gui-get-flag4,Cold replay passed via scripts/replay-exact-units.py --source src/GuiDialogHelpers.cpp
+0x0041FC80,CbdUpdateMeterA,207,exact,100.00,cbd-update-meter-a,Exact linked VC10 /GL /Ob1 /Oy- match in CleanBatchD
+0x0041FD50,CbdUpdateMeterB,208,exact,100.00,cbd-update-meter-b,Exact linked VC10 /GL /Ob1 /Oy- match in CleanBatchD
 0x0041FE20,th128::ZcPlayerStopAllOptionAnms,412,exact,100.00,zc-player-stop-all-option-anms,Exact VC10 /GL linked-PE match via compare-linked-function.py.
 0x0041FFC0,GdEnemyFlags::IsNotFlag5,15,exact,100.00,gd-enemy-not-flag5,Cold replay passed via scripts/replay-exact-units.py --source src/GuiDialogHelpers.cpp
 0x0041FFD0,GdEnemyFlags::IsNotFlag0,12,exact,100.00,gd-enemy-not-flag0,Cold replay passed via scripts/replay-exact-units.py --source src/GuiDialogHelpers.cpp
@@ -579,6 +583,7 @@ address,name,size,status,match_percent,unit,evidence
 0x004282A0,IlPlayerMgr::GetF7C,12,exact,100.00,IlPlayerMgr_GetF7C,Cold-replayed VC10 LTCG match via ItemLaserHelpersProbe
 0x004282F0,IlItemEntry::IlItemEntry,40,exact,100.00,IlItemEntry_ctor,Cold-replayed VC10 LTCG match via ItemLaserHelpersProbe
 0x00428320,IlItemEntry::~IlItemEntry,63,exact,100.00,IlItemEntry_dtor,Cold-replayed VC10 LTCG match via ItemLaserHelpersProbe
+0x00428360,CbdReg428360,196,exact,100.00,cbd-reg-428360,Exact linked VC10 /GL /Ob1 /Oy- match in CleanBatchD
 0x004293C0,IlRet0_4293C0,3,exact,100.00,IlRet0_4293C0,Cold-replayed VC10 LTCG match via ItemLaserHelpersProbe
 0x00429770,th128::Zc5ClearActiveItems,385,exact,100.00,zc5-clear-active-items,exact
 0x00429900,IlIsNZ0::IsNonZero,8,exact,100.00,IlIsNZ0_IsNonZero,Cold-replayed VC10 LTCG match via ItemLaserHelpersProbe
@@ -783,12 +788,14 @@ address,name,size,status,match_percent,unit,evidence
 0x00442880,PrScoreFile::InitScoreFile,164,exact,100.00,PrScoreFile_InitScoreFile,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
 0x00442930,th128::Zc4InitRouteScores,674,exact,100.00,zc4-init-route-scores,exact
 0x004433A0,CbbScoreMgr::CbbScoreMgr,142,exact,100.00,cbb-score-mgr-ctor,Cold VC10 LTCG /Ob1 /Oy- linked-PE exact match via CleanBatchBProbe (0 diffs)
+0x00443430,CbdReg443430,180,exact,100.00,cbd-reg-443430,Exact linked VC10 /GL /Ob1 /Oy- match in CleanBatchD
 0x004440F0,TaAnmVm::SetFloat60Flag3,20,exact,100.00,TaAnmVm_SetFloat60Flag3,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x00444110,TaAnmVm::SetFloat468,16,exact,100.00,TaAnmVm_SetFloat468,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x00444120,TaAnmVm::SetFloat464,16,exact,100.00,TaAnmVm_SetFloat464,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x00444130,TaNoOp444130,1,exact,100.00,TaNoOp444130,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x00444140,TaNode4::IsNextNonZero,12,exact,100.00,TaNode4_IsNextNonZero,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x004441B0,TaStaffMgr::TaStaffMgr,142,exact,100.00,TaStaffMgr_ctor,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x00444240,CbdReg444240,180,exact,100.00,cbd-reg-444240,Exact linked VC10 /GL /Ob1 /Oy- match in CleanBatchD
 0x004444E0,TaBuf8C::DeleteSelf,47,exact,100.00,TaBuf8C_DeleteSelf,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x00444640,TaStaffMgr::Create,68,exact,100.00,TaStaffMgr_Create,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x00444690,TaStaffMgr::DestroySelf,18,exact,100.00,TaStaffMgr_DestroySelf,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
@@ -951,6 +958,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00458550,SoundManager::SetSfxPan,52,exact,100.00,sound-manager-set-sfx-pan,Cold pinned VC10 /GL linked-PE replay; complete 52-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x00458590,SoundManager::StopSfx,137,exact,100.00,sound-manager-stop-sfx,Cold pinned VC10 /GL linked-PE replay; complete 137-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x00458B70,th128::Zc12PlaySfxChannel,195,exact,100.00,zc12-play-sfx-channel,Exact VC10 LTCG match via ZeroCallMedium12Probe@52
+0x00458F30,CbdBgmThreadProc,181,exact,100.00,cbd-bgm-thread-proc,Exact linked VC10 /GL /Ob1 /Oy- match in CleanBatchD
 0x00458FF0,SoundManager::EnqueueBgmCommand,158,exact,100.00,sound-manager-enqueue-bgm-command,Cold pinned VC10 /GL linked-PE replay; complete 158-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x004590A0,BgmStreamView::HasField10,9,exact,100.00,bgm-stream-view-has-field10,Cold pinned VC10 /GL linked-PE replay; complete 9-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x004590B0,BgmStreamView::SetFadeOut,34,exact,100.00,bgm-stream-view-set-fade-out,Cold pinned VC10 /GL linked-PE replay; complete 34-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
