@@ -1094,6 +1094,8 @@ address,name,size,status,match_percent,unit,evidence
 0x0045F040,AnmDrawLeaf::AppendSprite,138,exact,100.00,anm-sprite-append,Cold pinned VC10 /GL /Ob1 linked-PE replay; complete 138-byte primary-TU PDB contribution; all 0 reviewed fields and physical tails replay with zero byte differences.
 0x00461370,th128::Zc10BuildRibbonU,248,exact,100.00,zc10-build-ribbon-u,Exact VC10 LTCG match via ZeroCallMedium10Probe@56
 0x00461470,th128::Zc10BuildRibbonV,248,exact,100.00,zc10-build-ribbon-v,Exact VC10 LTCG match via ZeroCallMedium10Probe@56
+0x00461760,AdcwAnmManager::DrawTriangleStrip2D,335,exact,100.00,adcw_draw_triangle_strip_2d,build/match-linked/AnmDrawChainWave/adcw_draw_triangle_strip_2d.json
+0x004618B0,AdcwAnmManager::DrawTriangleFan2D,335,exact,100.00,adcw_draw_triangle_fan_2d,build/match-linked/AnmDrawChainWave/adcw_draw_triangle_fan_2d.json
 0x00463750,AmcAnmManager::AmcAnmManager,2763,exact,100.00,amc-anm-manager-ctor,Cold pinned VC10 /GL /EHsc linked-PE replay; complete 2763-byte primary-TU PDB contribution; all 129 reviewed fields replay with zero byte differences.
 0x00464240,EbfAnmMgr::~EbfAnmMgr,223,exact,100.00,ebf-anm-mgr-dtor,compare-linked-function.py --unit ebf-anm-mgr-dtor
 0x00464510,AnmHelpers::NormalizeTextureFormat,40,exact,100.00,anm-normalize-texture-format,Cold pinned VC10 RTM /GL /Ob1 /Oy- linked-PE comparison; complete 40-byte public primary-TU PDB contribution and all 2 reviewed address fields; zero byte differences.
@@ -1110,6 +1112,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00465F60,AnmResource::Release,251,exact,100.00,anm-resource-release,Cold pinned VC10 /GL /Ob1 linked-PE replay; complete 251-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x00466060,AnmTextureEntry::Release,44,exact,100.00,anm-texture-entry-release,Cold pinned VC10 /GL /Ob1 linked-PE replay; complete 44-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x00466090,AnmResource::SetSprite,145,exact,100.00,anm-resource-set-sprite,"Cold pinned VC10 RTM /GL /Ob1 /Oy- linked-PE comparison; complete 145-byte public primary-TU PDB contribution, no address fields, zero byte differences. Natural C++ struct copy and six derived-float assignments reproduce the private input registers without hints."
+0x00466590,AdcwAnmManager::CopyTextureToTexture,243,exact,100.00,adcw_copy_texture_to_texture,build/match-linked/AnmDrawChainWave/adcw_copy_texture_to_texture.json
 0x00466690,AnmManager::OnTickWorldCallback,46,exact,100.00,anm-manager-on-tick-world-callback,Cold pinned VC10 /GL /Ob1 linked-PE replay; complete 46-byte primary-TU PDB contribution; DIR32 state pointer to 0x004B8954 and REL32 world-update tail call to 0x00466AF0; zero byte differences.
 0x004666C0,AnmManager::OnTickUiCallback,7,exact,100.00,anm-manager-on-tick-ui-callback,Cold pinned VC10 /GL /Ob1 linked-PE replay; complete 7-byte primary-TU PDB contribution; REL32 UI-update tail call to 0x00466BE0; zero byte differences.
 0x004666D0,AnmManager::DrawLayer0,12,exact,100.00,anm-manager-draw-layer-0,Cold pinned VC10 RTM /GL /Ob1 /Oy- current-input linked-PE replay; complete 12-byte primary-TU PDB contribution and its real DrawVmGroup REL32 identity; zero byte differences with maintained rectangle callees.
@@ -1160,6 +1163,7 @@ address,name,size,status,match_percent,unit,evidence
 0x004679B0,AnmHelpers::DeleteVmByIdPtr,70,exact,100.00,anm-helpers-delete-vm-by-id-ptr,Cold pinned VC10 /GL /Ob1 linked-PE replay; complete 70-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x00467AD0,AnmHelpers::SetVmGamePosition2,45,exact,100.00,anm-helpers-set-vm-game-position-2,Cold pinned VC10 /GL /Ob1 linked-PE replay; complete 45-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x00467BD0,th128::SaClearD3DTexture,133,exact,100.00,SaClearD3DTexture,Cold-replayed VC10 LTCG match via SoundAnmHelpersProbe
+0x00467C60,AdcwClearTextureBlackOpaque,272,exact,100.00,adcw_clear_texture_black_opaque,build/match-linked/AnmDrawChainWave/adcw_clear_texture_black_opaque.json
 0x00467D70,AnmHelpers::FindChildIdFromVm,57,exact,100.00,anm-helpers-find-child-id-from-vm,Cold pinned VC10 /GL /Ob1 linked-PE replay; complete 57-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x00467DB0,AnmHelpers::FindChildVmFromVm,53,exact,100.00,anm-helpers-find-child-vm-from-vm,Cold pinned VC10 /GL /Ob1 linked-PE replay; complete 53-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x00467DF0,AnmHelpers::FindChildIdByIdPtr,73,exact,100.00,anm-helpers-find-child-id-by-id-ptr,Cold pinned VC10 /GL /Ob1 linked-PE replay; complete 73-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
