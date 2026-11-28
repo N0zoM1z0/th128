@@ -239,6 +239,7 @@ address,name,size,status,match_percent,unit,evidence
 0x0040E7F0,CardEffectSub54::CardEffectSub54,7,exact,100.00,card-effect-sub54-ctor,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x0040E800,CardEffectSub68::CardEffectSub68,14,exact,100.00,card-effect-sub68-ctor,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x0040E810,CardNoOp40E810,1,exact,100.00,card-noop-40e810,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040E820,CbeInit40e820,232,exact,100.00,cbe-init-40e820,Exact linked VC10 /GL /Ob1 /Oy- match in CleanBatchE
 0x0040E910,CardEffectMgrMini::EnableChainElems,23,exact,100.00,card-effect-enable-chain,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x0040FEB0,th128::AsDrawFreezeHud,757,exact,100.00,as-draw-freeze-hud,757B linked-pe VC10 /GL exact
 0x00410470,EffClear0A::Clear,7,exact,100.00,eff-clear-0a,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
@@ -279,6 +280,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00411D70,EffCursorMini::ResetMenu,34,exact,100.00,eff-cursor-reset-menu,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
 0x00411DA0,EffEnemyMgrMini::DisableBoth,30,exact,100.00,eff-enemy-mgr-disable-both,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
 0x00411E20,EffZero24Global::EffZero24Global,37,exact,100.00,eff-zero-24-global-ctor,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x00411E50,CbeInit411e50,245,exact,100.00,cbe-init-411e50,Exact linked VC10 /GL /Ob1 /Oy- match in CleanBatchE
 0x004120C0,EffRet1_4120C0,6,exact,100.00,eff-ret1-4120c0,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
 0x004120D0,EffRet1_4120D0,6,exact,100.00,eff-ret1-4120d0,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
 0x004120E0,EffRet1_4120E0,6,exact,100.00,eff-ret1-4120e0,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
@@ -465,6 +467,7 @@ address,name,size,status,match_percent,unit,evidence
 0x0041F730,GmNoOp41F730,1,exact,100.00,gm-noop-41f730,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
 0x0041F740,GmGet08::Get,4,exact,100.00,gm-get-08,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
 0x0041F7E0,GmFpsCounter::GmFpsCounter,28,exact,100.00,gm-fps-counter-ctor,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
+0x0041F8C0,CbeCreate41f8c0,137,exact,100.00,cbe-create-41f8c0,Exact linked VC10 /GL /Ob1 /Oy- match in CleanBatchE
 0x0041F990,UpdatePostPresentTiming,256,exact,100.00,post-present-timing-update,Pinned VC10 RTM /O2 /Ob1 /Oy- /GL primary TU; complete 256-byte PDB owner and all 8 reviewed address fields replayed by compare-linked-function.py; current cold receipt; .analysis/post-present-timing-final-canonical.json.
 0x0041FB70,GmFpsCounter::DrawHook,7,exact,100.00,gm-fps-draw-hook,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
 0x0041FB80,GmGet558::Get,7,exact,100.00,gm-get-558,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
@@ -628,6 +631,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00429E20,IlPlayerMgr::IsActive438DCOrFlag1,32,exact,100.00,IlPlayerMgr_IsActive438DCOrFlag1,Cold-replayed VC10 LTCG match via ItemLaserHelpersProbe
 0x00429E40,Il4B8934::AddField84,42,exact,100.00,Il4B8934_AddField84,Cold-replayed VC10 LTCG match via ItemLaserHelpersProbe
 0x00429E70,IlLaserMgr::IlLaserMgr,45,exact,100.00,IlLaserMgr_ctor,Cold-replayed VC10 LTCG match via ItemLaserHelpersProbe
+0x00429EA0,CbeInit429ea0,257,exact,100.00,cbe-init-429ea0,Exact linked VC10 /GL /Ob1 /Oy- match in CleanBatchE
 0x0042A3E0,IlLaserMgr::DrawHook,22,exact,100.00,IlLaserMgr_DrawHook,Cold-replayed VC10 LTCG match via ItemLaserHelpersProbe
 0x0042A620,LmLaserMgr::CancelInBoxA,128,exact,100.00,LmLaserMgr_CancelInBoxA,Cold-replayed VC10 LTCG match via LaserMotherHelpersProbe
 0x0042A6A0,LmLaserMgr::CancelInBoxB,146,exact,100.00,LmLaserMgr_CancelInBoxB,Cold-replayed VC10 LTCG match via LaserMotherHelpersProbe
@@ -811,6 +815,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00445160,TaScoreMgrExact::SetAllClearFlags,35,exact,100.00,TaScoreMgrExact_SetAllClearFlags,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x00445190,TaHelpMgr::SetFloat12C,21,exact,100.00,TaHelpMgr_SetFloat12C,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x004451B0,TaTitleMgrExact::TaTitleMgrExact,201,exact,100.00,TaTitleMgrExact_ctor,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x00445330,CbeInit445330,278,exact,100.00,cbe-init-445330,Exact linked VC10 /GL /Ob1 /Oy- match in CleanBatchE
 0x00445730,TaTitleMgrExact::DestroyGlobal,28,exact,100.00,TaTitleMgrExact_DestroyGlobal,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x00445750,TaTitleMgrExact::DestroySelf,18,exact,100.00,TaTitleMgrExact_DestroySelf,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x00447BA0,Tb1UpdateOptionsVolume,3712,exact,100.00,tb1-update-options-volume,linked-pe VC10 /GL exact 3712B

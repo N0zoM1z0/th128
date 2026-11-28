@@ -248,6 +248,7 @@ CardEffectMgrMini::CardEffectMgrMini,0x0040E7A0,function
 CardEffectSub54::CardEffectSub54,0x0040E7F0,function
 CardEffectSub68::CardEffectSub68,0x0040E800,function
 CardNoOp40E810,0x0040E810,function
+CbeInit40e820,0x0040E820,function
 CardEffectMgrMini::EnableChainElems,0x0040E910,function
 th128::AsDrawFreezeHud,0x0040FEB0,function
 EffClear0A::Clear,0x00410470,function
@@ -288,6 +289,7 @@ EffNoOp411D60,0x00411D60,function
 EffCursorMini::ResetMenu,0x00411D70,function
 EffEnemyMgrMini::DisableBoth,0x00411DA0,function
 EffZero24Global::EffZero24Global,0x00411E20,function
+CbeInit411e50,0x00411E50,function
 EffRet1_4120C0,0x004120C0,function
 EffRet1_4120D0,0x004120D0,function
 EffRet1_4120E0,0x004120E0,function
@@ -474,6 +476,7 @@ Gm4B8954::GetFlag1,0x0041F720,function
 GmNoOp41F730,0x0041F730,function
 GmGet08::Get,0x0041F740,function
 GmFpsCounter::GmFpsCounter,0x0041F7E0,function
+CbeCreate41f8c0,0x0041F8C0,function
 UpdatePostPresentTiming,0x0041F990,function
 GmFpsCounter::DrawHook,0x0041FB70,function
 GmGet558::Get,0x0041FB80,function
@@ -648,6 +651,7 @@ IlPlayerMgr::ClearFlag3AndZero,0x00429E00,function
 IlPlayerMgr::IsActive438DCOrFlag1,0x00429E20,function
 Il4B8934::AddField84,0x00429E40,function
 IlLaserMgr::IlLaserMgr,0x00429E70,function
+CbeInit429ea0,0x00429EA0,function
 IlLaserMgr::DrawHook,0x0042A3E0,function
 LmLaserMgr::CancelInBoxA,0x0042A620,function
 LmLaserMgr::CancelInBoxB,0x0042A6A0,function
@@ -834,6 +838,7 @@ TaScoreMgrExact::GetTable660,0x00445140,function
 TaScoreMgrExact::SetAllClearFlags,0x00445160,function
 TaHelpMgr::SetFloat12C,0x00445190,function
 TaTitleMgrExact::TaTitleMgrExact,0x004451B0,function
+CbeInit445330,0x00445330,function
 TaTitleMgrExact::DestroyGlobal,0x00445730,function
 TaTitleMgrExact::DestroySelf,0x00445750,function
 Tb1UpdateOptionsVolume,0x00447BA0,function

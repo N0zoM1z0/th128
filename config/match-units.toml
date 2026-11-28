@@ -22470,3 +22470,132 @@ linkages = [
   { offset = 145, type = "REL32", symbol = "?CbdBgmFillBuffer@@YGXPAUCbdBgmPlayer@@@Z", target = 0x0046D6A0 },
   { offset = 150, type = "DIR32", symbol = "?g_CbdBgm@@3PAUCbdBgmPlayer@@A", target = 0x004DAE94 },
 ]
+
+[units.cbe-create-41f8c0]
+artifact_kind = "linked-pe"
+source = "src/CleanBatchE.cpp"
+inputs = ["src/CleanBatchE.hpp"]
+support_sources = ["probes/clean-batch-e-context.cpp"]
+output_dir = "build/match-linked/CleanBatchE"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-"]
+entry = "CleanBatchEProbe@8"
+functions = ["CbeCreate41f8c0"]
+symbol = "?CbeCreate41f8c0@@YAPAUCbeObj41f8c0@@XZ"
+target_address = 0x0041F8C0
+size = 137
+linkages = [
+  { offset = 9, type = "REL32", symbol = "??2@YAPAXI@Z", target = 0x0047296C },
+  { offset = 32, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+  { offset = 44, type = "DIR32", symbol = "?g_CbeObj41f8c0@@3PAUCbeObj41f8c0@@A", target = 0x004B894C },
+  { offset = 57, type = "REL32", symbol = "??2@YAPAXI@Z", target = 0x0047296C },
+  { offset = 116, type = "DIR32", symbol = "?CbeCb41fb70@@YIHPAX@Z", target = 0x0041FB70 },
+  { offset = 124, type = "REL32", symbol = "?RegisterDraw@CbeChain@@QAEXPAUCbeChainElem@@H@Z", target = 0x00468270 },
+]
+
+[units.cbe-init-40e820]
+artifact_kind = "linked-pe"
+source = "src/CleanBatchE.cpp"
+inputs = ["src/CleanBatchE.hpp"]
+support_sources = ["probes/clean-batch-e-context.cpp"]
+output_dir = "build/match-linked/CleanBatchE"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-"]
+entry = "CleanBatchEProbe@8"
+functions = ["CbeInit40e820"]
+symbol = "?CbeInit40e820@@YGHPAUCbeObj40e820@@@Z"
+target_address = 0x0040E820
+size = 232
+linkages = [
+  { offset = 6, type = "DIR32", symbol = "??_C@_07NIGPKBFE@ice?4anm?$AA@", target = 0x004A2200 },
+  { offset = 16, type = "REL32", symbol = "?CbeLoadAnm@@YAPAXHPBD@Z", target = 0x00465600 },
+  { offset = 36, type = "DIR32", symbol = "??_C@_0CP@OGEHNBIB@?$IDf?$IB?$FL?$ID?$FO?$IC?$KK?$IM?$KJ?$IC?B?$IC?$KJ?$IC?h?$IC?$NM?$IC?$LJ?$IC?q?$IBB?$IDf?$IB?$FL?$ID?$FO?$IC?$KK@", target = 0x004A2178 },
+  { offset = 41, type = "DIR32", symbol = "?g_CbeLog@@3UCbeLog@@A", target = 0x004B4F50 },
+  { offset = 46, type = "REL32", symbol = "?Print@CbeLog@@QAAPBDPBDZZ", target = 0x0046A250 },
+  { offset = 66, type = "REL32", symbol = "??2@YAPAXI@Z", target = 0x0047296C },
+  { offset = 122, type = "DIR32", symbol = "?CbeCb4101b0@@YIHPAX@Z", target = 0x004101B0 },
+  { offset = 133, type = "REL32", symbol = "?RegisterCalc@CbeChain@@QAEXPAUCbeChainElem@@H@Z", target = 0x004681D0 },
+  { offset = 146, type = "REL32", symbol = "??2@YAPAXI@Z", target = 0x0047296C },
+  { offset = 202, type = "DIR32", symbol = "?CbeCb4101c0@@YIHPAX@Z", target = 0x004101C0 },
+  { offset = 213, type = "REL32", symbol = "?RegisterDraw@CbeChain@@QAEXPAUCbeChainElem@@H@Z", target = 0x00468270 },
+]
+
+[units.cbe-init-411e50]
+artifact_kind = "linked-pe"
+source = "src/CleanBatchE.cpp"
+inputs = ["src/CleanBatchE.hpp"]
+support_sources = ["probes/clean-batch-e-context.cpp"]
+output_dir = "build/match-linked/CleanBatchE"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-"]
+entry = "CleanBatchEProbe@8"
+functions = ["CbeInit411e50"]
+symbol = "?CbeInit411e50@@YGHPAUCbeObj411e50@@@Z"
+target_address = 0x00411E50
+size = 245
+linkages = [
+  { offset = 6, type = "DIR32", symbol = "??_C@_0L@JHPPDGCE@bullet?4anm?$AA@", target = 0x004A20E0 },
+  { offset = 16, type = "REL32", symbol = "?CbeLoadAnm@@YAPAXHPBD@Z", target = 0x00465600 },
+  { offset = 33, type = "DIR32", symbol = "??_C@_0DH@LGCMOPFP@?$IJ?f?$JG?J?$IN?2?$JA?$KM?$IDf?$IB?$FL?$ID?$FO?$IC?$KK?$IM?$KJ?$IC?B?$IC?$KJ?$IC?h?$IC?$NM?$IC?$LJ?$IC?q?$IBB@", target = 0x004A2394 },
+  { offset = 38, type = "DIR32", symbol = "?g_CbeLog@@3UCbeLog@@A", target = 0x004B4F50 },
+  { offset = 43, type = "REL32", symbol = "?Print@CbeLog@@QAAPBDPBDZZ", target = 0x0046A250 },
+  { offset = 63, type = "REL32", symbol = "??2@YAPAXI@Z", target = 0x0047296C },
+  { offset = 124, type = "DIR32", symbol = "?CbeCb4120e0@@YIHPAX@Z", target = 0x004120E0 },
+  { offset = 138, type = "REL32", symbol = "?RegisterCalc@CbeChain@@QAEXPAUCbeChainElem@@H@Z", target = 0x004681D0 },
+  { offset = 151, type = "REL32", symbol = "??2@YAPAXI@Z", target = 0x0047296C },
+  { offset = 212, type = "DIR32", symbol = "?CbeCb4120f0@@YIHPAX@Z", target = 0x004120F0 },
+  { offset = 226, type = "REL32", symbol = "?RegisterDraw@CbeChain@@QAEXPAUCbeChainElem@@H@Z", target = 0x00468270 },
+]
+
+[units.cbe-init-429ea0]
+artifact_kind = "linked-pe"
+source = "src/CleanBatchE.cpp"
+inputs = ["src/CleanBatchE.hpp"]
+support_sources = ["probes/clean-batch-e-context.cpp"]
+output_dir = "build/match-linked/CleanBatchE"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-"]
+entry = "CleanBatchEProbe@8"
+functions = ["CbeInit429ea0"]
+symbol = "?CbeInit429ea0@@YGHPAUCbeObj429ea0@@@Z"
+target_address = 0x00429EA0
+size = 257
+linkages = [
+  { offset = 6, type = "DIR32", symbol = "??_C@_0L@JHPPDGCE@bullet?4anm?$AA@", target = 0x004A20E0 },
+  { offset = 16, type = "REL32", symbol = "?CbeLoadAnm@@YAPAXHPBD@Z", target = 0x00465600 },
+  { offset = 36, type = "DIR32", symbol = "??_C@_0DD@LJIGBHIF@?$JDG?$JCe?$IDf?$IB?$FL?$ID?$FO?$IC?$KK?$IM?$KJ?$IC?B?$IC?$KJ?$IC?h?$IC?$NM?$IC?$LJ?$IC?q?$IBB?$IDf?$IB?$FL@", target = 0x004A20EC },
+  { offset = 41, type = "DIR32", symbol = "?g_CbeLog@@3UCbeLog@@A", target = 0x004B4F50 },
+  { offset = 46, type = "REL32", symbol = "?Print@CbeLog@@QAAPBDPBDZZ", target = 0x0046A250 },
+  { offset = 66, type = "REL32", symbol = "??2@YAPAXI@Z", target = 0x0047296C },
+  { offset = 127, type = "DIR32", symbol = "?CbeCb42a370@@YIHPAX@Z", target = 0x0042A370 },
+  { offset = 141, type = "REL32", symbol = "?RegisterCalc@CbeChain@@QAEXPAUCbeChainElem@@H@Z", target = 0x004681D0 },
+  { offset = 154, type = "REL32", symbol = "??2@YAPAXI@Z", target = 0x0047296C },
+  { offset = 215, type = "DIR32", symbol = "?CbeCb42a3e0@@YIHPAX@Z", target = 0x0042A3E0 },
+  { offset = 229, type = "REL32", symbol = "?RegisterDraw@CbeChain@@QAEXPAUCbeChainElem@@H@Z", target = 0x00468270 },
+]
+
+[units.cbe-init-445330]
+artifact_kind = "linked-pe"
+source = "src/CleanBatchE.cpp"
+inputs = ["src/CleanBatchE.hpp"]
+support_sources = ["probes/clean-batch-e-context.cpp"]
+output_dir = "build/match-linked/CleanBatchE"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-"]
+entry = "CleanBatchEProbe@8"
+functions = ["CbeInit445330"]
+symbol = "?CbeInit445330@@YAHXZ"
+target_address = 0x00445330
+size = 278
+linkages = [
+  { offset = 5, type = "DIR32", symbol = "?g_CbeObj445330@@3PAUCbeObj445330@@A", target = 0x004B8A9C },
+  { offset = 12, type = "REL32", symbol = "??2@YAPAXI@Z", target = 0x0047296C },
+  { offset = 72, type = "DIR32", symbol = "?CbeCb445c80@@YIHPAX@Z", target = 0x00445C80 },
+  { offset = 89, type = "REL32", symbol = "?RegisterCalc@CbeChain@@QAEXPAUCbeChainElem@@H@Z", target = 0x004681D0 },
+  { offset = 99, type = "REL32", symbol = "??2@YAPAXI@Z", target = 0x0047296C },
+  { offset = 165, type = "DIR32", symbol = "?CbeCb445c90@@YIHPAX@Z", target = 0x00445C90 },
+  { offset = 176, type = "REL32", symbol = "?RegisterDraw@CbeChain@@QAEXPAUCbeChainElem@@H@Z", target = 0x00468270 },
+  { offset = 181, type = "DIR32", symbol = "??_C@_09EAFDFAEF@title?4anm?$AA@", target = 0x004A44B4 },
+  { offset = 194, type = "REL32", symbol = "?CbeLoadAnm@@YAPAXHPBD@Z", target = 0x00465600 },
+  { offset = 206, type = "DIR32", symbol = "??_C@_0BH@JNGBGENB@?$IDf?$IB?$FL?$ID?$FO?$IC?$KK?$IJ?s?$IC?j?$IC?D?$IC?$KC?$IC?$NM?$IC?$LH?$AN?6?$AA@", target = 0x004A1EBC },
+  { offset = 211, type = "DIR32", symbol = "?g_CbeLog@@3UCbeLog@@A", target = 0x004B4F50 },
+  { offset = 216, type = "REL32", symbol = "?Print@CbeLog@@QAAPBDPBDZZ", target = 0x0046A250 },
+  { offset = 231, type = "DIR32", symbol = "??_C@_0M@DCJGFHGK@title_v?4anm?$AA@", target = 0x004A44C0 },
+  { offset = 241, type = "REL32", symbol = "?CbeLoadAnm@@YAPAXHPBD@Z", target = 0x00465600 },
+  { offset = 266, type = "DIR32", symbol = "?g_CbeFlag4d2ad4@@3HA", target = 0x004D2AD4 },
+]

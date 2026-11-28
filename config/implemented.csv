@@ -428,6 +428,11 @@ CbdReg443430
 CbdReg444240
 CbdUpdateMeterA
 CbdUpdateMeterB
+CbeCreate41f8c0
+CbeInit40e820
+CbeInit411e50
+CbeInit429ea0
+CbeInit445330
 Chain::CreateAndRegisterCalc
 Chain::CreateAndRegisterCalcImmediate
 Chain::CreateAndRegisterDraw
