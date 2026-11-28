@@ -248,6 +248,7 @@ address,name,size,status,match_percent,unit,evidence
 0x0040E810,CardNoOp40E810,1,exact,100.00,card-noop-40e810,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x0040E820,CbeInit40e820,232,exact,100.00,cbe-init-40e820,Exact linked VC10 /GL /Ob1 /Oy- match in CleanBatchE
 0x0040E910,CardEffectMgrMini::EnableChainElems,23,exact,100.00,card-effect-enable-chain,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040E930,LwbIceObj::Shutdown,222,exact,100.00,lwb-ice-obj-shutdown,compare-linked-function.py --unit lwb-ice-obj-shutdown
 0x0040FEB0,th128::AsDrawFreezeHud,757,exact,100.00,as-draw-freeze-hud,757B linked-pe VC10 /GL exact
 0x00410470,EffClear0A::Clear,7,exact,100.00,eff-clear-0a,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
 0x00410960,CbjCountIceBits,252,exact,100.00,cbj-count-ice-bits,compare-linked-function.py --unit cbj-count-ice-bits
@@ -590,6 +591,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00427880,HelpInf::CreateVm,35,exact,100.00,help-create-vm,Cold pinned VC10 RTM /GL /Ob1 /Oy- linked-PE replay; complete 35-byte public primary-TU PDB contribution and all 1 reviewed fields; zero byte differences.
 0x00427910,IlHelpMgr::IlHelpMgr,65,exact,100.00,IlHelpMgr_ctor,Cold-replayed VC10 LTCG match via ItemLaserHelpersProbe
 0x004279C0,HelpInf::LoadPageWorker,68,exact,100.00,help-load-page-worker,Cold pinned VC10 RTM /GL /Ob1 /Oy- linked-PE replay; complete 68-byte public primary-TU PDB contribution and all 5 reviewed fields; zero byte differences.
+0x00427B20,LwbHelpInf::Shutdown,222,exact,100.00,lwb-help-inf-shutdown,compare-linked-function.py --unit lwb-help-inf-shutdown
 0x00427CB0,HelpInf::Destroy,29,exact,100.00,help-destroy,Cold pinned VC10 RTM /GL /Ob1 /Oy- linked-PE replay; complete 29-byte public primary-TU PDB contribution and all three reviewed global/Shutdown/operator-delete fields; zero byte differences.
 0x00428170,HelpInf::Draw,6,exact,100.00,help-draw,Cold pinned VC10 RTM /GL /Ob1 /Oy- linked-PE replay; complete 6-byte public primary-TU PDB contribution and all 0 reviewed fields; zero byte differences.
 0x00428180,HelpInf::OnTick,7,exact,100.00,help-on-tick,Cold pinned VC10 RTM /GL /Ob1 /Oy- linked-PE replay; complete 7-byte public primary-TU PDB contribution and all 1 reviewed fields; zero byte differences.
@@ -730,6 +732,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00436580,SpRet0_436580,3,exact,100.00,SpRet0_436580,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
 0x00436590,SpRet0_436590,3,exact,100.00,SpRet0_436590,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
 0x004365A0,SpPauseMgr::PauseBothChains,35,exact,100.00,SpPauseMgr_PauseBothChains,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
+0x004365D0,LwbPauseOrReplay::~LwbPauseOrReplay,214,exact,100.00,lwb-pause-replay-dtor,compare-linked-function.py --unit lwb-pause-replay-dtor
 0x00436890,th128::AsDrawNameEntry,375,exact,100.00,as-draw-name-entry,Exact VC10 /GL linked-PE match via compare-linked-function.py.
 0x00439E90,SpArrayD4::Push90,20,exact,100.00,SpArrayD4_Push90,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
 0x00439ED0,SpSoundSlot::Resume,32,exact,100.00,SpSoundSlot_Resume,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
@@ -838,6 +841,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00445160,TaScoreMgrExact::SetAllClearFlags,35,exact,100.00,TaScoreMgrExact_SetAllClearFlags,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x00445190,TaHelpMgr::SetFloat12C,21,exact,100.00,TaHelpMgr_SetFloat12C,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x004451B0,TaTitleMgrExact::TaTitleMgrExact,201,exact,100.00,TaTitleMgrExact_ctor,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x00445280,LwbTitleBootWait,167,exact,100.00,lwb-title-boot-wait,compare-linked-function.py --unit lwb-title-boot-wait
 0x00445330,CbeInit445330,278,exact,100.00,cbe-init-445330,Exact linked VC10 /GL /Ob1 /Oy- match in CleanBatchE
 0x00445730,TaTitleMgrExact::DestroyGlobal,28,exact,100.00,TaTitleMgrExact_DestroyGlobal,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x00445750,TaTitleMgrExact::DestroySelf,18,exact,100.00,TaTitleMgrExact_DestroySelf,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
@@ -992,6 +996,7 @@ address,name,size,status,match_percent,unit,evidence
 0x004566A0,LsFade44::LsFade44,23,exact,100.00,LsFade44_ctor,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
 0x004566C0,LsClearAndPresentTwice,157,exact,100.00,LsClearAndPresentTwice,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
 0x00456D90,th128::Zc2Fade::OnCalc,193,exact,100.00,zc2-fade-on-calc,Exact VC10 /GL linked-PE match via compare-linked-function.py.
+0x004574F0,LwbSimpleChainOwner::~LwbSimpleChainOwner,166,exact,100.00,lwb-simple-chain-dtor,compare-linked-function.py --unit lwb-simple-chain-dtor
 0x004575C0,th128::SaNoOp4575C0,1,exact,100.00,SaNoOp4575C0,Cold-replayed VC10 LTCG match via SoundAnmHelpersProbe
 0x004575D0,th128::SaInitSoundThread,69,exact,100.00,SaInitSoundThread,Cold-replayed VC10 LTCG match via SoundAnmHelpersProbe
 0x00457620,th128::SaRequestSoundStop,13,exact,100.00,SaRequestSoundStop,Cold-replayed VC10 LTCG match via SoundAnmHelpersProbe

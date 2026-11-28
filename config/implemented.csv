@@ -851,7 +851,6 @@ HelpInf::LoadPageWorker
 HelpInf::LoadResourcesWorker
 HelpInf::OnDraw
 HelpInf::OnTick
-HelpInf::Shutdown
 HelpInf::Update
 Il4B8934::AddField84
 IlAddPowerClamped
@@ -1021,6 +1020,11 @@ LsZero0Twice::ZeroTwice
 LsZeroSurfacePixels
 LwaCardInf::Shutdown
 LwaLaserMgr::~LwaLaserMgr
+LwbHelpInf::Shutdown
+LwbIceObj::Shutdown
+LwbPauseOrReplay::~LwbPauseOrReplay
+LwbSimpleChainOwner::~LwbSimpleChainOwner
+LwbTitleBootWait
 MapJoyButtonBit
 MapJoyButtonByte
 MenuCursor::Move

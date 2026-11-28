@@ -256,6 +256,7 @@ CardEffectSub68::CardEffectSub68,0x0040E800,function
 CardNoOp40E810,0x0040E810,function
 CbeInit40e820,0x0040E820,function
 CardEffectMgrMini::EnableChainElems,0x0040E910,function
+LwbIceObj::Shutdown,0x0040E930,function
 th128::AsDrawFreezeHud,0x0040FEB0,function
 EffClear0A::Clear,0x00410470,function
 CbjCountIceBits,0x00410960,function
@@ -601,7 +602,7 @@ IlHelpMgr::IlHelpMgr,0x00427910,function
 HelpInf::LoadResourcesWorker,0x00427960,function
 HelpInf::LoadPageWorker,0x004279C0,function
 HelpInf::Initialize,0x00427A10,function
-HelpInf::Shutdown,0x00427B20,function
+LwbHelpInf::Shutdown,0x00427B20,function
 HelpInf::Create,0x00427C00,function
 HelpInf::Destroy,0x00427CB0,function
 HelpInf::Update,0x00427CD0,function
@@ -752,6 +753,7 @@ CbbReplayMenu::CbbReplayMenu,0x00436400,function
 SpRet0_436580,0x00436580,function
 SpRet0_436590,0x00436590,function
 SpPauseMgr::PauseBothChains,0x004365A0,function
+LwbPauseOrReplay::~LwbPauseOrReplay,0x004365D0,function
 th128::AsDrawNameEntry,0x00436890,function
 SpArrayD4::Push90,0x00439E90,function
 SpSoundSlot::Resume,0x00439ED0,function
@@ -860,6 +862,7 @@ TaScoreMgrExact::GetTable660,0x00445140,function
 TaScoreMgrExact::SetAllClearFlags,0x00445160,function
 TaHelpMgr::SetFloat12C,0x00445190,function
 TaTitleMgrExact::TaTitleMgrExact,0x004451B0,function
+LwbTitleBootWait,0x00445280,function
 CbeInit445330,0x00445330,function
 TaTitleMgrExact::DestroyGlobal,0x00445730,function
 TaTitleMgrExact::DestroySelf,0x00445750,function
@@ -1029,6 +1032,7 @@ LsObj0C::GetAddr0C,0x00456690,function
 LsFade44::LsFade44,0x004566A0,function
 LsClearAndPresentTwice,0x004566C0,function
 th128::Zc2Fade::OnCalc,0x00456D90,function
+LwbSimpleChainOwner::~LwbSimpleChainOwner,0x004574F0,function
 th128::SaNoOp4575C0,0x004575C0,function
 th128::SaInitSoundThread,0x004575D0,function
 th128::SaRequestSoundStop,0x00457620,function
