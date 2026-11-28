@@ -14,7 +14,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x004015E0,0x004015ED,reviewed,high,ascii-on-draw2-boundary,target-exact
 0x004015F0,0x00401786,reviewed,high,ascii-create-text-boundary,"Complete 407-byte contiguous target extent, neighbors and references reviewed; no owned tables or external interior references; all 1 address fields declared."
 0x00401790,0x004017E4,reviewed,high,ascii-create-text-format-boundary,"Complete 85-byte contiguous target extent, neighbors and references reviewed; no owned tables or external interior references; all 4 address fields declared."
-0x004017F0,0x004018FD,reviewed,high,bdesc-exact,start padding; refs callx3; descent body 0x004017F0..0x004018FD (270 bytes) ends with ret; then padding-then-start 0x00401900
+0x004017F0,0x004018FD,reviewed,high,cbf-format-comma-boundary,Exact linked VC10 /GL /Ob1 /Oy- extent
 0x00401900,0x0040196B,reviewed,high,bdesc-exact,start padding; refs callx22; descent body 0x00401900..0x0040196B (108 bytes) ends with ret; then padding-then-start 0x00401970
 0x00401970,0x00401AC3,reviewed,high,bdesc-exact,start padding; refs callx4; descent body 0x00401970..0x00401AC3 (340 bytes) ends with ret; then padding-then-start 0x00401AD0
 0x00401AD0,0x004023C7,reviewed,high,bdesc-extent-correction,descent extends the inventory span by 92 bytes past 0x0040236B; state applies to the proposed extent. start padding; refs callx2; descent body 0x00401AD0..0x004023C7 (2296 bytes) ends with table; then padding-then-start 0x004023D0; tables 0x0040236C+44 0x00402398+48
@@ -104,7 +104,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x00404AC0,0x00404AC9,reviewed,high,bdesc-exact,start padding; refs immx1; descent body 0x00404AC0..0x00404AC9 (10 bytes) ends with ret; then padding-then-start 0x00404AD0
 0x00404AD0,0x00404AE3,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x00404AD0..0x00404AE3 (20 bytes) ends with ret; then padding-then-start 0x00404AF0; WEAK: no call, jump, pointer or vtable reference found"
 0x00404AF0,0x00405127,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00404AF0..0x00405127 (1592 bytes) ends with ret; then padding-then-start 0x00405130
-0x00405130,0x0040525A,reviewed,high,bdesc-exact,start padding; refs callx2; descent body 0x00405130..0x0040525A (299 bytes) ends with ret; then padding-then-start 0x00405260
+0x00405130,0x0040525A,reviewed,high,cbf-load-std-boundary,Exact linked VC10 /GL /Ob1 /Oy- extent
 0x00405260,0x004052F9,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00405260..0x004052F9 (154 bytes) ends with ret; then padding-then-start 0x00405300
 0x00405300,0x004055E7,reviewed,high,bdesc-exact,start padding; refs callx12; descent body 0x00405300..0x004055E7 (744 bytes) ends with ret; then padding-then-start 0x004055F0; 1 filler hole(s)
 0x004055F0,0x004061DF,reviewed,high,bdesc-extent-correction,descent extends the inventory span by 105 bytes past 0x00406176; state applies to the proposed extent. start padding; refs callx1; descent body 0x004055F0..0x004061DF (3056 bytes) ends with table; then adjacent-start 0x004061E0; tables 0x00406178+76 0x004061C4+28; 1 filler hole(s)

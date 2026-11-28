@@ -4,6 +4,7 @@ address,name,size,status,match_percent,unit,evidence
 0x004015E0,AsciiInfCore::OnDraw2,14,exact,100.00,ascii-on-draw2,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x004015F0,AsciiInf::CreateText,407,exact,100.00,ascii-create-text,"Pinned VC10 RTM /O2 /Ob1 /Oy- /GL; current 40-source cold context with real CardInf, AsciiInf and ANM callees; complete 407-byte primary PDB contribution and all 1 address fields replayed with zero differences; .analysis/card-callbacks-ascii-results.json."
 0x00401790,AsciiInf::CreateTextF,85,exact,100.00,ascii-create-text-format,"Pinned VC10 RTM /O2 /Ob1 /Oy- /GL; current 40-source cold context with real CardInf, AsciiInf and ANM callees; complete 85-byte primary PDB contribution and all 4 address fields replayed with zero differences; .analysis/card-callbacks-ascii-results.json."
+0x004017F0,CbfFormatCommaNumber,270,exact,100.00,cbf-format-comma,Exact linked VC10 /GL /Ob1 /Oy- match in CleanBatchF
 0x004023D0,AsciiMeasureStringWidth,440,exact,100.00,ascii-measure-string-width,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x00402600,AsciiInfCore::DrawLayer2,14,exact,100.00,ascii-draw-layer2,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x00402780,AsciiInfCore::DrawIntNow,267,exact,100.00,ascii-draw-int-now,exact VC10 /GL linked-PE match via replay-exact-units.py
@@ -69,6 +70,7 @@ address,name,size,status,match_percent,unit,evidence
 0x004033C0,StageFlag7C::GetBit0,7,exact,100.00,stage-flag-7c-get-bit0,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x00403490,StageFlag80::ClearBit0,8,exact,100.00,stage-flag-80-clear-bit0,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x00403970,StageBgMini::Destroy,21,exact,100.00,stage-bg-destroy,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00405130,CbfLoadStd,299,exact,100.00,cbf-load-std,Exact linked VC10 /GL /Ob1 /Oy- match in CleanBatchF
 0x00406260,StageBgStateMini::SetVecPair,65,exact,100.00,stage-bg-set-vec-pair,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x004062B0,StageBgStateMini::SetFlag2910,11,exact,100.00,stage-bg-set-flag-2910,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x00406560,StageBgStateMini::StartFadeOut60,103,exact,100.00,stage-bg-start-fade-out-60,exact VC10 /GL linked-PE match via replay-exact-units.py

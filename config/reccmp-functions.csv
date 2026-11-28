@@ -4,6 +4,7 @@ AsciiEntry::ClearFlag0,0x004010A0,function
 AsciiInfCore::OnDraw2,0x004015E0,function
 AsciiInf::CreateText,0x004015F0,function
 AsciiInf::CreateTextF,0x00401790,function
+CbfFormatCommaNumber,0x004017F0,function
 AsciiMeasureStringWidth,0x004023D0,function
 AsciiInfCore::DrawLayer2,0x00402600,function
 AsciiInfCore::DrawIntNow,0x00402780,function
@@ -70,6 +71,7 @@ StageBgMini::Cleanup,0x004032C0,function
 StageFlag7C::GetBit0,0x004033C0,function
 StageFlag80::ClearBit0,0x00403490,function
 StageBgMini::Destroy,0x00403970,function
+CbfLoadStd,0x00405130,function
 StageBgStateMini::SetVecPair,0x00406260,function
 StageBgStateMini::SetFlag2910,0x004062B0,function
 StageBgStateMini::StartFadeOut60,0x00406560,function

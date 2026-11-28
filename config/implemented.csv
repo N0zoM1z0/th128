@@ -433,6 +433,8 @@ CbeInit40e820
 CbeInit411e50
 CbeInit429ea0
 CbeInit445330
+CbfFormatCommaNumber
+CbfLoadStd
 Chain::CreateAndRegisterCalc
 Chain::CreateAndRegisterCalcImmediate
 Chain::CreateAndRegisterDraw
