@@ -658,7 +658,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x00415A20,0x00415A58,reviewed,high,bnew-referenced,found by padded-aligned; start padding; refs immx1; descent body 0x00415A20..0x00415A58 (57 bytes) ends with ret; then padding-then-start 0x00415A60
 0x00415A60,0x00415A65,reviewed,high,em-ret1-415a60-boundary,Verified exact VC10 /GL linked-pe extent
 0x00415A70,0x00415EB2,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00415A70..0x00415EB2 (1091 bytes) ends with ret; then padding-then-start 0x00415EC0
-0x00415EC0,0x00416017,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00415EC0..0x00416017 (344 bytes) ends with ret; then padding-then-start 0x00416020; 1 filler hole(s)
+0x00415EC0,0x00416017,reviewed,high,cbn-enemy-dtor-boundary,0x00415EC0..0x00416018
 0x00416020,0x0041602A,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00416020..0x0041602A (11 bytes) ends with jmp; then padding-then-start 0x00416030; WEAK: no call, jump, pointer or vtable reference found"
 0x00416030,0x0041615B,reviewed,high,bdesc-exact,start padding; refs callx7; descent body 0x00416030..0x0041615B (300 bytes) ends with ret; then padding-then-start 0x00416160
 0x00416160,0x00417360,reviewed,high,bdesc-exact,"start padding; refs callx2, jmpx1; descent body 0x00416160..0x00417360 (4609 bytes) ends with ret; then padding-then-start 0x00417370; data dwords equal to interior addresses sit in text/float data (chance values): 0x004AEF70->0x00416F66 0x004AEF44->0x0041726F"

@@ -418,6 +418,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00415810,EmSub1098B::~EmSub1098B,36,exact,100.00,em-sub1098b-dtor,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
 0x00415A10,EmRet1_415A10,6,exact,100.00,em-ret1-415a10,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
 0x00415A60,EmRet1_415A60,6,exact,100.00,em-ret1-415a60,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
+0x00415EC0,CbnEnemy::~CbnEnemy,344,exact,100.00,cbn-enemy-dtor,compare-linked-function.py --unit cbn-enemy-dtor
 0x00417C30,EmEnemyMgr::DamageInCircle,232,exact,100.00,em-enemy-mgr-damage-circle,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
 0x00417D20,EmEnemyMgr::DamageInColumn,203,exact,100.00,em-enemy-mgr-damage-column,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
 0x00417DF0,th128::Zc10KillEnemiesInBox,256,exact,100.00,zc10-kill-enemies-in-box,Exact VC10 LTCG match via ZeroCallMedium10Probe@56

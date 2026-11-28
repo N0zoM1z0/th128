@@ -446,6 +446,7 @@ CbkGui::Draw
 CblScoreTable::GetStageValue
 CblSwapKey
 CbmSumU32
+CbnEnemy::~CbnEnemy
 Chain::CreateAndRegisterCalc
 Chain::CreateAndRegisterCalcImmediate
 Chain::CreateAndRegisterDraw

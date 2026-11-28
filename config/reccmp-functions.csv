@@ -427,6 +427,7 @@ EmSub1098B::DestroySelf,0x004157E0,function
 EmSub1098B::~EmSub1098B,0x00415810,function
 EmRet1_415A10,0x00415A10,function
 EmRet1_415A60,0x00415A60,function
+CbnEnemy::~CbnEnemy,0x00415EC0,function
 EmEnemyMgr::DamageInCircle,0x00417C30,function
 EmEnemyMgr::DamageInColumn,0x00417D20,function
 th128::Zc10KillEnemiesInBox,0x00417DF0,function
