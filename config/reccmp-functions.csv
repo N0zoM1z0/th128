@@ -1,5 +1,6 @@
 name,address,type
 GetGameManagerField4,0x00401000,function
+LfcAbilityMgr::LfcAbilityMgr,0x00401010,function
 AsciiEntry::ClearFlag0,0x004010A0,function
 EbcMainMgr::~EbcMainMgr,0x004012A0,function
 AsciiInfCore::OnDraw2,0x004015E0,function
@@ -718,6 +719,8 @@ LmPauseAllChains,0x004335D0,function
 LmObj558::Set558,0x00433600,function
 LmObj558::GetFlag200Bit4,0x00433610,function
 LmNoOp433620,0x00433620,function
+LfcPauseDrawTargetA,0x00433850,function
+LfcPauseDrawTargetB,0x004338F0,function
 SpAnmVmDel::DeleteSelf,0x00433EA0,function
 MpwRegisterSupervisorChains,0x00433F80,function
 WriteSupervisorScreenshot,0x00434270,function
@@ -1432,6 +1435,7 @@ EclVm::GetCurInstr,0x004703D0,function
 EclVm::SetTime,0x004703E0,function
 SptResourceInf::Load,0x004703F0,function
 SptResourceInf::FindSub,0x00470610,function
+LfcSptResourceInf::CreateVm,0x004706A0,function
 EclVm::BindSub,0x00470730,function
 EclVm::ResetToSub,0x00470750,function
 th128::EclRunStack::Push,0x00470780,function

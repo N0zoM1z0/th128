@@ -1,5 +1,6 @@
 address,name,size,status,match_percent,unit,evidence
 0x00401000,GetGameManagerField4,9,exact,100.00,ascii-get-game-manager-field4,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00401010,LfcAbilityMgr::LfcAbilityMgr,140,exact,100.00,low-fpu-wave-c-ability-mgr-ctor,linked-pe cold replay exact match (140B)
 0x004010A0,AsciiEntry::ClearFlag0,10,exact,100.00,ascii-entry-clear-flag0,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x004012A0,EbcMainMgr::~EbcMainMgr,583,exact,100.00,ebc-main-mgr-dtor,Exact linked VC10 /GL /Ob1 /Oy- /EHsc match in EhBatchC
 0x004015E0,AsciiInfCore::OnDraw2,14,exact,100.00,ascii-on-draw2,exact VC10 /GL linked-PE match via replay-exact-units.py
@@ -698,6 +699,8 @@ address,name,size,status,match_percent,unit,evidence
 0x00433600,LmObj558::Set558,7,exact,100.00,LmObj558_Set558,Cold-replayed VC10 LTCG match via LaserMotherHelpersProbe
 0x00433610,LmObj558::GetFlag200Bit4,13,exact,100.00,LmObj558_GetFlag200Bit4,Cold-replayed VC10 LTCG match via LaserMotherHelpersProbe
 0x00433620,LmNoOp433620,1,exact,100.00,LmNoOp433620,Cold-replayed VC10 LTCG match via LaserMotherHelpersProbe
+0x00433850,LfcPauseDrawTargetA,159,exact,100.00,low-fpu-wave-c-pause-draw-target-a,linked-pe cold replay exact match (159B)
+0x004338F0,LfcPauseDrawTargetB,159,exact,100.00,low-fpu-wave-c-pause-draw-target-b,linked-pe cold replay exact match (159B)
 0x00433EA0,SpAnmVmDel::DeleteSelf,41,exact,100.00,SpAnmVmDel_DeleteSelf,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
 0x00433F80,MpwRegisterSupervisorChains,742,exact,100.00,mpw_register_supervisor_chains,build/match-linked/MotherPauseWave/mpw_register_supervisor_chains.json
 0x00434270,WriteSupervisorScreenshot,352,exact,100.00,supervisor-write-screenshot,Cold pinned VC10 RTM /GL /Ob1 /Oy- linked-PE replay; complete 352-byte primary-TU PDB contribution and all 34 reviewed absolute/relative fields reproduce with zero byte differences. The real capture/writer/FileSystem bodies remain in the linked context.
@@ -1342,6 +1345,7 @@ address,name,size,status,match_percent,unit,evidence
 0x004703D0,EclVm::GetCurInstr,7,exact,100.00,ecl-vm-get-cur-instr,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x004703E0,EclVm::SetTime,15,exact,100.00,ecl-vm-set-time,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x00470610,SptResourceInf::FindSub,133,exact,100.00,spt-resource-find-sub,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x004706A0,LfcSptResourceInf::CreateVm,130,exact,100.00,low-fpu-wave-c-spt-create-vm,linked-pe cold replay exact match (130B)
 0x00470730,EclVm::BindSub,28,exact,100.00,ecl-vm-bind-sub,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x00470750,EclVm::ResetToSub,39,exact,100.00,ecl-vm-reset-to-sub,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x004707D0,EclStack::Pop,83,exact,100.00,ecl-stack-pop,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.

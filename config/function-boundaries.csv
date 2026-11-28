@@ -1,6 +1,6 @@
 address,span_end,state,confidence,evidence_id,notes
 0x00401000,0x00401008,reviewed,high,ascii-get-game-manager-field4-boundary,target-exact
-0x00401010,0x0040109B,reviewed,high,bdesc-exact,start padding; refs callx2; descent body 0x00401010..0x0040109B (140 bytes) ends with ret; then padding-then-start 0x004010A0
+0x00401010,0x0040109B,reviewed,high,low-fpu-wave-c-ability-mgr-ctor-boundary,0x00401010:140
 0x004010A0,0x004010A9,reviewed,high,ascii-entry-clear-flag0-boundary,target-exact
 0x004010B0,0x00401291,reviewed,high,bdesc-exact,start padding; refs callx2; descent body 0x004010B0..0x00401291 (482 bytes) ends with ret; then padding-then-start 0x004012A0
 0x004012A0,0x004014E6,reviewed,high,ebc-main-mgr-dtor-boundary,Exact linked VC10 /GL /Ob1 /Oy- /EHsc extent
@@ -1142,8 +1142,8 @@ address,span_end,state,confidence,evidence_id,notes
 0x00433630,0x00433646,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00433630..0x00433646 (23 bytes) ends with ret; then padding-then-start 0x00433650; WEAK: no call, jump, pointer or vtable reference found"
 0x00433650,0x004336F8,reviewed,high,bdesc-exact,start padding; refs immx1; descent body 0x00433650..0x004336F8 (169 bytes) ends with ret; then padding-then-start 0x00433700
 0x00433700,0x00433848,reviewed,high,bdesc-exact,start padding; refs immx1; descent body 0x00433700..0x00433848 (329 bytes) ends with ret; then padding-then-start 0x00433850
-0x00433850,0x004338EE,reviewed,high,bdesc-exact,start padding; refs immx1; descent body 0x00433850..0x004338EE (159 bytes) ends with ret; then padding-then-start 0x004338F0
-0x004338F0,0x0043398E,reviewed,high,bdesc-exact,start padding; refs immx1; descent body 0x004338F0..0x0043398E (159 bytes) ends with ret; then padding-then-start 0x00433990
+0x00433850,0x004338EE,reviewed,high,low-fpu-wave-c-pause-draw-target-a-boundary,0x00433850:159
+0x004338F0,0x0043398E,reviewed,high,low-fpu-wave-c-pause-draw-target-b-boundary,0x004338f0:159
 0x00433990,0x004339E9,reviewed,high,bnew-referenced,found by padded-aligned; start padding; refs immx1; descent body 0x00433990..0x004339E9 (90 bytes) ends with ret; then padding-then-start 0x004339F0
 0x004339F0,0x00433A10,reviewed,high,bnew-referenced,found by padded-aligned; start padding; refs immx1; descent body 0x004339F0..0x00433A10 (33 bytes) ends with ret; then padding-then-start 0x00433A20
 0x00433A20,0x00433A7F,reviewed,high,bnew-referenced,found by padded-aligned; start padding; refs immx1; descent body 0x00433A20..0x00433A7F (96 bytes) ends with ret; then adjacent-start 0x00433A80
@@ -2279,7 +2279,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x004703E0,0x004703EE,reviewed,high,ecl-vm-set-time-boundary,Attested 15-byte span 0x004703E0..0x004703EE before 0xCC padding.
 0x004703F0,0x00470609,reviewed,high,spt-resource-load-boundary,Complete 538-byte body between padding; slot 0 of SptResourceInf and EclResourceInf.
 0x00470610,0x00470694,reviewed,high,spt-resource-find-sub-boundary,Attested 133-byte span 0x00470610..0x00470694 before 0xCC padding.
-0x004706A0,0x00470721,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x004706A0..0x00470721 (130 bytes) ends with ret; then padding-then-start 0x00470730
+0x004706A0,0x00470721,reviewed,high,low-fpu-wave-c-spt-create-vm-boundary,0x004706a0:130
 0x00470730,0x0047074B,reviewed,high,ecl-vm-bind-sub-boundary,Attested 28-byte span 0x00470730..0x0047074B before 0xCC padding.
 0x00470750,0x00470776,reviewed,high,ecl-vm-reset-to-sub-boundary,Attested 39-byte span 0x00470750..0x00470776 before 0xCC padding.
 0x00470780,0x004707C9,reviewed,high,ecl-run-stack-push-boundary,74B ECL typed stack push

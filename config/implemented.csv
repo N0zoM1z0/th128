@@ -947,6 +947,10 @@ LfaEclVm::Reset
 LfbCancelAllLasers
 LfbLaserBase::LfbLaserBase
 LfbScreenFade::OnCalc
+LfcAbilityMgr::LfcAbilityMgr
+LfcPauseDrawTargetA
+LfcPauseDrawTargetB
+LfcSptResourceInf::CreateVm
 LineEquationFromPoints
 LmCopyCurveNode
 LmGetFloat88
