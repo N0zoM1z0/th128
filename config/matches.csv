@@ -699,6 +699,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00436280,SpFpsCounter::GetSlowdownPct,41,exact,100.00,SpFpsCounter_GetSlowdownPct,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
 0x004362B0,th128::Zc9InsertScoreEntry,318,exact,100.00,zc9-insert-score-entry,Exact VC10 LTCG match via ZeroCallMedium9Probe@48
 0x004363F0,SpHelpMgr::Get128,12,exact,100.00,SpHelpMgr_Get128,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
+0x00436400,CbbReplayMenu::CbbReplayMenu,104,exact,100.00,cbb-replay-menu-ctor,Cold VC10 LTCG /Ob1 /Oy- linked-PE exact match via CleanBatchBProbe (0 diffs)
 0x00436580,SpRet0_436580,3,exact,100.00,SpRet0_436580,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
 0x00436590,SpRet0_436590,3,exact,100.00,SpRet0_436590,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
 0x004365A0,SpPauseMgr::PauseBothChains,35,exact,100.00,SpPauseMgr_PauseBothChains,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
@@ -723,6 +724,7 @@ address,name,size,status,match_percent,unit,evidence
 0x0043AF40,SpPlayer::DestroySelf,18,exact,100.00,SpPlayer_DestroySelf,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
 0x0043AF60,SpPlayer::DestroyGlobal,28,exact,100.00,SpPlayer_DestroyGlobal,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
 0x0043B620,SpPlayer::SetFlag1AndZeroF64,22,exact,100.00,SpPlayer_SetFlag1AndZeroF64,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
+0x0043C280,CbbStageLoader::Load,162,exact,100.00,cbb-stage-load,Cold VC10 LTCG /Ob1 /Oy- linked-PE exact match via CleanBatchBProbe (0 diffs)
 0x0043E140,PrIncGrazeClamped,19,exact,100.00,PrIncGrazeClamped,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
 0x0043E180,PrAngleDiffA,99,exact,100.00,PrAngleDiffA,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
 0x0043E260,PrGet4B4CC8Div4B4D38,13,exact,100.00,PrGet4B4CC8Div4B4D38,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
@@ -779,6 +781,7 @@ address,name,size,status,match_percent,unit,evidence
 0x004427F0,PrStageEntry24::~PrStageEntry24,37,exact,100.00,PrStageEntry24_dtor,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
 0x00442880,PrScoreFile::InitScoreFile,164,exact,100.00,PrScoreFile_InitScoreFile,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
 0x00442930,th128::Zc4InitRouteScores,674,exact,100.00,zc4-init-route-scores,exact
+0x004433A0,CbbScoreMgr::CbbScoreMgr,142,exact,100.00,cbb-score-mgr-ctor,Cold VC10 LTCG /Ob1 /Oy- linked-PE exact match via CleanBatchBProbe (0 diffs)
 0x004440F0,TaAnmVm::SetFloat60Flag3,20,exact,100.00,TaAnmVm_SetFloat60Flag3,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x00444110,TaAnmVm::SetFloat468,16,exact,100.00,TaAnmVm_SetFloat468,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x00444120,TaAnmVm::SetFloat464,16,exact,100.00,TaAnmVm_SetFloat464,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
@@ -1206,6 +1209,7 @@ address,name,size,status,match_percent,unit,evidence
 0x0046DB60,CWaveFileView::OpenFromMemory,46,exact,100.00,cwave-file-open-from-memory,Cold pinned VC10 /GL linked-PE replay; complete 46-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046DB90,CWaveFileView::GetSize,4,exact,100.00,cwave-file-get-size,Cold pinned VC10 /GL linked-PE replay; complete 4-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046DBA0,CWaveFileStream::ResetFile,236,exact,100.00,ds-wave-file-reset-file,"Cold VC10 /GL linked-PE replay (236B, 6 fields, 0 diffs)."
+0x0046DC90,CbbWaveFile::Read,193,exact,100.00,cbb-wave-read,Cold VC10 LTCG /Ob1 /Oy- linked-PE exact match via CleanBatchBProbe (0 diffs)
 0x0046DD60,CWaveFileView::Close,32,exact,100.00,cwave-file-close,Cold pinned VC10 /GL linked-PE replay; complete 32-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046DD80,CWaveFileView::GetSavedPos,7,exact,100.00,cwave-file-get-saved-pos,Cold pinned VC10 /GL linked-PE replay; complete 7-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046DD90,CSoundStream::ReopenTrack,19,exact,100.00,ds-sound-reopen-track,"Cold VC10 /GL linked-PE replay (19B, 1 field, 0 diffs)."

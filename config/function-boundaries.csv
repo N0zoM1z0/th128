@@ -1226,7 +1226,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x00436280,0x004362A8,reviewed,high,SpFpsCounter_GetSlowdownPct-boundary,Exact VC10 LTCG match via SupervisorPauseHelpersProbe
 0x004362B0,0x004363ED,reviewed,high,zc9-insert-score-entry-boundary,0x004362B0..0x004363ED (318 bytes)
 0x004363F0,0x004363FB,reviewed,high,SpHelpMgr_Get128-boundary,Exact VC10 LTCG match via SupervisorPauseHelpersProbe
-0x00436400,0x00436467,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00436400..0x00436467 (104 bytes) ends with ret; then padding-then-start 0x00436470
+0x00436400,0x00436467,reviewed,high,cbb-replay-menu-ctor-boundary,"Direct hash-attested target extent, neighbor and reference review."
 0x00436470,0x0043657D,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00436470..0x0043657D (270 bytes) ends with ret; then padding-then-start 0x00436580
 0x00436580,0x00436582,reviewed,high,SpRet0_436580-boundary,Exact VC10 LTCG match via SupervisorPauseHelpersProbe
 0x00436590,0x00436592,reviewed,high,SpRet0_436590-boundary,Exact VC10 LTCG match via SupervisorPauseHelpersProbe
@@ -1299,7 +1299,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x0043C1D0,0x0043C259,reviewed,high,bdesc-exact,start after-table; refs callx1; descent body 0x0043C1D0..0x0043C259 (138 bytes) ends with ret; then padding-then-start 0x0043C260
 0x0043C260,0x0043C266,reviewed,high,bnew-referenced,found by padded-aligned; start padding; refs immx1; descent body 0x0043C260..0x0043C266 (7 bytes) ends with ret; then padding-then-start 0x0043C270
 0x0043C270,0x0043C279,reviewed,high,bdesc-exact,start padding; refs immx1; descent body 0x0043C270..0x0043C279 (10 bytes) ends with ret; then padding-then-start 0x0043C280
-0x0043C280,0x0043C321,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x0043C280..0x0043C321 (162 bytes) ends with ret; then padding-then-start 0x0043C330; 2 filler hole(s)
+0x0043C280,0x0043C321,reviewed,high,cbb-stage-load-boundary,"Direct hash-attested target extent, neighbor and reference review."
 0x0043C330,0x0043C396,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x0043C330..0x0043C396 (103 bytes) ends with ret; then padding-then-start 0x0043C3A0; WEAK: no call, jump, pointer or vtable reference found"
 0x0043C3A0,0x0043C40B,reviewed,high,bdesc-exact,start padding; refs callx16; descent body 0x0043C3A0..0x0043C40B (108 bytes) ends with ret; then padding-then-start 0x0043C410
 0x0043C410,0x0043C56D,reviewed,high,bdesc-exact,start padding; refs callx4; descent body 0x0043C410..0x0043C56D (350 bytes) ends with ret; then padding-then-start 0x0043C570
@@ -1448,7 +1448,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x00442E80,0x00443039,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00442E80..0x00443039 (442 bytes) ends with ret; then padding-then-start 0x00443040
 0x00443040,0x00443386,reviewed,high,bdesc-exact,start padding; refs callx2; descent body 0x00443040..0x00443386 (839 bytes) ends with ret; then padding-then-start 0x00443390; 1 filler hole(s)
 0x00443390,0x00443390,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00443390..0x00443390 (1 bytes) ends with ret; then padding-then-start 0x004433A0; WEAK: no call, jump, pointer or vtable reference found"
-0x004433A0,0x0044342D,reviewed,high,bnew-referenced,found by padded-aligned; start padding; refs callx1; descent body 0x004433A0..0x0044342D (142 bytes) ends with ret; then padding-then-start 0x00443430
+0x004433A0,0x0044342D,reviewed,high,cbb-score-mgr-ctor-boundary,"Direct hash-attested target extent, neighbor and reference review."
 0x00443430,0x004434E3,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00443430..0x004434E3 (180 bytes) ends with ret; then padding-then-start 0x004434F0
 0x004434F0,0x004435F2,reviewed,high,bdesc-exact,start padding; refs callx3; descent body 0x004434F0..0x004435F2 (259 bytes) ends with ret; then padding-then-start 0x00443600
 0x00443600,0x00443643,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00443600..0x00443643 (68 bytes) ends with ret; then padding-then-start 0x00443650; WEAK: no call, jump, pointer or vtable reference found"
@@ -2245,7 +2245,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x0046DB60,0x0046DB8D,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x0046DB60..0x0046DB8D (46 bytes) ends with ret; then padding-then-start 0x0046DB90; WEAK: no call, jump, pointer or vtable reference found"
 0x0046DB90,0x0046DB93,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x0046DB90..0x0046DB93 (4 bytes) ends with ret; then padding-then-start 0x0046DBA0; WEAK: no call, jump, pointer or vtable reference found"
 0x0046DBA0,0x0046DC8B,reviewed,high,ds-wave-file-reset-file-boundary,Contiguous 236B method ending in RET before INT3 padding.
-0x0046DC90,0x0046DD50,reviewed,high,bdesc-exact,start padding; refs callx5; descent body 0x0046DC90..0x0046DD50 (193 bytes) ends with ret; then padding-then-start 0x0046DD60
+0x0046DC90,0x0046DD50,reviewed,high,cbb-wave-read-boundary,"Direct hash-attested target extent, neighbor and reference review."
 0x0046DD60,0x0046DD7F,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x0046DD60..0x0046DD7F (32 bytes) ends with ret; then adjacent-start 0x0046DD80; WEAK: no call, jump, pointer or vtable reference found"
 0x0046DD80,0x0046DD86,reviewed,medium,bnew-unreferenced-delimited,"found by after-terminator-aligned; start after-terminator; refs none; descent body 0x0046DD80..0x0046DD86 (7 bytes) ends with ret; then padding-then-start 0x0046DD90; WEAK: no call, jump, pointer or vtable reference found"
 0x0046DD90,0x0046DDA2,reviewed,high,ds-sound-reopen-track-boundary,Contiguous 19B wrapper ending in RET 4 before INT3 padding.

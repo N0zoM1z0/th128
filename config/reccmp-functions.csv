@@ -722,6 +722,7 @@ SpGuiMgr::Get5A1C,0x00436240,function
 SpFpsCounter::GetSlowdownPct,0x00436280,function
 th128::Zc9InsertScoreEntry,0x004362B0,function
 SpHelpMgr::Get128,0x004363F0,function
+CbbReplayMenu::CbbReplayMenu,0x00436400,function
 SpRet0_436580,0x00436580,function
 SpRet0_436590,0x00436590,function
 SpPauseMgr::PauseBothChains,0x004365A0,function
@@ -746,6 +747,7 @@ SpRet0_43ACC0,0x0043ACC0,function
 SpPlayer::DestroySelf,0x0043AF40,function
 SpPlayer::DestroyGlobal,0x0043AF60,function
 SpPlayer::SetFlag1AndZeroF64,0x0043B620,function
+CbbStageLoader::Load,0x0043C280,function
 PrIncGrazeClamped,0x0043E140,function
 PrAngleDiffA,0x0043E180,function
 PrGet4B4CC8Div4B4D38,0x0043E260,function
@@ -802,6 +804,7 @@ ZcaReplaySlot::ZcaReplaySlot,0x004427B0,function
 PrStageEntry24::~PrStageEntry24,0x004427F0,function
 PrScoreFile::InitScoreFile,0x00442880,function
 th128::Zc4InitRouteScores,0x00442930,function
+CbbScoreMgr::CbbScoreMgr,0x004433A0,function
 TaAnmVm::SetFloat60Flag3,0x004440F0,function
 TaAnmVm::SetFloat468,0x00444110,function
 TaAnmVm::SetFloat464,0x00444120,function
@@ -1296,6 +1299,7 @@ CWaveFileStream::OpenFile,0x0046D9E0,function
 CWaveFileView::OpenFromMemory,0x0046DB60,function
 CWaveFileView::GetSize,0x0046DB90,function
 CWaveFileStream::ResetFile,0x0046DBA0,function
+CbbWaveFile::Read,0x0046DC90,function
 CWaveFileView::Close,0x0046DD60,function
 CWaveFileView::GetSavedPos,0x0046DD80,function
 CSoundStream::ReopenTrack,0x0046DD90,function

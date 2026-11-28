@@ -414,6 +414,10 @@ CardVec2::Set
 CardVec2::operator*
 CardVec3::SubInPlace
 CardZeroCheck::IsZero
+CbbReplayMenu::CbbReplayMenu
+CbbScoreMgr::CbbScoreMgr
+CbbStageLoader::Load
+CbbWaveFile::Read
 Chain::CreateAndRegisterCalc
 Chain::CreateAndRegisterCalcImmediate
 Chain::CreateAndRegisterDraw
