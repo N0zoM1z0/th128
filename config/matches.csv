@@ -839,6 +839,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00445750,TaTitleMgrExact::DestroySelf,18,exact,100.00,TaTitleMgrExact_DestroySelf,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x00447BA0,Tb1UpdateOptionsVolume,3712,exact,100.00,tb1-update-options-volume,linked-pe VC10 /GL exact 3712B
 0x00448D90,th128::Tc1UpdateDigitSprites,2394,exact,100.00,tc1-update-digit-sprites,exact linked VC10 /GL match in TwoCallBatch1 (2394B)
+0x004496F0,CblSwapKey,199,exact,100.00,cbl-swap-key,compare-linked-function.py --unit cbl-swap-key
 0x0044B3B0,TaRet1_44B3B0,6,exact,100.00,TaRet1_44B3B0,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x0044B3C0,TaRet1_44B3C0,6,exact,100.00,TaRet1_44B3C0,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x0044B3D0,TaRet1_44B3D0,6,exact,100.00,TaRet1_44B3D0,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
@@ -846,6 +847,7 @@ address,name,size,status,match_percent,unit,evidence
 0x0044F3F0,TaObj04::GetField04,4,exact,100.00,TaObj04_GetField04,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x0044F400,TaObj04::IsPos0,8,exact,100.00,TaObj04_IsPos0,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x0044F420,TaObjD4::ZeroD4,11,exact,100.00,TaObjD4_ZeroD4,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x0044F430,CblScoreTable::GetStageValue,156,exact,100.00,cbl-score-table-get-stage-value,compare-linked-function.py --unit cbl-score-table-get-stage-value
 0x0044F4D0,TaRouteStageToIndexSwitch,104,exact,100.00,TaRouteStageToIndexSwitch,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x0044F560,TaClearFlag4B4D50Bit4,8,exact,100.00,TaClearFlag4B4D50Bit4,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x0044F570,TaObj04::GetPlus7,6,exact,100.00,TaObj04_GetPlus7,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
