@@ -835,7 +835,9 @@ ZcaReplaySlot::ZcaReplaySlot,0x004427B0,function
 PrStageEntry24::~PrStageEntry24,0x004427F0,function
 PrScoreFile::InitScoreFile,0x00442880,function
 th128::Zc4InitRouteScores,0x00442930,function
+RswScoreFile::RswScoreFile,0x00442CB0,function
 EbaCreateScoreMgr,0x00442D90,function
+RswScoreFile::LoadAndParse,0x00442E80,function
 CbbScoreMgr::CbbScoreMgr,0x004433A0,function
 CbdReg443430,0x00443430,function
 EbcScoreMgr::~EbcScoreMgr,0x004434F0,function

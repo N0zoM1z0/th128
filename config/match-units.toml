@@ -24023,3 +24023,53 @@ linkages = [
   { offset = 143, type = "DIR32", symbol = "?g_LwbTitleSub@th128@@3PAULwbTitleSub@1@A", target = 0x004B8A9C },
   { offset = 156, type = "DIR32", symbol = "?g_LwbFlag59e8@th128@@3HA", target = 0x004D59E8 },
 ]
+
+[units.rsw-score-file-ctor]
+artifact_kind = "linked-pe"
+source = "src/ReplayScoreWave.cpp"
+inputs = ["src/ReplayScoreWave.hpp"]
+support_sources = ["probes/replay-score-wave-context.cpp"]
+output_dir = "build/match-linked/ReplayScoreWave"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-"]
+entry = "ReplayScoreWaveProbe@8"
+functions = ["RswScoreFile::RswScoreFile"]
+symbol = "??0RswScoreFile@th128@@QAE@XZ"
+target_address = 0x00442CB0
+size = 172
+linkages = [
+  { offset = 15, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+  { offset = 20, type = "DIR32", symbol = "?g_RswAppDataDir@th128@@3PADA", target = 0x004D3999 },
+  { offset = 25, type = "REL32", symbol = "__chdir", target = 0x00473906 },
+  { offset = 39, type = "DIR32", symbol = "??_C@_0P@EBJIEEJH@scoreth128?4dat?$AA@", target = 0x004A3BA4 },
+  { offset = 44, type = "REL32", symbol = "?RswLoadFile@th128@@YGPAXPBDPAKH@Z", target = 0x00469C40 },
+  { offset = 49, type = "DIR32", symbol = "?g_RswGameDir@th128@@3PADA", target = 0x004D4999 },
+  { offset = 56, type = "REL32", symbol = "__chdir", target = 0x00473906 },
+  { offset = 70, type = "REL32", symbol = "?Init@RswStatusBlock@th128@@QAEXXZ", target = 0x00442BE0 },
+  { offset = 81, type = "REL32", symbol = "?RswInitCardBlock@th128@@YAXPAURswCardBlock@1@@Z", target = 0x00442880 },
+  { offset = 120, type = "REL32", symbol = "?RswInitRouteBlock@th128@@YAXPAURswRouteBlock@1@@Z", target = 0x00442930 },
+  { offset = 160, type = "REL32", symbol = "?LoadAndParse@RswScoreFile@th128@@QAEHXZ", target = 0x00442E80 },
+]
+
+[units.rsw-score-file-load-and-parse]
+artifact_kind = "linked-pe"
+source = "src/ReplayScoreWave.cpp"
+inputs = ["src/ReplayScoreWave.hpp"]
+support_sources = ["probes/replay-score-wave-context.cpp"]
+output_dir = "build/match-linked/ReplayScoreWave"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-"]
+entry = "ReplayScoreWaveProbe@8"
+functions = ["RswScoreFile::LoadAndParse"]
+symbol = "?LoadAndParse@RswScoreFile@th128@@QAEHXZ"
+target_address = 0x00442E80
+size = 442
+linkages = [
+  { offset = 59, type = "REL32", symbol = "?RswDecryptBlocks@th128@@YGXPAEHEEHH@Z", target = 0x00469A00 },
+  { offset = 74, type = "REL32", symbol = "_malloc", target = 0x00472F6F },
+  { offset = 98, type = "REL32", symbol = "?RswDecompressLzss@th128@@YGXPAEH0H@Z", target = 0x00450860 },
+  { offset = 160, type = "REL32", symbol = "?Checksum@RswChunkHeader@th128@@QBEIH@Z", target = 0x00442820 },
+  { offset = 231, type = "REL32", symbol = "?Checksum@RswChunkHeader@th128@@QBEIH@Z", target = 0x00442820 },
+  { offset = 263, type = "REL32", symbol = "_memcpy", target = 0x00486FA0 },
+  { offset = 297, type = "REL32", symbol = "?Checksum@RswChunkHeader@th128@@QBEIH@Z", target = 0x00442820 },
+  { offset = 366, type = "REL32", symbol = "_free", target = 0x0047290C },
+  { offset = 382, type = "REL32", symbol = "_malloc", target = 0x00472F6F },
+]

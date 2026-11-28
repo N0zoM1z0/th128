@@ -814,7 +814,9 @@ address,name,size,status,match_percent,unit,evidence
 0x004427F0,PrStageEntry24::~PrStageEntry24,37,exact,100.00,PrStageEntry24_dtor,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
 0x00442880,PrScoreFile::InitScoreFile,164,exact,100.00,PrScoreFile_InitScoreFile,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
 0x00442930,th128::Zc4InitRouteScores,674,exact,100.00,zc4-init-route-scores,exact
+0x00442CB0,RswScoreFile::RswScoreFile,172,exact,100.00,rsw-score-file-ctor,build/match-linked/ReplayScoreWave/rsw-score-file-ctor.json
 0x00442D90,EbaCreateScoreMgr,95,exact,100.00,eba-create-score-mgr,Exact linked VC10 /GL /Ob1 /Oy- /EHsc match in EhBatchA
+0x00442E80,RswScoreFile::LoadAndParse,442,exact,100.00,rsw-score-file-load-and-parse,build/match-linked/ReplayScoreWave/rsw-score-file-load-and-parse.json
 0x004433A0,CbbScoreMgr::CbbScoreMgr,142,exact,100.00,cbb-score-mgr-ctor,Cold VC10 LTCG /Ob1 /Oy- linked-PE exact match via CleanBatchBProbe (0 diffs)
 0x00443430,CbdReg443430,180,exact,100.00,cbd-reg-443430,Exact linked VC10 /GL /Ob1 /Oy- match in CleanBatchD
 0x004434F0,EbcScoreMgr::~EbcScoreMgr,259,exact,100.00,ebc-score-mgr-dtor,Exact linked VC10 /GL /Ob1 /Oy- /EHsc match in EhBatchC

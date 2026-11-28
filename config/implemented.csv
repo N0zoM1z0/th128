@@ -1138,6 +1138,8 @@ Rng::GetFloatSigned
 Rng::GetFloatSignedScaled
 Rng::GetU16
 Rng::GetU32
+RswScoreFile::LoadAndParse
+RswScoreFile::RswScoreFile
 RunAdaptiveFrame
 RunTimedFrame
 RunVsyncFrame

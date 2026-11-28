@@ -1440,12 +1440,12 @@ address,span_end,state,confidence,evidence_id,notes
 0x00442880,0x00442923,reviewed,high,PrScoreFile_InitScoreFile-boundary,Exact VC10 LTCG match via PlayerReplayHelpersProbe
 0x00442930,0x00442BD1,reviewed,high,zc4-init-route-scores-boundary,0x00442930
 0x00442BE0,0x00442CA7,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00442BE0..0x00442CA7 (200 bytes) ends with ret; then padding-then-start 0x00442CB0
-0x00442CB0,0x00442D5B,reviewed,high,bdesc-exact,start padding; refs callx2; descent body 0x00442CB0..0x00442D5B (172 bytes) ends with ret; then padding-then-start 0x00442D60
+0x00442CB0,0x00442D5B,reviewed,high,rsw-score-file-ctor-boundary,0x00442CB0..0x00442D5C
 0x00442D60,0x00442D8C,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00442D60..0x00442D8C (45 bytes) ends with ret; then padding-then-start 0x00442D90; WEAK: no call, jump, pointer or vtable reference found"
 0x00442D90,0x00442DEE,reviewed,high,eba-create-score-mgr-boundary,Exact linked VC10 /GL /Ob1 /Oy- /EHsc extent
 0x00442DF0,0x00442E3B,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00442DF0..0x00442E3B (76 bytes) ends with ret; then padding-then-start 0x00442E40; WEAK: no call, jump, pointer or vtable reference found"
 0x00442E40,0x00442E77,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00442E40..0x00442E77 (56 bytes) ends with ret; then padding-then-start 0x00442E80; WEAK: no call, jump, pointer or vtable reference found"
-0x00442E80,0x00443039,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00442E80..0x00443039 (442 bytes) ends with ret; then padding-then-start 0x00443040
+0x00442E80,0x00443039,reviewed,high,rsw-score-file-load-and-parse-boundary,0x00442E80..0x0044303A
 0x00443040,0x00443386,reviewed,high,bdesc-exact,start padding; refs callx2; descent body 0x00443040..0x00443386 (839 bytes) ends with ret; then padding-then-start 0x00443390; 1 filler hole(s)
 0x00443390,0x00443390,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00443390..0x00443390 (1 bytes) ends with ret; then padding-then-start 0x004433A0; WEAK: no call, jump, pointer or vtable reference found"
 0x004433A0,0x0044342D,reviewed,high,cbb-score-mgr-ctor-boundary,"Direct hash-attested target extent, neighbor and reference review."
