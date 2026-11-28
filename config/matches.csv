@@ -989,12 +989,14 @@ address,name,size,status,match_percent,unit,evidence
 0x004543F0,LsDelete464240,18,exact,100.00,LsDelete464240,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
 0x00454410,LsDeleteRaw,12,exact,100.00,LsDeleteRaw,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
 0x00454420,WindowProc,420,exact,100.00,window-proc,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; every relocation replayed against reviewed user32 import slots and five game globals; zero byte differences.
+0x004545D0,WswSupervisor::InitSystemPathsAndDwm,410,exact,100.00,wsw_init_system_paths_and_dwm,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x00454D90,SupervisorFrame::PresentImmediate,190,exact,100.00,supervisor-present-immediate,"Cold pinned VC10 RTM /GL /Ob1 /Oy- linked-PE replay; complete 190-byte primary-TU PDB contribution and all 21 absolute/relative fields reproduce with zero differences. The real frame, screenshot, surface/texture recovery, state and canonical timer bodies are linked; no fabricated callee or owner-profile change."
 0x00454F70,SupervisorFrame::PresentWithSleep,314,exact,100.00,supervisor-present-with-sleep,"Cold pinned VC10 RTM /GL /Ob1 /Oy- linked-PE replay; complete 314-byte primary-TU PDB contribution and all 30 absolute/relative fields reproduce with zero differences. The real frame, screenshot, surface/texture recovery, state and canonical timer bodies are linked; no fabricated callee or owner-profile change."
 0x00455160,GetElapsedSeconds,266,exact,100.00,supervisor-get-elapsed-seconds,Cold pinned VC10 /GL linked-PE replay; complete 266-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x00455A70,InitializeSupervisorRenderState,802,exact,100.00,supervisor-initialize-render-state,"Cold pinned VC10 RTM /GL /Ob1 /Oy- linked-PE replay; complete 802-byte primary-TU PDB contribution and all 37 DIR32 fields reproduce with zero byte differences, including all COM calls, float bit conversions and the conditional ANM cache reset."
 0x00455DA0,LsDisableImeDll,36,exact,100.00,LsDisableImeDll,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
 0x00455F40,LsShowCursorWrap,8,exact,100.00,LsShowCursorWrap,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00456050,WswResolveShortcut,306,exact,100.00,wsw_resolve_shortcut,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x00456190,th128::Zc2ConfigDialogProc,416,exact,100.00,zc2-config-dialog-proc,Exact VC10 /GL linked-PE match via compare-linked-function.py.
 0x00456590,CbjEnumJoyAxisCb,133,exact,100.00,cbj-enum-joy-axis-cb,compare-linked-function.py --unit cbj-enum-joy-axis-cb
 0x00456670,LsObj0C::Get0C,4,exact,100.00,LsObj0C_Get0C,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
