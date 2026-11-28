@@ -2109,11 +2109,11 @@ address,span_end,state,confidence,evidence_id,notes
 0x004681D0,0x0046826E,reviewed,high,bdesc-exact,start padding; refs callx27; descent body 0x004681D0..0x0046826E (159 bytes) ends with ret; then padding-then-start 0x00468270
 0x00468270,0x0046830E,reviewed,high,bdesc-exact,start padding; refs callx64; descent body 0x00468270..0x0046830E (159 bytes) ends with ret; then padding-then-start 0x00468310
 0x00468310,0x0046845B,reviewed,high,bdesc-extent-correction,descent extends the inventory span by 39 bytes past 0x00468434; state applies to the proposed extent. start padding; refs callx6; descent body 0x00468310..0x0046845B (332 bytes) ends with table; then padding-then-start 0x00468460; tables 0x00468438+36; 1 filler hole(s)
-0x00468460,0x0046857B,reviewed,high,bdesc-extent-correction,descent extends the inventory span by 27 bytes past 0x00468560; state applies to the proposed extent. start padding; refs callx3; descent body 0x00468460..0x0046857B (284 bytes) ends with table; then padding-then-start 0x00468580; tables 0x00468564+24; 1 filler hole(s)
-0x00468580,0x004685E8,reviewed,high,bdesc-exact,start padding; refs callx6; descent body 0x00468580..0x004685E8 (105 bytes) ends with ret; then padding-then-start 0x004685F0
+0x00468460,0x0046857B,reviewed,high,cw-run-draw-chain-boundary,0x00468460..0x0046857B
+0x00468580,0x004685E8,reviewed,high,cw-cut-list-boundary,0x00468580..0x004685E8
 0x004685F0,0x0046861D,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x004685F0..0x0046861D (46 bytes) ends with ret; then padding-then-start 0x00468620; WEAK: no call, jump, pointer or vtable reference found"
 0x00468620,0x00468674,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x00468620..0x00468674 (85 bytes) ends with ret; then padding-then-start 0x00468680; WEAK: no call, jump, pointer or vtable reference found"
-0x00468680,0x004686CE,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x00468680..0x004686CE (79 bytes) ends with ret; then padding-then-start 0x004686D0; WEAK: no call, jump, pointer or vtable reference found"
+0x00468680,0x004686CE,reviewed,high,cw-cut-boundary,0x00468680..0x004686CE
 0x004686D0,0x0046874C,reviewed,high,cbc-chain-cut-boundary,"Direct hash-attested target extent, neighbor and reference review."
 0x00468750,0x00468766,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00468750..0x00468766 (23 bytes) ends with ret; then padding-then-start 0x00468770; WEAK: no call, jump, pointer or vtable reference found"
 0x00468770,0x004687C3,reviewed,high,bdesc-exact,start padding; refs callx10; descent body 0x00468770..0x004687C3 (84 bytes) ends with ret; then padding-then-start 0x004687D0

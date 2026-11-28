@@ -1249,8 +1249,11 @@ ChainElem::ChainElem(ChainCallback),0x00468160,function
 ChainElem::~ChainElem,0x00468180,function
 Chain::RegisterCalc,0x004681D0,function
 Chain::RegisterDraw,0x00468270,function
+CwChain::RunDrawChain,0x00468460,function
+CwChain::CutList,0x00468580,function
 Chain::Release,0x004685F0,function
 Chain::CreateElem,0x00468620,function
+CwChain::Cut,0x00468680,function
 CbcChainCut,0x004686D0,function
 ChainElem::`scalar deleting destructor',0x00468750,function
 Chain::CreateAndRegisterCalcImmediate,0x00468770,function

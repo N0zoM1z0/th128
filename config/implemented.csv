@@ -468,6 +468,9 @@ CoreTimer::GetScale
 CoreTimer::ResetScale
 CreateGameWindow
 CreateOffscreenA1R5G5B5Texture
+CwChain::Cut
+CwChain::CutList
+CwChain::RunDrawChain
 DebugLog46C320
 DebugPrint
 DecTimeScaleRef
