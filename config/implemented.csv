@@ -757,6 +757,7 @@ GetAnmVmDrawPosition
 GetElapsedSeconds
 GetGameManagerField4
 GetWindowsVersionCode
+GlwConfig::ResetDefaults
 Gm4B8954::GetFlag1
 GmCopyVec3::CopyFrom
 GmFpsCounter::DrawHook

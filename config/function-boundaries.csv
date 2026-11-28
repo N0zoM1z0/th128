@@ -937,7 +937,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x00427790,0x00427795,reviewed,high,gt-get-4d33cc-boundary,Verified exact VC10 /GL linked-pe extent
 0x004277A0,0x004277AB,reviewed,high,gt-is-4d33cc-zero-boundary,Verified exact VC10 /GL linked-pe extent
 0x004277B0,0x004277B0,reviewed,high,gt-noop-4277b0-boundary,Verified exact VC10 /GL linked-pe extent
-0x004277C0,0x00427836,reviewed,high,bdesc-exact,start padding; refs callx7; descent body 0x004277C0..0x00427836 (119 bytes) ends with ret; then padding-then-start 0x00427840
+0x004277C0,0x00427836,reviewed,high,glw_config_reset_defaults-boundary,confirmed
 0x00427840,0x0042784B,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00427840..0x0042784B (12 bytes) ends with ret; then padding-then-start 0x00427850; WEAK: no call, jump, pointer or vtable reference found"
 0x00427850,0x00427878,reviewed,high,IlResetGlobals-boundary,Exact VC10 LTCG match via ItemLaserHelpersProbe
 0x00427880,0x004278A2,reviewed,high,help-create-vm-boundary,"Complete 35-byte owner 0x00427880..0x004278A2; target entry/interior references, all reachable control flow and adjacent bytes reviewed through direct local Ghidra."

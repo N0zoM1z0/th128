@@ -598,6 +598,7 @@ GtGlobalsObj::Clear60And64,0x00427780,function
 GtGet4D33CC,0x00427790,function
 GtIs4D33CCZero,0x004277A0,function
 GtNoOp4277B0,0x004277B0,function
+GlwConfig::ResetDefaults,0x004277C0,function
 IlResetGlobals,0x00427850,function
 HelpInf::CreateVm,0x00427880,function
 IlHelpMgr::IlHelpMgr,0x00427910,function
