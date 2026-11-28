@@ -134,6 +134,7 @@ BulletVec3::GetZ2,0x00407430,function
 PlayerMini::GetPosPtr,0x00407440,function
 FreezeInfMini::IsTimerGe60,0x00407450,function
 CbdReg407490,0x00407490,function
+GcwEnemyFlagMgr::Cleanup,0x00407550,function
 BulletRet1A,0x004077E0,function
 BulletRet1B,0x00407900,function
 BulletRet0A,0x00407910,function

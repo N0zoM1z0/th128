@@ -708,6 +708,7 @@ FreezeInfMini::CheckEnd
 FreezeInfMini::IsTimerGe60
 GameErrorContext::Fatal
 GameErrorContext::Log
+GcwEnemyFlagMgr::Cleanup
 Gd4B8924::GetFlag3
 Gd4B8934::GetField94
 GdCall473090

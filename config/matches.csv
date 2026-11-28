@@ -131,6 +131,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00407440,PlayerMini::GetPosPtr,6,exact,100.00,player-get-pos-ptr,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x00407450,FreezeInfMini::IsTimerGe60,10,exact,100.00,freeze-is-timer-ge-60,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x00407490,CbdReg407490,180,exact,100.00,cbd-reg-407490,Exact linked VC10 /GL /Ob1 /Oy- match in CleanBatchD
+0x00407550,GcwEnemyFlagMgr::Cleanup,417,exact,100.00,gcw_enemy_flag_mgr_cleanup,build/match-linked/GuiCoreWave/gcw_enemy_flag_mgr_cleanup.json
 0x004077E0,BulletRet1A,6,exact,100.00,bullet-ret1-4077e0,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x00407900,BulletRet1B,6,exact,100.00,bullet-ret1-407900,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x00407910,BulletRet0A,3,exact,100.00,bullet-ret0-407910,exact VC10 /GL linked-PE match via replay-exact-units.py

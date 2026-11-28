@@ -186,7 +186,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x00407450,0x00407459,reviewed,high,freeze-is-timer-ge-60-boundary,target-exact
 0x00407460,0x0040748E,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00407460..0x0040748E (47 bytes) ends with ret; then padding-then-start 0x00407490; WEAK: no call, jump, pointer or vtable reference found"
 0x00407490,0x00407543,reviewed,high,cbd-reg-407490-boundary,Exact linked VC10 /GL /Ob1 /Oy- extent
-0x00407550,0x004076F0,reviewed,high,bdesc-exact,start padding; refs callx4; descent body 0x00407550..0x004076F0 (417 bytes) ends with ret; then padding-then-start 0x00407700
+0x00407550,0x004076F0,reviewed,high,gcw_enemy_flag_mgr_cleanup-boundary,confirmed
 0x00407700,0x0040776B,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00407700..0x0040776B (108 bytes) ends with ret; then padding-then-start 0x00407770
 0x00407770,0x00407784,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00407770..0x00407784 (21 bytes) ends with ret; then padding-then-start 0x00407790; WEAK: no call, jump, pointer or vtable reference found"
 0x00407790,0x004077D5,reviewed,high,bdesc-exact,start padding; refs immx1; descent body 0x00407790..0x004077D5 (70 bytes) ends with ret; then padding-then-start 0x004077E0
