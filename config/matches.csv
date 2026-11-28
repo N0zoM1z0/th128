@@ -641,6 +641,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00429B30,LaserDataInf::Slot21,3,exact,100.00,laser-data-slot21,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
 0x00429B40,LaserDataInf::Slot22,3,exact,100.00,laser-data-slot22,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
 0x00429B50,LaserDataInf::Slot23,3,exact,100.00,laser-data-slot23,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
+0x00429B60,LfbLaserBase::LfbLaserBase,121,exact,100.00,lfb_laser_base_ctor,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x00429C40,IlCurveObj::AppendNode,67,exact,100.00,IlCurveObj_AppendNode,Cold-replayed VC10 LTCG match via ItemLaserHelpersProbe
 0x00429CD0,IlNoOp429CD0,1,exact,100.00,IlNoOp429CD0,Cold-replayed VC10 LTCG match via ItemLaserHelpersProbe
 0x00429D60,IlLaserMgr::SetFlag5F8Bit0,25,exact,100.00,IlLaserMgr_SetFlag5F8Bit0,Cold-replayed VC10 LTCG match via ItemLaserHelpersProbe
@@ -657,6 +658,7 @@ address,name,size,status,match_percent,unit,evidence
 0x0042A3E0,IlLaserMgr::DrawHook,22,exact,100.00,IlLaserMgr_DrawHook,Cold-replayed VC10 LTCG match via ItemLaserHelpersProbe
 0x0042A620,LmLaserMgr::CancelInBoxA,128,exact,100.00,LmLaserMgr_CancelInBoxA,Cold-replayed VC10 LTCG match via LaserMotherHelpersProbe
 0x0042A6A0,LmLaserMgr::CancelInBoxB,146,exact,100.00,LmLaserMgr_CancelInBoxB,Cold-replayed VC10 LTCG match via LaserMotherHelpersProbe
+0x0042A740,LfbCancelAllLasers,121,exact,100.00,lfb_cancel_all_lasers,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0042A7C0,LmLaserMgr::CancelInCircle,96,exact,100.00,LmLaserMgr_CancelInCircle,Cold-replayed VC10 LTCG match via LaserMotherHelpersProbe
 0x0042A820,LmLaserMgr::CancelAll,47,exact,100.00,LmLaserMgr_CancelAll,Cold-replayed VC10 LTCG match via LaserMotherHelpersProbe
 0x0042A850,LmLaserMgr::CheckAll30,56,exact,100.00,LmLaserMgr_CheckAll30,Cold-replayed VC10 LTCG match via LaserMotherHelpersProbe
@@ -1006,6 +1008,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00456690,LsObj0C::GetAddr0C,4,exact,100.00,LsObj0C_GetAddr0C,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
 0x004566A0,LsFade44::LsFade44,23,exact,100.00,LsFade44_ctor,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
 0x004566C0,LsClearAndPresentTwice,157,exact,100.00,LsClearAndPresentTwice,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00456CB0,LfbScreenFade::OnCalc,135,exact,100.00,lfb_screen_fade_on_calc,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x00456D90,th128::Zc2Fade::OnCalc,193,exact,100.00,zc2-fade-on-calc,Exact VC10 /GL linked-PE match via compare-linked-function.py.
 0x004574F0,LwbSimpleChainOwner::~LwbSimpleChainOwner,166,exact,100.00,lwb-simple-chain-dtor,compare-linked-function.py --unit lwb-simple-chain-dtor
 0x004575C0,th128::SaNoOp4575C0,1,exact,100.00,SaNoOp4575C0,Cold-replayed VC10 LTCG match via SoundAnmHelpersProbe

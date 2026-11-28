@@ -24696,3 +24696,57 @@ target_address = 0x00414580
 size = 124
 linkages = [
 ]
+[units.lfb_laser_base_ctor]
+artifact_kind = "linked-pe"
+source = "src/LowFpuWaveB.cpp"
+inputs = ["src/LowFpuWaveB.hpp"]
+support_sources = ["probes/low-fpu-wave-b-context.cpp"]
+output_dir = "build/match-linked/LowFpuWaveB"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-"]
+entry = "LowFpuWaveBProbe@8"
+functions = ["LfbLaserBase::LfbLaserBase"]
+symbol = "??0LfbLaserBase@th128@@QAE@XZ"
+target_address = 0x00429B60
+size = 121
+linkages = [
+  { offset = 7, type = "DIR32", symbol = "??_7LfbLaserBase@th128@@6B@", target = 0x004A2BB4 },
+  { offset = 55, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+  { offset = 94, type = "DIR32", symbol = "?g_LfbTimeScale@th128@@3MA", target = 0x004B6F58 },
+]
+
+[units.lfb_cancel_all_lasers]
+artifact_kind = "linked-pe"
+source = "src/LowFpuWaveB.cpp"
+inputs = ["src/LowFpuWaveB.hpp"]
+support_sources = ["probes/low-fpu-wave-b-context.cpp"]
+output_dir = "build/match-linked/LowFpuWaveB"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-"]
+entry = "LowFpuWaveBProbe@8"
+functions = ["LfbCancelAllLasers"]
+symbol = "?LfbCancelAllLasers@th128@@YAHXZ"
+target_address = 0x0042A740
+size = 121
+linkages = [
+  { offset = 1, type = "DIR32", symbol = "?g_LfbLaserMgr@th128@@3PAULfbLaserMgr@1@A", target = 0x004B8A60 },
+  { offset = 62, type = "DIR32", symbol = "?g_LfbTimeScale@th128@@3MA", target = 0x004B6F58 },
+]
+
+[units.lfb_screen_fade_on_calc]
+artifact_kind = "linked-pe"
+source = "src/LowFpuWaveB.cpp"
+inputs = ["src/LowFpuWaveB.hpp"]
+support_sources = ["probes/low-fpu-wave-b-context.cpp"]
+output_dir = "build/match-linked/LowFpuWaveB"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-"]
+entry = "LowFpuWaveBProbe@8"
+functions = ["LfbScreenFade::OnCalc"]
+symbol = "?OnCalc@LfbScreenFade@th128@@QAEHXZ"
+target_address = 0x00456CB0
+size = 135
+linkages = [
+  { offset = 6, type = "DIR32", symbol = "?g_LfbSkipFade@th128@@3HA", target = 0x004D2AD4 },
+  { offset = 47, type = "DIR32", symbol = "__real@406fe00000000000", target = 0x004A67B0 },
+  { offset = 55, type = "REL32", symbol = "__ftol2_sse", target = 0x0048FAC0 },
+  { offset = 94, type = "DIR32", symbol = "?g_LfbGameState@th128@@3PAULfbGameState@1@A", target = 0x004B8954 },
+  { offset = 121, type = "REL32", symbol = "?Increment@LfbTimer@th128@@QAEXXZ", target = 0x00402AC0 },
+]
