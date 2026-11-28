@@ -3559,3 +3559,49 @@ pinned VC10 RTM (`cl 16.00.30319.01`, `link 10.00.30319.01`) with
   `config/implemented.csv`, `config/matches.csv`, `config/reccmp-functions.csv`).
   Always commit all five CSVs alongside `config/match-units.toml`,
   `docs/PROGRESS.md`, and `resources/progress.svg`.
+
+## VC10 LTCG subsystem-wave findings (2026-11-28, gemini-4-neon)
+
+Verified against TH128 (`resources/th128.exe`, VC10 RTM `cl 16.00.30319.01`,
+`link 10.00.30319.01`, `/O2 /Ob1 /Oy- /GL`) across `CleanSmallWaveA..D`,
+`LowFpuWaveA..C`, `EngineWave1A/B`, `ScreenFadeWave`, `AnmMgrWave2`,
+`AnmWave3`, and `ItemWave1` (+56 exact functions, ~97.8 KB authored exact):
+
+- **Array destructor `__ehvec_dtor` (`??_M`) requires `/EHsc`:** Without `/EHsc`,
+  VC10 emits an inline reverse destructor loop (`sub esi, stride; call dtor;
+  dec edi; jns`), inflating destructors like `ItemManager::~ItemManager`
+  (`0x00428430`, 203B) by +8B. Enabling `/EHsc` emits `call ??_M@YGXPAXIHP6EX0@Z@Z`
+  and matches `0x00428430` with 0B diff.
+- **Interprocedural stack-alignment (`and esp, -8`) propagation from callees:**
+  In VC10 `/GL`, functions with no local `double` (`RenderAnmSpriteText`,
+  `UpdateWorldVms`, `SetInterruptAndUpdate`) still emit `and esp, -8` when
+  they call a callee with an 8-byte aligned frame (`DrawTextToTexture`,
+  `AnmVm::Update`). Putting `__declspec(align(8)) double` inside the probe
+  stub reproduces the exact caller `and esp, -8` prologue.
+- **`Vec3` stack layout & constructor temporaries:**
+  - Declaring a 12-byte `Vec3 d` even when only `d.x`/`d.y` are used reproduces
+    the exact stack offsets in 2D rotated-rect geometry (`PointInRotatedRect`
+    `0x0046B470` 218B, `CircleInsideRotatedRect` `0x0046B860` 228B).
+  - Assigning `v[i].pos = Vec3(x, y, 0.0f)` emits the exact 64B `fstp/mov` temp
+    copy sequence in `SfwDrawSolidRect` (`0x00456840`, 474B) and
+    `SfwDrawGradientRect` (`0x00456A30`, 488B).
+- **x87 intermediate rounding splits:** Splitting `(float)(a - b) * t / dur + b`
+  into `float t1 = ... * t; float t2 = t1 / (float)dur; float amp = t2 + b;`
+  emits the exact `fstp; fld; fidiv; fstp; fld; fiadd` in
+  `ScreenEffect::OnCalcShakeA` (`0x00457010`, 246B).
+- **Parameter-slot reuse in circle drawing (`AnmWave3`):** `AddAngles`
+  (`0x0046A660`) is `__stdcall` and `Vertex::SetPolar` (`0x004630A0`) is
+  `__thiscall`. Copying `float angle = startAngle;` and storing the angle step
+  back into `startAngle` reproduces `AnmManager::DrawFilledCircle`
+  (`0x00462A00`, 396B exact) and brings `DrawCircleOutline` (`0x00462D60`,
+  368B) to a 1B SIB difference.
+- **Probe stub register-forcing idioms:** To force a callee's `this` into a
+  specific callee-saved register under LTCG, `this` (and any blocker pointers
+  loaded from globals, not constant addresses) must be dereferenced **both
+  before and after** `Sleep(1)`: `this` alone -> `esi`, +1 runtime pointer ->
+  `edi`, +2 runtime pointers -> `ebx`. Take `&Class::Method` in the probe to
+  force standard `__thiscall`/`__fastcall`; take `&param` inside the stub to
+  keep a parameter on the stack.
+- **`fsincos` filtering:** Always scan candidate waves with Capstone for
+  `fsincos` before authoring code; per natural-C++ policy, skip the ~22
+  functions containing original inline-asm `fsincos`.
