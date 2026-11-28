@@ -441,6 +441,11 @@ CbgLoadMapFile
 CbgStageObj::CbgStageObj
 CbjCountIceBits
 CbjEnumJoyAxisCb
+CbkEndingSub::~CbkEndingSub
+CbkGui::Draw
+CblScoreTable::GetStageValue
+CblSwapKey
+CbmSumU32
 Chain::CreateAndRegisterCalc
 Chain::CreateAndRegisterCalcImmediate
 Chain::CreateAndRegisterDraw
@@ -1318,6 +1323,17 @@ ZunTimer::operator>
 ZunTimer::operator>=
 ZunTimerModulo
 ZunVec3::SetPolarXY
+std::_Allocate<char>
+std::allocator<char>::allocate
+std::allocator<char>::max_size
+std::bad_alloc::bad_alloc
+std::bad_alloc::bad_alloc(const bad_alloc&)
+std::bad_alloc::scalar_deleting_destructor
+std::bad_alloc::~bad_alloc
+std::basic_string<char>::_Inside
+std::basic_string<char>::erase
+std::basic_string<char>::max_size
+std::char_traits<char>::copy
 th128::AsDrawFreezeHud
 th128::AsDrawNameEntry
 th128::Bz2LzssAddString

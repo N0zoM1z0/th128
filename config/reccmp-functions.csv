@@ -327,6 +327,7 @@ EndVmMini::SetPos464,0x00412F40,function
 EndListNode::Append,0x00412F60,function
 EndClear0::Clear,0x00412FA0,function
 EndNoOp412FB0,0x00412FB0,function
+CbkEndingSub::~CbkEndingSub,0x00412FC0,function
 EndSub::GetFlag1,0x00413080,function
 EndSub::GetFlag2,0x00413090,function
 EndMgr::LoadFile,0x004130A0,function
@@ -507,6 +508,7 @@ CbgGuiObj::CbgGuiObj,0x004200E0,function
 EbaCreateGui,0x00420FD0,function
 GdGuiObj::DestroySelf,0x00421070,function
 GdGuiObj::DestroyGlobal,0x00421090,function
+CbkGui::Draw,0x004225F0,function
 GdGuiObj::CalcHook,0x00422D60,function
 PopupNotifications::Show,0x00424B80,function
 th128::Oc1HideGuiAnms,0x00425340,function
@@ -860,6 +862,7 @@ TaTitleMgrExact::DestroyGlobal,0x00445730,function
 TaTitleMgrExact::DestroySelf,0x00445750,function
 Tb1UpdateOptionsVolume,0x00447BA0,function
 th128::Tc1UpdateDigitSprites,0x00448D90,function
+CblSwapKey,0x004496F0,function
 TaRet1_44B3B0,0x0044B3B0,function
 TaRet1_44B3C0,0x0044B3C0,function
 TaRet1_44B3D0,0x0044B3D0,function
@@ -867,6 +870,7 @@ TaSkipLine,0x0044F350,function
 TaObj04::GetField04,0x0044F3F0,function
 TaObj04::IsPos0,0x0044F400,function
 TaObjD4::ZeroD4,0x0044F420,function
+CblScoreTable::GetStageValue,0x0044F430,function
 TaRouteStageToIndexSwitch,0x0044F4D0,function
 TaClearFlag4B4D50Bit4,0x0044F560,function
 TaObj04::GetPlus7,0x0044F570,function
@@ -943,7 +947,18 @@ InitializeTextFonts,0x004525D0,function
 DestroyTextFonts,0x004527E0,function
 DrawTextToTexture,0x00452840,function
 DrawAlternateTextToTexture,0x00452B00,function
+std::basic_string<char>::_Inside,0x00452D80,function
 LsStdString::GetLen,0x00452DB0,function
+std::char_traits<char>::copy,0x00452DD0,function
+std::basic_string<char>::erase,0x00452DE0,function
+std::allocator<char>::max_size,0x00452F00,function
+std::basic_string<char>::max_size,0x00452F10,function
+std::bad_alloc::bad_alloc,0x00452F20,function
+std::bad_alloc::~bad_alloc,0x00452F50,function
+std::bad_alloc::scalar_deleting_destructor,0x00452F60,function
+std::bad_alloc::bad_alloc(const bad_alloc&),0x00452F90,function
+std::_Allocate<char>,0x00452FB0,function
+std::allocator<char>::allocate,0x00453000,function
 LsStrLenInline,0x004532E0,function
 LsZeroSurfacePixels,0x00453320,function
 LsSurfaceGlobal::Get100,0x00453340,function
@@ -1279,6 +1294,7 @@ CoreTimer::ResetScale,0x0046AA00,function
 ZunTimer::Add,0x0046AA20,function
 CoreTimer::GetScale,0x0046AAF0,function
 CoreChecksumWords,0x0046AB80,function
+CbmSumU32,0x0046AC00,function
 ThreadInf::ThreadInf,0x0046AC80,function
 th128::SaStreamObj::`scalar deleting destructor',0x0046ACA0,function
 ThreadInf::~ThreadInf,0x0046ACD0,function

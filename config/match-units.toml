@@ -23293,3 +23293,173 @@ linkages = [
   { offset = 16, type = "REL32", symbol = "?_Xout_of_range@std@@YAXPBD@Z", target = 0x00472733 },
   { offset = 70, type = "REL32", symbol = "_memmove", target = 0x00473D60 },
 ]
+
+[units.stl-string-inside]
+artifact_kind = "linked-pe"
+source = "src/StlStringBatch.cpp"
+inputs = ["src/StlStringBatch.hpp"]
+support_sources = ["probes/stl-string-batch-context.cpp"]
+output_dir = "build/match-linked/StlStringBatch"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-", "/EHsc"]
+entry = "StlStringBatchProbe@8"
+functions = ["std::basic_string<char>::_Inside"]
+symbol = "?_Inside@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAE_NPBD@Z"
+target_address = 0x00452D80
+size = 48
+linkages = [
+]
+
+[units.stl-char-traits-copy]
+artifact_kind = "linked-pe"
+source = "src/StlStringBatch.cpp"
+inputs = ["src/StlStringBatch.hpp"]
+support_sources = ["probes/stl-string-batch-context.cpp"]
+output_dir = "build/match-linked/StlStringBatch"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-", "/EHsc"]
+entry = "StlStringBatchProbe@8"
+functions = ["std::char_traits<char>::copy"]
+symbol = "?copy@?$char_traits@D@std@@SAPADPADPBDI@Z"
+target_address = 0x00452DD0
+size = 12
+linkages = [
+  { offset = 4, type = "REL32", symbol = "_memcpy", target = 0x00473D60 },
+]
+
+[units.stl-allocator-char-max-size]
+artifact_kind = "linked-pe"
+source = "src/StlStringBatch.cpp"
+inputs = ["src/StlStringBatch.hpp"]
+support_sources = ["probes/stl-string-batch-context.cpp"]
+output_dir = "build/match-linked/StlStringBatch"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-", "/EHsc"]
+entry = "StlStringBatchProbe@8"
+functions = ["std::allocator<char>::max_size"]
+symbol = "?max_size@?$allocator@D@std@@QBEIXZ"
+target_address = 0x00452F00
+size = 4
+linkages = [
+]
+
+[units.stl-string-max-size]
+artifact_kind = "linked-pe"
+source = "src/StlStringBatch.cpp"
+inputs = ["src/StlStringBatch.hpp"]
+support_sources = ["probes/stl-string-batch-context.cpp"]
+output_dir = "build/match-linked/StlStringBatch"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-", "/EHsc"]
+entry = "StlStringBatchProbe@8"
+functions = ["std::basic_string<char>::max_size"]
+symbol = "?max_size@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QBEIXZ"
+target_address = 0x00452F10
+size = 6
+linkages = [
+]
+
+[units.stl-bad-alloc-ctor]
+artifact_kind = "linked-pe"
+source = "src/StlStringBatch.cpp"
+inputs = ["src/StlStringBatch.hpp"]
+support_sources = ["probes/stl-string-batch-context.cpp"]
+output_dir = "build/match-linked/StlStringBatch"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-", "/EHsc"]
+entry = "StlStringBatchProbe@8"
+functions = ["std::bad_alloc::bad_alloc"]
+symbol = "??0bad_alloc@std@@QAE@PBD@Z"
+target_address = 0x00452F20
+size = 34
+linkages = [
+  { offset = 18, type = "REL32", symbol = "??0exception@std@@QAE@ABQBD@Z", target = 0x00473B63 },
+  { offset = 24, type = "DIR32", symbol = "??_7bad_alloc@std@@6B@", target = 0x0049F1E8 },
+]
+
+[units.stl-bad-alloc-dtor]
+artifact_kind = "linked-pe"
+source = "src/StlStringBatch.cpp"
+inputs = ["src/StlStringBatch.hpp"]
+support_sources = ["probes/stl-string-batch-context.cpp"]
+output_dir = "build/match-linked/StlStringBatch"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-", "/EHsc"]
+entry = "StlStringBatchProbe@8"
+functions = ["std::bad_alloc::~bad_alloc"]
+symbol = "??1bad_alloc@std@@UAE@XZ"
+target_address = 0x00452F50
+size = 11
+linkages = [
+  { offset = 2, type = "DIR32", symbol = "??_7bad_alloc@std@@6B@", target = 0x0049F1E8 },
+  { offset = 7, type = "REL32", symbol = "??1exception@std@@UAE@XZ", target = 0x00473BBF },
+]
+
+[units.stl-bad-alloc-sdd]
+artifact_kind = "linked-pe"
+source = "src/StlStringBatch.cpp"
+inputs = ["src/StlStringBatch.hpp"]
+support_sources = ["probes/stl-string-batch-context.cpp"]
+output_dir = "build/match-linked/StlStringBatch"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-", "/EHsc"]
+entry = "StlStringBatchProbe@8"
+functions = ["std::bad_alloc::scalar_deleting_destructor"]
+symbol = "??_Gbad_alloc@std@@UAEPAXI@Z"
+target_address = 0x00452F60
+size = 39
+linkages = [
+  { offset = 8, type = "DIR32", symbol = "??_7bad_alloc@std@@6B@", target = 0x0049F1E8 },
+  { offset = 13, type = "REL32", symbol = "??1exception@std@@UAE@XZ", target = 0x00473BBF },
+  { offset = 25, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+]
+
+[units.stl-bad-alloc-copy-ctor]
+artifact_kind = "linked-pe"
+source = "src/StlStringBatch.cpp"
+inputs = ["src/StlStringBatch.hpp"]
+support_sources = ["probes/stl-string-batch-context.cpp"]
+output_dir = "build/match-linked/StlStringBatch"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-", "/EHsc"]
+entry = "StlStringBatchProbe@8"
+functions = ["std::bad_alloc::bad_alloc(const bad_alloc&)"]
+symbol = "??0bad_alloc@std@@QAE@ABV01@@Z"
+target_address = 0x00452F90
+size = 28
+linkages = [
+  { offset = 11, type = "REL32", symbol = "??0exception@std@@QAE@ABV01@@Z", target = 0x00473C6B },
+  { offset = 17, type = "DIR32", symbol = "??_7bad_alloc@std@@6B@", target = 0x0049F1E8 },
+]
+
+[units.stl-allocate-char]
+artifact_kind = "linked-pe"
+source = "src/StlStringBatch.cpp"
+inputs = ["src/StlStringBatch.hpp"]
+support_sources = ["probes/stl-string-batch-context.cpp"]
+output_dir = "build/match-linked/StlStringBatch"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-", "/EHsc"]
+entry = "StlStringBatchProbe@8"
+functions = ["std::_Allocate<char>"]
+symbol = "??$_Allocate@D@std@@YAPADIPAD@Z"
+target_address = 0x00452FB0
+size = 68
+linkages = [
+  { offset = 13, type = "REL32", symbol = "??2@YAPAXI@Z", target = 0x0047296C },
+  { offset = 39, type = "REL32", symbol = "??0exception@std@@QAE@ABQBD@Z", target = 0x00473B63 },
+  { offset = 44, type = "DIR32", symbol = "__TI2?AVbad_alloc@std@@", target = 0x004ADC38 },
+  { offset = 55, type = "DIR32", symbol = "??_7bad_alloc@std@@6B@", target = 0x0049F1E8 },
+  { offset = 60, type = "REL32", symbol = "__CxxThrowException@8", target = 0x00474618 },
+]
+
+[units.stl-allocator-char-allocate]
+artifact_kind = "linked-pe"
+source = "src/StlStringBatch.cpp"
+inputs = ["src/StlStringBatch.hpp"]
+support_sources = ["probes/stl-string-batch-context.cpp"]
+output_dir = "build/match-linked/StlStringBatch"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-", "/EHsc"]
+entry = "StlStringBatchProbe@8"
+functions = ["std::allocator<char>::allocate"]
+symbol = "?allocate@?$allocator@D@std@@QAEPADI@Z"
+target_address = 0x00453000
+size = 74
+linkages = [
+  { offset = 19, type = "REL32", symbol = "??2@YAPAXI@Z", target = 0x0047296C },
+  { offset = 45, type = "REL32", symbol = "??0exception@std@@QAE@ABQBD@Z", target = 0x00473B63 },
+  { offset = 50, type = "DIR32", symbol = "__TI2?AVbad_alloc@std@@", target = 0x004ADC38 },
+  { offset = 61, type = "DIR32", symbol = "??_7bad_alloc@std@@6B@", target = 0x0049F1E8 },
+  { offset = 66, type = "REL32", symbol = "__CxxThrowException@8", target = 0x00474618 },
+]
