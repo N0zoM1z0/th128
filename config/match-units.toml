@@ -22278,3 +22278,40 @@ linkages = [
   { offset = 85, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
   { offset = 97, type = "DIR32", symbol = "?g_CbbReplayMenu@@3PAUCbbReplayMenu@@A", target = 0x004B8A7C },
 ]
+
+[units.cbc-chain-cut]
+artifact_kind = "linked-pe"
+source = "src/CleanBatchC.cpp"
+inputs = ["src/CleanBatchC.hpp"]
+support_sources = ["probes/clean-batch-c-context.cpp"]
+output_dir = "build/match-linked/CleanBatchC"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-"]
+entry = "CleanBatchCProbe@8"
+functions = ["CbcChainCut"]
+symbol = "?CbcChainCut@@YIXPAUCbcChain@@PAUCbcChainElem@@@Z"
+target_address = 0x004686D0
+size = 125
+linkages = [
+  { offset = 115, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+]
+
+[units.cbc-close-pause]
+artifact_kind = "linked-pe"
+source = "src/CleanBatchC.cpp"
+inputs = ["src/CleanBatchC.hpp"]
+support_sources = ["probes/clean-batch-c-context.cpp"]
+output_dir = "build/match-linked/CleanBatchC"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-"]
+entry = "CleanBatchCProbe@8"
+functions = ["CbcPauseObj::Close"]
+symbol = "?Close@CbcPauseObj@@QAEHXZ"
+target_address = 0x004334B0
+size = 95
+linkages = [
+  { offset = 11, type = "DIR32", symbol = "?g_CbcGlobal4d2e68@@3HA", target = 0x004D2E68 },
+  { offset = 16, type = "REL32", symbol = "?CbcCloseHelper@@YGXPAX@Z", target = 0x00435D20 },
+  { offset = 21, type = "DIR32", symbol = "?g_CbcMainMgr@@3PAUCbcMainMgr@@A", target = 0x004B8920 },
+  { offset = 27, type = "DIR32", symbol = "?g_CbcFlag4d59e8@@3HA", target = 0x004D59E8 },
+  { offset = 67, type = "DIR32", symbol = "?g_CbcSupFlags@@3IA", target = 0x004D33F8 },
+  { offset = 77, type = "DIR32", symbol = "?g_CbcFrameSkip@@3HA", target = 0x004D33C0 },
+]

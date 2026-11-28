@@ -1131,7 +1131,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x004333F0,0x00433464,reviewed,high,LmMother_Create-boundary,Exact VC10 LTCG match via LaserMotherHelpersProbe
 0x00433470,0x00433481,reviewed,high,LmMother_DestroySelf-boundary,Exact VC10 LTCG match via LaserMotherHelpersProbe
 0x00433490,0x004334AB,reviewed,high,LmMother_DestroyGlobal-boundary,Exact VC10 LTCG match via LaserMotherHelpersProbe
-0x004334B0,0x0043350E,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x004334B0..0x0043350E (95 bytes) ends with ret; then padding-then-start 0x00433510
+0x004334B0,0x0043350E,reviewed,high,cbc-close-pause-boundary,"Direct hash-attested target extent, neighbor and reference review."
 0x00433510,0x004335AF,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00433510..0x004335AF (160 bytes) ends with ret; then adjacent-start 0x004335B0
 0x004335B0,0x004335B9,reviewed,high,bdesc-exact,start after-terminator; refs immx1; descent body 0x004335B0..0x004335B9 (10 bytes) ends with ret; then padding-then-start 0x004335C0
 0x004335C0,0x004335C9,reviewed,high,bdesc-exact,start padding; refs immx1; descent body 0x004335C0..0x004335C9 (10 bytes) ends with ret; then padding-then-start 0x004335D0
@@ -2114,7 +2114,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x004685F0,0x0046861D,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x004685F0..0x0046861D (46 bytes) ends with ret; then padding-then-start 0x00468620; WEAK: no call, jump, pointer or vtable reference found"
 0x00468620,0x00468674,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x00468620..0x00468674 (85 bytes) ends with ret; then padding-then-start 0x00468680; WEAK: no call, jump, pointer or vtable reference found"
 0x00468680,0x004686CE,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x00468680..0x004686CE (79 bytes) ends with ret; then padding-then-start 0x004686D0; WEAK: no call, jump, pointer or vtable reference found"
-0x004686D0,0x0046874C,reviewed,high,bdesc-exact,start padding; refs callx59; descent body 0x004686D0..0x0046874C (125 bytes) ends with ret; then padding-then-start 0x00468750
+0x004686D0,0x0046874C,reviewed,high,cbc-chain-cut-boundary,"Direct hash-attested target extent, neighbor and reference review."
 0x00468750,0x00468766,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00468750..0x00468766 (23 bytes) ends with ret; then padding-then-start 0x00468770; WEAK: no call, jump, pointer or vtable reference found"
 0x00468770,0x004687C3,reviewed,high,bdesc-exact,start padding; refs callx10; descent body 0x00468770..0x004687C3 (84 bytes) ends with ret; then padding-then-start 0x004687D0
 0x004687D0,0x00468823,reviewed,high,bdesc-exact,start padding; refs callx8; descent body 0x004687D0..0x00468823 (84 bytes) ends with ret; then padding-then-start 0x00468830

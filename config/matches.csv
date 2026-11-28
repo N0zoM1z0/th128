@@ -656,6 +656,7 @@ address,name,size,status,match_percent,unit,evidence
 0x004333F0,LmMother::Create,117,exact,100.00,LmMother_Create,Cold-replayed VC10 LTCG match via LaserMotherHelpersProbe
 0x00433470,LmMother::DestroySelf,18,exact,100.00,LmMother_DestroySelf,Cold-replayed VC10 LTCG match via LaserMotherHelpersProbe
 0x00433490,LmMother::DestroyGlobal,28,exact,100.00,LmMother_DestroyGlobal,Cold-replayed VC10 LTCG match via LaserMotherHelpersProbe
+0x004334B0,CbcPauseObj::Close,95,exact,100.00,cbc-close-pause,Cold VC10 LTCG /Ob1 /Oy- linked-PE exact match via CleanBatchCProbe (0 diffs)
 0x004335D0,LmPauseAllChains,41,exact,100.00,LmPauseAllChains,Cold-replayed VC10 LTCG match via LaserMotherHelpersProbe
 0x00433600,LmObj558::Set558,7,exact,100.00,LmObj558_Set558,Cold-replayed VC10 LTCG match via LaserMotherHelpersProbe
 0x00433610,LmObj558::GetFlag200Bit4,13,exact,100.00,LmObj558_GetFlag200Bit4,Cold-replayed VC10 LTCG match via LaserMotherHelpersProbe
@@ -1112,6 +1113,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00468270,Chain::RegisterDraw,159,exact,100.00,chain-register-draw,Cold pinned VC10 /GL linked-PE replay; complete 159-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x004685F0,Chain::Release,46,exact,100.00,chain-release,Cold pinned VC10 /GL linked-PE replay; complete 46-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x00468620,Chain::CreateElem,85,exact,100.00,chain-create-elem,Cold pinned VC10 /GL linked-PE replay; complete 85-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x004686D0,CbcChainCut,125,exact,100.00,cbc-chain-cut,Cold VC10 LTCG /Ob1 /Oy- linked-PE exact match via CleanBatchCProbe (0 diffs)
 0x00468750,ChainElem::`scalar deleting destructor',23,exact,100.00,chain-elem-deleting-dtor,Cold pinned VC10 /GL linked-PE replay; complete 23-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x00468770,Chain::CreateAndRegisterCalcImmediate,84,exact,100.00,chain-create-and-register-calc-immediate,Cold pinned VC10 /GL linked-PE replay; complete 84-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x004687D0,Chain::CreateAndRegisterDrawImmediate,84,exact,100.00,chain-create-and-register-draw-immediate,Cold pinned VC10 /GL linked-PE replay; complete 84-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.

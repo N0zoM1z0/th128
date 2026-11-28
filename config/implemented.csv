@@ -418,6 +418,8 @@ CbbReplayMenu::CbbReplayMenu
 CbbScoreMgr::CbbScoreMgr
 CbbStageLoader::Load
 CbbWaveFile::Read
+CbcChainCut
+CbcPauseObj::Close
 Chain::CreateAndRegisterCalc
 Chain::CreateAndRegisterCalcImmediate
 Chain::CreateAndRegisterDraw

@@ -678,6 +678,7 @@ LmMother::LmMother,0x00432E40,function
 LmMother::Create,0x004333F0,function
 LmMother::DestroySelf,0x00433470,function
 LmMother::DestroyGlobal,0x00433490,function
+CbcPauseObj::Close,0x004334B0,function
 LmPauseAllChains,0x004335D0,function
 LmObj558::Set558,0x00433600,function
 LmObj558::GetFlag200Bit4,0x00433610,function
@@ -1201,6 +1202,7 @@ Chain::RegisterCalc,0x004681D0,function
 Chain::RegisterDraw,0x00468270,function
 Chain::Release,0x004685F0,function
 Chain::CreateElem,0x00468620,function
+CbcChainCut,0x004686D0,function
 ChainElem::`scalar deleting destructor',0x00468750,function
 Chain::CreateAndRegisterCalcImmediate,0x00468770,function
 Chain::CreateAndRegisterDrawImmediate,0x004687D0,function
