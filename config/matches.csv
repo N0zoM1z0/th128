@@ -1125,6 +1125,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00461470,th128::Zc10BuildRibbonV,248,exact,100.00,zc10-build-ribbon-v,Exact VC10 LTCG match via ZeroCallMedium10Probe@56
 0x00461760,AdcwAnmManager::DrawTriangleStrip2D,335,exact,100.00,adcw_draw_triangle_strip_2d,build/match-linked/AnmDrawChainWave/adcw_draw_triangle_strip_2d.json
 0x004618B0,AdcwAnmManager::DrawTriangleFan2D,335,exact,100.00,adcw_draw_triangle_fan_2d,build/match-linked/AnmDrawChainWave/adcw_draw_triangle_fan_2d.json
+0x00462A00,AnmManager::DrawFilledCircle,396,exact,100.00,anm-draw-filled-circle,build/probe-ltcg/AnmWave3
 0x00463750,AmcAnmManager::AmcAnmManager,2763,exact,100.00,amc-anm-manager-ctor,Cold pinned VC10 /GL /EHsc linked-PE replay; complete 2763-byte primary-TU PDB contribution; all 129 reviewed fields replay with zero byte differences.
 0x00464240,EbfAnmMgr::~EbfAnmMgr,223,exact,100.00,ebf-anm-mgr-dtor,compare-linked-function.py --unit ebf-anm-mgr-dtor
 0x00464510,AnmHelpers::NormalizeTextureFormat,40,exact,100.00,anm-normalize-texture-format,Cold pinned VC10 RTM /GL /Ob1 /Oy- linked-PE comparison; complete 40-byte public primary-TU PDB contribution and all 2 reviewed address fields; zero byte differences.
