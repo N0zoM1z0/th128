@@ -378,7 +378,6 @@ CardInf::HasInvalidDurationCode
 CardInf::Initialize
 CardInf::OnDraw
 CardInf::OnTick
-CardInf::Shutdown
 CardInf::Update
 CardInfActions::Finish
 CardInfActions::Start
@@ -1020,6 +1019,8 @@ LsSurfaceGlobal::Get120
 LsSurfaceGlobal::IsValid11C
 LsZero0Twice::ZeroTwice
 LsZeroSurfacePixels
+LwaCardInf::Shutdown
+LwaLaserMgr::~LwaLaserMgr
 MapJoyButtonBit
 MapJoyButtonByte
 MenuCursor::Move

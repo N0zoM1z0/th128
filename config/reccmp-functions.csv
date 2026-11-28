@@ -208,7 +208,7 @@ CardInf::Initialize,0x0040D540,function
 CardRet0_40D660,0x0040D660,function
 CardRet0_40D670,0x0040D670,function
 CardInf::EnableChains,0x0040D680,function
-CardInf::Shutdown,0x0040D6B0,function
+LwaCardInf::Shutdown,0x0040D6B0,function
 CardInf::Create,0x0040D7B0,function
 CardInf::Destroy,0x0040D830,function
 CardInf::Update,0x0040D850,function
@@ -666,6 +666,7 @@ IlPlayerMgr::IsActive438DCOrFlag1,0x00429E20,function
 Il4B8934::AddField84,0x00429E40,function
 IlLaserMgr::IlLaserMgr,0x00429E70,function
 CbeInit429ea0,0x00429EA0,function
+LwaLaserMgr::~LwaLaserMgr,0x00429FB0,function
 IlLaserMgr::DrawHook,0x0042A3E0,function
 LmLaserMgr::CancelInBoxA,0x0042A620,function
 LmLaserMgr::CancelInBoxB,0x0042A6A0,function

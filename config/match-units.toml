@@ -23766,3 +23766,82 @@ linkages = [
   { offset = 407, type = "DIR32", symbol = "?g_EiwEnding@th128@@3PAUEiwEnding@1@A", target = 0x004B8944 },
   { offset = 412, type = "DIR32", symbol = "?g_EiwGlobalAux@th128@@3PAXA", target = 0x004D2AD4 },
 ]
+
+[units.lwa-card-inf-shutdown]
+artifact_kind = "linked-pe"
+source = "src/LifecycleWaveA.cpp"
+inputs = ["src/LifecycleWaveA.hpp"]
+support_sources = ["probes/lifecycle-wave-a-context.cpp"]
+output_dir = "build/match-linked/LifecycleWaveA"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-"]
+entry = "LifecycleWaveAProbe@8"
+functions = ["LwaCardInf::Shutdown"]
+symbol = "?Shutdown@LwaCardInf@th128@@QAEXXZ"
+target_address = 0x0040D6B0
+size = 249
+linkages = [
+  { offset = 4, type = "DIR32", symbol = "?g_LwaAnmMgr@th128@@3PAULwaAnmMgr@1@A", target = 0x004D2E50 },
+  { offset = 22, type = "REL32", symbol = "?LwaReleaseAnm@th128@@YAXPAX@Z", target = 0x00465F60 },
+  { offset = 34, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+  { offset = 55, type = "REL32", symbol = "?LwaDeleteVmByIdPtr@th128@@YAXPAI@Z", target = 0x004679B0 },
+  { offset = 63, type = "REL32", symbol = "?LwaDeleteVmByIdPtr@th128@@YAXPAI@Z", target = 0x004679B0 },
+  { offset = 71, type = "REL32", symbol = "?LwaDeleteVmByIdPtr@th128@@YAXPAI@Z", target = 0x004679B0 },
+  { offset = 80, type = "DIR32", symbol = "?g_LwaChainMgr@th128@@3PAULwaChainMgr@1@A", target = 0x004D2E14 },
+  { offset = 90, type = "DIR32", symbol = "?g_LwaGameFlags@th128@@3IA", target = 0x004D33F8 },
+  { offset = 101, type = "DIR32", symbol = "?g_LwaChainCs@th128@@3U_RTL_CRITICAL_SECTION@@A", target = 0x004D3678 },
+  { offset = 107, type = "DIR32", symbol = "__imp__EnterCriticalSection@4", target = 0x0049A088 },
+  { offset = 113, type = "DIR32", symbol = "?g_LwaChainLockDepth@th128@@3EA", target = 0x004D3798 },
+  { offset = 122, type = "REL32", symbol = "?LwaChainCutInternal@th128@@YIXPAULwaChainMgr@1@PAULwaChainElem@1@@Z", target = 0x004686D0 },
+  { offset = 133, type = "DIR32", symbol = "?g_LwaGameFlags@th128@@3IA", target = 0x004D33F8 },
+  { offset = 140, type = "DIR32", symbol = "?g_LwaChainCs@th128@@3U_RTL_CRITICAL_SECTION@@A", target = 0x004D3678 },
+  { offset = 146, type = "DIR32", symbol = "__imp__LeaveCriticalSection@4", target = 0x0049A08C },
+  { offset = 152, type = "DIR32", symbol = "?g_LwaChainLockDepth@th128@@3EA", target = 0x004D3798 },
+  { offset = 168, type = "DIR32", symbol = "?g_LwaChainMgr@th128@@3PAULwaChainMgr@1@A", target = 0x004D2E14 },
+  { offset = 178, type = "DIR32", symbol = "?g_LwaGameFlags@th128@@3IA", target = 0x004D33F8 },
+  { offset = 185, type = "DIR32", symbol = "?g_LwaChainCs@th128@@3U_RTL_CRITICAL_SECTION@@A", target = 0x004D3678 },
+  { offset = 191, type = "DIR32", symbol = "__imp__EnterCriticalSection@4", target = 0x0049A088 },
+  { offset = 197, type = "DIR32", symbol = "?g_LwaChainLockDepth@th128@@3EA", target = 0x004D3798 },
+  { offset = 206, type = "REL32", symbol = "?LwaChainCutInternal@th128@@YIXPAULwaChainMgr@1@PAULwaChainElem@1@@Z", target = 0x004686D0 },
+  { offset = 212, type = "DIR32", symbol = "?g_LwaGameFlags@th128@@3IA", target = 0x004D33F8 },
+  { offset = 219, type = "DIR32", symbol = "?g_LwaChainCs@th128@@3U_RTL_CRITICAL_SECTION@@A", target = 0x004D3678 },
+  { offset = 225, type = "DIR32", symbol = "__imp__LeaveCriticalSection@4", target = 0x0049A08C },
+  { offset = 231, type = "DIR32", symbol = "?g_LwaChainLockDepth@th128@@3EA", target = 0x004D3798 },
+  { offset = 239, type = "DIR32", symbol = "?g_LwaCardInf@th128@@3PAULwaCardInf@1@A", target = 0x004B8934 },
+]
+
+[units.lwa-laser-mgr-dtor]
+artifact_kind = "linked-pe"
+source = "src/LifecycleWaveA.cpp"
+inputs = ["src/LifecycleWaveA.hpp"]
+support_sources = ["probes/lifecycle-wave-a-context.cpp"]
+output_dir = "build/match-linked/LifecycleWaveA"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-"]
+entry = "LifecycleWaveAProbe@8"
+functions = ["LwaLaserMgr::~LwaLaserMgr"]
+symbol = "??1LwaLaserMgr@th128@@QAE@XZ"
+target_address = 0x00429FB0
+size = 238
+linkages = [
+  { offset = 7, type = "DIR32", symbol = "?g_LwaChainMgr@th128@@3PAULwaChainMgr@1@A", target = 0x004D2E14 },
+  { offset = 17, type = "DIR32", symbol = "?g_LwaGameFlags@th128@@3IA", target = 0x004D33F8 },
+  { offset = 28, type = "DIR32", symbol = "?g_LwaChainCs@th128@@3U_RTL_CRITICAL_SECTION@@A", target = 0x004D3678 },
+  { offset = 34, type = "DIR32", symbol = "__imp__EnterCriticalSection@4", target = 0x0049A088 },
+  { offset = 40, type = "DIR32", symbol = "?g_LwaChainLockDepth@th128@@3EA", target = 0x004D3798 },
+  { offset = 49, type = "REL32", symbol = "?LwaChainCutInternal@th128@@YIXPAULwaChainMgr@1@PAULwaChainElem@1@@Z", target = 0x004686D0 },
+  { offset = 55, type = "DIR32", symbol = "?g_LwaGameFlags@th128@@3IA", target = 0x004D33F8 },
+  { offset = 66, type = "DIR32", symbol = "?g_LwaChainCs@th128@@3U_RTL_CRITICAL_SECTION@@A", target = 0x004D3678 },
+  { offset = 72, type = "DIR32", symbol = "__imp__LeaveCriticalSection@4", target = 0x0049A08C },
+  { offset = 78, type = "DIR32", symbol = "?g_LwaChainLockDepth@th128@@3EA", target = 0x004D3798 },
+  { offset = 87, type = "DIR32", symbol = "?g_LwaChainMgr@th128@@3PAULwaChainMgr@1@A", target = 0x004D2E14 },
+  { offset = 97, type = "DIR32", symbol = "?g_LwaGameFlags@th128@@3IA", target = 0x004D33F8 },
+  { offset = 108, type = "DIR32", symbol = "?g_LwaChainCs@th128@@3U_RTL_CRITICAL_SECTION@@A", target = 0x004D3678 },
+  { offset = 114, type = "DIR32", symbol = "__imp__EnterCriticalSection@4", target = 0x0049A088 },
+  { offset = 120, type = "DIR32", symbol = "?g_LwaChainLockDepth@th128@@3EA", target = 0x004D3798 },
+  { offset = 129, type = "REL32", symbol = "?LwaChainCutInternal@th128@@YIXPAULwaChainMgr@1@PAULwaChainElem@1@@Z", target = 0x004686D0 },
+  { offset = 135, type = "DIR32", symbol = "?g_LwaGameFlags@th128@@3IA", target = 0x004D33F8 },
+  { offset = 146, type = "DIR32", symbol = "?g_LwaChainCs@th128@@3U_RTL_CRITICAL_SECTION@@A", target = 0x004D3678 },
+  { offset = 152, type = "DIR32", symbol = "__imp__LeaveCriticalSection@4", target = 0x0049A08C },
+  { offset = 158, type = "DIR32", symbol = "?g_LwaChainLockDepth@th128@@3EA", target = 0x004D3798 },
+  { offset = 212, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+  { offset = 228, type = "DIR32", symbol = "?g_LwaLaserMgr@th128@@3PAULwaLaserMgr@1@A", target = 0x004B8A60 },
+]

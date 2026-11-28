@@ -328,7 +328,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x0040D660,0x0040D662,reviewed,high,card-ret0-40d660-boundary,target-exact
 0x0040D670,0x0040D672,reviewed,high,card-ret0-40d670-boundary,target-exact
 0x0040D680,0x0040D6A2,reviewed,high,card-enable-chains-boundary,Complete 35-byte contiguous owner; adjacent entries reviewed; two callsites in 0x004269D0; no external interior references or owned tables; one global address field declared.
-0x0040D6B0,0x0040D7A8,reviewed,high,card-shutdown-boundary,"Complete 249-byte contiguous target extent; entries, neighbor bytes and references reviewed; no owned tables or external interior references; all 27 address fields declared."
+0x0040D6B0,0x0040D7A8,reviewed,high,lwa-card-inf-shutdown-boundary,0x0040D6B0..0x0040D7A8
 0x0040D7B0,0x0040D80D,reviewed,high,card-create-boundary,"Complete 94-byte contiguous target extent; entries, neighbor bytes and references reviewed; no owned tables or external interior references; all 6 address fields declared."
 0x0040D810,0x0040D822,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x0040D810..0x0040D822 (19 bytes) ends with ret; then padding-then-start 0x0040D830; WEAK: no call, jump, pointer or vtable reference found"
 0x0040D830,0x0040D84C,reviewed,high,card-destroy-boundary,"Complete 29-byte contiguous target extent; entries, neighbor bytes and references reviewed; no owned tables or external interior references; all 3 address fields declared."
@@ -1029,7 +1029,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x00429E40,0x00429E69,reviewed,high,Il4B8934_AddField84-boundary,Exact VC10 LTCG match via ItemLaserHelpersProbe
 0x00429E70,0x00429E9C,reviewed,high,IlLaserMgr_ctor-boundary,Exact VC10 LTCG match via ItemLaserHelpersProbe
 0x00429EA0,0x00429FA0,reviewed,high,cbe-init-429ea0-boundary,Exact linked VC10 /GL /Ob1 /Oy- extent
-0x00429FB0,0x0042A09D,reviewed,high,bdesc-exact,start padding; refs callx4; descent body 0x00429FB0..0x0042A09D (238 bytes) ends with ret; then padding-then-start 0x0042A0A0
+0x00429FB0,0x0042A09D,reviewed,high,lwa-laser-mgr-dtor-boundary,0x00429FB0..0x0042A09D
 0x0042A0A0,0x0042A109,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x0042A0A0..0x0042A109 (106 bytes) ends with ret; then padding-then-start 0x0042A110
 0x0042A110,0x0042A124,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x0042A110..0x0042A124 (21 bytes) ends with ret; then padding-then-start 0x0042A130; WEAK: no call, jump, pointer or vtable reference found"
 0x0042A130,0x0042A14A,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x0042A130..0x0042A14A (27 bytes) ends with ret; then padding-then-start 0x0042A150; WEAK: no call, jump, pointer or vtable reference found"
