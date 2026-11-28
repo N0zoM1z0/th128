@@ -519,6 +519,7 @@ EbaCreatePlayer
 EbaCreateReplayA
 EbaCreateScoreMgr
 EbaCreateStage
+EbbTitleSub::~EbbTitleSub
 EclArr0C::Get
 EclClear1000A::Clear
 EclClear1000B::Clear

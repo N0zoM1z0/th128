@@ -812,6 +812,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00444140,TaNode4::IsNextNonZero,12,exact,100.00,TaNode4_IsNextNonZero,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x004441B0,TaStaffMgr::TaStaffMgr,142,exact,100.00,TaStaffMgr_ctor,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x00444240,CbdReg444240,180,exact,100.00,cbd-reg-444240,Exact linked VC10 /GL /Ob1 /Oy- match in CleanBatchD
+0x00444300,EbbTitleSub::~EbbTitleSub,470,exact,100.00,ebb-title-sub-dtor,Exact linked VC10 /GL /Ob1 /Oy- /EHsc match in EhBatchB
 0x004444E0,TaBuf8C::DeleteSelf,47,exact,100.00,TaBuf8C_DeleteSelf,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x00444640,TaStaffMgr::Create,68,exact,100.00,TaStaffMgr_Create,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x00444690,TaStaffMgr::DestroySelf,18,exact,100.00,TaStaffMgr_DestroySelf,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe

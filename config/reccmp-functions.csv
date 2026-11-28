@@ -835,6 +835,7 @@ TaNoOp444130,0x00444130,function
 TaNode4::IsNextNonZero,0x00444140,function
 TaStaffMgr::TaStaffMgr,0x004441B0,function
 CbdReg444240,0x00444240,function
+EbbTitleSub::~EbbTitleSub,0x00444300,function
 TaBuf8C::DeleteSelf,0x004444E0,function
 TaStaffMgr::Create,0x00444640,function
 TaStaffMgr::DestroySelf,0x00444690,function

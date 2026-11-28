@@ -1479,7 +1479,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x00444150,0x004441A2,reviewed,high,bdesc-exact,start padding; refs callx2; descent body 0x00444150..0x004441A2 (83 bytes) ends with ret; then padding-then-start 0x004441B0
 0x004441B0,0x0044423D,reviewed,high,TaStaffMgr_ctor-boundary,Exact VC10 LTCG match via TitleArchiveHelpersProbe
 0x00444240,0x004442F3,reviewed,high,cbd-reg-444240-boundary,Exact linked VC10 /GL /Ob1 /Oy- extent
-0x00444300,0x004444D5,reviewed,high,bdesc-exact,start padding; refs callx3; descent body 0x00444300..0x004444D5 (470 bytes) ends with ret; then padding-then-start 0x004444E0
+0x00444300,0x004444D5,reviewed,high,ebb-title-sub-dtor-boundary,Exact linked VC10 /GL /Ob1 /Oy- /EHsc extent
 0x004444E0,0x0044450E,reviewed,high,TaBuf8C_DeleteSelf-boundary,Exact VC10 LTCG match via TitleArchiveHelpersProbe
 0x00444510,0x00444517,reviewed,high,bnew-referenced,found by padded-aligned; start padding; refs immx1; descent body 0x00444510..0x00444517 (8 bytes) ends with ret; then padding-then-start 0x00444520
 0x00444520,0x00444631,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00444520..0x00444631 (274 bytes) ends with ret; then padding-then-start 0x00444640
