@@ -1157,6 +1157,7 @@ SfxChannel::SetPanDirect
 SfxChannel::SetPriority
 ShortestAngleDifference
 ShortestAngleDifference2
+SmwSoundMgr::Shutdown
 SoundDebugLog
 SoundManager::EnqueueBgmCommand
 SoundManager::FreeWaveBuffer18C0

@@ -1798,7 +1798,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x00457A10,0x00457A2F,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00457A10..0x00457A2F (32 bytes) ends with ret; then adjacent-start 0x00457A30; WEAK: no call, jump, pointer or vtable reference found"
 0x00457A30,0x00457A9A,reviewed,high,bnew-referenced,found by after-terminator-aligned; start after-terminator; refs immx2; descent body 0x00457A30..0x00457A9A (107 bytes) ends with ret; then padding-then-start 0x00457AA0
 0x00457AA0,0x00457AC6,reviewed,high,SaStartSfxThread-boundary,Exact VC10 LTCG match via SoundAnmHelpersProbe
-0x00457AD0,0x00457BE2,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00457AD0..0x00457BE2 (275 bytes) ends with ret; then padding-then-start 0x00457BF0
+0x00457AD0,0x00457BE2,reviewed,high,smw-sound-mgr-shutdown-boundary,0x00457AD0..0x00457BE3
 0x00457BF0,0x00457C39,reviewed,high,bdesc-exact,start padding; refs callx2; descent body 0x00457BF0..0x00457C39 (74 bytes) ends with ret; then padding-then-start 0x00457C40
 0x00457C40,0x00457D1E,reviewed,high,bdesc-exact,start padding; refs callx3; descent body 0x00457C40..0x00457D1E (223 bytes) ends with ret; then padding-then-start 0x00457D20
 0x00457D20,0x00457D44,reviewed,medium,bdesc-exact-weak,"start padding; refs none; descent body 0x00457D20..0x00457D44 (37 bytes) ends with ret; then padding-then-start 0x00457D50; WEAK: no call, jump, pointer or vtable reference found"

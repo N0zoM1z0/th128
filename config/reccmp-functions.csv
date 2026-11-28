@@ -1040,6 +1040,7 @@ th128::SaInitSoundThread,0x004575D0,function
 th128::SaRequestSoundStop,0x00457620,function
 th128::SaShutdownSoundThreads,0x00457630,function
 th128::SaStartSfxThread,0x00457AA0,function
+SmwSoundMgr::Shutdown,0x00457AD0,function
 th128::SaLoadBgmTable,0x00457D50,function
 th128::Zc9SoundResetAndVolume,0x004582B0,function
 SoundManager::PlaySfx,0x00458410,function
