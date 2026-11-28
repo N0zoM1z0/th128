@@ -25347,3 +25347,110 @@ linkages = [
   { offset = 213, type = "DIR32", symbol = "?g_SfwShakeY@th128@@3MA", target = 0x004D3388 },
   { offset = 231, type = "DIR32", symbol = "?g_SfwShakeY@th128@@3MA", target = 0x004D3388 },
 ]
+[units.anm-mgr-draw-layer21]
+artifact_kind = "linked-pe"
+source = "src/AnmMgrWave2.cpp"
+inputs = ["src/AnmMgrWave2.hpp"]
+support_sources = ["probes/anm-mgr-wave2-context.cpp"]
+output_dir = "build/match-linked/AnmMgrWave2"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-"]
+entry = "AnmMgrWave2Probe@8"
+functions = ["AnmManager::DrawLayer21"]
+symbol = "?DrawLayer21@Amw2AnmManager@th128@@QAEHXZ"
+target_address = 0x004668F0
+size = 138
+linkages = [
+  { offset = 4, type = "DIR32", symbol = "?g_Amw2Viewport1@th128@@3UAmw2SpriteViewport@1@A", target = 0x004D3184 },
+  { offset = 12, type = "DIR32", symbol = "?g_Amw2CurrentViewport@th128@@3PAUAmw2SpriteViewport@1@A", target = 0x004D33B4 },
+  { offset = 17, type = "REL32", symbol = "?Set2DView@Amw2SpriteViewport@th128@@QAEXXZ", target = 0x00435090 },
+  { offset = 23, type = "DIR32", symbol = "?g_Amw2CurrentViewport@th128@@3PAUAmw2SpriteViewport@1@A", target = 0x004D33B4 },
+  { offset = 28, type = "DIR32", symbol = "?g_Amw2D3dDevice@th128@@3PAUAmw2D3dDevice@1@A", target = 0x004D2E70 },
+  { offset = 52, type = "DIR32", symbol = "?g_Amw2AnmManager@th128@@3PAUAmw2AnmManager@1@A", target = 0x004D2E50 },
+  { offset = 58, type = "DIR32", symbol = "?g_Amw2CurrentViewportId@th128@@3HA", target = 0x004D33B8 },
+  { offset = 67, type = "REL32", symbol = "?FlushAnmSpriteBatch@Amw2AnmManager@th128@@QAEXXZ", target = 0x0045EF60 },
+  { offset = 72, type = "DIR32", symbol = "?g_Amw2D3dDevice@th128@@3PAUAmw2D3dDevice@1@A", target = 0x004D2E70 },
+  { offset = 93, type = "DIR32", symbol = "?g_Amw2AnmManager@th128@@3PAUAmw2AnmManager@1@A", target = 0x004D2E50 },
+  { offset = 98, type = "REL32", symbol = "?FlushAnmSpriteBatch@Amw2AnmManager@th128@@QAEXXZ", target = 0x0045EF60 },
+  { offset = 103, type = "DIR32", symbol = "?g_Amw2D3dDevice@th128@@3PAUAmw2D3dDevice@1@A", target = 0x004D2E70 },
+  { offset = 130, type = "REL32", symbol = "?DrawVmGroup@Amw2AnmManager@th128@@QAEHH@Z", target = 0x00466CE0 },
+]
+
+[units.anm-mgr-draw-layer24]
+artifact_kind = "linked-pe"
+source = "src/AnmMgrWave2.cpp"
+inputs = ["src/AnmMgrWave2.hpp"]
+support_sources = ["probes/anm-mgr-wave2-context.cpp"]
+output_dir = "build/match-linked/AnmMgrWave2"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-"]
+entry = "AnmMgrWave2Probe@8"
+functions = ["AnmManager::DrawLayer24"]
+symbol = "?DrawLayer24@Amw2AnmManager@th128@@QAEHXZ"
+target_address = 0x00466980
+size = 133
+linkages = [
+  { offset = 3, type = "DIR32", symbol = "?g_Amw2Viewport0@th128@@3UAmw2SpriteViewport@1@A", target = 0x004D306C },
+  { offset = 11, type = "DIR32", symbol = "?g_Amw2CurrentViewport@th128@@3PAUAmw2SpriteViewport@1@A", target = 0x004D33B4 },
+  { offset = 16, type = "REL32", symbol = "?Set2DView@Amw2SpriteViewport@th128@@QAEXXZ", target = 0x00435090 },
+  { offset = 22, type = "DIR32", symbol = "?g_Amw2CurrentViewport@th128@@3PAUAmw2SpriteViewport@1@A", target = 0x004D33B4 },
+  { offset = 27, type = "DIR32", symbol = "?g_Amw2D3dDevice@th128@@3PAUAmw2D3dDevice@1@A", target = 0x004D2E70 },
+  { offset = 58, type = "DIR32", symbol = "?g_Amw2CurrentViewportId@th128@@3HA", target = 0x004D33B8 },
+  { offset = 67, type = "REL32", symbol = "?DrawVmGroup@Amw2AnmManager@th128@@QAEHH@Z", target = 0x00466CE0 },
+  { offset = 72, type = "DIR32", symbol = "?g_Amw2Viewport1@th128@@3UAmw2SpriteViewport@1@A", target = 0x004D3184 },
+  { offset = 80, type = "DIR32", symbol = "?g_Amw2CurrentViewport@th128@@3PAUAmw2SpriteViewport@1@A", target = 0x004D33B4 },
+  { offset = 85, type = "REL32", symbol = "?Set2DView@Amw2SpriteViewport@th128@@QAEXXZ", target = 0x00435090 },
+  { offset = 91, type = "DIR32", symbol = "?g_Amw2CurrentViewport@th128@@3PAUAmw2SpriteViewport@1@A", target = 0x004D33B4 },
+  { offset = 96, type = "DIR32", symbol = "?g_Amw2D3dDevice@th128@@3PAUAmw2D3dDevice@1@A", target = 0x004D2E70 },
+  { offset = 123, type = "DIR32", symbol = "?g_Amw2CurrentViewportId@th128@@3HA", target = 0x004D33B8 },
+]
+
+[units.anm-mgr-draw-layer32]
+artifact_kind = "linked-pe"
+source = "src/AnmMgrWave2.cpp"
+inputs = ["src/AnmMgrWave2.hpp"]
+support_sources = ["probes/anm-mgr-wave2-context.cpp"]
+output_dir = "build/match-linked/AnmMgrWave2"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-"]
+entry = "AnmMgrWave2Probe@8"
+functions = ["AnmManager::DrawLayer32"]
+symbol = "?DrawLayer32@Amw2AnmManager@th128@@QAEHXZ"
+target_address = 0x00466A60
+size = 133
+linkages = [
+  { offset = 3, type = "DIR32", symbol = "?g_Amw2Viewport0@th128@@3UAmw2SpriteViewport@1@A", target = 0x004D306C },
+  { offset = 11, type = "DIR32", symbol = "?g_Amw2CurrentViewport@th128@@3PAUAmw2SpriteViewport@1@A", target = 0x004D33B4 },
+  { offset = 16, type = "REL32", symbol = "?Set2DView@Amw2SpriteViewport@th128@@QAEXXZ", target = 0x00435090 },
+  { offset = 22, type = "DIR32", symbol = "?g_Amw2CurrentViewport@th128@@3PAUAmw2SpriteViewport@1@A", target = 0x004D33B4 },
+  { offset = 27, type = "DIR32", symbol = "?g_Amw2D3dDevice@th128@@3PAUAmw2D3dDevice@1@A", target = 0x004D2E70 },
+  { offset = 58, type = "DIR32", symbol = "?g_Amw2CurrentViewportId@th128@@3HA", target = 0x004D33B8 },
+  { offset = 67, type = "REL32", symbol = "?DrawVmGroup@Amw2AnmManager@th128@@QAEHH@Z", target = 0x00466CE0 },
+  { offset = 72, type = "DIR32", symbol = "?g_Amw2Viewport1@th128@@3UAmw2SpriteViewport@1@A", target = 0x004D3184 },
+  { offset = 80, type = "DIR32", symbol = "?g_Amw2CurrentViewport@th128@@3PAUAmw2SpriteViewport@1@A", target = 0x004D33B4 },
+  { offset = 85, type = "REL32", symbol = "?Set2DView@Amw2SpriteViewport@th128@@QAEXXZ", target = 0x00435090 },
+  { offset = 91, type = "DIR32", symbol = "?g_Amw2CurrentViewport@th128@@3PAUAmw2SpriteViewport@1@A", target = 0x004D33B4 },
+  { offset = 96, type = "DIR32", symbol = "?g_Amw2D3dDevice@th128@@3PAUAmw2D3dDevice@1@A", target = 0x004D2E70 },
+  { offset = 123, type = "DIR32", symbol = "?g_Amw2CurrentViewportId@th128@@3HA", target = 0x004D33B8 },
+]
+
+[units.anm-mgr-draw-vm-group]
+artifact_kind = "linked-pe"
+source = "src/AnmMgrWave2.cpp"
+inputs = ["src/AnmMgrWave2.hpp"]
+support_sources = ["probes/anm-mgr-wave2-context.cpp"]
+output_dir = "build/match-linked/AnmMgrWave2"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-"]
+entry = "AnmMgrWave2Probe@8"
+functions = ["AnmManager::DrawVmGroup"]
+symbol = "?DrawVmGroup@Amw2AnmManager@th128@@QAEHH@Z"
+target_address = 0x00466CE0
+size = 126
+linkages = [
+  { offset = 2, type = "DIR32", symbol = "?g_Amw2SupervisorFlags@th128@@3IA", target = 0x004D33F8 },
+  { offset = 16, type = "DIR32", symbol = "?g_Amw2CritSec@th128@@3U_RTL_CRITICAL_SECTION@@A", target = 0x004D3750 },
+  { offset = 22, type = "DIR32", symbol = "__imp__EnterCriticalSection@4", target = 0x0049A088 },
+  { offset = 28, type = "DIR32", symbol = "?g_Amw2CritSecDepth@th128@@3EA", target = 0x004D37A1 },
+  { offset = 79, type = "REL32", symbol = "?Draw@Amw2AnmVm@th128@@QAEXPAUAmw2AnmManager@2@@Z", target = 0x00461B00 },
+  { offset = 92, type = "DIR32", symbol = "?g_Amw2SupervisorFlags@th128@@3IA", target = 0x004D33F8 },
+  { offset = 104, type = "DIR32", symbol = "?g_Amw2CritSec@th128@@3U_RTL_CRITICAL_SECTION@@A", target = 0x004D3750 },
+  { offset = 110, type = "DIR32", symbol = "__imp__LeaveCriticalSection@4", target = 0x0049A08C },
+  { offset = 116, type = "DIR32", symbol = "?g_Amw2CritSecDepth@th128@@3EA", target = 0x004D37A1 },
+]
