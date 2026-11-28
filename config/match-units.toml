@@ -23144,3 +23144,38 @@ linkages = [
   { offset = 160, type = "DIR32", symbol = "??1EbfAnmVm@th128@@QAE@XZ", target = 0x00403090 },
   { offset = 199, type = "REL32", symbol = "??_M@YGXPAXIHP6EX0@Z@Z", target = 0x00472ECD },
 ]
+
+[units.cbj-count-ice-bits]
+artifact_kind = "linked-pe"
+source = "src/CleanBatchJ.cpp"
+inputs = ["src/CleanBatchJ.hpp"]
+support_sources = ["probes/clean-batch-j-context.cpp"]
+output_dir = "build/match-linked/CleanBatchJ"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-"]
+entry = "CleanBatchJProbe@8"
+functions = ["CbjCountIceBits"]
+symbol = "?CbjCountIceBits@th128@@YAIPAUCbjIceGrid@1@@Z"
+target_address = 0x00410960
+size = 252
+linkages = [
+]
+
+[units.cbj-enum-joy-axis-cb]
+artifact_kind = "linked-pe"
+source = "src/CleanBatchJ.cpp"
+inputs = ["src/CleanBatchJ.hpp"]
+support_sources = ["probes/clean-batch-j-context.cpp"]
+output_dir = "build/match-linked/CleanBatchJ"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-"]
+entry = "CleanBatchJProbe@8"
+functions = ["CbjEnumJoyAxisCb"]
+symbol = "?CbjEnumJoyAxisCb@th128@@YGHPBUCbjJoyObjInst@1@PAX@Z"
+target_address = 0x00456590
+size = 133
+linkages = [
+  { offset = 7, type = "DIR32", symbol = "___security_cookie", target = 0x004B01F4 },
+  { offset = 30, type = "DIR32", symbol = "?g_CbjJoyIdx@th128@@3HA", target = 0x004D2E4C },
+  { offset = 37, type = "DIR32", symbol = "?g_CbjJoyDevices@th128@@3PAPAUCbjJoyDevice@1@A", target = 0x004D2E8C },
+  { offset = 102, type = "REL32", symbol = "@__security_check_cookie@4", target = 0x004728FD },
+  { offset = 123, type = "REL32", symbol = "@__security_check_cookie@4", target = 0x004728FD },
+]

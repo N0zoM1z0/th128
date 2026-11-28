@@ -439,6 +439,8 @@ CbgCheckReplayVersion
 CbgGuiObj::CbgGuiObj
 CbgLoadMapFile
 CbgStageObj::CbgStageObj
+CbjCountIceBits
+CbjEnumJoyAxisCb
 Chain::CreateAndRegisterCalc
 Chain::CreateAndRegisterCalcImmediate
 Chain::CreateAndRegisterDraw

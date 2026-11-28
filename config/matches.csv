@@ -249,6 +249,7 @@ address,name,size,status,match_percent,unit,evidence
 0x0040E910,CardEffectMgrMini::EnableChainElems,23,exact,100.00,card-effect-enable-chain,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x0040FEB0,th128::AsDrawFreezeHud,757,exact,100.00,as-draw-freeze-hud,757B linked-pe VC10 /GL exact
 0x00410470,EffClear0A::Clear,7,exact,100.00,eff-clear-0a,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
+0x00410960,CbjCountIceBits,252,exact,100.00,cbj-count-ice-bits,compare-linked-function.py --unit cbj-count-ice-bits
 0x00410B50,EffPopCount32,60,exact,100.00,eff-popcount32,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
 0x00410B90,EffSet0::Set,3,exact,100.00,eff-set-0,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
 0x00410BA0,EffListNode::InsertAfter,23,exact,100.00,eff-list-insert-after,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
@@ -961,6 +962,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00455DA0,LsDisableImeDll,36,exact,100.00,LsDisableImeDll,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
 0x00455F40,LsShowCursorWrap,8,exact,100.00,LsShowCursorWrap,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
 0x00456190,th128::Zc2ConfigDialogProc,416,exact,100.00,zc2-config-dialog-proc,Exact VC10 /GL linked-PE match via compare-linked-function.py.
+0x00456590,CbjEnumJoyAxisCb,133,exact,100.00,cbj-enum-joy-axis-cb,compare-linked-function.py --unit cbj-enum-joy-axis-cb
 0x00456670,LsObj0C::Get0C,4,exact,100.00,LsObj0C_Get0C,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
 0x00456680,LsObj0C::Zero0C,8,exact,100.00,LsObj0C_Zero0C,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
 0x00456690,LsObj0C::GetAddr0C,4,exact,100.00,LsObj0C_GetAddr0C,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe

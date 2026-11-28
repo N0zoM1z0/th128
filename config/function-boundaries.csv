@@ -400,7 +400,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x00410660,0x004106DD,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00410660..0x004106DD (126 bytes) ends with ret; then padding-then-start 0x004106E0
 0x004106E0,0x00410813,reviewed,high,bdesc-exact,start padding; refs callx5; descent body 0x004106E0..0x00410813 (308 bytes) ends with ret; then padding-then-start 0x00410820; 1 filler hole(s)
 0x00410820,0x00410957,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00410820..0x00410957 (312 bytes) ends with ret; then padding-then-start 0x00410960
-0x00410960,0x00410A5B,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00410960..0x00410A5B (252 bytes) ends with ret; then padding-then-start 0x00410A60
+0x00410960,0x00410A5B,reviewed,high,cbj-count-ice-bits-boundary,0x00410960..0x00410a5c (252B)
 0x00410A60,0x00410B4C,reviewed,high,bdesc-exact,start padding; refs callx2; descent body 0x00410A60..0x00410B4C (237 bytes) ends with ret; then padding-then-start 0x00410B50
 0x00410B50,0x00410B8B,reviewed,high,eff-popcount32-boundary,Verified exact VC10 /GL linked-pe extent
 0x00410B90,0x00410B92,reviewed,high,eff-set-0-boundary,Verified exact VC10 /GL linked-pe extent
@@ -1759,7 +1759,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x00456330,0x004564E8,reviewed,high,bdesc-exact,start after-table; refs callx2; descent body 0x00456330..0x004564E8 (441 bytes) ends with ret; then padding-then-start 0x004564F0
 0x004564F0,0x0045653E,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x004564F0..0x0045653E (79 bytes) ends with ret; then padding-then-start 0x00456540; WEAK: no call, jump, pointer or vtable reference found"
 0x00456540,0x00456582,reviewed,high,bdesc-exact,start padding; refs immx1; descent body 0x00456540..0x00456582 (67 bytes) ends with ret; then padding-then-start 0x00456590
-0x00456590,0x00456614,reviewed,high,bdesc-exact,start padding; refs immx1; descent body 0x00456590..0x00456614 (133 bytes) ends with ret; then padding-then-start 0x00456620
+0x00456590,0x00456614,reviewed,high,cbj-enum-joy-axis-cb-boundary,0x00456590..0x00456615 (133B)
 0x00456620,0x0045666E,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00456620..0x0045666E (79 bytes) ends with ret; then padding-then-start 0x00456670
 0x00456670,0x00456673,reviewed,high,LsObj0C_Get0C-boundary,Exact VC10 LTCG match via LzssStreamHelpersProbe
 0x00456680,0x00456687,reviewed,high,LsObj0C_Zero0C-boundary,Exact VC10 LTCG match via LzssStreamHelpersProbe

@@ -258,6 +258,7 @@ CbeInit40e820,0x0040E820,function
 CardEffectMgrMini::EnableChainElems,0x0040E910,function
 th128::AsDrawFreezeHud,0x0040FEB0,function
 EffClear0A::Clear,0x00410470,function
+CbjCountIceBits,0x00410960,function
 EffPopCount32,0x00410B50,function
 EffSet0::Set,0x00410B90,function
 EffListNode::InsertAfter,0x00410BA0,function
@@ -999,6 +1000,7 @@ InitializeSupervisorRenderState,0x00455A70,function
 LsDisableImeDll,0x00455DA0,function
 LsShowCursorWrap,0x00455F40,function
 th128::Zc2ConfigDialogProc,0x00456190,function
+CbjEnumJoyAxisCb,0x00456590,function
 LsObj0C::Get0C,0x00456670,function
 LsObj0C::Zero0C,0x00456680,function
 LsObj0C::GetAddr0C,0x00456690,function
