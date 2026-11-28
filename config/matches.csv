@@ -741,6 +741,7 @@ address,name,size,status,match_percent,unit,evidence
 0x0043A540,SpFlag5C::SpFlag5C,7,exact,100.00,SpFlag5C_ctor,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
 0x0043ACB0,SpRet0_43ACB0,3,exact,100.00,SpRet0_43ACB0,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
 0x0043ACC0,SpRet0_43ACC0,3,exact,100.00,SpRet0_43ACC0,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
+0x0043ACD0,EbfPlayer::~EbfPlayer,463,exact,100.00,ebf-player-dtor,compare-linked-function.py --unit ebf-player-dtor
 0x0043AEA0,EbaCreatePlayer,147,exact,100.00,eba-create-player,Exact linked VC10 /GL /Ob1 /Oy- /EHsc match in EhBatchA
 0x0043AF40,SpPlayer::DestroySelf,18,exact,100.00,SpPlayer_DestroySelf,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
 0x0043AF60,SpPlayer::DestroyGlobal,28,exact,100.00,SpPlayer_DestroyGlobal,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
@@ -1055,6 +1056,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00461370,th128::Zc10BuildRibbonU,248,exact,100.00,zc10-build-ribbon-u,Exact VC10 LTCG match via ZeroCallMedium10Probe@56
 0x00461470,th128::Zc10BuildRibbonV,248,exact,100.00,zc10-build-ribbon-v,Exact VC10 LTCG match via ZeroCallMedium10Probe@56
 0x00463750,AmcAnmManager::AmcAnmManager,2763,exact,100.00,amc-anm-manager-ctor,Cold pinned VC10 /GL /EHsc linked-PE replay; complete 2763-byte primary-TU PDB contribution; all 129 reviewed fields replay with zero byte differences.
+0x00464240,EbfAnmMgr::~EbfAnmMgr,223,exact,100.00,ebf-anm-mgr-dtor,compare-linked-function.py --unit ebf-anm-mgr-dtor
 0x00464510,AnmHelpers::NormalizeTextureFormat,40,exact,100.00,anm-normalize-texture-format,Cold pinned VC10 RTM /GL /Ob1 /Oy- linked-PE comparison; complete 40-byte public primary-TU PDB contribution and all 2 reviewed address fields; zero byte differences.
 0x00464540,AnmHelpers::AccumulateTextureColor8888,30,exact,100.00,anm-accumulate-texture-color-8888,Cold pinned VC10 RTM /GL /Ob1 /Oy- linked-PE comparison; complete 30-byte public primary-TU PDB contribution and all 0 reviewed address fields; zero byte differences.
 0x00464560,AnmHelpers::AccumulateTextureColor1555,42,exact,100.00,anm-accumulate-texture-color-1555,Cold pinned VC10 RTM /GL /Ob1 /Oy- linked-PE comparison; complete 42-byte public primary-TU PDB contribution and all 0 reviewed address fields; zero byte differences.

@@ -23071,3 +23071,76 @@ linkages = [
   { offset = 230, type = "DIR32", symbol = "??_7EbcThreadBase@@6B@", target = 0x004A6050 },
   { offset = 235, type = "REL32", symbol = "?Reset@EbcThreadBase@@QAEXXZ", target = 0x0046ACF0 },
 ]
+
+[units.ebf-player-dtor]
+artifact_kind = "linked-pe"
+source = "src/EhBatchF.cpp"
+inputs = ["src/EhBatchF.hpp"]
+support_sources = ["probes/eh-batch-f-context.cpp"]
+output_dir = "build/match-linked/EhBatchF"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-", "/EHsc"]
+entry = "EhBatchFProbe@8"
+functions = ["EbfPlayer::~EbfPlayer"]
+symbol = "??1EbfPlayer@th128@@QAE@XZ"
+target_address = 0x0043ACD0
+size = 463
+linkages = [
+  { offset = 6, type = "DIR32", symbol = "__ehhandler$??1EbfPlayer@th128@@QAE@XZ", target = 0x004992A7, eh_static = true },
+  { offset = 21, type = "DIR32", symbol = "___security_cookie", target = 0x004B01F4 },
+  { offset = 52, type = "DIR32", symbol = "?g_EbfChainMgr@th128@@3PAUEbfChainMgr@1@A", target = 0x004D2E14 },
+  { offset = 62, type = "DIR32", symbol = "?g_EbfLockFlags@th128@@3HA", target = 0x004D33F8 },
+  { offset = 73, type = "DIR32", symbol = "?g_EbfChainCs@th128@@3U_RTL_CRITICAL_SECTION@@A", target = 0x004D3678 },
+  { offset = 79, type = "DIR32", symbol = "__imp__EnterCriticalSection@4", target = 0x0049A088 },
+  { offset = 85, type = "DIR32", symbol = "?g_EbfChainLockCount@th128@@3EA", target = 0x004D3798 },
+  { offset = 94, type = "REL32", symbol = "?EbfChainCutInternal@th128@@YIXPAUEbfChainMgr@1@PAUEbfChainElem@1@@Z", target = 0x004686D0 },
+  { offset = 100, type = "DIR32", symbol = "?g_EbfLockFlags@th128@@3HA", target = 0x004D33F8 },
+  { offset = 111, type = "DIR32", symbol = "?g_EbfChainCs@th128@@3U_RTL_CRITICAL_SECTION@@A", target = 0x004D3678 },
+  { offset = 117, type = "DIR32", symbol = "__imp__LeaveCriticalSection@4", target = 0x0049A08C },
+  { offset = 123, type = "DIR32", symbol = "?g_EbfChainLockCount@th128@@3EA", target = 0x004D3798 },
+  { offset = 132, type = "DIR32", symbol = "?g_EbfChainMgr@th128@@3PAUEbfChainMgr@1@A", target = 0x004D2E14 },
+  { offset = 142, type = "DIR32", symbol = "?g_EbfLockFlags@th128@@3HA", target = 0x004D33F8 },
+  { offset = 153, type = "DIR32", symbol = "?g_EbfChainCs@th128@@3U_RTL_CRITICAL_SECTION@@A", target = 0x004D3678 },
+  { offset = 159, type = "DIR32", symbol = "__imp__EnterCriticalSection@4", target = 0x0049A088 },
+  { offset = 165, type = "DIR32", symbol = "?g_EbfChainLockCount@th128@@3EA", target = 0x004D3798 },
+  { offset = 174, type = "REL32", symbol = "?EbfChainCutInternal@th128@@YIXPAUEbfChainMgr@1@PAUEbfChainElem@1@@Z", target = 0x004686D0 },
+  { offset = 180, type = "DIR32", symbol = "?g_EbfLockFlags@th128@@3HA", target = 0x004D33F8 },
+  { offset = 191, type = "DIR32", symbol = "?g_EbfChainCs@th128@@3U_RTL_CRITICAL_SECTION@@A", target = 0x004D3678 },
+  { offset = 197, type = "DIR32", symbol = "__imp__LeaveCriticalSection@4", target = 0x0049A08C },
+  { offset = 203, type = "DIR32", symbol = "?g_EbfChainLockCount@th128@@3EA", target = 0x004D3798 },
+  { offset = 209, type = "DIR32", symbol = "?g_EbfStageFlags@th128@@3EA", target = 0x004B4D50 },
+  { offset = 216, type = "DIR32", symbol = "?g_EbfAnmMgr@th128@@3PAUEbfAnmMgr@1@A", target = 0x004D2E50 },
+  { offset = 222, type = "DIR32", symbol = "?g_EbfPlayer@th128@@3PAUEbfPlayer@1@A", target = 0x004B8A80 },
+  { offset = 236, type = "REL32", symbol = "?KeepPlayerAnm@EbfAnmMgr@th128@@QAEXH@Z", target = 0x00467710 },
+  { offset = 247, type = "DIR32", symbol = "?g_EbfSavedBuf@th128@@3PAXA", target = 0x004D2E28 },
+  { offset = 264, type = "REL32", symbol = "?EbfReleaseAnm@th128@@YAXPAX@Z", target = 0x00465F60 },
+  { offset = 276, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+  { offset = 305, type = "REL32", symbol = "_free", target = 0x0047290C },
+  { offset = 324, type = "DIR32", symbol = "?g_EbfSavedBuf@th128@@3PAXA", target = 0x004D2E28 },
+  { offset = 344, type = "REL32", symbol = "_free", target = 0x0047290C },
+  { offset = 373, type = "REL32", symbol = "_free", target = 0x0047290C },
+  { offset = 400, type = "REL32", symbol = "_free", target = 0x0047290C },
+]
+
+[units.ebf-anm-mgr-dtor]
+artifact_kind = "linked-pe"
+source = "src/EhBatchF.cpp"
+inputs = ["src/EhBatchF.hpp"]
+support_sources = ["probes/eh-batch-f-context.cpp"]
+output_dir = "build/match-linked/EhBatchF"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-", "/EHsc"]
+entry = "EhBatchFProbe@8"
+functions = ["EbfAnmMgr::~EbfAnmMgr"]
+symbol = "??1EbfAnmMgr@th128@@QAE@XZ"
+target_address = 0x00464240
+size = 223
+linkages = [
+  { offset = 6, type = "DIR32", symbol = "__ehhandler$??1EbfAnmMgr@th128@@QAE@XZ", target = 0x004993E7, eh_static = true },
+  { offset = 21, type = "DIR32", symbol = "___security_cookie", target = 0x004B01F4 },
+  { offset = 70, type = "REL32", symbol = "?EbfDestroyVm@th128@@YAXPAX@Z", target = 0x00466F60 },
+  { offset = 102, type = "REL32", symbol = "?EbfDestroyVm@th128@@YAXPAX@Z", target = 0x00466F60 },
+  { offset = 113, type = "DIR32", symbol = "??1EbfAnmVm@th128@@QAE@XZ", target = 0x00403090 },
+  { offset = 136, type = "REL32", symbol = "??_M@YGXPAXIHP6EX0@Z@Z", target = 0x00472ECD },
+  { offset = 152, type = "REL32", symbol = "_free", target = 0x0047290C },
+  { offset = 160, type = "DIR32", symbol = "??1EbfAnmVm@th128@@QAE@XZ", target = 0x00403090 },
+  { offset = 199, type = "REL32", symbol = "??_M@YGXPAXIHP6EX0@Z@Z", target = 0x00472ECD },
+]

@@ -1287,7 +1287,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x0043AB20,0x0043ACAE,reviewed,high,bdesc-exact,start padding; refs callx4; descent body 0x0043AB20..0x0043ACAE (399 bytes) ends with ret; then padding-then-start 0x0043ACB0
 0x0043ACB0,0x0043ACB2,reviewed,high,SpRet0_43ACB0-boundary,Exact VC10 LTCG match via SupervisorPauseHelpersProbe
 0x0043ACC0,0x0043ACC2,reviewed,high,SpRet0_43ACC0-boundary,Exact VC10 LTCG match via SupervisorPauseHelpersProbe
-0x0043ACD0,0x0043AE9E,reviewed,high,bdesc-exact,start padding; refs callx5; descent body 0x0043ACD0..0x0043AE9E (463 bytes) ends with ret; then padding-then-start 0x0043AEA0
+0x0043ACD0,0x0043AE9E,reviewed,high,ebf-player-dtor-boundary,0x0043acd0..0x0043ae9f (463B)
 0x0043AEA0,0x0043AF32,reviewed,high,eba-create-player-boundary,Exact linked VC10 /GL /Ob1 /Oy- /EHsc extent
 0x0043AF40,0x0043AF51,reviewed,high,SpPlayer_DestroySelf-boundary,Exact VC10 LTCG match via SupervisorPauseHelpersProbe
 0x0043AF60,0x0043AF7B,reviewed,high,SpPlayer_DestroyGlobal-boundary,Exact VC10 LTCG match via SupervisorPauseHelpersProbe
@@ -1972,7 +1972,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x00463750,0x0046421A,reviewed,high,amc-anm-manager-ctor-boundary,0x00463750..0x0046421A (2763B)
 0x00464220,0x00464222,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00464220..0x00464222 (3 bytes) ends with ret; then padding-then-start 0x00464230; WEAK: no call, jump, pointer or vtable reference found"
 0x00464230,0x00464232,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00464230..0x00464232 (3 bytes) ends with ret; then padding-then-start 0x00464240; WEAK: no call, jump, pointer or vtable reference found"
-0x00464240,0x0046431E,reviewed,high,bdesc-exact,start padding; refs callx2; descent body 0x00464240..0x0046431E (223 bytes) ends with ret; then padding-then-start 0x00464320
+0x00464240,0x0046431E,reviewed,high,ebf-anm-mgr-dtor-boundary,0x00464240..0x0046431f (223B)
 0x00464320,0x00464509,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00464320..0x00464509 (490 bytes) ends with ret; then padding-then-start 0x00464510
 0x00464510,0x00464537,reviewed,medium,anm-normalize-texture-format-boundary,"Complete 40-byte owner 0x00464510..0x00464537, with both return tails and two absolute fields reviewed in the TH128 target. No entry or interior references; CC alignment delimits both neighbors. Natural VC10 emits one complete public primary-TU contribution for this inline helper."
 0x00464540,0x0046455D,reviewed,medium,anm-accumulate-texture-color-8888-boundary,"Complete 30-byte owner 0x00464540..0x0046455D, reviewed from local TH128 bytes. RET immediately before CC alignment; no references or external interior entries in the complete neighboring-helper review. Natural VC10 emits a separate complete public contribution for this inline helper."

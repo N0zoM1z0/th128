@@ -522,6 +522,8 @@ EbaCreateStage
 EbbTitleSub::~EbbTitleSub
 EbcMainMgr::~EbcMainMgr
 EbcScoreMgr::~EbcScoreMgr
+EbfAnmMgr::~EbfAnmMgr
+EbfPlayer::~EbfPlayer
 EclArr0C::Get
 EclClear1000A::Clear
 EclClear1000B::Clear

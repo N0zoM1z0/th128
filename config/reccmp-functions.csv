@@ -764,6 +764,7 @@ SpFlagC8::SpFlagC8,0x0043A530,function
 SpFlag5C::SpFlag5C,0x0043A540,function
 SpRet0_43ACB0,0x0043ACB0,function
 SpRet0_43ACC0,0x0043ACC0,function
+EbfPlayer::~EbfPlayer,0x0043ACD0,function
 EbaCreatePlayer,0x0043AEA0,function
 SpPlayer::DestroySelf,0x0043AF40,function
 SpPlayer::DestroyGlobal,0x0043AF60,function
@@ -1120,6 +1121,7 @@ UpdateAnmVmEffect10,0x004634A0,function
 DrawAnmVmEffect10,0x004636E0,function
 AnmVmEffect10Vertex::SetPolar,0x00463700,function
 AmcAnmManager::AmcAnmManager,0x00463750,function
+EbfAnmMgr::~EbfAnmMgr,0x00464240,function
 AnmHelpers::NormalizeTextureFormat,0x00464510,function
 AnmHelpers::AccumulateTextureColor8888,0x00464540,function
 AnmHelpers::AccumulateTextureColor1555,0x00464560,function
