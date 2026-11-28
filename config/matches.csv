@@ -1272,6 +1272,7 @@ address,name,size,status,match_percent,unit,evidence
 0x0046CC70,CSoundStream::scalar_deleting_destructor,33,exact,100.00,ds-sound-scalar-dtor,"Cold VC10 /GL linked-PE replay (33B, 2 fields, 0 diffs)."
 0x0046CCA0,CSoundStream::RecreateBuffers,352,exact,100.00,ds-sound-recreate-buffers,"Cold VC10 /GL linked-PE replay (352B, 6 fields, 0 diffs)."
 0x0046CE00,CSoundStream::~CSoundStream,133,exact,100.00,ds-sound-dtor,"Cold VC10 /GL linked-PE replay (133B, 4 fields, 0 diffs)."
+0x0046CE90,SiwSound::FillBufferWithSound,548,exact,100.00,siw_fill_buffer_with_sound,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046D0C0,CSoundView::RestoreBuffer,105,exact,100.00,csound-restore-buffer,Cold pinned VC10 /GL linked-PE replay; complete 105-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046D130,CSoundView::GetFreeBuffer,112,exact,100.00,csound-get-free-buffer,Cold pinned VC10 /GL linked-PE replay; complete 112-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046D1A0,CSoundView::GetBuffer0,19,exact,100.00,csound-get-buffer0,Cold pinned VC10 /GL linked-PE replay; complete 19-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
