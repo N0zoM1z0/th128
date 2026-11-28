@@ -3504,3 +3504,58 @@ layouts are unchanged. Only decorated symbols differ. The experiment stayed
 private, so TextTexture/AnmText source, their four canonical contexts and
 AddScore's evidence remain unchanged. Do not retry this type hypothesis.
 Typed-texture result (`.analysis/texture-text-typed-observations.json`).
+
+## VC10 LTCG batch-reconstruction findings (2026-11-28)
+
+Observed across `CleanBatchF..N`, `EhBatchA..F`, and `StlStringBatch` under
+pinned VC10 RTM (`cl 16.00.30319.01`, `link 10.00.30319.01`) with
+`/O2 /Ob1 /Oy- /GL` (and `/EHsc` for EH owners):
+
+- **Non-virtual destructor on a polymorphic class (`CbnEnemy::~CbnEnemy`,
+  `0x00415EC0`, 344B):** When a base class has a virtual method other than the
+  destructor and `~Derived()` is non-virtual, VC10 still emits the derived/base
+  vtable stores (`mov [edi], vtbl`) while allowing LTCG to pass `this` in `eax`
+  instead of forcing `ecx`.
+- **Member call vs free-function register choice (`CbkGui::Draw`, `0x004225F0`,
+  138B):** Calling `g_AnmMgr->DrawVm(vm)` loads `g_AnmMgr` into `ecx` (6B
+  `8B 0D`) before `lea eax, [ebx+0x5378]; push ecx`, whereas a free function
+  `DrawVm(vm, g_AnmMgr)` loads `g_AnmMgr` into `eax` (5B `A1`) and pushes it
+  first (`-1B`).
+- **Dead-`this` elimination and `edx` tail calls (`CblSwapKey`, `0x004496F0`,
+  199B):** Calling a member function `g_SeMgr.PlaySe(7)` whose body does not
+  reference `this` lets LTCG eliminate `this` (`ecx`) and pass the integer
+  argument in `edx`, enabling the tail call `mov edx, 7; pop edi; jmp`.
+- **Intra-function jump tables (`CblScoreTable::GetStageValue`, `0x0044F430`,
+  156B):** Switch jump-table `DIR32` relocations targeting addresses inside the
+  function's own `[va, va + size)` extent are declared with `local = true` in
+  `config/match-units.toml` (no `symbol` key).
+- **VC10 `<string>` STL instantiations (`StlStringBatch`, 10 exact units /
+  324B, plus `CleanBatchM` `std::string::erase` 112B):** Exercising standard
+  `std::string` methods under `/Ob1 /Oy- /EHsc` reproduces exact VC10 STL
+  helpers (`_Inside`, `char_traits<char>::copy`, `max_size`, `bad_alloc`
+  ctors/dtors/scalar-deleting-dtor, `_Allocate<char>`, `allocator<char>::allocate`,
+  `erase`). Two current `compare-linked-function.py` limitations were observed
+  on remaining STL helpers:
+  1. Multi-contribution EH functions whose `__catch$` funclets are separate PDB
+     section contributions (e.g., `std::string::_Copy` at `0x00453050`, 354B =
+     177B body + 131B `catch$0` + 46B `catch$1`, which matched `bad_ins=0`
+     across all 354B) fail the single-contribution size check.
+  2. `noreturn` helpers ending with a trailing `int3` (`0xCC`) inside the PDB
+     contribution (`_Xran` at `0x00452DC0`, `_Xlen` at `0x00452EF0`: 10B in
+     `functions.csv` vs 11B PDB contribution) also fail that size check.
+- **Avoiding unwanted `/GS` cookies on 12B structs:** Passing `const Vec3*`
+  and reading its fields in probe stubs avoids pointer-to-int escape casts
+  (`(int)pos`) that trigger VC10 `/GS` stack cookies on local 12B structs.
+- **Bit-test and register-tie idioms:**
+  - `if (((~(f >> 5)) & 1) && ((~f) & 1))` reproduces `not; test reg, 1`
+    instead of VC10 folding `(f & 0x20) == 0 && (f & 1) == 0` into `test ..., 0x21`.
+  - In `CbmSumU32` (`0x0046AC00`, 115B), initializing `unsigned int sum = 0;`
+    before `byteLen -= byteLen & 3;` flips the entry register assignment from
+    `edx` to `ebx` and eliminates all 6 prologue diffs.
+  - Plain 1D pointer loop `for (int i = 0; i < 0x1500; ++i) sum += PopCnt(*p++);`
+    auto-unrolls 3-way into the exact 252B `CbjCountIceBits` (`0x00410960`).
+- **Tracking ledger hygiene:** `scripts/record-source.py` updates five CSVs
+  (`config/function-boundaries.csv`, `config/functions.csv`,
+  `config/implemented.csv`, `config/matches.csv`, `config/reccmp-functions.csv`).
+  Always commit all five CSVs alongside `config/match-units.toml`,
+  `docs/PROGRESS.md`, and `resources/progress.svg`.

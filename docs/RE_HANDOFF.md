@@ -1,15 +1,16 @@
 # TH128 reconstruction handoff
 
-Prepared 2026-11-26 for a new agent. Last executable-code checkpoint:
-**`c1419af` — five exact scratch-image/font lifetime owners**.
-No reconstruction job remains running, and no push was performed.
+Prepared 2026-11-28 for the next agent. Last executable-code checkpoint:
+**`22eec6f` — `CleanBatchN` with exact `CbnEnemy::~CbnEnemy` (`0x00415EC0`, +344B)**.
+No background job remains running. Local `main` is 2 commits ahead of
+`origin/main` (`2354b2d`); no push was performed.
 
 ## Resume
 
 1. Read [AGENTS.md](../AGENTS.md), [workflow](RE_WORKFLOW.md),
-   [Oracles](ORACLES.md), then the relevant source and ledger rows.
+   [Oracles](ORACLES.md), and the relevant source/ledger rows.
    Preserve dirty/untracked work; inspect `git status --short --branch`
-   and `git log -5 --oneline` before editing.
+   and `git log -10 --oneline` before editing.
 2. Before target-dependent work in a new session, run once:
 
    ~~~bash
@@ -18,149 +19,167 @@ No reconstruction job remains running, and no push was performed.
    scripts/repo-python scripts/verify-toolchain.py --check
    ~~~
 
-3. Analyze through `scripts/repo-python scripts/ghidra.py`; each query
-   attests the original disk target, loaded Program and complete mapped .text.
-   Ghidra boundaries/types/decompilation remain hypotheses.
-4. Use commit titles **`gpt-6.1-sol: <English summary>`**. Build and compare
-   affected complete owners and their real consumers. Notes and comment-only
-   cleanup need diff review, not a compiler, analyzer or broad replay.
+3. Analyze through `scripts/repo-python scripts/ghidra.py` (or direct PE/Capstone
+   inspection of `resources/th128.exe`). Ghidra boundaries/types/decompilation
+   remain provisional hypotheses, never exactness evidence.
+4. Keep **VC10 RTM** (`cl 16.00.30319.01`, `link 10.00.30319.01`) and `/GL`
+   ownership. Run **only one Wine/VC10 build at a time** on
+   `.tools/wineprefix-msvc1000`. Documentation/handoff edits need diff review
+   only (`git diff --check`), not a compiler or replay.
 
 Only use ignored `resources/th128.exe`: original Japanese v1.00a,
 752,640 bytes, SHA-256
 `ba515750ece845b56640fe440592fc39ebb7bdd1ed87c541b67a19b148e767d4`.
-Keep VC10 RTM and `/GL` ownership; do not substitute another game/compiler.
 [Shared tools](SHARED_TOOLS.md) explains the isolated Factory runtime.
 
 ## Current state
 
-[PROGRESS.md](PROGRESS.md) is generated from canonical ledgers. At the last
-code checkpoint: **449 source mappings, 357 exact functions / 26,077B**;
-authored exact is **348 functions / 25,717B**, with **92** authored source
-frontiers. There are 3,516 candidates, 64 provisional boundaries and 21
-pending origins. The inventory denominator is provisional. The native
-Windows product has not been closed or runtime-validated.
+[PROGRESS.md](PROGRESS.md) is generated from canonical ledgers (`scripts/repo-python scripts/progress.py`).
+At `22eec6f`:
 
-`config/matches.csv` grants exact credit;
-`config/match-units.toml` defines the reproducible owner context, complete
-extent and exhaustive address fields. Successful compilation, source presence
-and near matches grant no extra credit. Git is source provenance.
+| Measure | Count |
+| --- | ---: |
+| Tracked 1.00a function candidates | 3,516 |
+| Boundary reviewed / provisional | 3,452 / 64 |
+| Origin review pending | 21 |
+| Confirmed authored functions / bytes | 2,226 / 435,812B |
+| Source-present mappings (authored / pending) | 1,387 (1,351 / 16) |
+| Authored source-present exact backlog | 92 |
+| **Canonical exact functions / bytes** | **1,294 / 84,111B** |
+| **Canonical exact authored functions / bytes** | **1,259 / 82,716B (18.98%)** |
+
+Remaining non-exact, non-library authored functions by size bucket:
+
+- `1–49B`: 705 funcs (12,099B)
+- `50–99B`: 142 funcs (10,099B)
+- `100–299B`: 236 funcs (42,723B)
+- `300–999B`: 203 funcs (103,341B)
+- `1000+B`: 81 funcs (192,016B)
+
+`config/matches.csv` grants exact credit; `config/match-units.toml` defines
+each reproducible owner context, complete extent and exhaustive address fields.
+The native Windows product has not been closed or runtime-validated.
 
 ## Latest verified work
 
-[TextImageLifetime.cpp](../src/TextImageLifetime.cpp) has five exact owners
-in one three-source cold context with real Rng.cpp support:
+Recent commits advanced exact reconstruction across fresh LTCG batches, `/EHsc`
+destructors/factories, and VC10 `<string>` STL instantiations:
 
-| Owner | Target | Bytes / fields |
-| --- | --- | ---: |
-| DestroyTextImage | 0x004516B0 | 105 / 14 |
-| InitializeDefaultTextImage | 0x00451720 | 22 / 2 |
-| InitializeTextImage | 0x00451740 | 413 / 22 |
-| InitializeTextFonts | 0x004525D0 | 516 / 32 |
-| DestroyTextFonts | 0x004527E0 | 83 / 10 |
+| Commit | Batch | Exact units landed | Bytes |
+| --- | --- | --- | ---: |
+| `22eec6f` | `CleanBatchN` | `CbnEnemy::~CbnEnemy` (`0x00415EC0`) | +344B |
+| `9ba52b1` | `StlStringBatch` | 10 VC10 STL `std::string`/`bad_alloc`/`allocator<char>` funcs (`0x00452D80..0x00453000`) | +324B |
+| `2354b2d` | `CleanBatchM` | `CbmSumU32` (`0x0046AC00`), `std::string::erase` (`0x00452DE0`) | +227B |
+| `984057c` | `CleanBatchL` | `CblSwapKey` (`0x004496F0`), `CblScoreTable::GetStageValue` (`0x0044F430`) | +355B |
+| `6ade83b` | `CleanBatchK` | `CbkEndingSub::~CbkEndingSub` (`0x00412FC0`), `CbkGui::Draw` (`0x004225F0`) | +316B |
+| `732e90f` | `CleanBatchJ` | `CbjCountIceBits` (`0x00410960`), `CbjEnumJoyAxisCb` (`0x00456590`) | +385B |
+| `a0cccc3` | `EhBatchF` | `EbfPlayer::~EbfPlayer` (`0x0043ACD0`), `EbfAnmMgr::~EbfAnmMgr` (`0x00464240`) | +686B |
+| `0b27adf` | `EhBatchC` | `EbcMainMgr::~EbcMainMgr`, `EbcScoreMgr::~EbcScoreMgr` | +842B |
 
-All **1,139B / 80 fields** passed complete primary-PDB-owner comparison.
-Primary flags are `/O2 /Ob1 /Oy- /GL`; this context's RNG support keeps
-`/O2 /Oy- /GL` without `/Ob1` to reproduce the observed GetU16 inlining.
-The established RNG source and primary context were not changed. Original
-TU partition and compiler settings are not proved by this matched context.
-[Finding and failed candidates](KNOWLEDGE_BASE.md#scratch-image-lifetime-and-font-setup-2026-11-26),
-[final results](../.analysis/text-image-lifetime-final-results.json),
-[scope](../.analysis/text-image-lifetime-final-scope.json),
-[build log](../.analysis/text-image-lifetime-final-cold-build.log).
+See [KNOWLEDGE_BASE.md](KNOWLEDGE_BASE.md#vc10-ltcg-batch-reconstruction-findings-2026-11-28)
+for the reusable VC10 LTCG codegen patterns and pitfalls from these batches.
 
-Keep physical DIB height **-129**, logical stored height **128**, width 1024
-and byte count pitch * 128. Format lookup returns null only for requested -1;
-other misses return the sentinel address. Font setup continues after both
-format attempts fail. Font cleanup deletes default/2/4/6/1/3/5/7 without
-clearing globals. The two unreferenced wrappers retain medium boundary
-confidence despite exact codegen. The knowledge base has full layout, font
-names, sizes, weights and target references.
+## Batch / sequential reconstruction workflow (recommended for next agent)
 
-## Next useful work
+To maximize exact bytes/minute while building reusable types for later functions,
+work in **ordered 2-TU `/GL` batches** (`src/<Batch>.hpp`, `src/<Batch>.cpp`,
+`probes/<batch>-context.cpp`, ~8–12s per cold link) instead of hopping between
+unrelated frontiers:
 
-Inspect the four adjacent unreferenced color-conversion owners at
-0x004518E0 (66B), 0x00451930 (55B), 0x00451970 (30B), 0x00451990 (42B).
-Their source types may help explain the alternate text fill frontier:
+### 1. Ordered target waves
 
-~~~bash
-scripts/repo-python scripts/ghidra.py query .analysis/text-color-converters-span.txt review_span 0x004518E0 0x004519B9
-~~~
+1. **Wave A — Fresh 0-FPU non-EH functions (100–900B, `<=6` calls):**
+   Query `config/functions.csv` for `owner != 'library'`, empty `source_file`,
+   not in `config/matches.csv`. Group 5–8 functions per batch.
+   - Ready pre-dumped in `.analysis/clean-batch-n-disasm.txt`:
+     `0x0044CEF0` (851B, spell history refresh), `0x00450560` (762B, LZSS compress),
+     `0x00452310` (645B, surface blit), `0x004580C0` (276B, PlayBgmSlot),
+     `0x00469B20` (274B).
+   - Next un-dumped 0-FPU `<=6`-call 250..400B pool:
+     `0x00420A70` (381B), `0x00443690` (378B), `0x004154B0` (341B),
+     `0x00468460` (284B), `0x00412430` (274B), `0x00434EB0` (267B),
+     `0x00434D40` (267B), `0x00455F50` (256B).
+2. **Wave B — Fresh `/EHsc` constructors, destructors, and factories:**
+   Ready pre-dumped in `.analysis/eh-batch-f-disasm.txt`:
+   - `0x00413730` (714B, `EndingSub::EndingSub`)
+   - `0x0046C5B0` (613B, `DSound::CreateStreamingFromFile`)
+   - `0x0046C850` (589B, `DSound::CreateStreamingFromMem`)
+   (Total 1,916B in 3 functions.)
+3. **Wave C — Remaining VC10 STL instantiations & small/medium pools:**
+   Any non-library STL template instantiations (`std::string`, `std::vector`,
+   `std::list`) match automatically when exercised under `/Ob1 /Oy- /EHsc`.
+   Note: `compare-linked-function.py` currently requires a single PDB section
+   contribution of the exact declared size, so multi-contribution `__catch$`
+   functions (e.g., `std::string::_Copy` at `0x00453050`, 354B = 177+131+46)
+   and `noreturn` trailing-`int3` wrappers (`_Xran`/`_Xlen` 10B vs 11B) need
+   either a small `compare-linked-function.py` enhancement or separate handling.
+4. **Wave D — Subsystem sweeps (300–999B and 1000+B) & frontier closure:**
+   Group functions by subsystem (Stage, Enemy, Bullet, Laser, Player, Gui,
+   Title, Replay, Sound, Ending, Anm, Ecl) so shared struct layouts carry over
+   between consecutive batches. Revisit the 92 authored source frontiers (e.g.,
+   `AnmVmScript`, `AnmDraw`, `AnmTextureLoading`, `TextTexture`) once the
+   fresh low-hanging pools are exhausted.
 
-This query has not been run. Review complete instructions, delimiters and
-references before declaring source or changing boundary confidence.
+### 2. Fast per-batch iteration & banking loop
 
-The current text/Card family frontiers are:
+1. **Probe build:** Call `ltcg_link.cold_link` with
+   `profile=[*LTCG_PROFILE, '/Ob1', '/Oy-']` (add `'/EHsc'` for EH batches;
+   test without `'/Oy-'` only if target omits frame pointer) and
+   `entry='<Batch>Probe@8'`.
+2. **Diff & time-box:** Compare candidate `.text` bytes against `resources/th128.exe`
+   via Capstone. **Bank every function that reaches `diff=+0, bad_ins=0`
+   immediately.** Do not spend more than 2–3 turns chasing a 1–3 byte
+   register-tie or SIB-order quirk; park near-matches and move to fresh targets.
+3. **Exact verification & commit sequence (run in exact order):**
+   1. Append `[units.<unit_id>]` to `config/match-units.toml` from `source.exe`
+      + `source.map` (skip `_th128_ltcg_probe_anchor_*`; mark `__ehhandler$` /
+      `__unwindfunclet$` with `eh_static = true`; mark intra-function switch
+      jump-table `DIR32` entries with `local = true`).
+   2. Record non-exact source mapping first:
+      ~~~bash
+      scripts/repo-python scripts/record-source.py <unit_id> \
+        --module <Batch> --convention ltcg --signature "<sig>" \
+        --boundary "0xSTART..0xEND" --notes "<notes>"
+      ~~~
+   3. Run targeted cold replay (never full cold replay):
+      ~~~bash
+      scripts/repo-python scripts/replay-exact-units.py --unit <unit_id> [...]
+      ~~~
+   4. After `difference_count: 0`, re-run `record-source.py` with
+      `--exact "compare-linked-function.py --unit <unit_id>"`.
+   5. Regenerate progress and validate tracking:
+      ~~~bash
+      scripts/repo-python scripts/progress.py
+      scripts/repo-python scripts/validate-tracking.py --require-target
+      ~~~
+   6. **Always stage all 6 tracking files together**:
+      `config/match-units.toml`, `config/function-boundaries.csv`,
+      `config/functions.csv`, `config/implemented.csv`, `config/matches.csv`,
+      `config/reccmp-functions.csv`, plus `docs/PROGRESS.md`,
+      `resources/progress.svg`, and the batch `src/` + `probes/` files.
+      Run `git diff --cached --check` and commit.
 
-| Owner | Candidate / target bytes | Remaining issue |
-| --- | ---: | --- |
-| Text image RGB fill | 823 / 817 | Whole owner size |
-| Text image alpha inversion | 166 / 166 | Wrong three-field layout |
-| DrawTextToTexture | 696 / 696 | Ordinary +533/+580 after 42 fields replay |
-| Alternate texture text | 592 / 584 | Fill-loop/owner layout |
-| Card Start / Finish | 1504 / 1496; 374 / 398 | Whole owner size |
-| Popup Show | 1020 / 1072 | Whole owner/private calling context |
-| Sprite text | 214 / 210 | Whole owner/stack layout |
-| Explicit-X / centered / half-center text | 142 / 132; 215 / 196; 201 / 193 | Whole owner size |
+## Preserved dirty / untracked WIP on disk
 
-These are complete owner sizes, not byte-difference counts. AddScore remains
-exact at 54B / three fields. Card Update's floating-add operand order and
-Shutdown's CutImpl register context are separate frontiers.
-[Prior full comparisons](../.analysis/texture-text-final-results.json).
+All dirty and untracked WIP files were preserved per `AGENTS.md` (do not run
+`git clean -fdx`):
 
-Do not repeat the typed IDirect3DTexture9* hypothesis: it retained the same
-two draw differences. GDI-only local scopes and taking backend addresses
-also failed. The scoped-lock CreateVm hypothesis was falsified; the existing
-body already writes its result before unlock. Do not restore inline assembly,
-volatile tricks, fake callees, ABI shims or padding.
+- Tracked modified WIP (pre-existing): `src/EclVmRun.hpp`, `src/EclVmRun.cpp`,
+  `probes/ecl-vm-run-context.cpp`.
+- Notable near-exact untracked WIP batches (parked to avoid diminishing returns):
+  - `src/EhBatchH.*` + `probes/eh-batch-h-context.cpp`: `EbhEnding::Init`
+    (`0x004131D0`, 521B) is same-size 521B (`bad=7`, register/SIB swap).
+  - `src/EhBatchD.*` + `probes/eh-batch-d-context.cpp`: `EbdReadFile`
+    (`0x00450380`, 208B, 2-byte diff) and `EbdGetFileSize` (`0x00450450`, 251B,
+    same-size `bad=3`).
+  - `src/EhBatchG.*`, `src/EhBatchE.*`, `src/CleanBatchI.*`, plus earlier
+    untracked scratch batches.
+- Pre-dumped disassemblies ready in `.analysis/`:
+  `eh-batch-f-disasm.txt`, `clean-batch-n-disasm.txt`, `clean-batch-l-disasm.txt`,
+  `clean-batch-m-disasm.txt`, `clean-batch-k-disasm.txt`.
 
-For ANM work, start from the relevant knowledge-base finding and
-[archived ANM frontier detail](RE_CHECKPOINT_NOTES.md#anm-frontier-detail-archived-from-c1419af).
-The older handoff mixed historical measurements with a superseded task list;
-it is no longer the active restart guide. In particular, text backends and
-font/image lifetime source already exist.
+## References
 
-## Retained state and storage cleanup
-
-The operator requested a second, more aggressive cleanup on 2026-11-26.
-This pass freed **113.84 MiB**, in addition to the earlier approximately
-37 MiB. `build/` is empty; `.build/` did not exist. All generated objects,
-executables, MAP/PDB files and receipts can be recreated from the unit recipes.
-
-Removed 3,006 old files from the `.analysis/` root, seven historical analysis
-and experiment directories, Ghidra application/script logs and generated
-compiled-script caches. Old compiler snapshots, one-off relink scripts,
-probe matrices and historical result logs are no longer kept as required
-evidence. Their useful findings and failed approaches remain in the knowledge
-base and Git history.
-
-Kept only 15 active text-component files: the latest lifetime final results,
-scope/build summary/field inventory, the text-family final comparisons and
-small target reviews needed by the current work. Also kept the architecture
-index used by function-context.py and the isolated Ghidra user settings.
-The original target/data, compiler payload, Wine prefix, Factory selectors
-and Ghidra project are untouched.
-
-Deleted historical private-file links in the knowledge base/archive now
-appear as inline filenames. They identify past work and are not promises
-that the artifact still exists. Do not restore old log trees merely to satisfy
-those historical references. Regenerate a target query when it is relevant.
-
-The last executable-code verification remains `c1419af`; source statements,
-layouts, profiles and ledgers were not changed by cleanup. For a new strict
-comparison, first rebuild the selected context. For example, to reproduce
-only the five lifetime owners:
-
-~~~bash
-scripts/repo-python scripts/replay-exact-units.py \
-  --unit text-image-destroy --unit text-image-initialize-default \
-  --unit text-image-initialize --unit text-fonts-initialize \
-  --unit text-fonts-destroy
-~~~
-
-No comparison receipts were rewritten and no compilation was run merely for
-cleanup. Never use `git clean -fdx`.
-
-Historical phase/checkpoint detail is in [RE_CHECKPOINT_NOTES.md](RE_CHECKPOINT_NOTES.md).
-Current target/compiler conclusions and useful failures are in
-[KNOWLEDGE_BASE.md](KNOWLEDGE_BASE.md). Remote state was not fetched or verified;
-local commits are separate from remote publication.
+- Historical checkpoint archive: [RE_CHECKPOINT_NOTES.md](RE_CHECKPOINT_NOTES.md)
+- Compiler/target findings and falsified hypotheses: [KNOWLEDGE_BASE.md](KNOWLEDGE_BASE.md)
+- Linked Oracle contract: [LINKED_ORACLE.md](LINKED_ORACLE.md)
