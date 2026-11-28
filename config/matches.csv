@@ -1181,6 +1181,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00468180,ChainElem::~ChainElem,12,exact,100.00,chain-elem-dtor,Cold pinned VC10 /GL linked-PE replay; complete 12-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x004681D0,Chain::RegisterCalc,159,exact,100.00,chain-register-calc,Cold pinned VC10 /GL linked-PE replay; complete 159-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x00468270,Chain::RegisterDraw,159,exact,100.00,chain-register-draw,Cold pinned VC10 /GL linked-PE replay; complete 159-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x00468310,LcwChain::RunCalcChain,332,exact,100.00,lcw_run_calc_chain,build/match-linked/LowCallWaveA/lcw_run_calc_chain.json
 0x00468460,CwChain::RunDrawChain,284,exact,100.00,cw-run-draw-chain,compare-linked-function.py --unit cw-run-draw-chain
 0x00468580,CwChain::CutList,105,exact,100.00,cw-cut-list,compare-linked-function.py --unit cw-cut-list
 0x004685F0,Chain::Release,46,exact,100.00,chain-release,Cold pinned VC10 /GL linked-PE replay; complete 46-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.

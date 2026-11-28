@@ -24383,3 +24383,44 @@ size = 74
 linkages = [
   { offset = 29, type = "REL32", symbol = "_strncmp", target = 0x0047342D },
 ]
+[units.lcw_run_calc_chain]
+artifact_kind = "linked-pe"
+source = "src/LowCallWaveA.cpp"
+inputs = ["src/LowCallWaveA.hpp"]
+support_sources = ["probes/low-call-wave-a-context.cpp"]
+output_dir = "build/match-linked/LowCallWaveA"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-"]
+entry = "LowCallWaveAProbe@8"
+functions = ["LcwChain::RunCalcChain"]
+symbol = "?RunCalcChain@LcwChain@th128@@QAEHXZ"
+target_address = 0x00468310
+size = 332
+linkages = [
+  { offset = 6, type = "DIR32", symbol = "?g_LcwSupFlags@th128@@3IA", target = 0x004D33F8 },
+  { offset = 17, type = "DIR32", symbol = "?g_LcwChainCs@th128@@3U_RTL_CRITICAL_SECTION@@A", target = 0x004D3678 },
+  { offset = 23, type = "DIR32", symbol = "__imp__EnterCriticalSection@4", target = 0x0049A088 },
+  { offset = 29, type = "DIR32", symbol = "?g_LcwChainLockDepth@th128@@3EA", target = 0x004D3798 },
+  { offset = 92, type = "DIR32", symbol = "?g_LcwSupFlags@th128@@3IA", target = 0x004D33F8 },
+  { offset = 103, type = "DIR32", symbol = "?g_LcwChainCs@th128@@3U_RTL_CRITICAL_SECTION@@A", target = 0x004D3678 },
+  { offset = 109, type = "DIR32", symbol = "__imp__LeaveCriticalSection@4", target = 0x0049A08C },
+  { offset = 115, type = "DIR32", symbol = "?g_LcwChainLockDepth@th128@@3EA", target = 0x004D3798 },
+  { offset = 129, type = "DIR32", symbol = "?g_LcwSupFlags@th128@@3IA", target = 0x004D33F8 },
+  { offset = 142, type = "DIR32", symbol = "?g_LcwChainCs@th128@@3U_RTL_CRITICAL_SECTION@@A", target = 0x004D3678 },
+  { offset = 148, type = "DIR32", symbol = "__imp__EnterCriticalSection@4", target = 0x0049A088 },
+  { offset = 154, type = "DIR32", symbol = "?g_LcwChainLockDepth@th128@@3EA", target = 0x004D3798 },
+  { offset = 166, type = "DIR32", local = true, target = 0x00468438 },
+  { offset = 192, type = "REL32", symbol = "?LcwChainCutImpl@th128@@YIXPAULcwChain@1@PAULcwChainElem@1@@Z", target = 0x004686D0 },
+  { offset = 257, type = "DIR32", symbol = "?g_LcwSupFlags@th128@@3IA", target = 0x004D33F8 },
+  { offset = 270, type = "DIR32", symbol = "?g_LcwChainCs@th128@@3U_RTL_CRITICAL_SECTION@@A", target = 0x004D3678 },
+  { offset = 276, type = "DIR32", symbol = "__imp__LeaveCriticalSection@4", target = 0x0049A08C },
+  { offset = 282, type = "DIR32", symbol = "?g_LcwChainLockDepth@th128@@3EA", target = 0x004D3798 },
+  { offset = 296, type = "DIR32", local = true, target = 0x004683CB },
+  { offset = 300, type = "DIR32", local = true, target = 0x004683EB },
+  { offset = 304, type = "DIR32", local = true, target = 0x004683BA },
+  { offset = 308, type = "DIR32", local = true, target = 0x004683FF },
+  { offset = 312, type = "DIR32", local = true, target = 0x004683F6 },
+  { offset = 316, type = "DIR32", local = true, target = 0x00468408 },
+  { offset = 320, type = "DIR32", local = true, target = 0x00468333 },
+  { offset = 324, type = "DIR32", local = true, target = 0x004683DF },
+  { offset = 328, type = "DIR32", local = true, target = 0x004683F6 },
+]
