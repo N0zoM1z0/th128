@@ -854,10 +854,13 @@ address,name,size,status,match_percent,unit,evidence
 0x0044F570,TaObj04::GetPlus7,6,exact,100.00,TaObj04_GetPlus7,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x0044F580,TaAnmMgr::GetSlot4E90C0,8,exact,100.00,TaAnmMgr_GetSlot4E90C0,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x0044F590,TaNoOp44F590,1,exact,100.00,TaNoOp44F590,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x0044F5A0,PbwGetTime64,10,exact,100.00,pbw-get-time64,compare-linked-function.py --unit pbw-get-time64
 0x0044F5D0,TaArchive::TaArchive,16,exact,100.00,TaArchive_ctor,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x0044F5E0,Pbg::Archive::~Archive,10,exact,100.00,pbg-archive-destructor,Cold pinned VC10 /GL /Ob1 /Oy- /EHsc complete public primary-TU PDB contribution behind the archive probe (logger as normal COFF); current receipts; every reviewed field replays with zero byte differences.
 0x0044F5F0,Pbg::Archive::Open,172,exact,100.00,pbg-archive-open,"Cold pinned VC10 /GL /Ob1 /Oy- /EHsc complete public primary-TU PDB contribution behind the archive probe, whose placeholder header reader only supplies a defined private-ESI callee; current receipts; all eleven reviewed fields replay with zero byte differences."
 0x0044F730,Pbg::Archive::Close,109,exact,100.00,pbg-archive-close,Cold pinned VC10 /GL /Ob1 /Oy- /EHsc complete public primary-TU PDB contribution behind the archive probe (logger as normal COFF); current receipts; every reviewed field replays with zero byte differences.
+0x0044F920,PbwArchive::GetEntrySize,51,exact,100.00,pbw-archive-get-entry-size,compare-linked-function.py --unit pbw-archive-get-entry-size
+0x0044F960,PbwArchive::FindEntry,53,exact,100.00,pbw-archive-find-entry,compare-linked-function.py --unit pbw-archive-find-entry
 0x0044FB20,Pbg::ParseArchiveDirectory,339,exact,100.00,pbg-archive-parse-directory,"Cold pinned VC10 /GL /Ob1 /Oy- /EHsc complete public primary-TU PDB contribution behind the archive probe; current receipts; seven reviewed fields replay, including the owner-qualified __ehhandler$ DIR32 bound through the MAP static symbol; zero byte differences."
 0x0044FC80,TaStrDupMalloc,47,exact,100.00,TaStrDupMalloc,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x0044FCB0,Pbg::ArchiveEntry::~ArchiveEntry,26,exact,100.00,pbg-archive-entry-destructor,Cold pinned VC10 /GL /Ob1 /Oy- /EHsc complete public primary-TU PDB contribution behind a new[]/delete[] probe; current receipts; the _free field replays with zero byte differences.
@@ -889,6 +892,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00450A50,LsLzssInitTree,52,exact,100.00,LsLzssInitTree,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
 0x00450A90,th128::Bz2LzssAddString,567,exact,100.00,bz2-lzss-add-string,exact linked VC10 /GL match in BigZeroCall2 (567B)
 0x00450D20,LsLzssContractNode,80,exact,100.00,LsLzssContractNode,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00450D70,PbwLzssReplaceNode,134,exact,100.00,pbw-lzss-replace-node,compare-linked-function.py --unit pbw-lzss-replace-node
 0x00450E00,LsLzssFindNextNode,49,exact,100.00,LsLzssFindNextNode,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
 0x00450E40,Pbg::MemFile::Write,5,exact,100.00,pbg-memfile-write,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; every relocation replayed against reviewed vtable or CRT targets; zero byte differences.
 0x00450E50,LsMemStream::LsMemStream,18,exact,100.00,LsMemStream_ctor,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe

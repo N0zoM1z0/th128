@@ -1056,6 +1056,10 @@ Pbg::MemFile::Write
 Pbg::MemFile::`scalar deleting destructor'
 Pbg::MemFile::~MemFile
 Pbg::ParseArchiveDirectory
+PbwArchive::FindEntry
+PbwArchive::GetEntrySize
+PbwGetTime64
+PbwLzssReplaceNode
 PlayerMini::GetPosPtr
 PlayerMini::SetFloat87B0
 PollKeyboardState

@@ -1565,7 +1565,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x0044F570,0x0044F575,reviewed,high,TaObj04_GetPlus7-boundary,Exact VC10 LTCG match via TitleArchiveHelpersProbe
 0x0044F580,0x0044F587,reviewed,high,TaAnmMgr_GetSlot4E90C0-boundary,Exact VC10 LTCG match via TitleArchiveHelpersProbe
 0x0044F590,0x0044F590,reviewed,high,TaNoOp44F590-boundary,Exact VC10 LTCG match via TitleArchiveHelpersProbe
-0x0044F5A0,0x0044F5A9,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x0044F5A0..0x0044F5A9 (10 bytes) ends with ret; then padding-then-start 0x0044F5B0; WEAK: no call, jump, pointer or vtable reference found"
+0x0044F5A0,0x0044F5A9,reviewed,high,pbw-get-time64-boundary,0x0044F5A0..0x0044F5A9
 0x0044F5B0,0x0044F5CE,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x0044F5B0..0x0044F5CE (31 bytes) ends with jmp; then padding-then-start 0x0044F5D0; WEAK: no call, jump, pointer or vtable reference found"
 0x0044F5D0,0x0044F5DF,reviewed,high,TaArchive_ctor-boundary,Exact VC10 LTCG match via TitleArchiveHelpersProbe
 0x0044F5E0,0x0044F5E9,reviewed,high,pbg-archive-destructor-boundary,Complete 10-byte body between CC padding; address referenced by the archive array teardown.
@@ -1574,8 +1574,8 @@ address,span_end,state,confidence,evidence_id,notes
 0x0044F730,0x0044F79C,reviewed,high,pbg-archive-close-boundary,Complete 109-byte body between CC padding; no interior references.
 0x0044F7A0,0x0044F7C1,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x0044F7A0..0x0044F7C1 (34 bytes) ends with ret; then padding-then-start 0x0044F7D0; WEAK: no call, jump, pointer or vtable reference found"
 0x0044F7D0,0x0044F917,reviewed,high,bdesc-exact,start padding; refs callx2; descent body 0x0044F7D0..0x0044F917 (328 bytes) ends with ret; then padding-then-start 0x0044F920
-0x0044F920,0x0044F952,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x0044F920..0x0044F952 (51 bytes) ends with ret; then padding-then-start 0x0044F960; WEAK: no call, jump, pointer or vtable reference found"
-0x0044F960,0x0044F994,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x0044F960..0x0044F994 (53 bytes) ends with ret; then padding-then-start 0x0044F9A0; WEAK: no call, jump, pointer or vtable reference found"
+0x0044F920,0x0044F952,reviewed,high,pbw-archive-get-entry-size-boundary,0x0044F920..0x0044F952
+0x0044F960,0x0044F994,reviewed,high,pbw-archive-find-entry-boundary,0x0044F960..0x0044F994
 0x0044F9A0,0x0044FB1F,reviewed,high,bdesc-exact,start padding; refs callx2; descent body 0x0044F9A0..0x0044FB1F (384 bytes) ends with ret; then adjacent-start 0x0044FB20
 0x0044FB20,0x0044FC72,reviewed,high,pbg-archive-parse-directory-boundary,Complete 339-byte body with two returns between CC padding; called once from the header reader at 0x0044FAAE.
 0x0044FC80,0x0044FCAE,reviewed,high,TaStrDupMalloc-boundary,Exact VC10 LTCG match via TitleArchiveHelpersProbe
@@ -1614,7 +1614,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x00450A90,0x00450CC6,reviewed,high,bz2-lzss-add-string-boundary,0x00450a90:567
 0x00450CD0,0x00450D1E,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00450CD0..0x00450D1E (79 bytes) ends with jmp; then padding-then-start 0x00450D20
 0x00450D20,0x00450D6F,reviewed,high,LsLzssContractNode-boundary,Exact VC10 LTCG match via LzssStreamHelpersProbe
-0x00450D70,0x00450DF5,reviewed,high,bdesc-exact,"start after-terminator; refs callx1, jmpx1; descent body 0x00450D70..0x00450DF5 (134 bytes) ends with ret; then padding-then-start 0x00450E00"
+0x00450D70,0x00450DF5,reviewed,high,pbw-lzss-replace-node-boundary,0x00450D70..0x00450DF5
 0x00450E00,0x00450E30,reviewed,high,LsLzssFindNextNode-boundary,Exact VC10 LTCG match via LzssStreamHelpersProbe
 0x00450E40,0x00450E44,reviewed,high,pbg-memfile-write-boundary,Complete body ending in RET between CC padding; no interior references.
 0x00450E50,0x00450E61,reviewed,high,LsMemStream_ctor-boundary,Exact VC10 LTCG match via LzssStreamHelpersProbe

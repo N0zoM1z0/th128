@@ -877,11 +877,14 @@ TaClearFlag4B4D50Bit4,0x0044F560,function
 TaObj04::GetPlus7,0x0044F570,function
 TaAnmMgr::GetSlot4E90C0,0x0044F580,function
 TaNoOp44F590,0x0044F590,function
+PbwGetTime64,0x0044F5A0,function
 TaArchive::TaArchive,0x0044F5D0,function
 Pbg::Archive::~Archive,0x0044F5E0,function
 Pbg::Archive::Open,0x0044F5F0,function
 Pbg::Archive::Close,0x0044F730,function
 Pbg::Archive::ReadEntry,0x0044F7D0,function
+PbwArchive::GetEntrySize,0x0044F920,function
+PbwArchive::FindEntry,0x0044F960,function
 Pbg::Archive::ReadHeader,0x0044F9A0,function
 Pbg::ParseArchiveDirectory,0x0044FB20,function
 TaStrDupMalloc,0x0044FC80,function
@@ -915,6 +918,7 @@ LsLzssResetVars,0x00450A20,function
 LsLzssInitTree,0x00450A50,function
 th128::Bz2LzssAddString,0x00450A90,function
 LsLzssContractNode,0x00450D20,function
+PbwLzssReplaceNode,0x00450D70,function
 LsLzssFindNextNode,0x00450E00,function
 Pbg::MemFile::Write,0x00450E40,function
 LsMemStream::LsMemStream,0x00450E50,function
