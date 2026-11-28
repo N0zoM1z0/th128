@@ -917,6 +917,7 @@ address,name,size,status,match_percent,unit,evidence
 0x004525D0,InitializeTextFonts,516,exact,100.00,text-fonts-initialize,Pinned VC10 RTM /O2 /Ob1 /Oy- /GL primary with /O2 /Oy- /GL RNG support; current three-source cold linked context; complete 516-byte primary PDB contribution and all 32 address fields replayed with zero differences; .analysis/text-image-lifetime-final-results.json.
 0x004527E0,DestroyTextFonts,83,exact,100.00,text-fonts-destroy,Pinned VC10 RTM /O2 /Ob1 /Oy- /GL primary with /O2 /Oy- /GL RNG support; current three-source cold linked context; complete 83-byte primary PDB contribution and all 10 address fields replayed with zero differences; .analysis/text-image-lifetime-final-results.json.
 0x00452DB0,LsStdString::GetLen,4,exact,100.00,LsStdString_GetLen,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x00452DE0,std::basic_string<char>::erase,112,exact,100.00,cbm-string-erase,compare-linked-function.py --unit cbm-string-erase
 0x004532E0,LsStrLenInline,13,exact,100.00,LsStrLenInline,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
 0x00453320,LsZeroSurfacePixels,24,exact,100.00,LsZeroSurfacePixels,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
 0x00453340,LsSurfaceGlobal::Get100,7,exact,100.00,LsSurfaceGlobal_Get100,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
@@ -1193,6 +1194,7 @@ address,name,size,status,match_percent,unit,evidence
 0x0046AA20,ZunTimer::Add,97,exact,100.00,zun-timer-add,Cold pinned VC10 /GL /Ob1 /Oy- linked primary-TU PDB contribution; all four reviewed DIR32/REL32 fields replay to the __real constants and __ftol2_sse; zero byte differences across all 97 bytes.
 0x0046AAF0,CoreTimer::GetScale,6,exact,100.00,core-timer-get-scale,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046AB80,CoreChecksumWords,116,exact,100.00,core-checksum-words,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x0046AC00,CbmSumU32,115,exact,100.00,cbm-sum-u32,compare-linked-function.py --unit cbm-sum-u32
 0x0046AC80,ThreadInf::ThreadInf,21,exact,100.00,thread-inf-ctor,Cold pinned VC10 /GL linked-PE replay; complete 21-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046ACA0,th128::SaStreamObj::`scalar deleting destructor',39,exact,100.00,SaStreamObj_ScalarDel,Cold-replayed VC10 LTCG match via SoundAnmHelpersProbe
 0x0046ACD0,ThreadInf::~ThreadInf,16,exact,100.00,thread-inf-dtor,Cold pinned VC10 /GL linked-PE replay; complete 16-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
