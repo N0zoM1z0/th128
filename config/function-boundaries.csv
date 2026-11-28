@@ -965,7 +965,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x004282F0,0x00428317,reviewed,high,IlItemEntry_ctor-boundary,Exact VC10 LTCG match via ItemLaserHelpersProbe
 0x00428320,0x0042835E,reviewed,high,IlItemEntry_dtor-boundary,Exact VC10 LTCG match via ItemLaserHelpersProbe
 0x00428360,0x00428423,reviewed,high,cbd-reg-428360-boundary,Exact linked VC10 /GL /Ob1 /Oy- extent
-0x00428430,0x004284FA,reviewed,high,bdesc-exact,start padding; refs callx5; descent body 0x00428430..0x004284FA (203 bytes) ends with ret; then padding-then-start 0x00428500
+0x00428430,0x004284FA,reviewed,high,item-manager-dtor-boundary,exact
 0x00428500,0x004285C3,reviewed,high,eba-create-laser-mgr-boundary,Exact linked VC10 /GL /Ob1 /Oy- /EHsc extent
 0x004285D0,0x004285E2,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x004285D0..0x004285E2 (19 bytes) ends with ret; then padding-then-start 0x004285F0; WEAK: no call, jump, pointer or vtable reference found"
 0x004285F0,0x0042860C,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x004285F0..0x0042860C (29 bytes) ends with ret; then padding-then-start 0x00428610
@@ -1952,7 +1952,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x004626B0,0x004628C6,reviewed,high,anm-rectangle-gradient-boundary,Complete 535-byte 0x004626B0..0x004628C6 owner; Draw and outlined-gradient callers; no unowned interior references; all 12 absolute and relative fields declared.
 0x004628D0,0x0046295A,reviewed,high,anm-rectangle-outlined-boundary,"Complete 139-byte 0x004628D0..0x0046295A owner with two real Rectangle call identities, no interior references or owned tail table."
 0x00462960,0x004629FF,reviewed,high,anm-rectangle-gradient-outlined-boundary,"Complete 160-byte 0x00462960..0x004629FF owner with two real GradientRectangle call identities, no interior references or owned tail table."
-0x00462A00,0x00462B8B,reviewed,high,bdesc-exact,start after-terminator; refs callx2; descent body 0x00462A00..0x00462B8B (396 bytes) ends with ret; then padding-then-start 0x00462B90
+0x00462A00,0x00462B8B,reviewed,high,anm-draw-filled-circle-boundary,exact
 0x00462B90,0x00462D5F,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00462B90..0x00462D5F (464 bytes) ends with ret; then adjacent-start 0x00462D60
 0x00462D60,0x00462ECF,reviewed,high,bdesc-exact,start after-terminator; refs callx1; descent body 0x00462D60..0x00462ECF (368 bytes) ends with ret; then adjacent-start 0x00462ED0
 0x00462ED0,0x0046309B,reviewed,medium,bdesc-exact-weak,"start after-terminator; refs none; descent body 0x00462ED0..0x0046309B (460 bytes) ends with ret; then padding-then-start 0x004630A0; 1 filler hole(s); WEAK: no call, jump, pointer or vtable reference found"
@@ -2032,13 +2032,13 @@ address,span_end,state,confidence,evidence_id,notes
 0x004668A0,0x004668AE,reviewed,high,anm-manager-draw-layer-23-boundary,found by padded-aligned; start padding; refs immx1; descent body 0x004668A0..0x004668AE (15 bytes) ends with ret; then padding-then-start 0x004668B0
 0x004668B0,0x004668BE,reviewed,high,anm-manager-draw-layer-22-boundary,found by padded-aligned; start padding; refs immx1; descent body 0x004668B0..0x004668BE (15 bytes) ends with ret; then padding-then-start 0x004668C0
 0x004668C0,0x004668ED,reviewed,high,bnew-referenced,found by padded-aligned; start padding; refs immx1; descent body 0x004668C0..0x004668ED (46 bytes) ends with ret; then padding-then-start 0x004668F0
-0x004668F0,0x00466979,reviewed,high,bdesc-exact,start padding; refs immx1; descent body 0x004668F0..0x00466979 (138 bytes) ends with ret; then padding-then-start 0x00466980
-0x00466980,0x00466A04,reviewed,high,bnew-referenced,found by padded-aligned; start padding; refs immx1; descent body 0x00466980..0x00466A04 (133 bytes) ends with ret; then padding-then-start 0x00466A10
+0x004668F0,0x00466979,reviewed,high,anm-mgr-draw-layer21-boundary,exact
+0x00466980,0x00466A04,reviewed,high,anm-mgr-draw-layer24-boundary,exact
 0x00466A10,0x00466A59,reviewed,high,bnew-referenced,found by padded-aligned; start padding; refs immx1; descent body 0x00466A10..0x00466A59 (74 bytes) ends with ret; then padding-then-start 0x00466A60
-0x00466A60,0x00466AE4,reviewed,high,bnew-referenced,found by padded-aligned; start padding; refs immx1; descent body 0x00466A60..0x00466AE4 (133 bytes) ends with ret; then padding-then-start 0x00466AF0
+0x00466A60,0x00466AE4,reviewed,high,anm-mgr-draw-layer32-boundary,exact
 0x00466AF0,0x00466BD4,reviewed,high,anm-manager-update-world-vms-boundary,"Complete hash-attested contiguous owner 0x00466AF0..0x00466BD4 (229 bytes), no external interior references or tables, following INT3 padding, reached by world callback tail jump."
 0x00466BE0,0x00466CD5,reviewed,high,anm-manager-update-ui-vms-boundary,"Complete hash-attested contiguous owner 0x00466BE0..0x00466CD5 (246 bytes), no external interior references or tables, following INT3 padding, reached by the UI callback tail jump."
-0x00466CE0,0x00466D5D,reviewed,high,bdesc-exact,start padding; refs callx33; descent body 0x00466CE0..0x00466D5D (126 bytes) ends with ret; then padding-then-start 0x00466D60
+0x00466CE0,0x00466D5D,reviewed,high,anm-mgr-draw-vm-group-boundary,exact
 0x00466D60,0x00466DDB,reviewed,high,anm-manager-register-world-tail-boundary,Hash-attested 124-byte body at 0x00466D60..0x00466DDB; 15 direct callers; RET before 0x00466DE0.
 0x00466DE0,0x00466E56,reviewed,high,anm-manager-register-world-head-boundary,Hash-attested 119-byte body at 0x00466DE0..0x00466E56; 5 direct callers; RET before 0x00466E60.
 0x00466E60,0x00466EDB,reviewed,high,anm-manager-register-ui-tail-boundary,Hash-attested 124-byte body at 0x00466E60..0x00466EDB; 4 direct callers; RET before 0x00466EE0.

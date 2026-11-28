@@ -99,6 +99,7 @@ AnmInterpHelpers::Vec2Set
 AnmInterpHelpers::Vec2Sub
 AnmManager::AreAllAnmsLoaded
 AnmManager::CleanupVm
+AnmManager::DrawFilledCircle
 AnmManager::DrawLayer0
 AnmManager::DrawLayer1
 AnmManager::DrawLayer10
@@ -112,11 +113,14 @@ AnmManager::DrawLayer17
 AnmManager::DrawLayer18
 AnmManager::DrawLayer19
 AnmManager::DrawLayer2
+AnmManager::DrawLayer21
 AnmManager::DrawLayer22
 AnmManager::DrawLayer23
+AnmManager::DrawLayer24
 AnmManager::DrawLayer25
 AnmManager::DrawLayer26
 AnmManager::DrawLayer3
+AnmManager::DrawLayer32
 AnmManager::DrawLayer5
 AnmManager::DrawLayer6
 AnmManager::DrawLayer7
@@ -919,6 +923,7 @@ InterpolateScale
 InterpolateVector
 InvertTextImageAlpha
 IsWindowMinimized
+ItemManager::~ItemManager
 LaserBeamInf::Slot00
 LaserCurveInf::Slot00
 LaserDataInf::Slot00

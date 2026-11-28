@@ -626,6 +626,7 @@ IlPlayerMgr::GetF7C,0x004282A0,function
 IlItemEntry::IlItemEntry,0x004282F0,function
 IlItemEntry::~IlItemEntry,0x00428320,function
 CbdReg428360,0x00428360,function
+ItemManager::~ItemManager,0x00428430,function
 EbaCreateLaserMgr,0x00428500,function
 IlRet0_4293C0,0x004293C0,function
 th128::Zc5ClearActiveItems,0x00429770,function
@@ -1183,6 +1184,7 @@ AnmDrawLeaf::Rectangle,0x004620E0,function
 AnmDrawLeaf::GradientRectangle,0x004626B0,function
 AnmDrawLeaf::OutlinedRectangle,0x004628D0,function
 AnmDrawLeaf::OutlinedGradientRectangle,0x00462960,function
+AnmManager::DrawFilledCircle,0x00462A00,function
 GetAnmVmDrawPosition,0x004630F0,function
 AnmVm::StartEffect10,0x004631A0,function
 UpdateAnmVmEffect10,0x004634A0,function
@@ -1243,6 +1245,9 @@ AnmManager::DrawLayer26,0x00466880,function
 AnmManager::DrawLayer25,0x00466890,function
 AnmManager::DrawLayer23,0x004668A0,function
 AnmManager::DrawLayer22,0x004668B0,function
+AnmManager::DrawLayer21,0x004668F0,function
+AnmManager::DrawLayer24,0x00466980,function
+AnmManager::DrawLayer32,0x00466A60,function
 AnmManager::UpdateWorldVms,0x00466AF0,function
 AnmManager::UpdateUiVms,0x00466BE0,function
 AnmManager::DrawVmGroup,0x00466CE0,function
