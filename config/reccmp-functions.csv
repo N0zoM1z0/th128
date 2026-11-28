@@ -299,6 +299,7 @@ EffCursorMini::ResetMenu,0x00411D70,function
 EffEnemyMgrMini::DisableBoth,0x00411DA0,function
 EffZero24Global::EffZero24Global,0x00411E20,function
 CbeInit411e50,0x00411E50,function
+SgwItemMgr::~SgwItemMgr,0x00411F50,function
 EffRet1_4120C0,0x004120C0,function
 EffRet1_4120D0,0x004120D0,function
 EffRet1_4120E0,0x004120E0,function

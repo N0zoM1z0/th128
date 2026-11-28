@@ -1158,6 +1158,7 @@ SfxChannel::Init
 SfxChannel::ReleaseBuffer
 SfxChannel::SetPanDirect
 SfxChannel::SetPriority
+SgwItemMgr::~SgwItemMgr
 ShortestAngleDifference
 ShortestAngleDifference2
 SmwSoundMgr::Shutdown

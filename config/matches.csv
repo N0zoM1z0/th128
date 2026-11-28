@@ -291,6 +291,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00411DA0,EffEnemyMgrMini::DisableBoth,30,exact,100.00,eff-enemy-mgr-disable-both,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
 0x00411E20,EffZero24Global::EffZero24Global,37,exact,100.00,eff-zero-24-global-ctor,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
 0x00411E50,CbeInit411e50,245,exact,100.00,cbe-init-411e50,Exact linked VC10 /GL /Ob1 /Oy- match in CleanBatchE
+0x00411F50,SgwItemMgr::~SgwItemMgr,193,exact,100.00,sgw_item_mgr_dtor,build/match-linked/StageGameWave/sgw_item_mgr_dtor.json
 0x004120C0,EffRet1_4120C0,6,exact,100.00,eff-ret1-4120c0,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
 0x004120D0,EffRet1_4120D0,6,exact,100.00,eff-ret1-4120d0,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
 0x004120E0,EffRet1_4120E0,6,exact,100.00,eff-ret1-4120e0,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
