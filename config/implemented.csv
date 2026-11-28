@@ -1030,6 +1030,8 @@ MapJoyButtonByte
 MenuCursor::Move
 MenuCursor::Pop
 MenuCursor::Push
+MpwRegisterSupervisorChains
+MpwSupervisor::LoadConfig
 MultiplyFloatPtr
 NormalizeAngle
 NormalizeAngleDiff

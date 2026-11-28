@@ -709,8 +709,10 @@ LmObj558::Set558,0x00433600,function
 LmObj558::GetFlag200Bit4,0x00433610,function
 LmNoOp433620,0x00433620,function
 SpAnmVmDel::DeleteSelf,0x00433EA0,function
+MpwRegisterSupervisorChains,0x00433F80,function
 WriteSupervisorScreenshot,0x00434270,function
 CaptureSupervisorScreenshot,0x004343D0,function
+MpwSupervisor::LoadConfig,0x004345E0,function
 AnmFogState::Enable,0x00434A70,function
 AnmFogState::Disable,0x00434AB0,function
 CbgCheckReplayVersion,0x00434BC0,function

@@ -24113,3 +24113,142 @@ linkages = [
   { offset = 250, type = "REL32", symbol = "_free", target = 0x0047290C },
   { offset = 264, type = "DIR32", symbol = "?g_SmwSoundMgr@th128@@3USmwSoundMgr@1@A", addend = 6400, target = 0x004D5A68 },
 ]
+
+[units.mpw_register_supervisor_chains]
+artifact_kind = "linked-pe"
+source = "src/MotherPauseWave.cpp"
+inputs = ["src/MotherPauseWave.hpp"]
+support_sources = ["probes/mother-pause-wave-context.cpp"]
+output_dir = "build/match-linked/MotherPauseWave"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-"]
+entry = "MotherPauseWaveProbe@8"
+functions = ["MpwRegisterSupervisorChains"]
+symbol = "?MpwRegisterSupervisorChains@th128@@YAHXZ"
+target_address = 0x00433F80
+size = 742
+linkages = [
+  { offset = 14, type = "DIR32", symbol = "?g_MpwSceneCur@th128@@3HA", target = 0x004D33BC },
+  { offset = 20, type = "DIR32", symbol = "?g_MpwSceneNext@th128@@3HA", target = 0x004D33C0 },
+  { offset = 26, type = "DIR32", symbol = "?g_MpwSceneFlag@th128@@3HA", target = 0x004D33C8 },
+  { offset = 31, type = "REL32", symbol = "??2@YAPAXI@Z", target = 0x0047296C },
+  { offset = 83, type = "DIR32", symbol = "?MpwSupCalc@th128@@YAHPAX@Z", target = 0x00433650 },
+  { offset = 93, type = "DIR32", symbol = "?g_MpwSupervisor@th128@@3UMpwSupervisor@1@A", target = 0x004D2E68 },
+  { offset = 100, type = "DIR32", symbol = "?MpwSupOnReg@th128@@YAHPAX@Z", target = 0x00433BD0 },
+  { offset = 105, type = "REL32", symbol = "?RegisterCalc@MpwChain@th128@@QAEHPAUMpwChainElem@2@H@Z", target = 0x004681D0 },
+  { offset = 120, type = "REL32", symbol = "??2@YAPAXI@Z", target = 0x0047296C },
+  { offset = 168, type = "DIR32", symbol = "?MpwSupDraw0@th128@@YAHPAX@Z", target = 0x00433700 },
+  { offset = 181, type = "DIR32", symbol = "?g_MpwSupervisor@th128@@3UMpwSupervisor@1@A", target = 0x004D2E68 },
+  { offset = 186, type = "REL32", symbol = "?RegisterDraw@MpwChain@th128@@QAEHPAUMpwChainElem@2@H@Z", target = 0x00468270 },
+  { offset = 193, type = "REL32", symbol = "??2@YAPAXI@Z", target = 0x0047296C },
+  { offset = 246, type = "DIR32", symbol = "?MpwSupDraw1@th128@@YAHPAX@Z", target = 0x00433850 },
+  { offset = 259, type = "DIR32", symbol = "?g_MpwSupervisor@th128@@3UMpwSupervisor@1@A", target = 0x004D2E68 },
+  { offset = 264, type = "REL32", symbol = "?RegisterDraw@MpwChain@th128@@QAEHPAUMpwChainElem@2@H@Z", target = 0x00468270 },
+  { offset = 271, type = "REL32", symbol = "??2@YAPAXI@Z", target = 0x0047296C },
+  { offset = 324, type = "DIR32", symbol = "?MpwSupDraw2@th128@@YAHPAX@Z", target = 0x00433A20 },
+  { offset = 337, type = "DIR32", symbol = "?g_MpwSupervisor@th128@@3UMpwSupervisor@1@A", target = 0x004D2E68 },
+  { offset = 342, type = "REL32", symbol = "?RegisterDraw@MpwChain@th128@@QAEHPAUMpwChainElem@2@H@Z", target = 0x00468270 },
+  { offset = 349, type = "REL32", symbol = "??2@YAPAXI@Z", target = 0x0047296C },
+  { offset = 402, type = "DIR32", symbol = "?MpwSupDraw3@th128@@YAHPAX@Z", target = 0x004338F0 },
+  { offset = 415, type = "DIR32", symbol = "?g_MpwSupervisor@th128@@3UMpwSupervisor@1@A", target = 0x004D2E68 },
+  { offset = 420, type = "REL32", symbol = "?RegisterDraw@MpwChain@th128@@QAEHPAUMpwChainElem@2@H@Z", target = 0x00468270 },
+  { offset = 427, type = "REL32", symbol = "??2@YAPAXI@Z", target = 0x0047296C },
+  { offset = 480, type = "DIR32", symbol = "?MpwSupDraw4@th128@@YAHPAX@Z", target = 0x00433A80 },
+  { offset = 493, type = "DIR32", symbol = "?g_MpwSupervisor@th128@@3UMpwSupervisor@1@A", target = 0x004D2E68 },
+  { offset = 498, type = "REL32", symbol = "?RegisterDraw@MpwChain@th128@@QAEHPAUMpwChainElem@2@H@Z", target = 0x00468270 },
+  { offset = 505, type = "REL32", symbol = "??2@YAPAXI@Z", target = 0x0047296C },
+  { offset = 558, type = "DIR32", symbol = "?MpwSupDraw5@th128@@YAHPAX@Z", target = 0x00433990 },
+  { offset = 571, type = "DIR32", symbol = "?g_MpwSupervisor@th128@@3UMpwSupervisor@1@A", target = 0x004D2E68 },
+  { offset = 576, type = "REL32", symbol = "?RegisterDraw@MpwChain@th128@@QAEHPAUMpwChainElem@2@H@Z", target = 0x00468270 },
+  { offset = 583, type = "REL32", symbol = "??2@YAPAXI@Z", target = 0x0047296C },
+  { offset = 636, type = "DIR32", symbol = "?MpwSupDraw6@th128@@YAHPAX@Z", target = 0x00433AE0 },
+  { offset = 649, type = "DIR32", symbol = "?g_MpwSupervisor@th128@@3UMpwSupervisor@1@A", target = 0x004D2E68 },
+  { offset = 654, type = "REL32", symbol = "?RegisterDraw@MpwChain@th128@@QAEHPAUMpwChainElem@2@H@Z", target = 0x00468270 },
+  { offset = 661, type = "REL32", symbol = "??2@YAPAXI@Z", target = 0x0047296C },
+  { offset = 714, type = "DIR32", symbol = "?MpwSupDraw7@th128@@YAHPAX@Z", target = 0x004339F0 },
+  { offset = 727, type = "DIR32", symbol = "?g_MpwSupervisor@th128@@3UMpwSupervisor@1@A", target = 0x004D2E68 },
+  { offset = 732, type = "REL32", symbol = "?RegisterDraw@MpwChain@th128@@QAEHPAUMpwChainElem@2@H@Z", target = 0x00468270 },
+]
+
+[units.mpw_load_config]
+artifact_kind = "linked-pe"
+source = "src/MotherPauseWave.cpp"
+inputs = ["src/MotherPauseWave.hpp"]
+support_sources = ["probes/mother-pause-wave-context.cpp"]
+output_dir = "build/match-linked/MotherPauseWave"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-"]
+entry = "MotherPauseWaveProbe@8"
+functions = ["MpwSupervisor::LoadConfig"]
+symbol = "?LoadConfig@MpwSupervisor@th128@@QAEHXZ"
+target_address = 0x004345E0
+size = 671
+linkages = [
+  { offset = 9, type = "REL32", symbol = "__chkstk", target = 0x0048D9F0 },
+  { offset = 14, type = "DIR32", symbol = "___security_cookie", target = 0x004B01F4 },
+  { offset = 27, type = "DIR32", symbol = "?g_MpwConfig@th128@@3UMpwConfig@1@A", target = 0x004D3030 },
+  { offset = 34, type = "REL32", symbol = "?ResetDefaults@MpwConfig@th128@@QAEXXZ", target = 0x004277C0 },
+  { offset = 50, type = "DIR32", symbol = "?g_MpwAppDataDir@th128@@3PADA", target = 0x004D3999 },
+  { offset = 90, type = "DIR32", symbol = "??_C@_09KLFKHAPF@th128?4cfg?$AA@", target = 0x004A4CEC },
+  { offset = 96, type = "DIR32", symbol = "??_C@_09KLFKHAPF@th128?4cfg?$AA@", addend = 4, target = 0x004A4CEC },
+  { offset = 105, type = "DIR32", symbol = "??_C@_09KLFKHAPF@th128?4cfg?$AA@", addend = 8, target = 0x004A4CEC },
+  { offset = 133, type = "REL32", symbol = "?MpwLoadFile@th128@@YGPAXPBDPAKH@Z", target = 0x00469C40 },
+  { offset = 142, type = "DIR32", symbol = "??_C@_0P@FMIIKCAG@cfg?5not?5found?6?$AA@", target = 0x004A30B4 },
+  { offset = 159, type = "DIR32", symbol = "?g_MpwConfig@th128@@3UMpwConfig@1@A", target = 0x004D3030 },
+  { offset = 167, type = "REL32", symbol = "_free", target = 0x0047290C },
+  { offset = 176, type = "DIR32", symbol = "?g_MpwConfig@th128@@3UMpwConfig@1@A", addend = 26, target = 0x004D3030 },
+  { offset = 187, type = "DIR32", symbol = "?g_MpwConfig@th128@@3UMpwConfig@1@A", addend = 27, target = 0x004D3030 },
+  { offset = 195, type = "DIR32", symbol = "?g_MpwConfig@th128@@3UMpwConfig@1@A", addend = 28, target = 0x004D3030 },
+  { offset = 204, type = "DIR32", symbol = "?g_MpwConfig@th128@@3UMpwConfig@1@A", addend = 29, target = 0x004D3030 },
+  { offset = 213, type = "DIR32", symbol = "?g_MpwConfig@th128@@3UMpwConfig@1@A", addend = 30, target = 0x004D3030 },
+  { offset = 221, type = "DIR32", symbol = "?g_MpwConfig@th128@@3UMpwConfig@1@A", addend = 31, target = 0x004D3030 },
+  { offset = 229, type = "DIR32", symbol = "?g_MpwConfig@th128@@3UMpwConfig@1@A", target = 0x004D3030 },
+  { offset = 250, type = "DIR32", symbol = "?g_MpwConfig@th128@@3UMpwConfig@1@A", addend = 4, target = 0x004D3030 },
+  { offset = 256, type = "DIR32", symbol = "?g_MpwConfig@th128@@3UMpwConfig@1@A", addend = 8, target = 0x004D3030 },
+  { offset = 261, type = "DIR32", symbol = "?g_MpwConfig@th128@@3UMpwConfig@1@A", addend = 12, target = 0x004D3030 },
+  { offset = 267, type = "DIR32", symbol = "?g_MpwInputKeys@th128@@3PAIA", target = 0x004DB22C },
+  { offset = 273, type = "DIR32", symbol = "?g_MpwConfig@th128@@3UMpwConfig@1@A", addend = 16, target = 0x004D3030 },
+  { offset = 279, type = "DIR32", symbol = "?g_MpwInputKeys@th128@@3PAIA", addend = 4, target = 0x004DB22C },
+  { offset = 286, type = "DIR32", symbol = "?g_MpwConfig@th128@@3UMpwConfig@1@A", addend = 20, target = 0x004D3030 },
+  { offset = 291, type = "DIR32", symbol = "?g_MpwInputKeys@th128@@3PAIA", addend = 8, target = 0x004DB22C },
+  { offset = 297, type = "DIR32", symbol = "?g_MpwInputKeys@th128@@3PAIA", addend = 12, target = 0x004DB22C },
+  { offset = 304, type = "DIR32", symbol = "?g_MpwInputKey10@th128@@3GA", target = 0x004DB23C },
+  { offset = 311, type = "DIR32", symbol = "??_C@_0N@GEADFDEF@cfg?5invalid?6?$AA@", target = 0x004A30E8 },
+  { offset = 316, type = "DIR32", symbol = "?g_MpwErrorCtx@th128@@3UMpwErrorCtx@1@A", target = 0x004B4F50 },
+  { offset = 321, type = "REL32", symbol = "?Log@MpwErrorCtx@th128@@QAAPBDPBDZZ", target = 0x0046A250 },
+  { offset = 329, type = "DIR32", symbol = "?g_MpwConfig@th128@@3UMpwConfig@1@A", target = 0x004D3030 },
+  { offset = 334, type = "REL32", symbol = "?ResetDefaults@MpwConfig@th128@@QAEXXZ", target = 0x004277C0 },
+  { offset = 358, type = "DIR32", symbol = "??_C@_03BJHLCNPK@f4?6?$AA@", target = 0x004A311C },
+  { offset = 363, type = "DIR32", symbol = "?g_MpwErrorCtx@th128@@3UMpwErrorCtx@1@A", target = 0x004B4F50 },
+  { offset = 368, type = "REL32", symbol = "?Log@MpwErrorCtx@th128@@QAAPBDPBDZZ", target = 0x0046A250 },
+  { offset = 385, type = "DIR32", symbol = "??_C@_03BPLAOPBB@f1?6?$AA@", target = 0x004A3138 },
+  { offset = 390, type = "DIR32", symbol = "?g_MpwErrorCtx@th128@@3UMpwErrorCtx@1@A", target = 0x004B4F50 },
+  { offset = 395, type = "REL32", symbol = "?Log@MpwErrorCtx@th128@@QAAPBDPBDZZ", target = 0x0046A250 },
+  { offset = 412, type = "DIR32", symbol = "??_C@_05JNMLBJCP@f114?6?$AA@", target = 0x004A3160 },
+  { offset = 417, type = "DIR32", symbol = "?g_MpwErrorCtx@th128@@3UMpwErrorCtx@1@A", target = 0x004B4F50 },
+  { offset = 422, type = "REL32", symbol = "?Log@MpwErrorCtx@th128@@QAAPBDPBDZZ", target = 0x0046A250 },
+  { offset = 439, type = "DIR32", symbol = "??_C@_03BNPGFBEI@f2?6?$AA@", target = 0x004A3180 },
+  { offset = 444, type = "DIR32", symbol = "?g_MpwErrorCtx@th128@@3UMpwErrorCtx@1@A", target = 0x004B4F50 },
+  { offset = 449, type = "REL32", symbol = "?Log@MpwErrorCtx@th128@@QAAPBDPBDZZ", target = 0x0046A250 },
+  { offset = 466, type = "DIR32", symbol = "??_C@_03BAGBNEJO@f8?6?$AA@", target = 0x004A31A8 },
+  { offset = 471, type = "DIR32", symbol = "?g_MpwErrorCtx@th128@@3UMpwErrorCtx@1@A", target = 0x004B4F50 },
+  { offset = 476, type = "REL32", symbol = "?Log@MpwErrorCtx@th128@@QAAPBDPBDZZ", target = 0x0046A250 },
+  { offset = 493, type = "DIR32", symbol = "??_C@_04LJLMBINB@f10?6?$AA@", target = 0x004A31E0 },
+  { offset = 498, type = "DIR32", symbol = "?g_MpwErrorCtx@th128@@3UMpwErrorCtx@1@A", target = 0x004B4F50 },
+  { offset = 503, type = "REL32", symbol = "?Log@MpwErrorCtx@th128@@QAAPBDPBDZZ", target = 0x0046A250 },
+  { offset = 520, type = "DIR32", symbol = "??_C@_04KLAJLHDP@f20?6?$AA@", target = 0x004A3200 },
+  { offset = 525, type = "DIR32", symbol = "?g_MpwErrorCtx@th128@@3UMpwErrorCtx@1@A", target = 0x004B4F50 },
+  { offset = 530, type = "REL32", symbol = "?Log@MpwErrorCtx@th128@@QAAPBDPBDZZ", target = 0x0046A250 },
+  { offset = 539, type = "DIR32", symbol = "?g_MpwSupFlag3e4@th128@@3HA", target = 0x004D33E4 },
+  { offset = 557, type = "DIR32", symbol = "??_C@_04IOGCOIOD@f40?6?$AA@", target = 0x004A3218 },
+  { offset = 562, type = "DIR32", symbol = "?g_MpwErrorCtx@th128@@3UMpwErrorCtx@1@A", target = 0x004B4F50 },
+  { offset = 567, type = "REL32", symbol = "?Log@MpwErrorCtx@th128@@QAAPBDPBDZZ", target = 0x0046A250 },
+  { offset = 575, type = "DIR32", symbol = "?g_MpwConfig@th128@@3UMpwConfig@1@A", target = 0x004D3030 },
+  { offset = 591, type = "REL32", symbol = "?MpwWriteDataToFile@th128@@YGHPBDPBXI@Z", target = 0x00469EA0 },
+  { offset = 600, type = "DIR32", symbol = "??_C@_09KLFKHAPF@th128?4cfg?$AA@", target = 0x004A4CEC },
+  { offset = 605, type = "DIR32", symbol = "??_C@_0P@NGNBNNEG@write?5fail?5?$CFs?6?$AA@", target = 0x004A323C },
+  { offset = 610, type = "DIR32", symbol = "?g_MpwErrorCtx@th128@@3UMpwErrorCtx@1@A", target = 0x004B4F50 },
+  { offset = 615, type = "REL32", symbol = "?Fatal@MpwErrorCtx@th128@@QAAPBDPBDZZ", target = 0x0046A320 },
+  { offset = 620, type = "DIR32", symbol = "??_C@_0N@NHNINGPL@write?5fail2?6?$AA@", target = 0x004A3260 },
+  { offset = 625, type = "REL32", symbol = "?Fatal@MpwErrorCtx@th128@@QAAPBDPBDZZ", target = 0x0046A320 },
+  { offset = 644, type = "REL32", symbol = "@__security_check_cookie@4", target = 0x004728FD },
+  { offset = 663, type = "REL32", symbol = "@__security_check_cookie@4", target = 0x004728FD },
+]

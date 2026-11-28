@@ -689,8 +689,10 @@ address,name,size,status,match_percent,unit,evidence
 0x00433610,LmObj558::GetFlag200Bit4,13,exact,100.00,LmObj558_GetFlag200Bit4,Cold-replayed VC10 LTCG match via LaserMotherHelpersProbe
 0x00433620,LmNoOp433620,1,exact,100.00,LmNoOp433620,Cold-replayed VC10 LTCG match via LaserMotherHelpersProbe
 0x00433EA0,SpAnmVmDel::DeleteSelf,41,exact,100.00,SpAnmVmDel_DeleteSelf,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
+0x00433F80,MpwRegisterSupervisorChains,742,exact,100.00,mpw_register_supervisor_chains,build/match-linked/MotherPauseWave/mpw_register_supervisor_chains.json
 0x00434270,WriteSupervisorScreenshot,352,exact,100.00,supervisor-write-screenshot,Cold pinned VC10 RTM /GL /Ob1 /Oy- linked-PE replay; complete 352-byte primary-TU PDB contribution and all 34 reviewed absolute/relative fields reproduce with zero byte differences. The real capture/writer/FileSystem bodies remain in the linked context.
 0x004343D0,CaptureSupervisorScreenshot,520,exact,100.00,supervisor-capture-screenshot,Cold pinned VC10 RTM /GL /Ob1 /Oy- linked-PE replay; complete 520-byte primary-TU PDB contribution and all 39 reviewed absolute/relative fields reproduce with zero byte differences. The real capture/writer/FileSystem bodies remain in the linked context.
+0x004345E0,MpwSupervisor::LoadConfig,671,exact,100.00,mpw_load_config,build/match-linked/MotherPauseWave/mpw_load_config.json
 0x00434A70,AnmFogState::Enable,54,exact,100.00,anm-fog-enable,"Cold pinned VC10 RTM /GL /Ob1 /Oy- replay; complete 54-byte primary-TU PDB contribution, g_AnmManager DIR32 at +12 and real FlushSpriteBatch REL32 at +17; zero differences."
 0x00434AB0,AnmFogState::Disable,54,exact,100.00,anm-fog-disable,"Cold pinned VC10 RTM /GL /Ob1 /Oy- replay; complete 54-byte primary-TU PDB contribution, g_AnmManager DIR32 at +12 and real FlushSpriteBatch REL32 at +17; zero differences."
 0x00434BC0,CbgCheckReplayVersion,233,exact,100.00,cbg-check-replay-ver,Exact linked VC10 /GL /Ob1 /Oy- /EHsc match in CleanBatchG
