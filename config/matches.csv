@@ -326,6 +326,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00413180,EndMgr::IsFlag1,9,exact,100.00,end-mgr-is-flag1,Cold replay passed via scripts/replay-exact-units.py --source src/EndingMeshHelpers.cpp
 0x00413190,EndOffset3368::Get,6,exact,100.00,end-offset-3368-get,Cold replay passed via scripts/replay-exact-units.py --source src/EndingMeshHelpers.cpp
 0x004131A0,EndMgr::EndMgr,40,exact,100.00,end-mgr-ctor,Cold replay passed via scripts/replay-exact-units.py --source src/EndingMeshHelpers.cpp
+0x004133E0,EiwEnding::~EiwEnding,417,exact,100.00,eiw-ending-dtor,compare-linked-function.py --unit eiw-ending-dtor
 0x00413590,EndSub::DestroySelf,19,exact,100.00,end-sub-destroy-self,Cold replay passed via scripts/replay-exact-units.py --source src/EndingMeshHelpers.cpp
 0x004135B0,EndMgr::Create,96,exact,100.00,end-mgr-create,Cold replay passed via scripts/replay-exact-units.py --source src/EndingMeshHelpers.cpp
 0x00413610,EndMgr::DestroySelf,21,exact,100.00,end-mgr-destroy-self,Cold replay passed via scripts/replay-exact-units.py --source src/EndingMeshHelpers.cpp

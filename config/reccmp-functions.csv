@@ -335,6 +335,7 @@ EndMgr::IsFlag0,0x00413170,function
 EndMgr::IsFlag1,0x00413180,function
 EndOffset3368::Get,0x00413190,function
 EndMgr::EndMgr,0x004131A0,function
+EiwEnding::~EiwEnding,0x004133E0,function
 EndSub::DestroySelf,0x00413590,function
 EndMgr::Create,0x004135B0,function
 EndMgr::DestroySelf,0x00413610,function

@@ -633,6 +633,7 @@ EffSetAC::Set
 EffTable8C::Get
 EffZero24Global::EffZero24Global
 EffZero34::Zero
+EiwEnding::~EiwEnding
 EmEnemyMgr::DamageInCircle
 EmEnemyMgr::DamageInCircle2
 EmEnemyMgr::DamageInColumn

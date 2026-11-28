@@ -524,7 +524,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x00413190,0x00413195,reviewed,high,end-offset-3368-get-boundary,Verified exact VC10 /GL linked-pe extent
 0x004131A0,0x004131C7,reviewed,high,end-mgr-ctor-boundary,Verified exact VC10 /GL linked-pe extent
 0x004131D0,0x004133D8,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x004131D0..0x004133D8 (521 bytes) ends with ret; then padding-then-start 0x004133E0
-0x004133E0,0x00413580,reviewed,high,bdesc-exact,start padding; refs callx4; descent body 0x004133E0..0x00413580 (417 bytes) ends with ret; then padding-then-start 0x00413590
+0x004133E0,0x00413580,reviewed,high,eiw-ending-dtor-boundary,0x004133E0..0x00413580
 0x00413590,0x004135A2,reviewed,high,end-sub-destroy-self-boundary,Verified exact VC10 /GL linked-pe extent
 0x004135B0,0x0041360F,reviewed,high,end-mgr-create-boundary,Verified exact VC10 /GL linked-pe extent
 0x00413610,0x00413624,reviewed,high,end-mgr-destroy-self-boundary,Verified exact VC10 /GL linked-pe extent
