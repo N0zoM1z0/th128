@@ -488,6 +488,7 @@ address,name,size,status,match_percent,unit,evidence
 0x0041FB70,GmFpsCounter::DrawHook,7,exact,100.00,gm-fps-draw-hook,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
 0x0041FB80,GmGet558::Get,7,exact,100.00,gm-get-558,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
 0x0041FB90,GmNoOp41FB90,1,exact,100.00,gm-noop-41fb90,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
+0x0041FBB0,CscGuiSubObj::~CscGuiSubObj,83,exact,100.00,csc_gui_sub_obj_dtor,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0041FC10,GmGuiMini::GetField5904,12,exact,100.00,gm-gui-get-5904,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
 0x0041FC20,GmGuiMini::ClearRow5914,15,exact,100.00,gm-gui-clear-row5914,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
 0x0041FC30,GmGuiMini::SetFlag3AndClear5A3C,23,exact,100.00,gm-gui-set-flag3-clear,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
@@ -823,6 +824,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00442740,PrReplayList::FreeStageChunks,93,exact,100.00,PrReplayList_FreeStageChunks,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
 0x004427B0,ZcaReplaySlot::ZcaReplaySlot,51,exact,100.00,zca-replay-slot-ctor,Cold VC10 LTCG /Ob1 /Oy- linked-PE exact match via ZeroCallBatchAProbe (0 diffs)
 0x004427F0,PrStageEntry24::~PrStageEntry24,37,exact,100.00,PrStageEntry24_dtor,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x00442820,CscScoreBuf::CalcChecksum,82,exact,100.00,csc_score_calc_checksum,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x00442880,PrScoreFile::InitScoreFile,164,exact,100.00,PrScoreFile_InitScoreFile,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
 0x00442930,th128::Zc4InitRouteScores,674,exact,100.00,zc4-init-route-scores,exact
 0x00442CB0,RswScoreFile::RswScoreFile,172,exact,100.00,rsw-score-file-ctor,build/match-linked/ReplayScoreWave/rsw-score-file-ctor.json
@@ -837,6 +839,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00444120,TaAnmVm::SetFloat464,16,exact,100.00,TaAnmVm_SetFloat464,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x00444130,TaNoOp444130,1,exact,100.00,TaNoOp444130,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x00444140,TaNode4::IsNextNonZero,12,exact,100.00,TaNode4_IsNextNonZero,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x00444150,CscLineArray::FreeLines,83,exact,100.00,csc_line_array_free,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x004441B0,TaStaffMgr::TaStaffMgr,142,exact,100.00,TaStaffMgr_ctor,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x00444240,CbdReg444240,180,exact,100.00,cbd-reg-444240,Exact linked VC10 /GL /Ob1 /Oy- match in CleanBatchD
 0x00444300,EbbTitleSub::~EbbTitleSub,470,exact,100.00,ebb-title-sub-dtor,Exact linked VC10 /GL /Ob1 /Oy- /EHsc match in EhBatchB
