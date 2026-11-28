@@ -482,6 +482,7 @@ address,name,size,status,match_percent,unit,evidence
 0x0041F730,GmNoOp41F730,1,exact,100.00,gm-noop-41f730,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
 0x0041F740,GmGet08::Get,4,exact,100.00,gm-get-08,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
 0x0041F7E0,GmFpsCounter::GmFpsCounter,28,exact,100.00,gm-fps-counter-ctor,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
+0x0041F860,CsbFogMgr::~CsbFogMgr,95,exact,100.00,csb_fog_mgr_dtor,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0041F8C0,CbeCreate41f8c0,137,exact,100.00,cbe-create-41f8c0,Exact linked VC10 /GL /Ob1 /Oy- match in CleanBatchE
 0x0041F990,UpdatePostPresentTiming,256,exact,100.00,post-present-timing-update,Pinned VC10 RTM /O2 /Ob1 /Oy- /GL primary TU; complete 256-byte PDB owner and all 8 reviewed address fields replayed by compare-linked-function.py; current cold receipt; .analysis/post-present-timing-final-canonical.json.
 0x0041FB70,GmFpsCounter::DrawHook,7,exact,100.00,gm-fps-draw-hook,Cold replay passed via scripts/replay-exact-units.py --source src/GuiMathHelpers.cpp
@@ -503,6 +504,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00420010,Gd4B8934::GetField94,12,exact,100.00,gd-4b8934-get-94,Cold replay passed via scripts/replay-exact-units.py --source src/GuiDialogHelpers.cpp
 0x004200D0,GdTable66C::GetEntry,11,exact,100.00,gd-table-66c-get,Cold replay passed via scripts/replay-exact-units.py --source src/GuiDialogHelpers.cpp
 0x004200E0,CbgGuiObj::CbgGuiObj,184,exact,100.00,cbg-gui-ctor,Exact linked VC10 /GL /Ob1 /Oy- /EHsc match in CleanBatchG
+0x00420BF0,CsbGuiSubObj::Destroy,94,exact,100.00,csb_gui_sub_obj_destroy,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x00420FD0,EbaCreateGui,146,exact,100.00,eba-create-gui,Exact linked VC10 /GL /Ob1 /Oy- /EHsc match in EhBatchA
 0x00421070,GdGuiObj::DestroySelf,18,exact,100.00,gd-gui-destroy-self,Cold replay passed via scripts/replay-exact-units.py --source src/GuiDialogHelpers.cpp
 0x00421090,GdGuiObj::DestroyGlobal,28,exact,100.00,gd-gui-destroy-global,Cold replay passed via scripts/replay-exact-units.py --source src/GuiDialogHelpers.cpp
@@ -864,6 +866,7 @@ address,name,size,status,match_percent,unit,evidence
 0x0044B3C0,TaRet1_44B3C0,6,exact,100.00,TaRet1_44B3C0,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x0044B3D0,TaRet1_44B3D0,6,exact,100.00,TaRet1_44B3D0,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x0044F350,TaSkipLine,59,exact,100.00,TaSkipLine,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
+0x0044F390,CsbReadTextLine,94,exact,100.00,csb_read_text_line,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0044F3F0,TaObj04::GetField04,4,exact,100.00,TaObj04_GetField04,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x0044F400,TaObj04::IsPos0,8,exact,100.00,TaObj04_IsPos0,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x0044F420,TaObjD4::ZeroD4,11,exact,100.00,TaObjD4_ZeroD4,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
