@@ -250,6 +250,7 @@ address,name,size,status,match_percent,unit,evidence
 0x0040E820,CbeInit40e820,232,exact,100.00,cbe-init-40e820,Exact linked VC10 /GL /Ob1 /Oy- match in CleanBatchE
 0x0040E910,CardEffectMgrMini::EnableChainElems,23,exact,100.00,card-effect-enable-chain,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x0040E930,LwbIceObj::Shutdown,222,exact,100.00,lwb-ice-obj-shutdown,compare-linked-function.py --unit lwb-ice-obj-shutdown
+0x0040EA10,CsdCreateCardEffectMgr,69,exact,100.00,clean-small-wave-d-create-card-effect-mgr,linked-pe cold replay exact match (69B)
 0x0040FEB0,th128::AsDrawFreezeHud,757,exact,100.00,as-draw-freeze-hud,757B linked-pe VC10 /GL exact
 0x00410470,EffClear0A::Clear,7,exact,100.00,eff-clear-0a,Cold replay passed via scripts/replay-exact-units.py --source src/EffectBitmapHelpers.cpp
 0x00410960,CbjCountIceBits,252,exact,100.00,cbj-count-ice-bits,compare-linked-function.py --unit cbj-count-ice-bits
@@ -829,10 +830,12 @@ address,name,size,status,match_percent,unit,evidence
 0x00442930,th128::Zc4InitRouteScores,674,exact,100.00,zc4-init-route-scores,exact
 0x00442CB0,RswScoreFile::RswScoreFile,172,exact,100.00,rsw-score-file-ctor,build/match-linked/ReplayScoreWave/rsw-score-file-ctor.json
 0x00442D90,EbaCreateScoreMgr,95,exact,100.00,eba-create-score-mgr,Exact linked VC10 /GL /Ob1 /Oy- /EHsc match in EhBatchA
+0x00442DF0,CsdDestroyScoreGlobal,76,exact,100.00,clean-small-wave-d-destroy-score-global,linked-pe cold replay exact match (76B)
 0x00442E80,RswScoreFile::LoadAndParse,442,exact,100.00,rsw-score-file-load-and-parse,build/match-linked/ReplayScoreWave/rsw-score-file-load-and-parse.json
 0x004433A0,CbbScoreMgr::CbbScoreMgr,142,exact,100.00,cbb-score-mgr-ctor,Cold VC10 LTCG /Ob1 /Oy- linked-PE exact match via CleanBatchBProbe (0 diffs)
 0x00443430,CbdReg443430,180,exact,100.00,cbd-reg-443430,Exact linked VC10 /GL /Ob1 /Oy- match in CleanBatchD
 0x004434F0,EbcScoreMgr::~EbcScoreMgr,259,exact,100.00,ebc-score-mgr-dtor,Exact linked VC10 /GL /Ob1 /Oy- /EHsc match in EhBatchC
+0x00443600,CsdCreateScoreMgr,68,exact,100.00,clean-small-wave-d-create-score-mgr,linked-pe cold replay exact match (68B)
 0x00443A60,McwSoundTest::~McwSoundTest,209,exact,100.00,mcw_sound_test_dtor,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x004440F0,TaAnmVm::SetFloat60Flag3,20,exact,100.00,TaAnmVm_SetFloat60Flag3,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
 0x00444110,TaAnmVm::SetFloat468,16,exact,100.00,TaAnmVm_SetFloat468,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe
@@ -933,6 +936,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00451140,LsMemStream::ScalarDelete,72,exact,100.00,LsMemStream_ScalarDelete,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
 0x00451190,LsMemStream::CloseDtor,49,exact,100.00,LsMemStream_CloseDtor,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
 0x00451280,LsInit4B4D80,38,exact,100.00,LsInit4B4D80,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
+0x004512F0,CsdThreadObj::StartWorker,70,exact,100.00,clean-small-wave-d-start-worker,linked-pe cold replay exact match (70B)
 0x00451510,LsNoOp451510,1,exact,100.00,LsNoOp451510,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
 0x00451590,LsGdiFont::~LsGdiFont,56,exact,100.00,LsGdiFont_dtor,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
 0x00451650,LsGdiFont::ReleaseFont,20,exact,100.00,LsGdiFont_ReleaseFont,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
@@ -1001,6 +1005,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00454410,LsDeleteRaw,12,exact,100.00,LsDeleteRaw,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
 0x00454420,WindowProc,420,exact,100.00,window-proc,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; every relocation replayed against reviewed user32 import slots and five game globals; zero byte differences.
 0x004545D0,WswSupervisor::InitSystemPathsAndDwm,410,exact,100.00,wsw_init_system_paths_and_dwm,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x00454770,CsdRestoreSystemSettings,63,exact,100.00,clean-small-wave-d-restore-system-settings,linked-pe cold replay exact match (63B)
 0x00454D90,SupervisorFrame::PresentImmediate,190,exact,100.00,supervisor-present-immediate,"Cold pinned VC10 RTM /GL /Ob1 /Oy- linked-PE replay; complete 190-byte primary-TU PDB contribution and all 21 absolute/relative fields reproduce with zero differences. The real frame, screenshot, surface/texture recovery, state and canonical timer bodies are linked; no fabricated callee or owner-profile change."
 0x00454F70,SupervisorFrame::PresentWithSleep,314,exact,100.00,supervisor-present-with-sleep,"Cold pinned VC10 RTM /GL /Ob1 /Oy- linked-PE replay; complete 314-byte primary-TU PDB contribution and all 30 absolute/relative fields reproduce with zero differences. The real frame, screenshot, surface/texture recovery, state and canonical timer bodies are linked; no fabricated callee or owner-profile change."
 0x00455160,GetElapsedSeconds,266,exact,100.00,supervisor-get-elapsed-seconds,Cold pinned VC10 /GL linked-PE replay; complete 266-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
@@ -1009,6 +1014,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00455F40,LsShowCursorWrap,8,exact,100.00,LsShowCursorWrap,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
 0x00456050,WswResolveShortcut,306,exact,100.00,wsw_resolve_shortcut,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x00456190,th128::Zc2ConfigDialogProc,416,exact,100.00,zc2-config-dialog-proc,Exact VC10 /GL linked-PE match via compare-linked-function.py.
+0x00456540,CsdEnumJoysticksCb,67,exact,100.00,clean-small-wave-d-enum-joysticks-cb,linked-pe cold replay exact match (67B)
 0x00456590,CbjEnumJoyAxisCb,133,exact,100.00,cbj-enum-joy-axis-cb,compare-linked-function.py --unit cbj-enum-joy-axis-cb
 0x00456670,LsObj0C::Get0C,4,exact,100.00,LsObj0C_Get0C,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe
 0x00456680,LsObj0C::Zero0C,8,exact,100.00,LsObj0C_Zero0C,Cold-replayed VC10 LTCG match via LzssStreamHelpersProbe

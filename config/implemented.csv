@@ -1,3 +1,7 @@
+AdcwAnmManager::CopyTextureToTexture
+AdcwAnmManager::DrawTriangleFan2D
+AdcwAnmManager::DrawTriangleStrip2D
+AdcwClearTextureBlackOpaque
 AddAngles
 AddScore
 AddTextColor4444
@@ -446,6 +450,7 @@ CblScoreTable::GetStageValue
 CblSwapKey
 CbmSumU32
 CbnEnemy::~CbnEnemy
+CcwFindRiffChunk
 Chain::CreateAndRegisterCalc
 Chain::CreateAndRegisterCalcImmediate
 Chain::CreateAndRegisterDraw
@@ -467,6 +472,19 @@ CoreTimer::GetScale
 CoreTimer::ResetScale
 CreateGameWindow
 CreateOffscreenA1R5G5B5Texture
+CsaStartLoaderThread
+CsbFogMgr::~CsbFogMgr
+CsbGuiSubObj::Destroy
+CsbReadTextLine
+CscGuiSubObj::~CscGuiSubObj
+CscLineArray::FreeLines
+CscScoreBuf::CalcChecksum
+CsdCreateCardEffectMgr
+CsdCreateScoreMgr
+CsdDestroyScoreGlobal
+CsdEnumJoysticksCb
+CsdRestoreSystemSettings
+CsdThreadObj::StartWorker
 CwChain::Cut
 CwChain::CutList
 CwChain::RunDrawChain
@@ -924,6 +942,11 @@ LaserDataInf::Unlink
 LaserInfiniteInf::Slot00
 LaserInfiniteInf::Slot01
 LaserLineInf::Slot00
+LcwChain::RunCalcChain
+LfaEclVm::Reset
+LfbCancelAllLasers
+LfbLaserBase::LfbLaserBase
+LfbScreenFade::OnCalc
 LineEquationFromPoints
 LmCopyCurveNode
 LmGetFloat88
@@ -1029,6 +1052,7 @@ LwbSimpleChainOwner::~LwbSimpleChainOwner
 LwbTitleBootWait
 MapJoyButtonBit
 MapJoyButtonByte
+McwSoundTest::~McwSoundTest
 MenuCursor::Move
 MenuCursor::Pop
 MenuCursor::Push
@@ -1162,6 +1186,7 @@ SfxChannel::SetPriority
 SgwItemMgr::~SgwItemMgr
 ShortestAngleDifference
 ShortestAngleDifference2
+SiwSound::FillBufferWithSound
 SmwSoundMgr::Shutdown
 SoundDebugLog
 SoundManager::EnqueueBgmCommand
@@ -1328,8 +1353,11 @@ UpdatePostPresentReplay
 UpdatePostPresentTiming
 Vec2LengthSq
 WaveDebugLog
+WfSoundManager::StopStreamingBgm
 WindowProc
 WriteSupervisorScreenshot
+WswResolveShortcut
+WswSupervisor::InitSystemPathsAndDwm
 ZcaAdvanceStage
 ZcaDropOwner::SetDrop
 ZcaGetBulletParam16
