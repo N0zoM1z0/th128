@@ -519,6 +519,9 @@ DropZero354A::DropZero354A
 DropZero354B::DropZero354B
 DropZero354C::DropZero354C
 DropZero374::DropZero374
+DswSoundManager::CreateStreamingFromMemory
+DswStreamingSound::DswStreamingSound
+DswWaveFile::ReopenTrack
 EaseTransition
 EbaCreateBulletMgr
 EbaCreateGui
