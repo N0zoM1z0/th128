@@ -767,6 +767,7 @@ PrBulletHit::AddField18,0x004407C0,function
 PrAngleDiffB,0x004407F0,function
 PrVec3::DistSq2DB,0x004408A0,function
 PrFpsCounter::Get34,0x00440950,function
+RibReplayMgr::Initialize,0x00440990,function
 PrReplayMgr::GetFastForwardStepA,0x004414A0,function
 PrReplayMgr::GetFastForwardStepB,0x00442030,function
 th128::Zc3ReplayStageInit,0x00442210,function

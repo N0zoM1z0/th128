@@ -1386,7 +1386,7 @@ address,span_end,state,confidence,evidence_id,notes
 0x004408E0,0x0044094D,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x004408E0..0x0044094D (110 bytes) ends with ret; then padding-then-start 0x00440950
 0x00440950,0x00440958,reviewed,high,PrFpsCounter_Get34-boundary,Exact VC10 LTCG match via PlayerReplayHelpersProbe
 0x00440960,0x0044098C,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x00440960..0x0044098C (45 bytes) ends with ret; then padding-then-start 0x00440990; WEAK: no call, jump, pointer or vtable reference found"
-0x00440990,0x00440E78,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00440990..0x00440E78 (1257 bytes) ends with ret; then padding-then-start 0x00440E80; 1 filler hole(s)
+0x00440990,0x00440E78,reviewed,high,rib-replay-initialize-boundary,0x00440990..0x00440E78
 0x00440E80,0x00440FF4,reviewed,high,bdesc-exact,start padding; refs callx16; descent body 0x00440E80..0x00440FF4 (373 bytes) ends with ret; then padding-then-start 0x00441000
 0x00441000,0x004410C3,reviewed,high,bdesc-exact,start padding; refs callx1; descent body 0x00441000..0x004410C3 (196 bytes) ends with ret; then padding-then-start 0x004410D0
 0x004410D0,0x004410E2,reviewed,medium,bnew-unreferenced-delimited,"found by padded-aligned; start padding; refs none; descent body 0x004410D0..0x004410E2 (19 bytes) ends with ret; then padding-then-start 0x004410F0; WEAK: no call, jump, pointer or vtable reference found"

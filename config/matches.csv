@@ -744,6 +744,7 @@ address,name,size,status,match_percent,unit,evidence
 0x004407F0,PrAngleDiffB,99,exact,100.00,PrAngleDiffB,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
 0x004408A0,PrVec3::DistSq2DB,32,exact,100.00,PrVec3_DistSq2DB,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
 0x00440950,PrFpsCounter::Get34,9,exact,100.00,PrFpsCounter_Get34,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x00440990,RibReplayMgr::Initialize,1257,exact,100.00,rib-replay-initialize,"Cold VC10 LTCG linked-PE exact match (1257B, 73 linkages, 0 diffs)"
 0x004414A0,PrReplayMgr::GetFastForwardStepA,53,exact,100.00,PrReplayMgr_GetFastForwardStepA,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
 0x00442030,PrReplayMgr::GetFastForwardStepB,59,exact,100.00,PrReplayMgr_GetFastForwardStepB,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
 0x00442210,th128::Zc3ReplayStageInit,326,exact,100.00,zc3-replay-stage-init,Exact VC10 /GL linked-PE match via compare-linked-function.py.

@@ -1069,6 +1069,7 @@ ResetTransitionTimer
 ResetViewTransitionTimer
 ResolveAnmVmId
 RestoreSupervisorSurfaces
+RibReplayMgr::Initialize
 Rng::GetAngle
 Rng::GetFloat
 Rng::GetFloatScaled
