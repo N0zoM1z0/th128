@@ -25112,3 +25112,105 @@ linkages = [
   { offset = 36, type = "REL32", symbol = "?LfcResetEnemySub@th128@@YAXPAX@Z", target = 0x004142E0 },
   { offset = 105, type = "REL32", symbol = "?FindSub@LfcSptResourceInf@th128@@QAEPAXPBD@Z", target = 0x00470610 },
 ]
+[units.engine-wave-1b-rotate-vec2]
+artifact_kind = "linked-pe"
+source = "src/EngineWave1B.cpp"
+inputs = ["src/EngineWave1B.hpp"]
+support_sources = ["probes/engine-wave1-b-context.cpp"]
+output_dir = "build/match-linked/EngineWave1B"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-"]
+entry = "EngineWave1BProbe@8"
+functions = ["Ew1bRotateVec2"]
+symbol = "?Ew1bRotateVec2@th128@@YGXPAUEw1bVec2@1@PBU21@M@Z"
+target_address = 0x0046A790
+size = 94
+linkages = [
+  { offset = 13, type = "REL32", symbol = "__CIsin", target = 0x00490190 },
+  { offset = 31, type = "REL32", symbol = "__CIcos", target = 0x004902C0 },
+]
+
+[units.engine-wave-1b-point-in-rotated-rect]
+artifact_kind = "linked-pe"
+source = "src/EngineWave1B.cpp"
+inputs = ["src/EngineWave1B.hpp"]
+support_sources = ["probes/engine-wave1-b-context.cpp"]
+output_dir = "build/match-linked/EngineWave1B"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-"]
+entry = "EngineWave1BProbe@8"
+functions = ["Ew1bPointInRotatedRect"]
+symbol = "?Ew1bPointInRotatedRect@th128@@YGHMMMMMMM@Z"
+target_address = 0x0046B470
+size = 218
+linkages = [
+  { offset = 41, type = "REL32", symbol = "__CIsin", target = 0x00490190 },
+  { offset = 61, type = "REL32", symbol = "__CIcos", target = 0x004902C0 },
+  { offset = 132, type = "DIR32", symbol = "__real@3fe0000000000000", target = 0x004A65A8 },
+]
+
+[units.engine-wave-1b-circle-inside-rotated-rect]
+artifact_kind = "linked-pe"
+source = "src/EngineWave1B.cpp"
+inputs = ["src/EngineWave1B.hpp"]
+support_sources = ["probes/engine-wave1-b-context.cpp"]
+output_dir = "build/match-linked/EngineWave1B"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-"]
+entry = "EngineWave1BProbe@8"
+functions = ["Ew1bCircleInsideRotatedRect"]
+symbol = "?Ew1bCircleInsideRotatedRect@th128@@YGHMMMMMMMM@Z"
+target_address = 0x0046B860
+size = 228
+linkages = [
+  { offset = 41, type = "REL32", symbol = "__CIsin", target = 0x00490190 },
+  { offset = 61, type = "REL32", symbol = "__CIcos", target = 0x004902C0 },
+  { offset = 132, type = "DIR32", symbol = "__real@3fe0000000000000", target = 0x004A65A8 },
+]
+
+[units.engine-wave-1b-advance-angle]
+artifact_kind = "linked-pe"
+source = "src/EngineWave1B.cpp"
+inputs = ["src/EngineWave1B.hpp"]
+support_sources = ["probes/engine-wave1-b-context.cpp"]
+output_dir = "build/match-linked/EngineWave1B"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-"]
+entry = "EngineWave1BProbe@8"
+functions = ["Ew1bAdvanceAngle"]
+symbol = "?Ew1bAdvanceAngle@th128@@YGPAMPAMPBMM@Z"
+target_address = 0x0046C150
+size = 40
+linkages = [
+  { offset = 19, type = "REL32", symbol = "?Ew1bShortestAngleDiff@th128@@YGMMM@Z", target = 0x0046C0E0 },
+  { offset = 28, type = "REL32", symbol = "?Ew1bNormalizeAngle@th128@@YGMM@Z", target = 0x0046A700 },
+]
+[units.engine-wave-1a-rng-u32-skip]
+artifact_kind = "linked-pe"
+source = "src/EngineWave1A.cpp"
+inputs = ["src/EngineWave1A.hpp"]
+support_sources = ["probes/engine-wave1-a-context.cpp"]
+output_dir = "build/match-linked/EngineWave1A"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-"]
+entry = "EngineWave1AProbe@8"
+functions = ["Ew1aRng::GetU32AndSkip2"]
+symbol = "?GetU32AndSkip2@Ew1aRng@th128@@QAEIXZ"
+target_address = 0x0046A5A0
+size = 45
+linkages = [
+  { offset = 10, type = "REL32", symbol = "?GetU16@Ew1aRng@th128@@QAEGXZ", target = 0x0046A3F0 },
+  { offset = 19, type = "REL32", symbol = "?GetU16@Ew1aRng@th128@@QAEGXZ", target = 0x0046A3F0 },
+  { offset = 28, type = "REL32", symbol = "?GetU16@Ew1aRng@th128@@QAEGXZ", target = 0x0046A3F0 },
+  { offset = 33, type = "REL32", symbol = "?GetU16@Ew1aRng@th128@@QAEGXZ", target = 0x0046A3F0 },
+]
+
+[units.engine-wave-1a-sum-bytes]
+artifact_kind = "linked-pe"
+source = "src/EngineWave1A.cpp"
+inputs = ["src/EngineWave1A.hpp"]
+support_sources = ["probes/engine-wave1-a-context.cpp"]
+output_dir = "build/match-linked/EngineWave1A"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-"]
+entry = "EngineWave1AProbe@8"
+functions = ["Ew1aSumBytes"]
+symbol = "?Ew1aSumBytes@th128@@YIEHPBE@Z"
+target_address = 0x0046AB70
+size = 13
+linkages = [
+]

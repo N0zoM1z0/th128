@@ -1331,11 +1331,13 @@ GameErrorContext::Fatal,0x0046A320,function
 Rng::GetU16,0x0046A3F0,function
 Rng::GetU32,0x0046A460,function
 th128::Zc13RngNextU32,0x0046A500,function
+Ew1aRng::GetU32AndSkip2,0x0046A5A0,function
 Rng::GetFloat,0x0046A5D0,function
 Rng::GetFloatSigned,0x0046A600,function
 Rng::GetAngle,0x0046A630,function
 AddAngles,0x0046A660,function
 NormalizeAngle,0x0046A700,function
+Ew1bRotateVec2,0x0046A790,function
 IsWindowMinimized,0x0046A7F0,function
 GetWindowsVersionCode,0x0046A800,function
 MenuCursor::Push,0x0046A900,function
@@ -1345,6 +1347,7 @@ CoreTimer::ClearFlag0,0x0046A9F0,function
 CoreTimer::ResetScale,0x0046AA00,function
 ZunTimer::Add,0x0046AA20,function
 CoreTimer::GetScale,0x0046AAF0,function
+Ew1aSumBytes,0x0046AB70,function
 CoreChecksumWords,0x0046AB80,function
 CbmSumU32,0x0046AC00,function
 ThreadInf::ThreadInf,0x0046AC80,function
@@ -1358,10 +1361,13 @@ ThreadInf::Resume,0x0046ADE0,function
 SetThreadFlagBit2,0x0046ADF0,function
 CoreMotionState::UpdateVelocity,0x0046AE00,function
 EaseTransition,0x0046B190,function
+Ew1bPointInRotatedRect,0x0046B470,function
 th128::SaHitTestQuad,0x0046B550,function
+Ew1bCircleInsideRotatedRect,0x0046B860,function
 LineEquationFromPoints,0x0046BF00,function
 Vec2LengthSq,0x0046C0C0,function
 ShortestAngleDifference2,0x0046C0E0,function
+Ew1bAdvanceAngle,0x0046C150,function
 MultiplyFloatPtr,0x0046C210,function
 DecTimeScaleRef,0x0046C230,function
 Stub46C240,0x0046C240,function

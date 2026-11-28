@@ -710,6 +710,12 @@ EndVmMini::SetPos464
 EnemyMgrMini::GetField65DDC
 EnemyMgrMini::SetFlag6B1FCBit2
 EnemyMgrMini::Trigger6B200
+Ew1aRng::GetU32AndSkip2
+Ew1aSumBytes
+Ew1bAdvanceAngle
+Ew1bCircleInsideRotatedRect
+Ew1bPointInRotatedRect
+Ew1bRotateVec2
 FileSystem::CloseStream
 FileSystem::FileExists
 FileSystem::OpenReadStream

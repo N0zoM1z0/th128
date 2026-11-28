@@ -1243,11 +1243,13 @@ address,name,size,status,match_percent,unit,evidence
 0x0046A3F0,Rng::GetU16,105,exact,100.00,rng-get-u16,Cold pinned VC10 /GL /Ob1 /Oy- complete public primary-TU PDB contribution behind the Rng probe (game flags address escaping as in the game); current receipts; every reviewed field replays with zero byte differences.
 0x0046A460,Rng::GetU32,149,exact,100.00,rng-get-u32,Cold pinned VC10 /GL /Ob1 /Oy- complete public primary-TU PDB contribution behind the Rng probe (game flags address escaping as in the game); current receipts; every reviewed field replays with zero byte differences.
 0x0046A500,th128::Zc13RngNextU32,149,exact,100.00,zc13-rng-next-u32,Exact VC10 LTCG match via ZeroCallMedium13Probe@60
+0x0046A5A0,Ew1aRng::GetU32AndSkip2,45,exact,100.00,engine-wave-1a-rng-u32-skip,linked-pe cold replay exact match (45B)
 0x0046A5D0,Rng::GetFloat,41,exact,100.00,rng-get-float,Cold pinned VC10 /GL /Ob1 /Oy- complete public primary-TU PDB contribution behind the Rng probe (game flags address escaping as in the game); current receipts; every reviewed field replays with zero byte differences.
 0x0046A600,Rng::GetFloatSigned,47,exact,100.00,rng-get-float-signed,Cold pinned VC10 /GL /Ob1 /Oy- complete public primary-TU PDB contribution behind the Rng probe (game flags address escaping as in the game); current receipts; every reviewed field replays with zero byte differences.
 0x0046A630,Rng::GetAngle,47,exact,100.00,rng-get-angle,Cold pinned VC10 /GL /Ob1 /Oy- complete public primary-TU PDB contribution behind the Rng probe (game flags address escaping as in the game); current receipts; every reviewed field replays with zero byte differences.
 0x0046A660,AddAngles,153,exact,100.00,add-angles,"Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; pi, two-pi and minus-pi double constants replayed; zero byte differences."
 0x0046A700,NormalizeAngle,144,exact,100.00,normalize-angle,"Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; pi, two-pi and minus-pi double constants replayed; zero byte differences."
+0x0046A790,Ew1bRotateVec2,94,exact,100.00,engine-wave-1b-rotate-vec2,linked-pe cold replay exact match (94B)
 0x0046A7F0,IsWindowMinimized,16,exact,100.00,engine-util-is-window-minimized,Cold pinned VC10 /GL linked-PE replay; complete 16-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046A800,GetWindowsVersionCode,243,exact,100.00,engine-util-get-windows-version-code,Cold pinned VC10 /GL linked-PE replay; complete 243-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046A900,MenuCursor::Push,61,exact,100.00,menu-cursor-push,Cold pinned VC10 /GL linked-PE replay; complete 61-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
@@ -1257,6 +1259,7 @@ address,name,size,status,match_percent,unit,evidence
 0x0046AA00,CoreTimer::ResetScale,18,exact,100.00,core-timer-reset-scale,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046AA20,ZunTimer::Add,97,exact,100.00,zun-timer-add,Cold pinned VC10 /GL /Ob1 /Oy- linked primary-TU PDB contribution; all four reviewed DIR32/REL32 fields replay to the __real constants and __ftol2_sse; zero byte differences across all 97 bytes.
 0x0046AAF0,CoreTimer::GetScale,6,exact,100.00,core-timer-get-scale,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x0046AB70,Ew1aSumBytes,13,exact,100.00,engine-wave-1a-sum-bytes,linked-pe cold replay exact match (13B)
 0x0046AB80,CoreChecksumWords,116,exact,100.00,core-checksum-words,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046AC00,CbmSumU32,115,exact,100.00,cbm-sum-u32,compare-linked-function.py --unit cbm-sum-u32
 0x0046AC80,ThreadInf::ThreadInf,21,exact,100.00,thread-inf-ctor,Cold pinned VC10 /GL linked-PE replay; complete 21-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
@@ -1270,10 +1273,13 @@ address,name,size,status,match_percent,unit,evidence
 0x0046ADF0,SetThreadFlagBit2,4,exact,100.00,set-thread-flag-bit2,Cold pinned VC10 /GL linked-PE replay; complete 4-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046AE00,CoreMotionState::UpdateVelocity,113,exact,100.00,core-motion-update-velocity,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046B190,EaseTransition,728,exact,100.00,anm-vm-transition-easing-linked,Cold pinned VC10 /GL linked-PE replay; complete 728-byte PDB contribution; 35 reviewed DIR32 fields (jump-table pointer handler entries and constants) replay; zero byte differences.
+0x0046B470,Ew1bPointInRotatedRect,218,exact,100.00,engine-wave-1b-point-in-rotated-rect,linked-pe cold replay exact match (218B)
 0x0046B550,th128::SaHitTestQuad,233,exact,100.00,SaHitTestQuad,Cold-replayed VC10 LTCG match via SoundAnmHelpersProbe
+0x0046B860,Ew1bCircleInsideRotatedRect,228,exact,100.00,engine-wave-1b-circle-inside-rotated-rect,linked-pe cold replay exact match (228B)
 0x0046BF00,LineEquationFromPoints,105,exact,100.00,geo-line-equation-from-points,Cold pinned VC10 /GL linked-PE replay; complete 105-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046C0C0,Vec2LengthSq,27,exact,100.00,core-math-vec2-length-sq,Cold pinned VC10 /GL linked-PE replay; complete 27-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046C0E0,ShortestAngleDifference2,99,exact,100.00,core-math-shortest-angle-diff2,Cold pinned VC10 /GL linked-PE replay; complete 99-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
+0x0046C150,Ew1bAdvanceAngle,40,exact,100.00,engine-wave-1b-advance-angle,linked-pe cold replay exact match (40B)
 0x0046C210,MultiplyFloatPtr,18,exact,100.00,core-math-multiply-float-ptr,Cold pinned VC10 /GL linked-PE replay; complete 18-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046C230,DecTimeScaleRef,4,exact,100.00,core-math-dec-time-scale-ref,Cold pinned VC10 /GL linked-PE replay; complete 4-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x0046C240,Stub46C240,1,exact,100.00,core-math-stub-46c240,Cold pinned VC10 /GL linked-PE replay; complete 1-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
