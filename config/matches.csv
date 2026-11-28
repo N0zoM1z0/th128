@@ -154,6 +154,7 @@ address,name,size,status,match_percent,unit,evidence
 0x004081B0,BulletTimerMini::ClearFlag0,7,exact,100.00,bullet-timer-clear-flag0,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x00408560,BulletBoundsCheck::IsOutOfBoundsTall,106,exact,100.00,bullet-bounds-tall,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x004085D0,BulletBoundsCheck::IsOutOfBounds,106,exact,100.00,bullet-bounds-normal,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x0040CCB0,ZcaGetBulletParam16,56,exact,100.00,zca-get-bullet-param16,Cold VC10 LTCG /Ob1 /Oy- linked-PE exact match via ZeroCallBatchAProbe (0 diffs)
 0x0040CE50,CardScalarInterp::SetStart,5,exact,100.00,card-scalar-set-start,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x0040CE60,CardScalarInterp::SetEnd,6,exact,100.00,card-scalar-set-end,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x0040CE70,CardScalarInterp::SetVel0,6,exact,100.00,card-scalar-set-vel0,exact VC10 /GL linked-PE match via replay-exact-units.py
@@ -327,6 +328,7 @@ address,name,size,status,match_percent,unit,evidence
 0x004142A0,EclSet4B8930Field60,18,exact,100.00,ecl-set-4b8930-field60,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyEclHelpers.cpp
 0x004142C0,EclClear1000A::Clear,15,exact,100.00,ecl-clear-1000a,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyEclHelpers.cpp
 0x004142D0,EclClear1000B::Clear,15,exact,100.00,ecl-clear-1000b,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyEclHelpers.cpp
+0x004142E0,ZcaResetEnemySub,116,exact,100.00,zca-reset-enemy-sub,Cold VC10 LTCG /Ob1 /Oy- linked-PE exact match via ZeroCallBatchAProbe (0 diffs)
 0x00414360,SptInf::Slot00,3,exact,100.00,spt-slot00,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
 0x004144A0,SptInf::Slot01,5,exact,100.00,spt-slot01,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
 0x004144B0,SptInf::Slot02,5,exact,100.00,spt-slot02,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
@@ -410,6 +412,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00417EF0,EmEnemyMgr::DamageInCircle2,232,exact,100.00,em-enemy-mgr-damage-circle2,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
 0x0041D140,th128::ZcEnemy::GetIntVarPtr,379,exact,100.00,zc-enemy-get-int-var-ptr,Exact VC10 /GL linked-PE match via compare-linked-function.py.
 0x0041DC20,th128::ZcEnemy::GetFloatVarPtr,525,exact,100.00,zc-enemy-get-float-var-ptr,Exact VC10 /GL linked-PE match via compare-linked-function.py.
+0x0041DE50,ZcaDropOwner::SetDrop,56,exact,100.00,zca-set-enemy-drop,Cold VC10 LTCG /Ob1 /Oy- linked-PE exact match via ZeroCallBatchAProbe (0 diffs)
 0x0041DE90,EmSlotsObj::SetSlotF0C,11,exact,100.00,em-slots-set-f0c,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
 0x0041E450,EmNoOp41E450,1,exact,100.00,em-noop-41e450,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
 0x0041ED70,EmInterp2D::SetStart,11,exact,100.00,em-interp2d-set-start,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyMgrMathHelpers.cpp
@@ -531,6 +534,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00427070,GtAddGrazeOrPoints,72,exact,100.00,gt-add-graze-or-points,Cold replay passed via scripts/replay-exact-units.py --source src/GameThreadHelpers.cpp
 0x00427150,GtDecrementBomb,57,exact,100.00,gt-decrement-bomb,Cold replay passed via scripts/replay-exact-units.py --source src/GameThreadHelpers.cpp
 0x00427190,GtGlobalsObj::Set44AndUpdateGui,37,exact,100.00,gt-globals-set44-update-gui,Cold replay passed via scripts/replay-exact-units.py --source src/GameThreadHelpers.cpp
+0x004273A0,ZcaAdvanceStage,120,exact,100.00,zca-advance-stage,Cold VC10 LTCG /Ob1 /Oy- linked-PE exact match via ZeroCallBatchAProbe (0 diffs)
 0x004274A0,GtTimestampObj::Save,32,exact,100.00,gt-timestamp-save,Cold replay passed via scripts/replay-exact-units.py --source src/GameThreadHelpers.cpp
 0x004274C0,GtAnmClear::Clear,32,exact,100.00,gt-anm-clear,Cold replay passed via scripts/replay-exact-units.py --source src/GameThreadHelpers.cpp
 0x004274E0,GtGlobalsObj::Inc60And64,12,exact,100.00,gt-globals-inc60-64,Cold replay passed via scripts/replay-exact-units.py --source src/GameThreadHelpers.cpp
@@ -625,6 +629,7 @@ address,name,size,status,match_percent,unit,evidence
 0x0042A7C0,LmLaserMgr::CancelInCircle,96,exact,100.00,LmLaserMgr_CancelInCircle,Cold-replayed VC10 LTCG match via LaserMotherHelpersProbe
 0x0042A820,LmLaserMgr::CancelAll,47,exact,100.00,LmLaserMgr_CancelAll,Cold-replayed VC10 LTCG match via LaserMotherHelpersProbe
 0x0042A850,LmLaserMgr::CheckAll30,56,exact,100.00,LmLaserMgr_CheckAll30,Cold-replayed VC10 LTCG match via LaserMotherHelpersProbe
+0x0042ABD0,ZcaGetBulletParam32,54,exact,100.00,zca-get-bullet-param32,Cold VC10 LTCG /Ob1 /Oy- linked-PE exact match via ZeroCallBatchAProbe (0 diffs)
 0x0042C170,LmRet0_42C170,3,exact,100.00,LmRet0_42C170,Cold-replayed VC10 LTCG match via LaserMotherHelpersProbe
 0x0042DB90,LmRet0_42DB90,3,exact,100.00,LmRet0_42DB90,Cold-replayed VC10 LTCG match via LaserMotherHelpersProbe
 0x0042F730,LmCopyCurveNode,89,exact,100.00,LmCopyCurveNode,Cold-replayed VC10 LTCG match via LaserMotherHelpersProbe
@@ -770,6 +775,7 @@ address,name,size,status,match_percent,unit,evidence
 0x004426C0,PrReplayChunk::UnlinkNode,55,exact,100.00,PrReplayChunk_UnlinkNode,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
 0x00442700,PrReplayChunk::DeleteSelf,64,exact,100.00,PrReplayChunk_DeleteSelf,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
 0x00442740,PrReplayList::FreeStageChunks,93,exact,100.00,PrReplayList_FreeStageChunks,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
+0x004427B0,ZcaReplaySlot::ZcaReplaySlot,51,exact,100.00,zca-replay-slot-ctor,Cold VC10 LTCG /Ob1 /Oy- linked-PE exact match via ZeroCallBatchAProbe (0 diffs)
 0x004427F0,PrStageEntry24::~PrStageEntry24,37,exact,100.00,PrStageEntry24_dtor,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
 0x00442880,PrScoreFile::InitScoreFile,164,exact,100.00,PrScoreFile_InitScoreFile,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
 0x00442930,th128::Zc4InitRouteScores,674,exact,100.00,zc4-init-route-scores,exact

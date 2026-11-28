@@ -157,6 +157,7 @@ BulletGetTypeField108,0x004080D0,function
 BulletTimerMini::ClearFlag0,0x004081B0,function
 BulletBoundsCheck::IsOutOfBoundsTall,0x00408560,function
 BulletBoundsCheck::IsOutOfBounds,0x004085D0,function
+ZcaGetBulletParam16,0x0040CCB0,function
 InterpolateLinearScalar,0x0040CCF0,function
 CardScalarInterp::SetStart,0x0040CE50,function
 CardScalarInterp::SetEnd,0x0040CE60,function
@@ -336,6 +337,7 @@ EclGet68::Get,0x00414270,function
 EclSet4B8930Field60,0x004142A0,function
 EclClear1000A::Clear,0x004142C0,function
 EclClear1000B::Clear,0x004142D0,function
+ZcaResetEnemySub,0x004142E0,function
 SptInf::Slot00,0x00414360,function
 SptInf::Slot01,0x004144A0,function
 SptInf::Slot02,0x004144B0,function
@@ -419,6 +421,7 @@ th128::Zc10KillEnemiesInBox,0x00417DF0,function
 EmEnemyMgr::DamageInCircle2,0x00417EF0,function
 th128::ZcEnemy::GetIntVarPtr,0x0041D140,function
 th128::ZcEnemy::GetFloatVarPtr,0x0041DC20,function
+ZcaDropOwner::SetDrop,0x0041DE50,function
 EmSlotsObj::SetSlotF0C,0x0041DE90,function
 EmNoOp41E450,0x0041E450,function
 EmInterp2D::SetStart,0x0041ED70,function
@@ -541,6 +544,7 @@ GtCopyToPathBuf,0x00426F90,function
 GtAddGrazeOrPoints,0x00427070,function
 GtDecrementBomb,0x00427150,function
 GtGlobalsObj::Set44AndUpdateGui,0x00427190,function
+ZcaAdvanceStage,0x004273A0,function
 GtTimestampObj::Save,0x004274A0,function
 GtAnmClear::Clear,0x004274C0,function
 GtGlobalsObj::Inc60And64,0x004274E0,function
@@ -645,6 +649,7 @@ LmLaserMgr::CancelInBoxB,0x0042A6A0,function
 LmLaserMgr::CancelInCircle,0x0042A7C0,function
 LmLaserMgr::CancelAll,0x0042A820,function
 LmLaserMgr::CheckAll30,0x0042A850,function
+ZcaGetBulletParam32,0x0042ABD0,function
 LmRet0_42C170,0x0042C170,function
 LmRet0_42DB90,0x0042DB90,function
 LaserInfiniteInf::Slot01,0x0042EEB0,function
@@ -793,6 +798,7 @@ PrBuf90::PrBuf90,0x00442580,function
 PrReplayChunk::UnlinkNode,0x004426C0,function
 PrReplayChunk::DeleteSelf,0x00442700,function
 PrReplayList::FreeStageChunks,0x00442740,function
+ZcaReplaySlot::ZcaReplaySlot,0x004427B0,function
 PrStageEntry24::~PrStageEntry24,0x004427F0,function
 PrScoreFile::InitScoreFile,0x00442880,function
 th128::Zc4InitRouteScores,0x00442930,function

@@ -22108,3 +22108,101 @@ linkages = [
   { offset = 1202, type = "REL32", symbol = "?CreateAndRegisterDraw@Chain@@QAEPAUChainElem@@P6IHPAX@Z0H@Z", target = 0x00468890 },
   { offset = 1236, type = "REL32", symbol = "?LoadReplay@RibReplayMgr@@QAEHPBD@Z", target = 0x00441E20 },
 ]
+
+[units.zca-advance-stage]
+artifact_kind = "linked-pe"
+source = "src/ZeroCallBatchA.cpp"
+inputs = ["src/ZeroCallBatchA.hpp"]
+support_sources = ["probes/zero-call-batch-a-context.cpp"]
+output_dir = "build/match-linked/ZeroCallBatchA"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-"]
+entry = "ZeroCallBatchAProbe@8"
+functions = ["ZcaAdvanceStage"]
+symbol = "?ZcaAdvanceStage@@YGXH@Z"
+target_address = 0x004273A0
+size = 120
+linkages = [
+  { offset = 4, type = "DIR32", symbol = "?g_ZcaStageMgr@@3PAUZcaStageMgr@@A", target = 0x004B8954 },
+  { offset = 13, type = "DIR32", symbol = "?g_ZcaStage@@3HA", target = 0x004B4D14 },
+  { offset = 36, type = "DIR32", symbol = "?g_ZcaRoute@@3HA", target = 0x004B4D44 },
+  { offset = 86, type = "DIR32", symbol = "?g_ZcaRoute@@3HA", target = 0x004B4D44 },
+  { offset = 100, type = "DIR32", symbol = "?g_ZcaStage@@3HA", target = 0x004B4D14 },
+  { offset = 107, type = "DIR32", symbol = "?g_ZcaStageTable@@3PAUZcaStageInfo@@A", target = 0x004B1A30 },
+  { offset = 112, type = "DIR32", symbol = "?g_ZcaStagePtr@@3PAUZcaStageInfo@@A", target = 0x004B8A98 },
+]
+
+[units.zca-reset-enemy-sub]
+artifact_kind = "linked-pe"
+source = "src/ZeroCallBatchA.cpp"
+inputs = ["src/ZeroCallBatchA.hpp"]
+support_sources = ["probes/zero-call-batch-a-context.cpp"]
+output_dir = "build/match-linked/ZeroCallBatchA"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-"]
+entry = "ZeroCallBatchAProbe@8"
+functions = ["ZcaResetEnemySub"]
+symbol = "?ZcaResetEnemySub@@YAXPAUZcaEnemySub@@@Z"
+target_address = 0x004142E0
+size = 116
+linkages = []
+
+[units.zca-set-enemy-drop]
+artifact_kind = "linked-pe"
+source = "src/ZeroCallBatchA.cpp"
+inputs = ["src/ZeroCallBatchA.hpp"]
+support_sources = ["probes/zero-call-batch-a-context.cpp"]
+output_dir = "build/match-linked/ZeroCallBatchA"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-"]
+entry = "ZeroCallBatchAProbe@8"
+functions = ["ZcaDropOwner::SetDrop"]
+symbol = "?SetDrop@ZcaDropOwner@@QAEXHHHHH@Z"
+target_address = 0x0041DE50
+size = 56
+linkages = []
+
+[units.zca-get-bullet-param16]
+artifact_kind = "linked-pe"
+source = "src/ZeroCallBatchA.cpp"
+inputs = ["src/ZeroCallBatchA.hpp"]
+support_sources = ["probes/zero-call-batch-a-context.cpp"]
+output_dir = "build/match-linked/ZeroCallBatchA"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-"]
+entry = "ZeroCallBatchAProbe@8"
+functions = ["ZcaGetBulletParam16"]
+symbol = "?ZcaGetBulletParam16@@YIHPAUZcaBullet@@H@Z"
+target_address = 0x0040CCB0
+size = 56
+linkages = [
+  { offset = 24, type = "DIR32", symbol = "?g_ZcaBulletTable@@3PAY1BC@3HA", target = 0x004B24D4 },
+  { offset = 50, type = "DIR32", symbol = "?g_ZcaBulletTable@@3PAY1BC@3HA", target = 0x004B24D4 },
+]
+
+[units.zca-get-bullet-param32]
+artifact_kind = "linked-pe"
+source = "src/ZeroCallBatchA.cpp"
+inputs = ["src/ZeroCallBatchA.hpp"]
+support_sources = ["probes/zero-call-batch-a-context.cpp"]
+output_dir = "build/match-linked/ZeroCallBatchA"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-"]
+entry = "ZeroCallBatchAProbe@8"
+functions = ["ZcaGetBulletParam32"]
+symbol = "?ZcaGetBulletParam32@@YIHPAUZcaLaser@@H@Z"
+target_address = 0x0042ABD0
+size = 54
+linkages = [
+  { offset = 23, type = "DIR32", symbol = "?g_ZcaBulletTable@@3PAY1BC@3HA", target = 0x004B24D4 },
+  { offset = 48, type = "DIR32", symbol = "?g_ZcaBulletTable@@3PAY1BC@3HA", target = 0x004B24D4 },
+]
+
+[units.zca-replay-slot-ctor]
+artifact_kind = "linked-pe"
+source = "src/ZeroCallBatchA.cpp"
+inputs = ["src/ZeroCallBatchA.hpp"]
+support_sources = ["probes/zero-call-batch-a-context.cpp"]
+output_dir = "build/match-linked/ZeroCallBatchA"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-"]
+entry = "ZeroCallBatchAProbe@8"
+functions = ["ZcaReplaySlot::ZcaReplaySlot"]
+symbol = "??0ZcaReplaySlot@@QAE@XZ"
+target_address = 0x004427B0
+size = 51
+linkages = []

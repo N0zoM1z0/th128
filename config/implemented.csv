@@ -1261,6 +1261,12 @@ Vec2LengthSq
 WaveDebugLog
 WindowProc
 WriteSupervisorScreenshot
+ZcaAdvanceStage
+ZcaDropOwner::SetDrop
+ZcaGetBulletParam16
+ZcaGetBulletParam32
+ZcaReplaySlot::ZcaReplaySlot
+ZcaResetEnemySub
 ZunTimer::Add
 ZunTimer::Increment
 ZunTimer::SetCurrent
