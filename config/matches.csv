@@ -1010,6 +1010,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00457630,th128::SaShutdownSoundThreads,173,exact,100.00,SaShutdownSoundThreads,Cold-replayed VC10 LTCG match via SoundAnmHelpersProbe
 0x00457AA0,th128::SaStartSfxThread,39,exact,100.00,SaStartSfxThread,Cold-replayed VC10 LTCG match via SoundAnmHelpersProbe
 0x00457AD0,SmwSoundMgr::Shutdown,275,exact,100.00,smw-sound-mgr-shutdown,build/match-linked/SoundMgrWave/smw-sound-mgr-shutdown.json
+0x00457BF0,CcwFindRiffChunk,74,exact,100.00,ccw_find_riff_chunk,build/match-linked/CleanCoreWave/ccw_find_riff_chunk.json
 0x00457D50,th128::SaLoadBgmTable,37,exact,100.00,SaLoadBgmTable,Cold-replayed VC10 LTCG match via SoundAnmHelpersProbe
 0x004582B0,th128::Zc9SoundResetAndVolume,351,exact,100.00,zc9-sound-reset-and-volume,Exact VC10 LTCG match via ZeroCallMedium9Probe@48
 0x00458410,SoundManager::PlaySfx,136,exact,100.00,sound-manager-play-sfx,Cold pinned VC10 /GL linked-PE replay; complete 136-byte primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
