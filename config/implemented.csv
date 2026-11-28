@@ -512,6 +512,13 @@ DropZero354B::DropZero354B
 DropZero354C::DropZero354C
 DropZero374::DropZero374
 EaseTransition
+EbaCreateBulletMgr
+EbaCreateGui
+EbaCreateLaserMgr
+EbaCreatePlayer
+EbaCreateReplayA
+EbaCreateScoreMgr
+EbaCreateStage
 EclArr0C::Get
 EclClear1000A::Clear
 EclClear1000B::Clear

@@ -71,6 +71,7 @@ address,name,size,status,match_percent,unit,evidence
 0x004033D0,CbgStageObj::CbgStageObj,185,exact,100.00,cbg-stage-ctor,Exact linked VC10 /GL /Ob1 /Oy- /EHsc match in CleanBatchG
 0x00403490,StageFlag80::ClearBit0,8,exact,100.00,stage-flag-80-clear-bit0,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x00403970,StageBgMini::Destroy,21,exact,100.00,stage-bg-destroy,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00403990,EbaCreateStage,155,exact,100.00,eba-create-stage,Exact linked VC10 /GL /Ob1 /Oy- /EHsc match in EhBatchA
 0x00405130,CbfLoadStd,299,exact,100.00,cbf-load-std,Exact linked VC10 /GL /Ob1 /Oy- match in CleanBatchF
 0x00406260,StageBgStateMini::SetVecPair,65,exact,100.00,stage-bg-set-vec-pair,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x004062B0,StageBgStateMini::SetFlag2910,11,exact,100.00,stage-bg-set-flag-2910,exact VC10 /GL linked-PE match via replay-exact-units.py
@@ -156,6 +157,7 @@ address,name,size,status,match_percent,unit,evidence
 0x004080C0,BulletGetTypeField104,13,exact,100.00,bullet-get-type-field104,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x004080D0,BulletGetTypeField108,13,exact,100.00,bullet-get-type-field108,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x004081B0,BulletTimerMini::ClearFlag0,7,exact,100.00,bullet-timer-clear-flag0,exact VC10 /GL linked-PE match via replay-exact-units.py
+0x00408450,EbaCreateBulletMgr,197,exact,100.00,eba-create-bullet-mgr,Exact linked VC10 /GL /Ob1 /Oy- /EHsc match in EhBatchA
 0x00408560,BulletBoundsCheck::IsOutOfBoundsTall,106,exact,100.00,bullet-bounds-tall,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x004085D0,BulletBoundsCheck::IsOutOfBounds,106,exact,100.00,bullet-bounds-normal,exact VC10 /GL linked-PE match via replay-exact-units.py
 0x0040CCB0,ZcaGetBulletParam16,56,exact,100.00,zca-get-bullet-param16,Cold VC10 LTCG /Ob1 /Oy- linked-PE exact match via ZeroCallBatchAProbe (0 diffs)
@@ -491,6 +493,7 @@ address,name,size,status,match_percent,unit,evidence
 0x00420010,Gd4B8934::GetField94,12,exact,100.00,gd-4b8934-get-94,Cold replay passed via scripts/replay-exact-units.py --source src/GuiDialogHelpers.cpp
 0x004200D0,GdTable66C::GetEntry,11,exact,100.00,gd-table-66c-get,Cold replay passed via scripts/replay-exact-units.py --source src/GuiDialogHelpers.cpp
 0x004200E0,CbgGuiObj::CbgGuiObj,184,exact,100.00,cbg-gui-ctor,Exact linked VC10 /GL /Ob1 /Oy- /EHsc match in CleanBatchG
+0x00420FD0,EbaCreateGui,146,exact,100.00,eba-create-gui,Exact linked VC10 /GL /Ob1 /Oy- /EHsc match in EhBatchA
 0x00421070,GdGuiObj::DestroySelf,18,exact,100.00,gd-gui-destroy-self,Cold replay passed via scripts/replay-exact-units.py --source src/GuiDialogHelpers.cpp
 0x00421090,GdGuiObj::DestroyGlobal,28,exact,100.00,gd-gui-destroy-global,Cold replay passed via scripts/replay-exact-units.py --source src/GuiDialogHelpers.cpp
 0x00422D60,GdGuiObj::CalcHook,7,exact,100.00,gd-gui-calc-hook,Cold replay passed via scripts/replay-exact-units.py --source src/GuiDialogHelpers.cpp
@@ -591,6 +594,7 @@ address,name,size,status,match_percent,unit,evidence
 0x004282F0,IlItemEntry::IlItemEntry,40,exact,100.00,IlItemEntry_ctor,Cold-replayed VC10 LTCG match via ItemLaserHelpersProbe
 0x00428320,IlItemEntry::~IlItemEntry,63,exact,100.00,IlItemEntry_dtor,Cold-replayed VC10 LTCG match via ItemLaserHelpersProbe
 0x00428360,CbdReg428360,196,exact,100.00,cbd-reg-428360,Exact linked VC10 /GL /Ob1 /Oy- match in CleanBatchD
+0x00428500,EbaCreateLaserMgr,196,exact,100.00,eba-create-laser-mgr,Exact linked VC10 /GL /Ob1 /Oy- /EHsc match in EhBatchA
 0x004293C0,IlRet0_4293C0,3,exact,100.00,IlRet0_4293C0,Cold-replayed VC10 LTCG match via ItemLaserHelpersProbe
 0x00429770,th128::Zc5ClearActiveItems,385,exact,100.00,zc5-clear-active-items,exact
 0x00429900,IlIsNZ0::IsNonZero,8,exact,100.00,IlIsNZ0_IsNonZero,Cold-replayed VC10 LTCG match via ItemLaserHelpersProbe
@@ -736,6 +740,7 @@ address,name,size,status,match_percent,unit,evidence
 0x0043A540,SpFlag5C::SpFlag5C,7,exact,100.00,SpFlag5C_ctor,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
 0x0043ACB0,SpRet0_43ACB0,3,exact,100.00,SpRet0_43ACB0,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
 0x0043ACC0,SpRet0_43ACC0,3,exact,100.00,SpRet0_43ACC0,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
+0x0043AEA0,EbaCreatePlayer,147,exact,100.00,eba-create-player,Exact linked VC10 /GL /Ob1 /Oy- /EHsc match in EhBatchA
 0x0043AF40,SpPlayer::DestroySelf,18,exact,100.00,SpPlayer_DestroySelf,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
 0x0043AF60,SpPlayer::DestroyGlobal,28,exact,100.00,SpPlayer_DestroyGlobal,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
 0x0043B620,SpPlayer::SetFlag1AndZeroF64,22,exact,100.00,SpPlayer_SetFlag1AndZeroF64,Cold-replayed VC10 LTCG match via SupervisorPauseHelpersProbe
@@ -767,6 +772,7 @@ address,name,size,status,match_percent,unit,evidence
 0x004408A0,PrVec3::DistSq2DB,32,exact,100.00,PrVec3_DistSq2DB,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
 0x00440950,PrFpsCounter::Get34,9,exact,100.00,PrFpsCounter_Get34,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
 0x00440990,RibReplayMgr::Initialize,1257,exact,100.00,rib-replay-initialize,"Cold VC10 LTCG linked-PE exact match (1257B, 73 linkages, 0 diffs)"
+0x00441000,EbaCreateReplayA,196,exact,100.00,eba-create-replay-a,Exact linked VC10 /GL /Ob1 /Oy- /EHsc match in EhBatchA
 0x004414A0,PrReplayMgr::GetFastForwardStepA,53,exact,100.00,PrReplayMgr_GetFastForwardStepA,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
 0x00442030,PrReplayMgr::GetFastForwardStepB,59,exact,100.00,PrReplayMgr_GetFastForwardStepB,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
 0x00442210,th128::Zc3ReplayStageInit,326,exact,100.00,zc3-replay-stage-init,Exact VC10 /GL linked-PE match via compare-linked-function.py.
@@ -796,6 +802,7 @@ address,name,size,status,match_percent,unit,evidence
 0x004427F0,PrStageEntry24::~PrStageEntry24,37,exact,100.00,PrStageEntry24_dtor,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
 0x00442880,PrScoreFile::InitScoreFile,164,exact,100.00,PrScoreFile_InitScoreFile,Cold-replayed VC10 LTCG match via PlayerReplayHelpersProbe
 0x00442930,th128::Zc4InitRouteScores,674,exact,100.00,zc4-init-route-scores,exact
+0x00442D90,EbaCreateScoreMgr,95,exact,100.00,eba-create-score-mgr,Exact linked VC10 /GL /Ob1 /Oy- /EHsc match in EhBatchA
 0x004433A0,CbbScoreMgr::CbbScoreMgr,142,exact,100.00,cbb-score-mgr-ctor,Cold VC10 LTCG /Ob1 /Oy- linked-PE exact match via CleanBatchBProbe (0 diffs)
 0x00443430,CbdReg443430,180,exact,100.00,cbd-reg-443430,Exact linked VC10 /GL /Ob1 /Oy- match in CleanBatchD
 0x004440F0,TaAnmVm::SetFloat60Flag3,20,exact,100.00,TaAnmVm_SetFloat60Flag3,Cold-replayed VC10 LTCG match via TitleArchiveHelpersProbe

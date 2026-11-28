@@ -22748,3 +22748,167 @@ linkages = [
   { offset = 148, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
   { offset = 160, type = "DIR32", symbol = "?g_CbgGui@@3PAUCbgGuiObj@@A", target = 0x004B8950 },
 ]
+
+[units.eba-create-bullet-mgr]
+artifact_kind = "linked-pe"
+source = "src/EhBatchA.cpp"
+inputs = ["src/EhBatchA.hpp"]
+support_sources = ["probes/eh-batch-a-context.cpp"]
+output_dir = "build/match-linked/EhBatchA"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-", "/EHsc"]
+entry = "EhBatchAProbe@8"
+functions = ["EbaCreateBulletMgr"]
+symbol = "?EbaCreateBulletMgr@@YAPAUEbaBulletMgr@@XZ"
+target_address = 0x00408450
+size = 197
+linkages = [
+  { offset = 6, type = "DIR32", symbol = "__ehhandler$?EbaCreateBulletMgr@@YAPAUEbaBulletMgr@@XZ", target = 0x0049994B, eh_static = true },
+  { offset = 21, type = "DIR32", symbol = "___security_cookie", target = 0x004B01F4 },
+  { offset = 43, type = "REL32", symbol = "??2@YAPAXI@Z", target = 0x0047296C },
+  { offset = 67, type = "DIR32", symbol = "??1EbaBulletEntry@@QAE@XZ", target = 0x00408170 },
+  { offset = 72, type = "DIR32", symbol = "??0EbaBulletEntry@@QAE@XZ", target = 0x00408120 },
+  { offset = 91, type = "REL32", symbol = "??_L@YGXPAXIHP6EX0@Z1@Z", target = 0x00472DF8 },
+  { offset = 104, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+  { offset = 113, type = "DIR32", symbol = "?g_EbaBulletMgr@@3PAUEbaBulletMgr@@A", target = 0x004B8930 },
+  { offset = 131, type = "REL32", symbol = "?EbaInitBulletMgr@@YAHPAUEbaBulletMgr@@@Z", target = 0x004081C0 },
+  { offset = 146, type = "REL32", symbol = "??1EbaBulletMgr@@QAE@XZ", target = 0x00408370 },
+  { offset = 152, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+]
+
+[units.eba-create-replay-a]
+artifact_kind = "linked-pe"
+source = "src/EhBatchA.cpp"
+inputs = ["src/EhBatchA.hpp"]
+support_sources = ["probes/eh-batch-a-context.cpp"]
+output_dir = "build/match-linked/EhBatchA"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-", "/EHsc"]
+entry = "EhBatchAProbe@8"
+functions = ["EbaCreateReplayA"]
+symbol = "?EbaCreateReplayA@@YGPAUEbaReplayObj@@H@Z"
+target_address = 0x00441000
+size = 196
+linkages = [
+  { offset = 6, type = "DIR32", symbol = "__ehhandler$?EbaCreateReplayA@@YGPAUEbaReplayObj@@H@Z", target = 0x0049979B, eh_static = true },
+  { offset = 20, type = "DIR32", symbol = "___security_cookie", target = 0x004B01F4 },
+  { offset = 42, type = "REL32", symbol = "??2@YAPAXI@Z", target = 0x0047296C },
+  { offset = 66, type = "DIR32", symbol = "??1EbaReplaySlot@@QAE@XZ", target = 0x004427F0 },
+  { offset = 71, type = "DIR32", symbol = "??0EbaReplaySlot@@QAE@XZ", target = 0x004427B0 },
+  { offset = 87, type = "REL32", symbol = "??_L@YGXPAXIHP6EX0@Z1@Z", target = 0x00472DF8 },
+  { offset = 100, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+  { offset = 116, type = "DIR32", symbol = "?g_EbaReplayMgr@@3HA", target = 0x004B8958 },
+  { offset = 128, type = "REL32", symbol = "?EbaInitReplayA@@YGHPAUEbaReplayObj@@PAHH@Z", target = 0x00440990 },
+  { offset = 143, type = "REL32", symbol = "??1EbaReplayObj@@QAE@XZ", target = 0x00440E80 },
+  { offset = 149, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+]
+
+[units.eba-create-laser-mgr]
+artifact_kind = "linked-pe"
+source = "src/EhBatchA.cpp"
+inputs = ["src/EhBatchA.hpp"]
+support_sources = ["probes/eh-batch-a-context.cpp"]
+output_dir = "build/match-linked/EhBatchA"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-", "/EHsc"]
+entry = "EhBatchAProbe@8"
+functions = ["EbaCreateLaserMgr"]
+symbol = "?EbaCreateLaserMgr@@YAPAUEbaLaserMgr@@XZ"
+target_address = 0x00428500
+size = 196
+linkages = [
+  { offset = 6, type = "DIR32", symbol = "__ehhandler$?EbaCreateLaserMgr@@YAPAUEbaLaserMgr@@XZ", target = 0x004998EB, eh_static = true },
+  { offset = 20, type = "DIR32", symbol = "___security_cookie", target = 0x004B01F4 },
+  { offset = 42, type = "REL32", symbol = "??2@YAPAXI@Z", target = 0x0047296C },
+  { offset = 66, type = "DIR32", symbol = "??1EbaLaserEntry@@QAE@XZ", target = 0x00428320 },
+  { offset = 71, type = "DIR32", symbol = "??0EbaLaserEntry@@QAE@XZ", target = 0x004282F0 },
+  { offset = 90, type = "REL32", symbol = "??_L@YGXPAXIHP6EX0@Z1@Z", target = 0x00472DF8 },
+  { offset = 103, type = "REL32", symbol = "_memset", target = 0x0047BB30 },
+  { offset = 115, type = "DIR32", symbol = "?g_EbaLaserMgr@@3PAUEbaLaserMgr@@A", target = 0x004B8A5C },
+  { offset = 132, type = "REL32", symbol = "?EbaInitLaserMgr@@YGHPAUEbaLaserMgr@@@Z", target = 0x00428360 },
+  { offset = 147, type = "REL32", symbol = "??1EbaLaserMgr@@QAE@XZ", target = 0x00428430 },
+  { offset = 153, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+]
+
+[units.eba-create-stage]
+artifact_kind = "linked-pe"
+source = "src/EhBatchA.cpp"
+inputs = ["src/EhBatchA.hpp"]
+support_sources = ["probes/eh-batch-a-context.cpp"]
+output_dir = "build/match-linked/EhBatchA"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-", "/EHsc"]
+entry = "EhBatchAProbe@8"
+functions = ["EbaCreateStage"]
+symbol = "?EbaCreateStage@@YGPAUEbaStageObj@@H@Z"
+target_address = 0x00403990
+size = 155
+linkages = [
+  { offset = 6, type = "DIR32", symbol = "__ehhandler$?EbaCreateStage@@YGPAUEbaStageObj@@H@Z", target = 0x004997FB, eh_static = true },
+  { offset = 20, type = "DIR32", symbol = "___security_cookie", target = 0x004B01F4 },
+  { offset = 42, type = "REL32", symbol = "??2@YAPAXI@Z", target = 0x0047296C },
+  { offset = 65, type = "REL32", symbol = "??0EbaStageObj@@QAE@XZ", target = 0x004033D0 },
+  { offset = 88, type = "REL32", symbol = "?EbaInitStage@@YGHPAUEbaStageObj@@H@Z", target = 0x004034A0 },
+  { offset = 102, type = "REL32", symbol = "??1EbaStageObj@@QAE@XZ", target = 0x00403710 },
+  { offset = 108, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+]
+
+[units.eba-create-player]
+artifact_kind = "linked-pe"
+source = "src/EhBatchA.cpp"
+inputs = ["src/EhBatchA.hpp"]
+support_sources = ["probes/eh-batch-a-context.cpp"]
+output_dir = "build/match-linked/EhBatchA"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-", "/EHsc"]
+entry = "EhBatchAProbe@8"
+functions = ["EbaCreatePlayer"]
+symbol = "?EbaCreatePlayer@@YAPAUEbaPlayerObj@@XZ"
+target_address = 0x0043AEA0
+size = 147
+linkages = [
+  { offset = 6, type = "DIR32", symbol = "__ehhandler$?EbaCreatePlayer@@YAPAUEbaPlayerObj@@XZ", target = 0x0049991B, eh_static = true },
+  { offset = 20, type = "DIR32", symbol = "___security_cookie", target = 0x004B01F4 },
+  { offset = 42, type = "REL32", symbol = "??2@YAPAXI@Z", target = 0x0047296C },
+  { offset = 65, type = "REL32", symbol = "??0EbaPlayerObj@@QAE@XZ", target = 0x0043A400 },
+  { offset = 84, type = "REL32", symbol = "?EbaInitPlayer@@YGHPAUEbaPlayerObj@@@Z", target = 0x0043A550 },
+  { offset = 98, type = "REL32", symbol = "??1EbaPlayerObj@@QAE@XZ", target = 0x0043ACD0 },
+  { offset = 104, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+]
+
+[units.eba-create-gui]
+artifact_kind = "linked-pe"
+source = "src/EhBatchA.cpp"
+inputs = ["src/EhBatchA.hpp"]
+support_sources = ["probes/eh-batch-a-context.cpp"]
+output_dir = "build/match-linked/EhBatchA"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-", "/EHsc"]
+entry = "EhBatchAProbe@8"
+functions = ["EbaCreateGui"]
+symbol = "?EbaCreateGui@@YAPAUEbaGuiObj@@XZ"
+target_address = 0x00420FD0
+size = 146
+linkages = [
+  { offset = 6, type = "DIR32", symbol = "__ehhandler$?EbaCreateGui@@YAPAUEbaGuiObj@@XZ", target = 0x004997CB, eh_static = true },
+  { offset = 20, type = "DIR32", symbol = "___security_cookie", target = 0x004B01F4 },
+  { offset = 42, type = "REL32", symbol = "??2@YAPAXI@Z", target = 0x0047296C },
+  { offset = 65, type = "REL32", symbol = "??0EbaGuiObj@@QAE@XZ", target = 0x004200E0 },
+  { offset = 83, type = "REL32", symbol = "?EbaInitGui@@YAHXZ", target = 0x004201A0 },
+  { offset = 97, type = "REL32", symbol = "??1EbaGuiObj@@QAE@XZ", target = 0x00420CE0 },
+  { offset = 103, type = "REL32", symbol = "??3@YAXPAX@Z", target = 0x004729EC },
+]
+
+[units.eba-create-score-mgr]
+artifact_kind = "linked-pe"
+source = "src/EhBatchA.cpp"
+inputs = ["src/EhBatchA.hpp"]
+support_sources = ["probes/eh-batch-a-context.cpp"]
+output_dir = "build/match-linked/EhBatchA"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-", "/EHsc"]
+entry = "EhBatchAProbe@8"
+functions = ["EbaCreateScoreMgr"]
+symbol = "?EbaCreateScoreMgr@@YAXXZ"
+target_address = 0x00442D90
+size = 95
+linkages = [
+  { offset = 6, type = "DIR32", symbol = "__ehhandler$?EbaCreateScoreMgr@@YAXXZ", target = 0x0049925B, eh_static = true },
+  { offset = 20, type = "DIR32", symbol = "___security_cookie", target = 0x004B01F4 },
+  { offset = 42, type = "REL32", symbol = "??2@YAPAXI@Z", target = 0x0047296C },
+  { offset = 66, type = "REL32", symbol = "??0EbaScoreMgr@@QAE@XZ", target = 0x00442CB0 },
+  { offset = 75, type = "DIR32", symbol = "?g_EbaScoreMgr@@3PAUEbaScoreMgr@@A", target = 0x004B8A88 },
+]

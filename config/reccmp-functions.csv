@@ -72,6 +72,7 @@ StageFlag7C::GetBit0,0x004033C0,function
 CbgStageObj::CbgStageObj,0x004033D0,function
 StageFlag80::ClearBit0,0x00403490,function
 StageBgMini::Destroy,0x00403970,function
+EbaCreateStage,0x00403990,function
 CbfLoadStd,0x00405130,function
 StageBgStateMini::SetVecPair,0x00406260,function
 StageBgStateMini::SetFlag2910,0x004062B0,function
@@ -159,6 +160,7 @@ BulletGetTypeField00,0x004080B0,function
 BulletGetTypeField104,0x004080C0,function
 BulletGetTypeField108,0x004080D0,function
 BulletTimerMini::ClearFlag0,0x004081B0,function
+EbaCreateBulletMgr,0x00408450,function
 BulletBoundsCheck::IsOutOfBoundsTall,0x00408560,function
 BulletBoundsCheck::IsOutOfBounds,0x004085D0,function
 ZcaGetBulletParam16,0x0040CCB0,function
@@ -500,6 +502,7 @@ GdEnemyMgrMini::GetFlag0,0x00420000,function
 Gd4B8934::GetField94,0x00420010,function
 GdTable66C::GetEntry,0x004200D0,function
 CbgGuiObj::CbgGuiObj,0x004200E0,function
+EbaCreateGui,0x00420FD0,function
 GdGuiObj::DestroySelf,0x00421070,function
 GdGuiObj::DestroyGlobal,0x00421090,function
 GdGuiObj::CalcHook,0x00422D60,function
@@ -607,6 +610,7 @@ IlPlayerMgr::GetF7C,0x004282A0,function
 IlItemEntry::IlItemEntry,0x004282F0,function
 IlItemEntry::~IlItemEntry,0x00428320,function
 CbdReg428360,0x00428360,function
+EbaCreateLaserMgr,0x00428500,function
 IlRet0_4293C0,0x004293C0,function
 th128::Zc5ClearActiveItems,0x00429770,function
 IlIsNZ0::IsNonZero,0x00429900,function
@@ -759,6 +763,7 @@ SpFlagC8::SpFlagC8,0x0043A530,function
 SpFlag5C::SpFlag5C,0x0043A540,function
 SpRet0_43ACB0,0x0043ACB0,function
 SpRet0_43ACC0,0x0043ACC0,function
+EbaCreatePlayer,0x0043AEA0,function
 SpPlayer::DestroySelf,0x0043AF40,function
 SpPlayer::DestroyGlobal,0x0043AF60,function
 SpPlayer::SetFlag1AndZeroF64,0x0043B620,function
@@ -790,6 +795,7 @@ PrAngleDiffB,0x004407F0,function
 PrVec3::DistSq2DB,0x004408A0,function
 PrFpsCounter::Get34,0x00440950,function
 RibReplayMgr::Initialize,0x00440990,function
+EbaCreateReplayA,0x00441000,function
 PrReplayMgr::GetFastForwardStepA,0x004414A0,function
 PrReplayMgr::GetFastForwardStepB,0x00442030,function
 th128::Zc3ReplayStageInit,0x00442210,function
@@ -819,6 +825,7 @@ ZcaReplaySlot::ZcaReplaySlot,0x004427B0,function
 PrStageEntry24::~PrStageEntry24,0x004427F0,function
 PrScoreFile::InitScoreFile,0x00442880,function
 th128::Zc4InitRouteScores,0x00442930,function
+EbaCreateScoreMgr,0x00442D90,function
 CbbScoreMgr::CbbScoreMgr,0x004433A0,function
 CbdReg443430,0x00443430,function
 TaAnmVm::SetFloat60Flag3,0x004440F0,function
