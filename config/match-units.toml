@@ -24682,3 +24682,17 @@ linkages = [
   { offset = 52, type = "DIR32", symbol = "__imp__WaitForSingleObject@8", target = 0x0049A100 },
   { offset = 100, type = "DIR32", symbol = "__imp__CloseHandle@4", target = 0x0049A0A4 },
 ]
+[units.lfa_ecl_vm_reset]
+artifact_kind = "linked-pe"
+source = "src/LowFpuWaveA.cpp"
+inputs = ["src/LowFpuWaveA.hpp"]
+support_sources = ["probes/low-fpu-wave-a-context.cpp"]
+output_dir = "build/match-linked/LowFpuWaveA"
+profile = ["/TP", "/MT", "/O2", "/Gy", "/GF", "/Oi", "/DNDEBUG", "/Isrc", "/GL", "/Ob1", "/Oy-"]
+entry = "LowFpuWaveAProbe@8"
+functions = ["LfaEclVm::Reset"]
+symbol = "?Reset@LfaEclVm@th128@@QAEXXZ"
+target_address = 0x00414580
+size = 124
+linkages = [
+]

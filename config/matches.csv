@@ -354,6 +354,7 @@ address,name,size,status,match_percent,unit,evidence
 0x004144E0,EclCtxHolder::SubTime,17,exact,100.00,ecl-ctx-sub-time,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyEclHelpers.cpp
 0x00414500,EclHostClean::FreeList,45,exact,100.00,ecl-host-free-list,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyEclHelpers.cpp
 0x00414530,EclHostClean::EclHostClean,67,exact,100.00,ecl-host-ctor,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyEclHelpers.cpp
+0x00414580,LfaEclVm::Reset,124,exact,100.00,lfa_ecl_vm_reset,Cold pinned VC10 /GL linked-PE replay; complete primary-TU PDB contribution; all reviewed fields replay with zero byte differences.
 0x00414600,EclHostClean::DestroyHost,47,exact,100.00,ecl-host-dtor,Cold replay passed via scripts/replay-exact-units.py --source src/EnemyEclHelpers.cpp
 0x00414630,SptInf::`scalar deleting destructor',74,exact,100.00,spt-deleting-destructor,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; vtable and three operator delete relocations replayed; zero byte differences.
 0x00414680,SptResourceInf::LoadIncludes,5,exact,100.00,spt-resource-load-includes,Cold pinned VC10 normal COFF (/O2 /Oy-); complete COFF extent; no relocations; zero byte differences.
